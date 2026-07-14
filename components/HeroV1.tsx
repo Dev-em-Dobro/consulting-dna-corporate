@@ -64,7 +64,7 @@ export default function HeroV1() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[70%_50%]"
+          className="object-cover object-bottom"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/45" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
