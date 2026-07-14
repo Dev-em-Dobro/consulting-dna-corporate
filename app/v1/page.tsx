@@ -65,7 +65,7 @@ export default function V1() {
       <header className="sticky top-0 z-50 bg-brand text-white">
         <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-10">
           <Link href="#top" className="flex flex-none items-center">
-            <Image src={logo} alt="Corporate DNA" className="h-[52px] w-auto" priority />
+            <Image src={logo} alt="Corporate DNA" className="h-[52px] w-[52px] rounded-full object-cover ring-1 ring-white/40" priority />
           </Link>
           <nav className="flex flex-wrap items-center justify-end gap-[30px]">
             {navItems.map((item) => (
