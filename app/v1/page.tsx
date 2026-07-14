@@ -69,11 +69,11 @@ export default function V1() {
           </Link>
           <nav className="flex flex-wrap items-center justify-end gap-[30px]">
             {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="whitespace-nowrap text-[12.5px] font-semibold uppercase tracking-[0.6px] text-white opacity-90 hover:opacity-100">
+              <a key={item.label} href={item.href} className="whitespace-nowrap text-[12.5px] font-semibold uppercase tracking-[0.6px] text-white/80 underline-offset-[6px] transition-colors duration-200 hover:text-white hover:underline">
                 {item.label}
               </a>
             ))}
-            <a href="#contact" className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[12.5px] font-bold uppercase tracking-[0.6px] text-white hover:border-white hover:bg-white hover:text-brand">
+            <a href="#contact" className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[12.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand">
               Start a Conversation
             </a>
           </nav>
