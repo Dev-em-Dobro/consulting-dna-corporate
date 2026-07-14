@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.jpg";
-import menuLogo from "@/public/logo-menu-v2.png";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV2 from "@/components/HeroV2";
+import NavV2 from "@/components/NavV2";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
 import Counter from "@/components/Counter";
@@ -47,39 +47,23 @@ const people = [
 ];
 
 const formFields = [
-  { label: "Name", placeholder: "Your full name" },
-  { label: "Work email", placeholder: "name@company.com" },
-  { label: "Organisation", placeholder: "Company name" },
+  { label: "Name", placeholder: "Your full name", type: "text", autoComplete: "name" },
+  { label: "Work email", placeholder: "name@company.com", type: "email", autoComplete: "email" },
+  { label: "Organisation", placeholder: "Company name", type: "text", autoComplete: "organization" },
 ];
 
 export default function V2() {
   return (
     <div className="w-full overflow-x-hidden bg-white">
-      {/* NAV (light) */}
-      <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex h-[78px] max-w-[1240px] items-center justify-between gap-6 px-11">
-          <Link href="#top" className="flex flex-none items-center">
-            <Image src={menuLogo} alt="Corporate DNA" className="h-[52px] w-auto" priority />
-          </Link>
-          <nav className="flex flex-wrap items-center justify-end gap-7">
-            {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="whitespace-nowrap text-[12.5px] font-semibold uppercase tracking-[0.5px] text-[#4a4548] hover:text-brand">
-                {item.label}
-              </a>
-            ))}
-            <a href="#contact" className="whitespace-nowrap border-[1.5px] border-brand px-5 py-[9px] text-[12.5px] font-bold uppercase tracking-[0.5px] text-brand hover:bg-brand hover:text-white">
-              Start a Conversation
-            </a>
-          </nav>
-        </div>
-      </header>
+      {/* NAV (light, responsive) */}
+      <NavV2 navItems={navItems} />
 
       {/* HERO (split) */}
       <HeroV2 />
 
       {/* LOGOS */}
       <section className="border-b border-line bg-white">
-        <div className="mx-auto flex max-w-[1240px] flex-col items-center gap-5 px-11 py-11">
+        <div className="mx-auto flex max-w-[1240px] flex-col items-center gap-5 px-6 sm:px-8 md:px-11 py-11">
           <span className="text-[12px] font-semibold uppercase tracking-[2px] text-[#a8a29d]">
             Trusted by leadership teams at
           </span>
@@ -92,10 +76,10 @@ export default function V2() {
 
       {/* WHAT WE SOLVE (rail + list) */}
       <section id="solve" className="bg-white">
-        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-start gap-16 px-11 py-[104px] md:grid-cols-[300px_1fr]">
+        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-start gap-8 px-6 py-16 sm:px-8 md:grid-cols-[300px_1fr] md:gap-16 md:px-11 md:py-[104px]">
           <div className="md:sticky md:top-[110px]">
             <div className="mb-[18px] text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">What we solve</div>
-            <h2 className="text-[34px] font-bold leading-[1.12] tracking-[-0.6px] text-ink">
+            <h2 className="text-[27px] font-bold leading-[1.15] tracking-[-0.6px] text-ink sm:text-[30px] md:text-[34px] md:leading-[1.12]">
               The high-stakes challenges facing the enterprise.
             </h2>
           </div>
@@ -115,12 +99,12 @@ export default function V2() {
 
       {/* WHY CDNA (dark band) */}
       <section className="bg-ink text-white">
-        <Reveal className="mx-auto max-w-[1240px] px-11 py-[104px]">
+        <Reveal className="mx-auto max-w-[1240px] px-6 sm:px-8 md:px-11 py-16 md:py-[104px]">
           <div className="mb-3 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-[34px] bg-brand" />
             <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-white/70">Why Corporate DNA</span>
           </div>
-          <h2 className="mb-14 max-w-[780px] text-[38px] font-bold leading-[1.1] tracking-[-0.7px] text-white">
+          <h2 className="mb-12 max-w-[780px] text-[30px] sm:text-[34px] md:mb-14 md:text-[38px] font-bold leading-[1.1] tracking-[-0.7px] text-white">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
           <div className="grid grid-cols-1 gap-px border border-white/15 bg-white/15 sm:grid-cols-2 lg:grid-cols-4">
@@ -137,9 +121,9 @@ export default function V2() {
 
       {/* TESTIMONIAL */}
       <section className="bg-paper">
-        <Reveal className="mx-auto max-w-[960px] px-11 py-24 text-center">
+        <Reveal className="mx-auto max-w-[960px] px-6 py-16 text-center sm:px-8 md:px-11 md:py-24">
           <div className="h-10 text-[64px] font-extrabold leading-none text-brand">&ldquo;</div>
-          <p className="mb-[26px] text-[30px] font-medium leading-[1.42] tracking-[-0.4px] text-ink [text-wrap:balance]">
+          <p className="mb-[26px] text-[23px] leading-[1.4] sm:text-[27px] md:text-[30px] md:leading-[1.42] font-medium tracking-[-0.4px] text-ink [text-wrap:balance]">
             They advise at board level with rare candour, then hold our executive team to the change we committed to. The result was measurable within a year.
           </p>
           <footer className="text-sm font-medium text-muted">Group HR Director · Global consumer-goods company</footer>
@@ -148,12 +132,12 @@ export default function V2() {
 
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">
-        <Reveal className="mx-auto max-w-[1240px] px-11 py-[104px]">
+        <Reveal className="mx-auto max-w-[1240px] px-6 sm:px-8 md:px-11 py-16 md:py-[104px]">
           <div className="mb-3 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-[34px] bg-brand" />
             <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">Client impact</span>
           </div>
-          <h2 className="mb-14 max-w-[720px] text-[38px] font-bold leading-[1.1] tracking-[-0.7px] text-ink">
+          <h2 className="mb-14 max-w-[720px] text-[30px] leading-[1.15] sm:text-[34px] md:text-[38px] md:leading-[1.1] font-bold tracking-[-0.7px] text-ink">
             Results, not promises — measured where it matters.
           </h2>
           <div className="grid grid-cols-1 border border-line md:grid-cols-3">
@@ -179,7 +163,7 @@ export default function V2() {
 
       {/* 5H FRAMEWORK */}
       <section id="approach" className="bg-paper">
-        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-[72px] px-11 py-[104px] md:grid-cols-2">
+        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 px-6 py-16 sm:px-8 md:grid-cols-2 md:gap-[72px] md:px-11 md:py-[104px]">
           <div className="order-1 flex justify-center md:order-none">
             <Image src={methodology} alt="The 5H Framework methodology" className="h-auto w-full max-w-[560px] border border-line" />
           </div>
@@ -188,7 +172,7 @@ export default function V2() {
               <span className="inline-block h-0.5 w-[34px] bg-brand" />
               <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
             </div>
-            <h2 className="mb-5 text-[38px] font-bold leading-[1.1] tracking-[-0.7px] text-ink">
+            <h2 className="mb-5 text-[30px] leading-[1.15] sm:text-[34px] md:text-[38px] md:leading-[1.1] font-bold tracking-[-0.7px] text-ink">
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-[#4a4548]">
@@ -208,12 +192,12 @@ export default function V2() {
 
       {/* PEOPLE + PARTNERSHIPS */}
       <section id="people" className="bg-white">
-        <Reveal className="mx-auto max-w-[1240px] px-11 py-[104px]">
+        <Reveal className="mx-auto max-w-[1240px] px-6 sm:px-8 md:px-11 py-16 md:py-[104px]">
           <div className="mb-3 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-[34px] bg-brand" />
             <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
           </div>
-          <h2 className="mb-3 max-w-[720px] text-[38px] font-bold leading-[1.1] tracking-[-0.7px] text-ink">
+          <h2 className="mb-3 max-w-[720px] text-[30px] leading-[1.15] sm:text-[34px] md:text-[38px] md:leading-[1.1] font-bold tracking-[-0.7px] text-ink">
             Senior advisors who have sat where our clients sit.
           </h2>
           <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
@@ -244,9 +228,9 @@ export default function V2() {
 
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">
-        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-start gap-[72px] px-11 py-[92px] md:grid-cols-[1.1fr_1fr]">
+        <Reveal className="mx-auto grid max-w-[1240px] grid-cols-1 items-start gap-12 px-6 py-16 sm:px-8 md:grid-cols-[1.1fr_1fr] md:gap-[72px] md:px-11 md:py-[92px]">
           <div>
-            <h2 className="mb-6 text-[44px] font-bold leading-[1.08] tracking-[-1px] text-white [text-wrap:balance]">
+            <h2 className="mb-6 text-[32px] font-bold leading-[1.1] tracking-[-0.8px] text-white [text-wrap:balance] sm:text-[40px] md:text-[44px] md:leading-[1.08] md:tracking-[-1px]">
               What is changing, and where does leadership need to go?
             </h2>
             <p className="max-w-[460px] text-[19px] leading-[1.6] text-white/90">
@@ -263,9 +247,12 @@ export default function V2() {
               <label key={f.label} className="flex flex-col gap-[7px]">
                 <span className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted">{f.label}</span>
                 <input
-                  type="text"
+                  type={f.type}
+                  name={f.autoComplete}
+                  autoComplete={f.autoComplete}
+                  inputMode={f.type === "email" ? "email" : undefined}
                   placeholder={f.placeholder}
-                  className="border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[15px] text-ink outline-none focus:border-brand focus:bg-white"
+                  className="min-h-[46px] border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[16px] text-ink outline-none focus:border-brand focus:bg-white"
                 />
               </label>
             ))}
@@ -275,8 +262,9 @@ export default function V2() {
               </span>
               <textarea
                 rows={3}
+                name="message"
                 placeholder="A few lines is plenty."
-                className="resize-y border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[15px] text-ink outline-none focus:border-brand focus:bg-white"
+                className="resize-y border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[16px] text-ink outline-none focus:border-brand focus:bg-white"
               />
             </label>
             <button
@@ -291,7 +279,7 @@ export default function V2() {
 
       {/* FOOTER */}
       <footer className="bg-ink-2 text-white/70">
-        <div className="mx-auto flex max-w-[1240px] flex-col gap-8 px-11 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-[1240px] flex-col gap-8 px-6 sm:px-8 md:px-11 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="flex items-start gap-7 sm:contents">
             <Link href="/" className="flex flex-none items-center">
               <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />

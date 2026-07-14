@@ -59,19 +59,19 @@ export default function HeroV2() {
       id="top"
       className="grid grid-cols-1 md:grid-cols-[1.35fr_1fr]"
     >
-      <div className="h2-panel flex min-h-[560px] flex-col justify-center bg-ink px-16 py-24 text-white">
+      <div className="h2-panel flex min-h-[480px] flex-col justify-center bg-ink px-6 py-16 text-white sm:px-10 md:min-h-[560px] md:px-16 md:py-24">
         <div className="max-w-[640px]">
-          <div className="mb-7 flex items-center gap-3">
+          <div className="mb-6 flex items-center gap-3 md:mb-7">
             <span className="h2-bar inline-block h-0.5 w-[34px] bg-brand" />
-            <span className="h2-eyebrow text-[12.5px] font-semibold uppercase tracking-[2px] text-white/70">
+            <span className="h2-eyebrow text-[12px] font-semibold uppercase tracking-[1.5px] text-white/70 sm:text-[12.5px] sm:tracking-[2px]">
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
-          <h1 className="h2-title mb-[26px] text-[60px] font-bold leading-[1.03] tracking-[-1.5px] text-white [text-wrap:balance]">
+          <h1 className="h2-title mb-6 text-[38px] font-bold leading-[1.05] tracking-[-1px] text-white [text-wrap:balance] sm:text-[48px] md:mb-[26px] md:text-[60px] md:leading-[1.03] md:tracking-[-1.5px]">
             When the stakes are high, leadership must become{" "}
             <span className="text-brand">real.</span>
           </h1>
-          <p className="h2-sub mb-10 max-w-[560px] text-[19px] leading-[1.55] text-white/80">
+          <p className="h2-sub mb-8 max-w-[560px] text-[17px] leading-[1.55] text-white/80 sm:text-[19px] md:mb-10">
             We help CEOs, CHROs and executive teams align leadership, accelerate
             decisions and build the talent required to deliver transformation.
           </p>
@@ -91,13 +91,13 @@ export default function HeroV2() {
           </div>
         </div>
       </div>
-      <div className="h2-panel flex flex-col justify-center bg-brand px-12 py-14 text-white">
+      <div className="h2-panel flex flex-col justify-center bg-brand px-6 py-12 text-white sm:px-10 md:px-12 md:py-14">
         <p className="h2-proof mb-2 text-[12px] font-semibold uppercase tracking-[2px] text-white/70">
           The proof, up front
         </p>
         {proofPoints.map((p) => (
-          <div key={p.label} className="h2-proof border-b border-white/20 py-6">
-            <div className="text-[40px] font-bold leading-none tracking-[-1px]">
+          <div key={p.label} className="h2-proof border-b border-white/20 py-5 md:py-6">
+            <div className="text-[36px] font-bold leading-none tracking-[-1px] sm:text-[40px]">
               <Counter value={p.num} />
             </div>
             <div className="mt-2 text-sm font-medium text-white/85">
