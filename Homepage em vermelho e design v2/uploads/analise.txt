@@ -1,0 +1,515 @@
+Corporate DNA website assessment
+
+Reviewed: 11 July 2026
+
+Executive verdict
+
+Corporate DNA is a much stronger firm than the current website makes it appear.
+
+The underlying credentials—18 years, global delivery, major multinational clients, senior-level sponsorship, a proprietary framework, measurable case results, executive-team work, coaching scale, and the Harvard Business Impact and Imperial relationships—could support a premium leadership-advisory position. Those assets are substantially clearer in the overview deck than on the website. CDNA Overview Deck Final 22 Jan 2026.pdf
+
+The website, however, currently feels more like a broad leadership-training catalogue than the digital front door of a high-end firm advising CEOs, CHROs and executive teams.
+
+My directional assessment is:
+
+Area	Current position	Main issue
+Business credibility and experience	8.5/10	Strong substance
+Positioning on the website	5/10	Too broad and insufficiently executive
+Information architecture	4/10	Too many competing messages and pathways
+Copy and communication	4/10	Dense, abstract and inconsistently edited
+Evidence and client proof	6/10	Impressive proof exists, but is buried
+Visual brand expression	4.5/10	Lacks a disciplined premium system
+Conversion and contact journey	4/10	Generic calls to action and excessive form friction
+Technical and search trust	Urgent attention	A potentially serious indexed-spam issue
+
+Overall website expression: approximately 4.5–5/10.
+Real potential using the existing material and a modest budget: 8/10 or better.
+
+The gap is not a lack of technology. It is mainly a gap in positioning, hierarchy, editing, consistency and proof placement.
+
+⸻
+
+One urgent issue before any redesign
+
+A search result for your privacy-policy page is currently appearing with an Indonesian gambling title referring to “OLXTOTO” and “slot gacor,” although opening the live page shows Corporate DNA’s normal privacy policy.  
+
+That can indicate one of three things:
+
+* a previous website compromise whose metadata remains indexed;
+* injected content or cloaking visible to search engines but not ordinary visitors;
+* stale search-index information following an earlier incident.
+
+This should be treated as a 48-hour priority, because it affects trust, search reputation and potentially website security. Google explicitly identifies injected content and content shown differently to search engines as possible hacked-site or spam behaviour.  
+
+Ask the website host or a WordPress security specialist to:
+
+1. Back up the site and perform a host-level malware and database scan.
+2. Check WordPress administrators, plugins, themes, scheduled tasks, redirects, title metadata and database entries for unauthorised changes.
+3. Update the WordPress core, theme and plugins and remove anything abandoned or unused.
+4. Rotate hosting, WordPress, database and file-transfer passwords.
+5. Review Google Search Console’s Security Issues and Manual Actions reports.
+6. Once clean, request reindexing of the affected URL and submit the sitemap again.
+
+Google recommends fixing every affected page, testing the repair and requesting a review through Search Console when hacked-content indicators are found.  
+
+Do this before spending money on cosmetic work.
+
+⸻
+
+Is your designer friend correct?
+
+Broadly, yes. The feedback is candid but directionally accurate.
+
+I would only change the order of the diagnosis:
+
+1. The first problem is information hierarchy and positioning.
+2. The second is copy editing and content discipline.
+3. The third is the visual design system.
+4. A new logo is considerably less urgent.
+
+The site does not feel less premium primarily because the logo is simple. It feels less premium because the visitor must work too hard to understand:
+
+* who Corporate DNA is really for;
+* which business problems you solve;
+* where you are unusually strong;
+* what evidence supports the claims;
+* what the visitor should do next.
+
+A sophisticated CEO or CHRO website does not need expensive animation. It needs clarity, confidence, restraint and evidence.
+
+⸻
+
+Where the present website is falling short
+
+1. It starts with the portfolio rather than the client’s problem
+
+The homepage moves quickly through seven offers—Leadership Development, Executive Coaching, Culture Transformation, High Performing Teams, Women in Leadership, Inclusion & Diversity and Asian Talent Development—before proceeding into purpose, promise, methodology, people, values, testimonials and global footprint.  
+
+That creates two problems.
+
+First, it presents CDNA as a supplier of many learning services. Second, it gives every subject approximately equal weight, even though the firm wants to be recognised for high-stakes executive and enterprise work.
+
+The overview deck contains a much more powerful organising idea: CDNA addresses leadership, succession, gender, manager impact, team alignment and HR influence gaps. That structure starts with the buyer’s problem rather than CDNA’s internal service catalogue. CDNA Overview Deck Final 22 Jan 2026.pdf
+
+Better principle
+
+Lead with:
+
+What is at stake for the organisation?
+
+Then show:
+
+How CDNA helps solve it.
+
+⸻
+
+2. The positioning is not executive enough
+
+“Making Leadership Real” and “Results Not Promises” are strong and worth keeping. But the supporting language often becomes broad and conceptual: “curating experiences,” “breathing purpose into environments,” “release energy,” “moments of magic,” “sanctity of the five faculties,” and similar expressions.
+
+That language may make sense once a relationship has begun, but a first-time CEO or CHRO visitor is looking for more immediate commercial relevance:
+
+* Can these people advise at my level?
+* Do they understand enterprise complexity?
+* Have they handled transformation, succession and top-team pressure?
+* Can they measure change?
+* Who will actually work with us?
+* What differentiates them from hundreds of coaching firms?
+
+The executive-coaching page, for example, opens with the grammatically incomplete phrase “delivers real and results” and then groups CXOs together with directors, managers, high-potential leaders and teams.  
+
+That supports a broad coaching practice, but it does not yet establish a distinct CEO and senior-executive advisory proposition.
+
+Recommended category statement
+
+Corporate DNA is a global leadership advisory and executive coaching firm helping CEOs, CHROs and executive teams turn high-stakes change into aligned leadership, faster decisions and measurable performance.
+
+This should appear before the more emotional language about humanity, honesty and “keeping it real.”
+
+⸻
+
+3. Your best proof is not doing enough work
+
+The deck contains excellent website material:
+
+* 18 years of experience;
+* work in 36 countries;
+* 75 faculty;
+* 70+ global executive-team interventions;
+* 1,000+ coaching clients;
+* 90% Chairman/CXO-sponsored work;
+* quantified Heineken, Frasers and Shell case results;
+* the 5H Framework and DNA 360 Profiler;
+* Harvard Business Impact and Imperial relationships;
+* named senior-client testimony. CDNA Overview Deck Final 22 Jan 2026.pdf
+
+These are the assets that reduce risk for a senior buyer. They should appear near the top of the site.
+
+At present, the homepage spends much more time explaining beliefs and values than demonstrating outcomes. The existing GSK page contains considerable detail and useful results, but the strongest evidence is deep inside the site rather than shaping the first impression.  
+
+The homepage should establish proof within the first two screens
+
+For example:
+
+18 years | 36 countries | 70+ executive-team interventions | 1,000+ coaching clients
+
+Then three short client-impact cards:
+
+* Heineken: 45% higher promotion rate for participants.
+* Frasers Property: 85% talent retention.
+* Shell: 2,582 women impacted.
+
+Use only claims and logos for which client approval is confirmed.
+
+⸻
+
+4. Information and facts are inconsistent
+
+Different parts of the digital material refer to:
+
+* 60, 62, 65 and 75 practitioners or faculty;
+* delivery in over 25 countries versus 36 countries;
+* three offices versus London, Singapore, Dubai and Riyadh;
+* a 15-year journey versus 18 years;
+* the founder’s current age rather than a timeless experience statement.
+
+The identity page refers to 60 senior practitioners and a 15-year journey.   The homepage refers to 65 people and later to delivery in over 25 countries.   The team page refers to 62 coaches and also gives the founder’s age as 47, which inevitably becomes outdated.   The current deck uses 75 faculty, 36 countries and four locations. CDNA Overview Deck Final 22 Jan 2026.pdf
+
+For a leadership consultancy, inconsistent facts are particularly damaging because the firm is selling clarity, rigour and trust.
+
+Create a one-page facts and language master sheet covering:
+
+* company description;
+* year founded;
+* years in operation;
+* countries;
+* regions and offices;
+* faculty size;
+* client and intervention numbers;
+* approved client names and quotations;
+* preferred spelling and terminology.
+
+Every website page, proposal, LinkedIn profile and deck should use the same figures.
+
+⸻
+
+5. The writing needs a professional editorial pass
+
+There are recurring problems with grammar, punctuation, spacing, capitalisation and terminology. Examples include:
+
+* “delivers real and results”;
+* “whole leaders’”;
+* “the the”;
+* inconsistent spacing before commas;
+* “Culture Transformation” versus “Culture Transformations”;
+* “I&D,” “Inclusion,” and “Inclusion & Diversity” used inconsistently;
+* British and American English mixed across pages.
+
+The long team page also contains outdated material and visible editing errors in individual credentials.  
+
+This is inexpensive to fix and will deliver a disproportionately large improvement in perceived quality.
+
+For a premium consultancy, every sentence should feel deliberate.
+
+⸻
+
+6. The navigation reflects the company, not the buyer
+
+The present navigation includes Identity, Services with seven sub-services, Approach, News, Clients, Impact, Team and Book. The indexed page also contains repeated navigation structures and duplicated headings such as “Our Purpose,” “Our Promise,” “Our People Embody,” “our clients say” and “Our Team’s Global Footprint.” Some duplication may be caused by separate desktop and mobile structures, but search engines and assistive technologies still encounter that page structure.  
+
+A CEO or CHRO does not naturally think:
+
+“I would like to inspect this provider’s identity, then its approach, followed by seven service categories.”
+
+They are more likely to think:
+
+“My executive team is not aligned.”
+“We need to prepare successors.”
+“A new CEO or business leader needs support.”
+“Our transformation is moving faster than our leadership capability.”
+“We need stronger enterprise leaders.”
+
+The navigation should help them recognise their situation.
+
+⸻
+
+7. The contact process has unnecessary friction
+
+The contact page asks for name, job title, company, industry, country, email, telephone number, service interest and an open message. The same extensive form is also repeated later in the indexed page.  
+
+For a senior buyer, an initial form should ask only:
+
+* Name
+* Work email
+* Organisation
+* “What leadership challenge are you addressing?”
+
+Telephone number, country, industry and service selection can be gathered later.
+
+Replace “Submit” with a more human action:
+
+Start a confidential conversation
+
+or
+
+Discuss your leadership challenge
+
+⸻
+
+What high-quality benchmark websites do differently
+
+The best lesson from benchmark firms is not their technology. It is their decisiveness.
+
+ghSMART immediately calls itself a global leadership advisory firm, introduces a proven methodology and supports the promise with C-suite engagement evidence and client stories.  
+
+The ExCo Group makes its specialisation unmistakable: experienced CEOs and global leaders coaching other senior leaders. It repeatedly connects its work to measurable leadership and strategy impact.  
+
+RHR organises parts of its homepage around recognisable buyer needs: assessing critical leaders, trusted counsel for CEOs and boards, succession, team effectiveness and high-stakes enterprise challenges.  
+
+Potential Project combines a simple human mission with scale evidence and a visible research platform.  
+
+The recurring benchmark formula is:
+
+Clear category + important buyer problem + distinctive method + credible people + measurable proof + obvious next step.
+
+CDNA possesses all six ingredients. They are simply not yet organised in that order.
+
+⸻
+
+Recommended direction
+
+Position CDNA as a leadership advisory firm first
+
+The hierarchy should be:
+
+1. Global leadership advisory and executive coaching
+2. CEO, CHRO and executive-team work
+3. Enterprise leadership and succession
+4. Proprietary 5H and DNA 360 approach
+5. Wider leadership programmes and specialist talent initiatives
+
+This does not mean abandoning manager development, Women in Leadership, regional talent or inclusion work. It means placing those offers inside a stronger enterprise story rather than giving all seven equal prominence in the first impression.
+
+Suggested homepage hero
+
+Eyebrow
+
+Global leadership advisory and executive coaching
+
+Headline
+
+When the stakes are high, leadership must become real.
+
+Supporting copy
+
+We help CEOs, CHROs and executive teams align leadership, accelerate decisions and build the talent required to deliver transformation.
+
+Primary action
+
+Discuss a leadership challenge
+
+Secondary action
+
+See client impact
+
+Proof line
+
+18 years · 36 countries · 70+ executive-team interventions · 1,000+ coaching clients
+
+“Making Leadership Real. Results Not Promises.” can remain as the brand signature.
+
+⸻
+
+A simpler website structure
+
+A practical top navigation could be:
+
+Navigation item	Content
+What We Solve	CEO transitions, executive-team alignment, succession, enterprise leadership, culture and transformation
+Executive Coaching	CEO, C-suite and senior-executive coaching
+Our Approach	5H Framework, DNA 360, discovery and measurement
+Client Impact	Heineken, Frasers, Shell and other approved cases
+Our People	Leadership team first, then regional faculty
+Insights	A small number of substantial executive articles
+Start a Conversation	Short contact form
+
+The Book can live under About or Insights. It does not need permanent primary-navigation status.
+
+Women in Leadership, manager development, HR leadership and regional talent development can sit within What We Solve or Leadership and Succession, rather than all appearing as equal top-level propositions.
+
+⸻
+
+Recommended homepage sequence
+
+1. Hero
+
+Who you are, who you serve and the business outcome.
+
+2. Immediate credibility
+
+Client logos, four key statistics and one powerful senior testimonial.
+
+3. The leadership challenges you solve
+
+Four concise pathways:
+
+* CEO and executive performance
+* Executive-team alignment
+* Leadership succession and talent
+* Enterprise transformation and culture
+
+4. Why CDNA
+
+No more than four differentiators:
+
+* Identity and habits, not skills alone
+* High-stakes, senior-level experience
+* Proprietary 5H and DNA 360 methodology
+* Global insight with local delivery
+
+5. Client impact
+
+Three cases with one challenge, one solution and two or three measurable outcomes each.
+
+6. The 5H Framework
+
+One strong diagram and approximately 120 words—not the entire methodology.
+
+The current framework’s multiple colours can remain inside the diagnostic model, where colour has functional meaning. Those colours should not all become general website brand colours.
+
+7. Senior people and partnerships
+
+Feature the five or six people a CEO or CHRO is most likely to meet, followed by the broader global-faculty message and approved academic partnerships.
+
+8. Final invitation
+
+What is changing? Where do you need to go? What is getting in the way?
+
+Then one short contact route.
+
+⸻
+
+Visual direction on a limited budget
+
+A full brand redesign is not necessary now.
+
+Keep
+
+* The existing logo for the immediate refresh
+* Red as the identifying accent
+* “Making Leadership Real”
+* “Results Not Promises”
+* Authentic global photography
+* The 5H intellectual property
+* The human, candid character of the firm
+
+Change now
+
+* Use a disciplined palette: red, charcoal/black, warm grey and white
+* Reserve the multiple 5H colours for the framework only
+* Use one primary type family, with consistent weights and sizes
+* Introduce substantially more white space
+* Use a consistent content width and grid
+* Shorten paragraphs and remove unnecessary line breaks
+* Standardise buttons, cards, quotations and statistics
+* Use fewer but larger images
+* Replace decorative imagery with authentic leadership, programme and client-context photography already available in your materials
+* Keep animations very subtle or eliminate them entirely
+
+Defer
+
+* A completely new logo
+* Custom illustration systems
+* Expensive video production
+* Complex animation
+* A new CMS
+* Chatbots or AI website functionality
+* An extensive photo shoot
+* A large thought-leadership publishing programme
+
+Your designer friend is correct that the present colour and typography treatment needs discipline. But spending heavily on a new identity before fixing the message and structure would be the wrong sequence.
+
+⸻
+
+Low-cost, high-impact implementation plan
+
+First 48 hours: protect trust
+
+* Investigate the indexed gambling title and website security.
+* Review Search Console.
+* Back up, update and harden the WordPress installation.
+* Correct and request reindexing of affected results.
+
+Week 1: make the decisions
+
+* Confirm the primary audience: CEOs, CHROs and executive teams.
+* Agree the one-sentence positioning.
+* Approve the new navigation.
+* Create the facts-and-language master sheet.
+* Select three approved case studies and six to eight approved metrics.
+* Decide which current pages will be retained, merged or removed.
+
+Week 2: write before designing
+
+Rewrite:
+
+* homepage;
+* Executive Coaching page;
+* What We Solve page;
+* Client Impact overview;
+* About/People introduction;
+* contact page.
+
+Reduce the homepage text by approximately half. Every section should perform one job.
+
+Weeks 3–4: redesign within the current platform
+
+Have one experienced designer/developer create:
+
+* a new header and footer;
+* one homepage;
+* one flexible internal-page template;
+* one case-study template;
+* a restrained digital style guide;
+* responsive mobile layouts;
+* the simplified contact form.
+
+Reuse the current WordPress system rather than commissioning a bespoke build, assuming the security audit confirms that the installation is safe and maintainable.
+
+Week 5: quality control and launch
+
+Check:
+
+* every fact and quotation;
+* spelling and grammar;
+* mobile presentation;
+* image sizes;
+* form delivery;
+* page titles and descriptions;
+* heading hierarchy;
+* accessibility and colour contrast;
+* redirects from removed pages;
+* analytics and conversion tracking;
+* security and backups.
+
+A realistic scope is approximately 15–25 specialist working days, depending on how much of the existing site is retained. Commission it as a fixed-scope website sprint rather than an open-ended rebranding exercise.
+
+⸻
+
+The five changes that will create most of the improvement
+
+1. Resolve the search/security issue immediately.
+2. Reposition the firm as global leadership advisory and executive coaching—not a menu of training programmes.
+3. Rewrite the homepage around CEO/CHRO problems and measurable evidence.
+4. Introduce one restrained visual system without changing the logo yet.
+5. Rebuild only the homepage and two reusable page templates, rather than rebuilding everything from scratch.
+
+Bottom line
+
+The present site is probably adequate for people who already know and trust Corporate DNA. It is not yet strong enough for a senior buyer encountering the firm for the first time, comparing it with established leadership-advisory competitors, or deciding whether CDNA belongs in a high-stakes CEO or CHRO conversation.
+
+The strongest direction is not “make the site more impressive.” It is:
+
+Make the firm easier to understand, easier to trust and easier to choose.
+
+With disciplined editing, a simplified structure, better use of the proof already available and a modest WordPress design refresh, CDNA can look substantially more senior and premium without a large technology investment.
