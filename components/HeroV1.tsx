@@ -70,8 +70,8 @@ export default function HeroV1() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 pt-[110px] md:px-10">
-        <div className="max-w-[880px]">
-          <div className="mb-[26px] flex items-center gap-3">
+        <div className="mx-auto max-w-[1000px] text-center">
+          <div className="mb-[26px] flex items-center justify-center gap-3">
             <span className="h-bar inline-block h-0.5 w-9 bg-brand" />
             <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-brand">
               Global leadership advisory &amp; executive coaching
@@ -80,11 +80,11 @@ export default function HeroV1() {
           <h1 className="h-title mb-7 text-[38px] sm:text-[48px] md:text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-white [text-wrap:balance]">
             When the stakes are high, leadership must become&nbsp;real.
           </h1>
-          <p className="h-sub mb-10 max-w-[640px] text-xl font-normal leading-[1.55] text-white/85">
+          <p className="h-sub mx-auto mb-10 max-w-[720px] text-xl font-normal leading-[1.55] text-white/85">
             We help CEOs, CHROs and executive teams align leadership, accelerate
             decisions and build the talent required to deliver transformation.
           </p>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href="#contact"
               className="h-cta bg-brand px-[30px] py-4 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
