@@ -25,8 +25,12 @@ export default function HeroV1() {
           defaults: { ease: "power4.out" },
           delay: 0.1,
         });
-        tl.from(".h-img", { autoAlpha: 0, y: 44, duration: 1.2, ease: "power3.out" }, 0.15)
-          .from(".h-bar", { scaleX: 0, transformOrigin: "left", duration: 0.6 }, 0.1)
+        tl.from(
+          ".h-bg",
+          { autoAlpha: 0, scale: 1.12, duration: 1.6, ease: "power2.out" },
+          0
+        )
+          .from(".h-bar", { scaleX: 0, transformOrigin: "left", duration: 0.6 }, 0.25)
           .from(".h-eyebrow", { autoAlpha: 0, x: -12, duration: 0.5 }, "-=0.3")
           .from(
             ".h-title",
@@ -51,10 +55,23 @@ export default function HeroV1() {
   );
 
   return (
-    <section ref={scope} id="top" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-10 pt-[110px]">
-        <div className="grid grid-cols-1 items-end gap-10 md:grid-cols-[1.05fr_0.95fr]">
-          <div className="max-w-[880px] pb-16 md:pb-24">
+    <section ref={scope} id="top" className="relative overflow-hidden bg-white">
+      {/* background image + legibility overlay */}
+      <div className="h-bg pointer-events-none absolute inset-0 z-0">
+        <Image
+          src={heroImg}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[70%_50%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1200px] px-10 pb-24 pt-[110px]">
+        <div className="max-w-[880px]">
           <div className="mb-[26px] flex items-center gap-3">
             <span className="h-bar inline-block h-0.5 w-9 bg-brand" />
             <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-brand">
@@ -77,24 +94,15 @@ export default function HeroV1() {
             </a>
             <a
               href="#impact"
-              className="h-cta border-[1.5px] border-ink/25 px-6 py-4 text-sm font-bold uppercase tracking-[0.5px] text-ink transition-colors hover:border-ink"
+              className="h-cta border-[1.5px] border-ink/25 bg-white/40 px-6 py-4 text-sm font-bold uppercase tracking-[0.5px] text-ink backdrop-blur-sm transition-colors hover:border-ink"
             >
               See client impact →
             </a>
           </div>
-          </div>
-          <div className="h-img flex justify-center self-end md:justify-end">
-            <Image
-              src={heroImg}
-              alt="Executive leadership advisory"
-              className="block h-auto w-full max-w-[440px]"
-              priority
-            />
-          </div>
         </div>
       </div>
       {/* proof line */}
-      <div className="border-y border-line bg-[#fafafa]">
+      <div className="relative z-10 border-y border-line bg-[#fafafa]">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-10 gap-y-[14px] px-10 py-[22px]">
           {proofPoints.map((p) => (
             <span
