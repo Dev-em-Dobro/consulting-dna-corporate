@@ -3,6 +3,7 @@ import Link from "next/link";
 import logo from "@/public/logo.jpg";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
+import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
 import Counter from "@/components/Counter";
@@ -62,23 +63,7 @@ export default function V1() {
   return (
     <div className="w-full overflow-x-hidden bg-white">
       {/* NAV */}
-      <header className="sticky top-0 z-50 bg-brand text-white">
-        <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-10">
-          <Link href="#top" className="flex flex-none items-center">
-            <Image src={logo} alt="Corporate DNA" className="h-[52px] w-[52px] rounded-full object-cover ring-1 ring-white/40" priority />
-          </Link>
-          <nav className="flex flex-wrap items-center justify-end gap-[30px]">
-            {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="whitespace-nowrap text-[12.5px] font-semibold uppercase tracking-[0.6px] text-white/80 underline-offset-[6px] transition-colors duration-200 hover:text-white hover:underline">
-                {item.label}
-              </a>
-            ))}
-            <a href="#contact" className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[12.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand">
-              Start a Conversation
-            </a>
-          </nav>
-        </div>
-      </header>
+      <NavV1 navItems={navItems} />
 
       {/* HERO */}
       <HeroV1 />
@@ -86,7 +71,7 @@ export default function V1() {
       {/* CREDIBILITY */}
       <section className="bg-ink text-white">
         <div className="mx-auto max-w-[1200px] px-10 pb-[30px] pt-[70px]">
-          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/50">
+          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
             Trusted by leadership teams at
           </p>
           <Marquee
@@ -98,7 +83,7 @@ export default function V1() {
           <Reveal className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 md:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="bg-ink px-6 py-9 text-center">
-                <div className="text-[46px] font-bold leading-none tracking-[-1px] text-brand">
+                <div className="text-[36px] md:text-[46px] font-bold leading-none tracking-[-1px] text-brand">
                   <Counter value={s.value} />
                 </div>
                 <div className="mt-3 text-[13.5px] font-medium leading-snug text-white/80">{s.label}</div>
@@ -126,7 +111,7 @@ export default function V1() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
           </div>
-          <h2 className="mb-3 max-w-[720px] text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             The high-stakes leadership challenges facing the enterprise.
           </h2>
           <p className="mb-[52px] max-w-[620px] text-lg leading-[1.55] text-muted">
@@ -151,7 +136,7 @@ export default function V1() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Corporate DNA</span>
           </div>
-          <h2 className="mb-[52px] max-w-[760px] text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-2">
@@ -177,7 +162,7 @@ export default function V1() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Client impact</span>
           </div>
-          <h2 className="mb-[52px] max-w-[720px] text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Results, not promises — measured where it matters.
           </h2>
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
@@ -185,13 +170,13 @@ export default function V1() {
               <article key={c.client} className="flex flex-col border border-line">
                 <div className="flex items-center justify-between bg-ink px-[26px] py-[22px] text-white">
                   <span className="text-[19px] font-bold tracking-[0.5px]">{c.client}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[1px] text-white/55">{c.sector}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</span>
                 </div>
                 <div className="flex flex-1 flex-col px-[26px] py-7">
                   <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Challenge</p>
                   <p className="mb-[22px] text-[15px] leading-[1.55] text-[#4a4548]">{c.challenge}</p>
                   <div className="mt-auto border-t border-line pt-[22px]">
-                    <div className="text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
+                    <div className="text-[40px] md:text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
                       <Counter value={c.metric} />
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
@@ -211,7 +196,7 @@ export default function V1() {
               <span className="inline-block h-0.5 w-9 bg-brand" />
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
             </div>
-            <h2 className="mb-5 text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
+            <h2 className="mb-5 text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
@@ -239,7 +224,7 @@ export default function V1() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
           </div>
-          <h2 className="mb-3 max-w-[720px] text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Senior advisors who have sat where our clients sit.
           </h2>
           <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
@@ -272,7 +257,7 @@ export default function V1() {
       <section id="contact" className="bg-brand text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-[72px] px-10 py-[88px] md:grid-cols-[1.1fr_1fr]">
           <div>
-            <h2 className="mb-6 text-[44px] font-bold leading-[1.08] tracking-[-1px] text-white [text-wrap:balance]">
+            <h2 className="mb-6 text-[32px] sm:text-[38px] md:text-[44px] font-bold leading-[1.08] tracking-[-1px] text-white [text-wrap:balance]">
               What is changing, and where does leadership need to go?
             </h2>
             <p className="mb-2 max-w-[460px] text-[19px] leading-[1.6] text-white/90">

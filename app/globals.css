@@ -26,3 +26,10 @@ body {
   background: #d84339;
   color: #fff;
 }
+
+/* Visible keyboard focus that stays legible on light, red and dark surfaces */
+*:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #d84339;
+}
