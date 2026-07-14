@@ -291,16 +291,18 @@ export default function V2() {
 
       {/* FOOTER */}
       <footer className="bg-ink-2 text-white/70">
-        <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-8 px-11 py-14">
-          <Link href="/" className="flex flex-none items-center">
-            <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />
-          </Link>
-          <div className="flex flex-wrap gap-[26px]">
-            {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="text-[12.5px] font-medium tracking-[0.4px] text-white/70 hover:text-white">
-                {item.label}
-              </a>
-            ))}
+        <div className="mx-auto flex max-w-[1240px] flex-col gap-8 px-11 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex items-start gap-7 sm:contents">
+            <Link href="/" className="flex flex-none items-center">
+              <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />
+            </Link>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 sm:flex sm:flex-wrap sm:gap-[26px]">
+              {navItems.map((item) => (
+                <a key={item.label} href={item.href} className="text-[12.5px] font-medium tracking-[0.4px] text-white/70 hover:text-white">
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
           <div className="text-[12.5px] text-white/45">Making Leadership Real · Results Not Promises</div>
         </div>
