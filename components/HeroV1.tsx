@@ -66,7 +66,7 @@ export default function HeroV1() {
           sizes="100vw"
           className="object-cover object-bottom"
         />
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-black/75" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-10 pb-24 pt-[110px]">
