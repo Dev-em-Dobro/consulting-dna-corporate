@@ -293,7 +293,7 @@ export default function V2() {
       <footer className="bg-ink-2 text-white/70">
         <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-8 px-11 py-14">
           <Link href="/" className="flex flex-none items-center">
-            <Image src={logo} alt="Corporate DNA" className="h-11 w-auto" />
+            <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />
           </Link>
           <div className="flex flex-wrap gap-[26px]">
             {navItems.map((item) => (
