@@ -66,7 +66,7 @@ export default function HeroV1() {
           sizes="100vw"
           className="object-cover object-bottom"
         />
-        <div className="absolute inset-0 bg-white/80" />
+        <div className="absolute inset-0 bg-black/65" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-10 pb-24 pt-[110px]">
@@ -77,10 +77,10 @@ export default function HeroV1() {
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
-          <h1 className="h-title mb-7 text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-ink [text-wrap:balance]">
+          <h1 className="h-title mb-7 text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-white [text-wrap:balance]">
             When the stakes are high, leadership must become&nbsp;real.
           </h1>
-          <p className="h-sub mb-10 max-w-[640px] text-xl font-normal leading-[1.55] text-[#4a4548]">
+          <p className="h-sub mb-10 max-w-[640px] text-xl font-normal leading-[1.55] text-white/85">
             We help CEOs, CHROs and executive teams align leadership, accelerate
             decisions and build the talent required to deliver transformation.
           </p>
@@ -93,7 +93,7 @@ export default function HeroV1() {
             </a>
             <a
               href="#impact"
-              className="h-cta border-[1.5px] border-ink/25 bg-white/40 px-6 py-4 text-sm font-bold uppercase tracking-[0.5px] text-ink backdrop-blur-sm transition-colors hover:border-ink"
+              className="h-cta border-[1.5px] border-white/35 px-6 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:border-white"
             >
               See client impact →
             </a>
