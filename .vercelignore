@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+/docs
+/Homepage em vermelho e design v2
+/*.png
+/*.jpg
+/*.jpeg
+/analise.txt
+/design-antigo.md
+/.deploy-payload.json
