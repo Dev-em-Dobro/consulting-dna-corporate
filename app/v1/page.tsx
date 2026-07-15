@@ -280,7 +280,7 @@ export default function V1() {
           </div>
           <div className="grid grid-cols-1 items-center gap-12 border border-line bg-ink p-10 text-white md:grid-cols-[auto_1fr] md:p-14">
             <div className="relative mx-auto aspect-[3/4] w-[180px] overflow-hidden shadow-xl">
-              <Image src="/images.jfif" alt={book.title} fill sizes="180px" className="object-cover" />
+              <Image src="/book-cover.jpg" alt={book.title} fill sizes="180px" className="object-cover" />
             </div>
             <div>
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
