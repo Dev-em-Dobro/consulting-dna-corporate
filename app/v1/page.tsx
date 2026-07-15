@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.jpg";
+import wordmark from "@/public/cdna-logo-text-white.png";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
-import Marquee from "@/components/Marquee";
+import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
 
 const navItems = [
@@ -17,7 +17,25 @@ const navItems = [
   { label: "Insights", href: "#solve" },
 ];
 
-const clientLogos = ["Heineken", "Shell", "Frasers Property", "GSK", "Harvard", "Imperial"];
+// Curated wall of the largest / most globally recognisable clients — Aramco leads.
+const orderedLogos = [
+  "aramco.png", "alphabet.png", "microsoft.png", "visa.png", "shell.png",
+  "nestle.png", "coca_cola.png", "unilever.png", "bp.png", "hsbc.png",
+  "disney.png", "pfizer.png", "novartis.png", "sanofi.png", "rio_tinto.png",
+  "anglo_american.png", "goldman_sachs.png", "morgan_stanley.png", "citi.png", "standard_chartered.png",
+  "chanel.png", "rolls_royce.png", "aston_martin.png", "mclaren.png", "lego.png",
+  "adidas.png", "dyson.png",
+];
+
+const logoRowSplit = Math.ceil(orderedLogos.length / 2);
+const logoRow1 = orderedLogos.slice(0, logoRowSplit);
+const logoRow2 = orderedLogos.slice(logoRowSplit);
+
+const book = {
+  title: "Leadership: it's in your DNA",
+  subtitle: "The book behind the method",
+  body: "The thinking that underpins our work with CEOs and executive teams — how leadership becomes real when the stakes are highest, drawn from the 5H methodology and two decades of board-level practice.",
+};
 
 const stats = [
   { value: "18", label: "Years advising senior leaders" },
@@ -70,14 +88,14 @@ export default function V1() {
 
       {/* CREDIBILITY */}
       <section className="bg-ink text-white">
-        <div className="mx-auto max-w-[1200px] px-10 pb-[30px] pt-[70px]">
-          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
+        <div className="pb-[34px] pt-[70px]">
+          <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
             Trusted by leadership teams at
           </p>
-          <Marquee
-            items={clientLogos}
-            itemClassName="text-[22px] font-bold tracking-[0.5px] text-white/70"
-          />
+          <div className="flex flex-col gap-5">
+            <LogoMarquee logos={logoRow1} duration={logoRow1.length * 4.6} />
+            <LogoMarquee logos={logoRow2} duration={logoRow2.length * 4.6} reverse />
+          </div>
         </div>
         <div className="mx-auto max-w-[1200px] px-10 pb-10 pt-5">
           <Reveal className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 md:grid-cols-4">
@@ -253,6 +271,34 @@ export default function V1() {
         </Reveal>
       </section>
 
+      {/* BOOK */}
+      <section id="book" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
+          <div className="mb-10 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">The book</span>
+          </div>
+          <div className="grid grid-cols-1 items-center gap-12 border border-line bg-ink p-10 text-white md:grid-cols-[auto_1fr] md:p-14">
+            <div className="relative mx-auto aspect-[3/4] w-[180px] overflow-hidden shadow-xl">
+              <Image src="/images.jfif" alt={book.title} fill sizes="180px" className="object-cover" />
+            </div>
+            <div>
+              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
+              <h3 className="mb-4 mt-2 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
+                {book.title}
+              </h3>
+              <p className="mb-8 max-w-[560px] text-[17px] leading-[1.65] text-white/80">{book.body}</p>
+              <a
+                href="#contact"
+                className="inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
+              >
+                Request the book
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-[72px] px-10 py-[88px] md:grid-cols-[1.1fr_1fr]">
@@ -305,7 +351,7 @@ export default function V1() {
         <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-10 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="flex items-start gap-7 sm:contents">
             <Link href="/" className="flex flex-none items-center">
-              <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />
+              <Image src={wordmark} alt="Corporate DNA Consulting" className="h-16 w-auto" />
             </Link>
             <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 sm:flex sm:flex-wrap sm:gap-[26px]">
               {navItems.map((item) => (

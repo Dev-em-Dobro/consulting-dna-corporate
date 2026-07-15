@@ -5,7 +5,7 @@ import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
-import Marquee from "@/components/Marquee";
+import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
 
 const navItems = [
@@ -17,7 +17,19 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const clientLogos = ["Heineken", "Shell", "Frasers Property", "GSK", "Harvard", "Imperial"];
+// Curated wall of the largest / most globally recognisable clients — Aramco leads.
+const orderedLogos = [
+  "aramco.png", "alphabet.png", "microsoft.png", "visa.png", "shell.png",
+  "nestle.png", "coca_cola.png", "unilever.png", "bp.png", "hsbc.png",
+  "disney.png", "pfizer.png", "novartis.png", "sanofi.png", "rio_tinto.png",
+  "anglo_american.png", "goldman_sachs.png", "morgan_stanley.png", "citi.png", "standard_chartered.png",
+  "chanel.png", "rolls_royce.png", "aston_martin.png", "mclaren.png", "lego.png",
+  "adidas.png", "dyson.png",
+];
+
+const logoRowSplit = Math.ceil(orderedLogos.length / 2);
+const logoRow1 = orderedLogos.slice(0, logoRowSplit);
+const logoRow2 = orderedLogos.slice(logoRowSplit);
 
 const stats = [
   { value: "18", label: "Years advising senior leaders" },
@@ -121,14 +133,14 @@ export default function V3() {
 
       {/* CREDIBILITY */}
       <section className="bg-ink text-white">
-        <div className="mx-auto max-w-[1200px] px-10 pb-[30px] pt-[70px]">
-          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
+        <div className="pb-[34px] pt-[70px]">
+          <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
             Trusted by leadership teams at
           </p>
-          <Marquee
-            items={clientLogos}
-            itemClassName="text-[22px] font-bold tracking-[0.5px] text-white/70"
-          />
+          <div className="flex flex-col gap-5">
+            <LogoMarquee logos={logoRow1} duration={logoRow1.length * 4.6} />
+            <LogoMarquee logos={logoRow2} duration={logoRow2.length * 4.6} reverse />
+          </div>
         </div>
         <div className="mx-auto max-w-[1200px] px-10 pb-10 pt-5">
           <Reveal className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 md:grid-cols-4">
