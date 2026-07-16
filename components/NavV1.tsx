@@ -39,14 +39,14 @@ export default function NavV1({ navItems }: { navItems: NavItem[] }) {
             <a
               key={item.label}
               href={item.href}
-              className="whitespace-nowrap text-[12.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
+              className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
             >
               {item.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[12.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
+            className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[11.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
           >
             Start a Conversation
           </a>

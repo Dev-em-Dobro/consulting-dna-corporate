@@ -8,6 +8,7 @@ import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
+import PeopleGrid from "@/components/PeopleGrid";
 
 const navItems = [
   { label: "What We Solve", href: "#solve" },
@@ -63,13 +64,6 @@ const cases = [
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
   { client: "Frasers Property", sector: "Real estate", challenge: "Retain critical leadership talent through a period of strategic change.", metric: "85%", metricLabel: "talent retention among participating leaders" },
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme" },
-];
-
-const people = [
-  { name: "Leadership Advisor", role: "Founder & Senior Partner" },
-  { name: "Leadership Advisor", role: "Partner, Executive Coaching" },
-  { name: "Leadership Advisor", role: "Partner, Enterprise Transformation" },
-  { name: "Leadership Advisor", role: "Head of Global Faculty" },
 ];
 
 const formFields = [
@@ -249,20 +243,7 @@ export default function V1() {
           <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
-          <div className="mb-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-            {people.map((p, i) => (
-              <div key={i}>
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e6e3]">
-                  <div className="absolute inset-0 flex items-center justify-center text-[13px] font-semibold uppercase tracking-[1px] text-[#c3bdb8]">
-                    Portrait
-                  </div>
-                  <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
-                </div>
-                <h3 className="mb-0.5 mt-4 text-[17px] font-semibold text-ink">{p.name}</h3>
-                <p className="text-[13.5px] leading-snug text-muted">{p.role}</p>
-              </div>
-            ))}
-          </div>
+          <PeopleGrid />
           <div className="flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
             <span className="text-[12px] font-semibold uppercase tracking-[2px] text-muted">In partnership with</span>
             <span className="text-[19px] font-bold text-ink">Harvard Business Impact</span>
