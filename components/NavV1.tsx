@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.jpg";
+import wordmark from "@/public/cdna-logo-text-white.png";
 
 type NavItem = { label: string; href: string };
 
@@ -15,13 +16,19 @@ export default function NavV1({ navItems }: { navItems: NavItem[] }) {
       <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="#top"
-          className="flex flex-none items-center"
+          className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
           <Image
             src={logo}
             alt="Corporate DNA"
-            className="h-[52px] w-[52px] rounded-full object-cover ring-1 ring-white/40"
+            className="h-[44px] w-[44px] rounded-full object-cover ring-1 ring-white/40"
+            priority
+          />
+          <Image
+            src={wordmark}
+            alt="Corporate DNA Consulting"
+            className="h-9 w-auto"
             priority
           />
         </Link>

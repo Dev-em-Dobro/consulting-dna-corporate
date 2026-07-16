@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import wordmark from "@/public/cdna-logo-text-white.png";
 import logo from "@/public/logo.jpg";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV2 from "@/components/HeroV2";
@@ -237,7 +238,7 @@ export default function V2() {
               Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
             </p>
             <p className="mt-9 text-[15px] leading-[1.7] text-white/70">
-              London · Singapore · Dubai · Riyadh
+              London · Miami · Singapore · Dubai · Riyadh
               <br />
               hello@corporatednaconsulting.com
             </p>
@@ -278,21 +279,26 @@ export default function V2() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-ink-2 text-white/70">
+      <footer className="border-t border-ink/10 bg-white text-ink/70">
         <div className="mx-auto flex max-w-[1240px] flex-col gap-8 px-6 sm:px-8 md:px-11 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="flex items-start gap-7 sm:contents">
-            <Link href="/" className="flex flex-none items-center">
-              <Image src={logo} alt="Corporate DNA" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/30" />
+            <Link href="/" className="flex flex-none items-center gap-3.5">
+              <Image
+                src={logo}
+                alt="Corporate DNA"
+                className="h-14 w-14 rounded-full object-cover ring-1 ring-ink/10"
+              />
+              <Image src={wordmark} alt="Corporate DNA Consulting" className="h-11 w-auto invert" />
             </Link>
             <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 sm:flex sm:flex-wrap sm:gap-[26px]">
               {navItems.map((item) => (
-                <a key={item.label} href={item.href} className="text-[12.5px] font-medium tracking-[0.4px] text-white/70 hover:text-white">
+                <a key={item.label} href={item.href} className="text-[12.5px] font-medium tracking-[0.4px] text-ink/70 hover:text-ink">
                   {item.label}
                 </a>
               ))}
             </div>
           </div>
-          <div className="text-[12.5px] text-white/45">Making Leadership Real · Results Not Promises</div>
+          <div className="text-[12.5px] text-ink/45">Making Leadership Real · Results Not Promises</div>
         </div>
       </footer>
     </div>
