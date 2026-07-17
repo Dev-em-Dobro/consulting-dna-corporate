@@ -21,7 +21,7 @@ type Person = {
 const people: Person[] = [
   {
     name: "Rhea Leckie",
-    role: "Founder & CEO",
+    role: "Founder & CEO of CDNA",
     img: "/rhea.jpg",
     bio: [
       "Rhea Leckie is the Founder-CEO of CorporateDNA Consulting, with its European HQ in London and its APAC HQ in Singapore. An international thought leader in leadership, culture, inclusion and high-performing teams, she is a trusted advisor to an ivy-league clientele including Goldman Sachs, Vodafone, Heineken and Coca-Cola.",
@@ -37,6 +37,8 @@ const people: Person[] = [
     ],
     clients:
       "Heineken, Unilever, Goldman Sachs, Morgan Stanley, Aviva, Coca-Cola, Microsoft, Vodafone",
+    values:
+      "Courage · Creativity · Fun · Spirituality · Curiosity · Legacy · Family · Love",
     languages: "Speaks four languages",
     skills: [
       "MBA and neuroscience practitioner",
@@ -45,16 +47,16 @@ const people: Person[] = [
     ],
   },
   {
-    name: "Guilherme “G” Mendes",
-    role: "CEO, Corporate DNA Americas",
+    name: "Guilherme Mendes",
+    role: "CEO of Americas",
     img: "/guilherme.jpg",
     bio: [
-      "Guilherme “G” Mendes is CEO of Corporate DNA Americas, leading the firm's expansion across North and Latin America. He brings a rare combination of global executive leadership, commercial sharpness and transformation depth, built across more than two decades.",
+      "Guilherme Mendes is CEO of Corporate DNA Americas, leading the firm's expansion across North and Latin America. He brings a rare combination of global executive leadership, commercial sharpness and transformation depth, built across more than two decades.",
       "He has lived and worked across Latin America, North America, Europe and Asia, visited more than 75 countries, and led multicultural teams for over 20 years. Operating at the intersection of growth and complexity, he has owned $700M+ P&Ls, turned around underperforming units, and built high-impact teams and go-to-market engines across multiple industries.",
-      "After years of transforming businesses from the inside, G chose this chapter to expand his impact from one enterprise to many — helping CEOs and leadership teams across the Americas make stronger, more sustainable decisions and build human-centric cultures of trust, accountability and performance.",
+      "After years of transforming businesses from the inside, he chose this chapter to expand his impact from one enterprise to many — helping CEOs and leadership teams across the Americas make stronger, more sustainable decisions and build human-centric cultures of trust, accountability and performance.",
     ],
     values:
-      "Accountability · Courage · Integrity · Passion · Faith · Respect · Cooperation · Family",
+      "Family · Health · Fun · Growth · Independence · Creativity · Freedom · Appearance",
     specialties: [
       "CEO, CHRO, board and senior-team advisory",
       "Leadership transformation at the intersection of growth and complexity",
@@ -74,7 +76,7 @@ const people: Person[] = [
   },
   {
     name: "Genevieve James",
-    role: "Programme Director",
+    role: "Head of Asia",
     img: "/gen.jpg",
     bio: [
       "Genevieve is a Gallup Certified Strengths Coach, performance consultant and facilitator with an Asia focus and deep European experience across cross-cultural teams.",
@@ -95,8 +97,8 @@ const people: Person[] = [
     languages: "English · French",
   },
   {
-    name: "Jon-Paul (JP)",
-    role: "Senior Facilitator & Coach",
+    name: "Jon-Paul Pritchard",
+    role: "Thought Leadership & Innovation",
     img: "/jp.jpg",
     bio: [
       "JP is a global talent-acquisition leader with a background in behavioural assessment design and leadership selection, having led teams throughout Asia and Europe.",
@@ -149,7 +151,7 @@ const people: Person[] = [
   },
   {
     name: "Mike Jackson",
-    role: "Senior Facilitator & Executive Coach",
+    role: "Head of UK & Europe",
     img: "/mike.jpg",
     bio: [
       "Mike is a certified solutions-focused executive coach for senior executives, CEOs and leadership teams, and an ICF Singapore Chapter Ambassador.",
