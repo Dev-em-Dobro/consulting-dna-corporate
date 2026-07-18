@@ -1,0 +1,474 @@
+DEV EM DOBRO
+Digital platforms · design · engineering
+PROPOSAL
+Corporate DNA: Website Platform Redesign
+From an informational site to a secure, premium business-development platform
+Prepared for
+Corporate DNA Consulting, Executive Leadership
+Prepared by
+Dev em Dobro
+Phase 1 · Foundation / Essential  ·  v2 (revised)  ·  July 2026
+This document covers Phase 1: Foundation / Essential. Recommended, Multilingual and Phase 2 are scoped separately.
+This is a proposal for discussion, not a binding contract. A signed service agreement will set the final terms.
+
+Contents
+1.  Executive summary: our understanding & response
+2.  Approach at a glance (Phase 1)
+3.  Technology recommendation & rationale
+4.  Architecture decision & why not WordPress
+5.  Scope: Foundation / Essential (this phase)
+6.  Information architecture & templates
+7.  Content, copywriting & the content matrix
+8.  Secure migration strategy
+9.  Integrations, analytics & SEO
+10. Delivery approach, phases & timeline
+11. Deliverables by stage
+12. Responsibilities: Corporate DNA vs Dev em Dobro
+13. Documentation & training
+14. Hosting, infrastructure & third-party tools
+15. Investment: Phase 1 (Foundation)
+16. Ownership & intellectual property
+17. Warranty & post-launch care
+18. Assumptions, dependencies & exclusions
+19. Commercial terms & basis of proposal
+20. Next steps
+
+1.  Executive summary: our understanding & response
+This is not a re-skin. Corporate DNA is a boutique global consultancy in leadership, executive coaching and executive-team transformation, with a strength (global reach, C-suite relationships, a proprietary 5H Framework, award recognition and measurable outcomes) that the current website does not communicate. Today the site reads like a broad training vendor rather than a premium boutique advisory. Our brief is to change that: to turn the website into the firm's central platform of credibility and business development.
+A senior visitor, a CEO, CHRO, CLO or other decision-maker, should understand within seconds who you help, which leadership and transformation problems you solve, what makes you different, the concrete results you have delivered, the people behind the firm, and how to start a conversation.
+What we heard, and how we will handle it
+Prove, don't describe. The biggest visible gap is proof. We lead with impact, named outcomes, embedded video and metrics, inside the flow, not hidden on a late page.
+Organise around the client, not your service list. Navigation is rebuilt around decision-maker journeys, capped to a scannable top level, with proof reachable within two clicks.
+A clean, secure technical base. We do not migrate the compromised WordPress/Elementor stack. We start from a clean environment; legacy content is only migrated after review and sanitisation.
+A CMS your team can actually use. Structured content types for cases, solutions, people, regions and insights; roles, versioning and staging, so routine updates no longer require a developer.
+Protect focus; sequence ambition. We honour the internal tension in your BRD (ambition vs. restraint) by delivering a high-impact foundation first and sequencing AI, diagnostics and advanced features into a clearly-scoped Phase 2 with its own budget.
+This document focuses only on Phase 1: Foundation / Essential: everything needed to launch a new, secure, premium English site. The later layers you requested, Recommended add-ons, Multilingual (ES/PT), and Phase 2 / Intelligence (AI, 5H diagnostic, automation), are noted where relevant and scoped separately, so you can approve and launch the foundation first without over-committing.
+2.  Approach at a glance
+Phase 1 delivers a new, secure, premium platform in English, the Foundation. We build it on a custom headless architecture whose content model is multilingual-ready from day one, so later phases (Spanish/Portuguese, and Phase 2 intelligence such as AI and the 5H diagnostic) can be added without rebuilding. This document scopes the Foundation only.
+What Phase 1 (Foundation) delivers
+Impact-led homepage and journey-based navigation, built around decision-maker needs.
+A filterable case-study library, embedded video testimonials, and proof distributed across the site.
+Leadership and regional pages with clear presence for London, Miami, Singapore, Dubai and Riyadh.
+A custom CMS your team can edit without developers, structured content, roles, versioning, staging.
+Short, routed enquiry forms (submissions delivered by email/notification); SEO foundation and a 301 redirect map.
+A secure, clean technical base on Vercel + Neon, no reuse of the compromised WordPress stack.
+
+Not in this phase (scoped separately later): Recommended add-ons (interactive 5H experience, WhatsApp routing, GEO/AEO, richer proof modules); Multilingual rollout (ES/PT); and Phase 2 / Intelligence (AI assistant, 5H digital diagnostic, automation, lead scoring, resource centre, newsletter, events).
+
+Guiding principle: the greatest possible impact without making the project unnecessarily expensive, slow or complex. A very good, evolvable base, launched with quality, then intelligence added progressively.
+3.  Technology recommendation & rationale
+Our recommendation: a headless architecture, a Next.js front end with a custom CMS we build for you, on Vercel with a global CDN and a Neon serverless-Postgres database. This directly answers your priorities on security, global performance, editability, multilingual readiness and AI-readiness, while avoiding the failure modes of the current stack.
+A core differentiator: we build your CMS, we do not rent one. Rather than putting your content on a third-party platform (Sanity, Storyblok, WordPress and similar), Dev em Dobro develops a custom content management system tailored to exactly your content types, cases, solutions, people, regions, insights. The CMS is our own product, and we license it to you at no cost, under a licence that stays in place even if the partnership ends. There are no per-seat or per-plan fees, and nothing about your platform is dictated by another vendor's roadmap or pricing.
+Why headless, concretely
+Security by architecture. The public site is served as pre-rendered/static pages from a CDN, there is no live PHP/plugin database exposed to the internet on every request, which removes the exact class of vulnerability that led to the previous breaches. The editing environment is separate from what visitors touch.
+Global performance. Pages are delivered from an edge network close to London, Miami, Singapore, Dubai and Riyadh, supporting fast loads on GCC/APAC mobile networks and Core Web Vitals in Google's 'Good' band.
+Editable by non-technical staff. Our custom CMS gives your team structured, block-based editing with preview, built around your content, no code, no developer for routine updates.
+Multilingual-ready from day one. The content model supports locales natively, so ES/PT (and later Arabic or others) are added as content, not as a rebuild.
+Integration & AI-ready. Everything is API/webhook-first, so automations and a future AI assistant plug into the same content layer rather than being bolted on.
+No third-party lock-in. Your site, content and data are yours, in your own accounts and database. The CMS is our own product, licensed to you at no cost, and the licence keeps working even if the partnership ends, so you are never cut off from running or editing your site.
+Stack: Next.js front end · a custom CMS built by Dev em Dobro · Vercel hosting with global CDN (serves both the site and the CMS) · Neon serverless-Postgres database. Details confirmed in Discovery.
+4.  Architecture decision & why not WordPress
+You asked us to compare options and to explain whether WordPress could be superior. Our position is clear: for a platform with this security history and these ambitions, we recommend a custom headless architecture and we do not recommend WordPress, not the current Elementor site, and not a new WordPress build. The comparison below sets out why.
+Criteria
+Custom headless (recommended)
+WordPress (not recommended)
+Security posture
+Strongest. Static/edge delivery; no public database/plugin surface; editing environment separated from visitors.
+The largest concern. Even a new, managed build keeps a broad plugin/core attack surface, the very class of risk behind the previous breaches.
+Implementation speed
+Fast, we build directly in staging (Section 5), with no wireframes or mockups, cutting design time.
+A page-builder feels quick initially but accrues technical debt and rework.
+Editing experience
+A custom CMS shaped to your exact content types; structured, with preview.
+Familiar, but prone to layout drift and plugin conflicts.
+Global performance
+Excellent, edge-delivered worldwide by default.
+Needs a premium host + CDN and ongoing tuning to approach it.
+Multilingual (ES/PT)
+Native locale model; clean per-language SEO.
+Depends on a multilingual plugin; more moving parts to break.
+Integrations & APIs
+API/webhook-first; clean and testable.
+Plugin-mediated; heavier and less predictable.
+AI-readiness (Phase 2)
+Content is structured & API-accessible, ideal for an AI assistant.
+Content less structured; more work to expose safely.
+Cost of ownership
+No CMS licence (we build it); predictable Vercel + Neon costs.
+Plugin licences and continuous patching add up over time.
+Maintenance & dependency
+Fewer moving parts; lower ongoing patch risk.
+Continuous plugin/core patching; higher long-term care overhead.
+
+
+Conclusion: custom headless. For a premium, security-sensitive, multi-region, multilingual, AI-bound platform, a custom headless build on Vercel + Neon is the stronger and safer long-term choice, and, thanks to our design and CMS approach, not a slower or more expensive one. Given the prior breaches, we would not put Corporate DNA back on WordPress.
+5.  Scope: Foundation / Essential (this phase)
+Everything required to launch a new, secure, premium and functional English site. This is the core project.
+Strategy, information architecture & content
+Site & content audit of the current platform; keep / rewrite / consolidate / retire decisions.
+New information architecture organised around decision-maker journeys, not internal service lines.
+Substantive rewriting, not just copying. Phase 1 includes substantive editing and rewriting in English of the agreed priority launch pages, using existing CDNA materials as source content. It is not limited to copying the current website. Exact pages and quantities are fixed in the launch content matrix (Section 7).
+UX & build: a build-first approach (no wireframes or mockups)
+Built directly in staging, no wireframes or mockups. We do not produce wireframes or static design mockups. We build the site directly in a live staging environment; approving a real, working page, not a picture of one, is faster and truer to the final result, shortening both the timeline and the cost.
+Whole-site approval, up to two rounds of changes. The complete site is submitted for your approval in staging. You can request up to two rounds of changes to structure, text and images. Further rounds, or changes beyond that, are estimated and billed separately.
+New journey-based navigation experience across the site.
+A consistent digital design system (type, colour, spacing, imagery, components) built on your existing red/charcoal/DNA identity, no logo overhaul required.
+Responsive, mobile-first design that conveys seniority and confidence without expensive animation.
+Build & CMS
+Next.js front end + a custom CMS we build, with structured content types for cases, solutions, people, regions and insights.
+A lean, reusable set of templates and components (see Section 6), CMS-editable without developers.
+User roles/permissions, version history, and a staging/preview environment.
+Proof & conversion
+Filterable case-study library with a consistent structure: challenge, approach, outcome, measurable result, client quote. Up to 3 flagship case studies written by us from your source material.
+Client video testimonials embedded inline, in the scroll flow. Up to 5 client-supplied videos, hosted on YouTube initially and embedded in-page; images and documents hosted in the CMS.
+Metrics and testimonials embedded inside the relevant pages, not centralised on one page.
+Short, low-friction enquiry form with automatic routing by region/topic, lead-source capture and CRM-ready delivery (Section 9). Optional WhatsApp click-to-chat for the GCC.
+Regions, leadership & content
+Leadership pages (Rhea and the senior team) and regional-lead pages; clear presence for the London, Singapore, Dubai and Riyadh offices, plus Miami as the Americas regional presence.
+A 5H Framework page (foundational scope: a clear overview of the five elements, linked proof where available, and a next-step CTA; the interactive version is a later phase).
+A dedicated book page with a simple purchase path, an awards & partnerships section, an insights area, and legal pages (privacy, cookies, terms).
+Technical foundation
+Managed hosting, global CDN, SSL/TLS, WAF and form protection; automated backups and a documented, tested recovery procedure; uptime monitoring.
+SEO foundation: sitemap, robots.txt, canonical tags, metadata, structured data, and a 301 redirect map for legitimate indexed legacy URLs (Section 8).
+Analytics: Google Analytics 4, Search Console and conversion tracking on all defined goal events, plus a basic measurement plan and a 30-day post-launch validation (Section 9).
+Core Web Vitals in Google's 'Good' band; responsive and correct across the major devices and browsers.
+Security & accessibility baseline
+MFA for administrators, role-based access and audit logs in the CMS.
+Dependency and vulnerability scanning with an agreed tool; no unresolved critical or high-risk security findings at launch.
+Cookie consent with consent-aware analytics; secure handling of form data.
+WCAG 2.2 AA testing across the core templates, with remediation of AA issues within the delivered templates.
+6.  Information architecture & templates
+Recommended top-level navigation (max seven items, journey-led): Home · Solutions (by journey) · 5H Framework · Proof / Client Impact · About / Leadership · Insights · Contact / Book a Consultation.
+A lean, reusable template set, not dozens of one-off layouts. We estimate ~12–14 page templates and ~25–30 reusable components. Indicative templates:
+#
+Template
+Notes
+1
+Home (impact-led)
+Hero + impact stat, 3–5 journey cards, embedded video, offices in footer
+2
+Solution / journey landing
+Problem-first, embedded proof, tailored CTA, related content
+3
+5H Framework
+Overview of the five elements + CTA (interactive version in a later phase)
+4
+Case-study index
+Filterable by industry, service, region, outcome
+5
+Case-study detail
+Challenge, approach, outcome, result, client quote (+ video)
+6
+About / Leadership
+Firm story, leadership overview, awards & partnerships
+7
+Person profile
+Rhea, senior team, regional leads
+8
+Region page
+London, Singapore, Dubai, Riyadh offices + Miami (Americas presence)
+9
+Insights index & article
+Articles / thought leadership, GEO-friendly structure
+10
+Book page
+Overview + simple purchase path
+11
+Contact / Book a Consultation
+Short form, regional routing, lead-source capture, WhatsApp (GCC)
+12
+Utility
+Branded 404, legal/privacy/cookies, search results
+
+7.  Content, copywriting & the launch content matrix
+Substantive rewriting, not copying. Phase 1 includes substantive editing and rewriting in English of the agreed priority launch pages, using existing CDNA materials as source content; it is not limited to copying the current website.
+What is included by default and what is quoted separately:
+Area
+Included in Foundation
+Quoted separately
+Copywriting
+Messaging framework; homepage + primary journey pages rewritten in English; case-study template and up to 3 flagship case studies written from your source material.
+Large volumes of net-new long-form articles; ghost-writing beyond the agreed matrix.
+Content migration
+Audit + migrate approved, sanitised existing content into the new CMS structure.
+Re-creating content that does not currently exist; bulk historical blog back-catalogue beyond agreed scope.
+Video & media
+Images and documents hosted in the custom CMS. Up to 5 client-supplied videos embedded from YouTube in-flow.
+Video production, filming, editing and captioning; moving video hosting into the CMS later.
+
+
+Launch content matrix. Before we start the build, both parties approve a launch content matrix defining the pages, content quantities, responsibilities and approvals included in the fixed project fee. Anything beyond the matrix is a change-order (US$100/hour), agreed in writing. Starting point:
+Page / content
+Included
+Provided by
+Approved by
+Home (impact-led)
+1
+Dev em Dobro (written)
+CDNA
+Solutions / journeys
+up to 5
+Dev em Dobro from your materials
+CDNA
+5H Framework page
+1 (foundational)
+Dev em Dobro + Rhea's IP
+Rhea / CDNA
+Flagship case studies
+up to 3 (written)
+CDNA source + sign-off
+CDNA (legal)
+Case-study library
+template + entries
+Shared
+CDNA
+Leadership profiles
+key leaders
+CDNA (bios, photos)
+CDNA
+Region pages
+4 offices + Miami
+CDNA (local details)
+CDNA
+Book page + purchase path
+1
+CDNA (details, links)
+CDNA
+Awards & partnerships
+1 section
+CDNA (list, logos)
+CDNA
+Insights area
+structure + starters
+Shared
+CDNA
+Legal pages
+privacy, cookies, terms
+CDNA (implemented by us)
+CDNA / legal
+Videos
+up to 5 supplied
+CDNA
+CDNA
+Contact + WhatsApp (GCC)
+1
+Dev em Dobro
+CDNA
+
+8.  Secure migration strategy
+Given the prior breaches, we treat the existing site as untrusted and never migrate its live base.
+Clean-room build. The new platform is built in a fresh, isolated environment, no reuse of the current WordPress/Elementor codebase, themes or plugins.
+Inventory & triage. We inventory existing pages, media and URLs, and decide keep / rewrite / consolidate / retire with you.
+Sanitise before import. Only approved content and media are migrated, after malware/integrity checks and clean re-export, no database carry-over from the old site.
+Legitimate vs malicious URLs. The migration plan distinguishes legitimate legacy URLs from injected or malicious URLs (spam/gambling created during the intrusions). Legitimate URLs receive mapped 301 redirects; malicious URLs are handled through appropriate 404/410 responses and search-engine removal procedures.
+Preserve SEO equity. A 301 redirect map covering the legitimate indexed legacy URLs, tested before launch, protects rankings.
+Safe cutover. Launch from staging with a tested rollback plan; DNS cutover only after QA sign-off.
+9.  Integrations, analytics & SEO
+Enquiry forms & CRM
+CRM-ready forms. If you already have a CRM, we integrate the enquiry form with it. If a CRM is not yet chosen, we deliver the form ready for future integration via a documented, CRM-neutral webhook/API layer, capturing lead source (UTM, page of origin), regional and topic routing, consent data, visitor confirmation and internal notification.
+Analytics & measurement
+Google Analytics 4 and Search Console; conversion/goal tracking and source attribution for enquiries.
+A basic measurement plan with UTM and source attribution, conversion tracking, and a 30-day post-launch Analytics and Search Console validation.
+SEO
+Keyword strategy mapped to decision-maker journeys; SEO-friendly URL patterns.
+Sitemap, robots.txt, canonical tags, metadata and structured data (Organization, Person, Article, Event).
+301 redirect map for legitimate legacy URLs (Section 8); local profiles for the offices.
+10.  Delivery approach, phases & timeline
+Development timeline: 6 weeks. We build directly in staging, no wireframes or mockups, which keeps delivery fast and predictable. Optimisation continues after launch.
+Important, when the clock starts. The 6-week development timeline begins only once we have received all required accesses to the current platforms (WordPress, Cloudflare, domain/DNS, hosting and any related services). Until every access is handed over, the countdown does not start.
+#
+Stage
+Timing
+Key activities
+1
+Setup & discovery
+Week 1
+Access handover, audit, IA, messaging, scope-lock
+2
+Build in staging
+Weeks 1–2
+Site structure and homepage built directly in staging
+3
+Development & approval
+Weeks 2–5
+Full site built in staging and submitted for approval (up to 2 rounds of changes: structure, text, images); custom CMS, secure migration, SEO & redirects
+4
+Testing / QA
+Week 5
+Cross-device QA, performance and security review
+5
+Launch
+Week 6
+Sanitised migration, redirects live, monitored cutover
+6
+Optimisation
+ongoing
+Post-launch tuning; future-phase scoping
+
+11.  Deliverables by stage
+Discovery: audit findings, final IA/sitemap, messaging framework, confirmed tech stack, RACI and locked Phase 1 scope.
+Site in staging for approval: the complete site built directly in staging and submitted for your approval, with up to two rounds of changes to structure, text and images (no wireframes, mockups or separate design stage).
+Content: structured priority pages, up to 10 case studies, and a migration/keep-rewrite-retire register.
+Development: the built platform in staging, CMS with content types and roles, SEO setup and 301 map.
+Testing: QA matrix results, accessibility and performance reports, and a pre-launch security review.
+Launch: live platform, redirects active, monitoring enabled, and handover documentation.
+Documentation & training: a written CMS editor's guide, a live recorded training session, and technical handover documentation (see Section 13).
+12.  Responsibilities: Corporate DNA vs Dev em Dobro
+Item
+Corporate DNA
+Dev em Dobro
+Strategy, IA, UX, design, build
+Consulted / approves
+Responsible
+Brand assets & guidelines
+Provides
+Applies
+Source content, data & proof points
+Provides & approves
+Structures / edits
+Client case-study sign-offs
+Owns (legal/client approval)
+Templates & publishes
+Video assets
+Provides (or commissions)
+Embeds
+Hosting & database (Vercel, Neon)
+Owns accounts
+Sets up & configures
+Testing & security review
+Reviews
+Responsible
+Approvals & sign-off at each gate
+Accountable
+Facilitates
+
+
+Note on internal bandwidth. Your BRD rightly flags limited internal time. We minimise the load with a 'teach-to-fish' CMS model and clear, batched review points, but timely content, approvals and case-study sign-offs are the main dependency on the critical path.
+13.  Documentation & training
+Clear written guides plus a live session, so your team can run the platform confidently on their own.
+One live, recorded CMS training session for the nominated team, in addition to the written guide.
+A concise CMS editor's guide covering content types, publishing, staging/preview and media handling.
+Technical handover documentation: architecture, integrations, backup/recovery procedure and the redirect map.
+14.  Hosting, infrastructure & third-party tools
+There is no CMS licence fee. The CMS is Dev em Dobro's own product, licensed to you at no cost (Section 16). The recurring services below are billed to your own accounts and are separate from our fees. Estimates assume ~5,000 visits/month, and most services sit inside free tiers at launch.
+Service
+Function
+Lean (launch)
+Robust (all paid)
+Custom CMS
+Content management
+US$0
+US$0
+Vercel (Pro)
+Hosting + global CDN
+~US$20 / mo
+~US$20 / mo
+Neon
+Postgres database
+~US$20–30 / mo
+~US$30 / mo
+Bunny.net
+Media storage + delivery
+~US$1–5 / mo
+~US$10 / mo
+Resend
+Transactional email
+US$0 (free tier)
+~US$20 / mo
+BetterStack + Sentry
+Uptime + error monitoring
+US$0 (free tiers)
+~US$29–55 / mo
+Cloudflare 
+Spam protection
+US$0
+US$0
+Cookiebot
+Cookie consent
+US$0 (free tier)
+~US$34 / mo
+
+At ~5,000 visits/month the total lands around US$45–60/month (~US$540–720/year) on entry tiers, or US$125–165/month (~US$1,500–2,000/year) with every service on a paid plan. All in your own accounts, and everything scales with traffic.
+
+Additional tools during development. If other third-party tools or services turn out to be needed during the build, we send them to Corporate DNA for review and approval before anything is contracted; nothing is committed on your behalf without your sign-off.
+15.  Investment: Phase 1 (Foundation)
+An initial-partnership price. For this first project together we are offering a special partnership value for the Phase 1 Foundation, well below our standard rate, as the start of a longer-term relationship. Shown in US$; we can reissue in another currency.
+One-off (project)
+Item
+Value
+Notes
+Phase 1: Foundation / Essential
+US$5,000
+Special initial-partnership value; the full scope in Section 5 and the launch content matrix in Section 7
+
+
+Recurring (monthly, optional)
+Item
+Cost
+Notes
+Essential Care (optional)
+US$400 / mo
+Security, updates, backups, monitoring, incident response (Section 17)
+Managed Growth (optional)
+US$1,000 / mo
+Essential Care + 5h/mo + quarterly review (Section 17)
+
+
+Change-order rate: US$100/hour for work beyond the launch content matrix, always estimated and agreed in writing first.
+
+Future phases: Recommended add-ons, Multilingual (ES/PT) and Phase 2 / Intelligence will be scoped and quoted separately when you choose to proceed.
+16.  Ownership & intellectual property
+On full payment, Corporate DNA owns its website, the site's source code, the page layouts and designs, and all website content and data.
+Repository and accounts are yours. The project repository and the deployment, hosting and database accounts (Vercel, Neon) and domains are owned by Corporate DNA, so there is no dependency lock-in to Dev em Dobro.
+The custom CMS is Dev em Dobro's own product. We license it to you at no cost, under a perpetual licence that continues even if the partnership ends. The licence is transferable to a qualified successor supplier you engage to operate and maintain the platform, so another team can always keep it running. There are no per-seat or per-plan fees.
+Pre-existing tools, open-source libraries and third-party platforms remain under their own licences; we document everything used.
+Your brand and the 5H Framework IP remain entirely yours; we simply express them digitally.
+17.  Warranty & post-launch care
+Bug fixes free for 90 days. For 90 days after launch we fix any bugs in the delivered functionality at no additional cost.
+New features are quoted separately. Any new functionality not covered by this document and the launch content matrix is estimated and charged separately, by prior written agreement, at a change-order rate of US$100/hour.
+Optional care plans. Two options, so you can choose what fits. Both keep the delivered site healthy and secure; neither includes building new pages or features, which are always quoted separately.
+Plan
+Price
+What it covers
+Essential Care
+US$400 / mo
+Security monitoring, dependency and CMS updates, WAF, automated backups with tested recovery, uptime monitoring (>= 99.5%) and incident response with defined response times.
+Managed Growth
+US$1,000 / mo
+Everything in Essential Care, plus 5 hours per month for small adjustments, content and optimisation, and a quarterly analytics and performance review.
+
+Managed Growth hours do not roll over between months. Annual plans include two months free (pay 10, get 12). Infrastructure costs (Section 14) are separate.
+Given the prior breach, we recommend keeping at least Essential Care so continuous security is never left without an owner. Without a plan, ongoing security and maintenance become the client's responsibility after the warranty, or are billed at the change-order rate.
+Because the stack is custom and headless, the ongoing patch surface is far smaller than a plugin-heavy WordPress site, lowering both risk and long-term cost.
+18.  Assumptions, dependencies & exclusions
+Assumptions
+English is the launch language; the architecture is multilingual-ready from day one.
+Content, brand assets, proof points and approvals are provided in agreed batches, per the launch content matrix (Section 7).
+Dependencies
+All platform accesses provided up front. Development begins only after we receive every access to the current platforms, WordPress, Cloudflare, domain/DNS, hosting and related services. The 6-week timeline starts from that handover.
+Timely client sign-offs, especially case-study and legal approvals.
+Availability of nominated stakeholders for content-matrix approval and review gates.
+Exclusions (unless separately quoted)
+Video production; translation of content; large volumes of net-new long-form writing.
+Third-party infrastructure fees (hosting, database, media storage, email, monitoring, cookie consent). There is no CMS licence fee.
+Phase 2 / Intelligence features and ES/PT content rollout (scoped separately).
+19.  Commercial terms & basis of proposal
+This document is a proposal for discussion, not a binding contract. The points below set the commercial basis. The final and full terms, including detailed liability, confidentiality, data-protection and governing-law/dispute-resolution clauses, will be set out in a service agreement signed by both parties before work begins. Figures are indicative and can be adjusted together.
+Validity. This proposal is valid for 30 days from its date.
+Payment. An initial deposit is required to start (suggested 50% of the one-off fee), with the balance due on delivery/launch. Prices are net; any taxes, withholding or bank/transfer fees on international payment are borne by the client. Currency: US$ (can be reissued in another currency).
+Scope & changes. The fixed fee covers the launch content matrix (Section 7). You can request up to two rounds of changes to the site in staging. Further rounds, or any work beyond the matrix, are handled as a change-order at US$100/hour, agreed in writing.
+Timeline. The 6-week development clock starts once all platform accesses are provided (Section 10) and pauses for delays caused by the client (late approvals, content or access).
+Intellectual property. On full payment, Corporate DNA owns its website, source code, designs, content and data, and its repository and accounts. The custom CMS is Dev em Dobro's own product, licensed to Corporate DNA at no cost under a perpetual licence, transferable to a qualified successor supplier engaged to operate and maintain the platform (Section 16).
+Liability & security. Dev em Dobro's total liability under the engagement will be limited to the fees paid for the project. No security measure is absolute: the recommended architecture and baseline greatly reduce risk but cannot guarantee against all incidents, and depend also on client use, access hygiene and third-party platforms.
+Warranty & ongoing care. Bugs are fixed free for 90 days after launch. Beyond that, ongoing security and maintenance are covered under the optional care plans (Section 17); without one, they become the client's responsibility or are billed at the change-order rate.
+Third parties. Dev em Dobro is not responsible for outages, pricing or terms changes of third-party services (Vercel, Neon, YouTube, Google and similar), nor for client-side account or billing lapses.
+To be formalised in the agreement. Mutual confidentiality, data-protection responsibilities across the client's regions, termination terms, and governing law / dispute resolution.
+20.  Next steps
+With your feedback incorporated in this v2, the path from here is simple:
+1. Approve this proposal (v2) and the launch content matrix.
+2. We prepare the service agreement for signature, with the final terms.
+3. Once signed, you send us the accesses to the current platforms (WordPress, Cloudflare, domain/DNS, hosting).
+4. Development begins, and the 6-week build starts from the handover.
+
+We would be glad to keep refining any of this with you, and adjust where a better path exists.
+Dev em Dobro · v2 · July 2026

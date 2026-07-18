@@ -1,0 +1,32 @@
+Como ponto de partida, imaginamos uma navegação próxima de:
+
+* Home;
+* Solutions;
+* 5H Framework;
+* Proof / Client Impact;
+* About / Leadership;
+* Insights;
+* Contact / Book a Consultation.
+
+Entre as páginas e estruturas prioritárias, devem estar:
+
+* homepage orientada por impacto;
+* páginas de soluções organizadas pelos problemas que resolvemos;
+* página de destaque para o 5H Framework;
+* biblioteca estruturada de cases;
+* páginas da Rhea, da liderança e dos responsáveis regionais;
+* presença clara de London, Singapore, Dubai e Riyadh;
+* área de insights e livro;
+* contato simples, com encaminhamento regional.
+
+Não precisamos necessariamente construir dezenas de layouts diferentes. O ideal é criar um conjunto enxuto de templates e componentes reutilizáveis.
+
+Provas e conversão
+
+* cases com uma estrutura consistente de desafio, abordagem, resultado e evidências;
+* métricas e depoimentos inseridos dentro das páginas relevantes;
+* suporte a vídeos e depoimentos com legendas;
+* formulário curto e objetivo;
+* possibilidade de contato por WhatsApp onde fizer sentido;
+* encaminhamento automático das oportunidades por região ou assunto;
+* integração dos formulários com o CRM.
