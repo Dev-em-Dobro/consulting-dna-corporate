@@ -132,6 +132,12 @@ export const personData = z
     photoUrl: z.string().url().optional(),
     coverUrl: z.string().url().optional(),
     socials: z.array(socialSchema).optional(),
+    // Flat social fields as authored in the CMS (each an optional URL/handle).
+    linkedin: z.string().optional(),
+    x: z.string().optional(),
+    twitter: z.string().optional(),
+    instagram: z.string().optional(),
+    email: z.string().optional(),
     values: z.string().optional(),
     strengths: z.string().optional(),
     specialties: z.array(z.string()).optional(),

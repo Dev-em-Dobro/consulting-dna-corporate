@@ -18,6 +18,36 @@ function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { 
   return out;
 }
 
+/**
+ * Build the modal's socials array from the CMS person data. The CMS authors
+ * each network as a flat field (data.linkedin, data.x/twitter, ...), so collect
+ * whichever are filled; fall back to a pre-built `socials` array if the CMS ever
+ * sends one. Empty → undefined so the modal hides the row entirely.
+ */
+const SOCIAL_FIELDS: { type: Social["type"]; keys: string[] }[] = [
+  { type: "linkedin", keys: ["linkedin"] },
+  { type: "x", keys: ["x", "twitter"] },
+  { type: "instagram", keys: ["instagram"] },
+  { type: "email", keys: ["email"] },
+];
+
+function buildSocials(d?: S.PersonEntry["data"]): Social[] | undefined {
+  if (!d) return undefined;
+  if (d.socials?.length) return d.socials;
+  const rec = d as Record<string, unknown>;
+  const out: Social[] = [];
+  for (const { type, keys } of SOCIAL_FIELDS) {
+    const raw = keys
+      .map((k) => rec[k])
+      .find((v): v is string => typeof v === "string" && v.trim() !== "");
+    if (!raw) continue;
+    const val = raw.trim();
+    const href = type === "email" && !/^mailto:/i.test(val) ? `mailto:${val}` : val;
+    out.push({ type, href });
+  }
+  return out.length ? out : undefined;
+}
+
 const caseTags =(f?: { industry?: string[]; service?: string[]; outcome?: string[] }): string[] =>
   [...(f?.industry ?? []), ...(f?.service ?? []), ...(f?.outcome ?? [])];
 
@@ -74,7 +104,7 @@ export async function getPeople(): Promise<PersonVM[]> {
       // bioHtml and leave the legacy structured `bio` empty.
       bio: [],
       bioHtml: typeof d?.bio === "string" ? d.bio : undefined,
-      socials: d?.socials,
+      socials: buildSocials(d),
       values: d?.values,
       strengths: d?.strengths,
       specialties: d?.specialties,
