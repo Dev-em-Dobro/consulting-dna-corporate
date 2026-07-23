@@ -63,6 +63,16 @@ export const caseListItem = z
 export const caseData = z
   .object({
     title: z.string(),
+    // Current content model: free tags, an intro, a quote (+ attribution) and a
+    // single rich-text body.
+    tags: z.array(z.string()).optional(),
+    introduction: z.string().optional(),
+    quote: z.string().optional(),
+    quoter: z.string().optional(),
+    text: z.string().optional(),
+    // Autoplay-muted showcase video (YouTube link or direct file).
+    mutedVideoUrl: z.string().url().optional(),
+    // Legacy model (kept so older cases keep rendering).
     summary: z.string().optional(),
     challenge: z.string().optional(),
     approach: z.string().optional(),
@@ -89,6 +99,8 @@ export const solutionData = z
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
     proofRefs: z.array(z.unknown()).optional(),
     coverUrl: z.string().url().optional(),
+    // Optional hero background, resolved by the CMS read API from `bannerMediaId`.
+    bannerUrl: z.string().url().optional(),
   })
   .passthrough();
 

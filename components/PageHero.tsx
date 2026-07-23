@@ -1,18 +1,46 @@
+import Image from "next/image";
+import { plainText } from "@/lib/cms/text";
+
 /**
  * Dark hero band used by content pages (Solutions, 5H Framework, …).
  * The sticky red nav sits above it, matching the wireframes.
+ *
+ * When `bgImageUrl` is set (e.g. a solution's CMS cover), it fills the band
+ * behind a dark overlay so the eyebrow/title/subtitle stay legible; without it
+ * the band is the plain dark `bg-ink`, exactly as before.
  */
 export default function PageHero({
   eyebrow,
   title,
   subtitle,
+  bgImageUrl,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   subtitle?: string;
+  bgImageUrl?: string;
 }) {
+  // The subtitle is a plain-text slot. Some callers pass it straight from the
+  // CMS (book/5h/awards singletons), where the field may carry rich-text markup;
+  // strip it here so tags never render literally.
+  subtitle = plainText(subtitle);
   return (
-    <section className="bg-ink text-white">
+    <section className="relative isolate overflow-hidden bg-ink text-white">
+      {bgImageUrl && (
+        <>
+          <Image
+            src={bgImageUrl}
+            alt=""
+            aria-hidden
+            fill
+            priority
+            sizes="100vw"
+            className="-z-10 object-cover"
+          />
+          {/* Darken the image so light text keeps its contrast. */}
+          <div className="absolute inset-0 -z-10 bg-ink/70" />
+        </>
+      )}
       <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-28">
         {eyebrow && (
           <div className="mb-5 flex items-center gap-3">

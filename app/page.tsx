@@ -52,10 +52,15 @@ const differentiators = [
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
-const cases = [
+// `caseSlug` deep-links a card to its published case detail page. Only Shell has
+// a case in the CMS today; the others fall back to the flagship-cases listing.
+const cases: {
+  client: string; sector: string; challenge: string;
+  metric: string; metricLabel: string; caseSlug?: string;
+}[] = [
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
   { client: "Frasers Property", sector: "Real estate", challenge: "Retain critical leadership talent through a period of strategic change.", metric: "85%", metricLabel: "talent retention among participating leaders" },
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme" },
+  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme", caseSlug: "case-1d007617" },
 ];
 
 const offices = [
@@ -216,7 +221,11 @@ export default async function V1() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href="/solutions/flagship-cases"
+                      href={
+                        c.caseSlug
+                          ? `/solutions/flagship-cases/${c.caseSlug}`
+                          : "/solutions/flagship-cases"
+                      }
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
                       read more here

@@ -1,10 +1,54 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import RichText from "@/components/RichText";
 import type { CaseArticle } from "@/lib/cms/map";
+
+/** Extract the 11-char YouTube id from any common YouTube URL shape. */
+function youTubeId(url: string): string | null {
+  const m = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([A-Za-z0-9_-]{11})/,
+  );
+  return m ? m[1] : null;
+}
+
+/** Autoplay-muted, looping showcase video (YouTube embed or direct file). */
+function MutedVideo({ url, title }: { url: string; title: string }) {
+  const id = youTubeId(url);
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-[820px] px-6 pb-20 md:px-10 md:pb-24">
+        <div className="relative aspect-video w-full overflow-hidden border border-line bg-ink">
+          {id ? (
+            <iframe
+              // Starts muted so browsers allow autoplay; `controls=1` lets the
+              // viewer unmute / play with sound. loop needs `playlist=<id>`.
+              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=1&modestbranding=1&playsinline=1&rel=0`}
+              title={title}
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          ) : (
+            <video
+              src={url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /** Detail body for a case study. Shared by the live page and the preview route. */
 export default function CaseView({ c }: { c: CaseArticle }) {
-  const body = [
+  // Legacy structured sections — only used when a case has no single `text` body.
+  const legacyBody = [
     { label: "Challenge", value: c.body.challenge },
     { label: "Approach", value: c.body.approach },
     { label: "Outcome", value: c.body.outcome },
@@ -13,31 +57,34 @@ export default function CaseView({ c }: { c: CaseArticle }) {
 
   return (
     <>
-      {/* Article header */}
+      {/* Article header: tags → title → introduction */}
       <section className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 pt-16 pb-12 md:px-10 md:pt-20">
+        <div className="mx-auto max-w-[820px] px-6 pt-20 pb-16 md:px-10 md:pt-28 md:pb-20">
           {c.tags.length > 0 && (
-            <div className="mb-5 flex flex-wrap gap-x-2 gap-y-1 text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
+            <div className="mb-7 flex flex-wrap gap-x-3 gap-y-1.5 text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
               {c.tags.map((t) => (
                 <span key={t}>{t}</span>
               ))}
             </div>
           )}
-          <h1 className="mb-6 text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
+          <h1 className="text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
             {c.title}
           </h1>
           {c.intro && (
-            <p className="text-[18px] leading-[1.65] text-muted">{c.intro}</p>
+            <RichText
+              html={c.intro}
+              className="mt-7 !text-[18px] !leading-[1.65] [&_*]:!text-muted"
+            />
           )}
         </div>
         {c.coverUrl && (
-          <div className="mx-auto max-w-[1000px] px-6 md:px-10">
+          <div className="mx-auto max-w-[820px] px-6 pb-4 md:px-10">
             <div className="relative aspect-[16/9] w-full overflow-hidden border border-line">
               <Image
                 src={c.coverUrl}
                 alt={c.title}
                 fill
-                sizes="(min-width: 1000px) 1000px, 100vw"
+                sizes="(min-width: 820px) 820px, 100vw"
                 className="object-cover"
               />
             </div>
@@ -45,7 +92,7 @@ export default function CaseView({ c }: { c: CaseArticle }) {
         )}
       </section>
 
-      {/* Quote block with video CTA */}
+      {/* Quote block (quote + quoter) with optional video CTA */}
       {(c.quote || c.videoUrl) && (
         <section className="bg-ink text-white">
           <Reveal
@@ -54,12 +101,14 @@ export default function CaseView({ c }: { c: CaseArticle }) {
           >
             {c.quote && (
               <>
-                <div className="mb-3 text-[56px] font-extrabold leading-none text-brand">
-                  &ldquo;
-                </div>
-                <blockquote className="mb-8 text-[24px] sm:text-[28px] md:text-[32px] font-medium leading-[1.4] tracking-[-0.3px] text-white [text-wrap:balance]">
+                <blockquote className="text-[24px] sm:text-[28px] md:text-[32px] font-medium leading-[1.4] tracking-[-0.3px] text-white [text-wrap:balance]">
                   {c.quote}
                 </blockquote>
+                {c.quoter && (
+                  <cite className="mt-6 block not-italic text-[13px] font-semibold uppercase tracking-[1.5px] text-brand">
+                    {c.quoter}
+                  </cite>
+                )}
               </>
             )}
             {c.videoUrl && (
@@ -67,7 +116,7 @@ export default function CaseView({ c }: { c: CaseArticle }) {
                 href={c.videoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-brand px-8 py-4 text-[13px] font-bold uppercase tracking-[1px] text-white transition-colors hover:bg-brand-dark"
+                className="mt-10 inline-block bg-brand px-8 py-4 text-[13px] font-bold uppercase tracking-[1px] text-white transition-colors hover:bg-brand-dark"
               >
                 Hear the complete interview
               </a>
@@ -76,23 +125,34 @@ export default function CaseView({ c }: { c: CaseArticle }) {
         </section>
       )}
 
-      {/* Body */}
-      {body.length > 0 && (
+      {/* Body: the single rich-text `text`, or the legacy structured sections */}
+      {c.text ? (
         <section className="bg-white">
-          <div className="mx-auto max-w-[820px] space-y-10 px-6 py-20 md:px-10 md:py-24">
-            {body.map((s) => (
-              <div key={s.label}>
-                <h2 className="mb-3 text-[13px] font-bold uppercase tracking-[1.5px] text-brand">
-                  {s.label}
-                </h2>
-                <p className="max-w-[62ch] text-[17px] leading-[1.7] text-muted">
-                  {s.value}
-                </p>
-              </div>
-            ))}
+          <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
+            <RichText html={c.text} />
           </div>
         </section>
+      ) : (
+        legacyBody.length > 0 && (
+          <section className="bg-white">
+            <div className="mx-auto max-w-[820px] space-y-10 px-6 py-20 md:px-10 md:py-24">
+              {legacyBody.map((s) => (
+                <div key={s.label}>
+                  <h2 className="mb-3 text-[13px] font-bold uppercase tracking-[1.5px] text-brand">
+                    {s.label}
+                  </h2>
+                  <p className="max-w-[62ch] text-[17px] leading-[1.7] text-muted">
+                    {s.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
       )}
+
+      {/* Autoplay-muted showcase video from the CMS, at the very end */}
+      {c.mutedVideoUrl && <MutedVideo url={c.mutedVideoUrl} title={c.title} />}
     </>
   );
 }

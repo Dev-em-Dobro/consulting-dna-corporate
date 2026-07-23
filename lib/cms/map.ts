@@ -7,6 +7,7 @@
 import { getList, getCases, getEntry, getPage, getPreviewEntry } from "./client";
 import * as S from "./schemas";
 import type { Social } from "./schemas";
+import { plainText, plainTextList } from "./text";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -59,14 +60,18 @@ export type PersonVM = {
 };
 export type CaseCard = { slug: string; title: string; summary?: string; coverUrl?: string; tags: string[] };
 export type CaseArticle = {
-  slug: string; tags: string[]; title: string; intro?: string;
-  quote?: string; videoUrl?: string; coverUrl?: string;
+  slug: string; tags: string[]; title: string;
+  intro?: string;            // introduction — rich text (HTML)
+  quote?: string; quoter?: string;
+  text?: string;             // main body — rich text (HTML)
+  videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string;
+  // Legacy structured body, rendered only when a case has no single `text`.
   body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
 };
 export type SolutionCard = { slug: string; title: string };
 export type SolutionVM = {
   slug: string; title: string; problemStatement?: string; body?: string;
-  cta?: { label?: string; href?: string }; coverUrl?: string;
+  cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
 export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
@@ -97,21 +102,21 @@ export async function getPeople(): Promise<PersonVM[]> {
     const parsed = S.personEntry.safeParse(details[i]);
     const d = parsed.success ? parsed.data.data : undefined;
     return {
-      name: d?.name ?? it.title,
-      role: d?.role ?? it.summary ?? "",
+      name: plainText(d?.name) ?? plainText(it.title) ?? "",
+      role: plainText(d?.role) ?? plainText(it.summary) ?? "",
       img: d?.photoUrl ?? d?.coverUrl ?? it.coverUrl,
       // The CMS stores the full profile as a single HTML string; keep it as
-      // bioHtml and leave the legacy structured `bio` empty.
+      // bioHtml (rendered via RichText) and leave the legacy structured `bio` empty.
       bio: [],
       bioHtml: typeof d?.bio === "string" ? d.bio : undefined,
       socials: buildSocials(d),
-      values: d?.values,
-      strengths: d?.strengths,
-      specialties: d?.specialties,
-      trackRecord: d?.trackRecord,
-      clients: d?.clients,
-      languages: d?.languages,
-      skills: d?.skills,
+      values: plainText(d?.values),
+      strengths: plainText(d?.strengths),
+      specialties: plainTextList(d?.specialties),
+      trackRecord: plainTextList(d?.trackRecord),
+      clients: plainText(d?.clients),
+      languages: plainText(d?.languages),
+      skills: plainTextList(d?.skills),
     };
   });
 }
@@ -122,8 +127,8 @@ export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Pro
   if (!res) return [];
   return parseItems<S.CaseListItem>(res.items, S.caseListItem).map((c) => ({
     slug: c.slug,
-    title: c.title,
-    summary: c.summary,
+    title: plainText(c.title) ?? "",
+    summary: plainText(c.summary),
     coverUrl: c.coverUrl,
     tags: caseTags(c.facets),
   }));
@@ -133,15 +138,26 @@ function mapCase(raw: unknown): CaseArticle | null {
   const r = S.caseEntry.safeParse(raw);
   if (!r.success) return null;
   const d = r.data.data;
+  // Prefer the free-form `tags` list; fall back to the facet-derived tags.
+  const tags = d.tags?.length ? d.tags.map((t) => plainText(t)).filter((t): t is string => !!t) : caseTags(d.facets);
   return {
     slug: r.data.slug,
-    tags: caseTags(d.facets),
-    title: d.title,
-    intro: d.summary ?? d.challenge,
-    quote: d.clientQuote,
+    tags,
+    title: plainText(d.title) ?? "",
+    // introduction / text are rich text → keep HTML for <RichText>.
+    intro: d.introduction ?? d.summary,
+    quote: plainText(d.quote ?? d.clientQuote),
+    quoter: plainText(d.quoter),
+    text: d.text,
     videoUrl: d.videoUrl,
+    mutedVideoUrl: d.mutedVideoUrl,
     coverUrl: d.coverUrl,
-    body: { challenge: d.challenge, approach: d.approach, outcome: d.outcome, measurableResult: d.measurableResult },
+    body: {
+      challenge: plainText(d.challenge),
+      approach: plainText(d.approach),
+      outcome: plainText(d.outcome),
+      measurableResult: plainText(d.measurableResult),
+    },
   };
 }
 
@@ -156,7 +172,7 @@ export async function getSolutionCards(): Promise<SolutionCard[]> {
   if (!res) return [];
   return parseItems<S.SolutionListItem>(res.items, S.solutionListItem).map((s) => ({
     slug: s.slug,
-    title: s.title,
+    title: plainText(s.title) ?? "",
   }));
 }
 
@@ -164,7 +180,17 @@ function mapSolution(raw: unknown): SolutionVM | null {
   const r = S.solutionEntry.safeParse(raw);
   if (!r.success) return null;
   const d = r.data.data;
-  return { slug: r.data.slug, title: d.title, problemStatement: d.problemStatement, body: d.body, cta: d.cta, coverUrl: d.coverUrl };
+  return {
+    slug: r.data.slug,
+    title: plainText(d.title) ?? "",
+    // Plain-text slot (hero subtitle) — strip any rich-text markup the CMS emits.
+    problemStatement: plainText(d.problemStatement),
+    // body is rendered via <RichText>, so keep its HTML intact.
+    body: d.body,
+    cta: d.cta ? { label: plainText(d.cta.label), href: d.cta.href } : undefined,
+    coverUrl: d.coverUrl,
+    bannerUrl: d.bannerUrl,
+  };
 }
 
 export async function getSolution(slug: string): Promise<SolutionVM | null> {
@@ -178,8 +204,8 @@ export async function getInsightCards(): Promise<InsightCard[]> {
   if (!res) return [];
   return parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
     slug: i.slug,
-    title: i.title,
-    summary: i.summary,
+    title: plainText(i.title) ?? "",
+    summary: plainText(i.summary),
     publishedAt: i.publishedAt,
   }));
 }
@@ -187,7 +213,8 @@ export async function getInsightCards(): Promise<InsightCard[]> {
 function mapInsight(raw: unknown): InsightVM | null {
   const r = S.insightEntry.safeParse(raw);
   if (!r.success) return null;
-  return { slug: r.data.slug, title: r.data.data.title, body: r.data.data.body, coverUrl: r.data.data.coverUrl };
+  // body is rendered via <RichText>; title is a plain-text heading.
+  return { slug: r.data.slug, title: plainText(r.data.data.title) ?? "", body: r.data.data.body, coverUrl: r.data.data.coverUrl };
 }
 
 export async function getInsight(slug: string): Promise<InsightVM | null> {
@@ -199,7 +226,7 @@ export async function getInsight(slug: string): Promise<InsightVM | null> {
 export async function getRegionCards(): Promise<RegionCard[]> {
   const res = await getList("regions");
   if (!res) return [];
-  return parseItems<S.RegionListItem>(res.items, S.regionListItem).map((r) => ({ slug: r.slug, name: r.title }));
+  return parseItems<S.RegionListItem>(res.items, S.regionListItem).map((r) => ({ slug: r.slug, name: plainText(r.title) ?? "" }));
 }
 
 function mapRegion(raw: unknown): RegionVM | null {
@@ -207,8 +234,10 @@ function mapRegion(raw: unknown): RegionVM | null {
   if (!r.success) return null;
   const d = r.data.data;
   return {
-    slug: r.data.slug, name: d.name, city: d.city, country: d.country,
-    addressLines: d.addressLines, body: d.body, coverUrl: d.coverUrl,
+    slug: r.data.slug, name: plainText(d.name) ?? "", city: plainText(d.city), country: plainText(d.country),
+    addressLines: plainTextList(d.addressLines),
+    // body is rendered via <RichText>, so keep its HTML intact.
+    body: d.body, coverUrl: d.coverUrl,
   };
 }
 

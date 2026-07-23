@@ -6,7 +6,12 @@ import type { SolutionVM } from "@/lib/cms/map";
 export default function SolutionView({ s }: { s: SolutionVM }) {
   return (
     <>
-      <PageHero eyebrow="Solutions" title={s.title} subtitle={s.problemStatement} />
+      <PageHero
+        eyebrow="Solutions"
+        title={s.title}
+        subtitle={s.problemStatement}
+        bgImageUrl={s.bannerUrl ?? s.coverUrl}
+      />
 
       <section className="bg-white">
         <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
