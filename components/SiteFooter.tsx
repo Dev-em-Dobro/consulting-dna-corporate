@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const mainLinks = [
-  { label: "What we solve", href: "/v1#solve" },
-  { label: "Our approach", href: "/v1#approach" },
-  { label: "Our people", href: "/v1#people" },
+  { label: "What we solve", href: "/#solve" },
+  { label: "Our approach", href: "/#approach" },
+  { label: "Our people", href: "/#people" },
   { label: "Executive coaching", href: "/solutions/executive-coaching" },
-  { label: "Client impact", href: "/v1#impact" },
+  { label: "Client impact", href: "/#impact" },
   { label: "Insights", href: "/insights" },
 ];
 
@@ -19,7 +19,7 @@ export default function SiteFooter() {
   return (
     <footer className="bg-white text-ink">
       <div className="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] gap-6 px-6 py-16 sm:gap-20 md:px-10">
-        <Link href="/v1" className="flex h-fit flex-none items-center">
+        <Link href="/" className="flex h-fit flex-none items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo.svg"

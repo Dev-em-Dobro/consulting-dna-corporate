@@ -13,7 +13,7 @@ export default function InterviewsPage() {
       eyebrow="Interviews"
       title="The complete client interviews."
       description="Full-length conversations behind our flagship case studies."
-      crumbs={[{ label: "Home", href: "/v1" }, { label: "Interviews" }]}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Interviews" }]}
     />
   );
 }

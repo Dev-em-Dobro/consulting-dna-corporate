@@ -31,7 +31,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
     <header className="sticky top-0 z-50 bg-brand text-white">
       <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
         <Link
-          href="/v1"
+          href="/"
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
@@ -83,7 +83,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
             ),
           )}
           <a
-            href="/v1#contact"
+            href="/#contact"
             className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[11.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
           >
             Start a Conversation
@@ -178,7 +178,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               ),
             )}
             <a
-              href="/v1#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-5 rounded-full border-[1.5px] border-white/80 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.6px] text-white"
             >
