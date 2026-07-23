@@ -1,0 +1,221 @@
+/**
+ * High-level, typed CMS fetchers used by the pages (D4). Each combines:
+ *   client (HTTP) → schema (Zod parse) → view model (component props).
+ * Lists drop items that fail validation; detail fetchers return null on miss/parse-fail so
+ * routes can call notFound(). All calls are server-side (client.ts sends the key).
+ */
+import { getList, getCases, getEntry, getPage, getPreviewEntry } from "./client";
+import * as S from "./schemas";
+import type { Social } from "./schemas";
+
+function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
+  const out: T[] = [];
+  for (const it of items) {
+    const r = schema.safeParse(it);
+    if (r.success && r.data) out.push(r.data);
+    else console.warn("[cms] dropped invalid list item");
+  }
+  return out;
+}
+
+const toBio = (b?: string[] | string): string[] =>
+  Array.isArray(b) ? b : b ? [b] : [];
+
+const caseTags = (f?: { industry?: string[]; service?: string[]; outcome?: string[] }): string[] =>
+  [...(f?.industry ?? []), ...(f?.service ?? []), ...(f?.outcome ?? [])];
+
+// ---- View models -----------------------------------------------------------
+export type PersonVM = {
+  name: string; role: string; img?: string; bio: string[];
+  socials?: Social[]; values?: string; strengths?: string; specialties?: string[];
+  trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
+};
+export type CaseCard = { slug: string; title: string; summary?: string; coverUrl?: string; tags: string[] };
+export type CaseArticle = {
+  slug: string; tags: string[]; title: string; intro?: string;
+  quote?: string; videoUrl?: string; coverUrl?: string;
+  body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
+};
+export type SolutionCard = { slug: string; title: string };
+export type SolutionVM = {
+  slug: string; title: string; problemStatement?: string; body?: string;
+  cta?: { label?: string; href?: string }; coverUrl?: string;
+};
+export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
+export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
+export type RegionCard = { slug: string; name: string };
+export type RegionVM = { slug: string; name: string; city?: string; body?: string; coverUrl?: string };
+export type CmsPage = { key?: string; data: Record<string, unknown> };
+
+// ---- People ----------------------------------------------------------------
+export async function getPeople(): Promise<PersonVM[]> {
+  const res = await getList("people");
+  if (!res) return [];
+  // People come as full entries or list items depending on the API; try entry shape first.
+  return parseItems<S.PersonEntry>(res.items, S.personEntry).map((p) => ({
+    name: p.data.name,
+    role: p.data.role ?? "",
+    img: p.data.photoUrl ?? p.data.coverUrl,
+    bio: toBio(p.data.bio),
+    socials: p.data.socials,
+    values: p.data.values,
+    strengths: p.data.strengths,
+    specialties: p.data.specialties,
+    trackRecord: p.data.trackRecord,
+    clients: p.data.clients,
+    languages: p.data.languages,
+    skills: p.data.skills,
+  }));
+}
+
+// ---- Cases -----------------------------------------------------------------
+export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Promise<CaseCard[]> {
+  const res = await getCases(facets);
+  if (!res) return [];
+  return parseItems<S.CaseListItem>(res.items, S.caseListItem).map((c) => ({
+    slug: c.slug,
+    title: c.title,
+    summary: c.summary,
+    coverUrl: c.coverUrl,
+    tags: caseTags(c.facets),
+  }));
+}
+
+function mapCase(raw: unknown): CaseArticle | null {
+  const r = S.caseEntry.safeParse(raw);
+  if (!r.success) return null;
+  const d = r.data.data;
+  return {
+    slug: r.data.slug,
+    tags: caseTags(d.facets),
+    title: d.title,
+    intro: d.summary ?? d.challenge,
+    quote: d.clientQuote,
+    videoUrl: d.videoUrl,
+    coverUrl: d.coverUrl,
+    body: { challenge: d.challenge, approach: d.approach, outcome: d.outcome, measurableResult: d.measurableResult },
+  };
+}
+
+export async function getCaseArticle(slug: string): Promise<CaseArticle | null> {
+  const raw = await getEntry("cases", slug);
+  return raw ? mapCase(raw) : null;
+}
+
+// ---- Solutions -------------------------------------------------------------
+export async function getSolutionCards(): Promise<SolutionCard[]> {
+  const res = await getList("solutions");
+  if (!res) return [];
+  return parseItems<S.SolutionListItem>(res.items, S.solutionListItem).map((s) => ({
+    slug: s.slug,
+    title: s.title,
+  }));
+}
+
+function mapSolution(raw: unknown): SolutionVM | null {
+  const r = S.solutionEntry.safeParse(raw);
+  if (!r.success) return null;
+  const d = r.data.data;
+  return { slug: r.data.slug, title: d.title, problemStatement: d.problemStatement, body: d.body, cta: d.cta, coverUrl: d.coverUrl };
+}
+
+export async function getSolution(slug: string): Promise<SolutionVM | null> {
+  const raw = await getEntry("solutions", slug);
+  return raw ? mapSolution(raw) : null;
+}
+
+// ---- Insights --------------------------------------------------------------
+export async function getInsightCards(): Promise<InsightCard[]> {
+  const res = await getList("insights");
+  if (!res) return [];
+  return parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
+    slug: i.slug,
+    title: i.title,
+    summary: i.summary,
+    publishedAt: i.publishedAt,
+  }));
+}
+
+function mapInsight(raw: unknown): InsightVM | null {
+  const r = S.insightEntry.safeParse(raw);
+  if (!r.success) return null;
+  return { slug: r.data.slug, title: r.data.data.title, body: r.data.data.body, coverUrl: r.data.data.coverUrl };
+}
+
+export async function getInsight(slug: string): Promise<InsightVM | null> {
+  const raw = await getEntry("insights", slug);
+  return raw ? mapInsight(raw) : null;
+}
+
+// ---- Regions ---------------------------------------------------------------
+export async function getRegionCards(): Promise<RegionCard[]> {
+  const res = await getList("regions");
+  if (!res) return [];
+  return parseItems<S.RegionListItem>(res.items, S.regionListItem).map((r) => ({ slug: r.slug, name: r.title }));
+}
+
+function mapRegion(raw: unknown): RegionVM | null {
+  const r = S.regionEntry.safeParse(raw);
+  if (!r.success) return null;
+  return { slug: r.data.slug, name: r.data.data.name, city: r.data.data.city, body: r.data.data.body, coverUrl: r.data.data.coverUrl };
+}
+
+export async function getRegion(slug: string): Promise<RegionVM | null> {
+  const raw = await getEntry("regions", slug);
+  return raw ? mapRegion(raw) : null;
+}
+
+// ---- Singleton pages -------------------------------------------------------
+export async function getCmsPage(key: string): Promise<CmsPage | null> {
+  const raw = await getPage(key);
+  if (!raw) return null;
+  const r = S.pageEntry.safeParse(raw);
+  if (!r.success) return null;
+  return { key: r.data.key, data: r.data.data };
+}
+
+// ---- Draft preview ---------------------------------------------------------
+/**
+ * Fetch + map a DRAFT entry for the preview route. Reuses the same mappers as
+ * the published pages, so a preview renders identically to the live page. The
+ * `type` accepts either the plural segment (solutions) or the raw type
+ * (solution) — whichever the CMS put in the preview link.
+ */
+export type PreviewResult =
+  | { kind: "solution"; vm: SolutionVM }
+  | { kind: "insight"; vm: InsightVM }
+  | { kind: "case"; vm: CaseArticle }
+  | { kind: "region"; vm: RegionVM };
+
+export async function getPreview(
+  type: string,
+  id: string,
+  token: string,
+): Promise<PreviewResult | null> {
+  const raw = await getPreviewEntry(type, id, token);
+  if (!raw) return null;
+  switch (type) {
+    case "solutions":
+    case "solution": {
+      const vm = mapSolution(raw);
+      return vm ? { kind: "solution", vm } : null;
+    }
+    case "insights":
+    case "insight": {
+      const vm = mapInsight(raw);
+      return vm ? { kind: "insight", vm } : null;
+    }
+    case "cases":
+    case "case": {
+      const vm = mapCase(raw);
+      return vm ? { kind: "case", vm } : null;
+    }
+    case "regions":
+    case "region": {
+      const vm = mapRegion(raw);
+      return vm ? { kind: "region", vm } : null;
+    }
+    default:
+      return null;
+  }
+}

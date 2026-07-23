@@ -25,14 +25,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Bad signature" }, { status: 401 });
   }
 
+  let payload: { type?: string; slug?: string };
   try {
-    JSON.parse(body); // validate payload shape
+    payload = JSON.parse(body);
   } catch {
     return NextResponse.json({ error: "Bad payload" }, { status: 400 });
   }
 
   // Purge the cached route tree so CMS-backed pages re-fetch on next request.
+  // (Next 16's tag revalidation now requires a cache-life profile; a layout-level
+  // path purge is simple, correct and adequate at this site's scale.)
+  const { type, slug } = payload;
   revalidatePath("/", "layout");
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, revalidated: { type, slug } });
 }

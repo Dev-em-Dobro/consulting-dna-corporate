@@ -5,17 +5,36 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.jpg";
 import wordmark from "@/public/cdna-logo-text-white.png";
+import { siteNav, type NavItem } from "@/lib/nav";
 
-type NavItem = { label: string; href: string };
+function Chevron({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
 
-export default function NavV1({ navItems }: { navItems: NavItem[] }) {
+export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
   const [open, setOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-50 bg-brand text-white">
       <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
         <Link
-          href="#top"
+          href="/v1"
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
@@ -35,17 +54,45 @@ export default function NavV1({ navItems }: { navItems: NavItem[] }) {
 
         {/* desktop nav */}
         <nav className="hidden items-center justify-end gap-[30px] md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
-            >
-              {item.label}
-            </a>
-          ))}
+          {items.map((item) =>
+            item.children ? (
+              <div key={item.label} className="group relative">
+                <Link
+                  href={item.href ?? "#"}
+                  aria-haspopup="true"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline"
+                >
+                  {item.label}
+                  <Chevron className="mt-px transition-transform duration-200 group-hover:rotate-180" />
+                </Link>
+                {/* dropdown — opacity + pointer-events (not `invisible`) so the
+                    links stay focusable for keyboard nav and reveal on focus */}
+                <div className="pointer-events-none absolute right-0 top-full pt-4 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                  <div className="min-w-[248px] border border-line bg-white py-2 text-ink shadow-xl">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.label}
+                        href={child.href}
+                        className="block px-5 py-2.5 text-[13px] font-medium tracking-[0.2px] text-ink/80 transition-colors hover:bg-paper hover:text-brand"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.label}
+                href={item.href ?? "#"}
+                className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
           <a
-            href="#contact"
+            href="/v1#contact"
             className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[11.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
           >
             Start a Conversation
@@ -59,7 +106,7 @@ export default function NavV1({ navItems }: { navItems: NavItem[] }) {
           aria-expanded={open}
           aria-controls="v1-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 items-center justify-center text-white md:hidden"
+          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white md:hidden"
         >
           <svg
             width="26"
@@ -94,18 +141,53 @@ export default function NavV1({ navItems }: { navItems: NavItem[] }) {
           className="border-t border-white/15 bg-brand md:hidden"
         >
           <div className="mx-auto flex max-w-[1200px] flex-col px-6 pb-5 pt-1">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-3.5 text-[15px] font-semibold uppercase tracking-[0.6px] text-white"
-              >
-                {item.label}
-              </a>
-            ))}
+            {items.map((item) =>
+              item.children ? (
+                <div key={item.label} className="border-b border-white/10">
+                  <button
+                    type="button"
+                    aria-expanded={openGroup === item.label}
+                    onClick={() =>
+                      setOpenGroup((g) => (g === item.label ? null : item.label))
+                    }
+                    className="flex w-full cursor-pointer items-center justify-between py-3.5 text-[15px] font-semibold uppercase tracking-[0.6px] text-white"
+                  >
+                    {item.label}
+                    <Chevron
+                      className={
+                        "transition-transform duration-200 " +
+                        (openGroup === item.label ? "rotate-180" : "")
+                      }
+                    />
+                  </button>
+                  {openGroup === item.label && (
+                    <div className="pb-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          onClick={() => setOpen(false)}
+                          className="block py-2.5 pl-4 text-[14px] font-medium tracking-[0.3px] text-white/85"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href ?? "#"}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-white/10 py-3.5 text-[15px] font-semibold uppercase tracking-[0.6px] text-white"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <a
-              href="#contact"
+              href="/v1#contact"
               onClick={() => setOpen(false)}
               className="mt-5 rounded-full border-[1.5px] border-white/80 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.6px] text-white"
             >

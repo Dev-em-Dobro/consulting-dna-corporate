@@ -1,7 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import wordmark from "@/public/cdna-logo-text-white.png";
-import logo from "@/public/logo.jpg";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
@@ -9,15 +6,9 @@ import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
-
-const navItems = [
-  { label: "What We Solve", href: "#solve" },
-  { label: "Executive Coaching", href: "#solve" },
-  { label: "Our Approach", href: "#approach" },
-  { label: "Client Impact", href: "#impact" },
-  { label: "Our People", href: "#people" },
-  { label: "Insights", href: "#solve" },
-];
+import SiteFooter from "@/components/SiteFooter";
+import { getPeople } from "@/lib/cms/map";
+import { buildSiteNav } from "@/lib/nav-server";
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
 const orderedLogos = [
@@ -72,11 +63,12 @@ const formFields = [
   { label: "Organisation", placeholder: "Company name" },
 ];
 
-export default function V1() {
+export default async function V1() {
+  const [people, nav] = await Promise.all([getPeople(), buildSiteNav()]);
   return (
     <div className="w-full overflow-x-hidden bg-white">
       {/* NAV */}
-      <NavV1 navItems={navItems} />
+      <NavV1 items={nav} />
 
       {/* HERO */}
       <HeroV1 />
@@ -243,7 +235,7 @@ export default function V1() {
           <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
-          <PeopleGrid />
+          <PeopleGrid people={people} />
           <div className="flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
             <span className="text-[12px] font-semibold uppercase tracking-[2px] text-muted">In partnership with</span>
             <span className="text-[19px] font-bold text-ink">Harvard Business Impact</span>
@@ -329,28 +321,7 @@ export default function V1() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-ink/10 bg-white text-ink/70">
-        <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-10 py-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-          <div className="flex items-start gap-7 sm:contents">
-            <Link href="/" className="flex flex-none items-center gap-3.5">
-              <Image
-                src={logo}
-                alt="Corporate DNA"
-                className="h-14 w-14 rounded-full object-cover ring-1 ring-ink/10"
-              />
-              <Image src={wordmark} alt="Corporate DNA Consulting" className="h-11 w-auto invert" />
-            </Link>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 sm:flex sm:flex-wrap sm:gap-[26px]">
-              {navItems.map((item) => (
-                <a key={item.label} href={item.href} className="text-[12.5px] font-medium tracking-[0.4px] text-ink/70 hover:text-ink">
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="text-[12.5px] text-ink/45">Making Leadership Real · Results Not Promises</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -8,8 +8,11 @@
  *   CMS_READ_API_KEY   read API key (x-api-key), if the CMS enforces one
  */
 
-const BASE = process.env.CMS_URL;
-const KEY = process.env.CMS_READ_API_KEY;
+// Normalise the base so endpoints always resolve to `${origin}/api/content/...`,
+// whether CMS_URL is the origin or already ends in `/api` (D8).
+const BASE = process.env.CMS_URL?.replace(/\/api\/?$/, "").replace(/\/$/, "");
+// Accept the standardised name, falling back to the legacy READ_API_KEY.
+const KEY = process.env.CMS_READ_API_KEY ?? process.env.READ_API_KEY;
 
 type Query = Record<string, string | string[] | number | undefined>;
 
@@ -30,13 +33,20 @@ async function cmsGet<T>(path: string, tags: string[]): Promise<T | null> {
     console.warn("[cms] CMS_URL not set");
     return null;
   }
-  const res = await fetch(`${BASE}${path}`, {
-    headers: KEY ? { "x-api-key": KEY } : undefined,
-    // Cache + tag so the revalidation webhook can refresh on publish.
-    next: { tags: ["cms", ...tags] },
-  });
-  if (!res.ok) return null;
-  return (await res.json()) as T;
+  try {
+    const res = await fetch(`${BASE}${path}`, {
+      headers: KEY ? { "x-api-key": KEY } : undefined,
+      // Cache + tag so the revalidation webhook can refresh on publish.
+      next: { tags: ["cms", ...tags] },
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as T;
+  } catch (err) {
+    // CMS unreachable / bad response — degrade gracefully (FR-107): callers
+    // treat null as "no content" and serve last-good cache / empty states.
+    console.warn(`[cms] fetch failed for ${path}:`, (err as Error)?.message);
+    return null;
+  }
 }
 
 export interface ListResult<T = Record<string, unknown>> {
@@ -85,4 +95,31 @@ export function getPage(key: string, locale = "en") {
     `/api/content/pages/${key}${qs({ locale })}`,
     [`cms:page:${key}`],
   );
+}
+
+/**
+ * Fetch a DRAFT entry for the preview route, authorised by a signed preview
+ * token minted by the CMS. Never cached — drafts change constantly and must not
+ * leak into the CDN or a shared tag.
+ */
+export async function getPreviewEntry(
+  type: string,
+  id: string,
+  token: string,
+): Promise<Record<string, unknown> | null> {
+  if (!BASE) {
+    console.warn("[cms] CMS_URL not set");
+    return null;
+  }
+  try {
+    const res = await fetch(
+      `${BASE}/api/content/preview/${type}/${id}?token=${encodeURIComponent(token)}`,
+      { headers: KEY ? { "x-api-key": KEY } : undefined, cache: "no-store" },
+    );
+    if (!res.ok) return null;
+    return (await res.json()) as Record<string, unknown>;
+  } catch (err) {
+    console.warn("[cms] preview fetch failed:", (err as Error)?.message);
+    return null;
+  }
 }
