@@ -23,15 +23,6 @@ export type Person = {
   skills?: string[];
 };
 
-// Placeholder social row shown until each leader's real links are added.
-// TODO: replace hrefs per person (LinkedIn is the primary suggestion).
-const DEFAULT_SOCIALS: Social[] = [
-  { type: "linkedin", href: "#" },
-  { type: "x", href: "#" },
-  { type: "instagram", href: "#" },
-  { type: "email", href: "#" },
-];
-
 const SOCIAL_LABEL: Record<SocialType, string> = {
   linkedin: "LinkedIn",
   x: "X",
@@ -197,7 +188,9 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
               {person.role}
             </p>
 
-            <SocialLinks socials={person.socials ?? DEFAULT_SOCIALS} />
+            {person.socials && person.socials.length > 0 && (
+              <SocialLinks socials={person.socials} />
+            )}
 
             {person.bioHtml ? (
               // First-party CMS rich text — rendered as HTML. Utility selectors
