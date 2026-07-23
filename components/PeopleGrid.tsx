@@ -196,7 +196,7 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
               // First-party CMS rich text — rendered as HTML. Utility selectors
               // style the headings/lists/bold the CMS emits inside the bio.
               <div
-                className="space-y-4 text-[15px] leading-relaxed text-muted [&_h3]:mb-1.5 [&_h3]:mt-6 [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:uppercase [&_h3]:tracking-[1.5px] [&_h3]:text-brand [&_p]:mb-3 [&_strong]:text-ink [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
+                className="mt-6 text-[15px] leading-relaxed text-muted [&>*:first-child]:mt-0 [&_h3]:mb-3 [&_h3]:mt-9 [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:uppercase [&_h3]:tracking-[1.5px] [&_h3]:text-brand [&_p]:mb-4 [&_strong]:text-ink [&_ul]:mb-4 [&_ul]:mt-0 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_li]:pl-1"
                 dangerouslySetInnerHTML={{ __html: person.bioHtml }}
               />
             ) : (
