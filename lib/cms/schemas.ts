@@ -147,6 +147,9 @@ export const regionData = z
   .object({
     name: z.string(),
     city: z.string().optional(),
+    country: z.string().optional(),
+    summary: z.string().optional(),
+    addressLines: z.array(z.string()).optional(),
     body: z.string().optional(),
     coverUrl: z.string().url().optional(),
   })

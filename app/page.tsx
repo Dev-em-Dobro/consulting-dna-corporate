@@ -3,17 +3,10 @@ import Link from "next/link";
 const versions = [
   {
     href: "/v1",
-    tag: "Version 1",
+    tag: "Homepage",
     title: "Bold & Red",
     desc: "Full-brand layout with a red navigation, dark credibility band and the 5H framework on a dark canvas.",
     accent: "#d84339",
-  },
-  {
-    href: "/v2",
-    tag: "Version 2",
-    title: "Clean & Editorial",
-    desc: "Split hero, light navigation and an airier editorial layout with sticky rails and generous whitespace.",
-    accent: "#373234",
   },
 ];
 
@@ -82,11 +75,10 @@ export default function Home() {
             </span>
           </div>
           <h1 className="mb-4 max-w-[760px] text-5xl font-bold leading-[1.05] tracking-[-1.2px] text-white">
-            Two homepage versions. <span className="text-brand">Pick one.</span>
+            The Corporate DNA homepage. <span className="text-brand">Open it.</span>
           </h1>
           <p className="mb-14 max-w-[560px] text-lg leading-relaxed text-white/75">
-            Both are the same content and brand — presented through two distinct
-            design directions. Open each to compare.
+            The full-brand homepage design — content and brand in one direction.
           </p>
 
           <div className="grid gap-6 sm:grid-cols-2">

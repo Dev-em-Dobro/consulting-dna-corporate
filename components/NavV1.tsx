@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.jpg";
-import wordmark from "@/public/cdna-logo-text-white.png";
 import { siteNav, type NavItem } from "@/lib/nav";
 
 function Chevron({ className = "" }: { className?: string }) {
@@ -38,17 +35,11 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          <Image
-            src={logo}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/cdna-logo-light.svg"
             alt="Corporate DNA"
-            className="h-[44px] w-[44px] rounded-full object-cover ring-1 ring-white/40"
-            priority
-          />
-          <Image
-            src={wordmark}
-            alt="Corporate DNA Consulting"
-            className="h-9 w-auto"
-            priority
+            className="h-12 w-auto"
           />
         </Link>
 
@@ -56,14 +47,14 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
         <nav className="hidden items-center justify-end gap-[30px] md:flex">
           {items.map((item) =>
             item.children ? (
-              <div key={item.label} className="group relative">
+              <div key={item.label} className="group relative -top-[2px]">
                 <Link
                   href={item.href ?? "#"}
                   aria-haspopup="true"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline"
                 >
                   {item.label}
-                  <Chevron className="mt-px transition-transform duration-200 group-hover:rotate-180" />
+                  <Chevron className="transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
                 {/* dropdown — opacity + pointer-events (not `invisible`) so the
                     links stay focusable for keyboard nav and reveal on focus */}
@@ -85,7 +76,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
-                className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
+                className="inline-flex items-center whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
               >
                 {item.label}
               </Link>

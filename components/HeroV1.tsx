@@ -4,15 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import Counter from "./Counter";
 import heroImg from "@/public/hero-bk-1.jpeg";
-
-const proofPoints = [
-  { num: "18 years", label: "of practice" },
-  { num: "36 countries", label: "of delivery" },
-  { num: "70+", label: "executive-team interventions" },
-  { num: "1,000+", label: "coaching clients" },
-];
 
 export default function HeroV1() {
   const scope = useRef<HTMLElement>(null);
@@ -42,11 +34,6 @@ export default function HeroV1() {
             ".h-cta",
             { autoAlpha: 0, y: 22, stagger: 0.12, duration: 0.6 },
             "-=0.5"
-          )
-          .from(
-            ".h-proof",
-            { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.5 },
-            "-=0.25"
           );
       });
       return () => mm.revert();
@@ -91,26 +78,7 @@ export default function HeroV1() {
             >
               Discuss a leadership challenge
             </a>
-            <a
-              href="#impact"
-              className="h-cta border-[1.5px] border-white/35 px-6 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:border-white"
-            >
-              See client impact →
-            </a>
           </div>
-        </div>
-      </div>
-      {/* proof line */}
-      <div className="relative z-10 border-y border-line bg-[#fafafa]">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-10 gap-y-[14px] px-10 py-[22px]">
-          {proofPoints.map((p) => (
-            <span
-              key={p.label}
-              className="h-proof text-[15px] font-medium tracking-[0.2px] text-muted"
-            >
-              <Counter value={p.num} className="font-bold text-ink" /> {p.label}
-            </span>
-          ))}
         </div>
       </div>
     </section>

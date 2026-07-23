@@ -33,4 +33,4 @@ next-env.d.ts
 .deploy-payload.json
 
 # local agent settings (may contain tokens/credentials)
-.claude/settings.local.json
+.claude/

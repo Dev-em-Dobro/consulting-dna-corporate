@@ -9,6 +9,7 @@ import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import { getPeople } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
+import ContactForm from "@/components/ContactForm";
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
 const orderedLogos = [
@@ -57,10 +58,36 @@ const cases = [
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme" },
 ];
 
-const formFields = [
-  { label: "Name", placeholder: "Your full name" },
-  { label: "Work email", placeholder: "name@company.com" },
-  { label: "Organisation", placeholder: "Company name" },
+const offices = [
+  {
+    city: "London",
+    address: "60 St Martin's Ln, Covent Garden, London WC2N 4JS",
+    tel: "+44 20 3755 5329",
+  },
+  {
+    city: "Miami",
+    address:
+      "1221 Brickell Avenue, Suite 900, Miami, Florida, 33131, United States of America",
+    tel: "+1 305-374-4611",
+  },
+  {
+    city: "Singapore",
+    address:
+      "The Great Room, Afro Asia, 63 Robinson Road, Level 8, Singapore 068894",
+    tel: "+65 6995 2480",
+  },
+  {
+    city: "Dubai",
+    address:
+      "Sheikh Rashid Tower, 4th Floor, Dubai World Trade Centre, Dubai — United Arab Emirates",
+    tel: null,
+  },
+  {
+    city: "Saudi Arabia",
+    address:
+      "2888 King Fahd Road, Saudi Journalists Association Building, 2nd Floor, Al Sahafah, Dist. 13671 Riyadh, Kingdom of Saudi, 13321, RASA6101",
+    tel: null,
+  },
 ];
 
 export default async function V1() {
@@ -73,6 +100,22 @@ export default async function V1() {
       {/* HERO */}
       <HeroV1 />
 
+      {/* WHAT WE SOLVE — intro (moved directly below the hero) */}
+      <section id="solve" className="bg-white">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
+          <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
+          </div>
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
+            The high-stakes leadership challenges facing the enterprise.
+          </h2>
+          <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
+            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+          </p>
+        </Reveal>
+      </section>
+
       {/* CREDIBILITY */}
       <section className="bg-ink text-white">
         <div className="pb-[34px] pt-[70px]">
@@ -84,44 +127,27 @@ export default async function V1() {
             <LogoMarquee logos={logoRow2} duration={logoRow2.length * 4.6} reverse />
           </div>
         </div>
-        <div className="mx-auto max-w-[1200px] px-10 pb-10 pt-5">
-          <Reveal className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 md:grid-cols-4">
+        <div className="mx-auto max-w-[1200px] px-10 pb-20 pt-5">
+          <Reveal className="mx-auto grid max-w-[760px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {stats.map((s) => (
-              <div key={s.label} className="bg-ink px-6 py-9 text-center">
-                <div className="text-[36px] md:text-[46px] font-bold leading-none tracking-[-1px] text-brand">
-                  <Counter value={s.value} />
+              <div key={s.label} className="flex items-start gap-5">
+                <span className="mt-[26px] h-[3px] w-8 flex-none bg-brand" />
+                <div>
+                  <div className="text-[44px] md:text-[56px] font-bold leading-none tracking-[-1.5px] text-brand">
+                    <Counter value={s.value} />
+                  </div>
+                  <div className="mt-2 text-[16px] font-medium leading-snug text-white/80">{s.label}</div>
                 </div>
-                <div className="mt-3 text-[13.5px] font-medium leading-snug text-white/80">{s.label}</div>
               </div>
             ))}
           </Reveal>
         </div>
-        <div className="mx-auto max-w-[1200px] px-10 pb-20 pt-6">
-          <Reveal stagger={false}>
-            <blockquote className="mx-auto max-w-[900px] text-center">
-              <div className="h-[34px] text-[56px] font-extrabold leading-none text-brand">&ldquo;</div>
-              <p className="mb-[22px] text-[26px] font-medium leading-[1.5] tracking-[-0.2px] text-white [text-wrap:balance]">
-                They advise at board level with rare candour, then hold our executive team to the change we committed to. The result was measurable within a year.
-              </p>
-              <footer className="text-sm font-medium text-white/60">Group HR Director · Global consumer-goods company</footer>
-            </blockquote>
-          </Reveal>
-        </div>
       </section>
 
-      {/* WHAT WE SOLVE */}
-      <section id="solve" className="bg-white">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
-          </div>
-          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-            The high-stakes leadership challenges facing the enterprise.
-          </h2>
-          <p className="mb-[52px] max-w-[620px] text-lg leading-[1.55] text-muted">
-            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
-          </p>
+      {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
+      {false && (
+      <section id="challenges" className="bg-white">
+        <Reveal className="mx-auto max-w-[1200px] px-10 pb-24 pt-4">
           <div className="grid grid-cols-1 gap-px border border-line bg-line md:grid-cols-2">
             {challenges.map((ch) => (
               <div key={ch.num} className="bg-white p-10 hover:bg-[#fafafa]">
@@ -133,8 +159,10 @@ export default async function V1() {
           </div>
         </Reveal>
       </section>
+      )}
 
-      {/* WHY CDNA */}
+      {/* WHY CDNA — hidden for now (set the guard to true to restore) */}
+      {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
           <div className="mb-2.5 flex items-baseline gap-3">
@@ -159,6 +187,7 @@ export default async function V1() {
           </div>
         </Reveal>
       </section>
+      )}
 
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">
@@ -173,18 +202,25 @@ export default async function V1() {
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
             {cases.map((c) => (
               <article key={c.client} className="flex flex-col border border-line">
-                <div className="flex items-center justify-between bg-ink px-[26px] py-[22px] text-white">
-                  <span className="text-[19px] font-bold tracking-[0.5px]">{c.client}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</span>
+                <div className="bg-ink px-[26px] py-[22px] text-white">
+                  <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
+                  <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
                 </div>
                 <div className="flex flex-1 flex-col px-[26px] py-7">
                   <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Challenge</p>
                   <p className="mb-[22px] text-[15px] leading-[1.55] text-[#4a4548]">{c.challenge}</p>
-                  <div className="mt-auto border-t border-line pt-[22px]">
+                  <div className="mt-auto pt-[22px]">
+                    <span className="mb-[18px] block h-[3px] w-9 bg-brand" />
                     <div className="text-[40px] md:text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
                       <Counter value={c.metric} />
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
+                    <a
+                      href="/solutions/flagship-cases"
+                      className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
+                    >
+                      read more here
+                    </a>
                   </div>
                 </div>
               </article>
@@ -193,7 +229,29 @@ export default async function V1() {
         </Reveal>
       </section>
 
-      {/* 5H FRAMEWORK */}
+      {/* TESTIMONIALS — hidden for now (set the guard to true to restore) */}
+      {false && (
+      <section id="testimonials" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
+          <div className="mb-2.5 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Testimonials</span>
+          </div>
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+            What leaders say after working with us.
+          </h2>
+          <p className="mb-12 max-w-[620px] text-lg leading-[1.55] text-muted">
+            A rapid-fire wall of client voices.
+          </p>
+          <div className="flex min-h-[220px] items-center justify-center border border-dashed border-[#d9d5d1] bg-white/60 text-[13.5px] font-medium uppercase tracking-[1.5px] text-muted">
+            Testimonials showcase — coming soon
+          </div>
+        </Reveal>
+      </section>
+      )}
+
+      {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
+      {false && (
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
           <div>
@@ -221,9 +279,11 @@ export default async function V1() {
           </div>
         </Reveal>
       </section>
+      )}
 
-      {/* PEOPLE */}
-      <section id="people" className="bg-white">
+      {/* PEOPLE — hidden until the CMS has published people */}
+      {people.length > 0 && (
+        <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
           <div className="mb-2.5 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-9 bg-brand" />
@@ -243,32 +303,55 @@ export default async function V1() {
             <span className="text-[19px] font-bold text-ink">Imperial College London</span>
           </div>
         </Reveal>
-      </section>
+        </section>
+      )}
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-10 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">The book</span>
-          </div>
-          <div className="grid grid-cols-1 items-center gap-12 border border-line bg-ink p-10 text-white md:grid-cols-[auto_1fr] md:p-14">
-            <div className="relative mx-auto aspect-[3/4] w-[180px] overflow-hidden shadow-xl">
-              <Image src="/book-cover.jpg" alt={book.title} fill sizes="180px" className="object-cover" />
+        <Reveal className="mx-auto max-w-[1200px] pb-14 md:px-10 md:py-24">
+          <div className="grid grid-cols-1 items-center gap-8 bg-ink text-white md:grid-cols-[auto_1fr] md:gap-12 md:border md:border-line md:p-14">
+            <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl md:w-[440px]">
+              <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 440px, 100vw" className="object-cover" />
             </div>
-            <div>
+            <div className="px-6 pb-10 md:px-0 md:pb-0">
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
               <h3 className="mb-4 mt-2 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
                 {book.title}
               </h3>
               <p className="mb-8 max-w-[560px] text-[17px] leading-[1.65] text-white/80">{book.body}</p>
               <a
-                href="#contact"
+                href="https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
               >
-                Request the book
+                Buy on Amazon
               </a>
             </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* OFFICES / REGIONS */}
+      <section id="offices" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
+          <div className="mb-12 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our offices</span>
+          </div>
+          <div className="grid grid-cols-1 gap-x-20 gap-y-4 sm:grid-cols-2">
+            {offices.map((o) => (
+              <div key={o.city} className="py-8">
+                <h3 className="mb-4 text-[22px] font-bold uppercase tracking-[0.5px] text-ink">
+                  {o.city}
+                </h3>
+                <p className="text-[15px] leading-[1.7] text-muted">{o.address}</p>
+                {o.tel && (
+                  <p className="mt-1 text-[15px] leading-[1.7] text-muted">Tel: {o.tel}</p>
+                )}
+                <span className="mt-6 block h-[3px] w-8 bg-brand" />
+              </div>
+            ))}
           </div>
         </Reveal>
       </section>
@@ -283,40 +366,8 @@ export default async function V1() {
             <p className="mb-2 max-w-[460px] text-[19px] leading-[1.6] text-white/90">
               Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
             </p>
-            <p className="mt-9 text-[15px] leading-[1.7] text-white/70">
-              London · Miami · Singapore · Dubai · Riyadh
-              <br />
-              hello@corporatednaconsulting.com
-            </p>
           </div>
-          <form className="flex flex-col gap-4 bg-white p-[34px]">
-            {formFields.map((f) => (
-              <label key={f.label} className="flex flex-col gap-[7px]">
-                <span className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted">{f.label}</span>
-                <input
-                  type="text"
-                  placeholder={f.placeholder}
-                  className="border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[15px] text-ink outline-none focus:border-brand focus:bg-white"
-                />
-              </label>
-            ))}
-            <label className="flex flex-col gap-[7px]">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted">
-                What leadership challenge are you addressing?
-              </span>
-              <textarea
-                rows={3}
-                placeholder="A few lines is plenty."
-                className="resize-y border border-[#d9d5d1] bg-[#fafafa] px-3.5 py-3 text-[15px] text-ink outline-none focus:border-brand focus:bg-white"
-              />
-            </label>
-            <button
-              type="button"
-              className="mt-1 bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627]"
-            >
-              Start a confidential conversation
-            </button>
-          </form>
+          <ContactForm />
         </Reveal>
       </section>
 

@@ -44,7 +44,15 @@ export type SolutionVM = {
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
 export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
 export type RegionCard = { slug: string; name: string };
-export type RegionVM = { slug: string; name: string; city?: string; body?: string; coverUrl?: string };
+export type RegionVM = {
+  slug: string; name: string; city?: string; country?: string;
+  addressLines?: string[]; body?: string; coverUrl?: string;
+};
+/** A location for the homepage locations block (address + derived contact email). */
+export type Location = {
+  slug: string; name: string; city?: string; country?: string;
+  addressLines: string[]; email: string;
+};
 export type CmsPage = { key?: string; data: Record<string, unknown> };
 
 // ---- People ----------------------------------------------------------------
@@ -157,12 +165,43 @@ export async function getRegionCards(): Promise<RegionCard[]> {
 function mapRegion(raw: unknown): RegionVM | null {
   const r = S.regionEntry.safeParse(raw);
   if (!r.success) return null;
-  return { slug: r.data.slug, name: r.data.data.name, city: r.data.data.city, body: r.data.data.body, coverUrl: r.data.data.coverUrl };
+  const d = r.data.data;
+  return {
+    slug: r.data.slug, name: d.name, city: d.city, country: d.country,
+    addressLines: d.addressLines, body: d.body, coverUrl: d.coverUrl,
+  };
 }
 
 export async function getRegion(slug: string): Promise<RegionVM | null> {
   const raw = await getEntry("regions", slug);
   return raw ? mapRegion(raw) : null;
+}
+
+/** Slug/city -> a per-office contact email, matching the published pattern. */
+function officeEmail(vm: RegionVM): string {
+  const handle = (vm.city ?? vm.name)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z]/g, "");
+  return `${handle}@corporatednaconsulting.com`;
+}
+
+/**
+ * All published regions as homepage locations (address + derived contact
+ * email). The list endpoint only returns compact items, so we fetch each
+ * region's detail to get its address lines. Regions without an address are
+ * dropped so the block never shows an empty office.
+ */
+export async function getRegionLocations(): Promise<Location[]> {
+  const cards = await getRegionCards();
+  const vms = await Promise.all(cards.map((c) => getRegion(c.slug)));
+  return vms
+    .filter((vm): vm is RegionVM => !!vm && !!vm.addressLines?.length)
+    .map((vm) => ({
+      slug: vm.slug, name: vm.name, city: vm.city, country: vm.country,
+      addressLines: vm.addressLines!, email: officeEmail(vm),
+    }));
 }
 
 // ---- Singleton pages -------------------------------------------------------
