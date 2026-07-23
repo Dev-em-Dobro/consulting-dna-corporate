@@ -18,15 +18,12 @@ function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { 
   return out;
 }
 
-const toBio = (b?: string[] | string): string[] =>
-  Array.isArray(b) ? b : b ? [b] : [];
-
-const caseTags = (f?: { industry?: string[]; service?: string[]; outcome?: string[] }): string[] =>
+const caseTags =(f?: { industry?: string[]; service?: string[]; outcome?: string[] }): string[] =>
   [...(f?.industry ?? []), ...(f?.service ?? []), ...(f?.outcome ?? [])];
 
 // ---- View models -----------------------------------------------------------
 export type PersonVM = {
-  name: string; role: string; img?: string; bio: string[];
+  name: string; role: string; img?: string; bio: string[]; bioHtml?: string;
   socials?: Social[]; values?: string; strengths?: string; specialties?: string[];
   trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
 };
@@ -59,21 +56,34 @@ export type CmsPage = { key?: string; data: Record<string, unknown> };
 export async function getPeople(): Promise<PersonVM[]> {
   const res = await getList("people");
   if (!res) return [];
-  // People come as full entries or list items depending on the API; try entry shape first.
-  return parseItems<S.PersonEntry>(res.items, S.personEntry).map((p) => ({
-    name: p.data.name,
-    role: p.data.role ?? "",
-    img: p.data.photoUrl ?? p.data.coverUrl,
-    bio: toBio(p.data.bio),
-    socials: p.data.socials,
-    values: p.data.values,
-    strengths: p.data.strengths,
-    specialties: p.data.specialties,
-    trackRecord: p.data.trackRecord,
-    clients: p.data.clients,
-    languages: p.data.languages,
-    skills: p.data.skills,
-  }));
+  // The list endpoint returns COMPACT items (title/summary/coverUrl — no `data`),
+  // so parse those, then fetch each person's detail entry for the richer profile
+  // (name, role, photo, bio HTML) shown in the modal. Same N+1 shape as
+  // getRegionLocations. A person whose detail fails to load still renders from
+  // its list item, so the grid never silently drops a published person.
+  const items = parseItems<S.PersonListItem>(res.items, S.personListItem);
+  const details = await Promise.all(items.map((it) => getEntry("people", it.slug)));
+  return items.map((it, i) => {
+    const parsed = S.personEntry.safeParse(details[i]);
+    const d = parsed.success ? parsed.data.data : undefined;
+    return {
+      name: d?.name ?? it.title,
+      role: d?.role ?? it.summary ?? "",
+      img: d?.photoUrl ?? d?.coverUrl ?? it.coverUrl,
+      // The CMS stores the full profile as a single HTML string; keep it as
+      // bioHtml and leave the legacy structured `bio` empty.
+      bio: [],
+      bioHtml: typeof d?.bio === "string" ? d.bio : undefined,
+      socials: d?.socials,
+      values: d?.values,
+      strengths: d?.strengths,
+      specialties: d?.specialties,
+      trackRecord: d?.trackRecord,
+      clients: d?.clients,
+      languages: d?.languages,
+      skills: d?.skills,
+    };
+  });
 }
 
 // ---- Cases -----------------------------------------------------------------

@@ -117,7 +117,11 @@ export const socialSchema = z.object({
 });
 
 export const personListItem = z
-  .object({ ...listItemBase, coverUrl: z.string().url().optional() })
+  .object({
+    ...listItemBase,
+    summary: z.string().optional(),
+    coverUrl: z.string().url().optional(),
+  })
   .passthrough();
 
 export const personData = z
@@ -173,6 +177,7 @@ export type SolutionListItem = z.infer<typeof solutionListItem>;
 export type SolutionEntry = z.infer<typeof solutionEntry>;
 export type InsightListItem = z.infer<typeof insightListItem>;
 export type InsightEntry = z.infer<typeof insightEntry>;
+export type PersonListItem = z.infer<typeof personListItem>;
 export type PersonEntry = z.infer<typeof personEntry>;
 export type RegionListItem = z.infer<typeof regionListItem>;
 export type RegionEntry = z.infer<typeof regionEntry>;

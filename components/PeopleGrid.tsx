@@ -12,6 +12,7 @@ export type Person = {
   img?: string;
   location?: string;
   bio: string[];
+  bioHtml?: string;
   socials?: Social[];
   values?: string;
   strengths?: string;
@@ -198,11 +199,20 @@ function PersonModal({ person, onClose }: { person: Person; onClose: () => void 
 
             <SocialLinks socials={person.socials ?? DEFAULT_SOCIALS} />
 
-            <div className="space-y-4 text-[15px] leading-relaxed text-muted">
-              {person.bio.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+            {person.bioHtml ? (
+              // First-party CMS rich text — rendered as HTML. Utility selectors
+              // style the headings/lists/bold the CMS emits inside the bio.
+              <div
+                className="space-y-4 text-[15px] leading-relaxed text-muted [&_h3]:mb-1.5 [&_h3]:mt-6 [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:uppercase [&_h3]:tracking-[1.5px] [&_h3]:text-brand [&_p]:mb-3 [&_strong]:text-ink [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
+                dangerouslySetInnerHTML={{ __html: person.bioHtml }}
+              />
+            ) : (
+              <div className="space-y-4 text-[15px] leading-relaxed text-muted">
+                {person.bio.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            )}
 
             <div className="mt-8 space-y-7">
               {person.specialties && (
