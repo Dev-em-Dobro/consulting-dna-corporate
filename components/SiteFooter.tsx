@@ -10,9 +10,9 @@ const mainLinks = [
 ];
 
 const utilityLinks = [
-  { label: "Terms of service", href: "#" },
-  { label: "Legal considerations", href: "#" },
-  { label: "Download material", href: "#" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Cookie Policy", href: "/cookies" },
+  { label: "Terms of Service", href: "/terms" },
 ];
 
 export default function SiteFooter() {
