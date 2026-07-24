@@ -27,9 +27,15 @@ const logoRow1 = orderedLogos.slice(0, logoRowSplit);
 const logoRow2 = orderedLogos.slice(logoRowSplit);
 
 const book = {
-  title: "Leadership: it's in your DNA",
+  title:
+    "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
   subtitle: "The book behind the method",
-  body: "The thinking that underpins our work with CEOs and executive teams — how leadership becomes real when the stakes are highest, drawn from the 5H methodology and two decades of board-level practice.",
+  body: [
+    "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
+    "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
+    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+    "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
+  ],
 };
 
 const stats = [
@@ -283,24 +289,28 @@ export default async function V1() {
       {/* BOOK */}
       <section id="book" className="bg-paper">
         <Reveal className="mx-auto max-w-[1200px] pb-14 md:px-10 md:py-24">
-          <div className="grid grid-cols-1 items-center gap-8 bg-ink text-white md:grid-cols-[auto_1fr] md:gap-12 md:border md:border-line md:p-14">
-            <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl md:w-[440px]">
-              <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 440px, 100vw" className="object-cover" />
-            </div>
+          <div className="grid grid-cols-1 items-start gap-8 bg-ink text-white md:grid-cols-[1fr_auto] md:gap-12 md:border md:border-line md:p-14">
             <div className="px-6 pb-10 md:px-0 md:pb-0">
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
               <h3 className="mb-4 mt-2 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
                 {book.title}
               </h3>
-              <p className="mb-8 max-w-[560px] text-[17px] leading-[1.65] text-white/80">{book.body}</p>
+              <div className="mb-8 max-w-[560px] space-y-4 text-[17px] leading-[1.65] text-white/80">
+                {book.body.map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
               <a
                 href="https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
+                className="mx-auto block w-fit bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
               >
                 Buy on Amazon
               </a>
+            </div>
+            <div className="relative aspect-[4/3] w-full max-w-[440px] overflow-hidden shadow-xl md:w-[440px]">
+              <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 440px, 100vw" className="object-cover" />
             </div>
           </div>
         </Reveal>

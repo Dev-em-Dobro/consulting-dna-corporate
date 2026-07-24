@@ -1,11 +1,7 @@
 import Link from "next/link";
 
 const mainLinks = [
-  { label: "What we solve", href: "/#solve" },
-  { label: "Our approach", href: "/#approach" },
-  { label: "Our people", href: "/#people" },
-  { label: "Executive coaching", href: "/solutions/executive-coaching" },
-  { label: "Client impact", href: "/#impact" },
+  { label: "Solutions", href: "/solutions" },
   { label: "Insights", href: "/insights" },
 ];
 
