@@ -59,6 +59,16 @@ export type PersonVM = {
   trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
 };
 export type CaseCard = { slug: string; title: string; summary?: string; coverUrl?: string; tags: string[] };
+export type CaseListEntry = {
+  slug: string;
+  client: string;        // case title, used as the client name
+  tags: string[];        // free tags, else facet-derived
+  coverUrl?: string;
+  challenge?: string;    // plain text
+  metricValue?: string;  // e.g. "90%"
+  metricLabel?: string;  // remainder of measurableResult
+  publishedAt: string;   // ISO — for date sort
+};
 export type CaseArticle = {
   slug: string; tags: string[]; title: string;
   intro?: string;            // introduction — rich text (HTML)
@@ -122,6 +132,26 @@ export async function getPeople(): Promise<PersonVM[]> {
 }
 
 // ---- Cases -----------------------------------------------------------------
+/**
+ * Split a free-form `measurableResult` string into a big highlight number and a
+ * label, for the /cases card. If the string starts with a token containing a
+ * digit (e.g. "90%", "3x", "2.5M", "$4B"), that token is the value and the rest
+ * is the label; otherwise the whole string is the label (no big number).
+ */
+export function splitMetric(text?: string): { value?: string; label?: string } {
+  const t = text?.trim();
+  if (!t) return {};
+  // Leading whitespace-free token containing a digit (e.g. "90%", "3x", "$4B") is
+  // the highlight value; anything after it is the label. A value-only string
+  // (e.g. "90%") yields just the value, no label.
+  const m = t.match(/^(\S*\d\S*)(?:\s+([\s\S]*))?$/);
+  if (m) {
+    const label = m[2]?.replace(/^[\s—–:-]+/, "").trim();
+    return { value: m[1], label: label || undefined };
+  }
+  return { label: t };
+}
+
 export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Promise<CaseCard[]> {
   const res = await getCases(facets);
   if (!res) return [];
@@ -164,6 +194,35 @@ function mapCase(raw: unknown): CaseArticle | null {
 export async function getCaseArticle(slug: string): Promise<CaseArticle | null> {
   const raw = await getEntry("cases", slug);
   return raw ? mapCase(raw) : null;
+}
+
+/**
+ * Rich case list for the /cases library: the compact list (for slug, cover,
+ * facets, publishedAt) enriched per-case with the detail entry (challenge,
+ * measurableResult, tags). Same N+1 shape as getPeople. A case whose detail
+ * fails to load still appears, just without challenge/metric.
+ */
+export async function getCaseListEntries(): Promise<CaseListEntry[]> {
+  const res = await getCases();
+  if (!res) return [];
+  const items = parseItems<S.CaseListItem>(res.items, S.caseListItem);
+  return Promise.all(
+    items.map(async (it) => {
+      const art = await getCaseArticle(it.slug);
+      const metric = splitMetric(art?.body.measurableResult);
+      return {
+        slug: it.slug,
+        client: art?.title || plainText(it.title) || "",
+        // `caseTags(it.facets)` is only the fallback for when the detail entry failed to load.
+        tags: art?.tags.length ? art.tags : caseTags(it.facets),
+        coverUrl: art?.coverUrl ?? it.coverUrl,
+        challenge: art?.body.challenge,
+        metricValue: metric.value,
+        metricLabel: metric.label,
+        publishedAt: it.publishedAt,
+      };
+    }),
+  );
 }
 
 // ---- Solutions -------------------------------------------------------------
