@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import "leaflet/dist/leaflet.css";
 import CookieConsent from "@/components/CookieConsent";
 import TopProgress from "@/components/TopProgress";
 
