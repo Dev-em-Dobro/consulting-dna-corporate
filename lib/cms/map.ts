@@ -141,9 +141,12 @@ export async function getPeople(): Promise<PersonVM[]> {
 export function splitMetric(text?: string): { value?: string; label?: string } {
   const t = text?.trim();
   if (!t) return {};
-  const m = t.match(/^(\S*\d\S*)\s+([\s\S]*)$/);
+  // Leading whitespace-free token containing a digit (e.g. "90%", "3x", "$4B") is
+  // the highlight value; anything after it is the label. A value-only string
+  // (e.g. "90%") yields just the value, no label.
+  const m = t.match(/^(\S*\d\S*)(?:\s+([\s\S]*))?$/);
   if (m) {
-    const label = m[2].replace(/^[\s—–:-]+/, "").trim();
+    const label = m[2]?.replace(/^[\s—–:-]+/, "").trim();
     return { value: m[1], label: label || undefined };
   }
   return { label: t };
@@ -210,6 +213,7 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
       return {
         slug: it.slug,
         client: art?.title || plainText(it.title) || "",
+        // `caseTags(it.facets)` is only the fallback for when the detail entry failed to load.
         tags: art?.tags.length ? art.tags : caseTags(it.facets),
         coverUrl: art?.coverUrl ?? it.coverUrl,
         challenge: art?.body.challenge,
