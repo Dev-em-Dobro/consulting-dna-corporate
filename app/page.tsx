@@ -10,6 +10,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { getPeople } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
+import LocationsBlock from "@/components/LocationsBlock";
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
 const orderedLogos = [
@@ -61,38 +62,6 @@ const cases: {
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
   { client: "Frasers Property", sector: "Real estate", challenge: "Retain critical leadership talent through a period of strategic change.", metric: "85%", metricLabel: "talent retention among participating leaders" },
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme", caseSlug: "case-1d007617" },
-];
-
-const offices = [
-  {
-    city: "London",
-    address: "60 St Martin's Ln, Covent Garden, London WC2N 4JS",
-    tel: "+44 20 3755 5329",
-  },
-  {
-    city: "Miami",
-    address:
-      "1221 Brickell Avenue, Suite 900, Miami, Florida, 33131, United States of America",
-    tel: "+1 305-374-4611",
-  },
-  {
-    city: "Singapore",
-    address:
-      "The Great Room, Afro Asia, 63 Robinson Road, Level 8, Singapore 068894",
-    tel: "+65 6995 2480",
-  },
-  {
-    city: "Dubai",
-    address:
-      "Sheikh Rashid Tower, 4th Floor, Dubai World Trade Centre, Dubai — United Arab Emirates",
-    tel: null,
-  },
-  {
-    city: "Saudi Arabia",
-    address:
-      "2888 King Fahd Road, Saudi Journalists Association Building, 2nd Floor, Al Sahafah, Dist. 13671 Riyadh, Kingdom of Saudi, 13321, RASA6101",
-    tel: null,
-  },
 ];
 
 export default async function V1() {
@@ -341,29 +310,8 @@ export default async function V1() {
         </Reveal>
       </section>
 
-      {/* OFFICES / REGIONS */}
-      <section id="offices" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-12 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our offices</span>
-          </div>
-          <div className="grid grid-cols-1 gap-x-20 gap-y-4 sm:grid-cols-2">
-            {offices.map((o) => (
-              <div key={o.city} className="py-8">
-                <h3 className="mb-4 text-[22px] font-bold uppercase tracking-[0.5px] text-ink">
-                  {o.city}
-                </h3>
-                <p className="text-[15px] leading-[1.7] text-muted">{o.address}</p>
-                {o.tel && (
-                  <p className="mt-1 text-[15px] leading-[1.7] text-muted">Tel: {o.tel}</p>
-                )}
-                <span className="mt-6 block h-[3px] w-8 bg-brand" />
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
+      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003) */}
+      <LocationsBlock />
 
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">
