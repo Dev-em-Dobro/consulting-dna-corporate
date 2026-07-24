@@ -23,7 +23,7 @@ export default async function SolutionsPage() {
         <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24">
           {/* The 5H® methodology underpins every solution — surface it first. */}
           <Link
-            href="/approach"
+            href="/solutions/5h-framework"
             className="group mb-10 flex flex-col gap-5 bg-ink p-8 text-white transition-colors hover:bg-ink/90 md:flex-row md:items-center md:justify-between md:p-10"
           >
             <div>

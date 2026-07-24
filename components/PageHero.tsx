@@ -14,11 +14,17 @@ export default function PageHero({
   title,
   subtitle,
   bgImageUrl,
+  imageClassName = "object-cover",
+  overlayClassName = "bg-ink/70",
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   subtitle?: string;
   bgImageUrl?: string;
+  /** Object-fit/position for the background image (defaults to centred cover). */
+  imageClassName?: string;
+  /** Overlay tint over the image; override for a stronger/directional darken. */
+  overlayClassName?: string;
 }) {
   // The subtitle is a plain-text slot. Some callers pass it straight from the
   // CMS (book/5h/awards singletons), where the field may carry rich-text markup;
@@ -35,10 +41,10 @@ export default function PageHero({
             fill
             priority
             sizes="100vw"
-            className="-z-10 object-cover"
+            className={`-z-10 ${imageClassName}`}
           />
           {/* Darken the image so light text keeps its contrast. */}
-          <div className="absolute inset-0 -z-10 bg-ink/70" />
+          <div className={`absolute inset-0 -z-10 ${overlayClassName}`} />
         </>
       )}
       <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-28">
