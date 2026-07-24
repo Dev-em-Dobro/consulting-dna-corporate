@@ -7,8 +7,16 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
   const href = `/solutions/flagship-cases/${entry.slug}`;
   return (
     <article className="overflow-hidden border border-line bg-white">
-      {/* Branded band: cover behind a dark overlay, or a solid dark band. */}
-      <div className="relative isolate flex min-h-[132px] items-end overflow-hidden bg-ink px-6 py-5">
+      {/* Branded band. With a cover, show it full-bleed so the client's own
+          brand colour + logo fill the right (per the reference); a left scrim
+          keeps the overlaid name/tags readable. Without a cover, a plain white
+          band with dark text. */}
+      <div
+        className={
+          "relative isolate flex min-h-[132px] items-end overflow-hidden px-6 py-5 " +
+          (entry.coverUrl ? "" : "border-b border-line bg-white")
+        }
+      >
         {entry.coverUrl && (
           <>
             <Image
@@ -19,15 +27,25 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
               sizes="(min-width: 900px) 820px, 100vw"
               className="-z-10 object-cover"
             />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/35 to-transparent" />
           </>
         )}
         <div>
-          <h2 className="text-[22px] font-bold uppercase leading-tight tracking-[0.5px] text-white">
+          <h2
+            className={
+              "text-[22px] font-bold uppercase leading-tight tracking-[0.5px] " +
+              (entry.coverUrl ? "text-white" : "text-ink")
+            }
+          >
             {entry.client}
           </h2>
           {entry.tags.length > 0 && (
-            <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1.5px] text-white/70">
+            <p
+              className={
+                "mt-1.5 text-[11px] font-semibold uppercase tracking-[1.5px] " +
+                (entry.coverUrl ? "text-white/70" : "text-muted")
+              }
+            >
               {entry.tags.join(" · ")}
             </p>
           )}

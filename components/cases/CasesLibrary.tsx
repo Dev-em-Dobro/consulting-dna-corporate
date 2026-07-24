@@ -40,7 +40,8 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
 
   return (
     <div>
-      {/* Filter bar: search, then the two dropdowns (content / date). */}
+      {/* Filter bar (per the reference): a filled grey search field, then the two
+          filled grey dropdowns (content / date). */}
       <div className="mb-10 space-y-3">
         <div className="relative">
           <input
@@ -49,7 +50,7 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search cases"
             aria-label="Search cases"
-            className="w-full border border-line bg-paper px-4 py-3 pr-11 text-[15px] text-ink outline-none placeholder:text-muted focus:border-brand"
+            className="w-full bg-neutral-100 px-4 py-3.5 pr-11 text-[15px] text-ink outline-none placeholder:text-muted focus:bg-neutral-200"
           />
           <svg
             aria-hidden
@@ -63,29 +64,35 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <select
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
-            aria-label="Filter by content"
-            className="w-full appearance-none border border-line bg-paper px-4 py-3 text-[15px] text-ink outline-none focus:border-brand"
-          >
-            <option value="all">content</option>
-            {tagOptions.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              aria-label="Filter by content"
+              className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
+            >
+              <option value="all">content</option>
+              {tagOptions.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+            <SelectChevron />
+          </div>
 
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as Sort)}
-            aria-label="Sort by date"
-            className="w-full appearance-none border border-line bg-paper px-4 py-3 text-[15px] text-ink outline-none focus:border-brand"
-          >
-            <option value="newest">date — newest</option>
-            <option value="oldest">date — oldest</option>
-          </select>
+          <div className="relative">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as Sort)}
+              aria-label="Sort by date"
+              className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
+            >
+              <option value="newest">date — newest</option>
+              <option value="oldest">date — oldest</option>
+            </select>
+            <SelectChevron />
+          </div>
         </div>
       </div>
 
@@ -99,5 +106,19 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
         </div>
       )}
     </div>
+  );
+}
+
+/** Down chevron for the filled selects (native arrow is hidden via appearance-none). */
+function SelectChevron() {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+    >
+      <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
