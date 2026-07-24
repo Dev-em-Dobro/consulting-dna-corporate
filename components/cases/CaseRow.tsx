@@ -4,7 +4,7 @@ import type { CaseListEntry } from "@/lib/cms/map";
 
 /** One case in the /cases library list (see the design spec). Presentational. */
 export default function CaseRow({ entry }: { entry: CaseListEntry }) {
-  const href = `/solutions/flagship-cases/${entry.slug}`;
+  const href = `/cases/${entry.slug}`;
   return (
     <article className="overflow-hidden border border-line bg-white">
       {/* Branded band. With a cover, show it full-bleed so the client's own

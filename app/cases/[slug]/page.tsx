@@ -21,7 +21,7 @@ export async function generateMetadata({
   return { title: c ? `${c.title} — Corporate DNA` : "Case study — Corporate DNA" };
 }
 
-export default async function FlagshipCasePage({
+export default async function CasePage({
   params,
 }: {
   params: Promise<{ slug: string }>;

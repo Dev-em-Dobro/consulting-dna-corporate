@@ -190,11 +190,7 @@ export default async function V1() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href={
-                        c.caseSlug
-                          ? `/solutions/flagship-cases/${c.caseSlug}`
-                          : "/solutions/flagship-cases"
-                      }
+                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/cases"}
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
                       read more here
