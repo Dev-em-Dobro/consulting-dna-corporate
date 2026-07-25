@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -88,6 +89,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           >
             Start a Conversation
           </Link>
+          <LanguageSwitcher />
         </nav>
 
         {/* mobile toggle */}
@@ -184,6 +186,9 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
             >
               Start a Conversation
             </Link>
+            <div className="mt-4 flex justify-center">
+              <LanguageSwitcher />
+            </div>
           </div>
         </nav>
       )}
