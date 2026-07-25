@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";

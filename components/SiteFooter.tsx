@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { siteNav } from "@/lib/nav";
 
 // Footer primary links come from the single nav source (lib/nav.ts) so the
