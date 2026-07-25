@@ -17,6 +17,7 @@ Notas cruas da reunião: `fixes-reuniao-24-07`.
 | 007 | Insights: lista mais leve (capa, data, **tempo de leitura calculado**) + detalhe no layout Solutions com degradê na capa | `02f7daa` |
 | 005 | **SEO base**: metadataBase, OG/Twitter, robots.txt, sitemap.xml (rotas + CMS), llms.txt, JSON-LD Organization | `62e17bd` |
 | 005 | **Canonicals por página** em todas as rotas públicas | `4c5e1d7` |
+| 005 | **i18n com prefixo `/en /pt /es`** (next-intl): rotas por locale, middleware (`/`→`/en`, sem geolocalização), **seletor de bandeiras** no header, `hreflang`+`x-default` por página e no sitemap, locale nos fetchers de detalhe do CMS. *Chrome fica em EN; tradução de conteúdo depende do CMS.* | `71f9d02`…`4a48b18` |
 | 008 | Mapa de escritórios: **auto-rotate (~6s)** + wrap infinito + **altura fixa** do bloco de contato (fim do "dançando") | `259f3b3` |
 | 008 | **Mapa-múndi de atuação**: SVG estático, data-driven, EUA/Canadá inteiros; lista em `lib/coverage.ts` | `7997e06` |
 | 004 | Lead capture (server action) **roteado pelo CMS** + **botão flutuante de WhatsApp** (config-driven) | `4adf769`, `5089e55` |
@@ -29,7 +30,7 @@ Notas cruas da reunião: `fixes-reuniao-24-07`.
 ## 🔜 Falta — organizado por bloqueio
 
 ### 🟢 Dá pra fazer no site (sem depender de ninguém)
-- **i18n com prefixo `/en /pt /es` + bandeirinhas (005)** — última grande tarefa de site. Monta rotas por locale + seletor de idioma no topo. *A tradução do conteúdo depende do read API i18n do CMS (ver cms-tarefas).* **← melhor ponto de partida amanhã.**
+- *(nada pendente aqui no momento — a i18n com prefixo foi concluída, ver ✅ acima)*
 
 ### 🟡 Destrava com input curto do cliente
 - **Número real do WhatsApp** → trocar em `.env.local` / Vercel (`NEXT_PUBLIC_WHATSAPP_NUMBER`, hoje com nº de teste `5511999999999`).
