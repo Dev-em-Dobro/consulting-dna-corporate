@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "The 5H® Framework — Corporate DNA",
   description:
     "The 5H® Methodology is the neuroscience-led formula behind Corporate DNA's results across 26 countries — Head, Heart, Hunch, Hands and Habits.",
+  alternates: { canonical: "/solutions/5h-framework" },
 };
 
 /** Registered-trademark superscript, matching the site's 5H® treatment. */

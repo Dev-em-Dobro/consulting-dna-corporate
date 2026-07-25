@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
@@ -12,6 +13,8 @@ import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
 import TestimonialsVideo from "@/components/TestimonialsVideo";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
 const orderedLogos = [

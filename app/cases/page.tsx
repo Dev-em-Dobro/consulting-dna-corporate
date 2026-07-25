@@ -6,6 +6,7 @@ import { getCaseListEntries } from "@/lib/cms/map";
 
 export const metadata: Metadata = {
   title: "Cases — Corporate DNA",
+  alternates: { canonical: "/cases" },
 };
 export const revalidate = 300;
 

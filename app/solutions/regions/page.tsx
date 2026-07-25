@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import { getRegionCards } from "@/lib/cms/map";
 import { regions as staticRegions } from "@/lib/nav";
 
-export const metadata: Metadata = { title: "Regions — Corporate DNA" };
+export const metadata: Metadata = { title: "Regions — Corporate DNA", alternates: { canonical: "/solutions/regions" } };
 export const revalidate = 300;
 
 export default async function RegionsPage() {

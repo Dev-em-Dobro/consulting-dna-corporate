@@ -18,7 +18,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const i = await getInsight(slug);
-  return { title: i ? `${i.title} — Corporate DNA` : "Insight — Corporate DNA" };
+  return {
+    title: i ? `${i.title} — Corporate DNA` : "Insight — Corporate DNA",
+    alternates: { canonical: `/insights/${slug}` },
+  };
 }
 
 export default async function InsightPage({

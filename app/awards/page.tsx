@@ -7,6 +7,7 @@ import { getCmsPage } from "@/lib/cms/map";
 
 export const metadata: Metadata = {
   title: "Awards & partnerships — Corporate DNA",
+  alternates: { canonical: "/awards" },
 };
 export const revalidate = 300;
 

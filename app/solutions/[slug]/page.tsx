@@ -18,7 +18,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const s = await getSolution(slug);
-  return { title: s ? `${s.title} — Corporate DNA` : "Solution — Corporate DNA" };
+  return {
+    title: s ? `${s.title} — Corporate DNA` : "Solution — Corporate DNA",
+    alternates: { canonical: `/solutions/${slug}` },
+  };
 }
 
 export default async function SolutionDetailPage({

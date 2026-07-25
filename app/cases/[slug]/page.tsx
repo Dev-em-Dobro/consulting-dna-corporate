@@ -18,7 +18,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const c = await getCaseArticle(slug);
-  return { title: c ? `${c.title} — Corporate DNA` : "Case study — Corporate DNA" };
+  return {
+    title: c ? `${c.title} — Corporate DNA` : "Case study — Corporate DNA",
+    alternates: { canonical: `/cases/${slug}` },
+  };
 }
 
 export default async function CasePage({

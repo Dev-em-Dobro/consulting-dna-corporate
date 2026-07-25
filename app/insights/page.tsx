@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import EmptyNotice from "@/components/EmptyNotice";
 import { getInsightListEntries } from "@/lib/cms/map";
 
-export const metadata: Metadata = { title: "Insights — Corporate DNA" };
+export const metadata: Metadata = { title: "Insights — Corporate DNA", alternates: { canonical: "/insights" } };
 export const revalidate = 300;
 
 const fmtDate = (iso: string) => {

@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import EmptyNotice from "@/components/EmptyNotice";
 import { getSolutionCards } from "@/lib/cms/map";
 
-export const metadata: Metadata = { title: "Solutions — Corporate DNA" };
+export const metadata: Metadata = { title: "Solutions — Corporate DNA", alternates: { canonical: "/solutions" } };
 export const revalidate = 300;
 
 export default async function SolutionsPage() {

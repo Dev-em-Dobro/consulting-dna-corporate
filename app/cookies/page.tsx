@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import LegalView from "@/components/views/LegalView";
 
-export const metadata: Metadata = { title: "Cookie Policy — Corporate DNA" };
+export const metadata: Metadata = { title: "Cookie Policy — Corporate DNA", alternates: { canonical: "/cookies" } };
 export const revalidate = 300;
 
 export default function CookiesPage() {

@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import RichText from "@/components/RichText";
 import { getCmsPage } from "@/lib/cms/map";
 
-export const metadata: Metadata = { title: "The book — Corporate DNA" };
+export const metadata: Metadata = { title: "The book — Corporate DNA", alternates: { canonical: "/book" } };
 export const revalidate = 300;
 
 const str = (v: unknown) => (typeof v === "string" ? v : undefined);

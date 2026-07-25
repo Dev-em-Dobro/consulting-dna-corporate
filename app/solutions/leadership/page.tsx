@@ -7,6 +7,7 @@ import { getPeople } from "@/lib/cms/map";
 
 export const metadata: Metadata = {
   title: "Leadership profiles — Corporate DNA",
+  alternates: { canonical: "/solutions/leadership" },
 };
 export const revalidate = 300;
 

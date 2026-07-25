@@ -25,7 +25,10 @@ export async function generateMetadata({
   const cms = await getRegion(region);
   const name =
     cms?.name ?? staticRegions.find((r) => r.slug === region)?.name;
-  return { title: name ? `${name} — Corporate DNA` : "Region — Corporate DNA" };
+  return {
+    title: name ? `${name} — Corporate DNA` : "Region — Corporate DNA",
+    alternates: { canonical: `/solutions/regions/${region}` },
+  };
 }
 
 export default async function RegionPage({
