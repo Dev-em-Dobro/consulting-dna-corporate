@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { routing } from "@/lib/i18n/routing";
 import {
   getSolutionCards,
   getCaseCards,
@@ -7,17 +8,18 @@ import {
   getRegionCards,
 } from "@/lib/cms/map";
 
-// Refresh hourly; CMS-driven entries are picked up on revalidation.
 export const revalidate = 3600;
 
-const url = (path: string) => `${SITE_URL}${path}`;
+// Absolute URL for a locale-relative path ("" = home).
+const url = (locale: string, path: string) => `${SITE_URL}/${locale}${path}`;
 
-/**
- * sitemap.xml covering the public routes, including CMS-driven dynamic pages
- * (005 FR-305). Staging/utility routes (/v1, /preview/*) are excluded. If the
- * CMS is unreachable, the dynamic lists come back empty and the static routes
- * still ship — never a broken sitemap.
- */
+// hreflang alternates block for a locale-relative path (005 FR-311).
+function languages(path: string) {
+  return Object.fromEntries(
+    routing.locales.map((l) => [l, url(l, path)]),
+  ) as Record<string, string>;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [solutions, cases, insights, regions] = await Promise.all([
     getSolutionCards(),
@@ -26,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getRegionCards(),
   ]);
 
-  const staticRoutes = [
+  const staticPaths = [
     "",
     "/solutions",
     "/solutions/5h-framework",
@@ -41,15 +43,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/terms",
   ];
 
-  return [
-    ...staticRoutes.map((p) => ({
-      url: url(p),
+  const dynamicPaths = [
+    ...solutions.map((s) => `/solutions/${s.slug}`),
+    ...cases.map((c) => `/cases/${c.slug}`),
+    ...insights.map((i) => `/insights/${i.slug}`),
+    ...regions.map((r) => `/solutions/regions/${r.slug}`),
+  ];
+
+  const entryFor = (path: string, priority: number): MetadataRoute.Sitemap =>
+    routing.locales.map((locale) => ({
+      url: url(locale, path),
       changeFrequency: "monthly" as const,
-      priority: p === "" ? 1 : 0.7,
-    })),
-    ...solutions.map((s) => ({ url: url(`/solutions/${s.slug}`), priority: 0.6 })),
-    ...cases.map((c) => ({ url: url(`/cases/${c.slug}`), priority: 0.6 })),
-    ...insights.map((i) => ({ url: url(`/insights/${i.slug}`), priority: 0.5 })),
-    ...regions.map((r) => ({ url: url(`/solutions/regions/${r.slug}`), priority: 0.4 })),
+      priority,
+      alternates: { languages: languages(path) },
+    }));
+
+  return [
+    ...staticPaths.flatMap((p) => entryFor(p, p === "" ? 1 : 0.7)),
+    ...dynamicPaths.flatMap((p) => entryFor(p, 0.6)),
   ];
 }
