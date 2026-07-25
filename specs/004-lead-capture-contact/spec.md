@@ -180,7 +180,10 @@ firm's number with the pre-filled message, on both desktop (WhatsApp Web / `wa.m
   config; the button is hidden when no number is configured. (Resolves FR-210/FR-211.)
 - **Email notification = OUT OF SCOPE for now.** No per-lead staff email in this feature; leads are
   captured + stored + webhook-forwarded only. Can be added later (Resend is already available).
-- **Supabase = the correct, secure way.** Persistence is server-side only using the service role key
-  (never exposed to the client bundle); the `leads` table has Row Level Security enabled with no
-  public insert/select policy, so the table is reachable only through the server handler. See
-  `research.md` for the exact RLS/key setup.
+- **Persistence routes through the CMS (updated 24-07).** Rather than the marketing site holding a
+  Supabase service-role key, the site's server action POSTs the lead to the CMS (`POST /api/leads`),
+  and the **CMS owns the write** to the `leads` table (same Postgres it already uses). The site
+  reuses the existing `CMS_URL` + read key — no new secret in the site bundle. The `leads` table has
+  RLS enabled with no public policy; only the CMS (service role) writes it. CMS-side work is speced
+  in `specs/cms-tarefas.md` (TAREFA 1). Until that endpoint ships, the form submit returns a
+  recoverable error (no false success).
