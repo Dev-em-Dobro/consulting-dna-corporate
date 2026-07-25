@@ -17,7 +17,7 @@ Notas cruas da reunião: `fixes-reuniao-24-07`.
 | 007 | Insights: lista mais leve (capa, data, **tempo de leitura calculado**) + detalhe no layout Solutions com degradê na capa | `02f7daa` |
 | 005 | **SEO base**: metadataBase, OG/Twitter, robots.txt, sitemap.xml (rotas + CMS), llms.txt, JSON-LD Organization | `62e17bd` |
 | 005 | **Canonicals por página** em todas as rotas públicas | `4c5e1d7` |
-| 005 | **i18n com prefixo `/en /pt /es`** (next-intl): rotas por locale, middleware (`/`→`/en`, sem geolocalização), **seletor de bandeiras** no header, `hreflang`+`x-default` por página e no sitemap, locale nos fetchers de detalhe do CMS. *Chrome fica em EN; tradução de conteúdo depende do CMS.* | `71f9d02`…`4a48b18` |
+| 005 | **i18n (next-intl, `localePrefix: as-needed`)**: inglês servido **sem prefixo** (`/solutions`), PT/ES prefixados (`/pt /es`) e prontos p/ o futuro; `/en/...`→redireciona p/ raiz; sem geolocalização; **seletor de idioma** (EN/PT/ES) no header + loader ao trocar; `hreflang`+`x-default` por página e no sitemap; mapa de locale `pt`→`pt-BR` no CMS client. *Chrome fica em EN; tradução de conteúdo depende do CMS.* | `71f9d02`…`9c5bb31` |
 | 008 | Mapa de escritórios: **auto-rotate (~6s)** + wrap infinito + **altura fixa** do bloco de contato (fim do "dançando") | `259f3b3` |
 | 008 | **Mapa-múndi de atuação**: SVG estático, data-driven, EUA/Canadá inteiros; lista em `lib/coverage.ts` | `7997e06` |
 | 004 | Lead capture (server action) **roteado pelo CMS** + **botão flutuante de WhatsApp** (config-driven) | `4adf769`, `5089e55` |

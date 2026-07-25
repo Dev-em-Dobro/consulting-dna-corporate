@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { routing } from "@/lib/i18n/routing";
+import { localePath } from "@/lib/seo/alternates";
 import {
   getSolutionCards,
   getCaseCards,
@@ -10,8 +11,10 @@ import {
 
 export const revalidate = 3600;
 
-// Absolute URL for a locale-relative path ("" = home).
-const url = (locale: string, path: string) => `${SITE_URL}/${locale}${path}`;
+// Absolute URL for a locale-relative path ("" = home). Honours the
+// as-needed prefix rule (default locale unprefixed) via localePath.
+const url = (locale: string, path: string) =>
+  `${SITE_URL}${localePath(locale, path || "/")}`;
 
 // hreflang alternates block for a locale-relative path (005 FR-311). Includes
 // x-default pointing at the default locale, matching the per-page alternates.
