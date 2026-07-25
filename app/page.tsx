@@ -111,13 +111,14 @@ export default async function V1() {
         <div className="mx-auto max-w-[1200px] px-10 pb-20 pt-5">
           <Reveal className="mx-auto grid max-w-[760px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {stats.map((s) => (
-              <div key={s.label}>
-                <div className="text-[44px] md:text-[56px] font-bold leading-none tracking-[-1.5px] text-brand">
-                  <Counter value={s.value} />
+              <div key={s.label} className="flex items-start gap-5">
+                <span className="mt-[26px] h-[3px] w-8 flex-none bg-brand" />
+                <div>
+                  <div className="text-[44px] md:text-[56px] font-bold leading-none tracking-[-1.5px] text-brand">
+                    <Counter value={s.value} />
+                  </div>
+                  <div className="mt-2 text-[16px] font-medium leading-snug text-white/80">{s.label}</div>
                 </div>
-                {/* Underline UNDER the number — replaces the old leading dash that read as a minus sign. */}
-                <span aria-hidden="true" className="mt-3 block h-[3px] w-9 bg-brand" />
-                <div className="mt-3 text-[16px] font-medium leading-snug text-white/80">{s.label}</div>
               </div>
             ))}
           </Reveal>
