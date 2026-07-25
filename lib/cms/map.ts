@@ -196,8 +196,8 @@ function mapCase(raw: unknown): CaseArticle | null {
   };
 }
 
-export async function getCaseArticle(slug: string): Promise<CaseArticle | null> {
-  const raw = await getEntry("cases", slug);
+export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseArticle | null> {
+  const raw = await getEntry("cases", slug, locale);
   return raw ? mapCase(raw) : null;
 }
 
@@ -257,8 +257,8 @@ function mapSolution(raw: unknown): SolutionVM | null {
   };
 }
 
-export async function getSolution(slug: string): Promise<SolutionVM | null> {
-  const raw = await getEntry("solutions", slug);
+export async function getSolution(slug: string, locale = "en"): Promise<SolutionVM | null> {
+  const raw = await getEntry("solutions", slug, locale);
   return raw ? mapSolution(raw) : null;
 }
 
@@ -281,8 +281,8 @@ function mapInsight(raw: unknown): InsightVM | null {
   return { slug: r.data.slug, title: plainText(r.data.data.title) ?? "", body: r.data.data.body, coverUrl: r.data.data.coverUrl };
 }
 
-export async function getInsight(slug: string): Promise<InsightVM | null> {
-  const raw = await getEntry("insights", slug);
+export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
+  const raw = await getEntry("insights", slug, locale);
   return raw ? mapInsight(raw) : null;
 }
 
@@ -331,8 +331,8 @@ function mapRegion(raw: unknown): RegionVM | null {
   };
 }
 
-export async function getRegion(slug: string): Promise<RegionVM | null> {
-  const raw = await getEntry("regions", slug);
+export async function getRegion(slug: string, locale = "en"): Promise<RegionVM | null> {
+  const raw = await getEntry("regions", slug, locale);
   return raw ? mapRegion(raw) : null;
 }
 
@@ -364,8 +364,8 @@ export async function getRegionLocations(): Promise<Location[]> {
 }
 
 // ---- Singleton pages -------------------------------------------------------
-export async function getCmsPage(key: string): Promise<CmsPage | null> {
-  const raw = await getPage(key);
+export async function getCmsPage(key: string, locale = "en"): Promise<CmsPage | null> {
+  const raw = await getPage(key, locale);
   if (!raw) return null;
   const r = S.pageEntry.safeParse(raw);
   if (!r.success) return null;
