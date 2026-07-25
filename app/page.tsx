@@ -13,6 +13,7 @@ import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
 import TestimonialsVideo from "@/components/TestimonialsVideo";
+import WorldCoverageMap from "@/components/WorldCoverageMap";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -305,6 +306,9 @@ export default async function V1() {
 
       {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003) */}
       <LocationsBlock />
+
+      {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
+      <WorldCoverageMap />
 
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">
