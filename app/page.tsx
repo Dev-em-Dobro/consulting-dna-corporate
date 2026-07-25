@@ -11,6 +11,7 @@ import { getPeople, getCaseListEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
+import TestimonialsVideo from "@/components/TestimonialsVideo";
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
 const orderedLogos = [
@@ -189,6 +190,10 @@ export default async function V1() {
       </section>
       )}
 
+      {/* TESTIMONIALS "metralhadora" video — immediately before Client-Impact.
+          Placeholder until the real reel is delivered (swap in a src). */}
+      <TestimonialsVideo />
+
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -234,27 +239,6 @@ export default async function V1() {
           </div>
         </Reveal>
       </section>
-
-      {/* TESTIMONIALS — hidden for now (set the guard to true to restore) */}
-      {false && (
-      <section id="testimonials" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Testimonials</span>
-          </div>
-          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-            What leaders say after working with us.
-          </h2>
-          <p className="mb-12 max-w-[620px] text-lg leading-[1.55] text-muted">
-            A rapid-fire wall of client voices.
-          </p>
-          <div className="flex min-h-[220px] items-center justify-center border border-dashed border-[#d9d5d1] bg-white/60 text-[13.5px] font-medium uppercase tracking-[1.5px] text-muted">
-            Testimonials showcase — coming soon
-          </div>
-        </Reveal>
-      </section>
-      )}
 
       {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
       {false && (
