@@ -14,6 +14,17 @@ const BASE = process.env.CMS_URL?.replace(/\/api\/?$/, "").replace(/\/$/, "");
 // Accept the standardised name, falling back to the legacy READ_API_KEY.
 const KEY = process.env.CMS_READ_API_KEY ?? process.env.READ_API_KEY;
 
+/**
+ * Map a site routing locale (en/pt/es) to the CMS content locale code. The CMS
+ * stores Brazilian Portuguese under "pt-BR" while the site routes it as "pt";
+ * en/es already match and pass through unchanged. This is the single seam that
+ * reconciles the two locale-code conventions, so the site keeps clean `/pt`
+ * URLs without the CMS having to rename its locales.
+ */
+const CMS_LOCALE: Record<string, string> = { pt: "pt-BR" };
+const toCmsLocale = (locale?: string) =>
+  locale ? (CMS_LOCALE[locale] ?? locale) : locale;
+
 type Query = Record<string, string | string[] | number | undefined>;
 
 function qs(params?: Query): string {
@@ -78,13 +89,14 @@ export function getCases(
     locale?: string;
   },
 ) {
-  return cmsGet<ListResult>(`/api/content/cases${qs(params)}`, ["cms:case"]);
+  const q = params ? { ...params, locale: toCmsLocale(params.locale) } : params;
+  return cmsGet<ListResult>(`/api/content/cases${qs(q)}`, ["cms:case"]);
 }
 
 /** Single published entry by slug. Returns null (404) for drafts/missing. */
 export function getEntry(type: string, slug: string, locale = "en") {
   return cmsGet<Record<string, unknown>>(
-    `/api/content/${type}/${slug}${qs({ locale })}`,
+    `/api/content/${type}/${slug}${qs({ locale: toCmsLocale(locale) })}`,
     [`cms:${type}`, `cms:${type}:${slug}`],
   );
 }
@@ -92,7 +104,7 @@ export function getEntry(type: string, slug: string, locale = "en") {
 /** Singleton page: 5h | book | awards | privacy | cookies | terms. */
 export function getPage(key: string, locale = "en") {
   return cmsGet<Record<string, unknown>>(
-    `/api/content/pages/${key}${qs({ locale })}`,
+    `/api/content/pages/${key}${qs({ locale: toCmsLocale(locale) })}`,
     [`cms:page:${key}`],
   );
 }
