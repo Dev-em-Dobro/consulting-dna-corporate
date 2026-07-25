@@ -23,13 +23,20 @@ export default function LanguageSwitcher() {
     <div className="flex items-center gap-2" role="group" aria-label="Language">
       {routing.locales.map((l) => {
         const isActive = l === active;
+        const switchTo = () => {
+          if (isActive) return; // no-op: already on this locale
+          // Programmatic nav — tell the top loading bar to start (it only
+          // observes <a> clicks, and this is a <button>).
+          window.dispatchEvent(new Event("topprogress:start"));
+          router.replace(pathname, { locale: l });
+        };
         return (
           <button
             key={l}
             type="button"
             aria-label={LOCALES[l].label}
             aria-current={isActive ? "true" : undefined}
-            onClick={() => router.replace(pathname, { locale: l })}
+            onClick={switchTo}
             className={
               "cursor-pointer text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] transition-opacity duration-200 " +
               (isActive
