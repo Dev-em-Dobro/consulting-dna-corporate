@@ -85,6 +85,11 @@ export type SolutionVM = {
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
 export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
+/** Richer insight list row: adds cover + computed reading time for the library. */
+export type InsightListEntry = {
+  slug: string; title: string; summary?: string; coverUrl?: string;
+  publishedAt: string; readingMinutes: number; author?: string;
+};
 export type RegionCard = { slug: string; name: string };
 export type RegionVM = {
   slug: string; name: string; city?: string; country?: string;
@@ -279,6 +284,32 @@ function mapInsight(raw: unknown): InsightVM | null {
 export async function getInsight(slug: string): Promise<InsightVM | null> {
   const raw = await getEntry("insights", slug);
   return raw ? mapInsight(raw) : null;
+}
+
+/** Reading time from body word count (~200 wpm), min 1 min. Computed on the site. */
+function readingMinutes(html?: string): number {
+  const text = plainText(html) ?? "";
+  const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+  return Math.max(1, Math.round(words / 200));
+}
+
+/**
+ * Rich insight list for the /insights library: the compact list enriched
+ * per-insight with the detail entry (cover image + body for reading time).
+ * Same N+1 shape as getCaseListEntries. Reading time is computed here (007
+ * decision); author is optional until the CMS provides it (010).
+ */
+export async function getInsightListEntries(): Promise<InsightListEntry[]> {
+  const cards = await getInsightCards();
+  const details = await Promise.all(cards.map((c) => getInsight(c.slug)));
+  return cards.map((c, i) => ({
+    slug: c.slug,
+    title: c.title,
+    summary: c.summary,
+    coverUrl: details[i]?.coverUrl,
+    publishedAt: c.publishedAt,
+    readingMinutes: readingMinutes(details[i]?.body),
+  }));
 }
 
 // ---- Regions ---------------------------------------------------------------
