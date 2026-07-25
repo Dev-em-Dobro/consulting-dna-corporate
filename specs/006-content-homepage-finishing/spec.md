@@ -186,8 +186,8 @@ menu updates both.
 
 **Impact numbers**
 
-- **FR-404**: The credibility stats MUST render their leading mark so no value reads as a negative
-  number (lower underline near the number, or a small arrow; or remove the mark entirely).
+- **FR-404**: The credibility stats MUST render the mark as a **low underline aligned beneath the
+  number** (decided 24-07) so no value reads as a negative — not a dash, not an arrow.
 
 **Awards strip**
 
@@ -249,11 +249,21 @@ reference (external/hosted per `001`) and a tracked pending-image list.
   inner/outer chart, AI imagery and the "Our Identity"/awards page are **out of scope here** (owned
   by `009-branding-assets`).
 
-## Dependencies / open inputs — (⚠ confirm)
+## Decisions (approved by the user, 2026-07-24)
 
-- The testimonials **video file/URL + poster** + final heading copy.
-- Which **impact-number mark** treatment is preferred (underline vs. arrow vs. none).
-- The **award logos** for the home strip + the destination page href (from `009`).
-- **Final homepage images** per slot (dimensions, local vs. CMS/CDN) and the high-res leadership
-  photo for FR-409.
-- Confirmation that the CMS has published **cases** for the homepage (people already publish today).
+- **Impact-number mark = underline, aligned UNDER the number** (FR-404). Not an arrow, not removed —
+  a low underline beneath the figure so it never reads as a minus.
+- **Testimonials video = placeholder for now.** Ship the section (US2/FR-402) with a placeholder
+  poster/asset; the real reel comes later and gets swapped in when the user sends it.
+- **Awards = a new dedicated page** (owned by `009`). The home awards/credentials strip links through
+  to that new page (FR-405).
+- **Leadership final imagery = DONE.** The off-pattern leadership photo (FR-409) has already been
+  corrected — treat that item as resolved.
+- **CMS has published cases** — confirmed. The homepage Client-Impact cards (US1/FR-401) can source
+  from the CMS now.
+- Book CTA centring (US7/FR-410) was already implemented on 2026-07-24 — resolved.
+
+### Still pending (user/design will provide)
+
+- The real testimonials **video file/URL + poster** + final heading copy (swap in later).
+- The **award logos** for the home strip.

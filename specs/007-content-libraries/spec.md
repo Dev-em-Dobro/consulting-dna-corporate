@@ -235,21 +235,23 @@ structure (filter/sort island + card grid).
   than introducing a new rendering stack.
 - British/en spelling ("organisation", "colour") consistent with existing specs.
 
-## Dependencies / open inputs (from the client) — recommended defaults in `research.md`
+## Decisions (approved by the user, 2026-07-24)
 
-- **`010-cms-enhancements`** — new CMS fields this feature consumes: case **brand colour** + case
-  **transparent logo**, insight **author** (+ optional **reading time**), and the **Methodologies**
-  content type (if chosen). This feature ships the site-side consumption + fallbacks; `010` supplies
-  the fields. ⚠ confirm the exact field names/delivery with `010`.
-- **`009-branding-assets`** — the AI-generated imagery for the 5H® page and any brand-gradient
-  tokens/design assets. ⚠ confirm asset delivery.
-- **Tag taxonomy** for cases and insights (shared vocabulary vs. free tags per collection). ⚠ confirm
-  — recommended default: keep the existing free-tag/facet-derived tags, curate later.
-- **Reading time** — stored in the CMS vs. computed on the site. ⚠ confirm — recommended default:
-  computed.
-- **"Methodologies"** — a new CMS content type vs. a curated set that includes 5H®. ⚠ confirm —
-  recommended default: a curated set (5H® + selected solutions) to avoid a new content type until
-  volume justifies it.
-- **Brand-colour / logo delivery** — exact format and host (defer to `010`). ⚠ confirm.
-- **"Solutions layout" banner** — precise meaning of the Solutions detail "banner" the insight page
-  should mirror. ⚠ confirm — recommended default: reuse the Solutions `bannerUrl` hero treatment.
+- **Reading time = computed on the site** (≈200 words/min from the body). Not a CMS field (FR-506).
+- **Methodologies library = DEFERRED — not now.** US4 / FR-509–FR-511 (the 16:9 Methodologies
+  library and its taxonomy decision) are out of scope for this round; revisit later. The 5H® page
+  (FR-513) stays code-owned regardless.
+- **Tags = real, structured tags (not free-derived).** Cases and insights need a proper tag field so
+  tag-based search/filter works reliably later — implement tags as an actual taxonomy, coordinated
+  with `010-cms-enhancements` for the CMS side. (Refines FR-503/FR-505.)
+- **Insight-detail banner = DEFERRED — don't touch now.** The insight detail can still adopt the
+  Solutions-style title/body/image + cover gradient (FR-507), but the **banner** element is left as
+  is for now; skip mirroring the Solutions `bannerUrl` treatment in this round.
+
+### Still needed from other specs / inputs
+
+- **`010-cms-enhancements`** supplies case **brand colour** + **transparent logo**, insight
+  **author**, and the **real tag** field. This feature consumes them with FR-502 fallbacks until
+  `010` ships.
+- **`009-branding-assets`** supplies the AI imagery for the 5H® page and brand-gradient tokens.
+- **Brand-colour / logo** exact format + host — defer to `010`.

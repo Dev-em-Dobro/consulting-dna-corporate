@@ -182,14 +182,19 @@ only populated locale.
 - A canonical production domain will be provided for absolute URLs.
 - Redirect enforcement can run at the framework/edge layer (Next.js config or middleware).
 
-## Dependencies / open inputs — resolved in `research.md`
+## Decisions (approved by the user, 2026-07-24)
 
-- The **canonical production domain** (for canonicals/OG/sitemap). *(NEEDS CLARIFICATION)*
-- The **complete old→new redirect map** (beyond the ones inferable from git history). *(NEEDS
-  CLARIFICATION — seed list in research)*
-- ~~**Target locales** and default/fallback~~ — **RESOLVED (24-07 meeting)**: locales are **EN, PT,
-  ES**, already registered in the CMS; **EN is the default**, **no geolocation**; a **flag switcher
-  at the top** toggles language on explicit selection (FR-312).
-- i18n approach: locale **URL prefix** (`/pt/...`) vs. domain/subdomain, and library choice
-  (`next-intl` vs. native App Router i18n). *(recommendation in research)*
-- Priority GEO topics/pages the firm most wants cited for. *(NEEDS CLARIFICATION — nice-to-have)*
+- **Canonical production domain = `corporatednaconsulting.com`.** Used for all canonicals, OG URLs
+  and sitemap entries (FR-306). (`https://corporatednaconsulting.com`.)
+- **i18n approach = URL prefix, with an explicit `en` prefix.** Locales route as `/en/...`,
+  `/pt/...`, `/es/...`; the root `/` redirects to the default `/en`. (Not subdomains.) Library choice
+  (`next-intl` vs. native App Router i18n) still per the research recommendation, but the routing
+  shape is the prefix strategy.
+- **Locales = EN, PT, ES** (already in the CMS); **EN is the default**, **no geolocation**; **flag
+  switcher at the top** toggles on explicit selection (FR-312). *(from the 24-07 meeting)*
+
+### Still pending (user will provide)
+
+- **The complete old→new redirect map** — the user will send the old site's URLs later; a seed list
+  (inferable from git history) is in `research.md`. Redirects can't be finalized until that arrives.
+- Priority **GEO** topics/pages the firm most wants cited for *(nice-to-have)*.

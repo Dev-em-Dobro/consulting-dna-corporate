@@ -122,15 +122,17 @@ firm's number with the pre-filled message, on both desktop (WhatsApp Web / `wa.m
   CRM fields (contact name, email, company, message/notes, source, created-at, marketing
   attribution).
 - **FR-207**: The system MUST expose a single, swappable handoff point that forwards a captured lead
-  to the client's CRM (direct API or an automation webhook), configurable by environment.
+  to a configurable outbound **webhook** URL (e.g. n8n/Zapier/Make) via POST with the normalized
+  payload; a real CRM is attached downstream of that webhook, not wired directly here.
 - **FR-208**: CRM handoff MUST be decoupled from capture: a handoff failure MUST NOT fail or lose
   the capture, and MUST be retryable; handoff outcome MUST be recorded against the lead.
 - **FR-209**: If no CRM is configured, capture MUST still succeed (handoff is optional).
 
 **WhatsApp**
 
-- **FR-210**: The site MUST provide a WhatsApp click-to-chat affordance that opens a chat to the
-  configured business number with a pre-filled message, working on desktop and mobile.
+- **FR-210**: The site MUST provide a WhatsApp click-to-chat affordance as a **floating button
+  present site-wide (every page)** that opens a chat to the configured business number with a
+  pre-filled message, working on desktop and mobile.
 - **FR-211**: The business number and default message MUST be configuration (not hardcoded), and the
   affordance MUST be hidden if no number is configured.
 
@@ -168,13 +170,17 @@ firm's number with the pre-filled message, on both desktop (WhatsApp Web / `wa.m
 - The specific CRM may be decided later; this feature guarantees CRM-*ready* data + one integration
   point, and wires the actual CRM once chosen. See open inputs.
 
-## Dependencies / open inputs (from the user) — resolved in `research.md`
+## Decisions (approved by the user, 2026-07-24)
 
-- **CRM choice** — which CRM (HubSpot, Pipedrive, Salesforce, RD Station, …) or an automation
-  webhook (n8n/Zapier/Make) as the handoff target? *(NEEDS CLARIFICATION)*
-- **WhatsApp business number** + default pre-filled message + placement (contact section only vs.
-  floating button site-wide)? *(NEEDS CLARIFICATION)*
-- **Lead notification** — should staff also get an email per lead (Resend is already used by the
-  CMS project)? In/out of scope? *(NEEDS CLARIFICATION)*
-- **Supabase keys** and whether persistence uses the service role (server-only) or anon + insert-only
-  RLS. *(NEEDS CLARIFICATION — recommendation in research)*
+- **CRM handoff = generic outbound webhook.** No specific CRM is wired now; the single handoff point
+  POSTs the normalized lead payload to a configurable webhook URL (e.g. n8n/Zapier/Make), so any CRM
+  can be attached downstream. (Resolves FR-206–FR-209.)
+- **WhatsApp = floating button, site-wide.** The click-to-chat affordance is a floating button
+  present on every page (not only the contact section). Business number + default message stay in
+  config; the button is hidden when no number is configured. (Resolves FR-210/FR-211.)
+- **Email notification = OUT OF SCOPE for now.** No per-lead staff email in this feature; leads are
+  captured + stored + webhook-forwarded only. Can be added later (Resend is already available).
+- **Supabase = the correct, secure way.** Persistence is server-side only using the service role key
+  (never exposed to the client bundle); the `leads` table has Row Level Security enabled with no
+  public insert/select policy, so the table is reachable only through the server handler. See
+  `research.md` for the exact RLS/key setup.

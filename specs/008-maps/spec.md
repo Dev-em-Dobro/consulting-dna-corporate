@@ -247,15 +247,22 @@ with the CMS unreachable, confirm the maps fall back to `lib/offices.ts` and sti
   until then the offices map remains a code list and the CMS wiring (US4) trails A and B.
 - Auto-advance defaults and the redesign approval are open inputs with recommended defaults (below /research).
 
-## Dependencies / open inputs (from the client) — recommended defaults in `research.md`
+## Decisions (approved by the user, 2026-07-24)
 
-- **Auto-advance interval** and **hover-pause** behaviour — recommend ~6s interval; recommend pausing on hover
-  in addition to interaction/off-viewport. *(⚠ confirm)*
-- **"6 cities at once" carousel redesign** — approve or reject the redesign in FR-607. *(⚠ confirm — default:
-  keep current single-active carousel)*
-- **World-map country list + data source** — the exact list of served countries and whether it is a built-in
-  list or CMS-driven at launch. *(⚠ confirm)*
-- **Offices source at launch** — keep offices as the `lib/offices.ts` code list for launch, or move to CMS
-  Regions immediately (gated on 010)? *(⚠ confirm — default: code list at launch, CMS behind a flag)*
-- **Transition-bug environment** — the exact browser/version/machine where the fly "jumps"/fallback appeared,
-  to confirm code fix vs. stale cache. *(⚠ confirm)*
+- **Pin head overflow (FR-603) = DROPPED.** No longer required — do not implement the pin poking out
+  of the map frame.
+- **Transition "bug" (FR-605) = NOT A BUG — nothing to do.** The camera transition is working
+  correctly; the reported jump/PNG-swap was environment/cache on the client's machine, not a code
+  defect. No code change; the list fallback rule (only on genuine failure) still stands from 003.
+- **CMS Regions wiring (US4 / FR-613–FR-616) = DEFERRED.** Keep the offices/regions **hardcoded in
+  `lib/offices.ts`** for now; do not pull from the CMS yet. Revisit once `010` is ready and the need
+  arises.
+- **Auto-advance = ~6s interval, pause on hover** (in addition to interaction / off-viewport /
+  reduced-motion) — recommended default applied (FR-602).
+- **"6 cities at once" redesign (FR-607) = keep the current single-active carousel** for now (default;
+  redesign only if explicitly approved later).
+
+### Still pending (user will provide)
+
+- **World-map country list** — the exact list of served countries to paint (FR-608/FR-610). Built-in
+  list at launch (no CMS). The world coverage map (US3) can't be finalized until this list arrives.

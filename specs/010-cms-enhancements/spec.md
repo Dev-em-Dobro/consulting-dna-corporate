@@ -328,17 +328,35 @@ Functional requirements use the **FR-8xx** range. All are implemented in `corpor
 - Some region geodata may already exist in the `001` region schema; where present this feature
   extends it, where absent it adds it (⚠ confirm — see `research.md`).
 
-## Dependencies / open inputs (from the meeting) — resolved with defaults in `research.md`
+## Decisions (approved by the user, 2026-07-24)
 
-- **Which content types get the video field** — recommended cases + insights + video-bearing
-  singletons. *(⚠ confirm)*
-- **Exact upload limits / aspect ratios per field** — recommended defaults in `research.md`.
-  *(⚠ confirm)*
-- **Whether Awards is a new content type** — coordinate with `009`. *(⚠ confirm)*
-- **EN/PT/ES fallback rule** — recommended default: fall back to **EN**, flagged as fallback.
-  *(⚠ confirm)*
-- **Whether region coordinates already exist** in the `001` schema or need adding. *(⚠ confirm)*
-- **Migration approach** — drizzle-kit (recommended, consistent with `001`). *(⚠ confirm)*
+- **Video field on = cases + insights + video-bearing singleton pages** (FR-801). Confirmed.
+- **Locale fallback = EN** (default locale), flagged as fallback; never a draft (FR-810). Confirmed.
+- **Add a real, structured TAG field** to cases and insights (from the `007` decision — tags must be
+  actual tags so tag search/filter works). This is now an explicit `010` requirement (extends
+  FR-817).
+- **Reading time = NOT a CMS field** — computed on the site (`007` decision); do not add it here.
+- **Migration approach = drizzle-kit + Zod** at the boundary (consistent with `001`). Confirmed.
+
+### Re-scoped by prior decisions — can wait (NOT now)
+
+- **Regions ↔ maps geodata (US5 / FR-811–813)** — `008` keeps regions hardcoded for now, so the
+  region coordinate/`locationType` fields are **deferred** until the CMS-driven maps are picked up.
+- **Awards home (FR-816)** — `009` (Our Identity / awards page) is deferred, so the Awards content
+  model waits with it.
+- **Methodology 16:9 constraint** — `007` methodologies library is deferred, so that specific
+  aspect-ratio rule is not urgent (general per-field limits FR-807/808 still apply).
+
+### Priority now (to unblock the site)
+
+**Video (US1), case branding — brand colour + transparent logo (US2), multi-locale read API (US4),
+and the real tag field.** These are what `006`/`007`/`005` need from the CMS.
+
+### Still open
+
+- **Exact per-field upload limits / aspect ratios** — defaults in `research.md`. *(⚠ confirm when
+  implementing)*
+- **Whether region coordinates already exist** in the `001` schema (checked at implementation time).
 
 ## Cross-references
 

@@ -221,16 +221,21 @@ causes no layout shift.
   the 5H/libraries content is `007-content-libraries` — this feature governs asset standards, not
   that content.
 
-## Dependencies / open inputs (from the user) — resolved with defaults in `research.md`
+## Decisions (approved by the user, 2026-07-24) — this whole spec is DEFERRED for now
 
-- **Final logo files** — light/dark variants, formats, and favicon/OG raster variants delivery.
-  *(NEEDS CLARIFICATION — recommended default in research.)*
-- **"Our Identity" placement** — standalone route (e.g. `/our-identity`) vs. part of an About/Company
-  section; and CMS-managed vs. static. *(NEEDS CLARIFICATION — recommend standalone route,
-  CMS-managed list with static fallback.)*
-- **Full awards list + descriptions + legacy 2008/09 items** — content delivery from Guilherme.
-  *(NEEDS CLARIFICATION.)*
-- **Awards data home** — a CMS content type vs. static file. *(NEEDS CLARIFICATION — recommend CMS so
-  descriptions are editable, per `002`; static fallback.)*
-- **Redesigned inner/outer-game chart** — delivery of Guli's final file (grey/black/red, no logo, URL
-  watermark). *(NEEDS CLARIFICATION — swap is non-blocking until delivered.)*
+- **Logo (US1) = current logo is correct — NO action now.** The existing mark is fine as shipped. The
+  swap to the redesigned logo happens **only when the new files are delivered** (not available yet).
+  FR-701–FR-704 are on hold pending those assets.
+- **"Our Identity" page + Awards (US2) = DEFERRED — not now.** Do not build the Our Identity page or
+  the awards/credentials list yet. (Note: `006`'s home awards strip therefore also waits on this
+  page's destination — both are later work.)
+- **AI-generated imagery policy (US4) = DEFERRED — not now.** No AI-imagery audit/standardisation in
+  this round.
+- **Inner/outer-game diagram (US3) = pending Guli's file.** Non-blocking: keep the current asset;
+  swap in Guli's redesign (grey/black/red, no logo, URL watermark) when he delivers it.
+
+### Net effect
+
+Nothing in `009` is actionable now — it is entirely gated on assets from Guilherme (logo files,
+awards content, diagram) and an explicit go-ahead for the Our Identity page. Revisit when those
+arrive.
