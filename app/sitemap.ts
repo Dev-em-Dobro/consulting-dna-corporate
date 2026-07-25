@@ -13,11 +13,12 @@ export const revalidate = 3600;
 // Absolute URL for a locale-relative path ("" = home).
 const url = (locale: string, path: string) => `${SITE_URL}/${locale}${path}`;
 
-// hreflang alternates block for a locale-relative path (005 FR-311).
+// hreflang alternates block for a locale-relative path (005 FR-311). Includes
+// x-default pointing at the default locale, matching the per-page alternates.
 function languages(path: string) {
-  return Object.fromEntries(
-    routing.locales.map((l) => [l, url(l, path)]),
-  ) as Record<string, string>;
+  const entries: [string, string][] = routing.locales.map((l) => [l, url(l, path)]);
+  entries.push(["x-default", url(routing.defaultLocale, path)]);
+  return Object.fromEntries(entries) as Record<string, string>;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
