@@ -7,7 +7,7 @@ import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
-import { getPeople, getCaseListEntries } from "@/lib/cms/map";
+import { getPeople } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -62,38 +62,17 @@ const differentiators = [
 
 // `caseSlug` deep-links a card to its published case detail page. Only Shell has
 // a case in the CMS today; the others fall back to the flagship-cases listing.
-type ImpactCard = {
+const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string;
-};
-
-// Safety net only: used if the CMS returns no cases (unreachable / none
-// published) so the Client-Impact section never renders empty (002 FR-107).
-const fallbackCases: ImpactCard[] = [
+}[] = [
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
   { client: "Frasers Property", sector: "Real estate", challenge: "Retain critical leadership talent through a period of strategic change.", metric: "85%", metricLabel: "talent retention among participating leaders" },
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme", caseSlug: "case-1d007617" },
 ];
 
 export default async function V1() {
-  const [people, nav, caseEntries] = await Promise.all([
-    getPeople(),
-    buildSiteNav(),
-    getCaseListEntries(),
-  ]);
-
-  // Client-Impact cards from the CMS (FR-401): first three published cases,
-  // each linking to its real /cases/[slug]. Falls back to the static list only
-  // when the CMS returns nothing, so the section is never blank (002 FR-104).
-  const cmsImpact: ImpactCard[] = caseEntries.slice(0, 3).map((c) => ({
-    client: c.client,
-    sector: c.tags[0] ?? "",
-    challenge: c.challenge ?? "",
-    metric: c.metricValue ?? "",
-    metricLabel: c.metricLabel ?? "",
-    caseSlug: c.slug,
-  }));
-  const impact = cmsImpact.length ? cmsImpact : fallbackCases;
+  const [people, nav] = await Promise.all([getPeople(), buildSiteNav()]);
   return (
     <div className="w-full overflow-x-hidden bg-white">
       {/* NAV */}
@@ -205,27 +184,21 @@ export default async function V1() {
             Results, not promises — measured where it matters.
           </h2>
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
-            {impact.map((c) => (
-              <article key={c.caseSlug ?? c.client} className="flex flex-col border border-line">
+            {cases.map((c) => (
+              <article key={c.client} className="flex flex-col border border-line">
                 <div className="bg-ink px-[26px] py-[22px] text-white">
                   <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
-                  {c.sector && (
-                    <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
-                  )}
+                  <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
                 </div>
                 <div className="flex flex-1 flex-col px-[26px] py-7">
                   <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Challenge</p>
                   <p className="mb-[22px] text-[15px] leading-[1.55] text-[#4a4548]">{c.challenge}</p>
                   <div className="mt-auto pt-[22px]">
                     <span className="mb-[18px] block h-[3px] w-9 bg-brand" />
-                    {c.metric && (
-                      <>
-                        <div className="text-[40px] md:text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
-                          <Counter value={c.metric} />
-                        </div>
-                        <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
-                      </>
-                    )}
+                    <div className="text-[40px] md:text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
+                      <Counter value={c.metric} />
+                    </div>
+                    <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
                       href={c.caseSlug ? `/cases/${c.caseSlug}` : "/cases"}
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
