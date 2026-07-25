@@ -4,6 +4,7 @@ import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import CookieConsent from "@/components/CookieConsent";
 import TopProgress from "@/components/TopProgress";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const poppins = Poppins({
@@ -59,6 +60,7 @@ export default function RootLayout({
         />
         <TopProgress />
         {children}
+        <WhatsAppButton />
         <CookieConsent />
       </body>
     </html>
