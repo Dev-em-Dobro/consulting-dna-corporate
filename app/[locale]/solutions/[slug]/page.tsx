@@ -4,6 +4,9 @@ import SiteShell from "@/components/SiteShell";
 import SolutionView from "@/components/views/SolutionView";
 import { setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/seo/alternates";
+import { firstDescription } from "@/lib/seo/description";
+import { serviceLd, breadcrumbLd } from "@/lib/seo/jsonld";
+import JsonLd from "@/components/JsonLd";
 import { getSolution, getSolutionCards } from "@/lib/cms/map";
 
 export const revalidate = 300;
@@ -20,9 +23,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const s = await getSolution(slug, locale);
+  const title = s ? `${s.title} — Corporate DNA` : "Solution — Corporate DNA";
+  const description = firstDescription([s?.problemStatement, s?.body]);
   return {
-    title: s ? `${s.title} — Corporate DNA` : "Solution — Corporate DNA",
+    title,
+    description,
     alternates: localeAlternates(locale, `/solutions/${slug}`),
+    openGraph: {
+      title,
+      description,
+      ...(s?.coverUrl ? { images: [s.coverUrl] } : {}),
+    },
+    ...(s?.coverUrl ? { twitter: { images: [s.coverUrl] } } : {}),
   };
 }
 
@@ -36,8 +48,21 @@ export default async function SolutionDetailPage({
   const s = await getSolution(slug, locale);
   if (!s) notFound();
 
+  const jsonLd = [
+    breadcrumbLd([
+      { name: "Solutions", path: "/solutions" },
+      { name: s.title, path: `/solutions/${slug}` },
+    ]),
+    serviceLd({
+      name: s.title,
+      path: `/solutions/${slug}`,
+      description: firstDescription([s.problemStatement, s.body]),
+    }),
+  ];
+
   return (
-    <SiteShell>
+    <SiteShell footerTopBorder>
+      <JsonLd data={jsonLd} />
       <SolutionView s={s} />
     </SiteShell>
   );

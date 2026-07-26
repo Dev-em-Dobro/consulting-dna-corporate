@@ -15,6 +15,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Solutions — Corporate DNA",
+    description:
+      "How Corporate DNA helps senior leaders and their organisations — CEO and executive performance, team alignment, succession and transformation, powered by the 5H® methodology.",
     alternates: localeAlternates(locale, "/solutions"),
   };
 }
@@ -30,7 +32,7 @@ export default async function SolutionsPage({
   const solutions = await getSolutionCards();
 
   return (
-    <SiteShell>
+    <SiteShell footerTopBorder>
       <PageHero
         eyebrow="Solutions"
         title="Solutions"

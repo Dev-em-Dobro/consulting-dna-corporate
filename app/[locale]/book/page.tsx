@@ -15,6 +15,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "The book — Corporate DNA",
+    description:
+      "Corporate DNA: how great companies build what competitors can't copy — the book behind our leadership methodology and nearly two decades advising CEOs worldwide.",
     alternates: localeAlternates(locale, "/book"),
   };
 }

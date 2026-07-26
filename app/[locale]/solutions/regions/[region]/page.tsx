@@ -6,6 +6,7 @@ import { getRegion, getRegionCards } from "@/lib/cms/map";
 import { regions as staticRegions } from "@/lib/nav";
 import { setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/seo/alternates";
+import { firstDescription } from "@/lib/seo/description";
 
 export const revalidate = 300;
 
@@ -27,9 +28,22 @@ export async function generateMetadata({
   const cms = await getRegion(region, locale);
   const name =
     cms?.name ?? staticRegions.find((r) => r.slug === region)?.name;
+  const title = name ? `${name} — Corporate DNA` : "Region — Corporate DNA";
+  const description =
+    firstDescription([cms?.body]) ??
+    (name
+      ? `Corporate DNA's leadership advisory and executive coaching in ${name} — global insight with local delivery.`
+      : undefined);
   return {
-    title: name ? `${name} — Corporate DNA` : "Region — Corporate DNA",
+    title,
+    description,
     alternates: localeAlternates(locale, `/solutions/regions/${region}`),
+    openGraph: {
+      title,
+      description,
+      ...(cms?.coverUrl ? { images: [cms.coverUrl] } : {}),
+    },
+    ...(cms?.coverUrl ? { twitter: { images: [cms.coverUrl] } } : {}),
   };
 }
 

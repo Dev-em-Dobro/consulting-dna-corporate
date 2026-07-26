@@ -14,9 +14,9 @@ const utilityLinks = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
-export default function SiteFooter() {
+export default function SiteFooter({ topBorder = false }: { topBorder?: boolean }) {
   return (
-    <footer className="bg-white text-ink">
+    <footer className={`bg-white text-ink${topBorder ? " border-t-2 border-brand" : ""}`}>
       <div className="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] gap-6 px-6 py-16 sm:gap-20 md:px-10">
         <Link href="/" className="flex h-fit flex-none items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}

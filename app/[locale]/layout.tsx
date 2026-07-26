@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -10,6 +10,8 @@ import CookieConsent from "@/components/CookieConsent";
 import TopProgress from "@/components/TopProgress";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { organizationLd } from "@/lib/seo/jsonld";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -40,6 +42,14 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  icons: {
+    icon: [{ url: "/cdna-logo-horizontal.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/cdna-logo.svg" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#d84339",
 };
 
 export default async function LocaleLayout({
@@ -53,22 +63,10 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: SITE_URL,
-    description: SITE_DESCRIPTION,
-    logo: `${SITE_URL}/cdna-logo.svg`,
-  };
-
   return (
     <html lang={locale} className={poppins.variable}>
       <body className="font-sans">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
-        />
+        <JsonLd data={organizationLd()} />
         <NextIntlClientProvider>
           <TopProgress />
           {children}

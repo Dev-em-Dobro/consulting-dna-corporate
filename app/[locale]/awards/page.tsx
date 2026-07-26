@@ -15,6 +15,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Awards & partnerships — Corporate DNA",
+    description:
+      "The awards, accreditations and partnerships — including Harvard Business Impact and Imperial College London — behind Corporate DNA's leadership advisory.",
     alternates: localeAlternates(locale, "/awards"),
   };
 }

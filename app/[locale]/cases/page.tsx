@@ -14,6 +14,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Cases — Corporate DNA",
+    description:
+      "Measured leadership outcomes for global enterprises — how Corporate DNA's advisory and 5H® methodology moved the metrics that matter for clients like Shell and Heineken.",
     alternates: localeAlternates(locale, "/cases"),
   };
 }
@@ -29,7 +31,7 @@ export default async function CasesPage({
   const cases = await getCaseListEntries();
 
   return (
-    <SiteShell>
+    <SiteShell footerTopBorder>
       {/* White hero, per the reference: heavy dark title + muted subtitle. */}
       <section className="bg-white">
         <div className="mx-auto max-w-[820px] px-6 pt-14 pb-6 md:px-10 md:pt-20 md:pb-8">

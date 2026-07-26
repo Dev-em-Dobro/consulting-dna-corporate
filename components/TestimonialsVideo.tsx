@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 /**
  * Homepage testimonials "metralhadora" video (006 FR-402/403): a rapid-cut
  * stitched-testimonials reel shown immediately before the Client-Impact
- * section. Autoplays muted + looping with `playsInline`; under
- * `prefers-reduced-motion` it does not autoplay and exposes controls instead.
+ * section.
  *
- * The real reel is delivered later — until a `src` is provided this renders a
- * placeholder, so swapping in the video is a one-prop change.
+ * Lazy click-to-play: on page load only the lightweight poster image renders —
+ * the `<video>` element (and therefore the mp4 download) is not mounted until
+ * the visitor clicks play, so the reel never adds loading weight to the initial
+ * page open.
  */
 export default function TestimonialsVideo({
   src,
@@ -21,22 +22,13 @@ export default function TestimonialsVideo({
   heading?: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v || !src) return;
-    if (reduceMotion) v.pause();
-    else v.play().catch(() => {});
-  }, [reduceMotion, src]);
+  const handlePlay = () => {
+    setPlaying(true);
+    // The <video> mounts in the same user-gesture tick, so play() is allowed.
+    requestAnimationFrame(() => videoRef.current?.play().catch(() => {}));
+  };
 
   return (
     <section id="testimonials" className="bg-paper">
@@ -52,19 +44,44 @@ export default function TestimonialsVideo({
         </h2>
 
         <div className="relative aspect-video w-full overflow-hidden border border-line bg-ink">
-          {src ? (
+          {src && playing ? (
             <video
               ref={videoRef}
               className="h-full w-full object-cover"
               src={src}
               poster={poster}
-              muted
-              loop
+              controls
               playsInline
-              autoPlay={!reduceMotion}
-              controls={reduceMotion}
-              preload="metadata"
+              preload="auto"
             />
+          ) : src ? (
+            // Poster only — the mp4 is not requested until the visitor clicks.
+            <button
+              type="button"
+              onClick={handlePlay}
+              aria-label="Play testimonials video"
+              className="group relative block h-full w-full cursor-pointer"
+            >
+              {poster && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={poster}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              )}
+              <span className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/30" />
+              <span className="absolute left-1/2 top-1/2 flex h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand shadow-xl transition-transform group-hover:scale-105">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="ml-1 h-8 w-8 fill-white"
+                  aria-hidden="true"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </button>
           ) : (
             // Placeholder until the real testimonials reel is delivered.
             <div className="flex h-full w-full items-center justify-center px-6 text-center text-[13.5px] font-semibold uppercase tracking-[1.5px] text-white/55">

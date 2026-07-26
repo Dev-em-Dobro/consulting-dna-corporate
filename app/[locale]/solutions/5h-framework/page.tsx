@@ -5,6 +5,8 @@ import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import FiveHExplorer from "@/components/five-h/FiveHExplorer";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, serviceLd, faqLd } from "@/lib/seo/jsonld";
 import { setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/seo/alternates";
 import methodology from "@/public/5H-methodology.jpg";
@@ -50,6 +52,39 @@ const OUTCOMES = [
   "Accelerate ROI on the organisation’s learning investments.",
 ];
 
+/**
+ * FAQ — self-contained Q&A for GEO/AI extraction. Rendered visibly below AND
+ * emitted as FAQPage JSON-LD (Google requires the answers be on the page).
+ */
+const FAQS = [
+  {
+    question: "What is the 5H® Framework?",
+    answer:
+      "The 5H® Framework is Corporate DNA Consulting's proprietary, neuroscience-led leadership methodology built on five lenses — Head, Heart, Hunch, Hands and Habits (thinking, relating, sensing, doing and applying). It develops the whole leader rather than isolated skills, so new behaviours hold under real enterprise pressure.",
+  },
+  {
+    question: "What do the five H's stand for?",
+    answer:
+      "The five H's are Head (thinking), Heart (relating), Hunch (sensing), Hands (doing) and Habits (applying). Head, Heart and Hunch form the Inner Game — the internal drivers of purpose — while Hands and Habits form the Outer Game, translating intent into action.",
+  },
+  {
+    question:
+      "How is the 5H® Framework different from traditional leadership training?",
+    answer:
+      "Traditional executive programmes often build skills that create partial leaders, sustainable only in the short term. The 5H® engages all of a leader's faculties at once and embeds new habits through practice, peer feedback and real-world application, so change endures long after the programme ends.",
+  },
+  {
+    question: "What is the DNA 360 Profiler?",
+    answer:
+      "The DNA 360 Profiler is Corporate DNA's diagnostic tool used alongside the 5H® Methodology. It turns a leadership diagnosis into a measurable development plan for individuals, teams and the wider organisation.",
+  },
+  {
+    question: "Where and with whom has the 5H® Framework been used?",
+    answer:
+      "Corporate DNA has applied the 5H® Methodology across culture transformations, leadership development, team building and executive coaching in 26 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
+  },
+];
+
 const CLIENTS = [
   { name: "GSK", file: "gsk.png" },
   { name: "Heineken", file: "heineken.png" },
@@ -87,6 +122,21 @@ export default async function FiveHFrameworkPage({
   setRequestLocale(locale);
   return (
     <SiteShell>
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Solutions", path: "/solutions" },
+            { name: "The 5H® Framework", path: "/solutions/5h-framework" },
+          ]),
+          serviceLd({
+            name: "The 5H® Framework",
+            path: "/solutions/5h-framework",
+            description:
+              "Corporate DNA's proprietary, neuroscience-led leadership methodology — Head, Heart, Hunch, Hands and Habits — that develops the whole leader so behaviour change holds under real enterprise pressure.",
+          }),
+          faqLd(FAQS),
+        ]}
+      />
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <PageHero
         eyebrow="Our Approach"
@@ -312,6 +362,39 @@ export default async function FiveHFrameworkPage({
               </div>
             ))}
           </div>
+        </Reveal>
+      </section>
+
+      {/* ── FAQ (visible + FAQPage JSON-LD, for search & AI extraction) ── */}
+      <section className="bg-paper">
+        <Reveal
+          stagger={false}
+          className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24"
+        >
+          <div className="mb-12 text-center">
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
+                Frequently asked
+              </span>
+            </div>
+            <h2 className="text-[28px] font-bold leading-[1.1] tracking-[-0.6px] text-ink sm:text-[36px]">
+              The 5H<R /> Framework, explained
+            </h2>
+          </div>
+
+          <dl className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-white">
+            {FAQS.map((f) => (
+              <div key={f.question} className="p-6 md:p-8">
+                <dt className="text-[18px] font-semibold leading-snug text-ink">
+                  {f.question}
+                </dt>
+                <dd className="mt-3 text-[16px] leading-[1.7] text-muted">
+                  {f.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </section>
 

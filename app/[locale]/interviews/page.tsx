@@ -11,6 +11,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Interviews — Corporate DNA",
+    description:
+      "Full client interviews on leadership, culture and transformation with the executives behind Corporate DNA's flagship engagements.",
     alternates: localeAlternates(locale, "/interviews"),
   };
 }

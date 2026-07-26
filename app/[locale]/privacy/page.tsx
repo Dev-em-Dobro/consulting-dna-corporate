@@ -11,6 +11,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Privacy Policy — Corporate DNA",
+    description:
+      "How Corporate DNA Consulting collects, uses and protects your personal data.",
     alternates: localeAlternates(locale, "/privacy"),
   };
 }

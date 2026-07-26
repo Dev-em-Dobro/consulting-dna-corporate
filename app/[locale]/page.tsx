@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/seo/alternates";
+import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
@@ -16,6 +17,8 @@ import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
 import TestimonialsVideo from "@/components/TestimonialsVideo";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
+import JsonLd from "@/components/JsonLd";
+import { bookLd, personLd } from "@/lib/seo/jsonld";
 
 export async function generateMetadata({
   params,
@@ -23,7 +26,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return { alternates: localeAlternates(locale, "/") };
+  const title =
+    "Global Leadership Advisory & Executive Coaching | Corporate DNA";
+  return {
+    title,
+    description: SITE_DESCRIPTION,
+    alternates: localeAlternates(locale, "/"),
+    openGraph: { title, description: SITE_DESCRIPTION },
+    twitter: { title, description: SITE_DESCRIPTION },
+  };
 }
 
 // Curated wall of the largest / most globally recognisable clients — Aramco leads.
@@ -73,14 +84,14 @@ const differentiators = [
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
-// `caseSlug` deep-links a card to its published case detail page. Only Shell has
-// a case in the CMS today; the others fall back to the flagship-cases listing.
+// `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
+// Cards without a slug fall back to the flagship-cases listing (/cases).
 const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string;
 }[] = [
-  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
-  { client: "Frasers Property", sector: "Real estate", challenge: "Retain critical leadership talent through a period of strategic change.", metric: "85%", metricLabel: "talent retention among participating leaders" },
+  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants", caseSlug: "heineken" },
+  { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme", caseSlug: "case-1d007617" },
 ];
 
@@ -94,6 +105,18 @@ export default async function V1({
   const [people, nav] = await Promise.all([getPeople(), buildSiteNav()]);
   return (
     <div className="w-full overflow-x-hidden bg-white">
+      <JsonLd
+        data={[
+          personLd({ name: "Rhea Leckie", jobTitle: "Founder" }),
+          bookLd({
+            name: book.title,
+            author: "Rhea Leckie",
+            path: "/book",
+            description: book.body[1],
+            image: `${SITE_URL}/book-cover.jpg`,
+          }),
+        ]}
+      />
       {/* NAV */}
       <NavV1 items={nav} />
 
@@ -189,9 +212,11 @@ export default async function V1({
       </section>
       )}
 
-      {/* TESTIMONIALS "metralhadora" video — immediately before Client-Impact.
-          Placeholder until the real reel is delivered (swap in a src). */}
-      <TestimonialsVideo />
+      {/* TESTIMONIALS "metralhadora" video — immediately before Client-Impact. */}
+      <TestimonialsVideo
+        src="/videos/testimonials-reel.mp4"
+        poster="/videos/testimonials-reel-poster.jpg"
+      />
 
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">

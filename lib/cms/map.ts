@@ -4,11 +4,14 @@
  * Lists drop items that fail validation; detail fetchers return null on miss/parse-fail so
  * routes can call notFound(). All calls are server-side (client.ts sends the key).
  */
+import fs from "node:fs";
+import path from "node:path";
 import { getList, getCases, getEntry, getPage, getPreviewEntry } from "./client";
 import * as S from "./schemas";
 import type { Social } from "./schemas";
 import { plainText, plainTextList } from "./text";
 import { countriesToIso3 } from "../coverage";
+import { LOGO_COLORS } from "../logo-colors";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -53,6 +56,52 @@ function buildSocials(d?: S.PersonEntry["data"]): Social[] | undefined {
 const caseTags =(f?: { industry?: string[]; service?: string[]; outcome?: string[] }): string[] =>
   [...(f?.industry ?? []), ...(f?.service ?? []), ...(f?.outcome ?? [])];
 
+/**
+ * Client brand logos live in `public/logos/<name>.png`, named as the slugified
+ * client (e.g. "Shell" → shell.png, "Coca Cola" → coca_cola.png). Read the
+ * folder once and match a slugified client name to a file; return the public
+ * URL, or undefined when no logo exists (the case band then stays dark, no image).
+ */
+let logoSet: Set<string> | null = null;
+function logoBasenames(): Set<string> {
+  if (logoSet) return logoSet;
+  logoSet = new Set();
+  try {
+    const dir = path.join(process.cwd(), "public", "logos");
+    for (const f of fs.readdirSync(dir)) {
+      if (f.toLowerCase().endsWith(".png")) logoSet.add(f.slice(0, -4).toLowerCase());
+    }
+  } catch {
+    // No logos folder (or not on a filesystem) → every case band stays dark.
+  }
+  return logoSet;
+}
+
+function logoSlug(client: string): string {
+  return client
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // strip diacritics
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/['’´`]/g, "") // drop apostrophes so "Levi's" → levis, not levi_s
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+// Client legal names don't always slugify to the brand's logo filename. Map the
+// slugified client name → the actual logo basename for those mismatches.
+const LOGO_ALIASES: Record<string, string> = {
+  levi_strauss_and_co: "levis",
+};
+
+function resolveClientLogo(client: string): { url?: string; color?: string } {
+  if (!client) return {};
+  const slug = LOGO_ALIASES[logoSlug(client)] ?? logoSlug(client);
+  if (!logoBasenames().has(slug)) return {};
+  // Predominant brand colour is baked by scripts/gen-logo-colors.ts.
+  return { url: `/logos/${slug}.png`, color: LOGO_COLORS[slug] };
+}
+
 // ---- View models -----------------------------------------------------------
 export type PersonVM = {
   name: string; role: string; img?: string; bio: string[]; bioHtml?: string;
@@ -69,6 +118,8 @@ export type CaseListEntry = {
   metricValue?: string;  // e.g. "90%"
   metricLabel?: string;  // remainder of measurableResult
   publishedAt: string;   // ISO — for date sort
+  logoUrl?: string;      // /logos/<client>.png when a brand logo exists
+  logoColor?: string;    // predominant logo colour (hex) for the band tint
 };
 export type CaseArticle = {
   slug: string; tags: string[]; title: string;
@@ -85,7 +136,7 @@ export type SolutionVM = {
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
-export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
+export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string; author?: string; publishedAt?: string };
 /** Richer insight list row: adds cover + computed reading time for the library. */
 export type InsightListEntry = {
   slug: string; title: string; summary?: string; coverUrl?: string;
@@ -203,6 +254,28 @@ export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseA
 }
 
 /**
+ * Pull a short excerpt of the "Client Challenge" section out of a case's rich
+ * `text` body, for the /cases list preview. Grabs the content between the
+ * "Client Challenge" heading and the next heading, flattens it to plain text,
+ * and truncates to ~300 chars on a word boundary with an ellipsis. Returns
+ * undefined when the body has no such section (so the row shows nothing).
+ */
+function challengeExcerpt(html?: string, max = 300): string | undefined {
+  if (!html) return undefined;
+  const heading = /<h[1-4][^>]*>\s*client\s+challenge\s*<\/h[1-4]>/i.exec(html);
+  if (!heading) return undefined;
+  const after = html.slice(heading.index + heading[0].length);
+  const next = /<h[1-4][^>]*>/i.exec(after);
+  const section = next ? after.slice(0, next.index) : after;
+  const text = plainText(section);
+  if (!text) return undefined;
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const trimmed = cut.slice(0, cut.lastIndexOf(" ")).trimEnd() || cut.trimEnd();
+  return `${trimmed}…`;
+}
+
+/**
  * Rich case list for the /cases library: the compact list (for slug, cover,
  * facets, publishedAt) enriched per-case with the detail entry (challenge,
  * measurableResult, tags). Same N+1 shape as getPeople. A case whose detail
@@ -216,16 +289,21 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
     items.map(async (it) => {
       const art = await getCaseArticle(it.slug);
       const metric = splitMetric(art?.body.measurableResult);
+      const client = art?.title || plainText(it.title) || "";
+      const logo = resolveClientLogo(client);
       return {
         slug: it.slug,
-        client: art?.title || plainText(it.title) || "",
+        client,
         // `caseTags(it.facets)` is only the fallback for when the detail entry failed to load.
         tags: art?.tags.length ? art.tags : caseTags(it.facets),
         coverUrl: art?.coverUrl ?? it.coverUrl,
-        challenge: art?.body.challenge,
+        // Prefer the structured field; else pull the excerpt from the rich body.
+        challenge: art?.body.challenge ?? challengeExcerpt(art?.text),
         metricValue: metric.value,
         metricLabel: metric.label,
         publishedAt: it.publishedAt,
+        logoUrl: logo.url,
+        logoColor: logo.color,
       };
     }),
   );
@@ -279,7 +357,18 @@ function mapInsight(raw: unknown): InsightVM | null {
   const r = S.insightEntry.safeParse(raw);
   if (!r.success) return null;
   // body is rendered via <RichText>; title is a plain-text heading.
-  return { slug: r.data.slug, title: plainText(r.data.data.title) ?? "", body: r.data.data.body, coverUrl: r.data.data.coverUrl };
+  const d = r.data.data as Record<string, unknown>;
+  const str = (v: unknown) => (typeof v === "string" ? v : undefined);
+  return {
+    slug: r.data.slug,
+    title: plainText(r.data.data.title) ?? "",
+    body: r.data.data.body,
+    coverUrl: r.data.data.coverUrl,
+    // Author is an optional CMS field (schema passes it through) → plain text.
+    author: plainText(str(d.author)) ?? plainText(str(d.authorName)),
+    // Publish date from the entry envelope (used for Article structured data).
+    publishedAt: r.data.publishedAt,
+  };
 }
 
 export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
@@ -310,12 +399,15 @@ export async function getInsightListEntries(): Promise<InsightListEntry[]> {
     coverUrl: details[i]?.coverUrl,
     publishedAt: c.publishedAt,
     readingMinutes: readingMinutes(details[i]?.body),
+    author: details[i]?.author,
   }));
 }
 
 // ---- Regions ---------------------------------------------------------------
 export async function getRegionCards(): Promise<RegionCard[]> {
-  const res = await getList("regions");
+  // pageSize 100 (the CMS cap) so all offices are returned — the list endpoint
+  // defaults to 20, which would silently drop regions once there are more.
+  const res = await getList("regions", { pageSize: 100 });
   if (!res) return [];
   return parseItems<S.RegionListItem>(res.items, S.regionListItem).map((r) => ({ slug: r.slug, name: plainText(r.title) ?? "" }));
 }

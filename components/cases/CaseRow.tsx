@@ -7,49 +7,43 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
   const href = `/cases/${entry.slug}`;
   return (
     <article className="overflow-hidden border border-line bg-white">
-      {/* Branded band. With a cover, show it full-bleed so the client's own
-          brand colour + logo fill the right (per the reference); a left scrim
-          keeps the overlaid name/tags readable. Without a cover, a plain white
-          band with dark text. */}
+      {/* Branded band (per topocase reference): client name + tags on the left.
+          When the client has a brand logo, the band fades from dark to the logo's
+          predominant colour and shows the logo on the right; without a logo it
+          stays flat dark. */}
       <div
         className={
-          "relative isolate flex min-h-[132px] items-end overflow-hidden px-6 py-5 " +
-          (entry.coverUrl ? "" : "border-b border-line bg-white")
+          "relative isolate flex min-h-[132px] items-center justify-between gap-6 overflow-hidden px-6 py-5 " +
+          (entry.logoUrl && !entry.logoColor
+            ? "bg-gradient-to-r from-neutral-900 via-neutral-900 to-brand "
+            : "bg-neutral-900 ")
+        }
+        style={
+          entry.logoColor
+            ? { backgroundImage: `linear-gradient(to right, #141414 0%, #141414 30%, ${entry.logoColor} 100%)` }
+            : undefined
         }
       >
-        {entry.coverUrl && (
-          <>
-            <Image
-              src={entry.coverUrl}
-              alt=""
-              aria-hidden
-              fill
-              sizes="(min-width: 900px) 820px, 100vw"
-              className="-z-10 object-cover"
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/35 to-transparent" />
-          </>
-        )}
         <div>
-          <h2
-            className={
-              "text-[22px] font-bold uppercase leading-tight tracking-[0.5px] " +
-              (entry.coverUrl ? "text-white" : "text-ink")
-            }
-          >
+          <h2 className="text-[22px] font-bold uppercase leading-tight tracking-[0.5px] text-white">
             {entry.client}
           </h2>
           {entry.tags.length > 0 && (
-            <p
-              className={
-                "mt-1.5 text-[11px] font-semibold uppercase tracking-[1.5px] " +
-                (entry.coverUrl ? "text-white/70" : "text-muted")
-              }
-            >
+            <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1.5px] text-white/70">
               {entry.tags.join(" · ")}
             </p>
           )}
         </div>
+
+        {entry.logoUrl && (
+          <Image
+            src={entry.logoUrl}
+            alt={`${entry.client} logo`}
+            width={160}
+            height={64}
+            className="h-12 w-auto max-w-[150px] flex-none object-contain md:h-14 md:max-w-[180px]"
+          />
+        )}
       </div>
 
       {/* Body: challenge → metric → read more. */}

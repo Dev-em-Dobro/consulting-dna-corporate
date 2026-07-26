@@ -11,6 +11,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Cookie Policy — Corporate DNA",
+    description:
+      "How Corporate DNA Consulting uses cookies and similar technologies on this website.",
     alternates: localeAlternates(locale, "/cookies"),
   };
 }

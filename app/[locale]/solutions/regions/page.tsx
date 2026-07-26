@@ -15,6 +15,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Regions — Corporate DNA",
+    description:
+      "Corporate DNA's global delivery — senior leadership advisory and executive coaching across 36 countries, with local insight in every region.",
     alternates: localeAlternates(locale, "/solutions/regions"),
   };
 }

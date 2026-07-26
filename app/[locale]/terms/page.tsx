@@ -11,6 +11,8 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: "Terms of Service — Corporate DNA",
+    description:
+      "The terms governing your use of the Corporate DNA Consulting website.",
     alternates: localeAlternates(locale, "/terms"),
   };
 }
