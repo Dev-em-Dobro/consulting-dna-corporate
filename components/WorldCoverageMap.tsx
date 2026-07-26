@@ -1,16 +1,16 @@
 import world from "@/lib/world-countries.geo.json";
-import { COVERAGE_ISO3 } from "@/lib/coverage";
-import { getCoverageIso3 } from "@/lib/cms/map";
+import { COVERAGE_ISO3, countriesToIso3 } from "@/lib/coverage";
+import { getCoverageRegions } from "@/lib/cms/map";
+import { geocode } from "@/lib/geocode";
 
 /**
- * World coverage map (008 FR-608–612). An async SERVER component that renders a
- * static SVG — zero client JS. Painted countries come from the published CMS
- * regions' `country` field (mapped to ISO3); when the CMS has no regions it
- * falls back to the static `COVERAGE_ISO3` list, so the map is never blank. Each
- * country is one GeoJSON feature, so the USA and Canada paint as whole countries
- * (no state/province borders); a country with no matching feature is skipped
- * safely. The SVG scales fluidly (viewBox), staying legible down to small
- * screens.
+ * World coverage map (008 FR-608–612). An async SERVER component rendering a
+ * static SVG. Countries the firm operates in are painted (each in its own colour
+ * from a brand-harmonised palette) from the published CMS regions' `country`
+ * field; when the CMS has no regions it falls back to the static COVERAGE_ISO3
+ * so the map is never blank. Each region's `city` is geocoded (city + country →
+ * lat/lng, cached) and drawn as a labelled pin. A country/city that can't be
+ * resolved is skipped safely. The SVG scales fluidly (viewBox).
  */
 
 // Simple equirectangular projection into a 1000×500 canvas; the viewBox then
@@ -42,6 +42,49 @@ const featurePath = (g: Geometry): string =>
     ? g.coordinates.map(ringToPath).join(" ")
     : g.coordinates.flat().map(ringToPath).join(" ");
 
+// One colour per covered country, harmonised with the brand red (#d84339).
+const PALETTE = [
+  "#d84339", // brand red
+  "#e8833a", // orange
+  "#e6b02e", // amber
+  "#3f9e8f", // teal
+  "#3a7ca5", // blue
+  "#8a5a9e", // purple
+  "#b5342b", // brand dark
+  "#5b9e4f", // green
+];
+
+const titleCase = (s: string) =>
+  s.replace(/\w\S*/g, (t) => t[0].toUpperCase() + t.slice(1).toLowerCase());
+
+/** A labelled map pin whose tip sits exactly on (x, y). */
+function Pin({ x, y, label }: { x: number; y: number; label: string }) {
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      <path
+        d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
+        fill="#373234"
+        stroke="#fff"
+        strokeWidth={0.6}
+      />
+      <circle cx="0" cy="-12.8" r="2.4" fill="#fff" />
+      <text
+        x="8"
+        y="-10.5"
+        fontSize="11"
+        fontWeight={600}
+        fill="#373234"
+        stroke="#fff"
+        strokeWidth={2.6}
+        paintOrder="stroke"
+        style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+      >
+        {label}
+      </text>
+    </g>
+  );
+}
+
 export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
@@ -49,10 +92,35 @@ export default async function WorldCoverageMap({
   eyebrow?: string;
   title?: string;
 }) {
-  // Prefer the CMS regions' countries; fall back to the static list if the CMS
-  // has no regions (or is unreachable) so the map never renders blank.
-  const fromCms = await getCoverageIso3();
-  const covered = new Set(fromCms.length ? fromCms : COVERAGE_ISO3);
+  const regions = await getCoverageRegions();
+
+  // Painted countries come from the CMS regions; fall back to the static list
+  // when the CMS has none, so the map never renders blank.
+  const coveredCodes = regions.length
+    ? countriesToIso3(regions.map((r) => r.country))
+    : COVERAGE_ISO3;
+
+  // Stable colour per country (sorted so the assignment doesn't shuffle).
+  const colorFor: Record<string, string> = {};
+  [...coveredCodes]
+    .sort()
+    .forEach((code, i) => (colorFor[code] = PALETTE[i % PALETTE.length]));
+  const covered = new Set(coveredCodes);
+
+  // Geocode each region that resolves to a covered country into a labelled pin.
+  const pins = (
+    await Promise.all(
+      regions.map(async (r) => {
+        const iso = countriesToIso3([r.country])[0];
+        if (!iso || !r.city) return null;
+        const coord = await geocode(r.city, r.country);
+        if (!coord) return null;
+        const [x, y] = project(coord.lng, coord.lat);
+        return { x, y, label: titleCase(r.city) };
+      }),
+    )
+  ).filter((p): p is { x: number; y: number; label: string } => !!p);
+
   const features = (world as { features: Feature[] }).features;
 
   return (
@@ -71,23 +139,22 @@ export default async function WorldCoverageMap({
         <svg
           viewBox="0 0 1000 430"
           role="img"
-          aria-label="World map highlighting the countries where the firm operates"
+          aria-label="World map highlighting the countries and cities where the firm operates"
           className="h-auto w-full"
         >
           {features.map((f) => {
             const d = featurePath(f.geometry);
             if (!d) return null;
-            const on = covered.has(f.id);
+            const fill = covered.has(f.id)
+              ? (colorFor[f.id] ?? "#d84339")
+              : "#e7e3df";
             return (
-              <path
-                key={f.id}
-                d={d}
-                className={on ? "fill-brand" : "fill-[#e7e3df]"}
-                stroke="#fff"
-                strokeWidth={0.4}
-              />
+              <path key={f.id} d={d} fill={fill} stroke="#fff" strokeWidth={0.4} />
             );
           })}
+          {pins.map((p, i) => (
+            <Pin key={i} x={p.x} y={p.y} label={p.label} />
+          ))}
         </svg>
       </div>
     </section>

@@ -377,6 +377,23 @@ export async function getCoverageIso3(): Promise<string[]> {
   return countriesToIso3(vms.map((vm) => vm?.country));
 }
 
+export type CoverageRegion = { slug: string; city?: string; country?: string };
+
+/**
+ * Published regions reduced to what the coverage map needs: `country` (which
+ * country to paint) and `city` (geocoded to a pin). Unlike getRegionLocations,
+ * this does NOT require an address — a region needs only country/city to appear
+ * on the map. Returns [] when the CMS has no regions.
+ */
+export async function getCoverageRegions(): Promise<CoverageRegion[]> {
+  const cards = await getRegionCards();
+  if (!cards.length) return [];
+  const vms = await Promise.all(cards.map((c) => getRegion(c.slug)));
+  return vms
+    .filter((v): v is RegionVM => !!v)
+    .map((v) => ({ slug: v.slug, city: v.city, country: v.country }));
+}
+
 // ---- Singleton pages -------------------------------------------------------
 export async function getCmsPage(key: string, locale = "en"): Promise<CmsPage | null> {
   const raw = await getPage(key, locale);
