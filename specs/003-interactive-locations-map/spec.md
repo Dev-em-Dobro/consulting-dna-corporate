@@ -5,6 +5,13 @@
 **Date**: 2026-07-23
 **Status**: Planned
 
+> **Base spec.** This defines the offices carousel-map baseline. The 24-07 meeting added polish and
+> behaviour requirements (infinite wrap, auto-advance, pin overflow, fixed-height contact block,
+> transition-bug fix, the "6 cities" option) plus a distinct world coverage map and CMS-Regions
+> wiring — those live in **`008-maps`** as the delta on top of this spec. 003 is not superseded;
+> 008 references it and does not restate its base behaviour. Note: this text says "Mapbox GL JS"
+> but the implemented map uses **Leaflet** — plan against the code.
+
 ## Summary
 
 Replace the static "Our offices" grid on the homepage with an interactive

@@ -7,6 +7,10 @@ import { usePathname } from "next/navigation";
  * Global top loading bar. Starts on any internal link click (works even when
  * the target route is prefetched, unlike a Suspense `loading.tsx`) and finishes
  * when the pathname updates (navigation complete).
+ *
+ * Programmatic navigations (e.g. the language switcher's `router.replace`) go
+ * through a `<button>`, not an `<a>`, so they can't be caught by the click
+ * handler — they dispatch a `topprogress:start` event to trigger the bar.
  */
 export default function TopProgress() {
   const pathname = usePathname();
@@ -49,9 +53,15 @@ export default function TopProgress() {
       start();
     };
 
+    // Programmatic navigations (language switcher) can't be observed as an <a>
+    // click, so they ask for the bar explicitly.
+    const onManualStart = () => start();
+
     document.addEventListener("click", onClick, true);
+    window.addEventListener("topprogress:start", onManualStart);
     return () => {
       document.removeEventListener("click", onClick, true);
+      window.removeEventListener("topprogress:start", onManualStart);
       clearTimers();
     };
   }, []);

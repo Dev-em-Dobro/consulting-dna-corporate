@@ -62,8 +62,8 @@ function Avatar({ person, sizes }: { person: Person; sizes: string }) {
 
 function SocialIcon({ type }: { type: SocialType }) {
   const common = {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     viewBox: "0 0 24 24",
     "aria-hidden": true as const,
   };
@@ -108,7 +108,7 @@ function SocialLinks({ socials }: { socials: Social[] }) {
           aria-label={SOCIAL_LABEL[s.type]}
           target={s.type === "email" ? undefined : "_blank"}
           rel="noopener noreferrer"
-          className="flex h-9 w-9 items-center justify-center rounded-md bg-brand text-white transition-colors hover:bg-brand-dark"
+          className="flex h-10 w-10 items-center justify-center rounded-md bg-brand text-white transition-colors hover:bg-brand-dark"
         >
           <SocialIcon type={s.type} />
         </a>
@@ -299,7 +299,7 @@ export default function PeopleGrid({ people }: { people: Person[] }) {
 
   return (
     <>
-      <div className="mb-16 grid grid-cols-2 gap-6 md:grid-cols-3">
+      <div className="mb-16 grid grid-cols-2 items-start gap-6 md:grid-cols-3">
         {people.map((p, i) => (
           <button
             key={i}
@@ -317,10 +317,14 @@ export default function PeopleGrid({ people }: { people: Person[] }) {
               </div>
               <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
             </div>
-            <h3 className="mb-0.5 mt-4 text-[17px] font-semibold text-ink transition-colors group-hover:text-brand">
-              {p.name}
-            </h3>
-            <p className="text-[13.5px] leading-snug text-muted">{p.role}</p>
+            {/* Fixed-height name/role block so cards align along the top and
+                never "stair-step" when a role wraps to two lines (FR-407). */}
+            <div className="mt-4 min-h-[60px]">
+              <h3 className="mb-0.5 text-[17px] font-semibold text-ink transition-colors group-hover:text-brand">
+                {p.name}
+              </h3>
+              <p className="text-[13.5px] leading-snug text-muted">{p.role}</p>
+            </div>
           </button>
         ))}
       </div>

@@ -6,6 +6,7 @@ import {
   type FocusEvent,
   type FormEvent,
 } from "react";
+import { submitLead } from "@/app/actions/submit-lead";
 
 type FieldKey = "name" | "email" | "organisation" | "message";
 type Values = Record<FieldKey, string>;
@@ -40,6 +41,10 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  // Honeypot: bots fill it, humans never see it.
+  const [honeypot, setHoneypot] = useState("");
 
   const update =
     (key: FieldKey) =>
@@ -56,14 +61,31 @@ export default function ContactForm() {
       setErrors(validate(values));
     };
 
-  const onSubmit = (ev: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const errs = validate(values);
     setErrors(errs);
     setTouched({ name: true, email: true, organisation: true, message: true });
-    if (Object.keys(errs).length === 0) {
-      // No backend wired yet — this is where the submission would be sent.
-      setSubmitted(true);
+    if (Object.keys(errs).length > 0) return;
+
+    setSubmitError(false);
+    setSending(true);
+    try {
+      const res = await submitLead({
+        ...values,
+        company_website: honeypot,
+        source:
+          typeof window !== "undefined"
+            ? window.location.pathname + window.location.search
+            : "",
+      });
+      // Only show the thank-you state on a confirmed capture (FR-204).
+      if (res.ok) setSubmitted(true);
+      else setSubmitError(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -105,6 +127,18 @@ export default function ContactForm() {
       onSubmit={onSubmit}
       className="flex flex-col gap-4 bg-white p-[34px]"
     >
+      {/* Honeypot — visually hidden, off the tab order; must stay empty. */}
+      <input
+        type="text"
+        name="company_website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
+
       <label className="flex flex-col gap-[7px]">
         <span className={labelCls}>
           Name <span className="text-brand">*</span>
@@ -172,11 +206,19 @@ export default function ContactForm() {
         {errorEl("message")}
       </label>
 
+      {submitError && (
+        <p role="alert" className="text-[13px] leading-snug text-red-600">
+          Something went wrong sending your message. Please try again, or email
+          us directly.
+        </p>
+      )}
+
       <button
         type="submit"
-        className="mt-1 cursor-pointer bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627]"
+        disabled={sending}
+        className="mt-1 cursor-pointer bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Start a Conversation
+        {sending ? "Sending…" : "Start a Conversation"}
       </button>
     </form>
   );

@@ -1,0 +1,55 @@
+Site — Home
+
+Números de impacto
+
+O símbolo na frente dos números está parecendo sinal de negativo ("-18", "-90%"). Trocar por um underline mais baixo e mais próximo do número, ou uma flechinha. Se continuar lendo como negativo, tirar o símbolo e deixar só o vermelho.
+
+Mapa / localizações
+
+Carrossel infinito: ao chegar no fim, volta pra Londres sem parar.
+Rotação automática dos slides (já pedido pelo Guilherme, pra dar sensação de global e induzir o usuário a interagir).
+Pin: tentar deixar a "cabecinha" saindo pra fora da margem do container do mapa.
+Rodapé está "dançando" porque os containers de texto têm alturas diferentes — fixar altura.
+Verificar a animação de transição: no Chrome do Guli ela só "pula" como se trocasse PNG, e em um momento apareceu a versão simplificada (só lista) no desktop. Pode ser cache/versão, mas precisa confirmar.
+Ideia do Guilherme a avaliar: mostrar as 6 cidades ao mesmo tempo — a ativa em caps/maior e as outras menores embaixo, com offset girando. Guli vai pensar no encaixe (risco de parecer botão).
+
+Vídeo de depoimentos ("metralhadora de provas")
+
+Adicionar seção com o vídeo de depoimentos emendados, autoplay mutado, antes da seção de cases.
+Título na linha de "o que líderes da Fortune 500 falam sobre nós".
+Usar por enquanto o vídeo que o Guilherme fez na IA — ele vai corrigir o nome da Rhea antes de mandar.
+
+Cards de case / logos
+
+Colocar logo do cliente junto do nome (aprovado como ideia, complexidade fica pro design do Guli).
+Card do Heineken: decidido deixar como está (o card inteiro já é clicável).
+
+Livro — capa normal + link direto pra Amazon (feito); ajustar a linha do meio e o botão.
+
+Awards & credenciais
+
+Não estão na home nova. Incluir seção com as logos (estão na apresentação, na página "Our Identity").
+Avaliar página dedicada "Our Identity". Guilherme fornece descritivo de cada award (tem legado de 2008/2009 também).
+Site — outras páginas
+Liderança: aumentar o ícone do LinkedIn; cards estão em "escadinha" — alinhar tudo por cima com altura fixa; ajustar a foto que está com fundo diferente do padrão (Guli faz, precisa das imagens em alta).
+5H Framework: deixar mais explicativa, com destaque de metodologia e imagens de IA. Decidido não deixar essa página gerenciável pelo CMS (menor risco de quebrar e permite algo mais elaborado).
+Cases (biblioteca): busca + filtro por tags + ordenação por data; card com logo do cliente em perspectiva e degradê na cor da marca; "read more" clicável.
+Insights (biblioteca): layout mais leve — título, imagem, autor, data e tempo de leitura; organizador por tag e data.
+Página interna de insight: seguir o layout da página de Solutions (título, texto, imagem, banner), com a capa recebendo degradê por cima.
+Diferenciação visual das 3 bibliotecas (Cases, Insights, Metodologias) mantendo a mesma modularidade interna — metodologias em 16:9.
+Topo da página de case com logo à direita: o resultado ficou ruim; achar um tamanho único que funcione em todas as resoluções e resolver como isso entra no CMS.
+Menu/rodapé: os nomes no rodapé ainda estão na versão antiga — alinhar com Solutions/Insights etc.
+Legal pages: Privacy, Cookies e Terms criadas, falta cadastrar os textos.
+Idiomas: bandeirinhas no topo, sempre abrindo em inglês por padrão (sem geolocalização).
+Logo: aplicar a versão recriada (Poppins, cinzas com mais contraste) nas versões clara e escura. A versão reduzida "CDNA" fica aguardando a votação que o Guilherme vai fazer com o time.
+Gráfico inner/outer game: Guli está redesenhando (mais limpo, cinza/preto/vermelho, sem logo, com URL do site como marca d'água).
+Mapa mundi de atuação: pintar EUA e Canadá inteiros (hoje está por estados); definir como atualizar países ao longo do tempo (ferramenta/API vs. trocar imagem) e como fica no mobile.
+301 redirects dos links antigos pros novos.
+Botão flutuante de WhatsApp.
+CMS
+Suporte a vídeo no editor (embed por link do YouTube) — hoje não tem.
+Campos novos para cases: cor da marca do cliente (pra gerar o degradê) e upload do logo em PNG transparente.
+Limitar tamanho/proporção das imagens pra não quebrar layout.
+Integrar o multi-idioma com o front (EN/PT/ES já cadastrados no CMS).
+Conectar o cadastro de Regiões ao mapa da home (e ao mapa mundi, se for por lá).
+Cadastrar conteúdo: as 5 Solutions, os Cases, Insights, textos das Legal Pages, LinkedIn das pessoas, Regiões, Awards.

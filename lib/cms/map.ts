@@ -8,6 +8,7 @@ import { getList, getCases, getEntry, getPage, getPreviewEntry } from "./client"
 import * as S from "./schemas";
 import type { Social } from "./schemas";
 import { plainText, plainTextList } from "./text";
+import { countriesToIso3 } from "../coverage";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -85,6 +86,11 @@ export type SolutionVM = {
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
 export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string };
+/** Richer insight list row: adds cover + computed reading time for the library. */
+export type InsightListEntry = {
+  slug: string; title: string; summary?: string; coverUrl?: string;
+  publishedAt: string; readingMinutes: number; author?: string;
+};
 export type RegionCard = { slug: string; name: string };
 export type RegionVM = {
   slug: string; name: string; city?: string; country?: string;
@@ -191,8 +197,8 @@ function mapCase(raw: unknown): CaseArticle | null {
   };
 }
 
-export async function getCaseArticle(slug: string): Promise<CaseArticle | null> {
-  const raw = await getEntry("cases", slug);
+export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseArticle | null> {
+  const raw = await getEntry("cases", slug, locale);
   return raw ? mapCase(raw) : null;
 }
 
@@ -252,8 +258,8 @@ function mapSolution(raw: unknown): SolutionVM | null {
   };
 }
 
-export async function getSolution(slug: string): Promise<SolutionVM | null> {
-  const raw = await getEntry("solutions", slug);
+export async function getSolution(slug: string, locale = "en"): Promise<SolutionVM | null> {
+  const raw = await getEntry("solutions", slug, locale);
   return raw ? mapSolution(raw) : null;
 }
 
@@ -276,9 +282,35 @@ function mapInsight(raw: unknown): InsightVM | null {
   return { slug: r.data.slug, title: plainText(r.data.data.title) ?? "", body: r.data.data.body, coverUrl: r.data.data.coverUrl };
 }
 
-export async function getInsight(slug: string): Promise<InsightVM | null> {
-  const raw = await getEntry("insights", slug);
+export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
+  const raw = await getEntry("insights", slug, locale);
   return raw ? mapInsight(raw) : null;
+}
+
+/** Reading time from body word count (~200 wpm), min 1 min. Computed on the site. */
+function readingMinutes(html?: string): number {
+  const text = plainText(html) ?? "";
+  const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+  return Math.max(1, Math.round(words / 200));
+}
+
+/**
+ * Rich insight list for the /insights library: the compact list enriched
+ * per-insight with the detail entry (cover image + body for reading time).
+ * Same N+1 shape as getCaseListEntries. Reading time is computed here (007
+ * decision); author is optional until the CMS provides it (010).
+ */
+export async function getInsightListEntries(): Promise<InsightListEntry[]> {
+  const cards = await getInsightCards();
+  const details = await Promise.all(cards.map((c) => getInsight(c.slug)));
+  return cards.map((c, i) => ({
+    slug: c.slug,
+    title: c.title,
+    summary: c.summary,
+    coverUrl: details[i]?.coverUrl,
+    publishedAt: c.publishedAt,
+    readingMinutes: readingMinutes(details[i]?.body),
+  }));
 }
 
 // ---- Regions ---------------------------------------------------------------
@@ -300,8 +332,8 @@ function mapRegion(raw: unknown): RegionVM | null {
   };
 }
 
-export async function getRegion(slug: string): Promise<RegionVM | null> {
-  const raw = await getEntry("regions", slug);
+export async function getRegion(slug: string, locale = "en"): Promise<RegionVM | null> {
+  const raw = await getEntry("regions", slug, locale);
   return raw ? mapRegion(raw) : null;
 }
 
@@ -332,9 +364,39 @@ export async function getRegionLocations(): Promise<Location[]> {
     }));
 }
 
+/**
+ * ISO3 country codes the firm operates in, derived from the published CMS
+ * regions' `country` field (008), for the world coverage map. Returns [] when
+ * the CMS has no regions (or none map to a known country) so the caller can
+ * fall back to the static COVERAGE_ISO3 list.
+ */
+export async function getCoverageIso3(): Promise<string[]> {
+  const cards = await getRegionCards();
+  if (!cards.length) return [];
+  const vms = await Promise.all(cards.map((c) => getRegion(c.slug)));
+  return countriesToIso3(vms.map((vm) => vm?.country));
+}
+
+export type CoverageRegion = { slug: string; city?: string; country?: string };
+
+/**
+ * Published regions reduced to what the coverage map needs: `country` (which
+ * country to paint) and `city` (geocoded to a pin). Unlike getRegionLocations,
+ * this does NOT require an address — a region needs only country/city to appear
+ * on the map. Returns [] when the CMS has no regions.
+ */
+export async function getCoverageRegions(): Promise<CoverageRegion[]> {
+  const cards = await getRegionCards();
+  if (!cards.length) return [];
+  const vms = await Promise.all(cards.map((c) => getRegion(c.slug)));
+  return vms
+    .filter((v): v is RegionVM => !!v)
+    .map((v) => ({ slug: v.slug, city: v.city, country: v.country }));
+}
+
 // ---- Singleton pages -------------------------------------------------------
-export async function getCmsPage(key: string): Promise<CmsPage | null> {
-  const raw = await getPage(key);
+export async function getCmsPage(key: string, locale = "en"): Promise<CmsPage | null> {
+  const raw = await getPage(key, locale);
   if (!raw) return null;
   const r = S.pageEntry.safeParse(raw);
   if (!r.success) return null;

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -82,12 +83,13 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               </Link>
             ),
           )}
-          <a
+          <Link
             href="/#contact"
             className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[11.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
           >
             Start a Conversation
-          </a>
+          </Link>
+          <LanguageSwitcher />
         </nav>
 
         {/* mobile toggle */}
@@ -177,13 +179,16 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
                 </Link>
               ),
             )}
-            <a
+            <Link
               href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-5 rounded-full border-[1.5px] border-white/80 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.6px] text-white"
             >
               Start a Conversation
-            </a>
+            </Link>
+            <div className="mt-4 flex justify-center">
+              <LanguageSwitcher />
+            </div>
           </div>
         </nav>
       )}

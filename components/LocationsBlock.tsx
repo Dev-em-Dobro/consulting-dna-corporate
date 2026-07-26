@@ -26,15 +26,36 @@ export default function LocationsBlock({
   const [reduceMotion, setReduceMotion] = useState(false);
   // Leaflet + CARTO Voyager tiles need no token; fallback is used only on a real error.
   const [mapFailed, setMapFailed] = useState(false);
+  // Auto-advance pauses permanently once the visitor takes control, and while hovered.
+  const [userTook, setUserTook] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const active = offices[activeIndex];
 
+  // A visitor-driven office change: take over from the auto-advance.
+  const selectOffice = (i: number) => {
+    setUserTook(true);
+    setActiveIndex(i);
+  };
   // Swipe left/right on the map itself (mobile) → change office, wrapping around,
   // reusing the same camera + pin animation as the carousel.
   const touch = useRef<{ x: number; y: number } | null>(null);
-  const go = (delta: number) =>
+  const go = (delta: number) => {
+    setUserTook(true);
     setActiveIndex((i) => (i + delta + offices.length) % offices.length);
+  };
+
+  // Auto-advance through the offices to convey global reach (FR-602). Runs only
+  // while the section is in view, motion is allowed, the visitor hasn't taken
+  // over, and the block isn't hovered. Wraps infinitely (last → London).
+  useEffect(() => {
+    if (!inView || reduceMotion || userTook || hovered || offices.length < 2) return;
+    const id = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % offices.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [inView, reduceMotion, userTook, hovered, offices.length]);
 
   // Lazy-mount the map only when the section is near the viewport (protect LCP).
   useEffect(() => {
@@ -79,7 +100,10 @@ export default function LocationsBlock({
             <OfficeGrid offices={offices} />
           </div>
         ) : (
-          <>
+          <div
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
             {/* Map — full-bleed on mobile (no side gaps), centered + contained on
                 desktop. Fixed height avoids layout shift when it lazily mounts.
                 Horizontal swipe changes office; `touch-pan-y` keeps the page
@@ -113,10 +137,12 @@ export default function LocationsBlock({
               <LocationsCarousel
                 offices={offices}
                 activeIndex={activeIndex}
-                onChange={setActiveIndex}
+                onChange={selectOffice}
               />
 
-              <div className="mt-8 text-center">
+              {/* Fixed min-height so switching offices (2–3 address lines ± tel)
+                  never shifts the surrounding page — the "dancing footer" fix. */}
+              <div className="mt-8 min-h-[128px] text-center">
                 <p className="text-[15px] leading-[1.7] text-muted">
                   {active.addressLines.map((line, i) => (
                     <span key={i} className="block">
@@ -129,7 +155,7 @@ export default function LocationsBlock({
                 )}
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </section>

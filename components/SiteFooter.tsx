@@ -1,9 +1,12 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { siteNav } from "@/lib/nav";
 
-const mainLinks = [
-  { label: "Solutions", href: "/solutions" },
-  { label: "Insights", href: "/insights" },
-];
+// Footer primary links come from the single nav source (lib/nav.ts) so the
+// footer and header menu never drift apart (FR-411). Top-level items that have
+// their own route are shown; menu-only parents without an href are skipped.
+const mainLinks = siteNav
+  .filter((item): item is { label: string; href: string } => typeof item.href === "string")
+  .map((item) => ({ label: item.label, href: item.href }));
 
 const utilityLinks = [
   { label: "Privacy Policy", href: "/privacy" },

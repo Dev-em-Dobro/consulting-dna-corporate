@@ -1,35 +1,9 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
-import "leaflet/dist/leaflet.css";
-import CookieConsent from "@/components/CookieConsent";
-import TopProgress from "@/components/TopProgress";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
-  display: "swap",
-});
-
-export const metadata: Metadata = {
-  title: "Corporate DNA — Making Leadership Real",
-  description:
-    "Global leadership advisory & executive coaching. We help CEOs, CHROs and executive teams align leadership, accelerate decisions and build the talent required to deliver transformation.",
-};
-
+// The real <html>/<body> shell lives in app/[locale]/layout.tsx (next-intl
+// documented pattern). This root layout only forwards children.
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" className={poppins.variable}>
-      <body className="font-sans">
-        <TopProgress />
-        {children}
-        <CookieConsent />
-      </body>
-    </html>
-  );
+  return children;
 }
