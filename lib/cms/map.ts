@@ -8,6 +8,7 @@ import { getList, getCases, getEntry, getPage, getPreviewEntry } from "./client"
 import * as S from "./schemas";
 import type { Social } from "./schemas";
 import { plainText, plainTextList } from "./text";
+import { countriesToIso3 } from "../coverage";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -361,6 +362,19 @@ export async function getRegionLocations(): Promise<Location[]> {
       slug: vm.slug, name: vm.name, city: vm.city, country: vm.country,
       addressLines: vm.addressLines!, email: officeEmail(vm),
     }));
+}
+
+/**
+ * ISO3 country codes the firm operates in, derived from the published CMS
+ * regions' `country` field (008), for the world coverage map. Returns [] when
+ * the CMS has no regions (or none map to a known country) so the caller can
+ * fall back to the static COVERAGE_ISO3 list.
+ */
+export async function getCoverageIso3(): Promise<string[]> {
+  const cards = await getRegionCards();
+  if (!cards.length) return [];
+  const vms = await Promise.all(cards.map((c) => getRegion(c.slug)));
+  return countriesToIso3(vms.map((vm) => vm?.country));
 }
 
 // ---- Singleton pages -------------------------------------------------------

@@ -1,13 +1,16 @@
 import world from "@/lib/world-countries.geo.json";
 import { COVERAGE_ISO3 } from "@/lib/coverage";
+import { getCoverageIso3 } from "@/lib/cms/map";
 
 /**
- * World coverage map (008 FR-608–612). A SERVER component that renders a static
- * SVG — zero client JS, no runtime fetch. Each country is one GeoJSON feature,
- * so the USA and Canada paint as whole countries (no state/province borders).
- * Painted countries are data-driven from `COVERAGE_ISO3`; a listed country with
- * no matching feature is skipped safely. The SVG scales fluidly (viewBox), so
- * it stays legible and non-overflowing down to small screens.
+ * World coverage map (008 FR-608–612). An async SERVER component that renders a
+ * static SVG — zero client JS. Painted countries come from the published CMS
+ * regions' `country` field (mapped to ISO3); when the CMS has no regions it
+ * falls back to the static `COVERAGE_ISO3` list, so the map is never blank. Each
+ * country is one GeoJSON feature, so the USA and Canada paint as whole countries
+ * (no state/province borders); a country with no matching feature is skipped
+ * safely. The SVG scales fluidly (viewBox), staying legible down to small
+ * screens.
  */
 
 // Simple equirectangular projection into a 1000×500 canvas; the viewBox then
@@ -39,14 +42,17 @@ const featurePath = (g: Geometry): string =>
     ? g.coordinates.map(ringToPath).join(" ")
     : g.coordinates.flat().map(ringToPath).join(" ");
 
-export default function WorldCoverageMap({
+export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
 }: {
   eyebrow?: string;
   title?: string;
 }) {
-  const covered = new Set(COVERAGE_ISO3);
+  // Prefer the CMS regions' countries; fall back to the static list if the CMS
+  // has no regions (or is unreachable) so the map never renders blank.
+  const fromCms = await getCoverageIso3();
+  const covered = new Set(fromCms.length ? fromCms : COVERAGE_ISO3);
   const features = (world as { features: Feature[] }).features;
 
   return (
