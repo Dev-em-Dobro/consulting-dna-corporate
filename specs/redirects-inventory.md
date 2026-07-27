@@ -1,13 +1,13 @@
 # Redirects 301 do site antigo → novo (005)
 
-**Status:** rascunho (aguardando confirmação). **Fonte da lista:** Wayback Machine (CDX API),
-porque o `sitemap.xml` do site atual dá **403** (Cloudflare) e o `robots.txt` bloqueia `ClaudeBot`.
-**Domínio antigo:** `https://corporatednaconsulting.com/`.
+**Status:** ✅ **implementado** (308 permanentes) — `lib/redirects.ts` (paths sem extensão, via
+`middleware.ts`) + `next.config.mjs` `redirects()` (paths `.html`). Testado ao vivo em `:3006`.
+**Fonte da lista:** Wayback Machine (CDX API), porque o `sitemap.xml` do site atual dá **403**
+(Cloudflare) e o `robots.txt` bloqueia `ClaudeBot`. **Domínio antigo:** `https://corporatednaconsulting.com/`.
 
-> ⚠️ **Antes de aplicar:** confirmar/priorizar com o **Google Search Console** do cliente
-> (export "Páginas" — o que está realmente indexado e com tráfego/backlinks). A lista abaixo é
-> o **histórico** da Wayback (tudo que já existiu), não necessariamente o que está no ar hoje.
-> URLs que não existirem no GSC podem ficar de fora sem prejuízo.
+> ℹ️ **Poda futura (opcional):** a lista veio do **histórico** da Wayback (tudo que já existiu).
+> Quando o cliente exportar as "Páginas" do **Google Search Console**, dá pra remover URLs que
+> nunca existiram/indexaram — mas manter redirects a mais não causa prejuízo de SEO.
 
 ---
 

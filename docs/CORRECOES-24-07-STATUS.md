@@ -35,7 +35,7 @@ Notas cruas da reunião: `fixes-reuniao-24-07`.
 ### 🟡 Destrava com input curto do cliente
 - **Número real do WhatsApp** → trocar em `.env.local` / Vercel (`NEXT_PUBLIC_WHATSAPP_NUMBER`, hoje com nº de teste `5511999999999`).
 - **Vídeo de depoimentos** (arquivo/URL) → trocar o placeholder no `TestimonialsVideo` (passar `src`).
-- **URLs do site antigo** → montar os **redirects 301** (005). **Inventário + mapa rascunhado** em `specs/redirects-inventory.md` (URLs recuperadas via Wayback — o `sitemap.xml` do site atual dá 403 no Cloudflare). Falta: **confirmar/priorizar com o Google Search Console** do cliente e então implementar (middleware p/ URLs sem ponto, `next.config` p/ `.html`).
+- ~~**URLs do site antigo** → montar os **redirects 301** (005)~~ ✅ **Implementado** (308 permanentes): `lib/redirects.ts` (via `middleware.ts`, paths sem extensão) + `next.config.mjs` (paths `.html`). Mapa/inventário em `specs/redirects-inventory.md`; slugs confirmados no CMS; testado ao vivo. *Poda opcional depois com o Google Search Console do cliente.*
 - ~~**Lista oficial de países** → atualizar `lib/coverage.ts`~~ ✅ **Concluído** — o mapa-múndi passou a pintar direto pelas **regions do CMS** (`countriesToIso3(regions.map(r => r.country))`, `WorldCoverageMap.tsx`). A fonte oficial agora é o CMS; `COVERAGE_ISO3` em `lib/coverage.ts` virou só *fallback* p/ quando o CMS não retorna regions. Nada a manter à mão no site.
 
 ### 🔴 Depende do CMS (repo `corporate-dna-cms`) — ver `specs/cms-tarefas.md`
