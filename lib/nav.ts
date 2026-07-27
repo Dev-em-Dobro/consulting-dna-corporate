@@ -15,6 +15,7 @@ export const siteNav: NavItem[] = [
       { label: "The 5H framework", href: "/solutions/5h-framework" },
     ],
   },
+  { label: "Cases", href: "/cases" },
   { label: "Insights", href: "/insights" },
 ];
 
