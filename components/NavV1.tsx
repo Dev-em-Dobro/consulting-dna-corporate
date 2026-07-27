@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "@/lib/i18n/navigation";
+import Link from "next/link";
 import { siteNav, type NavItem } from "@/lib/nav";
 
 function Chevron({ className = "" }: { className?: string }) {

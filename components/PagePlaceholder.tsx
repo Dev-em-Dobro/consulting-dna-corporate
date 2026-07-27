@@ -1,4 +1,4 @@
-import { Link } from "@/lib/i18n/navigation";
+import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 
 export type Crumb = { label: string; href?: string };

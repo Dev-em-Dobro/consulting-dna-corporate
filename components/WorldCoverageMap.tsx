@@ -230,6 +230,12 @@ export default async function WorldCoverageMap({
     )
   ).filter((p): p is { x: number; y: number; label: string } => !!p);
 
+  // No CMS data → hide the whole section rather than showing a pin-less map.
+  // The section is only meaningful when it can plot the offices the CMS
+  // publishes; with no regions (e.g. the CMS is unreachable) there are no pins,
+  // so render nothing instead of a bare painted world map.
+  if (!regions.length || !pins.length) return null;
+
   const features = (world as { features: Feature[] }).features;
 
   // Country-name labels centred on each painted country big enough to fit one

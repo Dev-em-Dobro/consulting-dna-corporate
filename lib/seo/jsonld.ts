@@ -1,5 +1,4 @@
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
-import { localePath } from "@/lib/seo/alternates";
 import { offices, type Office } from "@/lib/offices";
 
 /**
@@ -11,8 +10,8 @@ import { offices, type Office } from "@/lib/offices";
 /** Stable node id for the publisher Organization, referenced site-wide. */
 export const ORG_ID = `${SITE_URL}/#organization`;
 
-/** Absolute URL for a locale-less path (single published locale = en). */
-export const absUrl = (path: string) => `${SITE_URL}${localePath("en", path)}`;
+/** Absolute URL for a root-relative path (single published locale = en). */
+export const absUrl = (path: string) => `${SITE_URL}${path}`;
 
 function postalAddress(o: Office) {
   return {

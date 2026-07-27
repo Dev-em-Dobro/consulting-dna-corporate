@@ -34,3 +34,8 @@ next-env.d.ts
 
 # local agent settings (may contain tokens/credentials)
 .claude/
+.env*
+
+# temp artifacts (dev server log + prod vercel-link backup)
+.dev-server.log
+.vercel.prod-backup/

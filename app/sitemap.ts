@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { routing } from "@/lib/i18n/routing";
-import { localePath } from "@/lib/seo/alternates";
 import {
   getSolutionCards,
   getCaseCards,
@@ -11,18 +9,9 @@ import {
 
 export const revalidate = 3600;
 
-// Absolute URL for a locale-relative path ("" = home). Honours the
-// as-needed prefix rule (default locale unprefixed) via localePath.
-const url = (locale: string, path: string) =>
-  `${SITE_URL}${localePath(locale, path || "/")}`;
-
-// hreflang alternates block for a locale-relative path (005 FR-311). Includes
-// x-default pointing at the default locale, matching the per-page alternates.
-function languages(path: string) {
-  const entries: [string, string][] = routing.locales.map((l) => [l, url(l, path)]);
-  entries.push(["x-default", url(routing.defaultLocale, path)]);
-  return Object.fromEntries(entries) as Record<string, string>;
-}
+// Absolute URL for a root-relative path ("" or "/" = home). Single locale, no
+// locale prefix, so paths map 1:1 to the live URLs.
+const abs = (path: string) => `${SITE_URL}${path || "/"}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [solutions, cases, insights, regions] = await Promise.all([
@@ -54,16 +43,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...regions.map((r) => `/solutions/regions/${r.slug}`),
   ];
 
-  const entryFor = (path: string, priority: number): MetadataRoute.Sitemap =>
-    routing.locales.map((locale) => ({
-      url: url(locale, path),
-      changeFrequency: "monthly" as const,
-      priority,
-      alternates: { languages: languages(path) },
-    }));
+  const entry = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({
+    url: abs(path),
+    changeFrequency: "monthly" as const,
+    priority,
+  });
 
   return [
-    ...staticPaths.flatMap((p) => entryFor(p, p === "" ? 1 : 0.7)),
-    ...dynamicPaths.flatMap((p) => entryFor(p, 0.6)),
+    ...staticPaths.map((p) => entry(p, p === "" ? 1 : 0.7)),
+    ...dynamicPaths.map((p) => entry(p, 0.6)),
   ];
 }

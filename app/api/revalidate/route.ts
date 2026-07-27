@@ -1,8 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
-import { routing } from "@/lib/i18n/routing";
-import { localePath } from "@/lib/seo/alternates";
 
 /**
  * Receives signed revalidation webhooks from the custom CMS (a separate project)
@@ -65,7 +63,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Bad payload" }, { status: 400 });
   }
 
-  const { type, slug, locale } = payload;
+  const { type, slug } = payload;
   const paths = type && slug ? affectedPaths(type, slug) : null;
 
   // Unknown/embedded type — purge the whole route tree to stay correct.
@@ -74,21 +72,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, revalidated: "all", type, slug });
   }
 
-  // The default locale (English) is the fallback source for every locale, so an
-  // English change can alter the localized routes too; a non-default change only
-  // affects its own locale.
-  const locales =
-    locale && locale !== routing.defaultLocale
-      ? [locale]
-      : [...routing.locales];
-
+  // Single locale, no locale prefix — the affected paths are the live URLs.
   const revalidated: string[] = [];
-  for (const loc of locales) {
-    for (const p of paths) {
-      const full = localePath(loc, p);
-      revalidatePath(full);
-      revalidated.push(full);
-    }
+  for (const p of paths) {
+    revalidatePath(p);
+    revalidated.push(p);
   }
 
   return NextResponse.json({ ok: true, revalidated });

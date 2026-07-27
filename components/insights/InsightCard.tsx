@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/lib/i18n/navigation";
+import Link from "next/link";
 import type { InsightListEntry } from "@/lib/cms/map";
 
 /** Date as DD.MM.YYYY, matching the reference mockup ("25.10.2027"). */
