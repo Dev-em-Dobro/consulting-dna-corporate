@@ -38,10 +38,15 @@ Notas cruas da reunião: `fixes-reuniao-24-07`.
 - ~~**URLs do site antigo** → montar os **redirects 301** (005)~~ ✅ **Implementado** (308 permanentes): `lib/redirects.ts` (via `middleware.ts`, paths sem extensão) + `next.config.mjs` (paths `.html`). Mapa/inventário em `specs/redirects-inventory.md`; slugs confirmados no CMS; testado ao vivo. *Poda opcional depois com o Google Search Console do cliente.*
 - ~~**Lista oficial de países** → atualizar `lib/coverage.ts`~~ ✅ **Concluído** — o mapa-múndi passou a pintar direto pelas **regions do CMS** (`countriesToIso3(regions.map(r => r.country))`, `WorldCoverageMap.tsx`). A fonte oficial agora é o CMS; `COVERAGE_ISO3` em `lib/coverage.ts` virou só *fallback* p/ quando o CMS não retorna regions. Nada a manter à mão no site.
 
-### 🔴 Depende do CMS (repo `corporate-dna-cms`) — ver `specs/cms-tarefas.md`
-- **Endpoint `POST /api/leads`** — o formulário fica **pendente** até isso (hoje retorna erro recuperável, não mostra "obrigado" falso). Tabela `leads` já criada no Postgres do CMS.
-- **Cards de marca dos cases (007)** — precisa de `brandColor` + logo PNG no read API.
-- **Tags reais**, **embed de vídeo YouTube**, **read API EN/PT/ES (fallback EN)**, **limites de imagem por campo**.
+### 🔴 Depende do CMS (repo `corporate-dna-cms`) — ✅ verificado no código (2026-07-27)
+> Tudo entregue e commitado no CMS em `3be4a2b` *"site handoff — leads, tags, branding, youtube, i18n, image limits"*. Verificado item a item contra o read API / schemas.
+- ~~**Endpoint `POST /api/leads`**~~ ✅ `app/api/leads/route.ts`: auth via `x-api-key` (cai no `READ_API_KEY` que o site já manda — sem env nova), rate-limit por IP, validação Zod, insert + webhook opcional. Site já posta via `app/actions/submit-lead.ts`.
+- ~~**Cards de marca dos cases (007)**~~ ✅ `lib/content/types.ts` (FR-804/805/806): `brandColor` (hex validado) + `logoMediaId` (PNG transparente, resolvido p/ URL no serializer). Site já tinge as faixas dos cases (`5657478`).
+- ~~**Tags reais**~~ ✅ `lib/content/published.ts` (FR-817): filtro `?tags=` via overlap JSONB.
+- ~~**Embed YouTube**~~ ✅ `types.ts` (FR-801/802/803): campo `youtube`.
+- ~~**read API EN/PT/ES (fallback EN)**~~ ✅ `published.ts` (FR-020/809/810): `getPublished` cai p/ EN e devolve flag `localeFallback`.
+- ~~**Limites de imagem por campo**~~ ✅ `lib/media/policies.ts` (FR-807/808): políticas `logo` (PNG, ≤2MB, ≤1024px) e `banner` (16:9, ≤8MB).
+- **Falta só (ops, não código):** *deployar o CMS* com esse código + *popular o conteúdo* (editores setarem brandColor/logo/tags/vídeo nas entradas).
 - *Adiados:* geodata de regions no mapa, tipo Awards.
 
 ### ⚫ Depende de assets do Guilherme (009 — adiada por inteiro)
