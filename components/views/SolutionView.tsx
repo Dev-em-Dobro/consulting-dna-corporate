@@ -11,6 +11,7 @@ export default function SolutionView({ s }: { s: SolutionVM }) {
         title={s.title}
         subtitle={s.problemStatement}
         bgImageUrl={s.bannerUrl ?? s.coverUrl}
+        imageClassName="object-cover object-[center_15%]"
       />
 
       <section className="bg-white">
