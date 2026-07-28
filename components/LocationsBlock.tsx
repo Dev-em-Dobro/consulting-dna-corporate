@@ -134,15 +134,47 @@ export default function LocationsBlock({
             </div>
 
             <div className="mx-auto mt-8 max-w-[560px] px-6">
+              {/* All-office index strip + divider — mirrors the legacy "our
+                  offices" header so every city is visible at a glance, not just
+                  the active one in the carousel. Each name selects its office. */}
+              <div className="mb-8 border-b border-muted/30 pb-6">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[13px] font-semibold uppercase tracking-[2px]">
+                  {offices.map((o, i) => (
+                    <span key={o.slug} className="flex items-center gap-x-3">
+                      {i > 0 && (
+                        <span aria-hidden className="text-muted/40">
+                          ·
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => selectOffice(i)}
+                        aria-current={i === activeIndex ? "true" : undefined}
+                        className={
+                          "transition-colors " +
+                          (i === activeIndex
+                            ? "text-ink"
+                            : "text-muted hover:text-ink")
+                        }
+                      >
+                        {o.city}
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <LocationsCarousel
                 offices={offices}
                 activeIndex={activeIndex}
                 onChange={selectOffice}
               />
 
-              {/* Fixed min-height so switching offices (2–3 address lines ± tel)
+              {/* Divider above the address mirrors the one under the office
+                  strip, so the active city name sits framed between two lines.
+                  Fixed min-height so switching offices (2–3 address lines ± tel)
                   never shifts the surrounding page — the "dancing footer" fix. */}
-              <div className="mt-8 min-h-[128px] text-center">
+              <div className="mt-8 min-h-[128px] border-t border-muted/30 pt-8 text-center">
                 <p className="text-[15px] leading-[1.7] text-muted">
                   {active.addressLines.map((line, i) => (
                     <span key={i} className="block">
