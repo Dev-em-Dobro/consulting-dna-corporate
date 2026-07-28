@@ -1,9 +1,15 @@
 # Estado do Projeto — Corporate DNA (site institucional)
 
 **Documento gerado em:** 2026-07-24
+**Última atualização:** 2026-07-28 (mapa mergeado; refactor single-locale)
 **Repositório:** `consulting-dna-corporate`
-**Branch atual:** `feat/map` (mapa interativo de escritórios, ainda não mergeado)
+**Branch atual:** `refactor/single-locale-no-middleware` (single-locale EN, sem middleware — 6 commits à frente da `main`, aguardando merge)
 **Branch principal:** `main`
+
+> **Nota de atualização (2026-07-28):** o mapa interativo (`feat/map`, §5) já foi
+> **mergeado na `main`** há tempos. Além disso, a i18n com prefixo (`/pt /es`) que
+> chegou a ser entregue foi **revertida** — o site voltou a ser **single-locale
+> (inglês) sem middleware**. Ver `CORRECOES-24-07-STATUS.md` para o detalhe da reversão.
 
 Este documento consolida **tudo que foi feito até agora** no projeto: o site em si,
 a integração com o CMS e a feature em andamento (mapa interativo). Serve como ponto
@@ -122,26 +128,23 @@ Substitui a antiga grade estática "Our offices" na homepage por um bloco
 
 ---
 
-## 6. ⚠️ Divergência importante: Mapbox (spec) vs Leaflet (código)
+## 6. ✅ Stack do mapa: Leaflet + CARTO (resolvido)
 
-A **spec/plan/tasks e vários comentários no código ainda falam em "Mapbox"** (e há
-menção a MapLibre/OpenFreeMap numa etapa intermediária), mas a **implementação real
-usa Leaflet + tiles CARTO Voyager**, que são **keyless** (não precisam de token).
+Historicamente a **spec/plan/tasks falavam em "Mapbox"** (com menção a MapLibre/OpenFreeMap
+numa etapa intermediária), mas a **implementação real usa Leaflet + tiles CARTO Voyager**,
+que são **keyless** (não precisam de token). Essa divergência **já foi sanada no código**:
 
-Consequências práticas:
-- **Não há mais bloqueio por token.** A task T009 e as notas dizem que a validação
-  manual está "blocked on a real `NEXT_PUBLIC_MAPBOX_TOKEN`" — isso **está desatualizado**.
-  Com Leaflet+CARTO o mapa deve renderizar sem token nenhum.
-- Comentários desatualizados a corrigir:
-  - `LocationsBlock.tsx` — docstring diz "non-interactive **Mapbox** map" e "Keep
-    **Mapbox** out of the initial bundle" / "Free **MapLibre** + OpenFreeMap".
-  - `tasks.md` T001/T002/T004 — referenciam `mapbox-gl`, `NEXT_PUBLIC_MAPBOX_TOKEN`
-    e "non-interactive **Mapbox**".
-- `package.json` confirma: dependência é **`leaflet`** + `@types/leaflet`; **não há**
-  `mapbox-gl` nem `maplibre-gl` instalados.
-
-**Recomendação:** alinhar spec/tasks/comentários ao que foi de fato construído
-(Leaflet + CARTO) e remover as referências a token do Mapbox.
+- **Sem bloqueio por token.** A antiga nota da task T009 ("blocked on a real
+  `NEXT_PUBLIC_MAPBOX_TOKEN`") está **obsoleta** — com Leaflet+CARTO o mapa renderiza
+  sem token nenhum.
+- **Comentários de código já limpos:** os componentes (`LocationsBlock.tsx`,
+  `LocationsMap.tsx`, `LocationsCarousel.tsx`) e `lib/offices.ts` **não têm mais**
+  referências a Mapbox/MapLibre/OpenFreeMap (verificado em 2026-07-28).
+- **`package.json` confirma:** dependência é **`leaflet` ^1.9.4** + `@types/leaflet`;
+  **não há** `mapbox-gl` nem `maplibre-gl` instalados.
+- **Pendência residual (só docs de spec):** `specs/003-.../tasks.md` (T001/T002/T004)
+  ainda cita `mapbox-gl`/`NEXT_PUBLIC_MAPBOX_TOKEN`. É documentação histórica; o código
+  é a fonte de verdade. Corrigir se/quando alguém revisitar a spec 003.
 
 ---
 
@@ -151,9 +154,13 @@ Consequências práticas:
    pin, não-interatividade, swipe mobile, reduced-motion, fallback, responsivo (375px→desktop).
 2. **Ajuste fino de `coords`/`zoom`** em `lib/offices.ts` — as coordenadas são
    aproximadas; refinar visualmente cada escritório.
-3. **Sincronizar documentação** com a stack real (Leaflet/CARTO) — ver §6.
-4. **Commit + PR** da branch `feat/map` (atualmente tudo untracked/não commitado).
-5. **Deploy:** somente quando o usuário pedir explicitamente; HEAD deve ter autor
+3. ~~**Sincronizar documentação** com a stack real (Leaflet/CARTO)~~ ✅ **Feito**
+   (2026-07-28) — comentários de código limpos e §6 atualizada. Resta só a spec 003
+   histórica (`tasks.md`), opcional.
+4. ~~**Commit + PR** da branch `feat/map`~~ ✅ **Mergeado na `main`** há tempos.
+5. **Merge do refactor single-locale** — a branch `refactor/single-locale-no-middleware`
+   está 6 commits à frente da `main` aguardando PR/merge.
+6. **Deploy:** somente quando o usuário pedir explicitamente; HEAD deve ter autor
    `impulseaisolutions@gmail.com` (scope `impulse66`), conforme regras de deploy.
 
 ---
