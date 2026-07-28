@@ -136,7 +136,7 @@ export type SolutionVM = {
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
-export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string; author?: string; publishedAt?: string };
+export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string; author?: string; publishedAt?: string; readingMinutes: number };
 /** Richer insight list row: adds cover + computed reading time for the library. */
 export type InsightListEntry = {
   slug: string; title: string; summary?: string; coverUrl?: string;
@@ -368,6 +368,8 @@ function mapInsight(raw: unknown): InsightVM | null {
     author: plainText(str(d.author)) ?? plainText(str(d.authorName)),
     // Publish date from the entry envelope (used for Article structured data).
     publishedAt: r.data.publishedAt,
+    // Reading time from the body, so the detail page can show it like the card.
+    readingMinutes: readingMinutes(r.data.data.body),
   };
 }
 
