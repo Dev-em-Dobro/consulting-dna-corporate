@@ -41,7 +41,7 @@ export default function InsightsLibrary({
   return (
     <div>
       {/* Filter bar (per the reference): the two filled grey dropdowns. */}
-      <div className="mb-10 grid max-w-[520px] grid-cols-2 gap-3">
+      <div className="mb-10 grid grid-cols-2 gap-3">
         <div className="relative">
           <select
             value={author}
