@@ -21,7 +21,7 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
   (`london`, `singapore`, `dubai`, `saudi-arabia`, `miami`)
 - `/cases`, `/cases/[slug]` (slugs do CMS)
 - `/insights`, `/insights/[slug]` · `/interviews`
-- `/book` · `/awards`
+- `/awards`
 - `/privacy` · `/cookies` · `/terms`
 
 ---
@@ -49,20 +49,19 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 | `/our-services/insight-tools` · `/insight-tools.html` | `/solutions` |
 | `/industry-examples.html` | `/cases` |
 
-### Clientes → home
-> **Decisão do cliente:** por enquanto **tudo pra home** (`/`). Não há página dedicada de
-> clientes no site novo (viraram marquee na home + cases).
+### Clientes → o case correspondente
+> ✅ **Decisão do cliente (2026-07-29):** cada `/our-clients/<x>` aponta pro **seu case**
+> (1:1 confirmado no CMS), não mais pra home. Os **índices** de clientes seguem na home,
+> porque não têm equivalente no site novo.
 >
-> 💡 **Oportunidade (confirmada no CMS):** cada cliente antigo tem um **case 1:1**, então dá
-> pra repontar cada `/our-clients/<x>` direto pro seu case (bem melhor p/ SEO) quando quiser:
-> `aviva→/cases/aviva`, `coca-cola→/cases/coca-cola`, `gsk→/cases/gsk`, `heineken→/cases/heineken`,
-> `levis→/cases/levis`, `morgan-stanley→/cases/morgan-stanley`, `unilever→/cases/unilever`,
-> **`shell→/cases/case-1d007617`** (o slug do Shell no CMS não é "shell").
+> ⚠️ **`shell → /cases/case-1d007617`** — o slug da Shell no CMS não é "shell". Vale
+> renomear no CMS e simplificar esse redirect.
 
 | Antiga | Nova |
 |--------|------|
 | `/clients` · `/our-clients` · `/our_clients.html` | `/` |
-| `/our-clients/{aviva,coca-cola,gsk,heineken,levis,morgan-stanley,shell,unilever}` | `/` |
+| `/our-clients/{aviva,coca-cola,gsk,heineken,levis,morgan-stanley,unilever}` | `/cases/{mesmo-slug}` |
+| `/our-clients/shell` | `/cases/case-1d007617` |
 | `/what-our-client-says.html` · `/testimonials` | `/` |
 
 ### Cases / Portfolio → Cases
@@ -90,10 +89,13 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 | `/our-way/head-heart-hunch-hands` · `/our-way-head.html` | `/solutions/5h-framework` |
 | `/10-dna-ingredients` · `/ten-ingredients.html` | `/solutions/5h-framework` |
 
-### Livro → /book
+### Livro → home #book
+> **Decisão (2026-07-29):** a rota `/book` foi **removida**. O livro vive só na seção
+> `#book` da home; os redirects legados passaram a apontar pra lá.
+
 | Antiga | Nova |
 |--------|------|
-| `/our-book` · `/book-endorsements` · `/book-endorsement.html` | `/book` |
+| `/our-book` · `/book-endorsements` · `/book-endorsement.html` | `/#book` |
 
 ### Impacto / Alcance global
 | Antiga | Nova |

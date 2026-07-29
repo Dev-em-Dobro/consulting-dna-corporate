@@ -19,9 +19,9 @@ const legacyDottedRedirects = [
   ["/our_identity.html", "/#approach"],
   ["/our_story.html", "/#approach"],
   ["/way-values.html", "/#approach"],
-  ["/our-way-head.html", "/solutions/5h-framework"],
-  ["/ten-ingredients.html", "/solutions/5h-framework"],
-  ["/book-endorsement.html", "/book"],
+  ["/our-way-head.html", "/approach"],
+  ["/ten-ingredients.html", "/approach"],
+  ["/book-endorsement.html", "/#book"],
   ["/our-impact.html", "/#impact"],
   ["/Impact-and-global-reach.html", "/solutions/regions"],
   ["/our-news.html", "/insights"],
@@ -43,17 +43,20 @@ const legacyExtensionlessRedirects = [
   ["/our-services/inclusion_diversity", "/solutions/inclusion-diversity"],
   ["/our-services/asian-talent-development", "/solutions/asian-talent-development"],
   ["/our-services/insight-tools", "/solutions"],
-  // Clientes → home
+  // Clientes → o case correspondente (decisão do cliente, 2026-07-29). Cada
+  // página de cliente do site antigo tem um case 1:1 no CMS; os índices, que
+  // não têm equivalente, continuam caindo na home.
   ["/clients", "/"],
   ["/our-clients", "/"],
-  ["/our-clients/aviva", "/"],
-  ["/our-clients/coca-cola", "/"],
-  ["/our-clients/gsk", "/"],
-  ["/our-clients/heineken", "/"],
-  ["/our-clients/levis", "/"],
-  ["/our-clients/morgan-stanley", "/"],
-  ["/our-clients/shell", "/"],
-  ["/our-clients/unilever", "/"],
+  ["/our-clients/aviva", "/cases/aviva"],
+  ["/our-clients/coca-cola", "/cases/coca-cola"],
+  ["/our-clients/gsk", "/cases/gsk"],
+  ["/our-clients/heineken", "/cases/heineken"],
+  ["/our-clients/levis", "/cases/levis"],
+  ["/our-clients/morgan-stanley", "/cases/morgan-stanley"],
+  // O slug da Shell no CMS não é "shell" — vale renomear lá e ajustar aqui.
+  ["/our-clients/shell", "/cases/case-1d007617"],
+  ["/our-clients/unilever", "/cases/unilever"],
   ["/testimonials", "/"],
   // Cases / Portfolio → Cases
   ["/case-studies", "/cases"],
@@ -69,15 +72,18 @@ const legacyExtensionlessRedirects = [
   // Identidade / Sobre → home #approach (5H onde se aplica)
   ["/our-identity", "/#approach"],
   ["/our-story", "/#approach"],
-  ["/our-approach", "/#approach"],
+  // O antigo /our-approach agora tem página real (5H), não só a âncora da home.
+  ["/our-approach", "/approach"],
   ["/our-way", "/#approach"],
   ["/our-way/our-values", "/#approach"],
   ["/our-way/our-thinking", "/#approach"],
-  ["/our-way/head-heart-hunch-hands", "/solutions/5h-framework"],
-  ["/10-dna-ingredients", "/solutions/5h-framework"],
-  // Livro → /book
-  ["/our-book", "/book"],
-  ["/book-endorsements", "/book"],
+  ["/our-way/head-heart-hunch-hands", "/approach"],
+  ["/10-dna-ingredients", "/approach"],
+  // Rota interna antiga do 5H (ficou pública durante o desenvolvimento).
+  ["/solutions/5h-framework", "/approach"],
+  // Livro → seção da home (não há página dedicada do livro)
+  ["/our-book", "/#book"],
+  ["/book-endorsements", "/#book"],
   // Impacto / Alcance
   ["/our-impact", "/#impact"],
   ["/our-impact/return-on-investment", "/#impact"],

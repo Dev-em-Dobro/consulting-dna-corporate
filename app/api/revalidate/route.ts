@@ -27,9 +27,10 @@ function affectedPaths(type: string, slug: string): string[] | null {
     case "region":
       return ["/solutions", "/solutions/regions", `/solutions/regions/${slug}`];
     case "page_5h":
-      return ["/solutions/5h-framework"];
+      return ["/approach"];
     case "page_book":
-      return ["/book"];
+      // The book lives in the home `#book` section — there is no /book page.
+      return ["/"];
     case "page_awards":
       return ["/awards"];
     case "page_legal":

@@ -141,7 +141,7 @@ export function personLd(p: {
   };
 }
 
-/** Book (the method's companion book). `url` defaults to the canonical /book. */
+/** Book (the method's companion book). `url` defaults to the site root. */
 export function bookLd(b: {
   name: string;
   author: string;
