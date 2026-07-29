@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
+import Link from "next/link";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
@@ -10,6 +11,8 @@ import LogoMarquee from "@/components/LogoMarquee";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
+import BookEndorsements from "@/components/BookEndorsements";
+import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
@@ -99,7 +102,7 @@ export default async function V1() {
           bookLd({
             name: book.title,
             author: "Rhea Leckie",
-            path: "/book",
+            path: "/#book",
             description: book.body[1],
             image: `${SITE_URL}/book-cover.jpg`,
           }),
@@ -266,9 +269,9 @@ export default async function V1() {
             <p className="mb-[30px] text-[17px] leading-[1.65] text-white/80">
               Paired with our DNA 360 Profiler, it turns diagnosis into a measurable development plan for individuals, teams and the wider organisation.
             </p>
-            <a href="#contact" className="border-b-2 border-brand pb-1 text-sm font-bold uppercase tracking-[0.5px] text-white hover:text-brand">
+            <Link href="/approach" className="border-b-2 border-brand pb-1 text-sm font-bold uppercase tracking-[0.5px] text-white hover:text-brand">
               Explore the methodology →
-            </a>
+            </Link>
           </div>
           <div className="flex justify-center">
             <Image src={methodology} alt="The 5H Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
@@ -304,14 +307,24 @@ export default async function V1() {
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1200px] pb-14 md:px-10 md:py-24">
-          <div className="grid grid-cols-1 items-start gap-8 bg-ink text-white md:grid-cols-[1fr_auto] md:gap-12 md:border md:border-line md:p-14">
-            <div className="px-6 pb-10 md:px-0 md:pb-0">
+        <Reveal className="mx-auto max-w-[1200px] py-14 md:px-10 md:py-24">
+          <div className="bg-ink text-white md:border md:border-line md:p-14">
+            {/* Blog-post layout: the cover floats and the copy wraps around it.
+                `flow-root` contains the float so the endorsements block below
+                starts on a clean line. */}
+            <div className="flow-root px-6 pb-10 pt-12 md:p-0">
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
-              <h3 className="mb-4 mt-2 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
+              <h3 className="mb-6 mt-6 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
                 {book.title}
               </h3>
-              <div className="mb-8 max-w-[560px] space-y-4 text-[17px] leading-[1.65] text-white/80">
+
+              <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
+                  <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
+                </div>
+              </figure>
+
+              <div className="space-y-4 text-[17px] leading-[1.65] text-white/80">
                 {book.body.map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
@@ -320,14 +333,15 @@ export default async function V1() {
                 href="https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mx-auto block w-fit bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
+                className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
               >
                 Buy on Amazon
               </a>
             </div>
-            <div className="relative aspect-[4/3] w-full max-w-[440px] overflow-hidden shadow-xl md:w-[440px]">
-              <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 440px, 100vw" className="object-cover" />
-            </div>
+
+            {/* Recovered from the legacy /book-endorsements page, which now
+                redirects here. Inside the card so it reads as one block. */}
+            <BookEndorsements />
           </div>
         </Reveal>
       </section>
@@ -337,6 +351,9 @@ export default async function V1() {
 
       {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />
+
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png */}
+      <AwardsMentions />
 
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">
