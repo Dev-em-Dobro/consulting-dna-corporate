@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "The 5H® Framework — Corporate DNA",
     description:
       "The 5H® Methodology is the neuroscience-led formula behind Corporate DNA's results across 26 countries — Head, Heart, Hunch, Hands and Habits.",
-    alternates: localeAlternates("/solutions/5h-framework"),
+    alternates: localeAlternates("/approach"),
   };
 }
 
@@ -112,13 +112,15 @@ export default async function FiveHFrameworkPage() {
     <SiteShell>
       <JsonLd
         data={[
+          // 5H is the methodology behind every solution, not a solution itself,
+          // so it hangs off the home — not off /solutions.
           breadcrumbLd([
-            { name: "Solutions", path: "/solutions" },
-            { name: "The 5H® Framework", path: "/solutions/5h-framework" },
+            { name: "Home", path: "/" },
+            { name: "Our Approach", path: "/approach" },
           ]),
           serviceLd({
             name: "The 5H® Framework",
-            path: "/solutions/5h-framework",
+            path: "/approach",
             description:
               "Corporate DNA's proprietary, neuroscience-led leadership methodology — Head, Heart, Hunch, Hands and Habits — that develops the whole leader so behaviour change holds under real enterprise pressure.",
           }),
@@ -399,7 +401,7 @@ export default async function FiveHFrameworkPage() {
             </p>
           </div>
           <Link
-            href="/book"
+            href="/#contact"
             className="inline-block flex-none bg-white px-8 py-4 text-sm font-bold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-white/90"
           >
             Contact us

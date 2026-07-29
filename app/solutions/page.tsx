@@ -29,32 +29,8 @@ export default async function SolutionsPage() {
 
       <section className="bg-white">
         <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24">
-          {/* The 5H® methodology underpins every solution — surface it first. */}
-          <Link
-            href="/solutions/5h-framework"
-            className="group mb-10 flex flex-col gap-5 bg-ink p-8 text-white transition-colors hover:bg-ink/90 md:flex-row md:items-center md:justify-between md:p-10"
-          >
-            <div>
-              <div className="mb-3 flex items-center gap-3">
-                <span className="inline-block h-0.5 w-9 bg-brand" />
-                <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
-                  Our methodology
-                </span>
-              </div>
-              <h2 className="text-[24px] font-bold tracking-[-0.5px] md:text-[28px]">
-                Lead with 5H®
-              </h2>
-              <p className="mt-2 max-w-[520px] text-[15px] leading-[1.6] text-white/70">
-                The neuroscience-led framework behind every engagement: Head, Heart,
-                Hunch, Hands and Habits.
-              </p>
-            </div>
-            <span className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-[14px] font-semibold uppercase tracking-[1px] text-brand">
-              Explore the approach
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </span>
-          </Link>
-
+          {/* 5H is deliberately absent here: it is the methodology behind every
+              solution, not one of them, and lives at /approach. */}
           {solutions.length === 0 ? (
             <EmptyNotice>No solutions published yet.</EmptyNotice>
           ) : (

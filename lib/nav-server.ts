@@ -12,6 +12,10 @@ export async function buildSiteNav(): Promise<NavItem[]> {
     href: `/solutions/${s.slug}`,
   }));
 
+  // Only attach the submenu when the CMS actually returned solutions — an empty
+  // `children` array would still render an (empty) dropdown in NavV1.
+  if (solutionChildren.length === 0) return siteNav;
+
   return siteNav.map((item) =>
     item.label === "Solutions"
       ? { ...item, children: [...(item.children ?? []), ...solutionChildren] }

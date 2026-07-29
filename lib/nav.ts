@@ -8,15 +8,17 @@ export type NavChild = { label: string; href: string };
 export type NavItem = { label: string; href?: string; children?: NavChild[] };
 
 export const siteNav: NavItem[] = [
-  {
-    label: "Solutions",
-    href: "/solutions",
-    children: [
-      { label: "The 5H framework", href: "/solutions/5h-framework" },
-    ],
-  },
+  // 5H is a methodology applied across every solution, not one of them, so it
+  // sits beside Solutions as "Our Approach" instead of inside its dropdown.
+  { label: "Our Approach", href: "/approach" },
+  // No static children: the Solutions submenu is filled from the CMS in
+  // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
+  { label: "Solutions", href: "/solutions" },
   { label: "Cases", href: "/cases" },
   { label: "Insights", href: "/insights" },
+  // The book lives in the home `#book` section — the dedicated /book route was
+  // removed, so the legacy /our-book redirects land here too.
+  { label: "The Book", href: "/#book" },
 ];
 
 export type Region = { slug: string; name: string };
