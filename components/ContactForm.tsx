@@ -69,6 +69,7 @@ export default function ContactForm() {
     if (Object.keys(errs).length > 0) return;
 
     setSubmitError(false);
+    setSubmitted(false);
     setSending(true);
     try {
       const res = await submitLead({
@@ -106,20 +107,6 @@ export default function ContactForm() {
         {errors[key]}
       </span>
     ) : null;
-
-  if (submitted) {
-    return (
-      <div className="flex flex-col gap-3 bg-white p-[34px]">
-        <p className="text-[12px] font-bold uppercase tracking-[1px] text-brand">
-          Thank you
-        </p>
-        <p className="text-[18px] leading-relaxed text-ink">
-          We’ve received your message and will respond with a considered,
-          confidential point of view — not a sales pitch.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <form
@@ -220,6 +207,15 @@ export default function ContactForm() {
       >
         {sending ? "Sending…" : "Start a Conversation"}
       </button>
+
+      {submitted && (
+        <p
+          role="status"
+          className="text-[14px] leading-relaxed text-brand"
+        >
+          We’ve received your message and will respond shortly
+        </p>
+      )}
     </form>
   );
 }
