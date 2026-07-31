@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  useEffect,
+  useRef,
   useState,
   type ChangeEvent,
   type FocusEvent,
@@ -42,9 +44,15 @@ export default function ContactForm() {
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitError, setSubmitError] = useState<null | "server" | "rate">(null);
   // Honeypot: bots fill it, humans never see it.
   const [honeypot, setHoneypot] = useState("");
+  // Time-trap: when the form became interactive. A submit that lands faster
+  // than a human could plausibly type is treated as a bot server-side.
+  const mountedAtRef = useRef(0);
+  useEffect(() => {
+    mountedAtRef.current = Date.now();
+  }, []);
 
   const update =
     (key: FieldKey) =>
@@ -68,13 +76,16 @@ export default function ContactForm() {
     setTouched({ name: true, email: true, organisation: true, message: true });
     if (Object.keys(errs).length > 0) return;
 
-    setSubmitError(false);
+    setSubmitError(null);
     setSubmitted(false);
     setSending(true);
     try {
       const res = await submitLead({
         ...values,
         company_website: honeypot,
+        elapsedMs: mountedAtRef.current
+          ? Date.now() - mountedAtRef.current
+          : undefined,
         source:
           typeof window !== "undefined"
             ? window.location.pathname + window.location.search
@@ -82,9 +93,9 @@ export default function ContactForm() {
       });
       // Only show the thank-you state on a confirmed capture (FR-204).
       if (res.ok) setSubmitted(true);
-      else setSubmitError(true);
+      else setSubmitError(res.error === "rate" ? "rate" : "server");
     } catch {
-      setSubmitError(true);
+      setSubmitError("server");
     } finally {
       setSending(false);
     }
@@ -195,8 +206,9 @@ export default function ContactForm() {
 
       {submitError && (
         <p role="alert" className="text-[13px] leading-snug text-red-600">
-          Something went wrong sending your message. Please try again, or email
-          us directly.
+          {submitError === "rate"
+            ? "Too many attempts. Please wait a moment and try again."
+            : "Something went wrong sending your message. Please try again, or email us directly."}
         </p>
       )}
 

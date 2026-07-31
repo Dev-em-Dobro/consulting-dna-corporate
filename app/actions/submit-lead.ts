@@ -23,9 +23,42 @@ const schema = z.object({
   source: z.string().max(500).optional().default(""),
   // Honeypot: real users never fill this hidden field; bots do.
   company_website: z.string().max(0).optional().default(""),
+  // Time-trap: ms the form was on screen before submit (set by the client).
+  elapsedMs: z.number().nonnegative().optional(),
 });
 
-export type LeadResult = { ok: true } | { ok: false; error: "invalid" | "server" };
+export type LeadResult =
+  | { ok: true }
+  | { ok: false; error: "invalid" | "server" | "rate" };
+
+// Minimum plausible fill time. A human cannot type name + email + a message
+// in under this; a sub-threshold submit is treated as a bot.
+const MIN_FILL_MS = 2000;
+
+// In-memory sliding-window rate limit, per IP. Good enough as a first line for
+// a low-volume form: it caps floods against a warm instance. For hard limits
+// across all instances, back this with a shared store (e.g. Upstash Redis).
+const RL_WINDOW_MS = 60_000;
+const RL_MAX = 5;
+const rateHits = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (rateHits.get(ip) ?? []).filter((t) => now - t < RL_WINDOW_MS);
+  if (recent.length >= RL_MAX) {
+    rateHits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  rateHits.set(ip, recent);
+  // Opportunistic cleanup so the map doesn't grow unbounded.
+  if (rateHits.size > 5000) {
+    for (const [k, v] of rateHits) {
+      if (v.every((t) => now - t >= RL_WINDOW_MS)) rateHits.delete(k);
+    }
+  }
+  return false;
+}
 
 // Normalise CMS_URL (may be the origin or already end in /api) to `${origin}/api`.
 const CMS_BASE = process.env.CMS_URL?.replace(/\/api\/?$/, "").replace(/\/$/, "");
@@ -39,12 +72,25 @@ export async function submitLead(input: unknown): Promise<LeadResult> {
   // Honeypot tripped → silently accept and drop (don't tip off the bot).
   if (d.company_website) return { ok: true };
 
+  // Submitted too fast to be human → same silent drop.
+  if (typeof d.elapsedMs === "number" && d.elapsedMs < MIN_FILL_MS) {
+    return { ok: true };
+  }
+
+  const h = await headers();
+
+  // Rate limit by client IP (Vercel sets x-forwarded-for).
+  const ip =
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    h.get("x-real-ip") ||
+    "unknown";
+  if (isRateLimited(ip)) return { ok: false, error: "rate" };
+
   if (!CMS_BASE) {
     console.error("[lead] CMS_URL not set");
     return { ok: false, error: "server" };
   }
 
-  const h = await headers();
   const payload = {
     name: d.name,
     email: d.email,
