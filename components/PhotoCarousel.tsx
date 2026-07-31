@@ -22,9 +22,8 @@ export default function PhotoCarousel({
   const next = useCallback(() => setIndex((i) => (i + 1) % count), [count]);
   const prev = useCallback(() => setIndex((i) => (i - 1 + count) % count), [count]);
 
-  // Auto-advance every `interval` ms. Re-running on `index` change means any
-  // manual navigation also restarts the countdown, so it never jumps right
-  // after the user clicks. Pauses while hovered/focused.
+  // Auto-advance every `interval` ms. Re-running on `index` means manual
+  // navigation also restarts the countdown. Pauses while hovered/focused.
   useEffect(() => {
     if (count <= 1 || paused) return;
     const id = setInterval(next, interval);
@@ -44,21 +43,28 @@ export default function PhotoCarousel({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      {/* Fixed-ratio stage; images crossfade in place. */}
-      <div className="relative aspect-[16/10] w-full sm:aspect-[16/9]">
+      {/* Sliding track: all slides in a row, shifted by -index * 100%. */}
+      <div
+        className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
         {images.map((src, i) => (
-          <Image
+          <div
             key={src}
-            src={src}
-            alt=""
-            fill
-            sizes="(min-width: 640px) 640px, 100vw"
-            priority={i === 0}
             aria-hidden={i !== index}
-            className={`object-contain transition-opacity duration-700 ease-out motion-reduce:transition-none ${
-              i === index ? "opacity-100" : "opacity-0"
-            }`}
-          />
+            className="relative aspect-[16/10] w-full shrink-0 sm:aspect-[16/9]"
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 640px, 100vw"
+              // Eager for all: slides start translated out of the viewport, so
+              // lazy loading never fires and the incoming slide arrives blank.
+              loading="eager"
+              className="object-contain"
+            />
+          </div>
         ))}
       </div>
 

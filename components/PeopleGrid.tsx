@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type SocialType = "linkedin" | "x" | "instagram" | "email";
 type Social = { type: SocialType; href: string };
@@ -331,9 +332,11 @@ export default function PeopleGrid({ people }: { people: Person[] }) {
         ))}
       </div>
 
-      {active !== null && (
-        <PersonModal person={people[active]} onClose={() => setActive(null)} />
-      )}
+      {active !== null &&
+        createPortal(
+          <PersonModal person={people[active]} onClose={() => setActive(null)} />,
+          document.body,
+        )}
     </>
   );
 }
