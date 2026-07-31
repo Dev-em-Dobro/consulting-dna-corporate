@@ -299,17 +299,19 @@ export default function PeopleGrid({ people }: { people: Person[] }) {
 
   return (
     <>
-      <div className="mb-16 grid grid-cols-2 items-start gap-6 md:grid-cols-3">
+      {/* Flex (not grid) so the trailing, incomplete row centers itself: 4 per
+          row on desktop, and the remaining cards sit centered below. */}
+      <div className="mb-16 flex flex-wrap items-start justify-center gap-6">
         {people.map((p, i) => (
           <button
             key={i}
             type="button"
             onClick={() => setActive(i)}
-            className="group block cursor-pointer text-left"
+            className="group block basis-[calc(50%-12px)] cursor-pointer text-left md:basis-[calc(25%-18px)]"
             aria-label={`View ${p.name}'s profile`}
           >
             <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e6e3]">
-              <Avatar person={p} sizes="(min-width: 768px) 380px, 50vw" />
+              <Avatar person={p} sizes="(min-width: 768px) 280px, 50vw" />
               <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <span className="px-4 pb-4 text-[12px] font-semibold uppercase tracking-[1.5px] text-white">
                   View profile →

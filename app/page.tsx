@@ -8,6 +8,7 @@ import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
+import PhotoCarousel from "@/components/PhotoCarousel";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
@@ -295,7 +296,61 @@ export default async function V1() {
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
           <PeopleGrid people={people} />
-          <div className="flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
+          {/* The DNA experience — copy on the left, life-at-DNA carousel on the
+              right. Stacks on mobile (text first, then the images). */}
+          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
+            <div>
+              <p className="text-lg font-medium leading-[1.55] text-ink">
+                With our “One DNA TEAM” principle, we execute as one
+                collaborative team.
+              </p>
+              <div className="mt-8 space-y-6">
+                <div>
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
+                    The DNA Experience
+                  </h3>
+                  <p className="text-[15px] leading-[1.6] text-muted">
+                    We blend our individual talents with the collective
+                    expertise of our global pool of 68 members across 16
+                    countries, and deliver the power of the “DNA experience” to
+                    every client. Each time, every time.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
+                    Trusted Relationships
+                  </h3>
+                  <p className="text-[15px] leading-[1.6] text-muted">
+                    Relationships are at the core of who we are. We build
+                    long-term, deep relationships with our people and become
+                    part of each other’s stories. We are part of a family who
+                    care about each other, stay close and grow, laugh and unmask
+                    together.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
+                    Inclusion &amp; Diversity
+                  </h3>
+                  <p className="text-[15px] leading-[1.6] text-muted">
+                    Our best-in-class people are full of great character and
+                    personality, representing a range of backgrounds in the
+                    behavioural sciences and business; coming from different
+                    markets around the world, and representing a wide range of
+                    social identities.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <PhotoCarousel
+              images={Array.from(
+                { length: 14 },
+                (_, i) =>
+                  `/dna-time/dna-time-${String(i + 1).padStart(2, "0")}.jpeg`
+              )}
+            />
+          </div>
+          <div className="mt-14 flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
             <span className="text-[12px] font-semibold uppercase tracking-[2px] text-muted">In partnership with</span>
             <span className="text-[19px] font-bold text-ink">Harvard Business Impact</span>
             <span className="h-[22px] w-px bg-[#d9d5d1]" />
