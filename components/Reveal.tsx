@@ -30,31 +30,58 @@ export default function Reveal({
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const targets = stagger
-          ? gsap.utils.toArray<HTMLElement>(":scope > *", scope.current!)
-          : scope.current;
+      const targets = stagger
+        ? gsap.utils.toArray<HTMLElement>(":scope > *", scope.current!)
+        : scope.current;
 
-        gsap.from(targets, {
-          autoAlpha: 0,
-          y,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: stagger ? 0.12 : 0,
-          scrollTrigger: {
-            trigger: scope.current,
-            start,
-            once: true,
-          },
-        });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // fromTo (not from): the targets start hidden via CSS, so the visible
+        // end state must be explicit or GSAP would animate hidden -> hidden.
+        gsap.fromTo(
+          targets,
+          { autoAlpha: 0, y },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: stagger ? 0.12 : 0,
+            scrollTrigger: {
+              trigger: scope.current,
+              start,
+              once: true,
+            },
+          }
+        );
       });
+
+      // Reduce-motion: still reveal (targets start hidden via CSS), plain fade
+      // with no vertical travel.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.fromTo(
+          targets,
+          { autoAlpha: 0 },
+          {
+            autoAlpha: 1,
+            duration: 0.5,
+            ease: "power1.out",
+            stagger: stagger ? 0.08 : 0,
+            scrollTrigger: { trigger: scope.current, start, once: true },
+          }
+        );
+      });
+
       return () => mm.revert();
     },
     { scope }
   );
 
   return (
-    <div ref={scope} className={className}>
+    <div
+      ref={scope}
+      className={className}
+      data-reveal={stagger ? "stagger" : "block"}
+    >
       {children}
     </div>
   );

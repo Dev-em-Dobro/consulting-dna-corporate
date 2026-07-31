@@ -17,25 +17,57 @@ export default function HeroV1() {
           defaults: { ease: "power4.out" },
           delay: 0.1,
         });
-        tl.from(
+        // fromTo (not from): the targets start hidden via CSS, so we must state
+        // the visible end explicitly — otherwise GSAP would read the hidden CSS
+        // value as the destination and animate hidden -> hidden.
+        tl.fromTo(
           ".h-bg",
-          { autoAlpha: 0, scale: 1.12, duration: 1.6, ease: "power2.out" },
+          { autoAlpha: 0, scale: 1.12 },
+          { autoAlpha: 1, scale: 1, duration: 1.6, ease: "power2.out" },
           0
         )
-          .from(".h-bar", { scaleX: 0, transformOrigin: "left", duration: 0.6 }, 0.25)
-          .from(".h-eyebrow", { autoAlpha: 0, x: -12, duration: 0.5 }, "-=0.3")
-          .from(
+          .fromTo(
+            ".h-bar",
+            { autoAlpha: 0, scaleX: 0, transformOrigin: "left" },
+            { autoAlpha: 1, scaleX: 1, duration: 0.6 },
+            0.25
+          )
+          .fromTo(
+            ".h-eyebrow",
+            { autoAlpha: 0, x: -12 },
+            { autoAlpha: 1, x: 0, duration: 0.5 },
+            "-=0.3"
+          )
+          .fromTo(
             ".h-title",
-            { autoAlpha: 0, y: 46, skewY: 2, duration: 1 },
+            { autoAlpha: 0, y: 46, skewY: 2 },
+            { autoAlpha: 1, y: 0, skewY: 0, duration: 1 },
             "-=0.15"
           )
-          .from(".h-sub", { autoAlpha: 0, y: 26, duration: 0.8 }, "-=0.6")
-          .from(
+          .fromTo(
+            ".h-sub",
+            { autoAlpha: 0, y: 26 },
+            { autoAlpha: 1, y: 0, duration: 0.8 },
+            "-=0.6"
+          )
+          .fromTo(
             ".h-cta",
-            { autoAlpha: 0, y: 22, stagger: 0.12, duration: 0.6 },
+            { autoAlpha: 0, y: 22 },
+            { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.6 },
             "-=0.5"
           );
       });
+
+      // Reduce-motion: still reveal (the targets start hidden via CSS), but with
+      // a plain fade — no travel, scale or skew.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.fromTo(
+          [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.4, ease: "power1.out", stagger: 0.06, delay: 0.05 }
+        );
+      });
+
       return () => mm.revert();
     },
     { scope }

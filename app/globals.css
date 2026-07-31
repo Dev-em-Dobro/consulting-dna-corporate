@@ -15,6 +15,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Entrance-animation targets must start hidden so they never flash in fully
+   rendered before GSAP takes over. Gated only on `.js` (added before first
+   paint in the root layout): every JS visitor gets a reveal — the full motion
+   timeline, or a gentle fade under "reduce motion" — so both cases need the
+   up-front hide. Users without JS always see the content immediately. GSAP
+   reveals these with fromTo() in HeroV1.tsx / Reveal.tsx. */
+html.js .h-bg,
+html.js .h-bar,
+html.js .h-eyebrow,
+html.js .h-title,
+html.js .h-sub,
+html.js .h-cta,
+html.js [data-reveal="stagger"] > *,
+html.js [data-reveal="block"] {
+  opacity: 0;
+}
+
 body {
   color: #3b3b3b;
   background: #fff;

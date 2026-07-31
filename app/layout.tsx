@@ -53,7 +53,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en" className={poppins.variable} suppressHydrationWarning>
+      <head>
+        {/* Marks the document as JS-capable before first paint so scroll/entrance
+            animation targets can be hidden up-front (see globals.css). This kills
+            the flash of fully-rendered content that appeared before GSAP ran. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="font-sans">
         <JsonLd data={organizationLd()} />
         <NextIntlClientProvider>

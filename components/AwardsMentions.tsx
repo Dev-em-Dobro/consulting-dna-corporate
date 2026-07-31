@@ -105,6 +105,26 @@ export default function AwardsMentions() {
         });
       });
 
+      // Reduce-motion: skip the directional sweeps and just fade each row/title
+      // in as it scrolls into view.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.from("[data-awards-title]", {
+          autoAlpha: 0,
+          duration: 0.5,
+          ease: "power1.out",
+          scrollTrigger: { trigger: "[data-awards-band]", start: "top 85%", once: true },
+        });
+
+        gsap.utils.toArray<HTMLElement>("[data-award-row]").forEach((row) => {
+          gsap.from(row, {
+            autoAlpha: 0,
+            duration: 0.5,
+            ease: "power1.out",
+            scrollTrigger: { trigger: row, start: "top 88%", once: true },
+          });
+        });
+      });
+
       return () => mm.revert();
     },
     { scope },
