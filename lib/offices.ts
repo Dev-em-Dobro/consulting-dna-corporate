@@ -70,7 +70,7 @@ export const offices: Office[] = [
   },
   {
     slug: "saudi-arabia",
-    city: "Saudi Arabia",
+    city: "Riyadh",
     country: "Kingdom of Saudi Arabia",
     addressLines: [
       "2888 King Fahd Road, Saudi Journalists Association Building",
