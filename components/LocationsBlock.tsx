@@ -16,10 +16,12 @@ const LocationsMap = dynamic(() => import("./LocationsMap"), { ssr: false });
  */
 export default function LocationsBlock({
   offices = defaultOffices,
-  eyebrow = "Our offices",
+  eyebrow = "Our Global Presence",
+  context = "From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Corporate DNA brings global perspective and locally relevant delivery to leadership challenges across 36 countries.",
 }: {
   offices?: Office[];
   eyebrow?: string;
+  context?: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [inView, setInView] = useState(false);
@@ -93,6 +95,11 @@ export default function LocationsBlock({
               {eyebrow}
             </span>
           </div>
+          {context ? (
+            <p className="mt-4 max-w-[640px] text-[15px] leading-[1.6] text-muted md:text-[16px]">
+              {context}
+            </p>
+          ) : null}
         </div>
 
         {mapFailed ? (

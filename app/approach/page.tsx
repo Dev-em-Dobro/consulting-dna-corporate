@@ -137,6 +137,86 @@ export default async function FiveHFrameworkPage() {
         overlayClassName="bg-gradient-to-r from-ink via-ink/90 to-ink/65"
       />
 
+      {/* ── Our IP & Diagnostics ─────────────────────────────────────── */}
+      <section id="ip-diagnostics" className="bg-paper">
+        <Reveal
+          stagger={false}
+          className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24"
+        >
+          <div className="max-w-[720px]">
+            <Eyebrow>Our IP &amp; Diagnostics</Eyebrow>
+            <h2 className="text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink sm:text-[38px]">
+              Proprietary frameworks and diagnostics we own.
+            </h2>
+            <p className="mt-5 text-[17px] leading-[1.7] text-muted">
+              The tools that make our approach measurable and ownable — a
+              neuroscience-led framework and the diagnostics that put it to work
+              with leaders and teams.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {/* 5H — established, links to the framework detail on this page */}
+            <Link
+              href="#the-five-h"
+              className="group flex flex-col border border-line bg-white p-7 transition-colors hover:border-brand"
+            >
+              <span className="text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
+                Framework
+              </span>
+              <h3 className="mt-3 text-[21px] font-bold tracking-[-0.4px] text-ink">
+                The 5H<R /> Framework
+              </h3>
+              <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">
+                Our proprietary, neuroscience-led leadership methodology — Head,
+                Heart, Hunch, Hands and Habits — developing the whole leader so
+                behaviour change holds under real enterprise pressure.
+              </p>
+              <span className="mt-5 text-[13px] font-semibold uppercase tracking-[1px] text-ink group-hover:text-brand">
+                Explore the framework →
+              </span>
+            </Link>
+
+            {/* DNA 360 Profiler — name confirmed elsewhere; overview to confirm */}
+            <div className="flex flex-col border border-line bg-white p-7">
+              <span className="text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
+                Diagnostic
+              </span>
+              <h3 className="mt-3 text-[21px] font-bold tracking-[-0.4px] text-ink">
+                The DNA 360 Profiler
+              </h3>
+              <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">
+                Our multi-perspective leadership diagnostic, used to profile
+                strengths and development priorities across the 5H<R /> lenses.
+              </p>
+              <span className="mt-5 inline-flex w-fit items-center gap-2 border border-dashed border-line px-3 py-1 text-[11.5px] font-medium text-muted">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+                Overview pending CDNA confirmation
+              </span>
+            </div>
+
+            {/* Team Climate Assessment — naming + content pending per brief */}
+            <div className="flex flex-col border border-line bg-white p-7">
+              <span className="text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
+                Diagnostic
+              </span>
+              <h3 className="mt-3 text-[21px] font-bold tracking-[-0.4px] text-ink">
+                The Team Climate Assessment
+              </h3>
+              <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">
+                Our team-level diagnostic for the conditions that drive
+                high-performing teams — surfacing what helps and hinders
+                execution.
+              </p>
+              <span className="mt-5 inline-flex w-fit items-center gap-2 border border-dashed border-line px-3 py-1 text-[11.5px] font-medium text-muted">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+                Name &amp; overview pending CDNA confirmation
+              </span>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── Neuroscience-led formula ─────────────────────────────────── */}
       <section className="bg-white">
         <Reveal

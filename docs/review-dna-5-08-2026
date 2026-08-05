@@ -1,0 +1,199 @@
+Hi everyone,
+I’m bringing everyone into one thread because Nitin’s detailed review and JP’s latest strategic observations are highly complementary. Rather than continuing with separate feedback loops across several time zones, I would like this email to become our consolidated working brief for the next iteration of the website.
+The objective is to finish this with the greatest possible speed and quality, while making sure that content, design and development are moving together rather than sequentially.
+For everyone’s context, the core working team is:
+Rhea > Founder and CEO, with final approval over positioning, brand, sensitive client content and IP.
+JP > Thought Leadership & Innovation, supporting our outcome language, proprietary IP, Insights and resource content.
+Nitin > Senior Principal Asia, bringing an important client, regional and commercial perspective, particularly on Talent and the clarity of our proposition.
+Maliha > supporting the coordination of content, assets, approvals and technical access.
+Guli > leading the creative direction, visual identity, imagery, UI quality and design consistency.
+Beto and Cadu / Dev em Dobro > leading information architecture, CMS, development, responsive implementation, performance, integration and QA.
+I will coordinate the overall project, consolidate CDNA’s decisions and approvals and avoid multiple, conflicting instructions reaching the development team.
+The current beta has advanced significantly. The homepage positioning, client proof, case-study treatment and overall visual direction are much stronger. The 5H Framework is already correctly under Our Approach, the Paul Polman quotation is already present in the Book section, and awards have already been introduced. Please preserve those elements while addressing the points below.
+1. Final navigation, About and identity
+Please update the principal navigation to:
+Home | Solutions | Our Approach | Client Impact | About | Insights | Start a Conversation
+The Book can sit within Insights rather than remaining a separate top-level navigation item.
+Please create an About area covering:
+Who We Are / Our Identity
+Our Story
+Our Values and “Keeping It Real”
+Why We Are Different
+Leadership
+Global Faculty
+Global Presence
+The final “Why We Are Different” language is still being developed by Rhea, JP, Nitin and me, so please create the appropriate section and placeholder without inventing the final claim.
+We should retain the current hero:
+When the stakes are high, leadership must become real.
+We should also bring our signature visibly into the experience:
+Making Leadership Real. Results, Not Promises.
+To avoid repeating “high-stakes” immediately below the hero, please replace:
+The high-stakes leadership challenges facing the enterprise.
+with:
+The leadership challenges that determine enterprise performance.
+The Paul Polman quotation should remain in the Book section. It can also be considered for About if it works naturally in the design, but this is not launch-critical.
+2. Reframe Solutions around business outcomes
+JP’s central observation is very important: leadership consultancies often describe the mechanism they deliver, whereas a CEO or CHRO is primarily looking for the business outcome.
+We should therefore make the first layer of Solutions speak in the language of client pain and business performance...such as decision quality, execution speed, organisational adaptability, transformation readiness, leadership pipeline strength and business performance.
+My recommended structure is:
+CEO & Top Team Transformation
+Align the top team. Improve decision quality. Accelerate execution.
+Executive Coaching
+Strengthen judgment and leadership performance when the stakes are highest.
+Leadership & Culture Transformation
+Turn strategic intent into leadership behaviour that moves the business.
+Talent & Succession
+Build a ready-now leadership pipeline and retain critical talent.
+High-Performing Teams & Manager Impact
+Enhance team dynamics. Increase execution speed and accountability.
+Women in Leadership
+Accelerate progression and strengthen the leadership pipeline.
+CHRO / HRLT Effectiveness
+Increase HR’s strategic influence and transformation readiness.
+These outcome statements should lead the cards and page introductions. The programmes, methodologies and services we deploy should then appear as the mechanisms underneath.
+Inclusion & Diversity can remain an important capability within Leadership & Culture Transformation and Women in Leadership, rather than necessarily remaining a separate primary menu item.
+Asian Talent Development should become a regional specialisation underneath the broader Talent & Succession proposition.
+Rhea is still providing the source content for CEO & Top Team Transformation and CHRO / HRLT Effectiveness, but the page structures and placeholders can be prepared now.
+3. Make our proprietary IP more visible
+The 5H Framework is already correctly placed under Our Approach, so please preserve that architecture.
+Within Our Approach, I recommend creating a more visible section called:
+Our IP & Diagnostics
+This should introduce:
+The 5H Framework
+The DNA 360 Profiler
+The Team Climate Assessment
+The exact naming and content of the Team Climate Assessment still require confirmation from CDNA.
+I prefer Our IP & Diagnostics to “Products” as the main public label because it feels more appropriate for a premium advisory firm, but the architecture should make these clearly identifiable, ownable offerings rather than allowing them to disappear inside general service descriptions.
+Please also audit the current 5H page for every numerical claim. Statements such as the percentage of clients citing 5H and the number of countries in which it has been applied must either be validated by CDNA or removed before publication.
+4. Video testimonials and client proof
+Please change:
+What Fortune 500 leaders say about us
+to:
+What global leaders say about us
+This is broader, more accurate and removes an unnecessary credibility risk.
+The current video remains a proof-of-concept. Before the final launch, please address:
+playback performance and loading;
+caption accuracy and synchronisation;
+the correct spelling of Rhea’s name;
+the duplicate appearance of Andrew;
+names, companies and titles of everyone shown;
+accessible captions;
+mobile presentation.
+We are continuing to source original footage and new client testimonials. A more professional edit can replace the temporary version later without delaying the website foundation.
+5. Statistics and evidence
+JP is right that we should use more outcome-oriented evidence. However, we must not publish figures such as “1,200+ leaders coached,” “700+ high-performing teams” or “95% approval” unless there is a reliable internal source behind them.
+Please make the statistics component CMS-editable and use only figures that CDNA has validated. A potential set for final confirmation is:
+18 years
+36 countries
+70+ executive-team interventions
+1,000+ coaching clients
+90% Chairman/CXO-sponsored work
+The 75 faculty figure can be emphasised in the People or Global Faculty section.
+Client-specific outcome metrics, such as promotion, retention, leadership impact and programme results, should be placed within the related solution and case-study journeys, where they are more meaningful than generic scale claims.
+Please also conduct a full audit of all numerical claims across the website and place anything unverified into a clear approval list for CDNA.
+6. Talent Development
+The current Talent Development page is almost entirely Asia/APAC-specific.
+The desired long-term structure is:
+Talent & Succession — global proposition
+Asian Talent Development — regional specialisation
+Please build toward that structure.
+If the global Talent & Succession copy is not approved before launch, the current page should at least be labelled accurately as Asian Talent Development, rather than presenting regional content under a global title.
+Please remove the “2025 Asian Talent Shifts” material unless the data and visual are updated and revalidated.
+7. High Performing Teams and protection of IP
+Please simplify the current High Performing Teams page and protect our proprietary content.
+Remove:
+the detailed 3–6-month roadmap;
+the detailed 9–12-month roadmap;
+the full HPT Tools presentation;
+the detailed scoping process;
+the dated reference to HPT being the number-one priority “in 2020.”
+Please retain only one high-level visual explaining the proposition, and give greater prominence to:
+the client pain;
+the business outcome;
+situations in which clients engage us;
+decision and execution improvement;
+measurable client evidence.
+Please also review the other Solution pages for similar instances where too much internal methodology or delivery IP is being exposed publicly.
+8. Testimonials within Solution pages
+Testimonials should not interrupt the narrative as ordinary body copy.
+Please convert them into visually distinct proof components, such as:
+Client Perspective
+or:
+Evidence in Practice
+They can appear after the first major section and alongside relevant cases or results. We do not need to move every testimonial to the very bottom...the objective is to integrate proof without compromising readability.
+9. Client Impact and case taxonomy
+Please rename Cases in the navigation to Client Impact.
+A stronger index-page direction would be:
+Leadership change, measured where it matters.
+Supporting copy:
+Explore how Corporate DNA helps leaders and organisations improve alignment, readiness, decision quality, execution and performance.
+Once the Solutions architecture changes, please update the case-study tags and filters so that they reflect the new outcome-led taxonomy rather than the old service catalogue.
+Every client name, logo, quotation, result and metric remains subject to CDNA approval.
+10. Insights, authorship and downloadable resources
+Please add the following optional CMS fields to Insights:
+Originally published on
+Original publication date
+Source link
+Author approval status
+Downloadable file / report attachment
+Nothing should be published under the name of Rhea, Mike, Gen, JP, Phil, Nitin or anyone else until that individual has reviewed and approved it. Where there is no confirmed individual author, use:
+Corporate DNA
+To address JP’s resource-library idea without unnecessarily expanding the launch scope, please enable a simple Reports & Resources capability within Insights so that we can upload and download PDFs, white papers and reports.
+A more advanced gated resource centre, lead capture and automation can remain a later phase.
+11. Global presence, team and awards
+Please rename:
+Our Offices
+to:
+Our Global Presence
+And add the following short context near the map:
+From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Corporate DNA brings global perspective and locally relevant delivery to leadership challenges across 36 countries.
+The awards section is already present. Please retain the structure, but treat the final names, dates, descriptions and selection as pending validation from CDNA.
+For the team presentation, we want consistency without losing warmth:
+polished and consistent portraits on the homepage;
+warmer, natural photographs on About and individual profiles where available;
+no AI alteration of anyone’s face or physical appearance;
+a much more visible Global Faculty section;
+selected senior faculty by region or a faculty mosaic, without needing 75 individual profiles at launch.
+Please also resolve the current inconsistency between:
+75 faculty across 36 countries
+68 members across 16 countries
+The primary corporate reference should be 75 faculty across 36 countries, subject to final confirmation.
+12. Editorial, design and technical QA
+Once the content changes are implemented, please complete a full QA review covering:
+desktop and mobile;
+Home, header, menus and footer;
+links and CTAs;
+image quality and alignment;
+video loading and captions;
+accessibility;
+responsive behaviour;
+page speed;
+case filters;
+CMS behaviour;
+consistency of titles, roles, locations and figures.
+Please also standardise:
+Corporate DNA versus CorporateDNA;
+5H® versus the different © and trademark treatments currently appearing;
+British English spelling and punctuation;
+capitalisation of programmes, Solutions and job titles;
+the naming of regions and offices.
+13. How we will work from here
+I am attaching the editable website architecture and content document so JP and the CDNA team can make direct copy edits and comments against the current site.
+To avoid fragmented instructions:
+JP, Nitin, Rhea and the CDNA team should add copy, fact and content comments to the shared document or this email thread.
+Guli should manage visual recommendations and approved screens through Figma.
+Beto and Cadu should maintain one consolidated implementation tracker.
+I will consolidate final decisions and approvals before they are treated as instructions to the development team.
+Beto and Cadu, please return a single status list divided into:
+Already implemented
+Can be implemented now
+Requires CDNA content or approval
+Recommended immediately after launch
+Any impact on scope or timeline
+Please also identify any blocker immediately rather than waiting for the next formal review.
+Because we are working across Asia, Europe, Brazil and the Americas, the tracker should allow one region to hand work to the next at the end of its day. That will help us use the time-zone differences to accelerate the process rather than allowing them to create delays.
+This email supersedes the separate feedback messages shared so far and should now serve as the consolidated direction for the next iteration. It does not mean that every enhancement must delay launch. Please separate what is essential for a credible public release from what can be improved immediately afterward.
+The website has already advanced enormously. These changes do not alter the direction, they bring the internal pages, content and commercial proposition up to the standard of the new homepage and help us articulate what Corporate DNA uniquely delivers in the language our clients recognise.
+Thank you all. I’m very excited about where this is going and appreciate everyone collaborating so openly and quickly.
+Best,
+G

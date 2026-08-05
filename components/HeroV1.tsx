@@ -99,9 +99,13 @@ export default function HeroV1() {
           <h1 className="h-title mb-7 text-[38px] sm:text-[48px] md:text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-white [text-wrap:balance]">
             When the stakes are high, leadership must become&nbsp;real.
           </h1>
-          <p className="h-sub mx-auto mb-10 max-w-[720px] text-xl font-normal leading-[1.55] text-white/85">
+          <p className="h-sub mx-auto mb-8 max-w-[720px] text-xl font-normal leading-[1.55] text-white/85">
             We help CEOs, CHROs and executive teams align leadership, accelerate
             decisions and build the talent required to deliver transformation.
+          </p>
+          <p className="h-cta mb-9 text-[15px] font-semibold uppercase tracking-[3px] text-white/90">
+            Making Leadership Real.{" "}
+            <span className="text-brand">Results, Not Promises.</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a

@@ -15,7 +15,7 @@ import { useRef, useState } from "react";
 export default function TestimonialsVideo({
   src,
   poster,
-  heading = "What Fortune 500 leaders say about us",
+  heading = "What global leaders say about us",
 }: {
   src?: string;
   poster?: string;
