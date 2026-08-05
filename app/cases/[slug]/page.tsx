@@ -49,7 +49,7 @@ export default async function CasePage({
 
   const jsonLd = [
     breadcrumbLd([
-      { name: "Cases", path: "/cases" },
+      { name: "Client Impact", path: "/cases" },
       { name: c.title, path: `/cases/${slug}` },
     ]),
     articleLd({

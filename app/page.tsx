@@ -56,7 +56,7 @@ const book = {
   body: [
     "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
     "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
-    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a Corporate DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
     "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
   ],
 };
@@ -123,7 +123,7 @@ export default async function V1() {
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
           </div>
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
-            The high-stakes leadership challenges facing the enterprise.
+            The leadership challenges that determine enterprise performance.
           </h2>
           <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
             We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
@@ -311,7 +311,7 @@ export default async function V1() {
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
                     We blend our individual talents with the collective
-                    expertise of our global pool of 68 members across 16
+                    expertise of our global pool of 75 members across 36
                     countries, and deliver the power of the “DNA experience” to
                     every client. Each time, every time.
                   </p>
