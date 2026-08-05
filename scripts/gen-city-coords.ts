@@ -11,7 +11,7 @@
 import { writeFileSync } from "node:fs";
 import { getCoverageRegions } from "../lib/cms/map";
 
-const UA = "CorporateDNA-CoverageMap/1.0 (+https://corporatednaconsulting.com)";
+const UA = "Corporate-DNA-CoverageMap/1.0 (+https://corporatednaconsulting.com)";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function main() {

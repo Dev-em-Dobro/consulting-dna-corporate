@@ -21,7 +21,7 @@ export async function geocode(
     const res = await fetch(url, {
       headers: {
         "User-Agent":
-          "CorporateDNA-CoverageMap/1.0 (+https://corporatednaconsulting.com)",
+          "Corporate-DNA-CoverageMap/1.0 (+https://corporatednaconsulting.com)",
       },
       next: { revalidate: 60 * 60 * 24 * 30, tags: ["geocode"] },
     });
