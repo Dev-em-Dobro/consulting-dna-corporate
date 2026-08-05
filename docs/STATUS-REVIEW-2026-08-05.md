@@ -31,17 +31,17 @@ be made today by whoever holds CMS access, without waiting for us.
 
 ---
 
-## ✅ Shipped in this pass (2026-08-05) — dependency-free items now live in code
+## ✅ Shipped (2026-08-05) — all dependency-free items done & merged to `main`
 
-All of the following are implemented and the production build passes (verified locally). No CDNA input was required for any of these:
+**Status: complete.** Everything below is implemented, the production build passes, and it is **merged into `main`** (commits `5084161` → merge `a259920`, and `059d1c0` → merge `ad4f803`). No CDNA input was required for any of these. Not yet deployed (deploys are manual, on request).
 
 1. **Hero sub-headline** → "The leadership challenges that determine enterprise performance."
 2. **Hero signature** → "Making Leadership Real. Results, Not Promises." now shown in the hero.
-3. **Navigation** → reordered to `Solutions | Our Approach | Client Impact | Insights`; **Cases renamed to Client Impact**; **The Book moved under Insights** (dropdown child). *(About deliberately not added yet — see note below.)*
+3. **Navigation** → reordered to the target `Solutions | Our Approach | Client Impact | About | Insights`; **Cases renamed to Client Impact**; **About added**; **The Book moved under Insights** (dropdown child). ("Start a Conversation" is the header CTA; Home is the logo.)
 4. **Client Impact index** → heading "Leadership change, measured where it matters." + the new supporting copy; page title + breadcrumb updated.
 5. **Video heading** → "What global leaders say about us."
-6. **Global Presence** → "Our offices" renamed to "Our Global Presence" + the map context paragraph added.
-7. **Data/brand fixes** → the stray "68 members / 16 countries" reconciled to "75 / 36"; "CorporateDNA" → "Corporate DNA".
+6. **Global Presence** → "Our offices" renamed to "Our Global Presence" + the map context paragraph added; the Saudi office is now labelled by its city, **"Riyadh"** (matching the brief's hub naming).
+7. **Data/brand fixes** → the stray "68 members / 16 countries" reconciled to "75 / 36"; "CorporateDNA" → "Corporate DNA" in the book copy, and the coverage-map User-Agent strings standardised to "Corporate-DNA".
 
 **Structural scaffolds built with placeholders (copy-pending, added in a second pass — build passes):**
 
@@ -199,19 +199,18 @@ Insights are CMS-driven; **none** of the requested optional fields exist yet in 
 - Client-proof cards, case-study treatment, homepage positioning.
 
 ### 2) Can be implemented now (no dependency — Dev em Dobro)
-- New nav order + rename **Cases → Client Impact** + move **The Book** under Insights + add **About**.
-- Hero sub-headline swap → "The leadership challenges that determine enterprise performance."
-- Surface the full signature "Making Leadership Real. Results, Not Promises." in the hero experience.
-- Build the **About** area with section shells (Why We Are Different as a placeholder).
-- Build the **"Our IP & Diagnostics"** section (5H · DNA 360 Profiler · Team Climate Assessment placeholder).
-- Video heading → "What global leaders say about us."
-- Make the **statistics component CMS-editable**.
-- Build the **"Client Perspective / Evidence in Practice"** proof component for Solution pages.
-- Cases index heading/copy swap; wire the new outcome-led taxonomy support.
-- Insights: add the 5 optional fields (site side), author **"Corporate DNA"** fallback + approval gate, and a simple **Reports & Resources** download.
-- Rename "Our offices" → **"Our Global Presence"** + add the map context paragraph.
-- Fix the **68/16 → 75/36** faculty inconsistency and the **"CorporateDNA"** spacing.
-- Build a visible **Global Faculty** section (regional/mosaic).
+> **✅ Done & merged to `main` (2026-08-05)** — see the "Shipped" section at the top. The only items that moved to Part B-3 (blocked on the CMS project) are noted below.
+- ✅ New nav order + rename **Cases → Client Impact** + move **The Book** under Insights + add **About**.
+- ✅ Hero sub-headline swap → "The leadership challenges that determine enterprise performance."
+- ✅ Surface the full signature "Making Leadership Real. Results, Not Promises." in the hero experience.
+- ✅ Build the **About** area with section shells (Why We Are Different as a placeholder).
+- ✅ Build the **"Our IP & Diagnostics"** section (5H · DNA 360 Profiler · Team Climate Assessment placeholder).
+- ✅ Video heading → "What global leaders say about us."
+- ✅ Cases index heading/copy swap (taxonomy filters already auto-reflect CMS tags).
+- ✅ Rename "Our offices" → **"Our Global Presence"** + add the map context paragraph (+ Riyadh label).
+- ✅ Fix the **68/16 → 75/36** faculty inconsistency and the **"CorporateDNA"** spacing.
+- ✅ Build a visible **Global Faculty** section (regional/mosaic, photos pending).
+- ⛔ **Moved to B-3 (needs the CMS project first):** make the **statistics component CMS-editable**; build the **"Client Perspective / Evidence in Practice"** proof component (needs `proofRefs` shape + approved quotes); **Insights** 5 optional fields + author "Corporate DNA" fallback/approval gate + simple **Reports & Resources**.
 
 ### 3) Requires CDNA content or approval (blocks the item)
 - Final **"Why We Are Different"** claim (Rhea/JP/Nitin).
