@@ -57,6 +57,22 @@ const caseTags =(f?: { industry?: string[]; service?: string[]; outcome?: string
   [...(f?.industry ?? []), ...(f?.service ?? []), ...(f?.outcome ?? [])];
 
 /**
+ * Map the CMS `resources[]` array (shared by cases, solutions and insights) to
+ * downloadable links. The read API resolves `fileMediaId` → `fileUrl`; drop any
+ * row without a resolved URL (un-uploaded/placeholder), and fall back to a
+ * generic label when a resource has no title.
+ */
+function mapResources(refs?: S.ResourceRefRaw[]): ResourceLink[] | undefined {
+  if (!refs?.length) return undefined;
+  const out: ResourceLink[] = [];
+  for (const r of refs) {
+    if (!r.fileUrl) continue;
+    out.push({ title: plainText(r.title) || "Download", url: r.fileUrl });
+  }
+  return out.length ? out : undefined;
+}
+
+/**
  * Client brand logos live in `public/logos/<name>.png`, named as the slugified
  * client (e.g. "Shell" → shell.png, "Coca Cola" → coca_cola.png). Read the
  * folder once and match a slugified client name to a file; return the public
@@ -108,6 +124,8 @@ export type PersonVM = {
   socials?: Social[]; values?: string; strengths?: string; specialties?: string[];
   trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
 };
+/** A downloadable file surfaced on a detail page ("Reports & Resources"). */
+export type ResourceLink = { title: string; url: string };
 export type CaseCard = { slug: string; title: string; summary?: string; coverUrl?: string; tags: string[] };
 export type CaseListEntry = {
   slug: string;
@@ -127,16 +145,21 @@ export type CaseArticle = {
   quote?: string; quoter?: string;
   text?: string;             // main body — rich text (HTML)
   videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string;
+  resources?: ResourceLink[];
   // Legacy structured body, rendered only when a case has no single `text`.
   body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
 };
 export type SolutionCard = { slug: string; title: string };
+/** A client-proof quote surfaced on a solution page ("Client Perspective"). */
+export type ProofRef = { quote: string; author?: string; role?: string; caseSlug?: string };
 export type SolutionVM = {
   slug: string; title: string; problemStatement?: string; body?: string;
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
+  proofRefs?: ProofRef[];
+  resources?: ResourceLink[];
 };
 export type InsightCard = { slug: string; title: string; summary?: string; publishedAt: string };
-export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string; author?: string; publishedAt?: string; readingMinutes: number };
+export type InsightVM = { slug: string; title: string; body?: string; coverUrl?: string; author?: string; publishedAt?: string; readingMinutes: number; resources?: ResourceLink[] };
 /** Richer insight list row: adds cover + computed reading time for the library. */
 export type InsightListEntry = {
   slug: string; title: string; summary?: string; coverUrl?: string;
@@ -239,6 +262,7 @@ function mapCase(raw: unknown): CaseArticle | null {
     videoUrl: d.videoUrl,
     mutedVideoUrl: d.mutedVideoUrl,
     coverUrl: d.coverUrl,
+    resources: mapResources(d.resources),
     body: {
       challenge: plainText(d.challenge),
       approach: plainText(d.approach),
@@ -319,6 +343,23 @@ export async function getSolutionCards(): Promise<SolutionCard[]> {
   }));
 }
 
+/**
+ * Map the CMS `proofRefs` array to the view model. The CMS ships blank/partial
+ * placeholder rows (e.g. `{}` or all-empty strings), so drop any ref without a
+ * quote — a proof block only renders when there is something to quote.
+ */
+function mapProofRefs(refs?: S.ProofRefRaw[]): ProofRef[] | undefined {
+  if (!refs?.length) return undefined;
+  const out: ProofRef[] = [];
+  for (const p of refs) {
+    const quote = plainText(p.quote);
+    if (!quote) continue;
+    const caseSlug = typeof p.caseSlug === "string" && p.caseSlug.trim() ? p.caseSlug.trim() : undefined;
+    out.push({ quote, author: plainText(p.author), role: plainText(p.role), caseSlug });
+  }
+  return out.length ? out : undefined;
+}
+
 function mapSolution(raw: unknown): SolutionVM | null {
   const r = S.solutionEntry.safeParse(raw);
   if (!r.success) return null;
@@ -333,6 +374,8 @@ function mapSolution(raw: unknown): SolutionVM | null {
     cta: d.cta ? { label: plainText(d.cta.label), href: d.cta.href } : undefined,
     coverUrl: d.coverUrl,
     bannerUrl: d.bannerUrl,
+    proofRefs: mapProofRefs(d.proofRefs),
+    resources: mapResources(d.resources),
   };
 }
 
@@ -353,23 +396,41 @@ export async function getInsightCards(): Promise<InsightCard[]> {
   }));
 }
 
+/** Byline used until an individual author has been reviewed and approved. */
+const CORPORATE_AUTHOR = "Corporate DNA";
+
+/**
+ * Resolve an insight's published byline (correcao-06-08 item 10 / status review
+ * §10). An individual's name is only shown once CDNA has explicitly approved it
+ * (`authorApprovalStatus === "approved"`). With no author, or any non-approved
+ * status, the piece is attributed to the firm as "Corporate DNA" — never to an
+ * unapproved individual. The byline is therefore always present.
+ */
+function insightAuthor(d: Record<string, unknown>): string {
+  const str = (v: unknown) => (typeof v === "string" ? v : undefined);
+  const name = plainText(str(d.author)) ?? plainText(str(d.authorName));
+  if (!name) return CORPORATE_AUTHOR;
+  const status = plainText(str(d.authorApprovalStatus))?.toLowerCase();
+  return status === "approved" ? name : CORPORATE_AUTHOR;
+}
+
 function mapInsight(raw: unknown): InsightVM | null {
   const r = S.insightEntry.safeParse(raw);
   if (!r.success) return null;
   // body is rendered via <RichText>; title is a plain-text heading.
   const d = r.data.data as Record<string, unknown>;
-  const str = (v: unknown) => (typeof v === "string" ? v : undefined);
   return {
     slug: r.data.slug,
     title: plainText(r.data.data.title) ?? "",
     body: r.data.data.body,
     coverUrl: r.data.data.coverUrl,
-    // Author is an optional CMS field (schema passes it through) → plain text.
-    author: plainText(str(d.author)) ?? plainText(str(d.authorName)),
+    // Gated byline: an unapproved individual name falls back to "Corporate DNA".
+    author: insightAuthor(d),
     // Publish date from the entry envelope (used for Article structured data).
     publishedAt: r.data.publishedAt,
     // Reading time from the body, so the detail page can show it like the card.
     readingMinutes: readingMinutes(r.data.data.body),
+    resources: mapResources(r.data.data.resources),
   };
 }
 

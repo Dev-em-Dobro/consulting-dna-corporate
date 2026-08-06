@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
+import ResourceDownloads from "@/components/ResourceDownloads";
 import type { CaseArticle } from "@/lib/cms/map";
 
 /** Extract the 11-char YouTube id from any common YouTube URL shape. */
@@ -153,6 +154,8 @@ export default function CaseView({ c }: { c: CaseArticle }) {
 
       {/* Autoplay-muted showcase video from the CMS, at the very end */}
       {c.mutedVideoUrl && <MutedVideo url={c.mutedVideoUrl} title={c.title} />}
+
+      {c.resources?.length ? <ResourceDownloads resources={c.resources} /> : null}
     </>
   );
 }
