@@ -31,6 +31,9 @@ function affectedPaths(type: string, slug: string): string[] | null {
     case "page_book":
       // The book lives in the home `#book` section — there is no /book page.
       return ["/"];
+    case "page_home":
+      // Homepage statistics singleton — only the home renders it.
+      return ["/"];
     case "page_awards":
       return ["/awards"];
     case "page_legal":

@@ -15,6 +15,7 @@ import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople } from "@/lib/cms/map";
+import { getPage } from "@/lib/cms/client";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -61,11 +62,15 @@ const book = {
   ],
 };
 
-const stats = [
-  { value: "18", label: "Years advising senior leaders" },
-  { value: "36", label: "Countries of global delivery" },
-  { value: "75", label: "Faculty of senior practitioners" },
-  { value: "90%", label: "Work sponsored by Chairman / CXO" },
+// Homepage statistics. Values come from the CMS `home` singleton
+// (page_home: years / countries / faculty / sponsoredPct); the labels are site
+// copy. STAT_FALLBACK is used verbatim when the CMS is unreachable or a field is
+// blank, so the section never renders empty.
+const STAT_FALLBACK = [
+  { cmsKey: "years", value: "18", label: "Years advising senior leaders" },
+  { cmsKey: "countries", value: "36", label: "Countries of global delivery" },
+  { cmsKey: "faculty", value: "75", label: "Faculty of senior practitioners" },
+  { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
 ];
 
 const challenges = [
@@ -94,7 +99,22 @@ const cases: {
 ];
 
 export default async function V1() {
-  const [people, nav] = await Promise.all([getPeople(), buildSiteNav()]);
+  const [people, nav, home] = await Promise.all([
+    getPeople(),
+    buildSiteNav(),
+    getPage("home"),
+  ]);
+  // Merge CMS-published values over the fallbacks; labels stay site-side. A
+  // blank/missing field or an unreachable CMS keeps the fallback number, so the
+  // stats band never renders empty.
+  const homeStats = (home?.data ?? {}) as Record<string, unknown>;
+  const stats = STAT_FALLBACK.map((s) => {
+    const v = homeStats[s.cmsKey];
+    return {
+      value: typeof v === "string" && v.trim() ? v : s.value,
+      label: s.label,
+    };
+  });
   return (
     <div className="w-full overflow-x-hidden bg-white">
       <JsonLd
