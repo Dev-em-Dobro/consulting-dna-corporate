@@ -16,6 +16,20 @@ export const facetsSchema = z
   .partial()
   .passthrough();
 
+/**
+ * An embedded downloadable resource (the CMS `resources[]` array, shared by
+ * cases, solutions and insights). The read API resolves `fileMediaId` to a
+ * ready-to-use `fileUrl`; the site only surfaces a resource once that URL is
+ * present, so an un-resolved/blank row is silently ignored.
+ */
+export const resourceRef = z
+  .object({
+    title: z.string().optional(),
+    fileMediaId: z.string().optional(),
+    fileUrl: z.string().url().optional(),
+  })
+  .passthrough();
+
 /** Fields common to every list item. */
 const listItemBase = {
   id: z.string(),
@@ -83,6 +97,7 @@ export const caseData = z
     coverMediaId: z.string().optional(),
     coverUrl: z.string().url().optional(),
     videoUrl: z.string().url().optional(),
+    resources: z.array(resourceRef).optional(),
   })
   .passthrough();
 
@@ -91,13 +106,29 @@ export const caseEntry = entry(caseData);
 // ---- Solutions -------------------------------------------------------------
 export const solutionListItem = z.object({ ...listItemBase }).passthrough();
 
+/**
+ * A single client-proof reference authored on a solution (the CMS `proofRefs`
+ * array). Every field is optional — the CMS ships partially-filled/blank rows
+ * (an empty `{}` placeholder is valid) and the site drops any ref without a
+ * quote. `caseSlug`, when present, links the proof to a case study.
+ */
+export const proofRef = z
+  .object({
+    quote: z.string().optional(),
+    author: z.string().optional(),
+    role: z.string().optional(),
+    caseSlug: z.string().optional(),
+  })
+  .passthrough();
+
 export const solutionData = z
   .object({
     title: z.string(),
     problemStatement: z.string().optional(),
     body: z.string().optional(),
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
-    proofRefs: z.array(z.unknown()).optional(),
+    proofRefs: z.array(proofRef).optional(),
+    resources: z.array(resourceRef).optional(),
     coverUrl: z.string().url().optional(),
     // Optional hero background, resolved by the CMS read API from `bannerMediaId`.
     bannerUrl: z.string().url().optional(),
@@ -117,6 +148,16 @@ export const insightData = z
     excerpt: z.string().optional(),
     body: z.string().optional(),
     coverUrl: z.string().url().optional(),
+    resources: z.array(resourceRef).optional(),
+    // Optional external-attribution fields (status review §10), resolved server-side.
+    author: z.string().optional(),
+    // Editorial gate: an individual's name is only published once CDNA marks it
+    // "approved" (§10 / correcao-06-08 item 10). Any other value — or none —
+    // keeps the piece attributed to "Corporate DNA".
+    authorApprovalStatus: z.string().optional(),
+    originalSource: z.string().optional(),
+    originalPublicationDate: z.string().optional(),
+    sourceLink: z.string().url().optional(),
   })
   .passthrough();
 
@@ -193,6 +234,8 @@ export type CaseListItem = z.infer<typeof caseListItem>;
 export type CaseEntry = z.infer<typeof caseEntry>;
 export type SolutionListItem = z.infer<typeof solutionListItem>;
 export type SolutionEntry = z.infer<typeof solutionEntry>;
+export type ProofRefRaw = z.infer<typeof proofRef>;
+export type ResourceRefRaw = z.infer<typeof resourceRef>;
 export type InsightListItem = z.infer<typeof insightListItem>;
 export type InsightEntry = z.infer<typeof insightEntry>;
 export type PersonListItem = z.infer<typeof personListItem>;

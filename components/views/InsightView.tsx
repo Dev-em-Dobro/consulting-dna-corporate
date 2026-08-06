@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero";
 import RichText from "@/components/RichText";
+import ResourceDownloads from "@/components/ResourceDownloads";
 import type { InsightVM } from "@/lib/cms/map";
 
 /** Date as DD.MM.YYYY, matching the insight cards. */
@@ -57,6 +58,8 @@ export default function InsightView({ i }: { i: InsightVM }) {
           <RichText html={i.body} />
         </div>
       </section>
+
+      {i.resources?.length ? <ResourceDownloads resources={i.resources} /> : null}
     </>
   );
 }
