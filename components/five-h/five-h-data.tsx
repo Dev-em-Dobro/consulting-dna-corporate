@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 
-/** The two "games" the 5H© methodology is organised around. */
+/** The two "games" the 5H® methodology is organised around. */
 export type Game = "Inner Game" | "Outer Game";
 
 export type HFaculty = {

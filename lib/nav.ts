@@ -34,6 +34,8 @@ export const regions: Region[] = [
   { slug: "london", name: "London" },
   { slug: "singapore", name: "Singapore" },
   { slug: "dubai", name: "Dubai" },
-  { slug: "saudi-arabia", name: "Saudi Arabia" },
+  // Labelled by city (Riyadh) to match the homepage offices/context and the
+  // Riyadh-by-city labelling (commit 059d1c0); the route slug stays "saudi-arabia".
+  { slug: "saudi-arabia", name: "Riyadh" },
   { slug: "miami", name: "Miami" },
 ];
