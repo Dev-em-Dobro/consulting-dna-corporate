@@ -90,7 +90,8 @@ Lacuna de código conhecida (NÃO implementada por decisão): o índice `app/sol
 - ✅ Awards retidos (`AwardsMentions.tsx`); nomes/datas → lista CDNA.
 - ✅ 75/36 consistente; 68/16 não existe no código.
 - ✅ Global Faculty visível no About (`#faculty`, mosaico por região).
-- 📋 Conteúdo/foto: portraits (home polido / About natural), sem alteração de IA em rostos, seleção de faculty.
+- ✅ Fotos confirmadas corretas pelo cliente (2026-08-06) — sem pendência de portraits/AI.
+- 📋 Conteúdo: seleção de Global Faculty.
 
 ## Item 12 — Editorial, design & technical QA 🟡 PARCIAL
 ### Padronização (código)
@@ -110,6 +111,6 @@ Desktop/mobile, links/CTAs, qualidade de imagem, loading/captions de vídeo, a11
 - **Código DONE:** 1, 8, 9, 11 (e as implementações de 10 e 12 feitas nesta revisão).
 - **Implementado nesta revisão:** item 10 (gate de autoria + fallback Corporate DNA), item 12 (naming Riyadh + 5H®).
 - **CMS / conteúdo (pendente autoria, ex-Rhea):** 2, 6, 7 e partes de 9/10.
-- **Lista de aprovação CDNA:** 3 e 5 (números) + awards (11) → `correcao-06-08-cdna-approval-list.md`.
+- **Lista de aprovação CDNA:** 3 e 5 (números) + awards (11) → `correcao-06-08-cdna-approval-list.md`. **Já enviada à CDNA** (2026-08-06); aguardando retorno.
 - **Asset de vídeo (proof-of-concept):** item 4 (heading ✅; correções dependem do footage final).
 - ⚠️ **Working tree não-commitado** contém itens 8, 10 e 12. Commitar quando aprovado.

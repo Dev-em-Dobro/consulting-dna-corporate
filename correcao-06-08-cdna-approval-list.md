@@ -1,6 +1,8 @@
 # Lista de aprovação CDNA — claims numéricas não-verificadas
 
-> Números apresentados como fato no site que precisam ser **validados pela CDNA** ou **removidos antes do launch** (correcao-06-08, itens 3 e 5). Nada aqui foi alterado no código ainda — apenas catalogado.
+> Status: **enviada à CDNA para validação** (confirmado pelo cliente em 2026-08-06). Nada aqui foi alterado no código — aguardando retorno da CDNA para validar ou remover.
+>
+> Números apresentados como fato no site que precisam ser **validados pela CDNA** ou **removidos antes do launch** (correcao-06-08, itens 3 e 5).
 
 ## Página 5H / Our Approach (`app/approach/page.tsx`)
 
@@ -50,4 +52,4 @@ Hardcoded em `components/AwardsMentions.tsx:29-60`:
 
 ## Pendências relacionadas
 - Item 9: nomes de clientes, logos, citações, resultados e métricas — todos sujeitos a aprovação CDNA.
-- Item 11: sem alteração de IA em rostos; curadoria de fotos (polidas no home / naturais no About) e seleção de Global Faculty — conteúdo/foto.
+- Item 11: fotos **confirmadas corretas** pelo cliente (2026-08-06) — sem pendência de foto/AI. Seleção de Global Faculty segue como conteúdo.
