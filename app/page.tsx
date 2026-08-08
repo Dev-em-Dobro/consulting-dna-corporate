@@ -3,11 +3,10 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
-import methodology from "@/public/5H-methodology.jpg";
+import methodology from "@/public/5P-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
-import LogoMarquee from "@/components/LogoMarquee";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
@@ -26,7 +25,7 @@ import { bookLd, personLd } from "@/lib/seo/jsonld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title =
-    "Global Leadership Advisory & Executive Coaching | Corporate DNA";
+    "Global Leadership Advisory & Executive Coaching | Meridian";
   return {
     title,
     description: SITE_DESCRIPTION,
@@ -36,28 +35,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Curated wall of the largest / most globally recognisable clients — Aramco leads.
-const orderedLogos = [
-  "aramco.png", "alphabet.png", "microsoft.png", "visa.png", "shell.png",
-  "nestle.png", "coca_cola.png", "unilever.png", "bp.png", "hsbc.png",
-  "disney.png", "pfizer.png", "novartis.png", "sanofi.png", "rio_tinto.png",
-  "anglo_american.png", "goldman_sachs.png", "morgan_stanley.png", "citi.png", "standard_chartered.png",
-  "chanel.png", "rolls_royce.png", "aston_martin.png", "mclaren.png", "lego.png",
-  "adidas.png", "dyson.png",
-];
-
-const logoRowSplit = Math.ceil(orderedLogos.length / 2);
-const logoRow1 = orderedLogos.slice(0, logoRowSplit);
-const logoRow2 = orderedLogos.slice(logoRowSplit);
 
 const book = {
   title:
-    "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
+    "The Leadership Code: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
   subtitle: "The book behind the method",
   body: [
     "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
-    "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
-    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a Corporate DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+    "Drawing on nearly two decades of advising CEOs and executive teams around the world, Elena Hart reveals the principles behind organisations that consistently outperform, adapt and endure.",
+    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building an organisational DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
     "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
   ],
 };
@@ -83,7 +69,7 @@ const challenges = [
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
-  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework — not a generic coaching approach borrowed from elsewhere." },
+  { n: "3", title: "Proprietary 5P and DNA 360 methodology", body: "A rigorous, measurable framework — not a generic coaching approach borrowed from elsewhere." },
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
@@ -119,10 +105,10 @@ export default async function V1() {
     <div className="w-full overflow-x-hidden bg-white">
       <JsonLd
         data={[
-          personLd({ name: "Rhea Leckie", jobTitle: "Founder" }),
+          personLd({ name: "Elena Hart", jobTitle: "Founder" }),
           bookLd({
             name: book.title,
-            author: "Rhea Leckie",
+            author: "Elena Hart",
             path: "/#book",
             description: book.body[1],
             image: `${SITE_URL}/book-cover.jpg`,
@@ -153,15 +139,6 @@ export default async function V1() {
 
       {/* CREDIBILITY */}
       <section className="bg-ink text-white">
-        <div className="pb-[34px] pt-[70px]">
-          <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
-            Trusted by leadership teams at
-          </p>
-          <div className="flex flex-col gap-5">
-            <LogoMarquee logos={logoRow1} duration={logoRow1.length * 4.6} />
-            <LogoMarquee logos={logoRow2} duration={logoRow2.length * 4.6} reverse />
-          </div>
-        </div>
         <div className="mx-auto max-w-[1200px] px-10 pb-20 pt-5">
           <Reveal className="mx-auto grid max-w-[760px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {stats.map((s) => (
@@ -202,7 +179,7 @@ export default async function V1() {
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
           <div className="mb-2.5 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Corporate DNA</span>
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Meridian</span>
           </div>
           <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
@@ -270,7 +247,7 @@ export default async function V1() {
         </Reveal>
       </section>
 
-      {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
+      {/* 5P FRAMEWORK — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
@@ -280,10 +257,10 @@ export default async function V1() {
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
             </div>
             <h2 className="mb-5 text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
-              The 5H<span className="align-super text-xl font-semibold">®</span> Framework
+              The 5P<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
-              Sustained leadership change comes from identity and habits — not skills alone. Our proprietary 5H methodology works across the{" "}
+              Sustained leadership change comes from identity and habits — not skills alone. Our proprietary 5P methodology works across the{" "}
               <em className="font-semibold not-italic text-white">inner game</em> of the leader and the{" "}
               <em className="font-semibold not-italic text-white">outer game</em> of performance, so behaviour holds under real enterprise pressure.
             </p>
@@ -295,7 +272,7 @@ export default async function V1() {
             </Link>
           </div>
           <div className="flex justify-center">
-            <Image src={methodology} alt="The 5H Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
+            <Image src={methodology} alt="The 5P Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
           </div>
         </Reveal>
       </section>
@@ -363,18 +340,21 @@ export default async function V1() {
               </div>
             </div>
             <PhotoCarousel
-              images={Array.from(
-                { length: 14 },
-                (_, i) =>
-                  `/dna-time/dna-time-${String(i + 1).padStart(2, "0")}.jpeg`
-              )}
+              images={[
+                "/avatars/a1.svg",
+                "/avatars/a2.svg",
+                "/avatars/a3.svg",
+                "/avatars/a4.svg",
+                "/avatars/a5.svg",
+                "/avatars/a6.svg",
+              ]}
             />
           </div>
           <div className="mt-14 flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
             <span className="text-[12px] font-semibold uppercase tracking-[2px] text-muted">In partnership with</span>
-            <span className="text-[19px] font-bold text-ink">Harvard Business Impact</span>
+            <span className="text-[19px] font-bold text-ink">Aldbridge Executive Institute</span>
             <span className="h-[22px] w-px bg-[#d9d5d1]" />
-            <span className="text-[19px] font-bold text-ink">Imperial College London</span>
+            <span className="text-[19px] font-bold text-ink">Northgate Business School</span>
           </div>
         </Reveal>
         </section>
