@@ -5,8 +5,8 @@ import { FIVE_H } from "./five-h-data";
 
 /**
  * The "Inner and Outer Game" selector. Five faculties sit on a tablist; picking
- * one crossfades a detail panel below. Head/Heart/Hunch belong to the Inner
- * Game, Hands/Habits to the Outer Game — the divider makes that split visible.
+ * one crossfades a detail panel below. Perspective/People/Perception belong to the Inner
+ * Game, Performance/Persistence to the Outer Game — the divider makes that split visible.
  */
 export default function FiveHExplorer() {
   const [active, setActive] = useState(0);
@@ -28,7 +28,7 @@ export default function FiveHExplorer() {
       {/* Tablist */}
       <div
         role="tablist"
-        aria-label="The five faculties of 5H"
+        aria-label="The five faculties of the 5P Framework"
         onKeyDown={onKeyDown}
         className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
       >

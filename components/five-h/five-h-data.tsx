@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 
-/** The two "games" the 5H® methodology is organised around. */
+/** The two "games" the 5P Framework methodology is organised around. */
 export type Game = "Inner Game" | "Outer Game";
 
 export type HFaculty = {
@@ -94,7 +94,7 @@ function HabitsIcon(props: SVGProps<SVGSVGElement>) {
 export const FIVE_H: HFaculty[] = [
   {
     key: "head",
-    label: "HEAD",
+    label: "PERSPECTIVE",
     verb: "Thinking",
     game: "Inner Game",
     color: "#97bf3f",
@@ -104,7 +104,7 @@ export const FIVE_H: HFaculty[] = [
   },
   {
     key: "heart",
-    label: "HEART",
+    label: "PEOPLE",
     verb: "Relating",
     game: "Inner Game",
     color: "#e0392c",
@@ -114,7 +114,7 @@ export const FIVE_H: HFaculty[] = [
   },
   {
     key: "hunch",
-    label: "HUNCH",
+    label: "PERCEPTION",
     verb: "Sensing",
     game: "Inner Game",
     color: "#35b5bf",
@@ -124,7 +124,7 @@ export const FIVE_H: HFaculty[] = [
   },
   {
     key: "hands",
-    label: "HANDS",
+    label: "PERFORMANCE",
     verb: "Doing",
     game: "Outer Game",
     color: "#55b34e",
@@ -134,7 +134,7 @@ export const FIVE_H: HFaculty[] = [
   },
   {
     key: "habits",
-    label: "HABITS",
+    label: "PERSISTENCE",
     verb: "Practicing",
     game: "Outer Game",
     color: "#ef9d63",
