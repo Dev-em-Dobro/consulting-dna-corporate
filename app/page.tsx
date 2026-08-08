@@ -15,10 +15,9 @@ import { getPage } from "@/lib/cms/client";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
-import TestimonialsVideo from "@/components/TestimonialsVideo";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
-import { bookLd, personLd } from "@/lib/seo/jsonld";
+import { personLd } from "@/lib/seo/jsonld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title =
@@ -33,27 +32,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 
-const book = {
-  title:
-    "The Leadership Code: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
-  subtitle: "The book behind the method",
-  body: [
-    "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
-    "Drawing on nearly two decades of advising CEOs and executive teams around the world, Elena Hart reveals the principles behind organisations that consistently outperform, adapt and endure.",
-    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building an organisational DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
-    "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
-  ],
-};
-
 // Homepage statistics. Values come from the CMS `home` singleton
 // (page_home: years / countries / faculty / sponsoredPct); the labels are site
 // copy. STAT_FALLBACK is used verbatim when the CMS is unreachable or a field is
 // blank, so the section never renders empty.
 const STAT_FALLBACK = [
-  { cmsKey: "years", value: "18", label: "Years advising senior leaders" },
-  { cmsKey: "countries", value: "36", label: "Countries of global delivery" },
-  { cmsKey: "faculty", value: "75", label: "Faculty of senior practitioners" },
-  { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
+  { cmsKey: "years", value: "18", label: "Years guiding senior leadership" },
+  { cmsKey: "countries", value: "36", label: "Countries where we deliver" },
+  { cmsKey: "faculty", value: "75", label: "Practitioners in our global network" },
+  { cmsKey: "sponsoredPct", value: "90%", label: "Engagements sponsored at Chair / CXO level" },
 ];
 
 const challenges = [
@@ -103,13 +90,6 @@ export default async function V1() {
       <JsonLd
         data={[
           personLd({ name: "Elena Hart", jobTitle: "Founder" }),
-          bookLd({
-            name: book.title,
-            author: "Elena Hart",
-            path: "/#book",
-            description: book.body[1],
-            image: `${SITE_URL}/book-cover.jpg`,
-          }),
         ]}
       />
       {/* NAV */}
@@ -126,10 +106,10 @@ export default async function V1() {
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
           </div>
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
-            The leadership challenges that determine enterprise performance.
+            The leadership gaps that quietly cap enterprise performance.
           </h2>
           <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
-            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+            We begin with what is genuinely at stake for the business — then bring the people, method and evidence to close it.
           </p>
         </Reveal>
       </section>
@@ -198,12 +178,6 @@ export default async function V1() {
       </section>
       )}
 
-      {/* TESTIMONIALS "metralhadora" video — immediately before Client-Impact. */}
-      <TestimonialsVideo
-        src="/videos/testimonials-reel.mp4"
-        poster="/videos/testimonials-reel-poster.jpg"
-      />
-
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -212,7 +186,7 @@ export default async function V1() {
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Client impact</span>
           </div>
           <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-            Results, not promises — measured where it matters.
+            Outcomes you can measure — where the business actually feels it.
           </h2>
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
             {cases.map((c) => (
@@ -284,10 +258,10 @@ export default async function V1() {
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
           </div>
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-            Senior advisors who have sat where our clients sit.
+            Advisors who have led from the seats our clients occupy.
           </h2>
           <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
-            A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
+            A core team of seasoned operators, supported by a global network of 75 practitioners working across 36 countries.
           </p>
           <PeopleGrid people={people} />
           {/* The DNA experience — copy on the left, life-at-DNA carousel on the
@@ -295,13 +269,13 @@ export default async function V1() {
           <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
             <div>
               <p className="text-lg font-medium leading-[1.55] text-ink">
-                With our “One DNA TEAM” principle, we execute as one
+                With our “One Meridian Team” principle, we execute as one
                 collaborative team.
               </p>
               <div className="mt-8 space-y-6">
                 <div>
                   <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
-                    The DNA Experience
+                    The Meridian Experience
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
                     We blend our individual talents with the collective
@@ -356,44 +330,6 @@ export default async function V1() {
         </Reveal>
         </section>
       )}
-
-      {/* BOOK */}
-      <section id="book" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1200px] py-14 md:px-10 md:py-24">
-          <div className="bg-ink text-white md:border md:border-line md:p-14">
-            {/* Blog-post layout: the cover floats and the copy wraps around it.
-                `flow-root` contains the float so the endorsements block below
-                starts on a clean line. */}
-            <div className="flow-root px-6 pb-10 pt-12 md:p-0">
-              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
-              <h3 className="mb-6 mt-6 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
-                {book.title}
-              </h3>
-
-              <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
-                <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
-                  <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
-                </div>
-              </figure>
-
-              <div className="space-y-4 text-[17px] leading-[1.65] text-white/80">
-                {book.body.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-              <a
-                href="#book"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
-              >
-                Buy on Amazon
-              </a>
-            </div>
-
-          </div>
-        </Reveal>
-      </section>
 
       {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003) */}
       <LocationsBlock />
