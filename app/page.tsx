@@ -3,7 +3,6 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
-import methodology from "@/public/5P-methodology.jpg";
 import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
@@ -272,7 +271,7 @@ export default async function V1() {
             </Link>
           </div>
           <div className="flex justify-center">
-            <Image src={methodology} alt="The 5P Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
+            <Image src="/5P-methodology.svg" width={560} height={420} alt="The 5P Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
           </div>
         </Reveal>
       </section>

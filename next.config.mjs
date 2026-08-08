@@ -116,6 +116,8 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "corporate-dna.b-cdn.net" },
     ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   async redirects() {
     return [

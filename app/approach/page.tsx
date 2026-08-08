@@ -8,7 +8,6 @@ import FiveHExplorer from "@/components/five-h/FiveHExplorer";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, serviceLd, faqLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
-import methodology from "@/public/5H-methodology.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -37,13 +36,13 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 const OUTCOMES = [
-  "Build great habits beyond ‘aha’ moments — repeating a skill enough to strengthen neural connections through practice, problem-solving and decision-making.",
+  "Build great habits beyond 'aha' moments — repeating a skill enough to strengthen neural connections through practice, problem-solving and decision-making.",
   "Create real-world relevance by actively participating, experimenting and co-creating possible ideas and solutions.",
-  "“Normalise” the real power of learning from mistakes.",
+  "\"Normalise\" the real power of learning from mistakes.",
   "Share peer learning within the group through a collaborative model of multi-loop problem solving and feedback cycles.",
   "Create sustainable habits — new mindsets and skill sets that drive long-term success outside the workshops.",
   "Gain self-efficacy and confidence.",
-  "Accelerate ROI on the organisation’s learning investments.",
+  "Accelerate ROI on the organisation's learning investments.",
 ];
 
 /**
@@ -87,7 +86,7 @@ const CLIENTS = [
   { name: "Morgan Stanley", file: "morgan_stanley.png" },
   { name: "Aviva", file: "aviva.png" },
   { name: "Coca-Cola", file: "coca_cola.png" },
-  { name: "Levi’s", file: "levis.png" },
+  { name: "Levi's", file: "levis.png" },
 ];
 
 function CheckIcon() {
@@ -231,7 +230,7 @@ export default async function FiveHFrameworkPage() {
           </div>
           <div className="max-w-[62ch] space-y-5 text-[17px] leading-[1.7] text-muted">
             <p>
-              Meridian’s proprietary 5P Framework is the
+              Meridian's proprietary 5P Framework is the
               neuroscience-led formula behind our proven results and global
               success. Over ten years and across 26 countries, we have used the
               5P Framework in all our programs — culture transformations, leadership
@@ -239,17 +238,17 @@ export default async function FiveHFrameworkPage() {
             </p>
             <p>
               There are five clear lenses through which we approach developing
-              the whole self in leadership — the{“ “}
-              <strong className=”text-ink”>
+              the whole self in leadership — the{" "}
+              <strong className="text-ink">
                 Perspective, People, Perception, Performance and Persistence
-              </strong>{“ “}
+              </strong>{" "}
               — in other words, thinking, relating, sensing, doing and applying.
             </p>
             <p>
               The 5P Framework was born from the belief that traditional executive
-              programs often develop skills that produce “partial leaders,”
+              programs often develop skills that produce "partial leaders,"
               sustainable only in the short term. Our purpose is to go beyond and
-              develop “whole leaders,” where all the learner’s faculties are
+              develop "whole leaders," where all the learner's faculties are
               engaged and integrated.
             </p>
             <p>
@@ -299,29 +298,29 @@ export default async function FiveHFrameworkPage() {
               </span>
             </div>
             <h2 className="text-[28px] font-bold leading-[1.1] tracking-[-0.6px] text-ink sm:text-[36px]">
-              The 5P Framework doesn’t live in separate compartments
+              The 5P Framework doesn't live in separate compartments
             </h2>
           </div>
 
           <div className="relative mx-auto aspect-[3/2] w-full max-w-[900px] overflow-hidden rounded-xl border border-line bg-paper">
             <Image
-              src={methodology}
+              src="/5P-methodology.svg"
+              width={560}
+              height={420}
               alt="The 5P Framework across the Inner Game (Perspective, People, Perception) and Outer Game (Performance, Persistence), mapped along a DNA helix."
-              fill
-              sizes="(min-width: 900px) 900px, 100vw"
               className="object-contain"
             />
           </div>
 
           <div className="mx-auto mt-12 grid max-w-[900px] gap-8 md:grid-cols-2">
-            <p className=”text-[17px] leading-[1.7] text-muted”>
+            <p className="text-[17px] leading-[1.7] text-muted">
               The 5P Framework is highly interconnected. Through it we illuminate
               different aspects of a single leadership ingredient. Courage, for
               example, has no simple definition: one leader may excel at
-              “thinking brave” — Perspective-based courage — while another excels at
-              “acting brave,” taking decisive action from Performance.
+              "thinking brave" — Perspective-based courage — while another excels at
+              "acting brave," taking decisive action from Performance.
             </p>
-            <p className=”text-[17px] leading-[1.7] text-muted”>
+            <p className="text-[17px] leading-[1.7] text-muted">
               Created with simplicity in mind, the 5P Framework lives in a symbiotic,
               interdependent loop. To be a better thinker you must be more aware
               as a feeler; to be a doer you must be in tune as a sensor.
@@ -370,22 +369,22 @@ export default async function FiveHFrameworkPage() {
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 py-20 md:grid-cols-2 md:px-10 md:py-24">
           <figure className="rounded-2xl border border-white/12 bg-white/[0.04] p-8 md:p-10">
             <blockquote className="text-[19px] font-medium leading-[1.55] text-white/90">
-              “I am very impressed by your use of the 5P Framework and the progress
+              "I am very impressed by your use of the 5P Framework and the progress
               you have led us to make. From a broken start, the turnaround has
               been beyond my expectations… it would have been impossible to get
-              where we are now without you.”
+              where we are now without you."
             </blockquote>
             <figcaption className="mt-6 border-t border-white/10 pt-5 text-sm">
               <span className="font-semibold text-white">Amy Yang</span>
-              <span className="text-white/55"> — Managing Director, Levi’s China</span>
+              <span className="text-white/55"> — Managing Director, Levi's China</span>
             </figcaption>
           </figure>
 
           <figure className="rounded-2xl border border-white/12 bg-white/[0.04] p-8 md:p-10">
             <blockquote className="text-[19px] font-medium leading-[1.55] text-white/90">
-              “During Covid-19, GlaxoSmithKline adapted the 5P Framework to
+              "During Covid-19, GlaxoSmithKline adapted the 5P Framework to
               measure the progress of its high-potentials within Emerging
-              Markets.”
+              Markets."
             </blockquote>
             <figcaption className="mt-6 border-t border-white/10 pt-5 text-sm">
               <span className="font-semibold text-white">Rhea Leckie</span>
@@ -476,7 +475,7 @@ export default async function FiveHFrameworkPage() {
               Ready to lead with the 5P Framework?
             </h2>
             <p className="mt-4 max-w-[560px] text-lg leading-[1.5] text-white/85">
-              Let’s design a program that develops whole leaders across your
+              Let's design a program that develops whole leaders across your
               organisation.
             </p>
           </div>

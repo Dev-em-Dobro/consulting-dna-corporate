@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" role="img" aria-label="The 5P Framework">
+  <rect width="560" height="420" fill="#12100e"/>
+  <text x="280" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">The 5P Framework</text>
+  <circle cx="280" cy="240" r="150" fill="none" stroke="#ffffff" stroke-opacity="0.18"/>
+  <g font-family="Georgia, serif" font-size="13" fill="#ffffff" text-anchor="middle">
+    <circle cx="280" cy="110" r="44" fill="#97bf3f"/><text x="280" y="114">Perspective</text>
+    <circle cx="404" cy="200" r="44" fill="#e0392c"/><text x="404" y="204">People</text>
+    <circle cx="356" cy="345" r="44" fill="#35b5bf"/><text x="356" y="349">Perception</text>
+    <circle cx="204" cy="345" r="44" fill="#55b34e"/><text x="204" y="349">Performance</text>
+    <circle cx="156" cy="200" r="44" fill="#ef9d63"/><text x="156" y="204">Persistence</text>
+  </g>
+</svg>
