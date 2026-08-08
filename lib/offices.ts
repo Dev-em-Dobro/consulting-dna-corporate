@@ -1,5 +1,5 @@
 /**
- * Corporate DNA offices — the fixed source of truth for the homepage locations
+ * Meridian offices — the fixed source of truth for the homepage locations
  * map + carousel (feature 003). Addresses are carried over verbatim from the
  * previous static "Our offices" grid; `coords`/`zoom` drive the Leaflet camera.
  * Order here defines the carousel order.
@@ -22,7 +22,7 @@ export const offices: Office[] = [
     country: "United Kingdom",
     addressLines: ["60 St Martin's Ln, Covent Garden", "London WC2N 4JS"],
     tel: "+44 20 3755 5329",
-    email: "london@corporatednaconsulting.com",
+    email: "london@meridianleadership.example",
     coords: { lng: -0.12634, lat: 51.51054 },
     zoom: 16,
   },
@@ -36,7 +36,7 @@ export const offices: Office[] = [
       "United States of America",
     ],
     tel: "+1 305-374-4611",
-    email: "miami@corporatednaconsulting.com",
+    email: "miami@meridianleadership.example",
     coords: { lng: -80.19126, lat: 25.7612 },
     zoom: 16,
   },
@@ -50,7 +50,7 @@ export const offices: Office[] = [
       "Singapore 068894",
     ],
     tel: "+65 6995 2480",
-    email: "singapore@corporatednaconsulting.com",
+    email: "singapore@meridianleadership.example",
     coords: { lng: 103.84914, lat: 1.27893 },
     zoom: 16,
   },
@@ -64,7 +64,7 @@ export const offices: Office[] = [
       "Dubai — United Arab Emirates",
     ],
     tel: null,
-    email: "dubai@corporatednaconsulting.com",
+    email: "dubai@meridianleadership.example",
     coords: { lng: 55.28879, lat: 25.22762 },
     zoom: 16,
   },
@@ -78,7 +78,7 @@ export const offices: Office[] = [
       "Riyadh, 13321, RASA6101",
     ],
     tel: null,
-    email: "riyadh@corporatednaconsulting.com",
+    email: "riyadh@meridianleadership.example",
     coords: { lng: 46.6491, lat: 24.80085 },
     zoom: 16,
   },

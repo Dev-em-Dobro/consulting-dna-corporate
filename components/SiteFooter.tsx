@@ -22,7 +22,7 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo.svg"
-            alt="Corporate DNA Consulting"
+            alt="Meridian Leadership Advisory"
             className="h-16 w-auto"
           />
         </Link>

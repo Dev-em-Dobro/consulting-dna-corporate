@@ -38,7 +38,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-light.svg"
-            alt="Corporate DNA"
+            alt="Meridian"
             className="h-12 w-auto"
           />
         </Link>
