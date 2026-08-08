@@ -115,6 +115,10 @@ const nextConfig = {
     // CMS media is delivered from the Bunny.net CDN (BUNNY_CDN_URL).
     remotePatterns: [
       { protocol: "https", hostname: "corporate-dna.b-cdn.net" },
+      // demo/anon-showcase: placeholder image hosts used by the local CMS seed.
+      { protocol: "https", hostname: "placehold.co" },
+      { protocol: "https", hostname: "picsum.photos" },
+      { protocol: "https", hostname: "i.pravatar.cc" },
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
