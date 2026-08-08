@@ -10,8 +10,6 @@ import PhotoCarousel from "@/components/PhotoCarousel";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
-import BookEndorsements from "@/components/BookEndorsements";
-import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople } from "@/lib/cms/map";
 import { getPage } from "@/lib/cms/client";
 import { buildSiteNav } from "@/lib/nav-server";
@@ -78,9 +76,9 @@ const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string;
 }[] = [
-  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants", caseSlug: "heineken" },
-  { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme", caseSlug: "case-1d007617" },
+  { client: "Nova Foods", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
+  { client: "Cascade Beverages", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
+  { client: "Northwind Energy", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "2,582", metricLabel: "women leaders impacted across the programme" },
 ];
 
 export default async function V1() {
@@ -384,7 +382,7 @@ export default async function V1() {
                 ))}
               </div>
               <a
-                href="https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340"
+                href="#book"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
@@ -393,9 +391,6 @@ export default async function V1() {
               </a>
             </div>
 
-            {/* Recovered from the legacy /book-endorsements page, which now
-                redirects here. Inside the card so it reads as one block. */}
-            <BookEndorsements />
           </div>
         </Reveal>
       </section>
@@ -406,8 +401,6 @@ export default async function V1() {
       {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />
 
-      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png */}
-      <AwardsMentions />
 
       {/* CONTACT */}
       <section id="contact" className="bg-brand text-white">

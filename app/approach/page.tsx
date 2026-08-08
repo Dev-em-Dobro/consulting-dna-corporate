@@ -74,20 +74,11 @@ const FAQS = [
   {
     question: "Where and with whom has the 5P Framework been used?",
     answer:
-      "Meridian Leadership Advisory has applied the 5P Framework across culture transformations, leadership development, team building and executive coaching in 26 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
+      "Meridian Leadership Advisory has applied the 5P Framework across culture transformations, leadership development, team building and executive coaching in 26 countries, with clients spanning energy, FMCG, financial services and technology.",
   },
 ];
 
-const CLIENTS = [
-  { name: "GSK", file: "gsk.png" },
-  { name: "Heineken", file: "heineken.png" },
-  { name: "Unilever", file: "unilever.png" },
-  { name: "Shell", file: "shell.png" },
-  { name: "Morgan Stanley", file: "morgan_stanley.png" },
-  { name: "Aviva", file: "aviva.png" },
-  { name: "Coca-Cola", file: "coca_cola.png" },
-  { name: "Levi's", file: "levis.png" },
-];
+const CLIENTS: { name: string; file: string }[] = [];
 
 function CheckIcon() {
   return (
@@ -387,52 +378,13 @@ export default async function FiveHFrameworkPage() {
               Markets."
             </blockquote>
             <figcaption className="mt-6 border-t border-white/10 pt-5 text-sm">
-              <span className="font-semibold text-white">Rhea Leckie</span>
+              <span className="font-semibold text-white">Elena Hart</span>
               <span className="text-white/55"> — Founder, Meridian Leadership Advisory</span>
             </figcaption>
           </figure>
         </div>
       </section>
 
-      {/* ── Client stories ───────────────────────────────────────────── */}
-      <section className="bg-white">
-        <Reveal
-          stagger={false}
-          className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24"
-        >
-          <div className="mb-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <Eyebrow>Proven in the field</Eyebrow>
-              <h2 className="text-[28px] font-bold leading-[1.1] tracking-[-0.6px] text-ink sm:text-[34px]">
-                Trusted by leaders worldwide
-              </h2>
-            </div>
-            <Link
-              href="/cases"
-              className="text-sm font-bold uppercase tracking-[0.5px] text-brand hover:underline"
-            >
-              Explore more client stories →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-            {CLIENTS.map((c) => (
-              <div
-                key={c.name}
-                className="flex items-center justify-center bg-white px-6 py-10"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/logos/${c.file}`}
-                  alt={c.name}
-                  loading="lazy"
-                  className="h-10 w-auto max-w-[120px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-                />
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
 
       {/* ── FAQ (visible + FAQPage JSON-LD, for search & AI extraction) ── */}
       <section className="bg-paper">

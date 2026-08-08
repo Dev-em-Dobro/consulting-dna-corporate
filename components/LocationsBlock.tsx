@@ -17,7 +17,7 @@ const LocationsMap = dynamic(() => import("./LocationsMap"), { ssr: false });
 export default function LocationsBlock({
   offices = defaultOffices,
   eyebrow = "Our Global Presence",
-  context = "From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Corporate DNA brings global perspective and locally relevant delivery to leadership challenges across 36 countries.",
+  context = "From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Meridian brings global perspective and locally relevant delivery to leadership challenges across 36 countries.",
 }: {
   offices?: Office[];
   eyebrow?: string;

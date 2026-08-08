@@ -397,7 +397,7 @@ export async function getInsightCards(): Promise<InsightCard[]> {
 }
 
 /** Byline used until an individual author has been reviewed and approved. */
-const CORPORATE_AUTHOR = "Corporate DNA";
+const CORPORATE_AUTHOR = "Meridian";
 
 /**
  * Resolve an insight's published byline (correcao-06-08 item 10 / status review

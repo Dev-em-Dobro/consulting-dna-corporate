@@ -22,7 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const c = await getCaseArticle(slug);
-  const title = c ? `${c.title} — Corporate DNA` : "Case study — Corporate DNA";
+  const title = c ? `${c.title} — Meridian` : "Case study — Meridian";
   const description = firstDescription([c?.intro]);
   return {
     title,
