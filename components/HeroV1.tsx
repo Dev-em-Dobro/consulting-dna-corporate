@@ -68,23 +68,29 @@ export default function HeroV1() {
           if (revealed) return;
           revealed = true;
           window.clearTimeout(fallback);
+          const section = scope.current;
+          const isMobile = window.matchMedia("(max-width: 767px)").matches;
           if (video) {
             video.pause();
-            // Rewind to the opening iceberg frame and hold it as the backdrop.
-            try {
-              video.currentTime = 0;
-            } catch {
-              /* no-op: seeking may fail if metadata never loaded */
+            if (isMobile) {
+              // Mobile: hide the video the instant it ends. No rewind — seeking
+              // back to frame 0 would flash the iceberg frame before it hides.
+              video.style.display = "none";
+            } else {
+              // Desktop: rewind to the opening iceberg frame and hold it as the
+              // still backdrop behind the content.
+              try {
+                video.currentTime = 0;
+              } catch {
+                /* no-op: seeking may fail if metadata never loaded */
+              }
             }
           }
-          // On mobile the hero is pinned to the clip's 16:9 aspect during
-          // playback (full-bleed cover, no bars, no cropped captions). Grow it
-          // to its full content height as the content reveals; desktop is
-          // unconstrained, so there we just drop the intro flag.
-          const section = scope.current;
+          // Grow the pinned mobile hero to its full content height as the
+          // content reveals; desktop is unconstrained, so just drop the flag.
           if (section) {
-            if (window.matchMedia("(max-width: 767px)").matches) {
-              const from = section.clientHeight; // the 16:9 intro height (px)
+            if (isMobile) {
+              const from = section.clientHeight; // the fixed intro height (px)
               section.removeAttribute("data-hero"); // release to natural height
               const to = section.clientHeight; // full content height (px)
               gsap.fromTo(
@@ -149,8 +155,12 @@ export default function HeroV1() {
       // away with a plain fade — no travel, scale, skew, or autoplaying motion.
       mm.add("(prefers-reduced-motion: reduce)", () => {
         if (video) video.pause();
-        // Show the full hero immediately — no intro playback, so no 16:9 pin.
+        // Show the full hero immediately — no intro playback, so no size pin.
         scope.current?.removeAttribute("data-hero");
+        // Mobile: no video in the hero background (parity with the reveal path).
+        if (video && window.matchMedia("(max-width: 767px)").matches) {
+          video.style.display = "none";
+        }
         gsap.fromTo(
           [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
           { autoAlpha: 0 },
@@ -171,7 +181,7 @@ export default function HeroV1() {
           (smallest), MP4 fallback for Safari; audio stripped since it's muted. */}
       <video
         ref={videoRef}
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+        className="pointer-events-none absolute inset-0 z-0 w-full object-center md:inset-y-auto md:top-1/2 md:-translate-y-1/2"
         poster="/videos/hero-poster.jpg"
         muted
         playsInline

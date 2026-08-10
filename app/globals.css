@@ -38,8 +38,18 @@ html.js [data-reveal="block"] {
    drops the attribute. Gated on `.js` so no-JS visitors get the full hero. */
 @media (max-width: 767px) {
   html.js #top[data-hero="intro"] {
-    height: 56.25vw;
+    height: 240px;
   }
+}
+
+/* Hero intro backdrop: white while the video plays, swapping to the section's
+   own black once JS ends the intro (it removes data-hero). Gated on `.js` so
+   no-JS visitors keep the black background and readable white text. */
+#top {
+  transition: background-color 400ms ease;
+}
+html.js #top[data-hero="intro"] {
+  background-color: #fff;
 }
 
 body {
