@@ -76,10 +76,32 @@ export default function HeroV1() {
             } catch {
               /* no-op: seeking may fail if metadata never loaded */
             }
-            // The clip plays letterboxed on mobile (object-contain) so its
-            // baked-in captions aren't cropped; the frozen iceberg frame has no
-            // text, so switch to cover to fill the hero as a clean backdrop.
-            video.style.objectFit = "cover";
+          }
+          // On mobile the hero is pinned to the clip's 16:9 aspect during
+          // playback (full-bleed cover, no bars, no cropped captions). Grow it
+          // to its full content height as the content reveals; desktop is
+          // unconstrained, so there we just drop the intro flag.
+          const section = scope.current;
+          if (section) {
+            if (window.matchMedia("(max-width: 767px)").matches) {
+              const from = section.clientHeight; // the 16:9 intro height (px)
+              section.removeAttribute("data-hero"); // release to natural height
+              const to = section.clientHeight; // full content height (px)
+              gsap.fromTo(
+                section,
+                { height: from },
+                {
+                  height: to,
+                  duration: 1.1,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+                    section.style.height = "";
+                  },
+                }
+              );
+            } else {
+              section.removeAttribute("data-hero");
+            }
           }
           tl.play();
         };
@@ -126,10 +148,9 @@ export default function HeroV1() {
       // Reduce-motion: skip the intro playback and show the iceberg frame right
       // away with a plain fade — no travel, scale, skew, or autoplaying motion.
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        if (video) {
-          video.pause();
-          video.style.objectFit = "cover";
-        }
+        if (video) video.pause();
+        // Show the full hero immediately — no intro playback, so no 16:9 pin.
+        scope.current?.removeAttribute("data-hero");
         gsap.fromTo(
           [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
           { autoAlpha: 0 },
@@ -143,14 +164,14 @@ export default function HeroV1() {
   );
 
   return (
-    <section ref={scope} id="top" className="relative overflow-hidden bg-black">
+    <section ref={scope} id="top" data-hero="intro" className="relative overflow-hidden bg-black">
       {/* Intro video: plays full-bleed with all hero content hidden, then stops
           and rewinds to its first frame (the iceberg) once the reveal runs.
           Poster = that same first frame, so first paint is instant. WebM first
           (smallest), MP4 fallback for Safari; audio stripped since it's muted. */}
       <video
         ref={videoRef}
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-contain object-center md:object-cover"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
         poster="/videos/hero-poster.jpg"
         muted
         playsInline

@@ -32,6 +32,16 @@ html.js [data-reveal="block"] {
   opacity: 0;
 }
 
+/* Mobile hero intro: while the video plays, pin the hero to the clip's 16:9
+   aspect so a full-bleed object-cover fills it with no letterbox bars and no
+   cropped captions. HeroV1.tsx animates it up to full height on reveal and then
+   drops the attribute. Gated on `.js` so no-JS visitors get the full hero. */
+@media (max-width: 767px) {
+  html.js #top[data-hero="intro"] {
+    height: 56.25vw;
+  }
+}
+
 body {
   color: #3b3b3b;
   background: #fff;
