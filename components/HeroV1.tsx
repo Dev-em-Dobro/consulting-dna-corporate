@@ -76,6 +76,10 @@ export default function HeroV1() {
             } catch {
               /* no-op: seeking may fail if metadata never loaded */
             }
+            // The clip plays letterboxed on mobile (object-contain) so its
+            // baked-in captions aren't cropped; the frozen iceberg frame has no
+            // text, so switch to cover to fill the hero as a clean backdrop.
+            video.style.objectFit = "cover";
           }
           tl.play();
         };
@@ -122,7 +126,10 @@ export default function HeroV1() {
       // Reduce-motion: skip the intro playback and show the iceberg frame right
       // away with a plain fade — no travel, scale, skew, or autoplaying motion.
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        if (video) video.pause();
+        if (video) {
+          video.pause();
+          video.style.objectFit = "cover";
+        }
         gsap.fromTo(
           [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
           { autoAlpha: 0 },
@@ -143,7 +150,7 @@ export default function HeroV1() {
           (smallest), MP4 fallback for Safari; audio stripped since it's muted. */}
       <video
         ref={videoRef}
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-contain object-center md:object-cover"
         poster="/videos/hero-poster.jpg"
         muted
         playsInline
