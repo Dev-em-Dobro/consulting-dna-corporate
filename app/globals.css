@@ -40,11 +40,16 @@ html.js [data-reveal="block"] {
   html.js #top[data-hero="intro"] {
     height: 240px;
   }
+  /* Once the intro ends (JS removes data-hero) the video leaves the mobile hero
+     entirely and instantly — it must never linger as a mobile background. */
+  html.js #top:not([data-hero]) video {
+    display: none;
+  }
 }
 
 /* Hero intro backdrop: white while the video plays, swapping to the section's
-   own black once JS ends the intro (it removes data-hero). Gated on `.js` so
-   no-JS visitors keep the black background and readable white text. */
+   own ink color once JS ends the intro (it removes data-hero). Gated on `.js`
+   so no-JS visitors keep the ink background and readable white text. */
 #top {
   transition: background-color 400ms ease;
 }

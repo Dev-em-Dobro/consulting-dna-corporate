@@ -72,11 +72,7 @@ export default function HeroV1() {
           const isMobile = window.matchMedia("(max-width: 767px)").matches;
           if (video) {
             video.pause();
-            if (isMobile) {
-              // Mobile: hide the video the instant it ends. No rewind — seeking
-              // back to frame 0 would flash the iceberg frame before it hides.
-              video.style.display = "none";
-            } else {
+            if (!isMobile) {
               // Desktop: rewind to the opening iceberg frame and hold it as the
               // still backdrop behind the content.
               try {
@@ -85,6 +81,8 @@ export default function HeroV1() {
                 /* no-op: seeking may fail if metadata never loaded */
               }
             }
+            // Mobile: no rewind and nothing else to do — CSS drops the video
+            // from the hero the instant data-hero is removed (below).
           }
           // Grow the pinned mobile hero to its full content height as the
           // content reveals; desktop is unconstrained, so just drop the flag.
@@ -156,11 +154,8 @@ export default function HeroV1() {
       mm.add("(prefers-reduced-motion: reduce)", () => {
         if (video) video.pause();
         // Show the full hero immediately — no intro playback, so no size pin.
+        // (On mobile, CSS drops the video once data-hero is gone.)
         scope.current?.removeAttribute("data-hero");
-        // Mobile: no video in the hero background (parity with the reveal path).
-        if (video && window.matchMedia("(max-width: 767px)").matches) {
-          video.style.display = "none";
-        }
         gsap.fromTo(
           [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
           { autoAlpha: 0 },
@@ -174,7 +169,7 @@ export default function HeroV1() {
   );
 
   return (
-    <section ref={scope} id="top" data-hero="intro" className="relative overflow-hidden bg-black">
+    <section ref={scope} id="top" data-hero="intro" className="relative overflow-hidden bg-ink">
       {/* Intro video: plays full-bleed with all hero content hidden, then stops
           and rewinds to its first frame (the iceberg) once the reveal runs.
           Poster = that same first frame, so first paint is instant. WebM first
