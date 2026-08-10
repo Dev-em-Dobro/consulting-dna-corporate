@@ -1,22 +1,22 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import heroImg from "@/public/hero-bk-1.jpeg";
 
 export default function HeroV1() {
   const scope = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
+      const video = videoRef.current;
+
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tl = gsap.timeline({
-          defaults: { ease: "power4.out" },
-          delay: 0.1,
-        });
+        // Built paused: the intro video plays first with everything hidden, and
+        // this reveal only runs once the video ends (see `reveal` below).
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
         // fromTo (not from): the targets start hidden via CSS, so we must state
         // the visible end explicitly — otherwise GSAP would read the hidden CSS
         // value as the destination and animate hidden -> hidden.
@@ -56,11 +56,73 @@ export default function HeroV1() {
             { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.6 },
             "-=0.5"
           );
+
+        // Reveal the hero content and settle the intro video on its first frame
+        // (the iceberg above the water), leaving it as a still background.
+        // Guarded so it runs exactly once, whichever trigger fires first: the
+        // video ending (happy path), an error, blocked autoplay, or the safety
+        // fallback below (so content is never trapped behind a stalled video).
+        let fallback = 0;
+        let revealed = false;
+        const reveal = () => {
+          if (revealed) return;
+          revealed = true;
+          window.clearTimeout(fallback);
+          if (video) {
+            video.pause();
+            // Rewind to the opening iceberg frame and hold it as the backdrop.
+            try {
+              video.currentTime = 0;
+            } catch {
+              /* no-op: seeking may fail if metadata never loaded */
+            }
+          }
+          tl.play();
+        };
+
+        // Safety net only: reveal if the video stalls or never fires `ended`.
+        // It must never fire before the clip would naturally end, so we size it
+        // to the real duration (+ buffer) as soon as that's known — including
+        // synchronously here, since the duration may already be available by the
+        // time this effect runs, in which case `loadedmetadata` won't fire again.
+        // Until the duration is known we use a generous cap longer than any
+        // plausible intro.
+        const armFallback = () => {
+          window.clearTimeout(fallback);
+          const dur = video && Number.isFinite(video.duration) ? video.duration : 0;
+          fallback = window.setTimeout(reveal, dur > 0 ? dur * 1000 + 4000 : 30000);
+        };
+
+        if (video) {
+          video.addEventListener("ended", reveal);
+          video.addEventListener("error", reveal);
+          video.addEventListener("loadedmetadata", armFallback);
+          video.addEventListener("durationchange", armFallback);
+          armFallback();
+          // Muted autoplay is permitted on modern browsers; if it's still
+          // blocked, reveal immediately rather than sitting on a frozen frame.
+          const p = video.play();
+          if (p && typeof p.catch === "function") p.catch(() => reveal());
+        } else {
+          reveal();
+        }
+
+        return () => {
+          window.clearTimeout(fallback);
+          if (video) {
+            video.removeEventListener("ended", reveal);
+            video.removeEventListener("error", reveal);
+            video.removeEventListener("loadedmetadata", armFallback);
+            video.removeEventListener("durationchange", armFallback);
+          }
+          tl.kill();
+        };
       });
 
-      // Reduce-motion: still reveal (the targets start hidden via CSS), but with
-      // a plain fade — no travel, scale or skew.
+      // Reduce-motion: skip the intro playback and show the iceberg frame right
+      // away with a plain fade — no travel, scale, skew, or autoplaying motion.
       mm.add("(prefers-reduced-motion: reduce)", () => {
+        if (video) video.pause();
         gsap.fromTo(
           [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
           { autoAlpha: 0 },
@@ -74,19 +136,28 @@ export default function HeroV1() {
   );
 
   return (
-    <section ref={scope} id="top" className="relative overflow-hidden bg-white">
-      {/* background image + legibility overlay */}
-      <div className="h-bg pointer-events-none absolute inset-0 z-0">
-        <Image
-          src={heroImg}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-bottom"
-        />
-        <div className="absolute inset-0 bg-black/75" />
-      </div>
+    <section ref={scope} id="top" className="relative overflow-hidden bg-black">
+      {/* Intro video: plays full-bleed with all hero content hidden, then stops
+          and rewinds to its first frame (the iceberg) once the reveal runs.
+          Poster = that same first frame, so first paint is instant. WebM first
+          (smallest), MP4 fallback for Safari; audio stripped since it's muted. */}
+      <video
+        ref={videoRef}
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+        poster="/videos/hero-poster.jpg"
+        muted
+        playsInline
+        autoPlay
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-intro.webm" type="video/webm" />
+        <source src="/videos/hero-intro.mp4" type="video/mp4" />
+      </video>
+
+      {/* Legibility overlay: hidden while the video plays, then fades in with the
+          content. Semi-transparent so the iceberg still reads behind the text. */}
+      <div className="h-bg pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/45 via-black/55 to-black/75" />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 pt-[110px] md:px-10">
         <div className="mx-auto max-w-[1000px] text-center">
