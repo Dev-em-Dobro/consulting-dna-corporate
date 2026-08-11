@@ -32,18 +32,69 @@ html.js [data-reveal="block"] {
   opacity: 0;
 }
 
-/* Mobile hero intro: while the video plays, pin the hero to the clip's 16:9
-   aspect so a full-bleed object-cover fills it with no letterbox bars and no
-   cropped captions. HeroV1.tsx animates it up to full height on reveal and then
-   drops the attribute. Gated on `.js` so no-JS visitors get the full hero. */
+/* Mobile hero intro: while the clip plays, pin the hero to exactly the intro's
+   16:9 rendered height. The animated WebP is full-bleed (width:100vw) at 16:9,
+   so its height is 56.25vw — matching the section to that leaves no background
+   strip above or below the image. HeroV1.tsx animates it up to full height on
+   reveal and then drops the attribute. Gated on `.js` so no-JS visitors get the
+   full hero. */
 @media (max-width: 767px) {
   html.js #top[data-hero="intro"] {
-    height: 240px;
+    height: 56.25vw;
   }
-  /* Once the intro ends (JS removes data-hero) the video leaves the mobile hero
-     entirely and instantly — it must never linger as a mobile background. */
-  html.js #top:not([data-hero]) video {
+  /* Once the intro ends (JS removes data-hero) the intro visuals leave the
+     mobile hero entirely and instantly — they must never linger as a
+     background. Covers both the (hidden) video and the animated WebP. */
+  html.js #top:not([data-hero]) video,
+  html.js #top:not([data-hero]) .hero-anim {
     display: none;
+  }
+}
+
+/* Preloader: full-screen loading overlay shown for JS visitors until the page
+   and the hero intro asset finish loading, then faded out (Preloader.tsx adds
+   `app-ready`, then `app-ready-done` after the fade). Gated on `.js` so no-JS
+   visitors never get stuck behind it; scroll is locked while it's up. */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  opacity: 1;
+  transition: opacity 500ms ease;
+}
+html.js .preloader {
+  display: flex;
+}
+html.js:not(.app-ready) body {
+  overflow: hidden;
+}
+html.js.app-ready .preloader {
+  opacity: 0;
+  pointer-events: none;
+}
+html.js.app-ready-done .preloader {
+  visibility: hidden;
+}
+.preloader__spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  border: 3px solid rgba(255, 255, 255, 0.16);
+  border-top-color: var(--color-brand);
+  animation: preloader-spin 0.8s linear infinite;
+}
+@keyframes preloader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader__spinner {
+    animation-duration: 1.6s;
   }
 }
 

@@ -4,6 +4,11 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
+// Duration of the mobile animated-WebP intro (~19.9s). The WebP loops
+// infinitely (so a fresh page load always restarts it from frame 0); an <img>
+// has no "ended" event, so we reveal the hero content just before it loops.
+const HERO_ANIM_MS = 19850;
+
 export default function HeroV1() {
   const scope = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -123,30 +128,147 @@ export default function HeroV1() {
           fallback = window.setTimeout(reveal, dur > 0 ? dur * 1000 + 4000 : 30000);
         };
 
-        if (video) {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        const cleanups: Array<() => void> = [() => tl.kill()];
+
+        // Runs the actual intro (mobile animated WebP / desktop video). Gated on
+        // the preloader below, so it never plays behind the loading screen and
+        // its asset is already fully cached — i.e. smooth from the first frame.
+        const startIntro = () => {
+          // Mobile: autoplaying animated WebP (an <img>, so it runs even in iOS
+          // Low Power Mode, which blocks <video> autoplay). No "ended" event, so
+          // reveal after its duration, timed from when the image loads.
+          if (isMobile) {
+            const animImg = scope.current?.querySelector(
+              ".hero-anim img"
+            ) as HTMLImageElement | null;
+            let timer = 0;
+            let ownUrl = "";
+            let cancelled = false;
+            const startTimer = () => {
+              timer = window.setTimeout(reveal, HERO_ANIM_MS);
+            };
+            const cap = window.setTimeout(reveal, HERO_ANIM_MS + 15000);
+            const animate = (url: string) => {
+              if (!animImg) {
+                startTimer();
+                return;
+              }
+              animImg.addEventListener("load", startTimer, { once: true });
+              animImg.addEventListener("error", () => reveal(), { once: true });
+              animImg.src = url;
+            };
+            // Reuse the blob the preloader already downloaded; otherwise fetch it
+            // ourselves. Downloading it fully before animating keeps playback
+            // smooth (no mid-clip stutter), and a fresh object URL restarts it
+            // from frame 0 on every load.
+            const preUrl = window.__heroWebpUrl;
+            if (preUrl) {
+              animate(preUrl);
+            } else if (animImg) {
+              fetch("/videos/hero-intro.webp")
+                .then((r) => r.blob())
+                .then((blob) => {
+                  if (cancelled) return;
+                  ownUrl = URL.createObjectURL(blob);
+                  animate(ownUrl);
+                })
+                .catch(() => reveal());
+            } else {
+              startTimer();
+            }
+            cleanups.push(() => {
+              cancelled = true;
+              window.clearTimeout(timer);
+              window.clearTimeout(cap);
+              if (ownUrl) URL.revokeObjectURL(ownUrl);
+            });
+            return;
+          }
+
+          // Desktop: <video> intro.
+          if (!video) {
+            reveal();
+            return;
+          }
+          // iOS/Safari refuses inline autoplay unless the element is *actually*
+          // muted at play() time — force it (plus playsinline) before playing.
+          video.muted = true;
+          video.defaultMuted = true;
+          video.setAttribute("muted", "");
+          video.setAttribute("playsinline", "");
+
           video.addEventListener("ended", reveal);
           video.addEventListener("error", reveal);
           video.addEventListener("loadedmetadata", armFallback);
           video.addEventListener("durationchange", armFallback);
           armFallback();
-          // Muted autoplay is permitted on modern browsers; if it's still
-          // blocked, reveal immediately rather than sitting on a frozen frame.
-          const p = video.play();
-          if (p && typeof p.catch === "function") p.catch(() => reveal());
-        } else {
-          reveal();
-        }
 
-        return () => {
-          window.clearTimeout(fallback);
-          if (video) {
+          // Start playback from JS. Try immediately and again as the media
+          // becomes ready; if autoplay is blocked, start on the first gesture.
+          let started = false;
+          const interactionEvents = ["touchstart", "pointerdown", "click", "keydown", "scroll"];
+          const stopInteraction = () => {
+            interactionEvents.forEach((ev) => window.removeEventListener(ev, tryPlay));
+          };
+          function tryPlay() {
+            if (revealed || started) return;
+            const p = video!.play();
+            if (p && typeof p.then === "function") {
+              p.then(() => {
+                started = true;
+                stopInteraction();
+              }).catch(() => {
+                /* blocked: wait for readiness or a user gesture (listeners) */
+              });
+            }
+          }
+          video.addEventListener("canplay", tryPlay);
+          video.addEventListener("loadeddata", tryPlay);
+          interactionEvents.forEach((ev) =>
+            window.addEventListener(ev, tryPlay, { passive: true })
+          );
+          try {
+            video.load();
+          } catch {
+            /* no-op */
+          }
+          tryPlay();
+
+          cleanups.push(() => {
+            stopInteraction();
             video.removeEventListener("ended", reveal);
             video.removeEventListener("error", reveal);
             video.removeEventListener("loadedmetadata", armFallback);
             video.removeEventListener("durationchange", armFallback);
-          }
-          tl.kill();
+            video.removeEventListener("canplay", tryPlay);
+            video.removeEventListener("loadeddata", tryPlay);
+          });
         };
+
+        // Gate the intro on the preloader finishing so it doesn't run behind the
+        // loading screen; if the preloader is absent or slow, start anyway.
+        let begun = false;
+        const begin = () => {
+          if (begun) return;
+          begun = true;
+          window.clearTimeout(gate);
+          window.removeEventListener("app:ready", begin);
+          startIntro();
+        };
+        const gate = window.setTimeout(begin, 10000);
+        if (window.__appReady) {
+          begin();
+        } else {
+          window.addEventListener("app:ready", begin, { once: true });
+        }
+        cleanups.push(() => {
+          window.clearTimeout(gate);
+          window.clearTimeout(fallback);
+          window.removeEventListener("app:ready", begin);
+        });
+
+        return () => cleanups.forEach((fn) => fn());
       });
 
       // Reduce-motion: skip the intro playback and show the iceberg frame right
@@ -170,23 +292,39 @@ export default function HeroV1() {
 
   return (
     <section ref={scope} id="top" data-hero="intro" className="relative overflow-hidden bg-ink">
-      {/* Intro video: plays full-bleed with all hero content hidden, then stops
-          and rewinds to its first frame (the iceberg) once the reveal runs.
-          Poster = that same first frame, so first paint is instant. WebM first
-          (smallest), MP4 fallback for Safari; audio stripped since it's muted. */}
+      {/* DESKTOP intro (md+): the <video>. Playback is started from JS, so no
+          autoplay attribute and preload="none" (mobile never fetches it — it's
+          display:none here and uses the animated WebP instead). Rewinds to the
+          iceberg frame and holds it as the backdrop once the intro ends. */}
       <video
         ref={videoRef}
-        className="pointer-events-none absolute inset-0 z-0 w-full object-center md:inset-y-auto md:top-1/2 md:-translate-y-1/2"
+        className="pointer-events-none absolute inset-0 z-0 hidden w-full object-center md:block md:inset-y-auto md:top-1/2 md:-translate-y-1/2"
         poster="/videos/hero-poster.jpg"
         muted
         playsInline
-        autoPlay
-        preload="auto"
+        preload="none"
         aria-hidden="true"
       >
-        <source src="/videos/hero-intro.webm" type="video/webm" />
         <source src="/videos/hero-intro.mp4" type="video/mp4" />
+        <source src="/videos/hero-intro.webm" type="video/webm" />
       </video>
+
+      {/* MOBILE intro (<md): an autoplaying animated WebP. As an <img> it runs
+          even in iOS Low Power Mode, which blocks <video> autoplay. It starts on
+          the poster frame; JS then fully downloads the WebP as a blob and swaps
+          it in, so playback is smooth and restarts from frame 0 on every load.
+          The desktop <source> hands a 1x1 placeholder so desktop fetches
+          neither the poster nor the WebP here. */}
+      <picture
+        className="hero-anim pointer-events-none absolute inset-0 z-0 block md:hidden"
+        aria-hidden="true"
+      >
+        <source
+          media="(min-width: 768px)"
+          srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        />
+        <img src="/videos/hero-poster.jpg" alt="" className="w-full" />
+      </picture>
 
       {/* Legibility overlay: hidden while the video plays, then fades in with the
           content. Semi-transparent so the iceberg still reads behind the text. */}

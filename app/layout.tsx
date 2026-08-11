@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import CookieConsent from "@/components/CookieConsent";
+import Preloader from "@/components/Preloader";
 import TopProgress from "@/components/TopProgress";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
@@ -67,6 +68,7 @@ export default function RootLayout({
       <body className="font-sans">
         <JsonLd data={organizationLd()} />
         <NextIntlClientProvider>
+          <Preloader />
           <TopProgress />
           {children}
           <WhatsAppButton />
