@@ -32,49 +32,45 @@ html.js [data-reveal="block"] {
   opacity: 0;
 }
 
-/* Phone/tablet hero intro. The condition matches lib/hero-intro.ts
-   (PHONE_MEDIA_QUERY): a device is a phone by small width OR by touch-primary
-   input — "Request Desktop Website" fakes a ~980px viewport on real phones, so
-   width alone must never be the gate.
+/* Phone/tablet hero intro, gated on the `touch` class that the inline <head>
+   script in app/layout.tsx sets before first paint (navigator.maxTouchPoints
+   — hardware truth that iOS "Request Desktop Website" cannot fake, unlike
+   viewport width and hover/pointer media features, which it masks).
 
    While the clip plays, pin the hero to exactly the intro's 16:9 rendered
    height: the clip is full-bleed (width:100vw) at 16:9, so its height is
    56.25vw — matching the section to that leaves no background strip above or
    below the image. HeroV1.tsx animates it up to full height on reveal and then
    drops the attribute. Gated on `.js` so no-JS visitors get the full hero. */
-@media (max-width: 767px), ((hover: none) and (pointer: coarse)) {
-  html.js #top[data-hero="intro"] {
-    height: 56.25vw;
-  }
-  /* Phones never use the <video> (autoplay is unreliable there — iOS Low
-     Power Mode); the intro is a GSAP canvas image sequence instead. This also
-     overrides Tailwind's width-based md:block on desktop-mode phones. */
-  html.js #top[data-hero="intro"] video {
-    display: none;
-  }
-  /* HeroV1 marks the section with data-intro="canvas" once the first frame is
-     drawn, swapping the poster <picture> for the <canvas>. */
-  html.js #top[data-hero][data-intro="canvas"] .hero-canvas {
-    display: block;
-  }
-  html.js #top[data-hero][data-intro="canvas"] .hero-anim {
-    display: none;
-  }
-  /* Once the intro ends (JS removes data-hero) the intro visuals leave the
-     hero entirely and instantly — they must never linger as a background. */
-  html.js #top:not([data-hero]) video,
-  html.js #top:not([data-hero]) .hero-anim,
-  html.js #top:not([data-hero]) .hero-canvas {
-    display: none;
-  }
+html.js.touch #top[data-hero="intro"] {
+  height: 56.25vw;
+}
+/* Touch devices never use the <video> (autoplay is unreliable there — iOS Low
+   Power Mode); the intro is a GSAP canvas image sequence instead. This also
+   overrides Tailwind's width-based md:block on desktop-mode phones. */
+html.js.touch #top[data-hero="intro"] video {
+  display: none;
+}
+/* HeroV1 marks the section with data-intro="canvas" once the first frame is
+   drawn, swapping the poster <picture> for the <canvas>. */
+html.js.touch #top[data-hero][data-intro="canvas"] .hero-canvas {
+  display: block;
+}
+html.js.touch #top[data-hero][data-intro="canvas"] .hero-anim {
+  display: none;
+}
+/* Once the intro ends (JS removes data-hero) the intro visuals leave the
+   hero entirely and instantly — they must never linger as a background. */
+html.js.touch #top:not([data-hero]) video,
+html.js.touch #top:not([data-hero]) .hero-anim,
+html.js.touch #top:not([data-hero]) .hero-canvas {
+  display: none;
 }
 
-/* True desktops (mouse + hover) never show the mobile poster/WebP <picture>;
-   they run the <video> intro and keep it as the backdrop. */
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-  .hero-anim {
-    display: none;
-  }
+/* True desktops (no touch) never show the phone poster <picture>; they run
+   the <video> intro and keep it as the backdrop. */
+html.js:not(.touch) .hero-anim {
+  display: none;
 }
 
 /* Preloader: full-screen loading overlay shown for JS visitors until the page

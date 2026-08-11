@@ -13,6 +13,21 @@ export const PHONE_MEDIA_QUERY =
   "(max-width: 767px), ((hover: none) and (pointer: coarse))";
 
 /**
+ * True on phones/tablets. maxTouchPoints comes first: it is hardware truth
+ * that desktop-site modes cannot fake (it's how sites detect iPads posing as
+ * Macs), while viewport width AND hover/pointer media features can all be
+ * masked by iOS "Request Desktop Website". The inline <head> script in
+ * app/layout.tsx applies the same test before first paint to set the `touch`
+ * class that gates the hero intro CSS.
+ */
+export function isTouchDevice(): boolean {
+  return (
+    (typeof navigator !== "undefined" && navigator.maxTouchPoints > 1) ||
+    window.matchMedia(PHONE_MEDIA_QUERY).matches
+  );
+}
+
+/**
  * The phone intro is a GSAP-driven image sequence drawn onto a <canvas> —
  * plain JavaScript, so no autoplay policy applies (iOS Low Power Mode blocks
  * <video> autoplay and stutters large animated images). Frames are extracted
@@ -35,34 +50,59 @@ export const heroFramePath = (i: number) =>
  * Individual failures resolve to null (the player draws the nearest earlier
  * frame); the promise itself never rejects.
  */
+const loadOneFrame = (
+  i: number,
+  signal?: AbortSignal
+): Promise<HTMLImageElement | null> =>
+  fetch(heroFramePath(i), { signal })
+    .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
+    .then(
+      (blob) =>
+        new Promise<HTMLImageElement>((resolve, reject) => {
+          const url = URL.createObjectURL(blob);
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error("decode"));
+          };
+          img.src = url;
+        })
+    )
+    .catch(() => null);
+
 export function loadHeroFrames(
   signal?: AbortSignal
 ): Promise<Array<HTMLImageElement | null>> {
-  const one = (i: number): Promise<HTMLImageElement | null> =>
-    fetch(heroFramePath(i), { signal })
-      .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
-      .then(
-        (blob) =>
-          new Promise<HTMLImageElement>((resolve, reject) => {
-            const url = URL.createObjectURL(blob);
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => {
-              URL.revokeObjectURL(url);
-              reject(new Error("decode"));
-            };
-            img.src = url;
-          })
-      )
-      .catch(() => null);
-
   const frames: Array<HTMLImageElement | null> = new Array(HERO_FRAME_COUNT).fill(null);
   let next = 0;
   const worker = async () => {
     while (next < HERO_FRAME_COUNT) {
       const i = next++;
-      frames[i] = await one(i);
+      frames[i] = await loadOneFrame(i, signal);
     }
   };
   return Promise.all(Array.from({ length: 8 }, worker)).then(() => frames);
+}
+
+/**
+ * Fills the null slots of a partially-downloaded frame set in the background
+ * (the preloader hands over whatever it got when its 25s network cap fires).
+ * Mutates `frames` in place; the canvas player reads the array live on every
+ * tick, so frames simply pop in as they arrive.
+ */
+export function fillHeroFrames(frames: Array<HTMLImageElement | null>): void {
+  const missing: number[] = [];
+  frames.forEach((f, i) => {
+    if (!f) missing.push(i);
+  });
+  let next = 0;
+  const worker = async () => {
+    while (next < missing.length) {
+      const i = missing[next++];
+      const img = await loadOneFrame(i);
+      if (img) frames[i] = img;
+    }
+  };
+  for (let k = 0; k < 4; k++) void worker();
 }

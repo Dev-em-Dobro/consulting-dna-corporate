@@ -4,10 +4,11 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import {
-  PHONE_MEDIA_QUERY,
+  isTouchDevice,
   HERO_FRAME_COUNT,
   HERO_FRAME_FPS,
   loadHeroFrames,
+  fillHeroFrames,
 } from "@/lib/hero-intro";
 
 export default function HeroV1() {
@@ -18,6 +19,30 @@ export default function HeroV1() {
     () => {
       const mm = gsap.matchMedia();
       const video = videoRef.current;
+
+      // Opt-in on-device diagnostics: open the site with ?herodebug to get a
+      // live overlay of detection + intro lifecycle on a real phone, no
+      // devtools needed. Inert (null) without the query param.
+      const debugEl = (() => {
+        if (!window.location.search.includes("herodebug")) return null;
+        const el = document.createElement("div");
+        el.style.cssText =
+          "position:fixed;left:8px;bottom:8px;z-index:2147483647;background:rgba(0,0,0,.85);color:#0f0;font:11px/1.45 monospace;padding:8px 10px;max-width:92vw;white-space:pre-wrap;pointer-events:none;border-radius:6px";
+        document.body.appendChild(el);
+        return el;
+      })();
+      const dbg = (msg: string) => {
+        if (debugEl) debugEl.textContent += `${msg}\n`;
+      };
+      if (debugEl) {
+        window.addEventListener("error", (e) => dbg(`ERR ${e.message}`));
+        dbg(
+          `mtp=${navigator.maxTouchPoints} vw=${window.innerWidth} ` +
+            `touchClass=${document.documentElement.classList.contains("touch")} ` +
+            `touchFn=${isTouchDevice()} ` +
+            `reduceMotion=${window.matchMedia("(prefers-reduced-motion: reduce)").matches}`
+        );
+      }
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         // Built paused: the intro video plays first with everything hidden, and
@@ -74,8 +99,9 @@ export default function HeroV1() {
           if (revealed) return;
           revealed = true;
           window.clearTimeout(fallback);
+          dbg("reveal()");
           const section = scope.current;
-          const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
+          const isMobile = isTouchDevice();
           if (video) {
             video.pause();
             if (!isMobile) {
@@ -129,9 +155,9 @@ export default function HeroV1() {
           fallback = window.setTimeout(reveal, dur > 0 ? dur * 1000 + 4000 : 30000);
         };
 
-        // Phone/tablet by touch capability, not just width — "Request Desktop
-        // Website" fakes a wide viewport on real phones (see lib/hero-intro.ts).
-        const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
+        // Phone/tablet by hardware touch, not width or CSS media features —
+        // "Request Desktop Website" can fake all of those (see lib/hero-intro.ts).
+        const isMobile = isTouchDevice();
         const cleanups: Array<() => void> = [() => tl.kill()];
 
         // Runs the actual intro. Gated on the preloader below, so it never
@@ -144,11 +170,13 @@ export default function HeroV1() {
           // load), it always starts by itself, and the tween's onComplete
           // reveals the content at exactly the last frame.
           if (isMobile) {
+            dbg("path=canvas");
             const section = scope.current;
             const canvas = section?.querySelector(
               ".hero-canvas"
             ) as HTMLCanvasElement | null;
             if (!section || !canvas) {
+              dbg("no section/canvas -> reveal");
               reveal();
               return;
             }
@@ -157,8 +185,10 @@ export default function HeroV1() {
             cleanups.push(() => window.clearTimeout(cap));
 
             const play = (frames: Array<HTMLImageElement | null>) => {
+              dbg(`play() frames=${frames.filter(Boolean).length}/${HERO_FRAME_COUNT}`);
               const ctx = canvas.getContext("2d");
               if (revealed || !ctx || !frames.some(Boolean)) {
+                dbg("no ctx/frames -> reveal");
                 reveal();
                 return;
               }
@@ -190,18 +220,27 @@ export default function HeroV1() {
                 onUpdate: () => draw(Math.round(state.f)),
                 onComplete: reveal,
               });
+              dbg("tween started");
               cleanups.push(() => tween.kill());
             };
 
-            // Use the frames the preloader already downloaded; if it was
-            // aborted (slow network past its cap), download them ourselves.
+            // Use the frames the preloader already downloaded; if its network
+            // cap fired mid-download, play the partial set and keep filling the
+            // gaps while it runs (draw() reads the array live). If the
+            // preloader handed nothing over, download them ourselves.
             const pre = window.__heroFrames;
-            if (pre) play(pre);
-            else loadHeroFrames().then(play);
+            if (pre) {
+              play(pre);
+              if (pre.some((f) => !f)) fillHeroFrames(pre);
+            } else {
+              dbg("no preloaded frames, self-loading");
+              loadHeroFrames().then(play);
+            }
             return;
           }
 
           // Desktop: <video> intro.
+          dbg("path=desktop-video");
           if (!video) {
             reveal();
             return;
@@ -289,6 +328,7 @@ export default function HeroV1() {
       // Reduce-motion: skip the intro playback and show the iceberg frame right
       // away with a plain fade — no travel, scale, skew, or autoplaying motion.
       mm.add("(prefers-reduced-motion: reduce)", () => {
+        dbg("path=reduced-motion (intro skipped)");
         if (video) video.pause();
         // Show the full hero immediately — no intro playback, so no size pin.
         // (On mobile, CSS drops the video once data-hero is gone.)

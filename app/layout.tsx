@@ -58,10 +58,16 @@ export default function RootLayout({
       <head>
         {/* Marks the document as JS-capable before first paint so scroll/entrance
             animation targets can be hidden up-front (see globals.css). This kills
-            the flash of fully-rendered content that appeared before GSAP ran. */}
+            the flash of fully-rendered content that appeared before GSAP ran.
+            Also marks touch devices (`touch`): maxTouchPoints is hardware truth
+            that iOS "Request Desktop Website" cannot fake, unlike viewport width
+            and hover/pointer media features — the hero intro CSS keys off this
+            class. Keep the media query in sync with PHONE_MEDIA_QUERY in
+            lib/hero-intro.ts. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "document.documentElement.classList.add('js');try{if(navigator.maxTouchPoints>1||matchMedia('(max-width: 767px), ((hover: none) and (pointer: coarse))').matches)document.documentElement.classList.add('touch')}catch(e){}",
           }}
         />
       </head>

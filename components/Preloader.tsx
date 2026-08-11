@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { PHONE_MEDIA_QUERY, loadHeroFrames } from "@/lib/hero-intro";
+import { isTouchDevice, loadHeroFrames } from "@/lib/hero-intro";
 
 declare global {
   interface Window {
@@ -37,9 +37,9 @@ export default function Preloader() {
       window.setTimeout(() => root.classList.add("app-ready-done"), 650);
     };
 
-    // Phone/tablet by touch capability, not just width — "Request Desktop
-    // Website" fakes a wide viewport on real phones (see lib/hero-intro.ts).
-    const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
+    // Phone/tablet by hardware touch, not width or CSS media features —
+    // "Request Desktop Website" can fake all of those (see lib/hero-intro.ts).
+    const isMobile = isTouchDevice();
 
     // All render-critical resources (images, CSS, fonts) are loaded.
     const waitLoad = new Promise<void>((resolve) => {
