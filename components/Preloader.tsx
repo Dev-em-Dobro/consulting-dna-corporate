@@ -8,6 +8,8 @@ declare global {
     __appReady?: boolean;
     /** Object URL of the fully-downloaded mobile intro WebP, shared with HeroV1. */
     __heroWebpUrl?: string;
+    /** Object URL of the fully-downloaded mobile intro MP4, shared with HeroV1. */
+    __heroVideoUrl?: string;
   }
 }
 
@@ -47,19 +49,22 @@ export default function Preloader() {
     // Warm the hero intro asset so it plays smoothly right after the loader.
     const waitHero = new Promise<void>((resolve) => {
       if (isMobile) {
-        // Fully download the animated WebP (~3.5MB) and hand HeroV1 the blob URL
-        // BEFORE revealing the site, so it never stutters mid-clip and never
-        // double-downloads. Aborting after 25s guarantees a stalled network can
-        // never trap the visitor behind the loader.
+        // Fully download the intro MP4 and hand HeroV1 the blob URL BEFORE
+        // revealing the site: playback then reads from memory, so it can't
+        // stutter mid-clip and is never downloaded twice. (Mobile plays the
+        // <video> — hardware-decoded, with a real `ended` event; the animated
+        // WebP is only a fallback for iOS Low Power Mode.) Aborting after 25s
+        // guarantees a stalled network can never trap the visitor behind the
+        // loader.
         const ctrl = new AbortController();
         const abort = window.setTimeout(() => ctrl.abort(), 25000);
-        fetch("/videos/hero-intro.webp", { signal: ctrl.signal })
+        fetch("/videos/hero-intro.mp4", { signal: ctrl.signal })
           .then((r) => r.blob())
           .then((b) => {
-            window.__heroWebpUrl = URL.createObjectURL(b);
+            window.__heroVideoUrl = URL.createObjectURL(b);
           })
           .catch(() => {
-            /* aborted or offline: reveal anyway, HeroV1 fetches it itself */
+            /* aborted or offline: reveal anyway, HeroV1 streams it itself */
           })
           .finally(() => {
             window.clearTimeout(abort);

@@ -42,9 +42,19 @@ html.js [data-reveal="block"] {
   html.js #top[data-hero="intro"] {
     height: 56.25vw;
   }
+  /* Mobile plays the real <video> when it can autoplay (hardware-decoded, so
+     it never stutters): HeroV1 marks the section with data-intro="video",
+     which swaps the WebP <picture> for the <video>. Without the mark (iOS Low
+     Power Mode fallback) the <picture> stays and the video stays hidden. */
+  html.js #top[data-hero][data-intro="video"] video {
+    display: block;
+  }
+  html.js #top[data-hero][data-intro="video"] .hero-anim {
+    display: none;
+  }
   /* Once the intro ends (JS removes data-hero) the intro visuals leave the
      mobile hero entirely and instantly — they must never linger as a
-     background. Covers both the (hidden) video and the animated WebP. */
+     background. Covers both the video and the animated WebP. */
   html.js #top:not([data-hero]) video,
   html.js #top:not([data-hero]) .hero-anim {
     display: none;
