@@ -32,20 +32,28 @@ html.js [data-reveal="block"] {
   opacity: 0;
 }
 
-/* Mobile hero intro: while the clip plays, pin the hero to exactly the intro's
-   16:9 rendered height. The animated WebP is full-bleed (width:100vw) at 16:9,
-   so its height is 56.25vw — matching the section to that leaves no background
-   strip above or below the image. HeroV1.tsx animates it up to full height on
-   reveal and then drops the attribute. Gated on `.js` so no-JS visitors get the
-   full hero. */
-@media (max-width: 767px) {
+/* Phone/tablet hero intro. The condition matches lib/hero-intro.ts
+   (PHONE_MEDIA_QUERY): a device is a phone by small width OR by touch-primary
+   input — "Request Desktop Website" fakes a ~980px viewport on real phones, so
+   width alone must never be the gate.
+
+   While the clip plays, pin the hero to exactly the intro's 16:9 rendered
+   height: the clip is full-bleed (width:100vw) at 16:9, so its height is
+   56.25vw — matching the section to that leaves no background strip above or
+   below the image. HeroV1.tsx animates it up to full height on reveal and then
+   drops the attribute. Gated on `.js` so no-JS visitors get the full hero. */
+@media (max-width: 767px), ((hover: none) and (pointer: coarse)) {
   html.js #top[data-hero="intro"] {
     height: 56.25vw;
   }
-  /* Mobile plays the real <video> when it can autoplay (hardware-decoded, so
-     it never stutters): HeroV1 marks the section with data-intro="video",
-     which swaps the WebP <picture> for the <video>. Without the mark (iOS Low
-     Power Mode fallback) the <picture> stays and the video stays hidden. */
+  /* Phones play the real <video> when it can autoplay (hardware-decoded, so it
+     never stutters): HeroV1 marks the section with data-intro="video", which
+     swaps the WebP <picture> for the <video>. Without the mark (iOS Low Power
+     Mode fallback) the <picture> stays and the video stays hidden. These also
+     override Tailwind's width-based md:block on desktop-mode phones. */
+  html.js #top[data-hero="intro"]:not([data-intro="video"]) video {
+    display: none;
+  }
   html.js #top[data-hero][data-intro="video"] video {
     display: block;
   }
@@ -53,10 +61,18 @@ html.js [data-reveal="block"] {
     display: none;
   }
   /* Once the intro ends (JS removes data-hero) the intro visuals leave the
-     mobile hero entirely and instantly — they must never linger as a
-     background. Covers both the video and the animated WebP. */
+     hero entirely and instantly — they must never linger as a background.
+     Covers both the video and the animated WebP. */
   html.js #top:not([data-hero]) video,
   html.js #top:not([data-hero]) .hero-anim {
+    display: none;
+  }
+}
+
+/* True desktops (mouse + hover) never show the mobile poster/WebP <picture>;
+   they run the <video> intro and keep it as the backdrop. */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .hero-anim {
     display: none;
   }
 }

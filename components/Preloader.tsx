@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { PHONE_MEDIA_QUERY, canAutoplayVideo } from "@/lib/hero-intro";
 
 declare global {
   interface Window {
@@ -38,7 +39,9 @@ export default function Preloader() {
       window.setTimeout(() => root.classList.add("app-ready-done"), 650);
     };
 
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    // Phone/tablet by touch capability, not just width — "Request Desktop
+    // Website" fakes a wide viewport on real phones (see lib/hero-intro.ts).
+    const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
 
     // All render-critical resources (images, CSS, fonts) are loaded.
     const waitLoad = new Promise<void>((resolve) => {
@@ -49,22 +52,30 @@ export default function Preloader() {
     // Warm the hero intro asset so it plays smoothly right after the loader.
     const waitHero = new Promise<void>((resolve) => {
       if (isMobile) {
-        // Fully download the intro MP4 and hand HeroV1 the blob URL BEFORE
-        // revealing the site: playback then reads from memory, so it can't
-        // stutter mid-clip and is never downloaded twice. (Mobile plays the
-        // <video> — hardware-decoded, with a real `ended` event; the animated
-        // WebP is only a fallback for iOS Low Power Mode.) Aborting after 25s
+        // Probe whether video autoplay is allowed (iOS Low Power Mode blocks
+        // it), then fully download ONLY the asset the hero will actually use —
+        // the MP4 when video can play, the animated WebP when it can't — and
+        // hand HeroV1 the blob URL BEFORE revealing the site. Playback then
+        // reads from memory, so it can't stutter mid-clip, is never downloaded
+        // twice, and starts the instant the loader lifts. Aborting after 25s
         // guarantees a stalled network can never trap the visitor behind the
         // loader.
         const ctrl = new AbortController();
         const abort = window.setTimeout(() => ctrl.abort(), 25000);
-        fetch("/videos/hero-intro.mp4", { signal: ctrl.signal })
-          .then((r) => r.blob())
-          .then((b) => {
-            window.__heroVideoUrl = URL.createObjectURL(b);
-          })
+        canAutoplayVideo()
+          .then((videoOk) =>
+            fetch(videoOk ? "/videos/hero-intro.mp4" : "/videos/hero-intro.webp", {
+              signal: ctrl.signal,
+            })
+              .then((r) => r.blob())
+              .then((b) => {
+                const url = URL.createObjectURL(b);
+                if (videoOk) window.__heroVideoUrl = url;
+                else window.__heroWebpUrl = url;
+              })
+          )
           .catch(() => {
-            /* aborted or offline: reveal anyway, HeroV1 streams it itself */
+            /* aborted or offline: reveal anyway, HeroV1 fetches it itself */
           })
           .finally(() => {
             window.clearTimeout(abort);

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { PHONE_MEDIA_QUERY } from "@/lib/hero-intro";
 
 // Duration of the mobile animated-WebP intro (~19.9s). The WebP loops
 // infinitely (so a fresh page load always restarts it from frame 0); an <img>
@@ -74,7 +75,7 @@ export default function HeroV1() {
           revealed = true;
           window.clearTimeout(fallback);
           const section = scope.current;
-          const isMobile = window.matchMedia("(max-width: 767px)").matches;
+          const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
           if (video) {
             video.pause();
             if (!isMobile) {
@@ -128,7 +129,9 @@ export default function HeroV1() {
           fallback = window.setTimeout(reveal, dur > 0 ? dur * 1000 + 4000 : 30000);
         };
 
-        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        // Phone/tablet by touch capability, not just width — "Request Desktop
+        // Website" fakes a wide viewport on real phones (see lib/hero-intro.ts).
+        const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
         const cleanups: Array<() => void> = [() => tl.kill()];
 
         // Last-resort mobile intro: the animated WebP <img>. Only used when the
@@ -155,9 +158,14 @@ export default function HeroV1() {
             animImg.addEventListener("error", () => reveal(), { once: true });
             animImg.src = url;
           };
-          // Download the WebP fully before animating so playback has no
-          // mid-clip stutter; a fresh object URL restarts it from frame 0.
-          if (animImg) {
+          // Reuse the blob the preloader already downloaded (autoplay-blocked
+          // probe path); otherwise download the WebP fully before animating so
+          // playback has no mid-clip stutter. A fresh object URL restarts it
+          // from frame 0 on every load.
+          const preUrl = window.__heroWebpUrl;
+          if (preUrl) {
+            animate(preUrl);
+          } else if (animImg) {
             fetch("/videos/hero-intro.webp")
               .then((r) => r.blob())
               .then((blob) => {
@@ -191,7 +199,10 @@ export default function HeroV1() {
           if (isMobile) {
             const section = scope.current;
             const blobUrl = window.__heroVideoUrl;
-            if (!video || !section) {
+            // The preloader's autoplay probe already decided: a WebP blob means
+            // video autoplay is blocked (iOS Low Power Mode) — skip straight to
+            // the animated WebP, which is fully downloaded and starts instantly.
+            if (window.__heroWebpUrl || !video || !section) {
               startWebp();
               return;
             }
@@ -366,17 +377,20 @@ export default function HeroV1() {
         <source src="/videos/hero-intro.webm" type="video/webm" />
       </video>
 
-      {/* MOBILE poster + fallback (<md): shows the poster frame until the video
+      {/* MOBILE poster + fallback: shows the poster frame until the video
           starts; if video autoplay is blocked (iOS Low Power Mode) JS swaps in
           the animated WebP here instead — as an <img> it always animates. The
-          desktop <source> hands a 1x1 placeholder so desktop fetches neither
-          the poster nor the WebP. */}
+          first <source> hands true desktops (mouse + hover) a 1x1 placeholder
+          so they fetch neither the poster nor the WebP; a phone in "desktop
+          site" mode (wide viewport but coarse pointer) still gets the real
+          poster. Visibility is controlled in globals.css (not Tailwind md:) so
+          it also works on desktop-mode phones. */}
       <picture
-        className="hero-anim pointer-events-none absolute inset-0 z-0 block md:hidden"
+        className="hero-anim pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
       >
         <source
-          media="(min-width: 768px)"
+          media="(min-width: 768px) and (hover: hover) and (pointer: fine)"
           srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
         />
         <img src="/videos/hero-poster.jpg" alt="" className="w-full" />
