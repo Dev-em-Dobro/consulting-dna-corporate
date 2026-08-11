@@ -28,6 +28,22 @@ export function isTouchDevice(): boolean {
 }
 
 /**
+ * (Re)applies the `js` / `touch` classes on <html> that all intro CSS keys
+ * off. The inline <head> script sets them before first paint, but in-app
+ * browsers (WhatsApp, Instagram, ...) inject code that breaks React
+ * hydration (error #418) — React then re-renders <html> with its own
+ * className, WIPING both classes and silently killing every html.js/.touch
+ * rule (observed on the user's iPhone: the canvas played invisibly behind
+ * the poster). Called from post-hydration effects so the classes always
+ * survive a hydration-failure recovery.
+ */
+export function applyEnvClasses(): void {
+  const el = document.documentElement;
+  el.classList.add("js");
+  if (isTouchDevice()) el.classList.add("touch");
+}
+
+/**
  * The phone intro is a GSAP-driven image sequence drawn onto a <canvas> —
  * plain JavaScript, so no autoplay policy applies (iOS Low Power Mode blocks
  * <video> autoplay and stutters large animated images). Frames are extracted

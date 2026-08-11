@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { isTouchDevice, loadHeroFrames } from "@/lib/hero-intro";
+import { applyEnvClasses, isTouchDevice, loadHeroFrames } from "@/lib/hero-intro";
 
 declare global {
   interface Window {
@@ -24,6 +24,9 @@ declare global {
  */
 export default function Preloader() {
   useEffect(() => {
+    // Restore the `js`/`touch` classes in case a hydration failure wiped them
+    // (in-app browsers — see lib/hero-intro.ts).
+    applyEnvClasses();
     const root = document.documentElement;
     let finished = false;
 

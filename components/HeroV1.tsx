@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import {
+  applyEnvClasses,
   isTouchDevice,
   HERO_FRAME_COUNT,
   HERO_FRAME_FPS,
@@ -17,6 +18,10 @@ export default function HeroV1() {
 
   useGSAP(
     () => {
+      // Restore the `js`/`touch` classes in case a hydration failure wiped
+      // them (in-app browsers — see lib/hero-intro.ts). useGSAP is a layout
+      // effect, so this lands before the next paint.
+      applyEnvClasses();
       const mm = gsap.matchMedia();
       const video = videoRef.current;
 
