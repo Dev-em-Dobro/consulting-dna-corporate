@@ -3,12 +3,12 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { PHONE_MEDIA_QUERY } from "@/lib/hero-intro";
-
-// Duration of the mobile animated-WebP intro (~19.9s). The WebP loops
-// infinitely (so a fresh page load always restarts it from frame 0); an <img>
-// has no "ended" event, so we reveal the hero content just before it loops.
-const HERO_ANIM_MS = 19850;
+import {
+  PHONE_MEDIA_QUERY,
+  HERO_FRAME_COUNT,
+  HERO_FRAME_FPS,
+  loadHeroFrames,
+} from "@/lib/hero-intro";
 
 export default function HeroV1() {
   const scope = useRef<HTMLElement>(null);
@@ -134,121 +134,70 @@ export default function HeroV1() {
         const isMobile = window.matchMedia(PHONE_MEDIA_QUERY).matches;
         const cleanups: Array<() => void> = [() => tl.kill()];
 
-        // Last-resort mobile intro: the animated WebP <img>. Only used when the
-        // <video> can't autoplay (iOS Low Power Mode) — an <img> always
-        // animates. No "ended" event, so reveal after its known duration, timed
-        // from when the image loads.
-        const startWebp = () => {
-          const animImg = scope.current?.querySelector(
-            ".hero-anim img"
-          ) as HTMLImageElement | null;
-          let timer = 0;
-          let ownUrl = "";
-          let cancelled = false;
-          const startTimer = () => {
-            timer = window.setTimeout(reveal, HERO_ANIM_MS);
-          };
-          const cap = window.setTimeout(reveal, HERO_ANIM_MS + 15000);
-          const animate = (url: string) => {
-            if (!animImg) {
-              startTimer();
-              return;
-            }
-            animImg.addEventListener("load", startTimer, { once: true });
-            animImg.addEventListener("error", () => reveal(), { once: true });
-            animImg.src = url;
-          };
-          // Reuse the blob the preloader already downloaded (autoplay-blocked
-          // probe path); otherwise download the WebP fully before animating so
-          // playback has no mid-clip stutter. A fresh object URL restarts it
-          // from frame 0 on every load.
-          const preUrl = window.__heroWebpUrl;
-          if (preUrl) {
-            animate(preUrl);
-          } else if (animImg) {
-            fetch("/videos/hero-intro.webp")
-              .then((r) => r.blob())
-              .then((blob) => {
-                if (cancelled) return;
-                ownUrl = URL.createObjectURL(blob);
-                animate(ownUrl);
-              })
-              .catch(() => reveal());
-          } else {
-            startTimer();
-          }
-          cleanups.push(() => {
-            cancelled = true;
-            window.clearTimeout(timer);
-            window.clearTimeout(cap);
-            if (ownUrl) URL.revokeObjectURL(ownUrl);
-          });
-        };
-
         // Runs the actual intro. Gated on the preloader below, so it never
         // plays behind the loading screen and its asset is already fully
         // cached — i.e. smooth from the first frame.
         const startIntro = () => {
-          // Mobile: play the real <video>, sourced from the blob the preloader
-          // already downloaded. Hardware decoding keeps playback smooth (an
-          // animated WebP is software-decoded and stutters under main-thread
-          // load), and the `ended` event hides it and reveals the content at
-          // exactly the last frame. iOS Low Power Mode is the one case where
-          // autoplay fails — play() rejects immediately, and we fall back to
-          // the animated WebP.
+          // Phones: a GSAP-driven image sequence drawn onto a <canvas>. Plain
+          // JavaScript — no autoplay policy applies (iOS Low Power Mode blocks
+          // <video> autoplay; large animated images stutter under main-thread
+          // load), it always starts by itself, and the tween's onComplete
+          // reveals the content at exactly the last frame.
           if (isMobile) {
             const section = scope.current;
-            const blobUrl = window.__heroVideoUrl;
-            // The preloader's autoplay probe already decided: a WebP blob means
-            // video autoplay is blocked (iOS Low Power Mode) — skip straight to
-            // the animated WebP, which is fully downloaded and starts instantly.
-            if (window.__heroWebpUrl || !video || !section) {
-              startWebp();
+            const canvas = section?.querySelector(
+              ".hero-canvas"
+            ) as HTMLCanvasElement | null;
+            if (!section || !canvas) {
+              reveal();
               return;
             }
-            let usingVideo = true;
-            const fallbackToWebp = () => {
-              if (revealed || !usingVideo) return;
-              usingVideo = false;
-              window.clearTimeout(fallback);
-              section.removeAttribute("data-intro");
-              video.pause();
-              video.removeEventListener("ended", reveal);
-              video.removeEventListener("error", fallbackToWebp);
-              video.removeEventListener("loadedmetadata", armFallback);
-              video.removeEventListener("durationchange", armFallback);
-              startWebp();
+            // Absolute safety net: never trap the visitor if frames stall.
+            const cap = window.setTimeout(reveal, 45000);
+            cleanups.push(() => window.clearTimeout(cap));
+
+            const play = (frames: Array<HTMLImageElement | null>) => {
+              const ctx = canvas.getContext("2d");
+              if (revealed || !ctx || !frames.some(Boolean)) {
+                reveal();
+                return;
+              }
+              let last = -1;
+              const draw = (i: number) => {
+                if (i === last) return;
+                // A failed frame draws the nearest earlier one — a 1/12s hold
+                // is invisible; a blank flash is not.
+                let j = i;
+                while (j >= 0 && !frames[j]) j--;
+                const img = j >= 0 ? frames[j] : null;
+                if (!img) return;
+                last = i;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                // Hint the browser to decode the next frames off the hot path,
+                // so drawImage never waits on a synchronous decode.
+                frames[i + 1]?.decode?.().catch(() => {});
+                frames[i + 2]?.decode?.().catch(() => {});
+              };
+              draw(0);
+              // Flip the hero from the poster <picture> to the <canvas>
+              // (see globals.css: [data-intro="canvas"]).
+              section.setAttribute("data-intro", "canvas");
+              const state = { f: 0 };
+              const tween = gsap.to(state, {
+                f: HERO_FRAME_COUNT - 1,
+                duration: HERO_FRAME_COUNT / HERO_FRAME_FPS,
+                ease: "none",
+                onUpdate: () => draw(Math.round(state.f)),
+                onComplete: reveal,
+              });
+              cleanups.push(() => tween.kill());
             };
-            // Flip the mobile hero from the WebP <picture> to the <video>
-            // (see globals.css: [data-intro="video"]).
-            section.setAttribute("data-intro", "video");
-            video.muted = true;
-            video.defaultMuted = true;
-            video.setAttribute("muted", "");
-            video.setAttribute("playsinline", "");
-            video.addEventListener("ended", reveal);
-            video.addEventListener("error", fallbackToWebp);
-            video.addEventListener("loadedmetadata", armFallback);
-            video.addEventListener("durationchange", armFallback);
-            // Play from the in-memory blob when available; otherwise stream the
-            // file (cache-warm miss, e.g. the preloader's fetch was aborted).
-            if (blobUrl) video.src = blobUrl;
-            armFallback();
-            try {
-              video.load();
-            } catch {
-              /* no-op */
-            }
-            const p = video.play();
-            if (p && typeof p.then === "function") {
-              p.catch(fallbackToWebp);
-            }
-            cleanups.push(() => {
-              video.removeEventListener("ended", reveal);
-              video.removeEventListener("error", fallbackToWebp);
-              video.removeEventListener("loadedmetadata", armFallback);
-              video.removeEventListener("durationchange", armFallback);
-            });
+
+            // Use the frames the preloader already downloaded; if it was
+            // aborted (slow network past its cap), download them ourselves.
+            const pre = window.__heroFrames;
+            if (pre) play(pre);
+            else loadHeroFrames().then(play);
             return;
           }
 
@@ -377,14 +326,13 @@ export default function HeroV1() {
         <source src="/videos/hero-intro.webm" type="video/webm" />
       </video>
 
-      {/* MOBILE poster + fallback: shows the poster frame until the video
-          starts; if video autoplay is blocked (iOS Low Power Mode) JS swaps in
-          the animated WebP here instead — as an <img> it always animates. The
-          first <source> hands true desktops (mouse + hover) a 1x1 placeholder
-          so they fetch neither the poster nor the WebP; a phone in "desktop
-          site" mode (wide viewport but coarse pointer) still gets the real
-          poster. Visibility is controlled in globals.css (not Tailwind md:) so
-          it also works on desktop-mode phones. */}
+      {/* PHONE poster: shows the clip's first frame until the canvas sequence
+          starts (and for no-JS visitors). The first <source> hands true
+          desktops (mouse + hover) a 1x1 placeholder so they never fetch the
+          poster; a phone in "desktop site" mode (wide viewport but coarse
+          pointer) still gets the real poster. Visibility is controlled in
+          globals.css (not Tailwind md:) so it also works on desktop-mode
+          phones. */}
       <picture
         className="hero-anim pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
@@ -395,6 +343,17 @@ export default function HeroV1() {
         />
         <img src="/videos/hero-poster.jpg" alt="" className="w-full" />
       </picture>
+
+      {/* PHONE intro player: GSAP draws the extracted video frames here (see
+          lib/hero-intro.ts). A canvas has no autoplay policy — it always runs,
+          Low Power Mode included. Hidden until JS marks data-intro="canvas";
+          dropped entirely the instant the intro ends (globals.css). */}
+      <canvas
+        className="hero-canvas pointer-events-none absolute inset-0 z-0 hidden h-full w-full"
+        width={720}
+        height={406}
+        aria-hidden="true"
+      />
 
       {/* Legibility overlay: hidden while the video plays, then fades in with the
           content. Semi-transparent so the iceberg still reads behind the text. */}

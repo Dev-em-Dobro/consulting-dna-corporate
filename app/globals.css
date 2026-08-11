@@ -46,25 +46,25 @@ html.js [data-reveal="block"] {
   html.js #top[data-hero="intro"] {
     height: 56.25vw;
   }
-  /* Phones play the real <video> when it can autoplay (hardware-decoded, so it
-     never stutters): HeroV1 marks the section with data-intro="video", which
-     swaps the WebP <picture> for the <video>. Without the mark (iOS Low Power
-     Mode fallback) the <picture> stays and the video stays hidden. These also
-     override Tailwind's width-based md:block on desktop-mode phones. */
-  html.js #top[data-hero="intro"]:not([data-intro="video"]) video {
+  /* Phones never use the <video> (autoplay is unreliable there — iOS Low
+     Power Mode); the intro is a GSAP canvas image sequence instead. This also
+     overrides Tailwind's width-based md:block on desktop-mode phones. */
+  html.js #top[data-hero="intro"] video {
     display: none;
   }
-  html.js #top[data-hero][data-intro="video"] video {
+  /* HeroV1 marks the section with data-intro="canvas" once the first frame is
+     drawn, swapping the poster <picture> for the <canvas>. */
+  html.js #top[data-hero][data-intro="canvas"] .hero-canvas {
     display: block;
   }
-  html.js #top[data-hero][data-intro="video"] .hero-anim {
+  html.js #top[data-hero][data-intro="canvas"] .hero-anim {
     display: none;
   }
   /* Once the intro ends (JS removes data-hero) the intro visuals leave the
-     hero entirely and instantly — they must never linger as a background.
-     Covers both the video and the animated WebP. */
+     hero entirely and instantly — they must never linger as a background. */
   html.js #top:not([data-hero]) video,
-  html.js #top:not([data-hero]) .hero-anim {
+  html.js #top:not([data-hero]) .hero-anim,
+  html.js #top:not([data-hero]) .hero-canvas {
     display: none;
   }
 }

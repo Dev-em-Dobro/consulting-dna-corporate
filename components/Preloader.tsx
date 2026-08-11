@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { PHONE_MEDIA_QUERY, canAutoplayVideo } from "@/lib/hero-intro";
+import { PHONE_MEDIA_QUERY, loadHeroFrames } from "@/lib/hero-intro";
 
 declare global {
   interface Window {
     /** Set once the loading screen has dismissed; the hero intro waits on this. */
     __appReady?: boolean;
-    /** Object URL of the fully-downloaded mobile intro WebP, shared with HeroV1. */
-    __heroWebpUrl?: string;
-    /** Object URL of the fully-downloaded mobile intro MP4, shared with HeroV1. */
-    __heroVideoUrl?: string;
+    /** Fully-downloaded phone intro frames (null = failed), shared with HeroV1. */
+    __heroFrames?: Array<HTMLImageElement | null>;
   }
 }
 
@@ -52,30 +50,18 @@ export default function Preloader() {
     // Warm the hero intro asset so it plays smoothly right after the loader.
     const waitHero = new Promise<void>((resolve) => {
       if (isMobile) {
-        // Probe whether video autoplay is allowed (iOS Low Power Mode blocks
-        // it), then fully download ONLY the asset the hero will actually use —
-        // the MP4 when video can play, the animated WebP when it can't — and
-        // hand HeroV1 the blob URL BEFORE revealing the site. Playback then
-        // reads from memory, so it can't stutter mid-clip, is never downloaded
-        // twice, and starts the instant the loader lifts. Aborting after 25s
-        // guarantees a stalled network can never trap the visitor behind the
-        // loader.
+        // Fully download every intro frame BEFORE revealing the site (the
+        // phone intro is a GSAP canvas image sequence — see lib/hero-intro.ts),
+        // so playback starts instantly and can't stutter on the network.
+        // Aborting after 25s guarantees a stalled connection can never trap
+        // the visitor behind the loader.
         const ctrl = new AbortController();
         const abort = window.setTimeout(() => ctrl.abort(), 25000);
-        canAutoplayVideo()
-          .then((videoOk) =>
-            fetch(videoOk ? "/videos/hero-intro.mp4" : "/videos/hero-intro.webp", {
-              signal: ctrl.signal,
-            })
-              .then((r) => r.blob())
-              .then((b) => {
-                const url = URL.createObjectURL(b);
-                if (videoOk) window.__heroVideoUrl = url;
-                else window.__heroWebpUrl = url;
-              })
-          )
-          .catch(() => {
-            /* aborted or offline: reveal anyway, HeroV1 fetches it itself */
+        loadHeroFrames(ctrl.signal)
+          .then((frames) => {
+            // Hand over only if at least the first frame made it; otherwise
+            // HeroV1 retries the download itself.
+            if (frames.some(Boolean)) window.__heroFrames = frames;
           })
           .finally(() => {
             window.clearTimeout(abort);
