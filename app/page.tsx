@@ -363,11 +363,12 @@ export default async function V1() {
               </div>
             </div>
             <PhotoCarousel
-              images={Array.from(
-                { length: 14 },
-                (_, i) =>
-                  `/dna-time/dna-time-${String(i + 1).padStart(2, "0")}.jpeg`
-              )}
+              images={Array.from({ length: 28 }, (_, i) => i + 1)
+                .filter((n) => n !== 5 && n !== 8 && n !== 14)
+                .map(
+                  (n) =>
+                    `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`
+                )}
             />
           </div>
           <div className="mt-14 flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
