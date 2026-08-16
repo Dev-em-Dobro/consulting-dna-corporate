@@ -49,7 +49,12 @@ export default function HeroV1() {
         );
       }
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // "all": the intro runs for everyone, including visitors with
+      // "Reduce Motion" enabled. This is a deliberate product decision — the
+      // hero intro is core to the brand experience — over the accessibility
+      // default of honouring prefers-reduced-motion. (Previously a separate
+      // `reduce` branch skipped the intro; see git history.)
+      mm.add("all", () => {
         // Built paused: the intro video plays first with everything hidden, and
         // this reveal only runs once the video ends (see `reveal` below).
         const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
@@ -328,21 +333,6 @@ export default function HeroV1() {
         });
 
         return () => cleanups.forEach((fn) => fn());
-      });
-
-      // Reduce-motion: skip the intro playback and show the iceberg frame right
-      // away with a plain fade — no travel, scale, skew, or autoplaying motion.
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        dbg("path=reduced-motion (intro skipped)");
-        if (video) video.pause();
-        // Show the full hero immediately — no intro playback, so no size pin.
-        // (On mobile, CSS drops the video once data-hero is gone.)
-        scope.current?.removeAttribute("data-hero");
-        gsap.fromTo(
-          [".h-bg", ".h-bar", ".h-eyebrow", ".h-title", ".h-sub", ".h-cta"],
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 0.4, ease: "power1.out", stagger: 0.06, delay: 0.05 }
-        );
       });
 
       return () => mm.revert();
