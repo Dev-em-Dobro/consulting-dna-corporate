@@ -26,17 +26,20 @@ export default function LogoMarquee({
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Two identical copies render side by side; shifting the track by 50%
-        // of its width produces a seamless, gapless loop.
-        tween.current = gsap.fromTo(
-          track.current,
-          { xPercent: reverse ? -50 : 0 },
-          { xPercent: reverse ? 0 : -50, duration, ease: "none", repeat: -1 }
-        );
-      });
-      return () => mm.revert();
+      // Intentionally ignore prefers-reduced-motion: this ambient logo loop is
+      // a decorative brand element and must always animate (matching the hero
+      // intro, which also always runs). iOS "reduce motion" would otherwise
+      // freeze it.
+      // Two identical copies render side by side; shifting the track by 50%
+      // of its width produces a seamless, gapless loop.
+      tween.current = gsap.fromTo(
+        track.current,
+        { xPercent: reverse ? -50 : 0 },
+        { xPercent: reverse ? 0 : -50, duration, ease: "none", repeat: -1 }
+      );
+      return () => {
+        tween.current?.kill();
+      };
     },
     { scope: track, dependencies: [duration, reverse] }
   );
