@@ -20,6 +20,8 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
   `/solutions/5h-framework`, `/solutions/regions`, `/solutions/regions/[region]`
   (`london`, `singapore`, `dubai`, `saudi-arabia`, `miami`)
 - `/cases`, `/cases/[slug]` (slugs do CMS)
+- `/our-identity` · `/our-team` · `/our-clients` · `/our-impact` · `/our-partnerships`
+  (áreas criadas pelo brief 27-08; `/about` passou a 308 para `/our-identity`)
 - `/insights`, `/insights/[slug]` · `/interviews`
 - `/awards`
 - `/privacy` · `/cookies` · `/terms`
@@ -27,6 +29,13 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 ---
 
 ## Mapa de redirects (todos 301 permanentes)
+
+> ⚠️ **Redirect com `source` igual a uma rota real engole a página.** O `redirects()` do Next é
+> avaliado **antes** do filesystem, então enquanto existir `["/our-clients", "/"]` a página
+> `app/our-clients/page.tsx` nunca responde — devolve 308 e ninguém vê o erro, porque o redirect
+> "funciona". Foi exatamente o que aconteceu em 28-08: a IA do brief recriou quatro URLs do site
+> antigo (`/our-identity`, `/our-team`, `/our-clients`, `/our-impact`) que estavam na lista de
+> legados. **Ao criar uma rota nova, procurar o path aqui antes.**
 
 ### Home
 | Antiga | Nova |
@@ -59,7 +68,7 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 
 | Antiga | Nova |
 |--------|------|
-| `/clients` · `/our-clients` · `/our_clients.html` | `/` |
+| `/clients` · `/our_clients.html` | `/our-clients` |
 | `/our-clients/{aviva,coca-cola,gsk,heineken,levis,morgan-stanley,unilever}` | `/cases/{mesmo-slug}` |
 | `/our-clients/shell` | `/cases/case-1d007617` |
 | `/what-our-client-says.html` · `/testimonials` | `/` |
@@ -73,19 +82,26 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 | `/portfolio/case-study-dubai-holding` · `/portfolio/ceo-team-alignment-for-ds-smith-plc` · `/portfolio/edf-leadership-impact-influence-presence` · `/portfolio/a-leadership-participant-reflects-on-the-dark-side-profile` | `/cases` |
 | `/our-impact/see-us-in-action` · `/see_us_in_action.html` | `/cases` |
 
-### Time / Advisors → home #people
-| Antiga | Nova |
-|--------|------|
-| `/our-team` · `/our_team.html` · `/our-advisors` · `/our_advisor.html` · `/our-way/our-team-and-network` | `/#people` |
-
-### Identidade / Sobre → home #approach
-> ⚠️ A página **Our Identity + Awards** (009) está adiada. Quando existir, repontar
-> `/our-identity`, `/our-story` p/ ela (provavelmente `/awards` ou nova rota).
+### Time / Advisors → Our Team
+> 🔄 **Atualizado (2026-08-28, brief 27-08):** `/our-team` deixou de ser redirect — virou
+> **página real**. Os demais passaram a apontar pra ela em vez da âncora `/#people`.
 
 | Antiga | Nova |
 |--------|------|
-| `/our-identity` · `/our_identity.html` · `/our-story` · `/our_story.html` · `/our-approach` | `/#approach` |
-| `/our-way` · `/our-way/our-values` · `/our-way/our-thinking` · `/way-values.html` | `/#approach` |
+| `/our_team.html` · `/our-advisors` · `/our_advisor.html` · `/our-way/our-team-and-network` | `/our-team` |
+
+### Identidade / Sobre → Our Identity
+> 🔄 **Resolvido (2026-08-28, brief 27-08):** a página existe. `/our-identity` deixou de ser
+> redirect — virou **página real**, com as seções `#identity`, `#story`, `#values`, `#why`.
+> Os legados passaram a apontar para ela e, quando havia seção equivalente, para a âncora certa.
+
+| Antiga | Nova |
+|--------|------|
+| `/our_identity.html` | `/our-identity` |
+| `/our-story` · `/our_story.html` | `/our-identity#story` |
+| `/our-way/our-values` · `/way-values.html` | `/our-identity#values` |
+| `/our-approach` | `/approach` |
+| `/our-way` · `/our-way/our-thinking` | `/#approach` |
 | `/our-way/head-heart-hunch-hands` · `/our-way-head.html` | `/solutions/5h-framework` |
 | `/10-dna-ingredients` · `/ten-ingredients.html` | `/solutions/5h-framework` |
 
@@ -98,9 +114,12 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 | `/our-book` · `/book-endorsements` · `/book-endorsement.html` | `/#book` |
 
 ### Impacto / Alcance global
+> 🔄 **Atualizado (2026-08-28, brief 27-08):** `/our-impact` deixou de ser redirect — virou
+> **página real** (números editáveis + resultados por engagement).
+
 | Antiga | Nova |
 |--------|------|
-| `/our-impact` · `/our-impact.html` · `/our-impact/return-on-investment` | `/#impact` |
+| `/our-impact.html` · `/our-impact/return-on-investment` | `/our-impact` |
 | `/Impact-and-global-reach.html` · `/our-way/our-impact-and-global-reach` | `/solutions/regions` |
 
 ### Notícias → Insights

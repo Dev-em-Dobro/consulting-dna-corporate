@@ -10,27 +10,31 @@ export type NavItem = { label: string; href?: string; children?: NavChild[] };
 // The 27-08 brief sets the final navigation as:
 //   Home | Our Identity | Our Solutions | Our Approach | Our Partnerships |
 //   Our Clients | Our Impact | Our Team | Our Books
-// The renames below are the part that can ship without new routes. The four
-// areas that still need pages — Our Identity and Our Team (splitting out of
-// /about), plus Our Clients and Our Impact (splitting out of /cases) — and
-// Our Partnerships (new, copy not yet validated by CDNA) are deliberately NOT
-// listed yet: a menu item that opens an empty page is worse than a late one.
+//
+// Seven of the nine are listed below. `Our Partnerships` and `Our Team` have
+// their routes built (/our-partnerships, /our-team) but stay out of the menu
+// until their content arrives — validated partnership copy and the team
+// photography respectively. A menu item that opens an empty page is worse than
+// a late one, and publishing them is a one-line change here once CDNA delivers.
+//
 // Insights and the "Start a Conversation" button are kept pending G's answer on
 // their absence from the brief's list (see docs/STATUS-REVIEW-2026-08-27.md §8).
 export const siteNav: NavItem[] = [
   // Home is now an explicit item, in addition to the clickable logo.
   { label: "Home", href: "/" },
+  // Identity half of the old /about, which now 308s here (next.config.mjs).
+  { label: "Our Identity", href: "/our-identity" },
   // No static children: the Solutions submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
   { label: "Our Solutions", href: "/solutions" },
   // 5H is a methodology applied across every solution, not one of them, so it
   // sits beside Solutions as "Our Approach" instead of inside its dropdown.
   { label: "Our Approach", href: "/approach" },
-  // Splits into "Our Clients" (logo wall + flagship stories) and "Our Impact"
-  // (metrics, testimonials, proof) once both pages exist. Route stays /cases.
-  { label: "Client Impact", href: "/cases" },
-  // Splits into "Our Identity" and "Our Team" once both pages exist.
-  { label: "About", href: "/about" },
+  // The old single "Client Impact" area, split as the brief requires: the wall
+  // and the stories here, the numbers and proof next door. The faceted case
+  // library keeps its own route (/cases) and is linked from Our Clients.
+  { label: "Our Clients", href: "/our-clients" },
+  { label: "Our Impact", href: "/our-impact" },
   { label: "Insights", href: "/insights" },
   // Promoted to top level per the brief, and pluralised: the area is meant to
   // hold books by different team members over time. Points at the home `#book`

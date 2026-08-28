@@ -8,6 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "Full client interviews on leadership, culture and transformation with the executives behind Corporate DNA's flagship engagements.",
     alternates: localeAlternates("/interviews"),
+    // Placeholder page: it is linked from the case "Hear the complete interview"
+    // CTA, so it must resolve, but a thin page with no interviews on it should
+    // not be indexed. Drop this once the interview content lands (and add the
+    // route to app/sitemap.ts at the same time).
+    robots: { index: false, follow: true },
   };
 }
 
