@@ -16,8 +16,12 @@ export async function buildSiteNav(): Promise<NavItem[]> {
   // `children` array would still render an (empty) dropdown in NavV1.
   if (solutionChildren.length === 0) return siteNav;
 
+  // Matched on `href`, not on the label: labels are copy and get renamed by the
+  // client (the 27-08 brief turned "Solutions" into "Our Solutions"), while the
+  // route is stable. A label match fails silently — the submenu just stops
+  // appearing, with no error — which is exactly what happened after that rename.
   return siteNav.map((item) =>
-    item.label === "Solutions"
+    item.href === "/solutions"
       ? { ...item, children: [...(item.children ?? []), ...solutionChildren] }
       : item,
   );

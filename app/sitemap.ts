@@ -5,6 +5,7 @@ import {
   getCaseCards,
   getInsightCards,
   getRegionCards,
+  getPartnerships,
 } from "@/lib/cms/map";
 
 export const revalidate = 3600;
@@ -14,26 +15,39 @@ export const revalidate = 3600;
 const abs = (path: string) => `${SITE_URL}${path || "/"}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [solutions, cases, insights, regions] = await Promise.all([
+  const [solutions, cases, insights, regions, partnerships] = await Promise.all([
     getSolutionCards(),
     getCaseCards(),
     getInsightCards(),
     getRegionCards(),
+    getPartnerships(),
   ]);
 
   const staticPaths = [
     "",
+    "/our-identity",
     "/approach",
     "/solutions",
     "/solutions/leadership",
     "/solutions/regions",
+    "/our-clients",
+    "/our-impact",
+    "/our-team",
     "/cases",
     "/insights",
     "/awards",
     "/privacy",
     "/cookies",
     "/terms",
+    // `/our-partnerships` is added below, only once it has content.
+    // `/about` is gone — it 308s to /our-identity (next.config.mjs).
+    // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
   ];
+
+  // Our Partnerships is a real route with no content until CDNA validates the
+  // copy. It carries `noindex` while empty (see its generateMetadata), so it
+  // must stay out of the sitemap until then — the two have to agree.
+  if (partnerships.length > 0) staticPaths.push("/our-partnerships");
 
   const dynamicPaths = [
     ...solutions.map((s) => `/solutions/${s.slug}`),

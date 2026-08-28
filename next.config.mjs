@@ -11,18 +11,18 @@ const legacyDottedRedirects = [
   ["/our_services.html", "/solutions"],
   ["/insight-tools.html", "/solutions"],
   ["/industry-examples.html", "/cases"],
-  ["/our_clients.html", "/"],
+  ["/our_clients.html", "/our-clients"],
   ["/what-our-client-says.html", "/"],
   ["/see_us_in_action.html", "/cases"],
-  ["/our_team.html", "/#people"],
-  ["/our_advisor.html", "/#people"],
-  ["/our_identity.html", "/#approach"],
-  ["/our_story.html", "/#approach"],
-  ["/way-values.html", "/#approach"],
+  ["/our_team.html", "/our-team"],
+  ["/our_advisor.html", "/our-team"],
+  ["/our_identity.html", "/our-identity"],
+  ["/our_story.html", "/our-identity#story"],
+  ["/way-values.html", "/our-identity#values"],
   ["/our-way-head.html", "/approach"],
   ["/ten-ingredients.html", "/approach"],
   ["/book-endorsement.html", "/#book"],
-  ["/our-impact.html", "/#impact"],
+  ["/our-impact.html", "/our-impact"],
   ["/Impact-and-global-reach.html", "/solutions/regions"],
   ["/our-news.html", "/insights"],
   ["/email-us.html", "/#contact"],
@@ -44,10 +44,12 @@ const legacyExtensionlessRedirects = [
   ["/our-services/asian-talent-development", "/solutions/asian-talent-development"],
   ["/our-services/insight-tools", "/solutions"],
   // Clientes → o case correspondente (decisão do cliente, 2026-07-29). Cada
-  // página de cliente do site antigo tem um case 1:1 no CMS; os índices, que
-  // não têm equivalente, continuam caindo na home.
-  ["/clients", "/"],
-  ["/our-clients", "/"],
+  // página de cliente do site antigo tem um case 1:1 no CMS. O índice
+  // `/our-clients` NÃO aparece aqui de propósito: a IA do brief 27-08 recria
+  // essa mesma URL como página real, e um redirect com essa `source` passaria
+  // na frente da rota (redirects são avaliados antes do filesystem). O índice
+  // genérico `/clients` passou a apontar para ela.
+  ["/clients", "/our-clients"],
   ["/our-clients/aviva", "/cases/aviva"],
   ["/our-clients/coca-cola", "/cases/coca-cola"],
   ["/our-clients/gsk", "/cases/gsk"],
@@ -65,17 +67,15 @@ const legacyExtensionlessRedirects = [
   ["/portfolio/edf-leadership-impact-influence-presence", "/cases"],
   ["/portfolio/a-leadership-participant-reflects-on-the-dark-side-profile", "/cases"],
   ["/our-impact/see-us-in-action", "/cases"],
-  // Time / Advisors → home #people
-  ["/our-team", "/#people"],
-  ["/our-advisors", "/#people"],
-  ["/our-way/our-team-and-network", "/#people"],
-  // Identidade / Sobre → home #approach (5H onde se aplica)
-  ["/our-identity", "/#approach"],
-  ["/our-story", "/#approach"],
+  // Time / Advisors → a página real de Our Team (antes: âncora da home)
+  ["/our-advisors", "/our-team"],
+  ["/our-way/our-team-and-network", "/our-team"],
+  // Identidade / Sobre → a página real de Our Identity e suas seções
+  ["/our-story", "/our-identity#story"],
   // O antigo /our-approach agora tem página real (5H), não só a âncora da home.
   ["/our-approach", "/approach"],
   ["/our-way", "/#approach"],
-  ["/our-way/our-values", "/#approach"],
+  ["/our-way/our-values", "/our-identity#values"],
   ["/our-way/our-thinking", "/#approach"],
   ["/our-way/head-heart-hunch-hands", "/approach"],
   ["/10-dna-ingredients", "/approach"],
@@ -84,9 +84,8 @@ const legacyExtensionlessRedirects = [
   // Livro → seção da home (não há página dedicada do livro)
   ["/our-book", "/#book"],
   ["/book-endorsements", "/#book"],
-  // Impacto / Alcance
-  ["/our-impact", "/#impact"],
-  ["/our-impact/return-on-investment", "/#impact"],
+  // Impacto / Alcance — /our-impact agora é página real, não âncora da home
+  ["/our-impact/return-on-investment", "/our-impact"],
   ["/our-way/our-impact-and-global-reach", "/solutions/regions"],
   // Notícias → Insights
   ["/our-news", "/insights"],
@@ -98,6 +97,16 @@ const legacyExtensionlessRedirects = [
   // Legal
   ["/privacy-policy", "/privacy"],
   ["/copyright", "/terms"],
+];
+
+// Areas the 27-08 brief split in two. `/about` became Our Identity + Our Team,
+// so the old route points at the identity half and that page links onward to
+// the team — a fragment (/about#leadership) never reaches the server, so it
+// cannot be routed here; nothing in the site links to those anchors any more.
+// `/cases` is deliberately NOT redirected: the faceted case library and its
+// detail pages stay where they are, and Our Clients links into them.
+const splitAreaRedirects = [
+  { source: "/about", destination: "/our-identity", permanent: true },
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and
@@ -120,6 +129,7 @@ const nextConfig = {
   async redirects() {
     return [
       ...retiredLocaleRedirects,
+      ...splitAreaRedirects,
       ...[...legacyDottedRedirects, ...legacyExtensionlessRedirects].map(
         ([source, destination]) => ({ source, destination, permanent: true }),
       ),

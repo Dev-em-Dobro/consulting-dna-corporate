@@ -7,7 +7,9 @@ import { getCaseListEntries } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Client Impact — Corporate DNA",
+    // The "Client Impact" area name is retired by the 27-08 brief (split into
+    // Our Clients and Our Impact); this route stays as the case library.
+    title: "Case Studies — Corporate DNA",
     description:
       "Measured leadership outcomes for global enterprises — how Corporate DNA's advisory and 5H® methodology moved the metrics that matter for clients like Shell and Heineken.",
     alternates: localeAlternates("/cases"),

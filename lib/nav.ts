@@ -7,25 +7,39 @@
 export type NavChild = { label: string; href: string };
 export type NavItem = { label: string; href?: string; children?: NavChild[] };
 
+// The 27-08 brief sets the final navigation as:
+//   Home | Our Identity | Our Solutions | Our Approach | Our Partnerships |
+//   Our Clients | Our Impact | Our Team | Our Books
+//
+// Seven of the nine are listed below. `Our Partnerships` and `Our Team` have
+// their routes built (/our-partnerships, /our-team) but stay out of the menu
+// until their content arrives — validated partnership copy and the team
+// photography respectively. A menu item that opens an empty page is worse than
+// a late one, and publishing them is a one-line change here once CDNA delivers.
+//
+// Insights and the "Start a Conversation" button are kept pending G's answer on
+// their absence from the brief's list (see docs/STATUS-REVIEW-2026-08-27.md §8).
 export const siteNav: NavItem[] = [
+  // Home is now an explicit item, in addition to the clickable logo.
+  { label: "Home", href: "/" },
+  // Identity half of the old /about, which now 308s here (next.config.mjs).
+  { label: "Our Identity", href: "/our-identity" },
   // No static children: the Solutions submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
-  { label: "Solutions", href: "/solutions" },
+  { label: "Our Solutions", href: "/solutions" },
   // 5H is a methodology applied across every solution, not one of them, so it
   // sits beside Solutions as "Our Approach" instead of inside its dropdown.
   { label: "Our Approach", href: "/approach" },
-  // "Cases" was renamed to "Client Impact" per the 05-08 brief; the route stays /cases.
-  { label: "Client Impact", href: "/cases" },
-  // About area (identity/story/values/why/leadership/faculty/presence); several
-  // sub-sections are placeholders pending CDNA copy.
-  { label: "About", href: "/about" },
-  // The book now lives under Insights (home `#book` section); the dedicated /book
-  // route was removed, so the legacy /our-book redirects land here too.
-  {
-    label: "Insights",
-    href: "/insights",
-    children: [{ label: "The Book", href: "/#book" }],
-  },
+  // The old single "Client Impact" area, split as the brief requires: the wall
+  // and the stories here, the numbers and proof next door. The faceted case
+  // library keeps its own route (/cases) and is linked from Our Clients.
+  { label: "Our Clients", href: "/our-clients" },
+  { label: "Our Impact", href: "/our-impact" },
+  { label: "Insights", href: "/insights" },
+  // Promoted to top level per the brief, and pluralised: the area is meant to
+  // hold books by different team members over time. Points at the home `#book`
+  // section until a listing page exists.
+  { label: "Our Books", href: "/#book" },
 ];
 
 export type Region = { slug: string; name: string };

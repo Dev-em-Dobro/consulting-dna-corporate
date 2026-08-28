@@ -84,6 +84,14 @@ export const caseData = z
     quote: z.string().optional(),
     quoter: z.string().optional(),
     text: z.string().optional(),
+    // Case header band (27-08 brief, item 7), in the brief's order:
+    // Countries → Participants/Leaders → Reach/Scale → Intervention → Impact.
+    // Optional throughout — the band renders only the slots the CMS has filled.
+    countries: z.string().optional(),
+    participants: z.string().optional(),
+    reach: z.string().optional(),
+    intervention: z.string().optional(),
+    impact: z.string().optional(),
     // Autoplay-muted showcase video (YouTube link or direct file).
     mutedVideoUrl: z.string().url().optional(),
     // Legacy model (kept so older cases keep rendering).
@@ -124,7 +132,13 @@ export const proofRef = z
 export const solutionData = z
   .object({
     title: z.string(),
+    // The 27-08 brief (item 5) fixes five blocks per Solution page:
+    // The Challenge (problemStatement) → The Outcome → How CDNA Helps →
+    // Evidence (flagshipCaseSlug + proofRefs) → Start a Conversation (cta).
     problemStatement: z.string().optional(),
+    outcome: z.string().optional(),
+    howWeHelp: z.string().optional(),
+    flagshipCaseSlug: z.string().optional(),
     body: z.string().optional(),
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
     proofRefs: z.array(proofRef).optional(),
@@ -230,7 +244,60 @@ export const pageEntry = z
   })
   .passthrough();
 
+// ---- Partnerships / ticker / testimonial videos (27-08 brief) --------------
+// Three collections added for items 12, 17 and 13. Partnerships and testimonial
+// videos are read as full entries; the ticker renders straight from its list
+// projection, which is why category/date/linkUrl travel on the list item.
+
+export const partnershipListItem = z
+  .object({ ...listItemBase, coverUrl: z.string().url().optional() })
+  .passthrough();
+
+export const partnershipData = z
+  .object({
+    title: z.string(),
+    // The brief's required content: what the partnership enables for clients.
+    enablesForClients: z.string().optional(),
+    logoUrl: z.string().url().optional(),
+    websiteUrl: z.string().url().optional(),
+  })
+  .passthrough();
+
+export const partnershipEntry = entry(partnershipData);
+
+export const tickerListItem = z
+  .object({
+    ...listItemBase,
+    category: z.string().optional(),
+    date: z.string().optional(),
+    linkUrl: z.string().url().optional(),
+  })
+  .passthrough();
+
+export const testimonialVideoListItem = z
+  .object({ ...listItemBase, summary: z.string().optional(), coverUrl: z.string().url().optional() })
+  .passthrough();
+
+export const testimonialVideoData = z
+  .object({
+    title: z.string(),
+    client: z.string().optional(),
+    role: z.string().optional(),
+    videoUrl: z.string().url().optional(),
+    youtubeUrl: z.string().url().optional(),
+    posterUrl: z.string().url().optional(),
+    caseSlug: z.string().optional(),
+  })
+  .passthrough();
+
+export const testimonialVideoEntry = entry(testimonialVideoData);
+
 export type CaseListItem = z.infer<typeof caseListItem>;
+export type PartnershipListItem = z.infer<typeof partnershipListItem>;
+export type PartnershipEntry = z.infer<typeof partnershipEntry>;
+export type TickerListItem = z.infer<typeof tickerListItem>;
+export type TestimonialVideoListItem = z.infer<typeof testimonialVideoListItem>;
+export type TestimonialVideoEntry = z.infer<typeof testimonialVideoEntry>;
 export type CaseEntry = z.infer<typeof caseEntry>;
 export type SolutionListItem = z.infer<typeof solutionListItem>;
 export type SolutionEntry = z.infer<typeof solutionEntry>;

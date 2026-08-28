@@ -15,7 +15,6 @@ import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople } from "@/lib/cms/map";
-import { getPage } from "@/lib/cms/client";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -23,6 +22,8 @@ import TestimonialsVideo from "@/components/TestimonialsVideo";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
+import { clientLogoRows, logoRowDuration } from "@/lib/logos";
+import { getSiteStats } from "@/lib/stats";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title =
@@ -36,19 +37,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Curated wall of the largest / most globally recognisable clients — Aramco leads.
-const orderedLogos = [
-  "aramco.png", "alphabet.png", "microsoft.png", "visa.png", "shell.png",
-  "nestle.png", "coca_cola.png", "unilever.png", "bp.png", "hsbc.png",
-  "disney.png", "pfizer.png", "novartis.png", "sanofi.png", "rio_tinto.png",
-  "anglo_american.png", "goldman_sachs.png", "morgan_stanley.png", "citi.png", "standard_chartered.png",
-  "chanel.png", "rolls_royce.png", "aston_martin.png", "mclaren.png", "lego.png",
-  "adidas.png", "dyson.png",
-];
-
-const logoRowSplit = Math.ceil(orderedLogos.length / 2);
-const logoRow1 = orderedLogos.slice(0, logoRowSplit);
-const logoRow2 = orderedLogos.slice(logoRowSplit);
+// The curated client wall now lives in lib/logos.ts, shared with /our-clients
+// so the two walls cannot drift apart (27-08 brief, item 8).
+const [logoRow1, logoRow2] = clientLogoRows;
 
 const book = {
   title:
@@ -61,17 +52,6 @@ const book = {
     "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
   ],
 };
-
-// Homepage statistics. Values come from the CMS `home` singleton
-// (page_home: years / countries / faculty / sponsoredPct); the labels are site
-// copy. STAT_FALLBACK is used verbatim when the CMS is unreachable or a field is
-// blank, so the section never renders empty.
-const STAT_FALLBACK = [
-  { cmsKey: "years", value: "18", label: "Years advising senior leaders" },
-  { cmsKey: "countries", value: "36", label: "Countries of global delivery" },
-  { cmsKey: "faculty", value: "75", label: "Faculty of senior practitioners" },
-  { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
-];
 
 const challenges = [
   { num: "01", title: "CEO & executive performance", body: "Support for new and established CEOs and C-suite leaders navigating transitions, first 100 days and sustained top-team pressure." },
@@ -99,22 +79,11 @@ const cases: {
 ];
 
 export default async function V1() {
-  const [people, nav, home] = await Promise.all([
+  const [people, nav, stats] = await Promise.all([
     getPeople(),
     buildSiteNav(),
-    getPage("home"),
+    getSiteStats(),
   ]);
-  // Merge CMS-published values over the fallbacks; labels stay site-side. A
-  // blank/missing field or an unreachable CMS keeps the fallback number, so the
-  // stats band never renders empty.
-  const homeStats = (home?.data ?? {}) as Record<string, unknown>;
-  const stats = STAT_FALLBACK.map((s) => {
-    const v = homeStats[s.cmsKey];
-    return {
-      value: typeof v === "string" && v.trim() ? v : s.value,
-      label: s.label,
-    };
-  });
   return (
     <div className="w-full overflow-x-hidden bg-white">
       <JsonLd
@@ -158,8 +127,8 @@ export default async function V1() {
             Trusted by leadership teams at
           </p>
           <div className="flex flex-col gap-5">
-            <LogoMarquee logos={logoRow1} duration={logoRow1.length * 4.6} />
-            <LogoMarquee logos={logoRow2} duration={logoRow2.length * 4.6} reverse />
+            <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
+            <LogoMarquee logos={logoRow2} duration={logoRowDuration(logoRow2)} reverse />
           </div>
         </div>
         <div className="mx-auto max-w-[1200px] px-10 pb-20 pt-5">
