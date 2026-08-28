@@ -347,7 +347,13 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
   return Promise.all(
     items.map(async (it) => {
       const art = await getCaseArticle(it.slug);
-      const metric = splitMetric(art?.body.measurableResult);
+      // The 27-08 brief made the case header band the canonical place for a
+      // case's figures, so its "Impact" cell is the first source for the card
+      // metric; `measurableResult` stays as the fallback for cases authored
+      // under the older model. Both run through `splitMetric`, which pulls a
+      // leading "45%" / "2,582" out as the highlight number.
+      const impactFact = art?.facts.find((f) => f.label === "Impact")?.value;
+      const metric = splitMetric(impactFact ?? art?.body.measurableResult);
       const client = art?.title || plainText(it.title) || "";
       const logo = resolveClientLogo(client);
       return {
