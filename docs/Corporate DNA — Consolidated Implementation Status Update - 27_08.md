@@ -37,7 +37,7 @@ Recorded so the reversals are visible, since several were reviewed and approved 
 
 ---
 
-## Part B — Delivered today (27 August)
+## Part B — Delivered (27–28 August)
 
 **Status: built, type-checked and building clean.**
 
@@ -45,18 +45,18 @@ We have split the brief into **content structure**, which we build now because i
 
 **Content structure — done:**
 
-5. **Team Climate Assessment removed** from "Proprietary frameworks and diagnostics we own" → it is no longer presented as proprietary IP. This also closes the "name & overview pending CDNA confirmation" flag it had carried since 06-08. **Done**.
-7. **Navigation, first pass** → "Home" now appears as an explicit item alongside the clickable logo; "Solutions" is now "Our Solutions"; "Our Books" is promoted to top level and pluralised. **Done**.
-8. **Three new content areas** → Partnerships (item 12), the running ticker (item 17) and individual client testimonial videos (item 13) are now manageable in the content system with the fields the brief specifies. Partnerships requires the "what this partnership enables for our clients" answer, because the brief is explicit that a logo or an announcement is not enough. **Done — ready for content.**
-9. **Case header band is now editable** → every case can carry *Countries · Participants/Leaders · Reach/Scale · Intervention · Impact*, and the case page opens with them before the story, exactly in that order. Slots left blank simply do not appear. **Done — ready for your team to fill in.**
-10. **The five Solution blocks are now editable** → each Solution page is structured as *The Challenge → The Outcome → How Corporate DNA Helps → Evidence → Start a Conversation*, with a field to nominate the one flagship case per Solution. The old free-form body is retained but demoted to "further detail (optional)", with a note in the editor that the brief asks for radically shorter pages. **Done — ready for re-authoring.**
-11. **Quote guidance built into the editor** → the quote fields on cases and Solutions now carry an on-screen note that they must be testimonials about Corporate DNA rather than generic client corporate quotes, and that they require CDNA approval before publishing. **Done**.
+1. **Case header band is now editable** → every case can carry *Countries · Participants/Leaders · Reach/Scale · Intervention · Impact*, and the case page opens with them before the story, exactly in that order. Slots left blank simply do not appear. **Done — ready for your team to fill in.**
+2. **The five Solution blocks are now editable** → each Solution page is structured as *The Challenge → The Outcome → How Corporate DNA Helps → Evidence → Start a Conversation*, with a field to nominate the one flagship case per Solution. The old free-form body is retained but demoted to "further detail (optional)", with a note in the editor that the brief asks for radically shorter pages. **Done — ready for re-authoring.**
+3. **Three new content areas** → Partnerships (item 12), the running ticker (item 17) and individual client testimonial videos (item 13) are now manageable in the content system with the fields the brief specifies. Partnerships requires the "what this partnership enables for our clients" answer, because the brief is explicit that a logo or an announcement is not enough. **Done — ready for content.**
+4. **Team Climate Assessment removed** from "Proprietary frameworks and diagnostics we own" → it is no longer presented as proprietary IP. This also closes the "name & overview pending CDNA confirmation" flag it had carried since 06-08. **Done**.
+5. **Quote guidance built into the editor** → the quote fields on cases and Solutions now carry an on-screen note that they must be testimonials about Corporate DNA rather than generic client corporate quotes, and that they require CDNA approval before publishing. **Done**.
+6. **Navigation, first pass** → "Home" now appears as an explicit item alongside the clickable logo; "Solutions" is now "Our Solutions"; "Our Books" is promoted to top level and pluralised. The four areas that still need pages are deliberately held back rather than shipped as menu items that open empty pages. **Done**.
 
 **Homepage layout — with Guli, not yet on the site:**
 
 The homepage hierarchy the brief calls for — the "Keeping Leadership Real" headline, a short visual treatment of *real pressures, real politics, real choices, real judgement, real people, real consequences*, and proof moving ahead of explanation — is composition, not content. Guli will propose it and agree it with you before it is applied, so the published homepage is unchanged for now. The compiled testimonial video (item 13) therefore also stays up until that pass lands, since removing it changes the page's shape.
 
-**Requires design**
+One practical note for the design pass: the content structure above **fixes how many fields exist**. The case band has exactly five values and a Solution page has exactly five blocks, both in the order the brief sets. A design built around a different number of slots would have no content behind it.
 
 ---
 
@@ -118,34 +118,36 @@ The calendar, because it drives everything below:
 | | |
 | :---- | :---- |
 | Thu 27 Aug | Brief received |
-| Fri 28 Aug | |
+| **Fri 28 Aug** | **Guli finalises the design questions and submits the screens for CDNA approval** |
 | Sat 29 – Sun 30 Aug | Weekend |
-| Mon 31 Aug | Screens submitted for CDNA approval |
-| Tue 1 Sep | **Launch** — and the day of the review |
+| Mon 31 Aug | The only working day available for approval, implementation and QA |
+| Tue 1 Sep | **Launch** |
 
-For the new visual expression to be live on 1 September, the chain is: design → CDNA approval (the brief is explicit that nothing reaches production without it, and Rhea holds final say on brand) → implementation → QA → deploy. If approval lands on the Tuesday, there is no day left to implement. Working backwards, we would need **approved** screens by Friday 28 — that is, design delivered today. This is calendar arithmetic, not a question of effort.
+Guli delivering on the Friday is the best case available, and it puts the visual work genuinely in play — which would not have been true had the screens arrived on the Monday. What decides 1 September now is no longer his speed. It is three things outside his control.
 
-Two factors reinforce it. First, the approval cycle is not typically a single day — the list we sent on 06 August has been open for three weeks. Second, and more significant: **content blocks before design does.** Even with approved screens, we would still be missing the Partnerships copy (which the brief itself marks as not yet validated), the team photography, the two TBC flagship cases, and the re-authoring of the eight Solutions.
+**First, your approval turnaround.** The brief is explicit that nothing reaches production without CDNA sign-off, and Rhea holds final say on brand. Approving a full set of screens over a weekend is a real ask, and the list we sent on 06 August has been open for three weeks. If sign-off lands during Monday, we have part of one working day to implement, QA and deploy the visual pass. Some of it fits in that window; the whole redesign — homepage hierarchy, the Solutions visual system, the 5H as one visual language, Our Clients, Our Impact and the team treatment — does not.
 
-We therefore propose treating 1 September as an **architecture and content** release, with the visual redesign as a second milestone.
+**Second, content blocks before design does.** Approved screens do not produce the Partnerships copy (which the brief itself marks as not yet validated), the team photography, the two TBC flagship cases, or the re-authored eight Solutions. Those pages cannot go live without their content whatever the design says.
+
+**Third, the domain cutover.** `corporatednaconsulting.com` still serves the previous site; what has been under review is a staging URL. If "launch" means pointing the live domain at the new platform, that is a DNS change plus verification of the legacy redirects against real traffic — and the DNS questions are still being worked through on our side. This has not appeared in any status document before now, and it belongs on the critical path.
+
+We therefore propose treating 1 September as an **architecture and content** release, with the visual redesign following as a second, closely-spaced milestone.
 
 **Wave 1 — 1 September**
 
-New proposition and copy (delivered), proof reordering (delivered), the new information architecture, the eight Solutions in the short five-block format, the case header fields (Countries → Participants → Reach → Intervention → Impact), the removals already made (Team Climate Assessment, compiled video), the running ticker and the Our Clients logo wall. Running on the current visual system.
+The new information architecture, the eight Solutions in the short five-block format, the case header fields (Countries → Participants → Reach → Intervention → Impact), the Team Climate Assessment removal, the running ticker and the Our Clients logo wall — plus whatever of Guli's design is approved in time and safe to apply. Running on the current visual system where it is not.
 
 Navigation live, with real content behind every item: `Home | Our Identity | Our Solutions | Our Approach | Our Clients | Our Impact | Our Books`.
 
 `Our Partnerships` and `Our Team` will have their routes built and held out of the menu, going live as soon as validated text and photography arrive — with no further architecture work. Publishing the full navigation on day one would mean menu items that open empty pages, which is the opposite of "Does this feel unmistakably CorporateDNA?"
 
-**Wave 2 — date to be set**
+**Wave 2 — the week of 1 September**
 
-The 5H as a single visual system, the Solutions black boxes / coloured bars, Our Impact, and the team treatment. The date follows from design delivery plus your approval time — not from our build time. Everything structural will be ready to receive the design, so it becomes application rather than construction.
+Whatever of the visual pass does not clear approval and implementation in time: the 5H as a single visual system, the Solutions black boxes / coloured bars, Our Impact and the team treatment. Everything structural is already built to receive it, so this is application rather than construction — which is why wave 2 sits days behind wave 1, not weeks.
 
-Guli has already been asked to start looking at this. The one piece still missing to set the date is his committed delivery date for the screens.
+**To be clear on what wave 1 is not:** 1 September will not look identical to today. The ticker, the logo wall and the reduction of text and scrolling (item 16) are real visual gains, and any approved screens land on top of them.
 
-**To be clear on what wave 1 is not:** 1 September will not look identical to today. The ticker, the logo wall and the reduction of text and scrolling (item 16) are real visual gains that do not depend on new screens.
-
-If CDNA prefers to hold everything for a single release, or to keep the full nine-item navigation on day one with partial pages, those are your calls — we would rather not take them unilaterally.
+**What we need from you to hold the date:** sign-off on Guli's screens as early on Monday as possible, and a decision on whether 1 September includes the domain cutover or is a staging release with the domain following. If CDNA prefers to hold everything for a single complete release instead, that is equally workable — it is your call, and we would rather not take it unilaterally.
 
 ---
 

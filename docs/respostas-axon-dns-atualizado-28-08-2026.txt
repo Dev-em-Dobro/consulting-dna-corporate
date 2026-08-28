@@ -1,0 +1,328 @@
+
+Guilherme Mendes
+09:38 (há 36 minutos)
+para mim
+
+Bom dia! Poderia dar uma olhada no que precisamos fazer? São dois e-mails… já mando o outro… muito obrigado 🙏🏼
+Sent from my iPhone
+
+Begin forwarded message:
+
+From: Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Date: 28 August 2026 at 08:19:00 GMT-4
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Subject: Fwd: Gentle Reminder – Website Hosting & Domain Renewal / Migration Planning
+
+﻿
+Kind regards
+
+Jp
+
+Begin forwarded message:
+
+From: Mike Jackson <mike.jackson@corporatednaconsulting.com>
+Date: 19 August 2026 at 2:45:31 PM SGT
+To: Finance <finance@corporatednaconsulting.com>
+Cc: Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Subject: Re: Gentle Reminder – Website Hosting & Domain Renewal / Migration Planning
+
+﻿
+Thanks for forwarding Yvonne, let me have a chat with JP on this when I'm back from holiday.
+Cheers
+Mike
+From: Finance <finance@corporatednaconsulting.com>
+Sent: Wednesday, August 19, 2026 4:42 AM
+To: Mike Jackson <mike.jackson@corporatednaconsulting.com>
+Subject: FW: Gentle Reminder – Website Hosting & Domain Renewal / Migration Planning
+ 
+Hi Mike,
+
+ 
+
+FYI on the below - forwarding this to you as I remember you told Axon last year that you had taken over from Aman, they can write to you and cc Jp.
+
+ 
+
+I am not sure who initiated the said request with Axon, though I saw Maliha being copied - Rhea got the email as she is the registered contact person for the Axon acct, but they sent to her old email address.
+
+ 
+
+Thanks and regards,
+
+ 
+
+Yvonne
+
+ 
+
+www.CorporateDNAConsulting.com
+
+image001.png
+
+ 
+
+ 
+
+ 
+
+From: Rico @ Axon <rico.m@axon.com.sg>
+Sent: Wednesday, 19 August 2026 6:59 am
+To: Rhea Leckie <rhea.leckie@corporatednaconsulting.com>
+Cc: Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>; Finance <finance@corporatednaconsulting.com>; amit@axon.com.sg
+Subject: Gentle Reminder – Website Hosting & Domain Renewal / Migration Planning
+
+ 
+
+You don't often get email from rico.m@axon.com.sg. Learn why this is important
+
+Dear Rhea,
+
+Good morning.
+
+Just a gentle reminder regarding Corporate DNA’s website hosting and domain arrangements.
+
+Amit has provided full assistance regarding your request to consider a new provider for the website and/or domain. We have already provided the necessary Cloudflare access, and the domain EPP/transfer code was sent by the registrar directly to you, as you are the registered administrative contact for the domain.
+
+Axon would of course be happy to continue hosting Corporate DNA. However, if you decide to migrate to another provider, we would strongly recommend planning this well in advance rather than close to the renewal date.
+
+For a smooth transition:
+
+Website hosting: Please begin the migration at least one month before the hosting expiry/renewal date. This gives sufficient time for migration, DNS changes, testing and troubleshooting, and also allows us to avoid raising or proceeding with the next hosting renewal invoice where applicable.
+Domain name: If you intend to transfer the domain away from Axon, please start the transfer approximately five weeks before expiry. Domain registrars may restrict or delay transfers when they are initiated too close to the expiry date.
+You are also welcome to keep the domain registration with Axon while hosting the new website elsewhere. Alternatively, you may continue both the domain and hosting with Axon, including hosting a newly developed website. The choice is entirely yours; our main recommendation is simply to make the decision early so everything can be handled smoothly.
+
+For reference, the previous renewal records provided are:
+
+Domain – corporatednaconsulting.com
+Invoice #9170
+Amount: S$22.00
+Due date: 22 October 2025
+
+Website Hosting
+Invoice #9143
+Amount: S$550.00
+Due date: 30 September 2025
+
+I would also like to clarify one point regarding the previous website downtime.
+
+We fully understand your concerns based on the past experience. However, the existing Corporate DNA website is an older website with outdated components and vulnerabilities, which makes it more susceptible to hacking, malware and code injection. Most hosting providers would normally suspend a compromised website to protect the server and other customers.
+
+In this case, Axon went beyond the normal hosting scope to assist in cleaning and restoring the website and keeping it operational, including dealing with the attacks, without additional charges at that time.
+
+The issue was therefore not caused by the hosting server itself, but rather by vulnerabilities within the older website/application.
+
+Regardless of which direction Corporate DNA decides to take, we will cooperate fully and assist with the necessary handover. We simply ask that the migration or domain transfer is arranged well before the renewal/expiry date so that we can avoid last-minute complications or unnecessary downtime.
+
+If you or Maliha have any questions or require any information from us for the migration, please feel free to drop us a note.
+
+Best regards,
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+YouTube: https://www.youtube.com/@NoHypeTechAmit
+
+
+Email 2 
+
+Guilherme Mendes
+09:39 (há 41 minutos)
+para mim
+
+Email 2
+Sent from my iPhone
+
+Begin forwarded message:
+
+From: Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Date: 28 August 2026 at 08:18:19 GMT-4
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Subject: Fwd: CORPDNA - [Confirmation] Account invitation accepted
+
+﻿
+Kind regards
+
+Jp
+
+Begin forwarded message:
+
+From: Mike Jackson <mike.jackson@corporatednaconsulting.com>
+Date: 28 August 2026 at 6:48:51 PM SGT
+To: Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Subject: Fw: CORPDNA - [Confirmation] Account invitation accepted
+
+﻿
+I know you've got a lot on but just wanted to check in on this mail from Weida as I'm out of the loop on all things website.
+Cheers
+Mike 
+From: Tay Weida <weidatay@eztech.com.sg>
+Sent: Wednesday, August 26, 2026 2:39 AM
+To: Carol Medcalf <Carol.Medcalf@corporatednaconsulting.com>; Mike Jackson <mike.jackson@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Subject: RE: CORPDNA - [Confirmation] Account invitation accepted
+ 
+Hi Carol
+
+ 
+
+One of the thing raised by Amit in his email regarding the domain. It was decided at the start (when I took over) that we will continue to renew the corporatednaconsulting.com domain name with him (Axon).
+
+ 
+
+Thank You and Best Regards, 
+
+Tay Weida
+
+IT Consultant                     
+
+                                                                                                                                                                                                                                                                                                                                  
+
+Eztech Services Pte Ltd
+
+19 Jalan Kilang Barat, #06-04
+
+Acetech Centre, Singapore 159361                                               
+
+Mobile: (65) 9018 2219
+
+Phone: (65) 6272 3533
+
+Fax     : (65) 6272 3633
+
+Email : weidatay@eztech.com.sg
+
+ 
+
+From: Allison Vickery (CEO Office) <Allison.Vickery@corporatednaconsulting.com>
+Sent: Tuesday, 25 August 2026 7:11 pm
+To: Mike Jackson <mike.jackson@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>
+Cc: Tay Weida <weidatay@eztech.com.sg>
+Subject: FW: CORPDNA - [Confirmation] Account invitation accepted
+
+ 
+
+Hello,
+
+This was in Alli’s inbox, but not sure of the tech issues behind it.
+
+Is there someone who can take over this side of things now Alli has officially left
+
+I need to redirect her mail and change log ins and contact details
+
+ 
+
+ 
+
+Thank you
+
+ 
+
+Kind regards
+
+ 
+
+Carol
+
+ 
+
+www.CorporateDNAConsulting.com
+
+ 
+
+image001.png
+
+ 
+
+ 
+
+From: Amit @ Axon 1ProIT <amit@axon.com.sg>
+Sent: 13 August 2026 01:51
+To: Cloudflare <noreply@notify.cloudflare.com>; gemeos <gemeos@devemdobro.com>; Rhea Leckie <rhea.leckie@corporatednaconsulting.com>; Allison Vickery (CEO Office) <Allison.Vickery@corporatednaconsulting.com>
+Subject: Re: CORPDNA - [Confirmation] Account invitation accepted
+
+ 
+
+You don't often get email from amit@axon.com.sg. Learn why this is important
+
+Dear GeMEOS
+
+Glad you have accepted, kindly do not turn off under attack in Cloudfalre while it is still pointing to Axon Server please..as this was under major attack, refer to cloudfalre
+
+Once you have pointed A records out..let me know so I can disconner on my server
+
+Now that you have full control
+
+As for domain it is under Axon, EPP code can be send to admin contact allison.vickery@corporatednaconsulting.com by registrar 
+or client can decide to keep domain at Axon ...
+
+Thank you
+
+
+Amit
+axon.com.sg
+
+ 
+
+On Thu, Aug 13, 2026 at 8:27 AM Cloudflare <noreply@notify.cloudflare.com> wrote:
+
+Invited by gemeos@devemdobro.com. You can manage their permissions now. ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏
+
+Cloudflare logo
+
+ 
+
+A new member has joined your account
+
+ 
+
+gemeos@devemdobro.com has accepted the invitation to access your account. To modify their permissions, revoke access, or add additional collaborators, update your account members.
+
+ 
+
+Manage account members
+
+ 
+
+Why am I receiving this email?
+You received this because gemeos@devemdobro.com accepted an invitation to join your account.
+
+ 
+
+Resources
+
+Account roles
+Manage account members
+ 
+
+ 
+
+Copyright © 2026 Cloudflare, Inc.
+101 Townsend Street, San Francisco, CA 94107
+
+www.cloudflare.com  |  Community  |  Privacy Policy
+
+Facebook
+
+X
+
+LinkedIn
+
+
+
+Warm Regards
+
+Amit Kumar
+amit@axon.com.sg
+
+
+AXON 1proIT Solutions 
+Tech Support Partner : OnePro IT Solutions
+
+AI and Web: axon.com.sg | axon1pro.com
+Domain and Hosting :1ProIT.com | 1ProHost.com
+
+Customer Support 
+Click --> Whatsapp Support 

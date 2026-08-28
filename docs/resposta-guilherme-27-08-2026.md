@@ -58,36 +58,45 @@ site e vocês revisarem já implementado. A home publicada segue como está até
 Antes da proposta, a conta do calendário — porque ela é o que motiva tudo abaixo:
 
 ```
-qui 27  hoje, brief recebido
-sex 28
+qui 27  brief recebido
+sex 28  Guli fecha o design e manda pra aprovação de vocês  ← hoje
 sáb 29  ─ fim de semana
 dom 30  ─
-seg 31  telas para aprovação da CDNA
-ter  1  LANÇAMENTO — e dia da revisão
+seg 31  único dia útil pra aprovar, implementar e testar
+ter  1  LANÇAMENTO
 ```
 
-Para a nova expressão visual entrar no dia 01, a cadeia é: Guli desenha → CDNA aprova (o brief é
-explícito, *nada vai para produção sem aprovação*, e a Rhea tem palavra final em marca) → a gente
-implementa → QA → deploy. Se a aprovação acontece na terça, não sobra dia para implementar.
-Invertendo a conta: precisaríamos de telas **já aprovadas** na sexta 28 — ou seja, o Guli
-entregando hoje. Não é uma questão de esforço, é aritmética de calendário.
+O Guli entregar hoje é o melhor cenário possível e coloca a parte visual de fato em jogo — o que
+não seria verdade se as telas chegassem na segunda. Só que o que decide o dia 1º deixou de ser a
+velocidade dele. São três coisas fora do controle dele.
 
-Dois fatores reforçam isso. Primeiro, o ciclo de aprovação da CDNA não costuma ser de um dia — a
-lista que enviamos em 06/08 está aberta há três semanas. Segundo, e mais importante: **conteúdo
-trava antes do design**. Mesmo com telas aprovadas, faltariam a copy das Partnerships (que o
-próprio brief classifica como não validada), as fotos do time, os dois flagship TBC e a reautoria
-das oito Solutions no CMS.
+**Primeiro, o tempo de aprovação de vocês.** O brief é explícito que nada vai para produção sem
+aprovação, e a Rhea tem palavra final em marca. Aprovar um conjunto completo de telas ao longo de
+um fim de semana é um pedido real, e a lista que enviamos em 06/08 está aberta há três semanas. Se
+o sign-off sair ao longo da segunda, sobra parte de um dia útil para implementar, testar e
+publicar. Parte da passada visual cabe nisso; o redesenho inteiro — hierarquia da home, sistema das
+Solutions, 5H como linguagem única, Our Clients, Our Impact e o tratamento do time — não cabe.
+
+**Segundo, conteúdo trava antes do design.** Tela aprovada não produz a copy das Partnerships (que
+o próprio brief classifica como não validada), as fotos do time, os dois flagship TBC nem a
+reautoria das oito Solutions. Essas páginas não sobem sem conteúdo, independente do que o design
+diga.
+
+**Terceiro, o cutover do domínio.** O `corporatednaconsulting.com` ainda serve o site anterior; o
+que vocês têm revisado é uma URL de staging. Se "lançar" significa apontar o domínio para a
+plataforma nova, isso é mudança de DNS mais verificação dos redirects legados contra tráfego real —
+e as questões de DNS ainda estão sendo analisadas do nosso lado. Isso não apareceu em nenhum status
+até agora e precisa entrar no caminho crítico.
 
 Por isso propomos tratar 01/09 como um release de **arquitetura e conteúdo**, e o redesenho visual
 como um segundo marco:
 
 **Onda 1 — 01 de setembro**
 
-Nova proposition e copy (já feito), proof reordenado (já feito), nova arquitetura de informação,
-estrutura das oito Solutions no formato curto de cinco blocos, campos da faixa de case
-(Countries → Participants → Reach → Intervention → Impact), remoções já executadas (Team Climate
-Assessment e vídeo compilado), ticker e logo wall de Our Clients. Rodando sobre o sistema visual
-atual.
+Nova arquitetura de informação, estrutura das oito Solutions no formato curto de cinco blocos,
+campos da faixa de case (Countries → Participants → Reach → Intervention → Impact), remoção do Team
+Climate Assessment do bloco de IP, ticker e logo wall de Our Clients — mais o que das telas do Guli
+for aprovado a tempo e seguro de aplicar. Onde não for, roda sobre o sistema visual atual.
 
 Navegação no ar, com conteúdo real atrás de cada item:
 `Home | Our Identity | Our Solutions | Our Approach | Our Clients | Our Impact | Our Books`.
@@ -97,25 +106,23 @@ texto validado e fotos chegarem — sem novo trabalho de arquitetura. Publicar a
 01 significaria entregar itens de menu que abrem página vazia, o oposto do "Does this feel
 unmistakably CorporateDNA?".
 
-**Onda 2 — data a definir**
+**Onda 2 — na mesma semana do dia 1º**
 
-5H como sistema visual único, black boxes / coloured bars de Solutions, Our Impact e o tratamento
-do time. A data sai da entrega do Guli mais o tempo de aprovação de vocês — não do nosso tempo de
-build. Do nosso lado, tudo que é estrutura estará pronto para receber o design: quando as telas
-chegarem, é trabalho de aplicação, não de construção.
-
-Já mandamos mensagem para o Guli pedindo que ele comece a olhar isso desde já, para não perder
-tempo enquanto o resto se organiza. O que falta para fechar a data é uma informação só: **Guli,
-que data você consegue comprometer para as telas?** Com ela a gente monta o cronograma da onda 2
-no mesmo dia.
+O que da passada visual não passar pela aprovação e pela implementação a tempo: 5H como sistema
+visual único, black boxes / coloured bars de Solutions, Our Impact e o tratamento do time. Do nosso
+lado tudo que é estrutura já está construído para receber o design — por isso a onda 2 fica dias
+atrás da onda 1, não semanas.
 
 Uma ressalva para não passar pessimismo: o dia 01 não fica visualmente igual ao de hoje. O ticker,
-o logo wall e a redução de texto e scroll do item 16 são ganhos visuais reais que não dependem de
-tela nova.
+o logo wall e a redução de texto e scroll do item 16 são ganhos visuais reais, e o que for aprovado
+das telas entra por cima disso.
 
-Se vocês preferirem manter tudo em 01/09 mesmo com páginas parciais, ou empurrar a data do
-lançamento para acomodar as duas ondas juntas, são decisões de vocês — só não queremos tomá-las
-por conta própria.
+**O que precisamos de vocês para segurar a data:** aprovação das telas do Guli o mais cedo possível
+na segunda, e uma definição sobre se 01/09 inclui o cutover do domínio ou é um lançamento em
+staging com o domínio vindo depois.
+
+Se preferirem segurar tudo para um lançamento único e completo, funciona igual — é decisão de
+vocês, só não queremos tomá-la por conta própria.
 
 ## 4. O que trava do lado da CDNA
 
