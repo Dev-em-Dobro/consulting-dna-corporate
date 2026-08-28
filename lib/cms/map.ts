@@ -384,6 +384,38 @@ export async function getSolutionCards(): Promise<SolutionCard[]> {
   }));
 }
 
+/**
+ * One Solution on the index, led by its outcome (27-08 brief, item 5): the
+ * listing should say what changes for the client, not just name the service.
+ *
+ * `outcome` is the block authored on the Solution page, reduced to plain text —
+ * the index needs one line, not a rich-text body. `problemStatement` comes
+ * along as the fallback lead for solutions authored before the field existed.
+ *
+ * This costs one fetch per solution, which is why it is separate from
+ * `getSolutionCards`: the nav dropdown needs names only and must stay cheap.
+ */
+export type SolutionIndexEntry = {
+  slug: string;
+  title: string;
+  outcome?: string;
+  problemStatement?: string;
+};
+
+export async function getSolutionIndexEntries(): Promise<SolutionIndexEntry[]> {
+  const cards = await getSolutionCards();
+  const entries = await Promise.all(cards.map((c) => getSolution(c.slug)));
+  return cards.map((c, i) => {
+    const s = entries[i];
+    return {
+      slug: c.slug,
+      title: c.title,
+      outcome: plainText(s?.outcome)?.trim() || undefined,
+      problemStatement: s?.problemStatement?.trim() || undefined,
+    };
+  });
+}
+
 // ---- Partnerships / ticker / testimonial videos (27-08 brief) --------------
 
 /** Our Partnerships (item 12): what each relationship enables for clients. */

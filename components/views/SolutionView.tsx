@@ -96,7 +96,8 @@ export default function SolutionView({ s }: { s: SolutionVM }) {
   return (
     <>
       <PageHero
-        eyebrow="Solutions"
+        // Renamed with the area (27-08 brief, item 3).
+        eyebrow="Our Solutions"
         title={s.title}
         subtitle={s.problemStatement}
         bgImageUrl={s.bannerUrl ?? s.coverUrl}
