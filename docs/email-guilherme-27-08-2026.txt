@@ -1,0 +1,270 @@
+Fala, Beto e Cadu, Blz? Desculpa a demora mas tinha gente em ferias... vamo la....
+Agora fechamos a revisão final com a Rhea e o time e também confirmamos os 8 core Solutions. Portanto, gostaria que este e-mail passasse a ser o single source of truth para a próxima versão do website.
+Onde houver conflito com algum direcionamento anterior de conteúdo, arquitetura ou design, vale este.
+Importante: não estamos voltando ao site antigo nem descartando o excelente trabalho técnico que já foi feito. Queremos preservar toda a nova fundação — arquitetura headless, CMS, segurança, performance, SEO, analytics, componentes, Resources, multilingual readiness etc. — e ajustar information architecture, storytelling, content hierarchy and visual expression.
+O princípio definido pela Rhea é:
+Don’t reinvent CorporateDNA. Modernise and sharpen what already makes CorporateDNA distinctive.
+E queremos que toda a experiência transmita:
+Real leadership. Real conversations. Real choices. Real decisions. Real client evidence. Real people. Real impact.
+Nosso target agora é September 1, então vamos separar claramente o que é necessário para esse lançamento do que pode continuar evoluindo depois.
+1. Homepage — nova hierarquia
+A principal proposition passa a ser:
+KEEPING LEADERSHIP REAL
+Working copy aprovada como direção:
+Keeping Leadership Real
+We help CEOs, CHROs & CLOs build real leadership when the stakes are high — through real conversations, real choices and real decisions that deliver in the moments that matter.
+O atual:
+When the stakes are high, leadership must become real.
+pode continuar na narrativa, mas não como primary headline. “High stakes” passa a explicar por que Keeping Leadership Real importa.
+Manter/refinar também:
+Making Leadership Real. Results, Not Promises.
+A primeira tela precisa deixar imediatamente evidente:
+CEOs, CHROs & CLOs
+e responder rapidamente:
+What leadership problem do you solve for me?
+Why does it matter?
+Why should I believe CorporateDNA can solve it?
+Precisamos explicar Keeping Leadership Real de maneira curta e visual, trazendo:
+real pressures, real politics, real choices, real judgement, real people and real consequences.
+2. Proof muito mais cedo
+Reorganizar a homepage e páginas principais para trazer evidence antes.
+O 90% Chairman/CXO-sponsored work deve aparecer antes de 18 years, porque é mais diferenciador para nosso público.
+Client logos, strong testimonials, metrics e proof também devem aparecer cedo.
+Como princípio:
+Claim → Proof → Explanation
+e não long explanation antes de proof.
+3. Navegação final
+Usar:
+Home | Our Identity | Our Solutions | Our Approach | Our Partnerships | Our Clients | Our Impact | Our Team | Our Books
+Home deve aparecer explicitamente, além da logo clicável.
+Separar claramente:
+Our Clients
+breadth of relationships + logo portfolio + flagship client stories
+Our Impact
+measurable results + testimonials + evidence + impact stories
+E:
+Our News → Our Partnerships
+Our Book → Our Books
+Our Books deve permitir livros de diferentes membros do time no futuro.
+4. Our Identity
+Manter Our Identity como seção própria e forte.
+Incluir:
+Our Purpose
+Our Story
+Our Values
+Keeping Leadership Real
+London origin story
+founder point of view
+5H as part of our identity
+A história de London deve entrar naturalmente na company story, não como founder quote isolada.
+Preservar também a ideia de que nosso papel como consultants é:
+cut through complexity, connect the present and deliver the truth — real problems and real solutions.
+O 5H pode ser referenciado aqui como parte de who we are, mas a explicação completa permanece em Our Approach.
+5. Our Solutions — nomes agora CONFIRMADOS
+Estes são os 8 core Solutions e passam a ser a arquitetura oficial:
+ExCo / Top 150
+Culture Transformation
+Talent Development
+Manager Development
+Women in Leadership
+High Performing Teams
+HRLT Effectiveness
+Executive Coaching
+Portanto:
+retirar Inclusion & Diversity como core Solution;
+retirar Asian Talent Development como core Solution;
+qualquer conteúdo útil dessas páginas pode ser incorporado nas oito acima.
+Visualmente, queremos recuperar a força dos black boxes / coloured bars do site antigo, ou uma interpretação moderna dessa lógica.
+Mais importante: reduzir radicalmente o tamanho das páginas de Solutions.
+Cada página deve responder:
+Is this the solution to my problem?
+Sugiro uma estrutura consistente:
+The Challenge
+Problema reconhecível pelo CEO/CHRO.
+The Outcome
+O que muda no negócio/liderança.
+How CorporateDNA Helps
+Descrição curta da intervenção.
+Evidence
+Flagship client + metrics + testimonial.
+Start a Conversation
+Sem long roadmaps, excessive tools, scoping methodology ou IP desnecessário.
+6. Flagship cases — um por Solution
+Queremos associar one flagship case to each core Solution.
+Working mapping:
+ExCo / Top 150 → Heineken
+Culture Transformation → GSK
+Talent Development → Frasers Property
+Manager Development → TBC
+Women in Leadership → Shell
+High Performing Teams → GSK
+HRLT Effectiveness → adidas
+Executive Coaching → TBC
+Manager Development e Executive Coaching serão confirmados pela CDNA.
+GSK pode aparecer em mais de uma Solution se forem intervenções claramente diferentes.
+Não usar industry dropdown como principal lógica de descoberta dos cases.
+7. Case-study format
+Recuperar a lógica forte do site antigo, modernizada.
+Cada case deve começar visualmente com:
+Countries → Participants/Leaders → Reach/Scale → Intervention → Impact
+Depois entra a história.
+Queremos menos prose e mais evidence visual.
+Muito importante: quotations devem ser testimonials about CorporateDNA and our work, e não generic client corporate quotes.
+Quotes como John Murphy e Jorge Gardino são exemplos do tipo de proof que queremos destacar.
+Nenhum nome, logo, quote ou metric vai para production sem CDNA approval.
+8. Our Clients
+Trazer de volta uma forte client logo wall / portfolio snapshot.
+Objetivo: mostrar imediatamente breadth, scale and calibre.
+Depois do logo wall, apresentar os flagship client stories relacionados às oito Solutions.
+Logo wall = immediate credibility
+Client stories = depth
+9. Our Impact
+Criar/manter como área separada de Our Clients.
+Priorizar:
+measurable results;
+impact statistics;
+client testimonials;
+programme outcomes;
+impact stories;
+evidence across regions.
+Queremos uma página muito visual: numbers, quotes, proof blocks, dashboards.
+Pouco long-form copy.
+10. Our Approach / 5H
+Manter o 5H wheel e as 25 dimensions.
+Isso é proprietary IP importante.
+Mas precisamos redesenhar a introdução e criar:
+one coherent visual language around the 5H
+Hoje alguns elementos parecem desconectados, inclusive o highlighting de um H sem explicação e a DNA-strand imagery.
+Guli, precisamos que:
+5H wheel;
+Inner Game / Outer Game;
+five Hs;
+25 dimensions;
+pareçam partes do mesmo visual system.
+11. Proprietary Frameworks & Diagnostics
+Criar/manter:
+Proprietary Frameworks & Diagnostics We Own
+Importante: não incluir Team Climate Assessment como proprietary IP.
+Não inventar outros nomes ou claims.
+Deixem a estrutura preparada e vamos preencher apenas com frameworks/diagnostics validados pela CDNA.
+12. Our Partnerships
+Criar:
+Our Partnerships
+Working examples:
+Harvard
+Imperial
+Emeld AI / AI Coaching
+Explore Performance / Simulations
+TerraGrin
+other validated strategic relationships
+Para cada partnership, o conteúdo deve responder:
+What does this partnership enable for our clients?
+Não queremos apenas logos ou announcements.
+Nomes e textos finais ainda serão validados.
+13. Client testimonial videos
+Remover o compiled testimonial video atual do public website.
+Em vez disso, criar uma estrutura modular para individual client testimonial videos.
+Initial candidates:
+Yolanda / Heineken
+Andrew Morovski
+Sonali
+Fred / adidas
+Evitar over-representation de um único cliente.
+Também estamos buscando três novos testimonials, incluindo:
+Dyson
+adidas
+one additional client — TBC
+Esses três novos vídeos não devem bloquear o September 1 launch.
+A estrutura precisa permitir adicionar novos vídeos facilmente pelo CMS.
+14. CorporateDNA video
+O antigo Heineken/founder video deverá ser substituído por um novo contemporary CorporateDNA video, centrado em:
+Keeping Leadership Real
+A estrutura pode ser preparada agora, mas a produção do novo vídeo não bloqueia o lançamento.
+15. Our Team
+A prioridade passa a ser:
+human credibility
+e não apenas photographic consistency.
+Direção:
+strong group photograph of the six-person leadership team;
+potentially on the stairs;
+black-and-white individual portraits;
+natural expressions/body language;
+clickable profiles;
+personality and “vibe”, not only credentials.
+Até recebermos os novos assets, evitar tratamentos que façam as pessoas parecerem artificialmente uniformes ou AI-generated.
+A CDNA confirmará também a lista final de quem deve aparecer.
+16. Visual direction geral
+Reduce:
+Long text blocks
+Endless scrolling
+Excessive white space
+Repetitive layouts
+Generic stock/AI-looking presentation
+Increase:
+Visual dashboards
+Numbers
+Icons
+Divided content blocks
+Strong statistics
+Client logos
+Human photography
+Testimonials
+Diagrams
+Proprietary IP
+More deliberate use of CorporateDNA colour
+Queremos recuperar a visual energy and authority do antigo site sem recriar um design antigo.
+17. Running ticker
+Trazer de volta um running ticker, cobrindo 2023 onwards, com itens como:
+Awards
+New regions
+New offices
+New partnerships
+Significant milestones
+Esse conteúdo deve ser facilmente administrável pelo CMS.
+18. O que deve ser PRESERVADO
+Esta mudança não significa reconstruir a plataforma.
+Preservar todo o trabalho já realizado em:
+headless architecture;
+CMS;
+security;
+Cloudflare/cutover;
+analytics and SEO;
+responsive foundation;
+editable statistics;
+author approval controls;
+Reports & Resources capability;
+proof components;
+multilingual readiness;
+reusable components;
+infrastructure ownership.
+Estamos refinando architecture, hierarchy, storytelling and design, não começando novamente.
+19. Target e forma de execução
+Nosso target agora é:
+September 1 launch
+Isso nos dá uma boa runway para fazer essa última evolução com qualidade.
+Por favor, atualizem o tracker dividindo tudo em:
+Done / preserved
+Can implement immediately
+Requires Guli design
+Requires CDNA content/assets/approval
+Can follow immediately after launch
+Any impact on September 1
+Anything materially outside the agreed scope
+Beto e Cadu, podem avançar imediatamente com tudo que for claro e reversível.
+Guli, gostaria que você priorizasse principalmente:
+homepage visual hierarchy;
+Solutions visual system;
+5H visual language;
+Our Clients / Our Impact;
+Team treatment;
+overall reduction of text/scrolling and recovery of visual energy.
+Eu vou centralizar os remaining CDNA decisions e assets para evitar instruções paralelas.
+A pergunta que deve orientar cada decisão é:
+Does this feel unmistakably CorporateDNA?
+E a experiência que queremos gerar em um CEO, CHRO ou CLO é:
+These people understand the real leadership problems I am dealing with. They have done this before. They have evidence. And there is something distinctly CorporateDNA about how they do it.
+Agora temos a direção, os oito Solutions confirmados e uma boa janela até September 1.
+Vamos executar.
+Obrigado, pessoal!
+Abraço,
+Guilherme
