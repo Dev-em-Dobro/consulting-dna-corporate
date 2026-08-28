@@ -146,14 +146,23 @@ export type CaseArticle = {
   text?: string;             // main body — rich text (HTML)
   videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string;
   resources?: ResourceLink[];
+  // Header band shown before the story (27-08 brief, item 7). Only the filled
+  // slots render, so a partially-authored case degrades to fewer cells.
+  facts: CaseFact[];
   // Legacy structured body, rendered only when a case has no single `text`.
   body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
 };
+/** One cell of the case header band: a label from the brief and its value. */
+export type CaseFact = { label: string; value: string };
 export type SolutionCard = { slug: string; title: string };
 /** A client-proof quote surfaced on a solution page ("Client Perspective"). */
 export type ProofRef = { quote: string; author?: string; role?: string; caseSlug?: string };
 export type SolutionVM = {
   slug: string; title: string; problemStatement?: string; body?: string;
+  // The 27-08 brief's five blocks: problemStatement is "The Challenge";
+  // `outcome` and `howWeHelp` are its middle two; evidence comes from
+  // `flagshipCaseSlug` + `proofRefs`; the CTA closes the page.
+  outcome?: string; howWeHelp?: string; flagshipCaseSlug?: string;
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
   proofRefs?: ProofRef[];
   resources?: ResourceLink[];
@@ -244,6 +253,31 @@ export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Pro
   }));
 }
 
+/**
+ * Build the case header band (27-08 brief, item 7) in the brief's fixed order:
+ * Countries → Participants/Leaders → Reach/Scale → Intervention → Impact.
+ * Blank slots are dropped rather than rendered empty, so a case that has only
+ * some of the figures still shows a coherent band instead of gaps. Returns an
+ * empty array when none are authored, and the band is skipped entirely.
+ */
+function caseFacts(d: {
+  countries?: string; participants?: string; reach?: string;
+  intervention?: string; impact?: string;
+}): CaseFact[] {
+  return (
+    [
+      { label: "Countries", value: d.countries },
+      { label: "Participants / Leaders", value: d.participants },
+      { label: "Reach / Scale", value: d.reach },
+      { label: "Intervention", value: d.intervention },
+      { label: "Impact", value: d.impact },
+    ] as const
+  ).flatMap(({ label, value }) => {
+    const v = plainText(value)?.trim();
+    return v ? [{ label, value: v }] : [];
+  });
+}
+
 function mapCase(raw: unknown): CaseArticle | null {
   const r = S.caseEntry.safeParse(raw);
   if (!r.success) return null;
@@ -263,6 +297,7 @@ function mapCase(raw: unknown): CaseArticle | null {
     mutedVideoUrl: d.mutedVideoUrl,
     coverUrl: d.coverUrl,
     resources: mapResources(d.resources),
+    facts: caseFacts(d),
     body: {
       challenge: plainText(d.challenge),
       approach: plainText(d.approach),
@@ -343,6 +378,101 @@ export async function getSolutionCards(): Promise<SolutionCard[]> {
   }));
 }
 
+// ---- Partnerships / ticker / testimonial videos (27-08 brief) --------------
+
+/** Our Partnerships (item 12): what each relationship enables for clients. */
+export type PartnershipVM = {
+  slug: string; title: string;
+  enablesForClients?: string;   // rich text (HTML)
+  logoUrl?: string; websiteUrl?: string;
+};
+
+/** One running-ticker entry (item 17), 2023 onwards. */
+export type TickerEntry = {
+  slug: string; text: string;
+  category?: string; date?: string; linkUrl?: string;
+};
+
+/** An individual client testimonial video (item 13). */
+export type TestimonialVideoVM = {
+  slug: string; name: string;
+  client?: string; role?: string;
+  videoUrl?: string; youtubeUrl?: string; posterUrl?: string; caseSlug?: string;
+};
+
+export async function getPartnerships(): Promise<PartnershipVM[]> {
+  const res = await getList("partnerships");
+  if (!res) return [];
+  const items = parseItems<S.PartnershipListItem>(res.items, S.partnershipListItem);
+  const entries = await Promise.all(
+    items.map((i) => getEntry("partnerships", i.slug)),
+  );
+  return entries.flatMap((raw) => {
+    const r = S.partnershipEntry.safeParse(raw);
+    if (!r.success) return [];
+    const d = r.data.data;
+    return [{
+      slug: r.data.slug,
+      title: plainText(d.title) ?? "",
+      enablesForClients: d.enablesForClients,
+      logoUrl: d.logoUrl,
+      websiteUrl: d.websiteUrl,
+    }];
+  });
+}
+
+/**
+ * Ticker entries, newest first. Rendered straight from the list projection —
+ * no per-entry fetch — because the CMS surfaces category/date/link on the list
+ * item. Items are sorted by the authored event `date` (falling back to the
+ * publication date) and, per the brief, anything before 2023 is dropped.
+ */
+export async function getTickerEntries(): Promise<TickerEntry[]> {
+  const res = await getList("ticker");
+  if (!res) return [];
+  return parseItems<S.TickerListItem>(res.items, S.tickerListItem)
+    .map((t) => ({
+      slug: t.slug,
+      text: plainText(t.title) ?? "",
+      category: plainText(t.category),
+      date: t.date,
+      linkUrl: t.linkUrl,
+      sortKey: t.date ?? t.publishedAt,
+    }))
+    .filter((t) => t.text && (!t.sortKey || t.sortKey >= "2023"))
+    .sort((a, b) => (b.sortKey ?? "").localeCompare(a.sortKey ?? ""))
+    .map(({ sortKey: _sortKey, ...t }) => t);
+}
+
+export async function getTestimonialVideos(): Promise<TestimonialVideoVM[]> {
+  const res = await getList("testimonial-videos");
+  if (!res) return [];
+  const items = parseItems<S.TestimonialVideoListItem>(
+    res.items,
+    S.testimonialVideoListItem,
+  );
+  const entries = await Promise.all(
+    items.map((i) => getEntry("testimonial-videos", i.slug)),
+  );
+  return entries.flatMap((raw) => {
+    const r = S.testimonialVideoEntry.safeParse(raw);
+    if (!r.success) return [];
+    const d = r.data.data;
+    // A video with neither a file nor a YouTube link has nothing to play.
+    if (!d.videoUrl && !d.youtubeUrl) return [];
+    return [{
+      slug: r.data.slug,
+      name: plainText(d.title) ?? "",
+      client: plainText(d.client),
+      role: plainText(d.role),
+      videoUrl: d.videoUrl,
+      youtubeUrl: d.youtubeUrl,
+      posterUrl: d.posterUrl,
+      caseSlug: plainText(d.caseSlug)?.trim() || undefined,
+    }];
+  });
+}
+
 /**
  * Map the CMS `proofRefs` array to the view model. The CMS ships blank/partial
  * placeholder rows (e.g. `{}` or all-empty strings), so drop any ref without a
@@ -369,7 +499,10 @@ function mapSolution(raw: unknown): SolutionVM | null {
     title: plainText(d.title) ?? "",
     // Plain-text slot (hero subtitle) — strip any rich-text markup the CMS emits.
     problemStatement: plainText(d.problemStatement),
-    // body is rendered via <RichText>, so keep its HTML intact.
+    // outcome / howWeHelp / body are rendered via <RichText> — keep HTML intact.
+    outcome: d.outcome,
+    howWeHelp: d.howWeHelp,
+    flagshipCaseSlug: plainText(d.flagshipCaseSlug)?.trim() || undefined,
     body: d.body,
     cta: d.cta ? { label: plainText(d.cta.label), href: d.cta.href } : undefined,
     coverUrl: d.coverUrl,

@@ -71,6 +71,25 @@ export default function CaseView({ c }: { c: CaseArticle }) {
           <h1 className="text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
             {c.title}
           </h1>
+          {/* Header band — the 27-08 brief (item 7) asks every case to open with
+              Countries → Participants/Leaders → Reach/Scale → Intervention →
+              Impact, and only then the story. Evidence before prose. Rendered on
+              the existing bordered-grid pattern; the visual treatment is Guli's
+              to revisit. Hidden entirely until the CMS has at least one value. */}
+          {c.facts.length > 0 && (
+            <dl className="mt-9 grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3 md:grid-cols-5">
+              {c.facts.map((f) => (
+                <div key={f.label} className="bg-white px-4 py-5">
+                  <dt className="text-[10.5px] font-semibold uppercase leading-tight tracking-[1px] text-muted">
+                    {f.label}
+                  </dt>
+                  <dd className="mt-2 text-[19px] font-bold leading-[1.2] tracking-[-0.4px] text-ink">
+                    {f.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
           {c.intro && (
             <RichText
               html={c.intro}

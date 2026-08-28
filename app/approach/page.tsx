@@ -155,7 +155,7 @@ export default async function FiveHFrameworkPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             {/* 5H — established, links to the framework detail on this page */}
             <Link
               href="#the-five-h"
@@ -195,24 +195,11 @@ export default async function FiveHFrameworkPage() {
               </span>
             </div>
 
-            {/* Team Climate Assessment — naming + content pending per brief */}
-            <div className="flex flex-col border border-line bg-white p-7">
-              <span className="text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
-                Diagnostic
-              </span>
-              <h3 className="mt-3 text-[21px] font-bold tracking-[-0.4px] text-ink">
-                The Team Climate Assessment
-              </h3>
-              <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">
-                Our team-level diagnostic for the conditions that drive
-                high-performing teams — surfacing what helps and hinders
-                execution.
-              </p>
-              <span className="mt-5 inline-flex w-fit items-center gap-2 border border-dashed border-line px-3 py-1 text-[11.5px] font-medium text-muted">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
-                Name &amp; overview pending CDNA confirmation
-              </span>
-            </div>
+            {/* The Team Climate Assessment card was REMOVED per the 27-08 brief
+                (item 11): it is explicitly NOT to be presented as proprietary IP.
+                This answers the "pending CDNA confirmation" flag it carried.
+                Further frameworks/diagnostics only go in once CDNA validates
+                them — nothing is to be invented here. */}
           </div>
         </Reveal>
       </section>
