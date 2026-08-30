@@ -150,16 +150,19 @@ export default function FiveHExplorer() {
   }
 
   return (
-    <div
-      ref={rootRef}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* ── The panel, above the controls and fixed in height ───────────── */}
+    <div ref={rootRef}>
+      {/* ── The panel, above the controls and fixed in height ─────────────
+          The hover pause lives here and not on the whole component. The
+          selector is what you click, so pausing on hover over it froze the
+          rotation the moment anyone used it: click a faculty, leave the cursor
+          where the click landed, and nothing ever moves again. Reading happens
+          in this panel, so this is the only surface where holding still helps. */}
       <div
         id="fh-panel"
         role="tabpanel"
         aria-labelledby={`fh-tab-${current.key}`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         className="rounded-xl p-6 md:p-8"
         style={{ backgroundColor: SURFACE }}
       >
