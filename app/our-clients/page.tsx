@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
-import Eyebrow from "@/components/Eyebrow";
 import EmptyNotice from "@/components/EmptyNotice";
 import LogoMarquee from "@/components/LogoMarquee";
-import CaseRow from "@/components/cases/CaseRow";
+import ClientBandCard from "@/components/clients/ClientBandCard";
+import LocationsBlock from "@/components/LocationsBlock";
+import PhotoCarousel from "@/components/PhotoCarousel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getCaseListEntries } from "@/lib/cms/map";
@@ -21,7 +22,17 @@ export async function generateMetadata(): Promise<Metadata> {
 export const revalidate = 300;
 
 /** How many flagship stories lead the page before the full library link. */
-const FLAGSHIP_COUNT = 3;
+const FLAGSHIP_COUNT = 5;
+
+/**
+ * The event photography the old site left as three loose stills, which Guli
+ * turned into a carousel (08:34): "modifiquei isso daqui para ser um carrossel,
+ * também de Instagram — essa foto aparece, daí troca por outra foto". Same
+ * source the homepage band uses.
+ */
+const EVENT_PHOTOS = Array.from({ length: 12 }, (_, i) => i + 1)
+  .filter((n) => n !== 5 && n !== 8)
+  .map((n) => `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`);
 
 /**
  * Our Clients (27-08 brief, item 8).
@@ -46,20 +57,19 @@ export default async function OurClientsPage() {
   return (
     <SiteShell>
       <PageHero
+        compact
         eyebrow="Our Clients"
         title="The organisations that trust us with their leadership."
         subtitle="From energy and pharma to luxury and financial services — advisory delivered where the stakes are highest."
       />
 
-      {/* ── The wall: immediate credibility, before any explanation ───── */}
+      {/* ── The wall: immediate credibility, before any explanation ─────
+          No eyebrow, no headline. The brief's item 16 asks to cut repetitive
+          layouts, and Guli's mock carries no section headings at all — the
+          logos are the argument, and a line saying so above them is the kind of
+          restatement the brief is asking us to drop. */}
       <section id="wall" className="bg-ink text-white">
-        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-16 md:px-10 md:pt-20">
-          <Eyebrow>Client wall</Eyebrow>
-          <h2 className="max-w-[720px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] sm:text-[34px]">
-            Trusted by organisations operating at global scale.
-          </h2>
-        </div>
-        <div className="flex flex-col gap-5 pb-16 md:pb-20">
+        <div className="flex flex-col gap-5 py-12 md:py-14">
           <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
           <LogoMarquee
             logos={logoRow2}
@@ -69,35 +79,62 @@ export default async function OurClientsPage() {
         </div>
       </section>
 
-      {/* ── Flagship stories ──────────────────────────────────────────── */}
+      {/* ── Flagship stories, as branded bands ─────────────────────────
+          Same reasoning: the mock goes straight from the header into the cards.
+          Each band already names its client and its solution, so a heading above
+          them adds height without adding information. */}
       <section id="stories" className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
-          <Eyebrow>Flagship stories</Eyebrow>
-          <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] text-ink sm:text-[34px]">
-            What the work looks like in practice.
-          </h2>
-
+        <div className="mx-auto max-w-[1000px] px-6 py-12 md:px-10 md:py-16">
           {flagship.length === 0 ? (
-            <EmptyNotice className="mt-8">
-              No case studies published yet.
-            </EmptyNotice>
+            <EmptyNotice>No case studies published yet.</EmptyNotice>
           ) : (
-            <div className="mt-10 space-y-8">
+            <div className="flex flex-col gap-1.5">
               {flagship.map((entry) => (
-                <CaseRow key={entry.slug} entry={entry} />
+                <ClientBandCard key={entry.slug} entry={entry} />
               ))}
             </div>
           )}
 
+          {/* Kept deliberately: /cases is not in the menu, so this is the only
+              way through to the full library. */}
           {cases.length > flagship.length && (
             <Link
               href="/cases"
-              className="mt-10 inline-flex items-center gap-2 border border-ink px-7 py-3.5 text-[14px] font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
+              className="mt-8 inline-flex items-center gap-2 border border-ink px-7 py-3.5 text-[14px] font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
             >
               Explore all case studies
               <span aria-hidden>→</span>
             </Link>
           )}
+        </div>
+      </section>
+
+      {/* ── Global footprint ──────────────────────────────────────────────
+          The mock draws a flat street-map image, but Guli was explicit that it
+          stands in for what we already built: "é um mapa que vocês já têm, que
+          deve ter dado um trabalho do cão — é esse mapa que tem que colocar
+          aqui" (08:02). LocationsBlock is that map, plus the city strip and the
+          office details the mock shows underneath it. */}
+      <LocationsBlock eyebrow="Global footprint" />
+
+      {/* ── The work, in the room ─────────────────────────────────────────
+          The old site left three stills sitting loose at the foot of the page;
+          the carousel is Guli's replacement for them (08:34).
+
+          ⚠️ The closing line is copy lifted from the old WordPress site, which
+          is where Guli took it for the mock. It has NOT been through CDNA
+          approval in this cycle — the 27-08 brief requires sign-off on anything
+          that reaches production. Swap or delete before launch. */}
+      <section id="in-the-room" className="bg-paper">
+        <div className="mx-auto max-w-[1200px] px-6 py-12 md:px-10 md:py-16">
+          <PhotoCarousel images={EVENT_PHOTOS} />
+          <blockquote className="mt-10 bg-ink px-8 py-10 text-white md:px-12 md:py-12">
+            <p className="max-w-[46ch] text-[20px] font-medium leading-[1.5] tracking-[-0.3px] md:text-[24px]">
+              We cut cross cultural boundaries to release energy in leaders and
+              teams by seeing them as real people with real personalities. We
+              make leadership real.
+            </p>
+          </blockquote>
         </div>
       </section>
     </SiteShell>
