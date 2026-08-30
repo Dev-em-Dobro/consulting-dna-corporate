@@ -156,7 +156,7 @@ dentro do case, que está no mock dele, ainda não foi construída.
 8. OUR CLIENTS
 
 Feito: as faixas de cliente com o painel na cor da marca dissolvendo no preto, o mapa real de
-global footprint, e a foto de fechamento. A página ficou 18% mais curta.
+global footprint, e a foto de fechamento.
 
 A página segue a ordem que o item pede: título, o logo wall com os 27 clientes passando, e depois
 "Client Stories" com as faixas. Os dois blocos fazem trabalhos diferentes, como você escreve — o
@@ -167,6 +167,13 @@ Consideramos esta página fechada. Falta só vocês confirmarem que está certa.
 
 De vocês: aprovação dos nomes e logos, e a frase de fechamento ("We cut cross cultural
 boundaries…"), que veio do site antigo e não passou por aprovação neste ciclo.
+
+Sobre os logos, uma correção que é nossa e não de vocês: o sistema de conteúdo já tem um campo de
+logo e um de cor de marca em cada case, e o site ainda não lê nenhum dos dois — ele usa um arquivo
+nosso, achado pelo nome do cliente. Ou seja, logo subido lá hoje não muda nada na página. Ligar
+isso é rápido e já está na nossa lista; registramos para ninguém gastar tempo subindo arquivo num
+campo que hoje é ignorado. E se vocês tiverem os assets oficiais das marcas, mandem — a faixa fica
+melhor com eles do que com os nossos.
 
 E uma dúvida sobre as fotos: o item 15 pede preto e branco para os retratos do time, e a foto que
 vocês mandaram para o rodapé desta página também é preto e branco. Mas o carrossel do Social
@@ -198,12 +205,16 @@ segundo, a página tem duas faixas de números em vez de uma, e "measurable resu
 das duas. O que nos leva a isso é que "Programme Impact" já é um daqueles nove.
 
 Com o Guli: a tela não está terminada. Programme outcomes ficou sem tratamento, evidence across
-regions ficou como título sem forma, e os "dashboards" que o item pede não apareceram. Ele mesmo
-disse na apresentação que não sabia o que era programme outcomes — que é por que a resposta acima
-destrava ele também.
+regions ficou como título sem forma, e os "dashboards" que o item pede não apareceram. E
+programme outcomes nós também não sabemos o que é — é por isso que a resposta acima destrava o
+design junto.
 
 E Our Social Impact e Awards não estão neste item; ele trouxe os dois do site antigo. Faz sentido
 para nós, mas melhor vocês confirmarem do que a gente assumir.
+
+Ainda sobre Awards, uma decisão: hoje ele aparece na home e na Our Impact. Foi movido para a Our
+Impact, mas nunca houve mock da home, e o item 2 pede proof cedo na home. Fica em um dos dois, ou
+nos dois?
 
 
 10. OUR APPROACH / 5H
@@ -221,7 +232,23 @@ Uma coisa ali é nossa e talvez vocês queiram diferente: a ordem. A roda é um 
 o mock não fixa sequência, então lemos cada faculdade ao longo do arco. Se quiserem outra ordem
 dentro de alguma faculdade, é uma linha de mudança.
 
-Com o Guli, quatro pontos deste item:
+Ainda de vocês, e sem relação com o 5H em si: três afirmações que estão nessa página desde o
+ciclo passado e nunca foram fechadas.
+
+A primeira é "95% of our clients cite 5H® as the real secret of our success". Está publicada hoje.
+Confirmam o número, ou tiramos?
+
+A segunda é "across 26 countries", que aparece quatro vezes nessa página enquanto todas as outras
+dizem 36 countries. É a única contradição direta do site: mesmo fato, dois números.
+
+A terceira é "over ten years", descrevendo há quanto tempo o 5H é usado. Pode muito bem estar
+certo — uma metodologia pode ser mais nova que a empresa — mas fica a um clique de "18 years", e
+o visitante lê as duas como conflito, não como dois fatos diferentes.
+
+Nenhuma das três precisa de texto novo. Um sim, um não, ou o número corrigido resolve, e aplicar é
+rápido do nosso lado.
+
+Com o Guli, três pontos deste item:
 
 Você pede para manter o 5H wheel. Nosso entendimento é que a seção nova que ele fez já é a roda em
 leitura moderna — Inner/Outer, os cinco H e as 25 dimensões num sistema só, que é exatamente o que
@@ -232,14 +259,6 @@ página e o Guli não a substituiu. Agora que existe a seção nova acima dela, 
 
 E "o highlighting de um H sem explicação" — não conseguimos identificar a que se refere. Pode
 apontar onde está?
-
-Por último, as dimensões que giram não levam a lugar nenhum. Cada faculdade passa pelas cinco a um
-segundo cada, de propósito mais rápido que o tempo de leitura, para despertar curiosidade em vez de
-explicar. Funciona como efeito, mas nada na seção responde a curiosidade que ela desperta: os cards
-não são clicáveis e não existe descrição de dimensão em lugar nenhum do site. Então a pergunta é de
-vocês dois: uma dimensão abre em alguma coisa? Se abrir, o que tem do outro lado? É também o ponto
-em que o item 16 ("menos texto") e essa seção puxam para lados opostos, e por isso preferimos
-perguntar a construir.
 
 
 11. PROPRIETARY FRAMEWORKS & DIAGNOSTICS
@@ -292,11 +311,11 @@ Com o Guli: o tratamento visual do time não veio nesta leva.
 
 16. DIREÇÃO VISUAL GERAL
 
-Feito do nosso lado: Our Clients ficou 18% mais curta, cortando altura sem conteúdo — o hero
+Feito do nosso lado: Our Clients encurtou, cortando altura sem conteúdo — o hero
 escuro e os cabeçalhos repetidos de seção. O cabeçalho de página ganhou uma variante compacta que
 as outras páginas podem adotar.
 
-Mas vale dizer com todas as letras, e o Guli concorda: redução de texto é conteúdo, não design. O
+Mas vale dizer com todas as letras: redução de texto é conteúdo, não design. O
 que o design entrega é redução de scroll, que não é a mesma coisa. O texto atual foi aprovado por
 vocês no ciclo anterior, e cortá-lo por conta própria contrariaria a regra do próprio brief.
 

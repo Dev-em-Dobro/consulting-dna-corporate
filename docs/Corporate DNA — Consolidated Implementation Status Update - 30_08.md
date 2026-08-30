@@ -182,22 +182,21 @@ Guli has seen this list. These are the six priorities the brief set for him.
 - "What we solve" and "Client Impact" are both pure white and now adjacent, with the alignment switching from centred to left mid-scroll. The dark band used to separate them.
 - The same collision between the book block and the offices block.
 
-### C2 · Item 10, four open points **[Guli + CDNA]**
+### C2 · Item 10, three open points **[Guli + CDNA]**
 
 - **The 5H wheel.** Our reading is that Guli's new Inner & Outer Game section *is* the wheel in a modern reading — Inner/Outer, the five Hs and the 25 dimensions in one system, which is what the item asks for. So the wheel does not return as an image. Please confirm.
 - **The DNA-strand imagery.** The brief names it as one of the disconnected elements. It is still on the page, and Guli did not replace it. Now that the new section sits above it, does it stay or go?
 - **"The highlighting of an H without explanation."** We could not identify what this refers to on the current page. Could you point at it?
-- **The rotating dimensions do not lead anywhere.** Each faculty cycles through its five dimensions at one second each — deliberately quicker than reading pace, to raise curiosity rather than explain. That works as an effect, but nothing in the section answers the curiosity it raises: the cards are not clickable and there is no fuller description of a dimension anywhere on the site. Asked about it on the call, Guli said he had only designed the card system and had not considered the click. So the question is his and yours together: does a dimension open into something, and if it does, what is on the other side? It is also the point where item 16's "less text" and this section pull against each other, which is why we are asking rather than building one.
 
 ### C3 · Our Impact is not finished **[Guli]**
 
-Three things item 9 asks for have no treatment in the mock: **programme outcomes**, **evidence across regions** and **dashboards**. Guli said on the call that he did not know what "programme outcomes" was — which is why B2 above matters before he can finish.
+Three things item 9 asks for have no treatment in the mock: **programme outcomes**, **evidence across regions** and **dashboards**. We do not know what "programme outcomes" is either, which is why B2 above has to be answered before this page can be finished.
 
 Also: **Our Social Impact and Awards are not in item 9.** He brought both from the old site. It reads right to us, but you should confirm rather than us assume.
 
 ### C4 · Reduction of text and scrolling **[Guli + CDNA]**
 
-Our Clients is 18% shorter, and the shared page header now has a compact variant other pages can adopt. But the deeper reduction is content, not design — a point Guli made himself. **What design delivers is less scrolling, which is not the same as less text.** The text itself was approved in the previous cycle, and cutting it unilaterally would break the brief's own rule.
+Our Clients is shorter, and the shared page header now has a compact variant other pages can adopt. But the deeper reduction is content, not design. **What design delivers is less scrolling, which is not the same as less text.** The text itself was approved in the previous cycle, and cutting it unilaterally would break the brief's own rule.
 
 ---
 
@@ -218,7 +217,7 @@ Verified: headless architecture, the content system, security, the Cloudflare/cu
 
 # Part F — Impact on 1 September
 
-**Three things are ours and are being done regardless.** A database migration that switches on Partnerships, the ticker and testimonial videos in the editor; the lead form, which currently records enquiries without notifying anyone; and the deployment path.
+**Four things are ours and are being done regardless.** A database migration that switches on Partnerships, the ticker and testimonial videos in the editor; the lead form, which currently records enquiries without notifying anyone; the deployment path; and the brand-logo field described in Part G, which the content system already offers and the site does not yet read.
 
 **What decides the date is Part B.** Every page that is built and empty stays empty until the text arrives. Our Identity is the clearest case: seven blocks, no copy, and a design we suggest should follow the text rather than precede it. It carries two waits, not one.
 
@@ -230,4 +229,6 @@ Verified: headless architecture, the content system, security, the Cloudflare/cu
 
 **"Dashboards" (item 9),** if it means live data visualisation — filtering results by region, industry or year. That is a new build. If it means a strong visual treatment of static figures, it is inside scope and belongs to Guli.
 
-**Knockout logo assets.** The client bands knock the brand mark out of the panel in white, as the mock does. Our logo files are opaque colour-on-white, so the knockout is monochrome — Heineken loses the red of its star. Matching the mock exactly needs each brand's own knockout asset, which is an asset request rather than a build.
+**Knockout logo assets.** The client bands knock the brand mark out of the panel in white, as the mock does. The logo files we hold are opaque colour-on-white, so the knockout comes out monochrome — Heineken loses the red of its star. Matching the mock exactly needs each brand's own knockout asset, which is an asset request rather than a build.
+
+Before anyone spends time on it, one correction that is ours rather than yours: the content system already carries a **Brand logo** and a **Brand colour** field on every case, and the site reads neither — it resolves the logo from a file we ship, matched on the client's name. A logo uploaded there today has no effect on the page. That wiring is a small change on our side and is in Part F.
