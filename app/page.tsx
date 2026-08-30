@@ -144,14 +144,17 @@ export default async function V1() {
           the whole site; these six are harder — pressures, politics,
           consequences — and are the ones item 1 attaches to the homepage. */}
       <section id="real" className="bg-white">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
-          {/* Two rows of three rather than six across: at six columns the terms
+        <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
+          {/* `Reveal` IS the grid, as in the credibility band below. It renders
+              its own data-reveal="stagger" and animates its direct children, so
+              nesting a second stagger inside it leaves the terms matched by the
+              opacity-0 rule in globals.css with nothing to animate them — the
+              section renders as an empty white band, for real visitors.
+
+              Two rows of three rather than six across: at six columns the terms
               shrink to labels and "Real consequences" wraps alone. Three gives
               each one the weight the brief's "visual" is asking for. */}
-          <div
-            data-reveal="stagger"
-            className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 md:gap-x-16 md:gap-y-12"
-          >
+          <Reveal className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 md:gap-x-16 md:gap-y-12">
             {reals.map((term) => (
               <div key={term}>
                 <span className="mb-4 block h-[3px] w-10 bg-brand" />
@@ -160,8 +163,8 @@ export default async function V1() {
                 </span>
               </div>
             ))}
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       {/* CREDIBILITY — proof, before any explanation.
