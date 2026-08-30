@@ -402,12 +402,19 @@ export default function HeroV1() {
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
+          {/* 27-08 brief, item 1. Both lines are the client's own approved
+              working copy, quoted from the e-mail — not a rewrite. "When the
+              stakes are high…" is not gone, it has moved into the sub-line,
+              which is what the brief asks: it "pode continuar na narrativa, mas
+              não como primary headline". The sub also has to put CEOs, CHROs &
+              CLOs on the first screen, which it now does. */}
           <h1 className="h-title mb-7 text-[38px] sm:text-[48px] md:text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-white [text-wrap:balance]">
-            When the stakes are high, leadership must become&nbsp;real.
+            Keeping Leadership&nbsp;Real
           </h1>
-          <p className="h-sub mx-auto mb-8 max-w-[720px] text-xl font-normal leading-[1.55] text-white/85">
-            We help CEOs, CHROs and executive teams align leadership, accelerate
-            decisions and build the talent required to deliver transformation.
+          <p className="h-sub mx-auto mb-8 max-w-[760px] text-xl font-normal leading-[1.55] text-white/85">
+            We help CEOs, CHROs &amp; CLOs build real leadership when the stakes
+            are high — through real conversations, real choices and real
+            decisions that deliver in the moments that matter.
           </p>
           <p className="h-cta mb-9 text-[15px] font-semibold uppercase tracking-[3px] text-white/90">
             Making Leadership Real.{" "}

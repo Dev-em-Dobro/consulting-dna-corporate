@@ -14,11 +14,11 @@ import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
-import { getPeople } from "@/lib/cms/map";
+import { getPeople, getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
-import TestimonialsVideo from "@/components/TestimonialsVideo";
+import RunningTicker from "@/components/RunningTicker";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
@@ -79,10 +79,11 @@ const cases: {
 ];
 
 export default async function V1() {
-  const [people, nav, stats] = await Promise.all([
+  const [people, nav, stats, ticker] = await Promise.all([
     getPeople(),
     buildSiteNav(),
     getSiteStats(),
+    getTickerEntries(),
   ]);
   return (
     <div className="w-full overflow-x-hidden bg-white">
@@ -101,26 +102,19 @@ export default async function V1() {
       {/* NAV */}
       <NavV1 items={nav} />
 
+      {/* TICKER — directly under the nav, where the old CDNA site carried it
+          (27-08 brief, item 17). Renders nothing until the CMS has 2023+ entries,
+          so it costs no vertical space while the content is still being written. */}
+      <RunningTicker entries={ticker} />
+
       {/* HERO */}
       <HeroV1 />
 
-      {/* WHAT WE SOLVE — intro (moved directly below the hero) */}
-      <section id="solve" className="bg-white">
-        <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
-          <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
-          </div>
-          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
-            The leadership challenges that determine enterprise performance.
-          </h2>
-          <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
-            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
-          </p>
-        </Reveal>
-      </section>
-
-      {/* CREDIBILITY */}
+      {/* CREDIBILITY — proof, before any explanation.
+          The brief's ordering principle is "Claim → Proof → Explanation, e não
+          long explanation antes de proof" (item 2), so the logo wall and the
+          statistics now sit between the hero and "What we solve", which used to
+          come first. */}
       <section className="bg-ink text-white">
         <div className="pb-[34px] pt-[70px]">
           <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
@@ -146,6 +140,22 @@ export default async function V1() {
             ))}
           </Reveal>
         </div>
+      </section>
+
+      {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
+      <section id="solve" className="bg-white">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
+          <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
+          </div>
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
+            The leadership challenges that determine enterprise performance.
+          </h2>
+          <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
+            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+          </p>
+        </Reveal>
       </section>
 
       {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
@@ -193,11 +203,13 @@ export default async function V1() {
       </section>
       )}
 
-      {/* TESTIMONIALS "metralhadora" video — immediately before Client-Impact. */}
-      <TestimonialsVideo
-        src="/videos/testimonials-reel.mp4"
-        poster="/videos/testimonials-reel-poster.jpg"
-      />
+      {/* The compiled "metralhadora" testimonial reel used to sit here. Item 13
+          of the 27-08 brief removes it from the public site: "Remover o compiled
+          testimonial video atual do public website. Em vez disso, criar uma
+          estrutura modular para individual client testimonial videos." That
+          structure exists — the `testimonial_video` content type and its read
+          layer — and stays empty until CDNA supplies the individual films.
+          `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
       {/* CLIENT IMPACT */}
       <section id="impact" className="bg-white">

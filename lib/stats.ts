@@ -17,11 +17,17 @@ import { getPage } from "@/lib/cms/client";
  */
 export type SiteStat = { value: string; label: string };
 
+/**
+ * Order matters and is the brief's, not ours (item 2): "O 90% Chairman/CXO-
+ * sponsored work deve aparecer antes de 18 years, porque é mais diferenciador
+ * para nosso público." Guli's Our Impact mock puts 18 first, which is the one
+ * place his layout and the e-mail disagree; the e-mail wins.
+ */
 const STAT_FALLBACK: (SiteStat & { cmsKey: string })[] = [
+  { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
   { cmsKey: "years", value: "18", label: "Years advising senior leaders" },
   { cmsKey: "countries", value: "36", label: "Countries of global delivery" },
   { cmsKey: "faculty", value: "75", label: "Faculty of senior practitioners" },
-  { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
 ];
 
 /**
