@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import EmptyNotice from "@/components/EmptyNotice";
 import LogoMarquee from "@/components/LogoMarquee";
 import ClientBandCard from "@/components/clients/ClientBandCard";
 import LocationsBlock from "@/components/LocationsBlock";
-import PhotoCarousel from "@/components/PhotoCarousel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getCaseListEntries } from "@/lib/cms/map";
@@ -23,16 +23,6 @@ export const revalidate = 300;
 
 /** How many flagship stories lead the page before the full library link. */
 const FLAGSHIP_COUNT = 5;
-
-/**
- * The event photography the old site left as three loose stills, which Guli
- * turned into a carousel (08:34): "modifiquei isso daqui para ser um carrossel,
- * também de Instagram — essa foto aparece, daí troca por outra foto". Same
- * source the homepage band uses.
- */
-const EVENT_PHOTOS = Array.from({ length: 12 }, (_, i) => i + 1)
-  .filter((n) => n !== 5 && n !== 8)
-  .map((n) => `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`);
 
 /**
  * Our Clients (27-08 brief, item 8).
@@ -118,17 +108,29 @@ export default async function OurClientsPage() {
       <LocationsBlock eyebrow="Global footprint" />
 
       {/* ── The work, in the room ─────────────────────────────────────────
-          The old site left three stills sitting loose at the foot of the page;
-          the carousel is Guli's replacement for them (08:34).
+          One black-and-white photograph with the closing line directly under it,
+          the two touching, as the mock draws it. Guli had proposed a carousel
+          here (08:34) — that was his fix for the three loose stills the old site
+          left at the foot of the page, and a single frame does the same job
+          without the machinery.
 
           ⚠️ The closing line is copy lifted from the old WordPress site, which
           is where Guli took it for the mock. It has NOT been through CDNA
           approval in this cycle — the 27-08 brief requires sign-off on anything
           that reaches production. Swap or delete before launch. */}
       <section id="in-the-room" className="bg-paper">
-        <div className="mx-auto max-w-[1200px] px-6 py-12 md:px-10 md:py-16">
-          <PhotoCarousel images={EVENT_PHOTOS} />
-          <blockquote className="mt-10 bg-ink px-8 py-10 text-white md:px-12 md:py-12">
+        {/* Same 1000px column as the bands above, so the page keeps one edge —
+            and so the 800px source is never stretched more than 1.25×. */}
+        <div className="mx-auto max-w-[1000px] px-6 py-12 md:px-10 md:py-16">
+          <Image
+            src="/clients-bottom-banner.jpg"
+            alt="The Corporate DNA team and client group at a leadership programme"
+            width={800}
+            height={536}
+            sizes="(min-width: 1024px) 920px, 100vw"
+            className="h-auto w-full object-cover"
+          />
+          <blockquote className="bg-ink px-8 py-10 text-white md:px-12 md:py-12">
             <p className="max-w-[46ch] text-[20px] font-medium leading-[1.5] tracking-[-0.3px] md:text-[24px]">
               We cut cross cultural boundaries to release energy in leaders and
               teams by seeing them as real people with real personalities. We
