@@ -64,18 +64,25 @@ export default async function OurClientsPage() {
       </section>
 
       {/* ── The wall: immediate credibility, before any explanation ─────
-          No eyebrow, no headline. The brief's item 16 asks to cut repetitive
-          layouts, and Guli's mock carries no section headings at all — the
-          logos are the argument, and a line saying so above them is the kind of
-          restatement the brief is asking us to drop. */}
+          One caption line, the same one the homepage band carries. Cutting the
+          eyebrow and the headline was right — they cost 205px to restate what
+          the logos say. Cutting the caption too was not: with the branded client
+          bands directly underneath, an uncaptioned strip of logos reads as
+          decoration sitting above the section that actually names the clients.
+          The line costs ~30px and gives the wall its job back. */}
       <section id="wall" className="bg-ink text-white">
-        <div className="flex flex-col gap-5 py-12 md:py-14">
-          <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
-          <LogoMarquee
-            logos={logoRow2}
-            duration={logoRowDuration(logoRow2)}
-            reverse
-          />
+        <div className="py-12 md:py-14">
+          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
+            Trusted by leadership teams at
+          </p>
+          <div className="flex flex-col gap-5">
+            <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
+            <LogoMarquee
+              logos={logoRow2}
+              duration={logoRowDuration(logoRow2)}
+              reverse
+            />
+          </div>
         </div>
       </section>
 
