@@ -305,68 +305,102 @@ Abraço,
 
 ---
 
-## Versão curta para o Guli, no WhatsApp
+## Mensagem para o Guli, no WhatsApp
 
-> Para adiantar as dúvidas de design antes do e-mail. Texto puro.
+> Estruturada nas **seis prioridades que o Guilherme deu a ele por nome** no fim do e-mail —
+> não na nossa leitura. Texto puro.
 
-Fala Guli, beleza? Apliquei tudo da tua leva de sexta:
+Fala Guli, beleza? Apliquei tudo da tua leva de sexta e queria bater contigo item por item, na
+lista que o Guilherme te deu no e-mail. Ele nomeou seis prioridades pra ti:
 
-- Solutions em black boxes, com a diagonal medida do teu print
-- Our Clients com as faixas de cliente — fiz o painel da cor da marca dissolvendo no preto com a
-  marca vazada em branco, que é o que teu mock faz. Nossos PNGs de logo são fundo branco opaco,
-  então o vazado sai monocromático: a Heineken perde o vermelho da estrela. Pra bater 100% seria
-  preciso o asset de knockout de cada marca
-- Our Impact na tua sequência
-- O 5H novo com as bolinhas e as 25 dimensões rodando — 1s no automático, 3s depois que o cara
-  clica, como tu pediu. Medi teu print pixel a pixel pra não errar: o swatch é quadrado rente sem
-  padding, o texto da linha ativa é branco, e a bolinha selecionada é maior que as outras e do
-  mesmo tamanho da bolinha do card. Essa última eu tinha entendido errado da call e o print
-  corrigiu
+1. HOMEPAGE VISUAL HIERARCHY
 
-Na Our Clients eu também tirei o hero escuro e deixei só título e uma linha, como teu mock. E
-troquei o carrossel do rodapé pela foto P&B única que eles mandaram, com o bloco do quote colado
-embaixo. A página caiu de 3.716 pra 3.046 px no mobile.
+Essa tu abriu mão na call, e eu fiz aqui. A ordem nova segue o item 2 — logos e números subiram
+pra antes do "What we solve", e o 90% Chairman passou na frente do 18 years, que é o que ele pede
+por escrito.
 
-Antes de mandar o e-mail pro Guilherme com o que falta de conteúdo, queria fechar três coisas do
-item 10 contigo:
+Fiz também o bloco que o item 1 pede e que não existia: a explicação curta e visual de "Keeping
+Leadership Real", com os seis termos que ele lista (real pressures, real politics, real choices,
+real judgement, real people, real consequences). Só os termos dele, sem frase minha, em duas
+fileiras de três, entre o hero e o logo wall. Esse bloco já tinha sido feito dia 27 e revertido
+dia 28 quando a regra era esperar teu Figma — como a regra caiu, ele voltou.
 
-1. Ele pede "manter o 5H wheel". Meu entendimento é que a tua seção nova do Inner & Outer Game já
-   é a roda em leitura moderna — Inner/Outer, os cinco H e as 25 dimensões num sistema só. Então
-   a roda não entra como imagem. Tu concorda?
+O que ainda falta e eu prefiro não fazer sozinho, porque mexe no ritmo de cor da página inteira:
 
-2. A imagem da hélice de DNA ainda está na página, na seção "The 5H don't live in separate
-   compartments". Ele cita ela no brief como um dos elementos desconectados. Agora que tem a tua
-   seção nova em cima, ela fica ou sai?
-
-3. Ele fala de "o highlighting de um H sem explicação". Não achei o que é. Tu sabe a que ele se
-   refere?
-
-E uma sobre Our Impact: tu considera ela fechada? Pergunto porque o "programme outcomes" ficou
-sem tratamento, o "evidence across regions" ficou como título sem forma, e o "dashboards" que ele
-pede no item 9 não apareceu. Sei que tu levantou na call que não sabia o que era programme
-outcomes — acho que descobri: a seção "By the numbers" do site antigo tem nove números que se
-separam em dois grupos, os da empresa (fundação, países, teams, coaching clients, FTSE 10) e os
-de programa (NPS, engagement, programme impact, talent promoted). Aposto que "impact statistics"
-é o primeiro grupo e "programme outcomes" é o segundo. Se for isso, resolve também aquilo que tu
-falou de ficarem dois blocos parecidos em sequência — o segundo entra em outro tratamento.
-
-Sobre a home: como tu não vai fazer ela no Figma, eu fiz o bloco que o item 1 pede — a explicação
-curta e visual de "Keeping Leadership Real", com os seis termos que ele lista (real pressures,
-real politics, real choices, real judgement, real people, real consequences). Só os termos dele,
-sem frase minha, em duas fileiras de três. Fica entre o hero e o logo wall.
-
-Esse bloco já existia: foi feito dia 27 e revertido dia 28, quando a regra era esperar teu Figma.
-Como a regra caiu na call, ele voltou.
-
-E ele resolveu de quebra dois problemas que a reordenação tinha criado — as três faixas escuras
-seguidas no topo, e o logo wall que tinha perdido a frase de deixa. Sobraram dois, e esses eu
-prefiro não mexer sozinho porque mudam o ritmo de cor da página inteira:
-
-- "What we solve" e "Client Impact" ficaram os dois em branco puro colados, e o alinhamento vira
-  de centralizado pra esquerdo no meio do scroll. Antes o bloco escuro separava os dois
+- "What we solve" e "Client Impact" ficaram os dois em branco puro colados, com o alinhamento
+  virando de centralizado pra esquerdo no meio do scroll. Antes o bloco escuro separava os dois
 - O bloco do livro e o de escritórios, mesma coisa, os dois no mesmo cinza claro
 
-Te mando print dos dois.
+(O bloco do livro é a maior seção da home, 1.409px, maior que o hero. Se for mexer, é onde tem
+mais a ganhar contra o item 16.)
 
-Vou te colocar em cópia no e-mail. Se tu já tiver falado com ele sobre o layout, me avisa como
-foi.
+2. SOLUTIONS VISUAL SYSTEM
+
+Feito e aplicado. Medi a diagonal do teu print pra não errar: a aresta fica a 28% da largura na
+meia-altura, com 37° da vertical. Lista vertical em qualquer largura, como tu falou que resolve o
+mobile.
+
+3. 5H VISUAL LANGUAGE
+
+O explorer está de pé com as bolinhas e as 25 dimensões rodando — 1s no automático, 3s depois que
+o cara clica. Medi teu print pixel a pixel e isso corrigiu uma leitura errada minha da call: o
+swatch é quadrado rente sem padding nenhum, o texto da linha ativa é branco, e a bolinha
+selecionada é maior que as outras e do mesmo tamanho da bolinha do card. Essa última eu tinha
+entendido como "todas do mesmo tamanho" — o print mostrou que tu pareava a da linha com a do card.
+
+Mas o item 10 tem três coisas em aberto:
+
+- Ele pede "manter o 5H wheel". Meu entendimento é que tua seção nova já é a roda em leitura
+  moderna — Inner/Outer, os cinco H e as 25 dimensões num sistema só. Então a roda não entra como
+  imagem. Concorda?
+- A hélice de DNA continua na página, na seção "The 5H don't live in separate compartments". Ele
+  cita ela no brief como um dos elementos desconectados e tu não substituiu. Agora que tem tua
+  seção em cima, ela fica ou sai?
+- Ele fala de "o highlighting de um H sem explicação". Não achei o que é. Tu sabe?
+
+4. OUR CLIENTS / OUR IMPACT
+
+Our Clients está fechada. Fiz as faixas com o painel da cor da marca dissolvendo no preto e a
+marca vazada em branco, que é o que teu mock faz. Um aviso: nossos PNGs de logo são fundo branco
+opaco, então o vazado sai monocromático — a Heineken perde o vermelho da estrela. Pra bater 100%
+precisaria do asset de knockout de cada marca. Tirei o hero escuro e deixei título e uma linha,
+como teu mock, e troquei o carrossel do rodapé pela foto P&B única que eles mandaram. A página
+caiu de 3.716 pra 3.046 px no mobile.
+
+Our Impact é a que eu queria confirmar contigo: **tu considera ela terminada?** O "programme
+outcomes" ficou sem tratamento, o "evidence across regions" ficou como título sem forma, e o
+"dashboards" que o item 9 pede junto com numbers, quotes e proof blocks não apareceu.
+
+Sobre o programme outcomes que tu falou na call que não sabia o que era — acho que descobri. A
+seção "By the numbers" do site antigo tem nove números que se separam em dois grupos: os da
+empresa (fundação, países, leadership teams, coaching clients, top FTSE 10) e os de programa (NPS,
+engagement, programme impact, talent promoted). Aposto que "impact statistics" é o primeiro grupo
+e "programme outcomes" é o segundo — inclusive porque "Programme Impact" já é um dos indicadores
+de lá. Se for isso, resolve também aquilo que tu levantou de ficarem dois blocos parecidos em
+sequência: o segundo entra em outro tratamento.
+
+Também: Our Social Impact e Our Awards não estão no item 9, tu trouxe os dois do site antigo. Faz
+sentido pra mim, mas vou perguntar pro Guilherme pra não assumir.
+
+5. TEAM TREATMENT
+
+Esse não veio na leva. A rota existe e está fora do menu esperando os assets (foto de grupo,
+retratos P&B, lista final de quem aparece), mas o tratamento visual é teu e não foi desenhado.
+
+6. REDUÇÃO DE TEXTO/SCROLL E ENERGIA VISUAL
+
+Parcial. Do meu lado cortei o que era altura sem conteúdo — Our Clients perdeu 670px tirando o
+hero escuro e os cabeçalhos repetidos de seção, e o PageHero ganhou uma variante compacta que as
+outras páginas podem usar.
+
+Mas concordo com o que tu falou na call: redução de texto é conteúdo, não design. O que a gente
+entrega é redução de scroll, e isso vale a pena dizer com todas as letras pra ele, senão fica
+parecendo que não foi feito.
+
+---
+
+Resumindo o que preciso de ti: as três do item 10, se Our Impact está fechada, o team treatment,
+e os dois pontos que sobraram na home. Te mando prints.
+
+Vou te colocar em cópia no e-mail pro Guilherme. Se tu já tiver falado com ele sobre o layout, me
+avisa como foi — é o que destrava o resto.
