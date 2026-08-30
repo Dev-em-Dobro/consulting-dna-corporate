@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
-import PageHero from "@/components/PageHero";
 import EmptyNotice from "@/components/EmptyNotice";
 import LogoMarquee from "@/components/LogoMarquee";
 import ClientBandCard from "@/components/clients/ClientBandCard";
@@ -46,12 +45,23 @@ export default async function OurClientsPage() {
 
   return (
     <SiteShell>
-      <PageHero
-        compact
-        eyebrow="Our Clients"
-        title="The organisations that trust us with their leadership."
-        subtitle="From energy and pharma to luxury and financial services — advisory delivered where the stakes are highest."
-      />
+      {/* ── Header ───────────────────────────────────────────────────────
+          The mock opens on the page's name and a single line, on white, and
+          goes straight into the wall — no dark band, no claim headline. The
+          brief says nothing about a hero for this page; item 8 only asks for the
+          wall first and the stories after, so dropping the band costs nothing it
+          asks for and buys back the height item 16 wants back. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-[1000px] px-6 pb-8 pt-14 md:px-10 md:pt-16">
+          <h1 className="text-[32px] font-bold leading-[1.08] tracking-[-1px] text-ink sm:text-[40px]">
+            Our Clients
+          </h1>
+          <p className="mt-3 max-w-[560px] text-[16px] leading-[1.55] text-muted md:text-[17px]">
+            From energy and pharma to luxury and financial services — advisory
+            delivered where the stakes are highest.
+          </p>
+        </div>
+      </section>
 
       {/* ── The wall: immediate credibility, before any explanation ─────
           No eyebrow, no headline. The brief's item 16 asks to cut repetitive
