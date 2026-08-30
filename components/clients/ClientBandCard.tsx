@@ -10,6 +10,11 @@ import { BAND_DARK, brandPanelColor } from "@/lib/brand-band";
  * The band *is* the whole card — no challenge, no metric, no body. The row is
  * one link into the case, which is what "Find out more" points at.
  *
+ * Height is measured off the mock rather than chosen: its bands are 36px on a
+ * 120px card, so height is 0.30 of the width and the gap between them is 0.22 of
+ * the height. Ours were at 0.37 — the bands were the thing running tall, not the
+ * gaps running wide, which is why the list read loose.
+ *
  * **The dissolve.** Guli's mock does not put a logo on a gradient; it fades a
  * brand-coloured panel into the black and knocks the mark out of it in white,
  * so the two read as one image. Reproducing that with our assets takes two
@@ -41,7 +46,7 @@ export default function ClientBandCard({ entry }: { entry: CaseListEntry }) {
   return (
     <Link
       href={`/cases/${entry.slug}`}
-      className="group relative isolate flex min-h-[118px] items-center justify-between gap-6 overflow-hidden px-6 py-6 outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 md:px-8"
+      className="group relative isolate flex min-h-[92px] items-center justify-between gap-6 overflow-hidden px-6 py-4 outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 md:px-8"
       style={{ backgroundColor: BAND_DARK }}
     >
       {panel && (
@@ -63,12 +68,12 @@ export default function ClientBandCard({ entry }: { entry: CaseListEntry }) {
         </span>
 
         {entry.tags.length > 0 && (
-          <span className="mt-1.5 block text-[11px] font-semibold uppercase tracking-[1.5px] text-white/70">
+          <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[1.5px] text-white/70">
             {entry.tags.join(" · ")}
           </span>
         )}
 
-        <span className="mt-3 block text-[11px] font-semibold uppercase tracking-[1.5px] text-white/80 underline decoration-white/40 underline-offset-4 transition-colors group-hover:text-white group-hover:decoration-white group-focus-visible:text-white group-focus-visible:decoration-white">
+        <span className="mt-2 block text-[11px] font-semibold uppercase tracking-[1.5px] text-white/80 underline decoration-white/40 underline-offset-4 transition-colors group-hover:text-white group-hover:decoration-white group-focus-visible:text-white group-focus-visible:decoration-white">
           Find out more
         </span>
       </span>
