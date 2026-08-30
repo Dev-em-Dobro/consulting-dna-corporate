@@ -76,7 +76,20 @@ export const caseListItem = z
 
 export const caseData = z
   .object({
+    /**
+     * The client's name, and only that — "Shell", "Heineken". It is not just a
+     * label: `resolveClientLogo` slugifies it to find `/public/logos/<slug>.png`
+     * and the brand colour behind the band, so a title like "SHELL Discovery
+     * Journey registered 200 millions in savings" silently costs the case its
+     * logo and its colour on /our-clients, /cases and the homepage.
+     */
     title: z.string(),
+    /**
+     * The case's own headline — the outcome sentence Guli's mock leads with.
+     * Optional: without it the page falls back to the client name, which is the
+     * behaviour every existing case already has.
+     */
+    headline: z.string().optional(),
     // Current content model: free tags, an intro, a quote (+ attribution) and a
     // single rich-text body.
     tags: z.array(z.string()).optional(),

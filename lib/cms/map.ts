@@ -140,7 +140,11 @@ export type CaseListEntry = {
   logoColor?: string;    // predominant logo colour (hex) for the band tint
 };
 export type CaseArticle = {
-  slug: string; tags: string[]; title: string;
+  slug: string; tags: string[];
+  /** The client's name — also the key that resolves the logo and brand colour. */
+  title: string;
+  /** The case's own headline, when authored; the page falls back to `title`. */
+  headline?: string;
   intro?: string;            // introduction — rich text (HTML)
   quote?: string; quoter?: string;
   text?: string;             // main body — rich text (HTML)
@@ -288,6 +292,7 @@ function mapCase(raw: unknown): CaseArticle | null {
     slug: r.data.slug,
     tags,
     title: plainText(d.title) ?? "",
+    headline: plainText(d.headline)?.trim() || undefined,
     // introduction / text are rich text → keep HTML for <RichText>.
     intro: d.introduction ?? d.summary,
     quote: plainText(d.quote ?? d.clientQuote),
