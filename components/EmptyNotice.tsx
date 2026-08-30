@@ -18,7 +18,10 @@ export default function EmptyNotice({
       className={`flex items-center gap-4 border border-dashed border-line bg-paper/60 px-7 py-8 text-[13.5px] text-muted ${className}`}
     >
       <span className="inline-block h-2 w-2 flex-none rounded-full bg-brand" />
-      {children}
+      {/* Wrapped, not spread: this is a flex row, so a notice written with any
+          markup in it — <strong>, a link — would otherwise turn each fragment
+          into its own flex item and break the sentence into columns. */}
+      <span>{children}</span>
     </div>
   );
 }
