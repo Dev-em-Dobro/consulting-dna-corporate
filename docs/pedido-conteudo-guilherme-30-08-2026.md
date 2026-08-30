@@ -51,6 +51,27 @@ Decisões:
 - O vídeo institucional novo em torno de "Keeping Leadership Real" (item 14) não bloqueia o
   lançamento, mas queremos saber se já tem previsão.
 
+Guli, a reordenação precisa de uma passada tua. A ordem nova atende o item 2 — prova antes de
+explicação — mas quebrou o ritmo visual da página em quatro pontos, e nenhum deles a gente
+resolve sem design:
+
+1. Ficaram três faixas escuras seguidas no topo: o ticker, o hero com o vídeo, e o bloco de
+   credibilidade. O vídeo termina num corte seco contra o cinza chapado do bloco de baixo.
+
+2. O logo wall perdeu a deixa. Antes ele vinha depois do "What we solve", então os logos eram a
+   prova de uma frase. Agora é a primeira coisa depois do hero, sustentado só por um rótulo
+   cinza pequeno de "Trusted by leadership teams at".
+
+3. "What we solve" e "Client Impact" ficaram os dois em branco puro, colados, e o alinhamento
+   vira de centralizado para esquerdo no meio do scroll. Antes o bloco escuro separava os dois.
+   Hoje a fronteira some.
+
+4. O mesmo acontece embaixo com o bloco do livro e o de escritórios, os dois no mesmo cinza
+   claro.
+
+Nada disso é a ordem estar errada — é a ordem nova pedindo um tratamento que o layout antigo não
+precisava ter.
+
 
 OUR IDENTITY
 
@@ -310,6 +331,13 @@ separam em dois grupos, os da empresa (fundação, países, teams, coaching clie
 de programa (NPS, engagement, programme impact, talent promoted). Aposto que "impact statistics"
 é o primeiro grupo e "programme outcomes" é o segundo. Se for isso, resolve também aquilo que tu
 falou de ficarem dois blocos parecidos em sequência — o segundo entra em outro tratamento.
+
+E a home: a reordenação atende o item 2, mas quebrou o ritmo visual e não é coisa que eu resolva
+sem ti. Ficaram três faixas escuras seguidas no topo (ticker, hero com vídeo, bloco de
+credibilidade), o vídeo termina num corte seco contra o cinza chapado, o logo wall perdeu a frase
+que servia de deixa pra ele, e "What we solve" e "Client Impact" ficaram os dois em branco puro
+colados — com o alinhamento virando de centralizado pra esquerdo no meio do scroll. Antes o bloco
+escuro separava esses dois. Te mando print.
 
 Vou te colocar em cópia no e-mail. Se tu já tiver falado com ele sobre o layout, me avisa como
 foi.
