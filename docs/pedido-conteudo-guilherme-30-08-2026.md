@@ -10,6 +10,10 @@
 > **Fora deste e-mail, de propósito:** a teoria do Guli sobre o brief não ter passado pela Rhea.
 > A versão útil dessa preocupação está no e-mail como a última pergunta — se o conteúdo vem já
 > aprovado ou se a gente propõe e eles revisam.
+>
+> **Cópia:** o Guli entra em cópia. As três dúvidas de Our Approach (a roda, a DNA-strand e o
+> "highlighting de um H") são dos dois, não só do Guilherme. Se preferir adiantar com ele pelo
+> WhatsApp antes, tem uma versão curta no fim deste arquivo.
 
 ---
 
@@ -97,9 +101,25 @@ Duas coisas:
 
 OUR APPROACH (5H)
 
-- As 25 dimensões estão implementadas e rodando, transcritas da roda que vocês mandaram, com a
-  grafia de vocês. Precisamos do sign-off nos nomes antes de ir para produção — é IP de vocês e
-  não queremos publicar sem aprovação.
+Guli, coloquei você em cópia principalmente por causa desta parte.
+
+- As 25 dimensões estão implementadas e rodando na seção nova, transcritas da roda que vocês
+  mandaram, com a grafia de vocês. Precisamos do sign-off nos nomes antes de ir para produção —
+  é IP de vocês e não queremos publicar sem aprovação.
+
+- O item 10 pede para manter o 5H wheel. Nosso entendimento é que a visualização nova que o Guli
+  fez em "Introducing the Inner & Outer Game" já é a leitura moderna da roda — Inner/Outer Game,
+  os cinco H e as 25 dimensões num sistema só, que é exatamente o que o item pede. Ou seja: a
+  roda não entra como imagem, ela virou a seção. Confirmam esse entendimento?
+
+- A DNA-strand imagery. Você cita ela no item 10 como um dos elementos que parecem
+  desconectados, e ela continua na página, na seção "The 5H don't live in separate
+  compartments". Agora que existe a seção nova acima dela, ela ainda faz sentido ali, ou sai?
+  Essa é para vocês dois decidirem.
+
+- "O highlighting de um H sem explicação" — não conseguimos identificar a que isso se refere.
+  Pode apontar onde está? Se for algo que já saiu, melhor ainda, mas queremos ter certeza antes
+  de marcar o item como resolvido.
 
 - Uma pergunta de estratégia: as dimensões devem ser explicadas a fundo em algum momento, ou
   basta aparecerem? Hoje elas rotacionam como nome, sem página por trás. O Guli acha que
@@ -224,3 +244,31 @@ planejamento da semana.
 Qualquer coisa é só chamar.
 
 Abraço,
+
+---
+
+## Versão curta para o Guli, no WhatsApp
+
+> Para adiantar as três dúvidas de Our Approach antes do e-mail. Texto puro.
+
+Fala Guli, beleza? Apliquei tudo da tua leva de sexta — Solutions em black boxes, Our Clients
+com as faixas, Our Impact na tua sequência, o 5H novo com as bolinhas e as 25 dimensões rodando
+(1s no automático, 3s depois que o cara clica, como tu pediu). A home eu reordenei aqui mesmo,
+como a gente combinou.
+
+Antes de mandar o e-mail pro Guilherme com o que falta de conteúdo, queria fechar três coisas do
+item 10 contigo:
+
+1. Ele pede "manter o 5H wheel". Meu entendimento é que a tua seção nova do Inner & Outer Game já
+   é a roda em leitura moderna — Inner/Outer, os cinco H e as 25 dimensões num sistema só. Então
+   a roda não entra como imagem. Tu concorda?
+
+2. A imagem da hélice de DNA ainda está na página, na seção "The 5H don't live in separate
+   compartments". Ele cita ela no brief como um dos elementos desconectados. Agora que tem a tua
+   seção nova em cima, ela fica ou sai?
+
+3. Ele fala de "o highlighting de um H sem explicação". Não achei o que é. Tu sabe a que ele se
+   refere?
+
+Vou te colocar em cópia no e-mail. Se tu já tiver falado com ele sobre o layout, me avisa como
+foi.
