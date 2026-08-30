@@ -28,9 +28,13 @@ const logoData =
 
 // Strip the H1 (rendered in our own cover header) and the first two intro
 // paragraphs so they can be styled as a lede block.
-const lines = md.split("\n");
-const h1 = lines.find((l) => l.startsWith("# "))?.replace(/^#\s+/, "") ?? "";
-const body = md.replace(/^#\s+.*\n/, "");
+// `\r?` on both patterns: on a Windows checkout the source arrives CRLF, and
+// JavaScript's `.` does not match `\r`, so `/^#\s+.*\n/` silently fails to strip
+// the leading H1 — the title then renders twice, once on the cover and once at
+// the head of the body.
+const lines = md.split(/\r?\n/);
+const h1 = lines.find((l) => l.startsWith("# "))?.replace(/^#\s+/, "").trim() ?? "";
+const body = md.replace(/^#\s+.*\r?\n/, "");
 
 marked.setOptions({ gfm: true, breaks: false });
 let html = marked.parse(body);
