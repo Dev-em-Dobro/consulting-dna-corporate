@@ -158,7 +158,7 @@ export default function LocationsBlock({
                         onClick={() => selectOffice(i)}
                         aria-current={i === activeIndex ? "true" : undefined}
                         className={
-                          "transition-colors " +
+                          "cursor-pointer transition-colors " +
                           (i === activeIndex
                             ? "text-ink"
                             : "text-muted hover:text-ink")

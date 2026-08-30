@@ -95,7 +95,7 @@ export default function LocationsCarousel({
                 tabIndex={active ? 0 : -1}
                 onClick={() => onChange(i)}
                 className={
-                  "shrink-0 text-[34px] font-bold uppercase tracking-[1px] transition-colors sm:text-[42px] " +
+                  "shrink-0 cursor-pointer text-[34px] font-bold uppercase tracking-[1px] transition-colors sm:text-[42px] " +
                   (active
                     ? "text-ink"
                     : "text-ink/25 hover:text-ink/50")

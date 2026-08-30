@@ -73,7 +73,7 @@ export default function PhotoCarousel({
         type="button"
         onClick={prev}
         aria-label="Previous image"
-        className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-md transition-colors hover:bg-brand hover:text-white md:left-5"
+        className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white/90 text-ink shadow-md transition-colors hover:bg-brand hover:text-white md:left-5"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -83,7 +83,7 @@ export default function PhotoCarousel({
         type="button"
         onClick={next}
         aria-label="Next image"
-        className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-md transition-colors hover:bg-brand hover:text-white md:right-5"
+        className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white/90 text-ink shadow-md transition-colors hover:bg-brand hover:text-white md:right-5"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -99,7 +99,7 @@ export default function PhotoCarousel({
             onClick={() => goTo(i)}
             aria-label={`Go to image ${i + 1}`}
             aria-current={i === index}
-            className={`h-2 rounded-full transition-all ${
+            className={`h-2 cursor-pointer rounded-full transition-all ${
               i === index ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/80"
             }`}
           />
