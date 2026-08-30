@@ -22,6 +22,12 @@ O design que o Guli apresentou sexta já está aplicado e no ar no site de revis
 item, na ordem do seu e-mail. Em cada um: o que está feito, o que ainda está com o Guli, e o que
 precisamos de vocês. O tracker em anexo tem o mesmo conteúdo nos baldes que você pediu no item 19.
 
+Duas coisas para saber antes de abrir o link, as duas nossas e nenhuma delas de design: o menu de
+Solutions ainda lista o conjunto antigo, com Inclusion & Diversity no meio — os oito nomes
+confirmados estão no sistema de conteúdo, mas a virada lá ainda não foi aplicada no banco do site
+de revisão. E o ticker aparece vazio, porque ainda não tem itens. Vale ler também a parte do mapa,
+no fim deste e-mail: ela aparece em três páginas.
+
 Antes de tudo, uma coisa que vale dizer: o layout do Guli ainda não foi validado com vocês. Ele
 ficou de marcar. Nada do que está aplicado é irreversível, mas quanto antes esse OK vier, menor a
 chance de retrabalho.
@@ -39,14 +45,14 @@ real judgement, real people, real consequences — e nada além deles. Uma frase
 copy inventada; se vocês quiserem uma, ela vem de vocês.
 
 Sobre esse bloco, uma ressalva: **ele existe, mas o tratamento visual ainda precisa passar pelo
-Guli.** O que está no ar é a estrutura funcionando — os seis termos, no lugar certo, com os
+Guli.** O que está pronto é a estrutura funcionando — os seis termos, no lugar certo, com os
 espaçamentos do sistema atual. Você pediu que essa explicação fosse "curta e visual", e o visual é
 justamente o que ele ainda não olhou. Colocamos de pé para o bloco existir e para vocês verem os
 termos em contexto, não como proposta final de layout.
 
-Com o Guli: ele abriu mão de fazer a home no Figma, então a reordenação foi nossa. Além do bloco
-acima, sobraram dois pontos de emenda visual que preferimos não resolver sozinhos porque mudam o
-ritmo de cor da página inteira. Estão no tracker, parte C1.
+Com o Guli: a reordenação está feita. Além do bloco acima, sobraram dois pontos de emenda visual
+que preferimos não resolver sozinhos porque mudam o ritmo de cor da página inteira — se vocês
+quiserem uma passada de design neles, é com ele. Estão no tracker, parte C1.
 
 
 2. PROOF MUITO MAIS CEDO
@@ -76,23 +82,41 @@ um segundo livro. Se já tiver outro para entrar, avisa que mudamos.
 
 Esta é a maior dependência de conteúdo do projeto.
 
-Feito: os sete blocos que o item lista existem agora, na ordem dele. Três não existiam — Our
-Purpose, Keeping Leadership Real e a referência ao 5H. Londres e o ponto de vista do fundador
-ficaram dentro de Our Story, e não como blocos separados, porque você é específico que Londres tem
-que entrar na company story e não como quote isolada. E a seção mudou de "Keeping It Real" para
-"Keeping Leadership Real", que é o nome que o item 1 promoveu.
+Feito: os sete blocos que o item lista existem agora, na ordem dele. O seu item 4 detalha bem a
+página, e isso ajudou muito. Três blocos não existiam — Our Purpose, Keeping Leadership Real e a
+referência ao 5H. Londres e o ponto de vista do fundador ficaram dentro de Our Story, e não como
+blocos separados, seguindo o que você pede: Londres entra na company story e não como quote
+isolada. E a seção mudou de "Keeping It Real" para "Keeping Leadership Real", que é o nome que o
+item 1 promoveu.
 
 De vocês: todo o texto. Os sete blocos estão montados e vazios.
 
+Quando vocês conseguiriam nos mandar esses textos? A gente pergunta cedo porque esta é a página em
+que a gente preferiria não escrever no lugar de vocês. Daria para montar algo que lê bem, ou pegar
+o texto do site antigo e encurtar até caber nos sete blocos, mas nenhum dos dois nos parece certo
+aqui. Our Identity é onde a empresa diz quem ela é: o que a gente redigisse seria a nossa leitura
+da Corporate DNA, não a de vocês, e vocês provavelmente iam querer reescrever. O site antigo
+também não ajuda muito: três dos sete blocos não têm equivalente lá, e a frase que o item pede
+para preservar não está nele.
+
+Direcionamento ajuda mais do que um rascunho nosso para vocês aprovarem: para cada um dos sete
+blocos, o texto que deve entrar — ou, onde vocês preferirem que a gente dê forma, o material bruto
+e os pontos que ele tem que fazer, nas palavras de vocês. Londres é o exemplo mais claro: sabemos
+que tem que estar dentro da história, e a história é de vocês.
+
 Um detalhe que vale destacar: a frase que você pede para preservar em Our Purpose — "cut through
 complexity, connect the present and deliver the truth: real problems and real solutions" — nós
-procuramos no site inteiro e ela não está em lugar nenhum. Ou seja, não é preservar o que existe,
-é escrever pela primeira vez.
+procuramos no site inteiro e não encontramos. Então, na prática, não é preservar o que existe: é
+escrever pela primeira vez.
 
-E "Why We Are Different" está com a Rhea, o JP e o Nitin desde o brief de 05/08 — já são três
-semanas. Ele também não está na sua lista de sete itens deste brief. Continua na página?
+E "Why We Are Different" segue com a Rhea, o JP e o Nitin desde o brief de 05/08. Ele também não
+está na sua lista de sete itens deste brief. Continua na página?
 
-Com o Guli: ele não desenhou esta tela.
+Com o Guli: ele ainda não desenhou esta tela, e nossa sugestão, se fizer sentido para vocês, é que
+desenhe depois. Vocês confirmam o texto que entra, e o Guli desenha a página em cima do texto que
+existe de fato. Desenhar os blocos vazios e encaixar a copy depois costuma deixar o layout brigando
+com o tamanho do texto — e o item 16 pede menos scroll, que antes de ser decisão de design é
+decisão de quanto texto tem.
 
 
 5. OUR SOLUTIONS
@@ -189,12 +213,16 @@ Feito: o explorer foi reconstruído com as 25 dimensões, transcritas da roda de
 de vocês. O conteúdo fica acima dos controles, com altura travada, e a régua Inner/Outer Game
 inverte conforme se navega. A introdução foi redesenhada.
 
-De vocês: o sign-off nos nomes das 25 dimensões antes de ir para produção — é IP de vocês.
+De vocês: o sign-off nos nomes das 25 dimensões antes de ir para produção — é IP de vocês. Vale
+dizer onde olhar: são a linha que fica girando dentro da seção Inner & Outer Game que o Guli fez.
+Cada faculdade carrega cinco dimensões da roda, uma depois da outra. O que precisa de aprovação é
+esse texto, não o design em volta.
 
-E uma pergunta de estratégia: as dimensões devem ser explicadas a fundo em algum momento, ou basta
-aparecerem? Hoje elas rotacionam como nome, sem página por trás.
+Uma coisa ali é nossa e talvez vocês queiram diferente: a ordem. A roda é um círculo sem começo e
+o mock não fixa sequência, então lemos cada faculdade ao longo do arco. Se quiserem outra ordem
+dentro de alguma faculdade, é uma linha de mudança.
 
-Com o Guli, três pontos deste item:
+Com o Guli, quatro pontos deste item:
 
 Você pede para manter o 5H wheel. Nosso entendimento é que a seção nova que ele fez já é a roda em
 leitura moderna — Inner/Outer, os cinco H e as 25 dimensões num sistema só, que é exatamente o que
@@ -205,6 +233,14 @@ página e o Guli não a substituiu. Agora que existe a seção nova acima dela, 
 
 E "o highlighting de um H sem explicação" — não conseguimos identificar a que se refere. Pode
 apontar onde está?
+
+Por último, as dimensões que giram não levam a lugar nenhum. Cada faculdade passa pelas cinco a um
+segundo cada, de propósito mais rápido que o tempo de leitura, para despertar curiosidade em vez de
+explicar. Funciona como efeito, mas nada na seção responde a curiosidade que ela desperta: os cards
+não são clicáveis e não existe descrição de dimensão em lugar nenhum do site. Então a pergunta é de
+vocês dois: uma dimensão abre em alguma coisa? Se abrir, o que tem do outro lado? É também o ponto
+em que o item 16 ("menos texto") e essa seção puxam para lados opostos, e por isso preferimos
+perguntar a construir.
 
 
 11. PROPRIETARY FRAMEWORKS & DIAGNOSTICS
@@ -222,7 +258,13 @@ obrigatório, e a rota lê de lá. Nenhum nome está fixo no código.
 
 De vocês: o texto de cada parceria respondendo essa pergunta — o brief é explícito que logo e
 anúncio não bastam. E a confirmação da lista: Harvard, Imperial, Emeld AI, Explore Performance,
-TerraGrin.
+TerraGrin, mais qualquer outra relação validada.
+
+Com o Guli: nossa recomendação aqui é a mesma de Our Identity — texto e imagens primeiro, design
+depois. Sugerimos que ele só desenhe esta tela com o conteúdo e as fotos em mãos, e desenhe em
+cima do que de fato chegar. Quantas parcerias são, qual o tamanho de cada descrição e se cada uma
+tem imagem utilizável mudam o layout inteiro; desenhar antes disso provavelmente significaria
+fazer duas vezes.
 
 
 13. VÍDEOS DE DEPOIMENTO
@@ -269,7 +311,17 @@ Uma decisão que registramos: categoria e data não aparecem na faixa. O item li
 escritórios, parcerias e marcos como o conteúdo que entra, não como rótulo a imprimir — os campos
 existem no dado e servem ao corte de 2023+ e à ordenação.
 
-De vocês: o conteúdo, de 2023 em diante.
+De vocês: o conteúdo, de 2023 em diante. E aqui vale uma ressalva, porque talvez não precise de
+nada de vocês: se for só para trazer a faixa do site antigo como ela está, é só falar que a gente
+faz — é trabalho curto e não trava nada. Não fizemos por conta própria porque a faixa antiga é
+anterior ao corte de 2023 que o item pede, então parte dela entraria e parte não, e essa escolha é
+de vocês.
+
+O que a gente não consegue resolver sozinho são os links. No site antigo alguns itens da faixa
+eram clicáveis. O campo existe e funciona, então dá para trazer — só que link tem que levar a
+algum lugar, e para vários desses itens não há destino óbvio no site novo. Então: os itens têm
+link? Se tiverem, cada um vai para onde? Essa parte não ficou clara para nós, e é a única coisa
+deste item que realmente depende de vocês.
 
 
 18. O QUE DEVE SER PRESERVADO

@@ -8,6 +8,19 @@ estado de cada um. Atualizado em **2026-08-30**, depois de aplicar a leva de des
 > Our Clients com as faixas de cliente, Our Impact na sequência do mock, o 5H reconstruído com as
 > 25 dimensões, a home reordenada e o ticker de volta no topo. Our Identity ganhou os sete blocos
 > do item 4. Tudo commitado na `feat/brief-27-08-content-structure`, **nada pushado ou publicado**.
+>
+> ⚠️ **Git não diz o que está publicado.** A branch está 33 commits à frente do `origin`
+> (tip remoto `4ef7a00`, de 28/08), mas o `alpha` **está com o código local de hoje** — o deploy é
+> `vercel` manual, que sobe a cópia de trabalho e não passa pelo `origin`. Verificado no ar em
+> 30/08: `/our-clients` mostra o título "Client Stories", que só existe no commit local `3e28d32`,
+> e a home mostra os seis termos do item 1, que só existem no HEAD. **Nunca inferir o que está
+> publicado a partir de `git rev-list --left-right`. Abrir o site.**
+>
+> ⚠️ **O que o alpha NÃO reflete, e é do CMS, não do código:** o menu de Solutions ainda lista o
+> conjunto antigo — `/solutions/inclusion-diversity`, `/solutions/asian-talent-development`,
+> `/solutions/leadership-development`, `/solutions/ceo-top-team-transformation` — ou seja, os oito
+> nomes confirmados do item 5 não estão visíveis para ninguém que abra o link. E o ticker não
+> renderiza, por não ter entradas. **Os dois só se resolvem no banco que o alpha lê.**
 
 **Legenda**
 
@@ -100,10 +113,19 @@ Story, como ele pediu. A seção mudou de "Keeping It Real" para **"Keeping Lead
 todos vazios. A frase "cut through complexity…" que ele manda preservar **não existe em lugar
 nenhum do site** — não é preservar, é escrever pela primeira vez.
 
+**Como está colocado com eles:** como pergunta de prazo — *quando conseguem mandar esses textos?*
+—, dizendo que não acreditamos que quem deva produzi-los sejamos nós. Nesta página o texto é a
+própria identidade da empresa: o que a gente inventasse seria nossa leitura da CDNA, e eles
+reescreveriam. Encurtar o site antigo também não serve — três dos sete blocos não têm equivalente
+lá. O pedido é direcionamento por bloco: o texto, ou o material bruto mais os pontos que ele tem
+que fazer, nas palavras deles.
+
 🟠 **"Why We Are Different" está parado desde o brief de 05/08**, com a Rhea, o JP e o Nitin. E
 não está na lista de sete itens do item 4 — perguntar se continua na página.
 
-🎨 **O Guli não desenhou esta tela.** Os itens 1 e 16 valem para ela também.
+🎨 **O Guli não desenhou esta tela** — e a sugestão é que desenhe **depois** do texto confirmado,
+não antes. Sete blocos vazios desenhados primeiro viram layout brigando com o tamanho da copy, e o
+item 16 pede menos scroll. Os itens 1 e 16 valem para ela também.
 
 ---
 
@@ -180,7 +202,10 @@ O título "Client Stories" não está no mock do Guli, e foi acrescentado de pro
 os dois blocos por função — *"Logo wall = immediate credibility, Client stories = depth"* — e sem
 o título a página lia como duas listas de clientes seguidas.
 
-**Página considerada fechada.** Falta só a confirmação da CDNA.
+**Página considerada fechada de build.** Falta a confirmação da CDNA — e o mapa dela está com o
+"API KEY REQUIRED" carimbado pela CARTO, então "fechada" não é a mesma coisa que "publicável". O
+PDF de 30/08 dizia que a página estava pronta e citava o mapa como entregue, duas seções antes de
+descrever o carimbo. **Reconciliado.**
 
 ✅ As faixas reproduzem o tratamento do mock: painel na cor da marca dissolvendo no preto, com a
 marca vazada em branco.
@@ -233,9 +258,28 @@ porque "Programme Impact" já é um dos indicadores de lá.
 🟠 **Testimonials sobre a CorporateDNA.** O slot está montado e vazio: o item 7 exige depoimentos
 sobre o trabalho, e as quotes atuais são corporate genéricas.
 
-🟠 **A lista de aprovação de 06/08 nunca teve retorno** — 95% × 90%, 26 × 36 countries, "ten
-years" × 18 years, ©2021. Enquanto não fecha, o site carrega as duas versões em páginas
-diferentes.
+🟠 **Sobrou da lista de 06/08: quatro coisas em `/approach`** — o "95% of our clients cite 5H®"
+(sem fonte), os **26 countries** em quatro pontos da página contra os 36 do resto do site, o "over
+ten years".
+
+**A linha de copyright saiu do documento do cliente** (decisão de 30/08 — se eles quiserem mandar
+fonte ou ano, que mandem; não vamos perguntar). **Mas ela continua na página e ninguém está
+olhando:** `app/approach/page.tsx:479-482`, um `<p>` centralizado cinza, último elemento antes do
+footer — *"© 2021– 5H is the sole copyright and IP of Corporate DNA Consulting. All rights
+reserved."* Veio do site antigo junto com a página (commit `312ea8b`, que moveu o 5H de Solutions
+para Our Approach). Dois defeitos: o ano é 2021, e o travessão abre um intervalo que nunca fecha,
+então na tela lê *"© 2021– 5H is the sole copyright…"*. É também **o único aviso de copyright do
+site inteiro** — o footer não tem nenhum — e cobre o 5H, não a empresa.
+
+⚠️ **Cuidado com o pareamento.** O tracker antigo listava isso como "95% × 90%" e "ten years × 18
+years", como se fossem duas versões do mesmo dado. Não são: **90% é *work sponsored by
+Chairman/CXO*, 95% é *clients who cite 5H as the secret of our success*** — métricas diferentes. E
+"over ten years" é a idade do 5H, não a da empresa. **A única contradição real é 26 × 36
+countries.** Corrigido no PDF de 30/08.
+
+✅ **O set corporativo está resolvido na prática:** o item 2 do e-mail dele usa "90%
+Chairman/CXO-sponsored" e "18 years" pelo nome, então 90 / 18 / 36 / 75 não precisa de nova
+aprovação.
 
 ---
 
@@ -298,6 +342,10 @@ lendo do CMS, nenhum nome hard-coded.
 
 🟠 **O texto de cada parceria**, e confirmação da lista.
 
+🎨 **Guli desenha depois do conteúdo.** Recomendação explícita no PDF e no e-mail de 30/08: quantas
+parcerias são, o tamanho de cada descrição e se cada uma tem imagem utilizável mudam o layout —
+desenhar antes disso é retrabalho quase garantido. Mesma lógica de Our Identity.
+
 ---
 
 ## 13. Client testimonial videos
@@ -337,6 +385,12 @@ ou com cara de IA. A CDNA confirma a lista final.
 ✅ Rota `/our-team` construída, fora do menu até ter os assets.
 
 🟠 **Foto de grupo, retratos P&B e a lista final de quem aparece.**
+
+🟠 **Até onde vai o P&B.** O item 15 escopa o preto e branco **aos retratos do time** — e só. A
+foto que a CDNA mandou para o pé de Our Clients também é P&B, e o carrossel do Social Impact em
+Our Impact é colorido. A pergunta é legítima, mas **é daqui, não de Our Clients**: no PDF de 30/08
+ela estava listada como "aprovação de Our Clients", dando a entender que o item 15 governa aquela
+página. **Movida para cá.**
 
 🎨 **O tratamento visual do time.** O Guli não desenhou.
 
@@ -379,7 +433,16 @@ campos existem no dado e servem ao corte e à ordenação.
 
 ⏳ Migração `0007`.
 
-🟠 **O conteúdo do ticker, de 2023 em diante.**
+🟠 **O conteúdo do ticker, de 2023 em diante.** Mas pode ser que não precise deles: copiar a faixa
+do site antigo é trabalho curto e está à nossa mão. O que segurou foi o corte de 2023 — a faixa
+antiga é anterior, então parte entra e parte não, e essa escolha é deles.
+
+🟠 **Os links dos itens.** No site antigo alguns eram clicáveis. `linkUrl` existe no schema
+(`lib/cms/schemas.ts:286`) e o componente sublinha só quando há link (`RunningTicker.tsx:81`), mas
+link tem que levar a algum lugar e para vários itens não há destino no site novo. **É a única
+coisa do item 17 que depende mesmo deles.** Não dá para descobrir sozinho: o site antigo carrega o
+ticker por AJAX (plugin Ditty, `ditty 7576`), então o dump em `docs/advisors.txt` não traz os itens
+nem os destinos.
 
 ---
 
