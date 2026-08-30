@@ -141,9 +141,13 @@ navegando. O motivo é que, com as faixas de cliente logo abaixo, ficavam duas s
 dizendo a mesma coisa — e a marquee era a mais fraca das duas. Ele continua na home, onde cumpre o
 mesmo papel de credibilidade imediata. Se preferirem de volta aqui, é rápido: nada foi apagado.
 
-De vocês: aprovação dos nomes e logos; a frase de fechamento ("We cut cross cultural boundaries…"),
-que veio do site antigo e não passou por aprovação neste ciclo; e a confirmação de que o preto e
-branco do item 15 vale para os retratos do time, não para as fotos de evento.
+De vocês: aprovação dos nomes e logos, e a frase de fechamento ("We cut cross cultural
+boundaries…"), que veio do site antigo e não passou por aprovação neste ciclo.
+
+E uma dúvida sobre as fotos: o item 15 pede preto e branco para os retratos do time, e a foto que
+vocês mandaram para o rodapé desta página também é preto e branco. Mas o carrossel do Social
+Impact, na Our Impact, está colorido. A fotografia deve ser preto e branco em todo o site, ou o
+tratamento fica restrito aos retratos, como o item 15 escreve?
 
 
 9. OUR IMPACT

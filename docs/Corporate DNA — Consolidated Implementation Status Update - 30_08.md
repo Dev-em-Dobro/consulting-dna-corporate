@@ -99,7 +99,7 @@ Item 7 requires quotes to be testimonials about the work, not generic corporate 
 
 - The client names and logos on the page.
 - The closing line — *"We cut cross cultural boundaries…"* — taken from the old site for the mock, not re-approved this cycle.
-- Confirmation that the black-and-white treatment in item 15 applies to the team portraits, not to event photography.
+- **How far the black-and-white treatment goes.** Item 15 asks for it on the team portraits, and the photograph you supplied for the foot of this page is black and white too. But the Social Impact carousel on Our Impact still runs in colour. Should the photography be black and white throughout, or does the treatment stay scoped to the portraits as item 15 words it?
 
 ### B8 · Partnerships **[CDNA]**
 
