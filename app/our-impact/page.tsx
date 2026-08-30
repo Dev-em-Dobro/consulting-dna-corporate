@@ -74,7 +74,7 @@ export default async function OurImpactPage() {
           <Reveal className="mt-12 grid max-w-[860px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {stats.map((s) => (
               <div key={s.label} className="flex items-start gap-5">
-                <span className="mt-[42px] h-[3px] w-8 flex-none bg-brand" />
+                <span className="mt-[38px] h-[3px] w-8 flex-none bg-brand md:mt-[50px]" />
                 <div>
                   <div className="text-[44px] font-bold leading-none tracking-[-1.5px] text-brand md:text-[56px]">
                     <Counter value={s.value} />
