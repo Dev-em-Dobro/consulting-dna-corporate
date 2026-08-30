@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import EmptyNotice from "@/components/EmptyNotice";
+import SolutionBoxList from "@/components/solutions/SolutionBoxList";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { getSolutionIndexEntries } from "@/lib/cms/map";
 
@@ -28,8 +28,9 @@ export const revalidate = 300;
  * re-authors the eight, with no visible placeholder in the meantime. The
  * problem statement is the second line when one exists.
  *
- * The visual system for these (the old site's black boxes / coloured bars in a
- * modern reading) is Guli's; this is structure, not treatment.
+ * The visual system for these — the old site's black boxes / coloured bars in a
+ * modern reading — arrived with Guli's pass of 29-08 and lives in
+ * `components/solutions/SolutionBoxList.tsx`.
  */
 export default async function SolutionsPage() {
   const solutions = await getSolutionIndexEntries();
@@ -52,42 +53,7 @@ export default async function SolutionsPage() {
           {solutions.length === 0 ? (
             <EmptyNotice>No solutions published yet.</EmptyNotice>
           ) : (
-            <div className="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2">
-              {solutions.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/solutions/${s.slug}`}
-                  className="group flex flex-col bg-white p-8 transition-colors hover:bg-paper"
-                >
-                  {/* Outcome-led: the service name becomes the label above the
-                      promise. Without an outcome, the name is the lead again. */}
-                  {s.outcome ? (
-                    <>
-                      <span className="text-[12px] font-semibold uppercase tracking-[1.5px] text-brand">
-                        {s.title}
-                      </span>
-                      <span className="mt-3 text-[21px] font-semibold leading-[1.3] tracking-[-0.4px] text-ink group-hover:text-brand">
-                        {s.outcome}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-[21px] font-semibold leading-[1.3] tracking-[-0.4px] text-ink group-hover:text-brand">
-                      {s.title}
-                    </span>
-                  )}
-
-                  {s.problemStatement && (
-                    <span className="mt-3 line-clamp-3 text-[15px] leading-[1.6] text-muted">
-                      {s.problemStatement}
-                    </span>
-                  )}
-
-                  <span className="mt-6 text-brand transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              ))}
-            </div>
+            <SolutionBoxList solutions={solutions} />
           )}
         </div>
       </section>

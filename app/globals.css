@@ -187,3 +187,66 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .fh-fade { animation: none; }
 }
+
+/* Solutions index — the old site's black boxes in a modern reading (27-08
+   brief, item 5; Guli's pass of 29-08).
+
+   The row rests dark and the brand sweeps in from the right, stopping short of
+   the left edge so a dark wedge survives. That diagonal is the whole device, so
+   the fill is a skewed panel rather than a background, and the row clips it.
+
+   Geometry is measured off docs/design-guli-29-08/solutions-black-boxes.png:
+   the boundary sits at 28% of the row at mid-height and leans 37° off vertical,
+   the top of the wedge reaching further right than its foot. Default (centre)
+   transform-origin is what keeps the 28% on the mid-line while the skew opens
+   symmetrically above and below it — so rows of one and two lines carry the
+   same angle without either drifting off the mock.
+
+   The panel overhangs 8rem to the right because skewing drags its foot left by
+   0.75 × row height; without the overhang a two-line row would show a notch of
+   bare background at the bottom-right corner. */
+.sbox {
+  position: relative;
+  overflow: hidden;
+}
+.sbox__sweep {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 28%;
+  right: -8rem;
+  background-color: var(--color-brand);
+  transform: translateX(105%) skewX(-37deg);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Pointer devices get the sweep on hover. Touch has no hover, so the press
+   state stands in — and focus-visible gives the keyboard the same affordance
+   rather than only the outline. */
+@media (hover: hover) {
+  .sbox:hover .sbox__sweep {
+    transform: translateX(0) skewX(-37deg);
+  }
+}
+.sbox:focus-visible .sbox__sweep,
+.sbox:active .sbox__sweep {
+  transform: translateX(0) skewX(-37deg);
+}
+
+/* Under "reduce motion" the wedge still has to appear — it is the hover state,
+   not decoration — so it fades in place instead of travelling. */
+@media (prefers-reduced-motion: reduce) {
+  .sbox__sweep {
+    transform: translateX(0) skewX(-37deg);
+    opacity: 0;
+    transition: opacity 160ms linear;
+  }
+  .sbox:focus-visible .sbox__sweep,
+  .sbox:active .sbox__sweep {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .sbox:hover .sbox__sweep {
+    opacity: 1;
+  }
+}
