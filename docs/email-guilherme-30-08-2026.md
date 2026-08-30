@@ -27,9 +27,10 @@ Solutions ainda lista o conjunto antigo, com Inclusion & Diversity no meio — o
 confirmados estão no sistema de conteúdo, mas a virada lá ainda não foi aplicada no banco do site
 de revisão. E o ticker aparece vazio, porque ainda não tem itens.
 
-Antes de tudo, uma coisa que vale dizer: o layout do Guli ainda não foi validado com vocês. Ele
-ficou de marcar. Nada do que está aplicado é irreversível, mas quanto antes esse OK vier, menor a
-chance de retrabalho.
+Antes de tudo, um ponto de status: o design que o Guli apresentou já teve o OK de vocês, e é ele
+que está aplicado aqui. O que continua em aberto não é isso — são as telas que ele ainda não
+desenhou, e a Our Impact, que ficou pela metade. Elas estão marcadas item a item abaixo, e reunidas
+na parte C do anexo.
 
 
 1. HOMEPAGE — NOVA HIERARQUIA
