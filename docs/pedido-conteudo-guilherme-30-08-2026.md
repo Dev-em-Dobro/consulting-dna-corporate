@@ -51,26 +51,31 @@ Decisões:
 - O vídeo institucional novo em torno de "Keeping Leadership Real" (item 14) não bloqueia o
   lançamento, mas queremos saber se já tem previsão.
 
-Guli, a reordenação precisa de uma passada tua. A ordem nova atende o item 2 — prova antes de
-explicação — mas quebrou o ritmo visual da página em quatro pontos, e nenhum deles a gente
-resolve sem design:
+Uma coisa que fizemos e vale registrar: o item 1 pede para explicar "Keeping Leadership Real" de
+maneira curta e visual, com *real pressures, real politics, real choices, real judgement, real
+people and real consequences*. A home afirmava a frase no hero e não a explicava em lugar nenhum.
+Esse bloco existe agora, logo abaixo do hero, com os seis termos que você listou e mais nada —
+uma frase de abertura seria copy inventada, e se vocês quiserem uma, ela vem de vocês.
 
-1. Ficaram três faixas escuras seguidas no topo: o ticker, o hero com o vídeo, e o bloco de
-   credibilidade. O vídeo termina num corte seco contra o cinza chapado do bloco de baixo.
+Guli, a reordenação ainda precisa de uma passada tua. A ordem nova atende o item 2, mas cobrou o
+ritmo visual da página. O bloco dos seis "reals" resolveu dois pontos de quebra — as três faixas
+escuras que tinham ficado seguidas no topo, e o logo wall que tinha perdido a frase que servia de
+deixa para ele. Sobraram dois, e esses preferimos não mexer sozinhos porque mudam o ritmo de cor
+da página inteira:
 
-2. O logo wall perdeu a deixa. Antes ele vinha depois do "What we solve", então os logos eram a
-   prova de uma frase. Agora é a primeira coisa depois do hero, sustentado só por um rótulo
-   cinza pequeno de "Trusted by leadership teams at".
-
-3. "What we solve" e "Client Impact" ficaram os dois em branco puro, colados, e o alinhamento
+1. "What we solve" e "Client Impact" ficaram os dois em branco puro, colados, e o alinhamento
    vira de centralizado para esquerdo no meio do scroll. Antes o bloco escuro separava os dois.
    Hoje a fronteira some.
 
-4. O mesmo acontece embaixo com o bloco do livro e o de escritórios, os dois no mesmo cinza
+2. O mesmo acontece embaixo com o bloco do livro e o de escritórios, os dois no mesmo cinza
    claro.
 
 Nada disso é a ordem estar errada — é a ordem nova pedindo um tratamento que o layout antigo não
 precisava ter.
+
+*Observação nossa, não pedido de vocês:* o bloco do livro é a maior seção da home, com 1.409px —
+maior que o próprio hero. Se o Guli for mexer na home de qualquer forma, é onde há mais a ganhar
+contra o item 16.
 
 
 OUR IDENTITY
