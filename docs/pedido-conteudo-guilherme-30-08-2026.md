@@ -156,7 +156,14 @@ OUR CLIENTS
 
 Estrutura pronta, esperando aprovação:
 
-- Aprovação dos nomes e logos que aparecem no wall e nas faixas de cliente.
+- Uma mudança que precisamos sinalizar: **tiramos o logo wall desta página.** Sabemos que o
+  item 8 pede ele em primeiro lugar, e é por isso que estamos avisando em vez de deixar você
+  descobrir navegando. O motivo é que, com as faixas de cliente logo abaixo, ficavam duas seções
+  seguidas dizendo a mesma coisa — e a marquee era a mais fraca das duas. O wall continua na
+  home, onde cumpre o mesmo papel de credibilidade imediata logo depois do hero. Se você
+  preferir de volta aqui, é rápido: nada foi apagado.
+
+- Aprovação dos nomes e logos que aparecem nas faixas de cliente.
 
 - A frase que fecha a página — "We cut cross cultural boundaries to release energy in leaders and
   teams by seeing them as real people with real personalities. We make leadership real." — veio
@@ -361,7 +368,9 @@ Mas o item 10 tem três coisas em aberto:
 4. OUR CLIENTS / OUR IMPACT
 
 Our Clients está fechada. Fiz as faixas com o painel da cor da marca dissolvendo no preto e a
-marca vazada em branco, que é o que teu mock faz. Um aviso: nossos PNGs de logo são fundo branco
+marca vazada em branco, que é o que teu mock faz. Tiramos o logo wall dessa página — com as
+faixas logo abaixo ficavam duas seções seguidas dizendo "estes são nossos clientes". Ele continua
+na home. Sei que o item 8 pede o wall aqui, então vou avisar o Guilherme. Um aviso: nossos PNGs de logo são fundo branco
 opaco, então o vazado sai monocromático — a Heineken perde o vermelho da estrela. Pra bater 100%
 precisaria do asset de knockout de cada marca. Tirei o hero escuro e deixei título e uma linha,
 como teu mock, e troquei o carrossel do rodapé pela foto P&B única que eles mandaram. A página

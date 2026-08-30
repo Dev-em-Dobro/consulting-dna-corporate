@@ -172,8 +172,14 @@ o e-mail, que a exige. Perguntar ao Guli se omitiu ou substituiu.
 imediatamente breadth, scale and calibre. Depois do wall, os flagship client stories ligados às
 oito Solutions. Logo wall = credibilidade imediata; client stories = profundidade.
 
-✅ Wall → faixas de cliente → global footprint → foto e quote de fechamento. O cabeçalho virou
-título e uma linha, como o mock, sem a faixa escura.
+⚠️ **O logo wall foi retirado desta página em 30/08**, por decisão nossa. Com as faixas de
+cliente logo abaixo, ficavam duas seções seguidas dizendo "estes são nossos clientes". Isso
+diverge do item 8, que abre pedindo o wall e o chama de credibilidade imediata — e o Guli
+confirmou a mesma ordem falando na call (09:57). Sinalizado ao Guilherme no e-mail de 30/08. O
+wall continua na home, da mesma fonte (`lib/logos.ts`); voltar aqui é recolocar um bloco.
+
+✅ Faixas de cliente → global footprint → foto e quote de fechamento. O cabeçalho virou título e
+uma linha, como o mock, sem a faixa escura.
 
 ✅ As faixas reproduzem o tratamento do mock: painel na cor da marca dissolvendo no preto, com a
 marca vazada em branco.

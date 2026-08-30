@@ -3,18 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
 import EmptyNotice from "@/components/EmptyNotice";
-import LogoMarquee from "@/components/LogoMarquee";
 import ClientBandCard from "@/components/clients/ClientBandCard";
 import LocationsBlock from "@/components/LocationsBlock";
 import { localeAlternates } from "@/lib/seo/alternates";
-import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getCaseListEntries } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Our Clients — Corporate DNA",
     description:
-      "The organisations Corporate DNA advises — a global client wall and the flagship stories behind the work.",
+      "The organisations Corporate DNA advises, and the flagship stories behind the work.",
     alternates: localeAlternates("/our-clients"),
   };
 }
@@ -30,27 +28,23 @@ const FLAGSHIP_COUNT = 5;
  * into **Our Clients** (the logo wall for immediate credibility, then the
  * flagship stories) and **Our Impact** (the numbers and proof).
  *
- * The wall reads from `lib/logos.ts`, the same source the homepage band uses —
- * the brief asks for the wall in both places, and two hand-kept arrays would
- * drift. The full faceted library stays at /cases; this page leads with the
- * strongest few and links onward rather than duplicating the filter UI.
+ * The full faceted library stays at /cases; this page leads with the strongest
+ * few and links onward rather than duplicating the filter UI.
  *
- * The visual treatment of the wall is Guli's (item 8); this is the current
- * system, built so his pass is application rather than construction.
+ * ⚠️ The logo wall the brief asks for first is NOT on this page — see the note
+ * where it used to sit. It still runs on the homepage.
  */
 export default async function OurClientsPage() {
   const cases = await getCaseListEntries();
   const flagship = cases.slice(0, FLAGSHIP_COUNT);
-  const [logoRow1, logoRow2] = clientLogoRows;
 
   return (
     <SiteShell>
       {/* ── Header ───────────────────────────────────────────────────────
           The mock opens on the page's name and a single line, on white, and
-          goes straight into the wall — no dark band, no claim headline. The
-          brief says nothing about a hero for this page; item 8 only asks for the
-          wall first and the stories after, so dropping the band costs nothing it
-          asks for and buys back the height item 16 wants back. */}
+          goes straight on — no dark band, no claim headline. The brief says
+          nothing about a hero for this page, so dropping the band costs nothing
+          it asks for and buys back the height item 16 wants back. */}
       <section className="bg-white">
         <div className="mx-auto max-w-[1000px] px-6 pb-8 pt-14 md:px-10 md:pt-16">
           <h1 className="text-[32px] font-bold leading-[1.08] tracking-[-1px] text-ink sm:text-[40px]">
@@ -63,28 +57,21 @@ export default async function OurClientsPage() {
         </div>
       </section>
 
-      {/* ── The wall: immediate credibility, before any explanation ─────
-          One caption line, the same one the homepage band carries. Cutting the
-          eyebrow and the headline was right — they cost 205px to restate what
-          the logos say. Cutting the caption too was not: with the branded client
-          bands directly underneath, an uncaptioned strip of logos reads as
-          decoration sitting above the section that actually names the clients.
-          The line costs ~30px and gives the wall its job back. */}
-      <section id="wall" className="bg-ink text-white">
-        <div className="py-12 md:py-14">
-          <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
-            Trusted by leadership teams at
-          </p>
-          <div className="flex flex-col gap-5">
-            <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
-            <LogoMarquee
-              logos={logoRow2}
-              duration={logoRowDuration(logoRow2)}
-              reverse
-            />
-          </div>
-        </div>
-      </section>
+      {/* ⚠️ The scrolling logo wall sat here and was removed on 30-08.
+
+          This diverges from item 8, which opens on "Trazer de volta uma forte
+          client logo wall / portfolio snapshot", calls it immediate credibility
+          and puts it before the stories — and Guli confirmed the same order
+          aloud on the call (09:57), even though his frame never drew it.
+
+          Why it went: with the branded client bands directly underneath, two
+          consecutive sections both said "these are our clients", and the marquee
+          was the weaker of the two. Raised with Guilherme in the 30-08 e-mail
+          rather than left for him to find.
+
+          Restoring it is this block plus the LogoMarquee import. The wall itself
+          still runs on the homepage, from the same lib/logos.ts source, so
+          nothing was deleted — only this placement. */}
 
       {/* ── Flagship stories, as branded bands ─────────────────────────
           Same reasoning: the mock goes straight from the header into the cards.
