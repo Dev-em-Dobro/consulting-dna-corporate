@@ -154,9 +154,29 @@ Aqui temos três dúvidas que travam a página, e nenhuma delas é de design.
 - "Measurable results" e "impact statistics" são a mesma coisa ou dois blocos diferentes? Isso
   muda se a página tem uma ou duas faixas de números.
 
-- "Programme outcomes" e "evidence across regions": não conseguimos identificar o que são. Não
-  existem no site antigo e não têm descrição no brief. Deixamos os dois de fora até saber — não
-  quisemos inventar.
+- "Programme outcomes" e "evidence across regions": não têm descrição no brief e deixamos os dois
+  de fora até saber. Mas temos uma hipótese, e é mais rápido você confirmar ou corrigir do que
+  responder do zero.
+
+  A seção "By the numbers" do site antigo tem nove indicadores, e eles se separam naturalmente em
+  dois grupos. De um lado os números da empresa: 2007 de fundação, países, leadership teams
+  atendidos, coaching clients atendidos, top FTSE 10. Do outro os resultados de programa: NPS,
+  engagement results, programme impact, talent promoted mid-programme.
+
+  Nossa leitura é que o primeiro grupo é "impact statistics" e o segundo é "programme outcomes" —
+  inclusive porque "Programme Impact" já é um dos indicadores de lá. Se for isso, a página tem
+  duas faixas de números em vez de uma, e "measurable results" seria o guarda-chuva das duas.
+  Faz sentido?
+
+  Guli, se estiver certo, isso resolve a tua observação de que iam ficar dois blocos parecidos em
+  sequência — a segunda faixa entra em outro tratamento.
+
+Guli, uma pergunta direta sobre esta tela: você considera ela terminada? Pergunto porque
+"programme outcomes" ficou sem tratamento no layout, "evidence across regions" aparece como
+título mas sem forma, e "dashboards" — que o item 9 pede junto com numbers, quotes e proof blocks
+— não apareceu. Também vale dizer que Our Social Impact e Our Awards não estão no item 9; você
+trouxe os dois do site antigo, o que faz sentido para nós, mas é melhor o Guilherme confirmar do
+que a gente assumir.
 
 E uma pendência antiga: a lista de aprovação que mandamos em 06/08 nunca teve retorno. São os
 números que hoje aparecem diferentes em páginas diferentes: 95% contra 90%, 26 countries contra
@@ -208,9 +228,20 @@ Também não está no menu ainda, pelo mesmo motivo.
 
 OUR BOOKS
 
-Hoje aponta para o bloco do livro na home. O item 3 pede o plural, para caber livros de outros
-membros do time no futuro. Existe algum outro livro para entrar agora, ou seguimos só com o da
-Rhea?
+Este é o único item da navegação que não tem página. O menu já está no plural, como o item 3
+pede, mas o link leva para o bloco do livro na home — não existe uma página de livros, e ela
+também não estava na leva de design do Guli.
+
+O que o brief diz sobre ela é uma linha: "Our Books deve permitir livros de diferentes membros do
+time no futuro". Isso é sobre a estrutura suportar mais de um livro, não necessariamente sobre
+ter uma página agora.
+
+Então a pergunta é: para o dia 1º, o link continua apontando para o bloco da home, ou vocês
+querem uma página própria? Se for página, precisamos saber quais livros entram além do da Rhea —
+e aí é conteúdo de vocês e design do Guli, os dois.
+
+Nossa sugestão, se não houver outro livro pronto para entrar: manter o link para a home agora e
+criar a página quando existir um segundo livro. O menu já está preparado para os dois caminhos.
 
 
 VÍDEOS DE DEPOIMENTO
@@ -269,6 +300,15 @@ item 10 contigo:
 
 3. Ele fala de "o highlighting de um H sem explicação". Não achei o que é. Tu sabe a que ele se
    refere?
+
+E uma sobre Our Impact: tu considera ela fechada? Pergunto porque o "programme outcomes" ficou
+sem tratamento, o "evidence across regions" ficou como título sem forma, e o "dashboards" que ele
+pede no item 9 não apareceu. Sei que tu levantou na call que não sabia o que era programme
+outcomes — acho que descobri: a seção "By the numbers" do site antigo tem nove números que se
+separam em dois grupos, os da empresa (fundação, países, teams, coaching clients, FTSE 10) e os
+de programa (NPS, engagement, programme impact, talent promoted). Aposto que "impact statistics"
+é o primeiro grupo e "programme outcomes" é o segundo. Se for isso, resolve também aquilo que tu
+falou de ficarem dois blocos parecidos em sequência — o segundo entra em outro tratamento.
 
 Vou te colocar em cópia no e-mail. Se tu já tiver falado com ele sobre o layout, me avisa como
 foi.
