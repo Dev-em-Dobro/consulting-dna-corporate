@@ -25,8 +25,7 @@ precisamos de vocês. O tracker em anexo tem o mesmo conteúdo nos baldes que vo
 Duas coisas para saber antes de abrir o link, as duas nossas e nenhuma delas de design: o menu de
 Solutions ainda lista o conjunto antigo, com Inclusion & Diversity no meio — os oito nomes
 confirmados estão no sistema de conteúdo, mas a virada lá ainda não foi aplicada no banco do site
-de revisão. E o ticker aparece vazio, porque ainda não tem itens. Vale ler também a parte do mapa,
-no fim deste e-mail: ela aparece em três páginas.
+de revisão. E o ticker aparece vazio, porque ainda não tem itens.
 
 Antes de tudo, uma coisa que vale dizer: o layout do Guli ainda não foi validado com vocês. Ele
 ficou de marcar. Nada do que está aplicado é irreversível, mas quanto antes esse OK vier, menor a
@@ -329,14 +328,6 @@ deste item que realmente depende de vocês.
 Verificado, item por item. Nada foi removido — inclusive Insights, que saiu do menu mas continua
 vivo e linkado no rodapé, porque este item exige preservar o Reports & Resources e uma página que
 ninguém linka está preservada só no nome.
-
-Mas encontramos um problema que não é do brief e precisa de decisão de vocês antes do lançamento.
-
-O mapa dos escritórios está renderizando com "API KEY REQUIRED" carimbado nos tiles. O provedor
-fechou o endpoint sem chave que a gente usava. O carimbo é gravado na imagem pelo servidor deles,
-então não é coisa do nosso ambiente — vai para produção exatamente assim. Afeta a home, o Our Team
-e o Our Clients. Resolver exige ou uma chave de API numa conta da CDNA, ou trocar de provedor de
-mapa, o que tem implicação de licença própria.
 
 
 19. TARGET E FORMA DE EXECUÇÃO

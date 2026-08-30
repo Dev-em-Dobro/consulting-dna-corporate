@@ -17,8 +17,6 @@ Part A is what has been built. **Parts B and C are the ones that matter for the 
 - **The Solutions menu still lists the old set**, Inclusion & Diversity among them. The eight confirmed names live in the content system, and the switch-over there has not been applied to the review site's database yet. The pages are built; the menu is reading old data.
 - **The ticker shows nothing**, because it has no entries yet — see B10. It takes up no space until it has something to say.
 
-Also worth reading Part D first: the map issue described there is visible on three of these pages.
-
 | Label | Meaning |
 | :---- | :---- |
 | **CDNA** | Waiting on CDNA — new text, a fact to confirm, or a sign-off (any client name, logo, quote or figure). |
@@ -47,7 +45,7 @@ Also worth reading Part D first: the map issue described there is visible on thr
 10. **The running ticker is back at the top of the page**, directly under the navigation, where the old site carried it. It shows nothing until there are 2023-onwards entries to show, so it costs no space while the content is settled — see B10.
 11. **The compiled testimonial video has been removed** from the public site (item 13). The modular structure for individual films is built and waiting.
 12. **Solutions now use the black boxes** (item 5), in a modern reading of the old site's treatment.
-13. **Our Clients rebuilt** (item 8), in the order the item sets out: the logo wall first for immediate credibility, then **Client Stories** — the branded client bands — for depth, then the real global-footprint map and the closing photograph you supplied. **As far as build goes we consider this page finished — it needs your confirmation rather than more work** — with one exception that is not ours: the map on it currently carries the provider's "API KEY REQUIRED" watermark. See Part D.
+13. **Our Clients rebuilt** (item 8), in the order the item sets out: the logo wall first for immediate credibility, then **Client Stories** — the branded client bands — for depth, then the real global-footprint map and the closing photograph you supplied. **As far as build goes we consider this page finished — it needs your confirmation rather than more work.**
 14. **Our Impact rebuilt** (item 9) in the sequence the mock lays out: figures → "Our clients say" → Our Social Impact → per-engagement results → Awards.
 15. **The 5H explorer rebuilt** (item 10) with **all 25 dimensions**, transcribed from your own wheel. Content sits above the controls, at a fixed height, with the Inner/Outer Game rule inverting as you move between them.
 16. **Our Identity now carries the seven blocks item 4 lists** — including Our Purpose, Keeping Leadership Real and the 5H reference, none of which existed. All are deliberately empty; see Part B.
@@ -206,8 +204,6 @@ Our Clients is 18% shorter, and the shared page header now has a compact variant
 # Part D — Preserved (item 18)
 
 Verified: headless architecture, the content system, security, the Cloudflare/cutover path, analytics and SEO, the responsive foundation, editable statistics, author approval controls, Reports & Resources, proof components, multilingual readiness, reusable components and infrastructure ownership. Nothing was removed.
-
-**One issue found, and it is not from the brief.** The office map now renders with **"API KEY REQUIRED" printed across the map tiles**. The provider closed the keyless endpoint it used. The watermark is burned into the image by their server, so it is not a local artefact — it would reach production exactly as it looks now. It affects the homepage, Our Team and Our Clients. Fixing it needs either an API key on a CDNA account or a change of map provider, which carries its own licensing question. **This needs a decision before launch.**
 
 ---
 

@@ -202,10 +202,9 @@ O título "Client Stories" não está no mock do Guli, e foi acrescentado de pro
 os dois blocos por função — *"Logo wall = immediate credibility, Client stories = depth"* — e sem
 o título a página lia como duas listas de clientes seguidas.
 
-**Página considerada fechada de build.** Falta a confirmação da CDNA — e o mapa dela está com o
-"API KEY REQUIRED" carimbado pela CARTO, então "fechada" não é a mesma coisa que "publicável". O
-PDF de 30/08 dizia que a página estava pronta e citava o mapa como entregue, duas seções antes de
-descrever o carimbo. **Reconciliado.**
+**Página considerada fechada de build.** Falta a confirmação da CDNA. O mapa dela ainda está com o
+"API KEY REQUIRED" carimbado pela CARTO — pendência nossa, ver item 18 —, então "fechada de build"
+não é a mesma coisa que "publicável".
 
 ✅ As faixas reproduzem o tratamento do mock: painel na cor da marca dissolvendo no preto, com a
 marca vazada em branco.
@@ -456,11 +455,27 @@ propriedade da infraestrutura.
 ✅ Verificado. Nada foi removido — `/insights` continua vivo, apenas saiu do header e é linkado
 pelo rodapé, para o Reports & Resources continuar alcançável.
 
-⚠️ **Achado novo, e não é do brief:** o mapa do `LocationsBlock` renderiza com **"API KEY
-REQUIRED"** carimbado nos tiles. A CARTO fechou o endpoint sem chave que o `LocationsMap.tsx` usa.
-O carimbo é gravado no PNG pelo servidor deles, então **não é artefato de localhost — vai para
-produção assim**. Afeta home, `/our-team` e `/our-clients`. Resolver exige uma chave da CARTO na
-conta do cliente ou trocar de provedor, o que tem implicação de licença.
+⚠️ **Achado novo, e não é do brief — mas é nosso, não deles.** O mapa do `LocationsBlock` renderiza
+com **"API KEY REQUIRED"** carimbado nos tiles. A CARTO fechou o endpoint sem chave que o
+`LocationsMap.tsx` usa. Afeta home, `/our-team` e `/our-clients`.
+
+**Confirmado em 30/08 que não é ambiente:** baixando o tile
+`https://a.basemaps.cartocdn.com/rastertiles/voyager/4/8/5.png` direto por HTTP, com e sem
+`Referer` do domínio do alpha, vêm **os mesmos 20.215 bytes**, e a imagem já chega carimbada. O
+carimbo é gravado no PNG pelo servidor da CARTO — vai para produção exatamente assim, e já está
+visível no alpha, que é o link que a CDNA abre.
+
+**Decisão de 30/08: sai do PDF e do e-mail.** Escolher provedor de tiles é encanamento nosso — nós
+é que colocamos a CARTO keyless ali. Virar "decisão da CDNA antes do lançamento" seria empurrar
+para o cliente um problema que ele não criou e não tem como avaliar. Fica como pendência nossa,
+**bloqueante para o lançamento** porque o carimbo é visível em três páginas.
+
+**Saída já testada:** `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}`
+(Esri World Light Gray) responde sem chave, sem carimbo, e o cinza claro é mais próximo da paleta
+do site que o Voyager. **Atenção à ordem dos eixos: é `{z}/{y}/{x}`, não `{z}/{x}/{y}`.** Exige
+atribuição da Esri no lugar da linha OSM/CARTO atual. A outra opção é abrir conta na CARTO e usar
+chave; o tile server padrão do OSM está descartado, porque a política dele desencoraja uso
+comercial. Ver [[carto-tiles-api-key-required]].
 
 ---
 
