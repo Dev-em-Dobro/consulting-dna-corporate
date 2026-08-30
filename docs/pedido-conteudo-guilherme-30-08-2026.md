@@ -236,12 +236,13 @@ O que o brief diz sobre ela é uma linha: "Our Books deve permitir livros de dif
 time no futuro". Isso é sobre a estrutura suportar mais de um livro, não necessariamente sobre
 ter uma página agora.
 
-Então a pergunta é: para o dia 1º, o link continua apontando para o bloco da home, ou vocês
-querem uma página própria? Se for página, precisamos saber quais livros entram além do da Rhea —
-e aí é conteúdo de vocês e design do Guli, os dois.
+Nosso plano, a não ser que você diga o contrário: manter o menu no plural, como você pediu, e o
+link apontando para o bloco do livro na home no dia 1º. A página própria a gente cria quando
+existir um segundo livro — que é o cenário que a sua frase descreve. Fazer a página agora com um
+livro só significaria uma tela nova de conteúdo e design a três dias do lançamento, para
+mostrar o que a home já mostra.
 
-Nossa sugestão, se não houver outro livro pronto para entrar: manter o link para a home agora e
-criar a página quando existir um segundo livro. O menu já está preparado para os dois caminhos.
+Se tiver outro livro pronto para entrar agora, avisa que a gente muda o plano.
 
 
 VÍDEOS DE DEPOIMENTO
