@@ -42,7 +42,7 @@ Everything in Part A is live on the review site now.
 10. **The running ticker is back at the top of the page**, directly under the navigation, where the old site carried it.
 11. **The compiled testimonial video has been removed** from the public site (item 13). The modular structure for individual films is built and waiting.
 12. **Solutions now use the black boxes** (item 5), in a modern reading of the old site's treatment.
-13. **Our Clients rebuilt** (item 8) — branded client bands, the real global-footprint map, and a closing photograph. The page is 18% shorter than it was.
+13. **Our Clients rebuilt** (item 8), in the order the item sets out: the logo wall first for immediate credibility, then **Client Stories** — the branded client bands — for depth, then the real global-footprint map and a closing photograph. **We consider this page finished; it needs your confirmation, not more work.**
 14. **Our Impact rebuilt** (item 9) in the sequence the mock lays out: figures → "Our clients say" → Our Social Impact → per-engagement results → Awards.
 15. **The 5H explorer rebuilt** (item 10) with **all 25 dimensions**, transcribed from your own wheel. Content sits above the controls, at a fixed height, with the Inner/Outer Game rule inverting as you move between them.
 16. **Our Identity now carries the seven blocks item 4 lists** — including Our Purpose, Keeping Leadership Real and the 5H reference, none of which existed. All are deliberately empty; see Part B.

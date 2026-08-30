@@ -135,11 +135,12 @@ dentro do case, que está no mock dele, ainda não foi construída.
 Feito: as faixas de cliente com o painel na cor da marca dissolvendo no preto, o mapa real de
 global footprint, e a foto de fechamento. A página ficou 18% mais curta.
 
-Uma mudança que precisamos sinalizar: tiramos o logo wall desta página. Sabemos que o item pede
-ele em primeiro lugar, e é por isso que estamos avisando em vez de deixar vocês descobrirem
-navegando. O motivo é que, com as faixas de cliente logo abaixo, ficavam duas seções seguidas
-dizendo a mesma coisa — e a marquee era a mais fraca das duas. Ele continua na home, onde cumpre o
-mesmo papel de credibilidade imediata. Se preferirem de volta aqui, é rápido: nada foi apagado.
+A página segue a ordem que o item pede: título, o logo wall com os 27 clientes passando, e depois
+"Client Stories" com as faixas. Os dois blocos fazem trabalhos diferentes, como você escreve — o
+wall mostra amplitude e calibre, as faixas mostram profundidade. O título "Client Stories" existe
+justamente para separar os dois; sem ele a página lia como duas listas de clientes seguidas.
+
+Consideramos esta página fechada. Falta só vocês confirmarem que está certa.
 
 De vocês: aprovação dos nomes e logos, e a frase de fechamento ("We cut cross cultural
 boundaries…"), que veio do site antigo e não passou por aprovação neste ciclo.
