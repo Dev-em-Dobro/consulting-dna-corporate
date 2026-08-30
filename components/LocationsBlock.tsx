@@ -26,7 +26,7 @@ export default function LocationsBlock({
   const [activeIndex, setActiveIndex] = useState(0);
   const [inView, setInView] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
-  // Leaflet + CARTO Voyager tiles need no token; fallback is used only on a real error.
+  // Leaflet + Esri World Light Gray tiles need no token; fallback is used only on a real error.
   const [mapFailed, setMapFailed] = useState(false);
   // Auto-advance pauses permanently once the visitor takes control, and while hovered.
   const [userTook, setUserTook] = useState(false);

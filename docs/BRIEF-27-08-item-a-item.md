@@ -455,27 +455,28 @@ propriedade da infraestrutura.
 ✅ Verificado. Nada foi removido — `/insights` continua vivo, apenas saiu do header e é linkado
 pelo rodapé, para o Reports & Resources continuar alcançável.
 
-⚠️ **Achado novo, e não é do brief — mas é nosso, não deles.** O mapa do `LocationsBlock` renderiza
-com **"API KEY REQUIRED"** carimbado nos tiles. A CARTO fechou o endpoint sem chave que o
-`LocationsMap.tsx` usa. Afeta home, `/our-team` e `/our-clients`.
+✅ **Achado novo, e não é do brief — era nosso, e já está resolvido (30/08).** O mapa do
+`LocationsBlock` renderizava com **"API KEY REQUIRED"** carimbado nos tiles, porque a CARTO fechou
+o endpoint sem chave que o `LocationsMap.tsx` usava. Afetava home, `/our-team` e `/our-clients`.
+**Trocado para Esri World Light Gray**, sem chave e sem carimbo, verificado renderizando no site.
+Detalhes e as duas armadilhas da troca em `ESTADO-DO-PROJETO.md` §6.1.
 
-**Confirmado em 30/08 que não é ambiente:** baixando o tile
+**Confirmado que não era ambiente:** baixando o tile
 `https://a.basemaps.cartocdn.com/rastertiles/voyager/4/8/5.png` direto por HTTP, com e sem
-`Referer` do domínio do alpha, vêm **os mesmos 20.215 bytes**, e a imagem já chega carimbada. O
-carimbo é gravado no PNG pelo servidor da CARTO — vai para produção exatamente assim, e já está
-visível no alpha, que é o link que a CDNA abre.
+`Referer` do domínio do alpha, vinham **os mesmos 20.215 bytes**, já carimbados. O carimbo era
+gravado no PNG pelo servidor da CARTO — iria para produção exatamente assim, e já estava visível
+no alpha, que é o link que a CDNA abre.
 
 **Decisão de 30/08: sai do PDF e do e-mail.** Escolher provedor de tiles é encanamento nosso — nós
 é que colocamos a CARTO keyless ali. Virar "decisão da CDNA antes do lançamento" seria empurrar
-para o cliente um problema que ele não criou e não tem como avaliar. Fica como pendência nossa,
-**bloqueante para o lançamento** porque o carimbo é visível em três páginas.
+para o cliente um problema que ele não criou e não tem como avaliar. **Resolvido no mesmo dia**,
+antes de virar pendência de lançamento.
 
-**Saída já testada:** `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}`
-(Esri World Light Gray) responde sem chave, sem carimbo, e o cinza claro é mais próximo da paleta
-do site que o Voyager. **Atenção à ordem dos eixos: é `{z}/{y}/{x}`, não `{z}/{x}/{y}`.** Exige
-atribuição da Esri no lugar da linha OSM/CARTO atual. A outra opção é abrir conta na CARTO e usar
-chave; o tile server padrão do OSM está descartado, porque a política dele desencoraja uso
-comercial. Ver [[carto-tiles-api-key-required]].
+**Uma coisa que quase passou batido na troca:** acima do zoom 16 a Esri devolve **HTTP 200** com
+um tile cinza escrito *"Map data not yet available"*. Como não é erro, o `onError` do
+`LocationsMap` nunca dispararia e o fallback de lista não entraria — a gente teria trocado um
+carimbo por outro, só que mais silencioso. Resolvido com `maxNativeZoom: 16`. Ver
+[[carto-tiles-api-key-required]].
 
 ---
 

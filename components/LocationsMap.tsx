@@ -4,11 +4,28 @@ import { useEffect, useRef } from "react";
 import * as L from "leaflet";
 import type { Office } from "@/lib/offices";
 
-// CARTO Voyager (raster, no WebGL/worker). Free for non-heavy use, keyless on
-// any domain. See research.md.
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+// Esri World Light Gray (raster, no WebGL/worker), keyless on any domain.
+//
+// Replaced CARTO Voyager on 2026-08-30: CARTO closed its keyless endpoint and
+// now burns "API KEY REQUIRED" into the tile image server-side, so the stamp
+// reached every environment including the review site. Verified by fetching a
+// tile over plain HTTP with and without a site Referer — byte-identical, and
+// already stamped, so no domain allowlist was going to fix it.
+//
+// Axis order is {z}/{y}/{x} here, inverted against CARTO's {z}/{x}/{y}. Swap
+// them and you get a valid tile of the wrong place, never an error. No {s}
+// subdomain and no {r} retina variant.
+const TILE_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 const ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  'Tiles &copy; <a href="https://www.esri.com">Esri</a> — Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community';
+
+// The service advertises levels up to 23, but its cache stops at 16: past that
+// every request returns HTTP 200 carrying a grey "Map data not yet available"
+// placeholder, which Leaflet cannot detect as a failure. Offices sit at zoom 16
+// (lib/offices.ts), so this only guards future ones — above 16 Leaflet upscales
+// the level-16 tile instead of asking for a level that would come back blank.
+const MAX_NATIVE_ZOOM = 16;
 
 /**
  * Imperative Leaflet wrapper (feature 003). Holds no app state — it reflects the
@@ -53,7 +70,7 @@ export default function LocationsMap({
       });
       L.tileLayer(TILE_URL, {
         attribution: ATTRIBUTION,
-        subdomains: "abcd",
+        maxNativeZoom: MAX_NATIVE_ZOOM,
         maxZoom: 20,
       }).addTo(map);
 

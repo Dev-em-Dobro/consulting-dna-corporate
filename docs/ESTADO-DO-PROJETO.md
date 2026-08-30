@@ -128,19 +128,20 @@ Substitui a antiga grade estática "Our offices" na homepage por um bloco
 
 ---
 
-## 6. 🔴 Stack do mapa: Leaflet + CARTO (a CARTO deixou de ser keyless)
+## 6. ✅ Stack do mapa: Leaflet + Esri (a CARTO saiu em 30/08/2026)
 
-> **ATENÇÃO — atualizado em 30/08/2026.** A parte "Leaflet, não Mapbox" continua valendo. O que
-> mudou é o "keyless": **a CARTO passou a exigir API key**, e agora devolve os tiles **com
-> "API KEY REQUIRED" carimbado dentro da imagem**. Ver §7.0. Nada abaixo desta caixa está errado
-> sobre a arquitetura — só a premissa de que os tiles são gratuitos e sem chave.
+> **Trocamos o provedor de tiles em 30/08/2026.** A CARTO deixou de ser keyless e passou a
+> devolver os tiles **com "API KEY REQUIRED" carimbado dentro da imagem** — não era o nosso
+> ambiente, era o servidor deles, e ia para produção assim. Saímos para **Esri World Light Gray**,
+> que responde sem chave e sem carimbo. O histórico completo, com as evidências, está em §6.1.
+> A parte "Leaflet, não Mapbox" abaixo continua valendo e nunca esteve em questão.
 
 Historicamente a **spec/plan/tasks falavam em "Mapbox"** (com menção a MapLibre/OpenFreeMap
-numa etapa intermediária), mas a **implementação real usa Leaflet + tiles CARTO Voyager**,
-que **eram** keyless (não precisavam de token). Essa divergência **já foi sanada no código**:
+numa etapa intermediária), mas a **implementação real usa Leaflet + tiles raster**, que não
+precisam de token. Essa divergência **já foi sanada no código**:
 
 - **Sem bloqueio por token.** A antiga nota da task T009 ("blocked on a real
-  `NEXT_PUBLIC_MAPBOX_TOKEN`") está **obsoleta** — com Leaflet+CARTO o mapa renderiza
+  `NEXT_PUBLIC_MAPBOX_TOKEN`") está **obsoleta** — com Leaflet+Esri o mapa renderiza
   sem token nenhum.
 - **Comentários de código já limpos:** os componentes (`LocationsBlock.tsx`,
   `LocationsMap.tsx`, `LocationsCarousel.tsx`) e `lib/offices.ts` **não têm mais**
@@ -148,54 +149,54 @@ que **eram** keyless (não precisavam de token). Essa divergência **já foi san
 - **`package.json` confirma:** dependência é **`leaflet` ^1.9.4** + `@types/leaflet`;
   **não há** `mapbox-gl` nem `maplibre-gl` instalados.
 - **Pendência residual (só docs de spec):** `specs/003-.../tasks.md` (T001/T002/T004)
-  ainda cita `mapbox-gl`/`NEXT_PUBLIC_MAPBOX_TOKEN`. É documentação histórica; o código
-  é a fonte de verdade. Corrigir se/quando alguém revisitar a spec 003.
+  ainda cita `mapbox-gl`/`NEXT_PUBLIC_MAPBOX_TOKEN`, e T002 fala em "CARTO Voyager keyless".
+  É documentação histórica; o código é a fonte de verdade. Corrigir se/quando alguém
+  revisitar a spec 003.
+
+### 6.1 Por que a CARTO saiu — e o que aprendemos
+
+**O que era o problema.** O mapa não é uma imagem nossa: o Leaflet monta o fundo baixando
+quadradinhos de imagem (*tiles*) do servidor de outra empresa, um por pedaço do mundo, conforme
+você navega. A CARTO servia isso de graça e sem cadastro. **Ela mudou a política:** continuou
+entregando os quadradinhos, mas com **"API KEY REQUIRED — carto.com/basemaps/apikey" escrito por
+cima do mapa**, em diagonal, igual marca d'água de banco de imagem. Quem abrisse o site via a
+frase atravessada em cima dos países — na home, em `/our-team` e em `/our-clients`.
+
+**Não era o nosso ambiente, e isso foi verificado.** Baixando
+`https://a.basemaps.cartocdn.com/rastertiles/voyager/4/8/5.png` direto por HTTP, com e sem
+`Referer` do domínio do alpha, vinham **os mesmos 20.215 bytes**, já carimbados. Não havia
+liberação por domínio: o carimbo é gravado no PNG pelo servidor deles. Estava visível no alpha,
+que é o link que a CDNA e o Guli abrem.
+
+| Antes (CARTO) | Depois (Esri) |
+| :------------ | :------------ |
+| ![CARTO carimbado](map-tiles/carto-carimbado.png) | ![Esri limpo](map-tiles/esri-limpo.png) |
+
+E no site, depois da troca:
+
+![Bloco de escritórios no site, com tiles Esri](map-tiles/depois-no-site.png)
+
+**De quem era.** Nossa. Fomos nós que apontamos para a CARTO keyless. Por isso **não entrou** no
+PDF nem no e-mail de status de 30/08: virar "decisão da CDNA antes do lançamento" seria devolver
+ao cliente um problema que ele não criou e não tem como avaliar.
+
+**Duas armadilhas da troca, ambas já tratadas em `components/LocationsMap.tsx`:**
+
+1. **A ordem dos eixos da Esri é `{z}/{y}/{x}`**, invertida em relação à CARTO. Trocar errado
+   devolve um tile válido do lugar errado — mapa torto, nunca erro.
+2. **O cache da Esri para de valer no zoom 16**, embora o serviço anuncie níveis até 23. Acima
+   disso ele devolve **HTTP 200** com um tile cinza escrito *"Map data not yet available"* — ou
+   seja, o Leaflet não tem como detectar como falha, e o fallback de lista nunca dispararia.
+   Resolvido com `maxNativeZoom: 16`, que faz o Leaflet ampliar o tile de nível 16 em vez de
+   pedir um nível que voltaria em branco. Os escritórios estão todos em zoom 16 (`lib/offices.ts`),
+   então hoje isso é só guarda para o futuro.
+
+**Alternativas descartadas:** abrir conta na CARTO e usar chave (custa e amarra a conta a um
+provedor), e o tile server padrão do OSM (a política deles desencoraja uso comercial).
 
 ---
 
 ## 7. Pendências / próximos passos
-
-### 0. 🔴 BLOQUEIA O LANÇAMENTO — trocar o provedor de tiles do mapa
-
-**O que está acontecendo.** O mapa não é uma imagem nossa: o Leaflet monta o fundo baixando
-quadradinhos de imagem (*tiles*) do servidor da CARTO, um por pedaço do mundo, conforme você
-navega. A CARTO servia isso de graça e sem cadastro. **Ela mudou a política:** continua
-entregando os quadradinhos, mas agora com **"API KEY REQUIRED — carto.com/basemaps/apikey"
-escrito por cima do mapa**, em diagonal, igual marca d'água de banco de imagem. Quem abre o site
-vê a frase atravessada em cima dos países.
-
-**Onde aparece:** home, `/our-team` e `/our-clients` — as três páginas que usam o
-`LocationsBlock`.
-
-**Veja com os próprios olhos.** Os dois tiles abaixo são o mesmo pedaço do mundo (Europa, zoom 4),
-baixados em 30/08/2026. O primeiro é o que o site serve hoje; o segundo é a substituta proposta.
-
-| Hoje (CARTO) | Proposta (Esri) |
-| :----------- | :-------------- |
-| ![CARTO carimbado](map-tiles/carto-carimbado.png) | ![Esri limpo](map-tiles/esri-limpo.png) |
-
-**Não é o nosso ambiente.** Verificado em 30/08/2026: baixando
-`https://a.basemaps.cartocdn.com/rastertiles/voyager/4/8/5.png` direto por HTTP, com e sem
-`Referer` do domínio do alpha, vêm **os mesmos 20.215 bytes**, e a imagem já chega carimbada.
-Não existe liberação por domínio — o carimbo é gravado no PNG pelo servidor deles. **Já está
-visível no alpha**, que é o link que a CDNA e o Guli abrem.
-
-**De quem é.** Nossa. Fomos nós que apontamos para a CARTO keyless. Por isso **não entrou** no
-PDF nem no e-mail de status de 30/08: virar "decisão da CDNA antes do lançamento" seria devolver
-ao cliente um problema que ele não criou e não tem como avaliar.
-
-**Como resolver — saída já testada.** Trocar a constante `TILE_URL` em
-`components/LocationsMap.tsx:9` por Esri World Light Gray:
-
-```
-https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
-```
-
-Responde sem chave, sem carimbo, e o cinza claro fica mais perto da paleta do site que o Voyager.
-**Duas pegadinhas:** a ordem dos eixos é `{z}/{y}/{x}`, invertida em relação à CARTO — trocar dá
-mapa errado, não erro; e a `ATTRIBUTION` (mesma linha 11) precisa citar a Esri no lugar de
-OSM/CARTO. Alternativas: abrir conta na CARTO e usar chave (custa e amarra a conta), ou o tile
-server padrão do OSM — **descartado**, a política deles desencoraja uso comercial.
 
 ### Demais pendências
 
