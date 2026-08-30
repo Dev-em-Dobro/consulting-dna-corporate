@@ -60,6 +60,20 @@ const challenges = [
   { num: "04", title: "Enterprise transformation & culture", body: "Closing the gap when transformation is moving faster than leadership capability and culture can currently sustain." },
 ];
 
+/**
+ * The six terms item 1 asks the homepage to explain "Keeping Leadership Real"
+ * with, quoted from the e-mail. Not the seven-term list in its opening, which is
+ * about the experience of the site as a whole.
+ */
+const reals = [
+  "Real pressures",
+  "Real politics",
+  "Real choices",
+  "Real judgement",
+  "Real people",
+  "Real consequences",
+];
+
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
@@ -109,6 +123,46 @@ export default async function V1() {
 
       {/* HERO */}
       <HeroV1 />
+
+      {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
+          Leadership Real de maneira curta e visual, trazendo: real pressures,
+          real politics, real choices, real judgement, real people and real
+          consequences."
+
+          The six terms are his, verbatim, and nothing else is written here. A
+          framing sentence would be invented copy, and the brief forbids that —
+          if CDNA wants a lead-in line, it comes from them.
+
+          Placed between the hero and the wall on purpose. Item 2 warns against
+          "long explanation antes de proof"; this is the short, visual one item 1
+          asks for, and it is the unpacking of the claim the hero just made. It
+          also breaks the run of three dark bands (ticker, hero, wall) and gives
+          the logo wall back the set-up line it lost in the reorder.
+
+          Note there are two lists of "reals" in the e-mail and they are not
+          interchangeable: the seven in the opening are about the experience of
+          the whole site; these six are harder — pressures, politics,
+          consequences — and are the ones item 1 attaches to the homepage. */}
+      <section id="real" className="bg-white">
+        <Reveal className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
+          {/* Two rows of three rather than six across: at six columns the terms
+              shrink to labels and "Real consequences" wraps alone. Three gives
+              each one the weight the brief's "visual" is asking for. */}
+          <div
+            data-reveal="stagger"
+            className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 md:gap-x-16 md:gap-y-12"
+          >
+            {reals.map((term) => (
+              <div key={term}>
+                <span className="mb-4 block h-[3px] w-10 bg-brand" />
+                <span className="block text-[22px] font-bold leading-[1.15] tracking-[-0.6px] text-ink md:text-[26px]">
+                  {term}
+                </span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
 
       {/* CREDIBILITY — proof, before any explanation.
           The brief's ordering principle is "Claim → Proof → Explanation, e não
