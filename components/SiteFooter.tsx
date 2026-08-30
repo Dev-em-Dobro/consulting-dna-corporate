@@ -4,9 +4,17 @@ import { siteNav } from "@/lib/nav";
 // Footer primary links come from the single nav source (lib/nav.ts) so the
 // footer and header menu never drift apart (FR-411). Top-level items that have
 // their own route are shown; menu-only parents without an href are skipped.
-const mainLinks = siteNav
-  .filter((item): item is { label: string; href: string } => typeof item.href === "string")
-  .map((item) => ({ label: item.label, href: item.href }));
+//
+// Insights is appended explicitly. The 27-08 brief drops it from the header
+// (see lib/nav.ts), but item 18 requires the Reports & Resources capability to
+// be preserved — and a page nothing links to is preserved in name only, both
+// for readers and for crawlers. The footer is where it stays reachable.
+const mainLinks = [
+  ...siteNav
+    .filter((item): item is { label: string; href: string } => typeof item.href === "string")
+    .map((item) => ({ label: item.label, href: item.href })),
+  { label: "Insights", href: "/insights" },
+];
 
 const utilityLinks = [
   { label: "Privacy Policy", href: "/privacy" },

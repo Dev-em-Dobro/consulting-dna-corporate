@@ -17,8 +17,12 @@ export type NavItem = { label: string; href?: string; children?: NavChild[] };
 // photography respectively. A menu item that opens an empty page is worse than
 // a late one, and publishing them is a one-line change here once CDNA delivers.
 //
-// Insights and the "Start a Conversation" button are kept pending G's answer on
-// their absence from the brief's list (see docs/STATUS-REVIEW-2026-08-27.md §8).
+// Insights is deliberately absent: the brief's list does not include it, and
+// CDNA confirmed on 28-08 that this was intentional. The /insights route stays
+// live — item 18 requires the Reports & Resources capability to be preserved —
+// it is simply no longer reachable from the header. The footer still links it.
+// The header's "Start a Conversation" button was dropped in the same decision;
+// item 5 keeps it as the closing block of every Solution page instead.
 export const siteNav: NavItem[] = [
   // Home is now an explicit item, in addition to the clickable logo.
   { label: "Home", href: "/" },
@@ -35,7 +39,6 @@ export const siteNav: NavItem[] = [
   // library keeps its own route (/cases) and is linked from Our Clients.
   { label: "Our Clients", href: "/our-clients" },
   { label: "Our Impact", href: "/our-impact" },
-  { label: "Insights", href: "/insights" },
   // Promoted to top level per the brief, and pluralised: the area is meant to
   // hold books by different team members over time. Points at the home `#book`
   // section until a listing page exists.
