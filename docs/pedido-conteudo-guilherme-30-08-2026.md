@@ -302,12 +302,25 @@ Abraço,
 
 ## Versão curta para o Guli, no WhatsApp
 
-> Para adiantar as três dúvidas de Our Approach antes do e-mail. Texto puro.
+> Para adiantar as dúvidas de design antes do e-mail. Texto puro.
 
-Fala Guli, beleza? Apliquei tudo da tua leva de sexta — Solutions em black boxes, Our Clients
-com as faixas, Our Impact na tua sequência, o 5H novo com as bolinhas e as 25 dimensões rodando
-(1s no automático, 3s depois que o cara clica, como tu pediu). A home eu reordenei aqui mesmo,
-como a gente combinou.
+Fala Guli, beleza? Apliquei tudo da tua leva de sexta:
+
+- Solutions em black boxes, com a diagonal medida do teu print
+- Our Clients com as faixas de cliente — fiz o painel da cor da marca dissolvendo no preto com a
+  marca vazada em branco, que é o que teu mock faz. Nossos PNGs de logo são fundo branco opaco,
+  então o vazado sai monocromático: a Heineken perde o vermelho da estrela. Pra bater 100% seria
+  preciso o asset de knockout de cada marca
+- Our Impact na tua sequência
+- O 5H novo com as bolinhas e as 25 dimensões rodando — 1s no automático, 3s depois que o cara
+  clica, como tu pediu. Medi teu print pixel a pixel pra não errar: o swatch é quadrado rente sem
+  padding, o texto da linha ativa é branco, e a bolinha selecionada é maior que as outras e do
+  mesmo tamanho da bolinha do card. Essa última eu tinha entendido errado da call e o print
+  corrigiu
+
+Na Our Clients eu também tirei o hero escuro e deixei só título e uma linha, como teu mock. E
+troquei o carrossel do rodapé pela foto P&B única que eles mandaram, com o bloco do quote colado
+embaixo. A página caiu de 3.716 pra 3.046 px no mobile.
 
 Antes de mandar o e-mail pro Guilherme com o que falta de conteúdo, queria fechar três coisas do
 item 10 contigo:
@@ -332,12 +345,23 @@ de programa (NPS, engagement, programme impact, talent promoted). Aposto que "im
 é o primeiro grupo e "programme outcomes" é o segundo. Se for isso, resolve também aquilo que tu
 falou de ficarem dois blocos parecidos em sequência — o segundo entra em outro tratamento.
 
-E a home: a reordenação atende o item 2, mas quebrou o ritmo visual e não é coisa que eu resolva
-sem ti. Ficaram três faixas escuras seguidas no topo (ticker, hero com vídeo, bloco de
-credibilidade), o vídeo termina num corte seco contra o cinza chapado, o logo wall perdeu a frase
-que servia de deixa pra ele, e "What we solve" e "Client Impact" ficaram os dois em branco puro
-colados — com o alinhamento virando de centralizado pra esquerdo no meio do scroll. Antes o bloco
-escuro separava esses dois. Te mando print.
+Sobre a home: como tu não vai fazer ela no Figma, eu fiz o bloco que o item 1 pede — a explicação
+curta e visual de "Keeping Leadership Real", com os seis termos que ele lista (real pressures,
+real politics, real choices, real judgement, real people, real consequences). Só os termos dele,
+sem frase minha, em duas fileiras de três. Fica entre o hero e o logo wall.
+
+Esse bloco já existia: foi feito dia 27 e revertido dia 28, quando a regra era esperar teu Figma.
+Como a regra caiu na call, ele voltou.
+
+E ele resolveu de quebra dois problemas que a reordenação tinha criado — as três faixas escuras
+seguidas no topo, e o logo wall que tinha perdido a frase de deixa. Sobraram dois, e esses eu
+prefiro não mexer sozinho porque mudam o ritmo de cor da página inteira:
+
+- "What we solve" e "Client Impact" ficaram os dois em branco puro colados, e o alinhamento vira
+  de centralizado pra esquerdo no meio do scroll. Antes o bloco escuro separava os dois
+- O bloco do livro e o de escritórios, mesma coisa, os dois no mesmo cinza claro
+
+Te mando print dos dois.
 
 Vou te colocar em cópia no e-mail. Se tu já tiver falado com ele sobre o layout, me avisa como
 foi.
