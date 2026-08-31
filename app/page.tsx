@@ -129,9 +129,15 @@ export default async function V1() {
           real politics, real choices, real judgement, real people and real
           consequences."
 
-          The six terms are his, verbatim, and nothing else is written here. A
-          framing sentence would be invented copy, and the brief forbids that —
-          if CDNA wants a lead-in line, it comes from them.
+          The six terms are his, verbatim, and nothing else is written here —
+          no invented copy. The heading is his too: item 1 keeps "When the
+          stakes are high, leadership must become real" alive ("pode continuar
+          na narrativa, mas não como primary headline") and gives it a job —
+          "'High stakes' passa a explicar por que Keeping Leadership Real
+          importa". This section IS that explanation, so the sentence belongs
+          here. Note it echoes the hero sub-line, which carries the same phrase
+          inside a longer clause; the repetition is the brief's own device, but
+          it is the one thing worth confirming with CDNA.
 
           Placed between the hero and the wall on purpose. Item 2 warns against
           "long explanation antes de proof"; this is the short, visual one item 1
@@ -143,22 +149,44 @@ export default async function V1() {
           interchangeable: the seven in the opening are about the experience of
           the whole site; these six are harder — pressures, politics,
           consequences — and are the ones item 1 attaches to the homepage. */}
-      <section id="real" className="bg-white">
+      <section id="real" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
+          {/* Head first: every other section on this page opens with the rule +
+              eyebrow + h2 set, and this one opening cold on six bare labels was
+              most of why it read as unfinished. `stagger={false}` so the head
+              fades as one block — a stagger here would animate the eyebrow and
+              the h2 separately, against a grid that is already staggering. */}
+          <Reveal stagger={false} className="mb-10 md:mb-12">
+            <div className="mb-2.5 flex items-baseline gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+                Keeping Leadership Real
+              </span>
+            </div>
+            <h2 className="max-w-[720px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink sm:text-[34px] md:text-[40px]">
+              When the stakes are high, leadership must become real.
+            </h2>
+          </Reveal>
           {/* `Reveal` IS the grid, as in the credibility band below. It renders
               its own data-reveal="stagger" and animates its direct children, so
               nesting a second stagger inside it leaves the terms matched by the
               opacity-0 rule in globals.css with nothing to animate them — the
-              section renders as an empty white band, for real visitors.
+              section renders as an empty band, for real visitors.
+
+              The hairline grid is the page's own device for a set of related
+              facts — the case header band, the Measured outcomes cards and the
+              regions grid all use this exact `gap-px border border-line bg-line`
+              construction. White cells on paper, so the set reads as a block
+              instead of six labels floating in white.
 
               Two rows of three rather than six across: at six columns the terms
-              shrink to labels and "Real consequences" wraps alone. Three gives
-              each one the weight the brief's "visual" is asking for. */}
-          <Reveal className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 md:gap-x-16 md:gap-y-12">
+              shrink to labels and "Real consequences" wraps alone. Equal cells
+              also stop that one term breaking the rhythm of the row. */}
+          <Reveal className="grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3">
             {reals.map((term) => (
-              <div key={term}>
-                <span className="mb-4 block h-[3px] w-10 bg-brand" />
-                <span className="block text-[22px] font-bold leading-[1.15] tracking-[-0.6px] text-ink md:text-[26px]">
+              <div key={term} className="bg-white p-6 md:p-7">
+                <span className="mb-4 block h-[3px] w-8 bg-brand" />
+                <span className="block text-[20px] font-bold leading-[1.15] tracking-[-0.5px] text-ink md:text-[24px]">
                   {term}
                 </span>
               </div>
