@@ -216,21 +216,30 @@ dono não está registrado em lugar nenhum.
 | Cookies do `/login` | Nenhum cookie `sb-<ref>-auth-token` antes do login |
 | CLI do Supabase | Não autenticado nesta máquina (`Access token not provided`) |
 
-**Inferência, não fato:** provavelmente é conta da Dev em Dobro, não da CDNA — o time da Vercel é
-`dobro66`, e a conta do Resend está documentada como `impulseaisolutions@gmail.com`
-(`corporate-dna-cms/docs/deploy-prod.md:12`). Mas **isso não foi verificado**, e é exatamente o
-tipo de coisa que não se resolve por dedução na hora do handover.
+**Candidato eliminado — `devemdobro@gmail.com` NÃO é a conta.** Verificado em 31/08/2026 com
+`npx supabase login` seguido de `orgs list` e `projects list`. A conta tem **uma única
+organização**, "Dev em Dobro" (`mvbgdwfhcbwpzahxixzy`), com 13 projetos, e **nenhum é da Corporate
+DNA**. Os únicos dois `ACTIVE_HEALTHY` são `ode-cms` e `ode-clube`, do outro cliente; o restante
+está `INACTIVE`. Isso derruba a suposição óbvia — o banco da CDNA está numa conta que **esta**
+não enxerga.
 
-**Como fechar** — precisa de um humano com sessão aberta, um dos dois:
+**Próximo passo, na ordem certa: achar o ref antes de caçar a conta.** Abrir o painel da Vercel em
+`dobro66/corporate-dna-cms` → Settings → Environment Variables → revelar
+`NEXT_PUBLIC_SUPABASE_URL`. O ref é o subdomínio (`https://<ref>.supabase.co`). Com o ref na mão,
+a conta é simplesmente aquela que consegue abrir
+`https://supabase.com/dashboard/project/<ref>`.
 
-```
-npx supabase login          # depois: npx supabase projects list  → mostra org e projeto
-```
-ou abrir o painel da Vercel em `dobro66/corporate-dna-cms` → Settings → Environment Variables →
-revelar `NEXT_PUBLIC_SUPABASE_URL`. O ref é o subdomínio: `https://<ref>.supabase.co`.
+Vale tentar pelo painel mesmo o `vercel env pull` tendo voltado vazio: o pull devolveu vazio até
+para variáveis banais como `SITE_URL` e `CMS_DISABLE_MFA`, o que parece limitação do CLI e não
+marcação de sensível uma a uma. A interface provavelmente revela.
+
+**Outras identidades que este projeto já usa**, e portanto candidatas a dona da conta:
+`impulseaisolutions@gmail.com` (dono do Resend, `corporate-dna-cms/docs/deploy-prod.md:12`, e a
+identidade exigida no autor do commit HEAD) e `gemeos@devemdobro.com` (que aceitou o convite do
+Cloudflare em 13/08). Uma conta da própria CDNA também não está descartada.
 
 **Anotar aqui o resultado quando souber:** o ref do projeto, o e-mail dono da conta, a organização,
-e se a conta é da Dev em Dobro ou da CDNA.
+e se a conta é nossa ou da CDNA.
 
 ### 0.1 🔴 E esse banco não tem backup automático
 
