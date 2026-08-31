@@ -200,10 +200,23 @@ provedor), e o tile server padrão do OSM (a política deles desencoraja uso com
 
 ### 0. 🔴 O banco de conteúdo da CDNA está numa conta Supabase que ninguém identificou
 
+> **Respondido em 31/08/2026: é a conta "de ferramentas" da Dev em Dobro.** Não é a
+> `devemdobro@gmail.com` nem a `impulseaisolutions@gmail.com` — as duas foram verificadas e
+> descartadas. **Falta anotar aqui o endereço exato da conta e o ref do projeto**
+> (`https://<ref>.supabase.co`, em `NEXT_PUBLIC_SUPABASE_URL` no painel da Vercel).
+>
+> **O que isso resolve e o que não resolve.** Resolve saber onde está. **Não resolve a
+> titularidade:** a conta é nossa, não da CDNA. Todo o conteúdo autorado do cliente está num
+> Supabase de uma conta de ferramentas da agência, e isso precisa entrar na conversa de handover
+> junto com o domínio (§ Axon) e a Vercel. O §7.0.1 abaixo continua valendo inteiro — e agora com
+> dono conhecido, dá para atribuir o backup a alguém.
+>
+> O histórico da busca fica abaixo porque os caminhos que **não** funcionam economizam tempo na
+> próxima vez.
+
 **A pergunta, feita em 31/08/2026:** de quem é a conta Supabase que guarda o conteúdo da Corporate
-DNA? **Não foi possível responder desta máquina.** E o fato de não ser possível já é o problema:
-todo o conteúdo autorado — os 8 cases, as Solutions, as pessoas, as parcerias — vive num banco cujo
-dono não está registrado em lugar nenhum.
+DNA? Todo o conteúdo autorado — os 8 cases, as Solutions, as pessoas, as parcerias — vive nesse
+banco, e o dono não estava registrado em lugar nenhum.
 
 **Onde procurei, e por que cada caminho falhou:**
 
