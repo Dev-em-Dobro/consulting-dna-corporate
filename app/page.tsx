@@ -177,11 +177,14 @@ export default async function V1() {
               Promises." — no shout on a page with no other all-caps headline.
 
               `stagger={false}`: the grid below is already staggering. */}
-          <Reveal stagger={false} className="mb-10 md:mb-12">
-            {/* Wide enough to hold the line in one piece at 40px, and balanced
+          <Reveal stagger={false} className="mb-10 md:mb-12 md:text-center">
+            {/* Centred from md up, matching "What we solve" below and the
+                credibility band above — the run this section sits inside.
+
+                Wide enough to hold the line in one piece at 40px, and balanced
                 so the wrap on narrow screens splits evenly instead of dropping
                 "real." alone — same treatment as the hero h1. */}
-            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:text-[40px]">
+            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
               Our purpose is to make leadership{" "}
               <span className="text-brand">real</span>.
             </h2>
