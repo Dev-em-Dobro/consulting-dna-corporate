@@ -94,7 +94,6 @@ export default function FiveHExplorer() {
   const [active, setActive] = useState(0);
   const [dim, setDim] = useState(0);
   const [engaged, setEngaged] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [inView, setInView] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -123,7 +122,7 @@ export default function FiveHExplorer() {
   }, []);
 
   useEffect(() => {
-    if (reduceMotion || hovered || !inView) return;
+    if (reduceMotion || !inView) return;
     const id = window.setInterval(
       () => setDim((d) => (d + 1) % FIVE_H[active].dimensions.length),
       engaged ? ENGAGED_MS : IDLE_MS,
@@ -131,7 +130,7 @@ export default function FiveHExplorer() {
     return () => window.clearInterval(id);
     // `active` restarts the interval so a freshly picked faculty gets a full
     // beat on its first dimension rather than the tail of the previous one.
-  }, [reduceMotion, hovered, inView, engaged, active]);
+  }, [reduceMotion, inView, engaged, active]);
 
   function select(i: number) {
     setActive(i);
@@ -152,17 +151,30 @@ export default function FiveHExplorer() {
   return (
     <div ref={rootRef}>
       {/* ── The panel, above the controls and fixed in height ─────────────
-          The hover pause lives here and not on the whole component. The
-          selector is what you click, so pausing on hover over it froze the
-          rotation the moment anyone used it: click a faculty, leave the cursor
-          where the click landed, and nothing ever moves again. Reading happens
-          in this panel, so this is the only surface where holding still helps. */}
+          **There is deliberately no hover pause here, and that is a removal.**
+          It was never Guli's. The 29-08 transcript has no hover anywhere in the
+          block where he specifies this component (04:00–05:22); the mechanism he
+          designed for reading time is the click, stated twice: "conforme o
+          usuário clicar, daí a gente deixa um tempo de leitura razoável" and "a
+          partir do momento que o usuário clica, a gente deixa em 3 segundos"
+          (04:50–05:02). The pause entered through our own plan documents
+          (RELATORIO-guli-29-08.md:162, PLANO-design-guli-29-08.md:159) with an
+          engineering rationale — "senão é timer rodando à toa" — attached to a
+          design decision it had no business making.
+
+          It cost twice. On the selector it produced the freeze fixed in c6efc36:
+          click a faculty, leave the cursor where it landed, nothing moves again.
+          Moved here, it produced the 31-08 report — Guli put his cursor on the
+          panel he was reading, the rotation stopped, and he filed the section as
+          broken. Two homes, two "it's frozen" reports, from a behaviour nobody
+          asked for and which duplicates what the click already does.
+
+          What stays is the IntersectionObserver: an off-screen timer really is
+          burning for nobody, and no reviewer can mistake it for a fault. */}
       <div
         id="fh-panel"
         role="tabpanel"
         aria-labelledby={`fh-tab-${current.key}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
         className="rounded-xl p-6 md:p-8"
         style={{ backgroundColor: SURFACE }}
       >

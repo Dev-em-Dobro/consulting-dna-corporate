@@ -204,11 +204,30 @@ export default async function V1() {
               Two rows of three rather than six across: at six columns the terms
               shrink to labels and "Real consequences" wraps alone. Equal cells
               also stop that one term breaking the rhythm of the row. */}
+          {/* Hover takes the whole cell to brand — Guli, 31-08: "seria legal
+              colocar efeito de hover com animação pra vermelho."
+
+              All three layers have to move together or the cell breaks on the
+              way: the rule is `bg-brand`, which would vanish into the new
+              ground, and the term is `text-ink`, which would go unreadable on
+              it. So the rule inverts to white and the term follows.
+
+              These cells are not links and lead nowhere, so there is no paired
+              `active:` variant the way the Solutions rows have one — a press
+              state on something that does not respond to a press reads as a
+              broken affordance. Tailwind's `hover:` is gated on `(hover: hover)`
+              already, so touch simply never enters the state.
+
+              `motion-reduce:transition-none` keeps the colour change and drops
+              the fade, matching how `.sbox__sweep` degrades in globals.css. */}
           <Reveal className="grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3">
             {reals.map((term) => (
-              <div key={term} className="bg-white p-6 md:p-7">
-                <span className="mb-4 block h-[3px] w-8 bg-brand" />
-                <span className="block text-[20px] font-bold leading-[1.15] tracking-[-0.5px] text-ink md:text-[24px]">
+              <div
+                key={term}
+                className="group bg-white p-6 transition-colors duration-300 hover:bg-brand motion-reduce:transition-none md:p-7"
+              >
+                <span className="mb-4 block h-[3px] w-8 bg-brand transition-colors duration-300 group-hover:bg-white motion-reduce:transition-none" />
+                <span className="block text-[20px] font-bold leading-[1.15] tracking-[-0.5px] text-ink transition-colors duration-300 group-hover:text-white motion-reduce:transition-none md:text-[24px]">
                   {term}
                 </span>
               </div>
@@ -318,19 +337,34 @@ export default async function V1() {
           layer — and stays empty until CDNA supplies the individual films.
           `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
-      {/* CLIENT IMPACT */}
-      <section id="impact" className="bg-white">
+      {/* CLIENT IMPACT — brand red, Guli's fix of 31-08.
+
+          The reorder left this section and "What we solve" both pure white and
+          adjacent, with the alignment switching from centred to left mid-scroll;
+          the dark band used to separate them. Rather than reinstate a divider,
+          Guli gave the band its own colour: red ground, white eyebrow and
+          title, cards still white. That both breaks the collision and makes the
+          proof band the loudest thing between the hero and the book.
+
+          The eyebrow rule turns white here. It is `bg-brand` everywhere else on
+          the page, which on red would be invisible — the rule marks the eyebrow,
+          so it has to be the one colour the ground is not. */}
+      <section id="impact" className="bg-brand text-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
           <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Client impact</span>
+            <span className="inline-block h-0.5 w-9 bg-white" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-white">Client impact</span>
           </div>
-          <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
             Results, not promises — measured where it matters.
           </h2>
+          {/* `bg-white` on the cards below is now load-bearing, not decoration:
+              they used to inherit the section's white ground, and on red they
+              would otherwise go transparent. Guli: "os cards continuam com
+              fundo branco." */}
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
             {cases.map((c) => (
-              <article key={c.client} className="flex flex-col border border-line">
+              <article key={c.client} className="flex flex-col border border-line bg-white">
                 <div className="bg-ink px-[26px] py-[22px] text-white">
                   <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
                   <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
@@ -510,8 +544,11 @@ export default async function V1() {
         </Reveal>
       </section>
 
-      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003) */}
-      <LocationsBlock />
+      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003).
+          `tone="dark"` is Guli's 31-08 fix: this block and the book block above
+          were both light grey and touching. Homepage only — the same block runs
+          light on Our Clients and Our Team, which have different neighbours. */}
+      <LocationsBlock tone="dark" />
 
       {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />

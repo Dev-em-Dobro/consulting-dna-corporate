@@ -62,7 +62,17 @@ export default function PhotoCarousel({
               // Eager for all: slides start translated out of the viewport, so
               // lazy loading never fires and the incoming slide arrives blank.
               loading="eager"
-              className="object-contain"
+              // `cover`, not `contain` — Guli, 31-08: "garantiria que todas as
+              // fotos estão redimensionar pra maior, pra não aparecer margens
+              // nas fotos fora de proporção." These are photographs of varying
+              // aspect, so `contain` letterboxed the odd ones against the dark
+              // frame. Cropping is the accepted trade: the frame stays full.
+              //
+              // Scoped to photographs on purpose. The other `object-contain`
+              // uses in the repo are logo lock-ups (LogoMarquee, ClientBandCard,
+              // CaseRow, AwardsMentions, our-partnerships) where the whole point
+              // is that nothing is cropped — do not carry this change there.
+              className="object-cover"
             />
           </div>
         ))}

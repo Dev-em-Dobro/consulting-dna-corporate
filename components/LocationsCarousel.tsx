@@ -12,11 +12,15 @@ export default function LocationsCarousel({
   offices,
   activeIndex,
   onChange,
+  tone = "paper",
 }: {
   offices: Office[];
   activeIndex: number;
   onChange: (index: number) => void;
+  /** Mirrors `LocationsBlock`'s own `tone` — see the note on that prop. */
+  tone?: "paper" | "dark";
 }) {
+  const dark = tone === "dark";
   const n = offices.length;
   const viewportRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -56,9 +60,19 @@ export default function LocationsCarousel({
 
   return (
     <div className="relative">
-      {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-16 bg-gradient-to-r from-paper to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-16 bg-gradient-to-l from-paper to-transparent" />
+      {/* Edge fades. These have to track the section's ground exactly — a
+          `from-paper` fade left on a dark block reads as two grey smudges
+          bracketing the city name, not as a fade. */}
+      <div
+        className={`pointer-events-none absolute inset-y-0 left-0 z-[5] w-16 bg-gradient-to-r to-transparent ${
+          dark ? "from-ink-2" : "from-paper"
+        }`}
+      />
+      <div
+        className={`pointer-events-none absolute inset-y-0 right-0 z-[5] w-16 bg-gradient-to-l to-transparent ${
+          dark ? "from-ink-2" : "from-paper"
+        }`}
+      />
 
       <div
         ref={viewportRef}
@@ -97,8 +111,12 @@ export default function LocationsCarousel({
                 className={
                   "shrink-0 cursor-pointer text-[34px] font-bold uppercase tracking-[1px] transition-colors sm:text-[42px] " +
                   (active
-                    ? "text-ink"
-                    : "text-ink/25 hover:text-ink/50")
+                    ? dark
+                      ? "text-white"
+                      : "text-ink"
+                    : dark
+                      ? "text-white/25 hover:text-white/50"
+                      : "text-ink/25 hover:text-ink/50")
                 }
               >
                 {o.city}

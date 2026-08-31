@@ -189,22 +189,44 @@ body {
 }
 
 /* Solutions index — the old site's black boxes in a modern reading (27-08
-   brief, item 5; Guli's pass of 29-08).
+   brief, item 5; Guli's pass of 29-08, corrected by him on 31-08).
 
-   The row rests dark and the brand sweeps in from the right, stopping short of
-   the left edge so a dark wedge survives. That diagonal is the whole device, so
-   the fill is a skewed panel rather than a background, and the row clips it.
+   The row rests dark and the brand wipes across it from the right. The skewed
+   leading edge is the whole device, so the fill is a skewed panel rather than a
+   background, and the row clips it.
 
-   Geometry is measured off docs/design-guli-29-08/solutions-black-boxes.png:
-   the boundary sits at 28% of the row at mid-height and leans 37° off vertical,
-   the top of the wedge reaching further right than its foot. Default (centre)
-   transform-origin is what keeps the 28% on the mid-line while the skew opens
-   symmetrically above and below it — so rows of one and two lines carry the
-   same angle without either drifting off the mock.
+   **What 31-08 corrected.** The first build read the diagonal as the shape the
+   row settles into: the panel stopped at 28% of the width and a dark wedge
+   survived for as long as the cursor stayed. That was measured faithfully off
+   docs/design-guli-29-08/solutions-black-boxes.png — 28% at mid-height, 37° off
+   vertical — but the mock was a frame of a moving thing, not its destination.
+   Guli: "uma animação desta aresta indo da direita pra esquerda muito rápido,
+   mas preenchendo o botão inteiro no final."
 
-   The panel overhangs 8rem to the right because skewing drags its foot left by
-   0.75 × row height; without the overhang a two-line row would show a notch of
-   bare background at the bottom-right corner. */
+   So the angle stays and the parking spot goes. The 37° is now only ever seen
+   in transit, and the row ends up solid brand with no wedge. Duration comes
+   down with it: 420ms was a slide, and he asked for "muito rápido".
+
+   **Timing is set by when the edge is actually on the row, not by duration.**
+   The panel starts wholly outside the row and ends wholly covering it, so the
+   diagonal is only visible across the middle of the journey — roughly 14% to
+   91% of the travel at desktop width, narrower still on a phone. Duration alone
+   is therefore a bad proxy for "can you see it": the original 420ms build with
+   easeOutQuint showed the angle for about 58ms, three frames, because that curve
+   spent half its travel in the first two frames and then decelerated over a
+   distance that was already off the row. Nobody has ever seen this diagonal.
+
+   Hence `linear` rather than an ease. A wipe wants constant speed while it
+   crosses, and linear's hard stop is free here: the last 9% of the travel
+   happens after full coverage, off the row, where there is nothing to see. At
+   450ms the angle is legible for about 350ms — the point of the whole device,
+   and what "animação mesmo" asks for. Guli's "muito rápido" is honoured by the
+   crossing reading as one quick gesture, not by a number that hid it.
+
+   The panel overhangs 8rem on BOTH sides now, not just the right. Skewing
+   displaces the top and bottom edges by 0.377 × row height in opposite
+   directions, so a panel flush to the left edge would leave a bare triangle in
+   one corner at full coverage. 8rem clears it for any row this list produces. */
 .sbox {
   position: relative;
   overflow: hidden;
@@ -213,11 +235,11 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 28%;
+  left: -8rem;
   right: -8rem;
   background-color: var(--color-brand);
   transform: translateX(105%) skewX(-37deg);
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 450ms linear;
 }
 /* Pointer devices get the sweep on hover. Touch has no hover, so the press
    state stands in — and focus-visible gives the keyboard the same affordance
@@ -232,8 +254,9 @@ body {
   transform: translateX(0) skewX(-37deg);
 }
 
-/* Under "reduce motion" the wedge still has to appear — it is the hover state,
-   not decoration — so it fades in place instead of travelling. */
+/* Under "reduce motion" the fill still has to appear — it is the hover state,
+   not decoration — so it fades in at full coverage instead of travelling. The
+   diagonal is invisible here by definition: it only ever existed in transit. */
 @media (prefers-reduced-motion: reduce) {
   .sbox__sweep {
     transform: translateX(0) skewX(-37deg);
