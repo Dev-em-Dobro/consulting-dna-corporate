@@ -167,22 +167,23 @@ export default async function V1() {
           consequences — and are the ones item 1 attaches to the homepage. */}
       <section id="real" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
-          {/* The old site sets "REAL" in caps for emphasis. Here it takes the
-              brand colour instead, which is how the hero's own CTA line stresses
-              "Results, Not Promises." — same device, and it avoids a shout in a
-              page that has no other all-caps headline.
+          {/* One heading, no eyebrow. The old site splits the line as "Our
+              Purpose... is to make leadership REAL"; kept whole here, because
+              an eyebrow would leave the h2 reading as a fragment on its own,
+              and the section only needs a title.
 
-              `stagger={false}`: a stagger would animate eyebrow and heading
-              separately, against a grid that is already staggering below. */}
+              "REAL" is all-caps on the old site. Here it takes the brand colour
+              instead, the device the hero's own CTA uses for "Results, Not
+              Promises." — no shout on a page with no other all-caps headline.
+
+              `stagger={false}`: the grid below is already staggering. */}
           <Reveal stagger={false} className="mb-10 md:mb-12">
-            <div className="mb-2.5 flex items-baseline gap-3">
-              <span className="inline-block h-0.5 w-9 bg-brand" />
-              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-                Our Purpose
-              </span>
-            </div>
-            <h2 className="max-w-[720px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink sm:text-[34px] md:text-[40px]">
-              &hellip;is to make leadership <span className="text-brand">real</span>.
+            {/* Wide enough to hold the line in one piece at 40px, and balanced
+                so the wrap on narrow screens splits evenly instead of dropping
+                "real." alone — same treatment as the hero h1. */}
+            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:text-[40px]">
+              Our purpose is to make leadership{" "}
+              <span className="text-brand">real</span>.
             </h2>
           </Reveal>
           {/* `Reveal` IS the grid, as in the credibility band below. It renders
