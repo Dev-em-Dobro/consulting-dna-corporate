@@ -236,15 +236,19 @@ DNA**. Os únicos dois `ACTIVE_HEALTHY` são `ode-cms` e `ode-clube`, do outro c
 está `INACTIVE`. Isso derruba a suposição óbvia — o banco da CDNA está numa conta que **esta**
 não enxerga.
 
-**Próximo passo, na ordem certa: achar o ref antes de caçar a conta.** Abrir o painel da Vercel em
-`dobro66/corporate-dna-cms` → Settings → Environment Variables → revelar
-`NEXT_PUBLIC_SUPABASE_URL`. O ref é o subdomínio (`https://<ref>.supabase.co`). Com o ref na mão,
-a conta é simplesmente aquela que consegue abrir
-`https://supabase.com/dashboard/project/<ref>`.
+**A Vercel não entrega o ref, e isso é definitivo.** Consultada a API em
+`GET /v9/projects/{proj}/env?decrypt=true` com o token do CLI: `DATABASE_URL`, `DIRECT_URL` e
+`NEXT_PUBLIC_SUPABASE_URL` voltam todas com **`type=sensitive`** e valor vazio. Variável marcada
+como *Sensitive* na Vercel **não pode ser lida por ninguém** — nem CLI, nem API, nem painel. Só
+sobrescrita. Portanto o `vercel env pull` vazio não era limitação do CLI, como este documento
+supunha antes: é a política de segurança da própria variável, e está correta.
 
-Vale tentar pelo painel mesmo o `vercel env pull` tendo voltado vazio: o pull devolveu vazio até
-para variáveis banais como `SITE_URL` e `CMS_DISABLE_MFA`, o que parece limitação do CLI e não
-marcação de sensível uma a uma. A interface provavelmente revela.
+**Também não veio pela integração.** `vercel integration ls` no projeto responde *"No resources
+found"* — o Supabase não foi conectado pelo marketplace da Vercel, as variáveis foram digitadas
+à mão. Não há vínculo registrado do lado da Vercel para consultar.
+
+**Então o ref só vem do lado do Supabase:** entrar na conta de ferramentas e abrir o projeto. O
+ref aparece na URL do painel e em Settings → API.
 
 **Outras identidades que este projeto já usa**, e portanto candidatas a dona da conta:
 `impulseaisolutions@gmail.com` (dono do Resend, `corporate-dna-cms/docs/deploy-prod.md:12`, e a
