@@ -130,15 +130,30 @@ export default async function V1() {
           consequences."
 
           The six terms are his, verbatim, and nothing else is written here —
-          no invented copy, and no heading either. A heading was tried and
-          removed: the hero above already says "real" five times (the H1
-          "Keeping Leadership Real", three in the sub-line, and the "Making
-          Leadership Real" CTA), so any head lands as the sixth echo before the
-          six terms add theirs. Every candidate line collides — "Keeping
-          Leadership Real" repeats the H1 verbatim, "When the stakes are high"
-          repeats the sub-line, and the old site's "We make leadership real"
-          repeats the CTA. The hairline grid below is what stops the section
-          reading as unfinished; it does not need a title to do it.
+          no invented copy. The heading is not ours either: on the old site,
+          "Our Purpose... is to make leadership REAL" is the first section
+          BELOW THE HERO, which is this exact slot. So the line is not being
+          borrowed from somewhere else and dropped in; it is being kept where
+          CDNA already had it, and the six terms become the concrete answer to
+          it — purpose stated, then the six conditions it has to survive.
+
+          Two earlier attempts were worse and are worth not repeating.
+          "Keeping Leadership Real" as an eyebrow repeats the hero H1 word for
+          word; "When the stakes are high, leadership must become real" repeats
+          the hero sub-line. This one still echoes the hero's "Making
+          Leadership Real" CTA — the hero says "real" five times before this
+          section starts, so no heading can avoid an echo — but it is one echo
+          instead of two, and "Our Purpose" itself appears nowhere above.
+
+          What is deliberately NOT carried over: the two paragraphs that follow
+          this heading on the old site ("We curate experiences to release the
+          power, humanity and honesty…"). docs/analise.txt:108 singles that
+          language out as too broad and conceptual, and item 16 asks for less
+          text, not more. The heading is the part that earns its place.
+
+          Not approved this cycle. Same category as the closing line on Our
+          Clients, which Guli also took from the old site — both need CDNA to
+          confirm they stay.
 
           Placed between the hero and the wall on purpose. Item 2 warns against
           "long explanation antes de proof"; this is the short, visual one item 1
@@ -152,6 +167,24 @@ export default async function V1() {
           consequences — and are the ones item 1 attaches to the homepage. */}
       <section id="real" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
+          {/* The old site sets "REAL" in caps for emphasis. Here it takes the
+              brand colour instead, which is how the hero's own CTA line stresses
+              "Results, Not Promises." — same device, and it avoids a shout in a
+              page that has no other all-caps headline.
+
+              `stagger={false}`: a stagger would animate eyebrow and heading
+              separately, against a grid that is already staggering below. */}
+          <Reveal stagger={false} className="mb-10 md:mb-12">
+            <div className="mb-2.5 flex items-baseline gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+                Our Purpose
+              </span>
+            </div>
+            <h2 className="max-w-[720px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink sm:text-[34px] md:text-[40px]">
+              &hellip;is to make leadership <span className="text-brand">real</span>.
+            </h2>
+          </Reveal>
           {/* `Reveal` IS the grid, as in the credibility band below. It renders
               its own data-reveal="stagger" and animates its direct children, so
               nesting a second stagger inside it leaves the terms matched by the
