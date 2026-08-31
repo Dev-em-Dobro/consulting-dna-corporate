@@ -198,6 +198,58 @@ provedor), e o tile server padrão do OSM (a política deles desencoraja uso com
 
 ## 7. Pendências / próximos passos
 
+### 0. 🔴 O banco de conteúdo da CDNA está numa conta Supabase que ninguém identificou
+
+**A pergunta, feita em 31/08/2026:** de quem é a conta Supabase que guarda o conteúdo da Corporate
+DNA? **Não foi possível responder desta máquina.** E o fato de não ser possível já é o problema:
+todo o conteúdo autorado — os 8 cases, as Solutions, as pessoas, as parcerias — vive num banco cujo
+dono não está registrado em lugar nenhum.
+
+**Onde procurei, e por que cada caminho falhou:**
+
+| Caminho | Resultado |
+| :------ | :-------- |
+| Os dois repositórios | Nenhuma URL `*.supabase.co`. O `.env.example` do CMS só tem o placeholder `https://<project-ref>.supabase.co`; o `.env.local` aponta para o stack local (`127.0.0.1:54321`) |
+| `docs/handover.md` do CMS | Descreve arquitetura, variáveis e o procedimento de `pg_dump` — **não diz de quem é a conta** |
+| `vercel env pull` (produção, `dobro66/corporate-dna-cms`) | As variáveis existem, criadas há 39 dias, mas voltam **vazias**: são sensíveis, a Vercel não devolve o valor. Não é erro de configuração — o CMS em produção funciona e serve o alpha |
+| Bundle do CMS publicado | A `NEXT_PUBLIC_SUPABASE_URL` só é usada no servidor (auth via `app/api/auth/*`), então o ref **não** é inlinado no JS do cliente. Varridos os 9 chunks do `/login`: nada |
+| Cookies do `/login` | Nenhum cookie `sb-<ref>-auth-token` antes do login |
+| CLI do Supabase | Não autenticado nesta máquina (`Access token not provided`) |
+
+**Inferência, não fato:** provavelmente é conta da Dev em Dobro, não da CDNA — o time da Vercel é
+`dobro66`, e a conta do Resend está documentada como `impulseaisolutions@gmail.com`
+(`corporate-dna-cms/docs/deploy-prod.md:12`). Mas **isso não foi verificado**, e é exatamente o
+tipo de coisa que não se resolve por dedução na hora do handover.
+
+**Como fechar** — precisa de um humano com sessão aberta, um dos dois:
+
+```
+npx supabase login          # depois: npx supabase projects list  → mostra org e projeto
+```
+ou abrir o painel da Vercel em `dobro66/corporate-dna-cms` → Settings → Environment Variables →
+revelar `NEXT_PUBLIC_SUPABASE_URL`. O ref é o subdomínio: `https://<ref>.supabase.co`.
+
+**Anotar aqui o resultado quando souber:** o ref do projeto, o e-mail dono da conta, a organização,
+e se a conta é da Dev em Dobro ou da CDNA.
+
+### 0.1 🔴 E esse banco não tem backup automático
+
+Ligado ao item acima, e mais urgente que ele. Registrado em `corporate-dna-cms`,
+`specs/001-supabase-auth-migration/research.md`, risco **R2**, em 19/07/2026:
+
+> "the project **IS on the Free tier** — no automated backups, no PITR. […] the scheduled `pg_dump`
+> procedure in `docs/handover.md` is the only recovery path, and **someone must own running it from
+> the first day real content exists**. Decide on Pro + PITR before the CMS carries anything anyone
+> would miss."
+
+Em 19/07 isso era teórico. **Hoje não é:** o CMS já carrega o conteúdo real que o alpha serve. O
+plano gratuito da Supabase não faz backup nenhum, o `pg_dump` continua sem dono, e perder esse banco
+significa redigitar tudo — as pessoas dá para reconvidar, o conteúdo não.
+
+Duas decisões, e as duas são de negócio, não técnicas: **quem roda o dump e com que frequência**, e
+**se sobe para o plano Pro com PITR antes do lançamento**. Ver `corporate-dna-cms/docs/handover.md`,
+seção Backup & recovery, para o comando.
+
 ### Demais pendências
 
 1. **Validar o mapa manualmente** (quickstart cenários 1–9): fly entre escritórios,
