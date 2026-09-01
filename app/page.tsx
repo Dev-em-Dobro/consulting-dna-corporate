@@ -83,14 +83,19 @@ const challenges = [
  * dropped here because `RealCycle` supplies it once and holds it fixed while
  * these cycle — printing it on each term would put it back on screen six times,
  * which is the thing Guli's 01-09 treatment exists to stop.
+ *
+ * Lower case, as the brief writes them. The line reads "Real pressures." — one
+ * sentence with one capital, not two words each starting upper. Capitalising
+ * here also broke the `sr-only` sentence, which joins the six into "Real
+ * pressures, politics, choices…" and would have carried a capital mid-clause.
  */
 const reals = [
-  "Pressures",
-  "Politics",
-  "Choices",
-  "Judgement",
-  "People",
-  "Consequences",
+  "pressures",
+  "politics",
+  "choices",
+  "judgement",
+  "people",
+  "consequences",
 ];
 
 const differentiators = [
