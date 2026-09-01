@@ -203,6 +203,7 @@ export default function HeroV1() {
                 return;
               }
               let last = -1;
+              let flipped = false;
               const draw = (i: number) => {
                 if (i === last) return;
                 // A failed frame draws the nearest earlier one — a 1/12s hold
@@ -213,15 +214,32 @@ export default function HeroV1() {
                 if (!img) return;
                 last = i;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                // Flip the hero from the poster <picture> to the <canvas>
+                // (see globals.css: [data-intro="canvas"]) — on the first frame
+                // actually painted, never before.
+                //
+                // This used to run unconditionally on the line after `draw(0)`.
+                // But `draw` returns early when the frame it wants has not
+                // downloaded yet, and on a phone opening the site cold that is
+                // the normal case: 239 requests do not all land before the
+                // tween starts. So the poster was hidden to reveal a canvas
+                // with nothing on it, and the hero rendered black until the
+                // first frame arrived. Reloading "fixed" it because the frames
+                // then came from cache and frame 0 was there immediately —
+                // which is exactly why it looked intermittent.
+                //
+                // Gating the flip on a real `drawImage` means the worst case is
+                // the poster holding a moment longer, which is what it is for.
+                if (!flipped) {
+                  flipped = true;
+                  section.setAttribute("data-intro", "canvas");
+                }
                 // Hint the browser to decode the next frames off the hot path,
                 // so drawImage never waits on a synchronous decode.
                 frames[i + 1]?.decode?.().catch(() => {});
                 frames[i + 2]?.decode?.().catch(() => {});
               };
               draw(0);
-              // Flip the hero from the poster <picture> to the <canvas>
-              // (see globals.css: [data-intro="canvas"]).
-              section.setAttribute("data-intro", "canvas");
               const state = { f: 0 };
               const tween = gsap.to(state, {
                 f: HERO_FRAME_COUNT - 1,
