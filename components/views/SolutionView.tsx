@@ -139,9 +139,20 @@ export default function SolutionView({ s }: { s: SolutionVM }) {
 
       {s.proofRefs?.length ? <ClientPerspective proofRefs={s.proofRefs} /> : null}
 
-      {/* Block 5 — Start a Conversation. */}
+      {/* Block 5 — Start a Conversation.
+
+          `py`, not `pb`. The CTA used to carry bottom padding only, so the
+          button sat flush against whatever section preceded it. With the white
+          `Block` list above that reads as tight spacing; with the dark
+          `ClientPerspective` above it reads as broken, because the button
+          straddles the colour boundary with nothing between them.
+
+          That block only renders when the solution has `proofRefs`, so the
+          defect appeared exactly on the solutions that have client quotes —
+          which is why it looked like the quotes caused it. They only revealed
+          it. Measured at 0px from section top to button on every solution. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 pb-20 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
           <a
             href={ctaHref}
             className="inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"

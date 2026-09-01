@@ -42,8 +42,21 @@ export async function generateMetadata(): Promise<Metadata> {
 const [logoRow1, logoRow2] = clientLogoRows;
 
 const book = {
+  /**
+   * The section's headline — a positioning line, NOT the book's name. Kept as
+   * authored (CDNA confirmed on 01-09 that it is the same book, and that this
+   * heading is deliberately not the title).
+   */
   title:
     "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
+  /**
+   * The published title, as it appears on the cover, in the endorsements and on
+   * the Amazon listing the CTA points to. Separate from `title` because the
+   * JSON-LD below declares it to search engines as the *name of the book*:
+   * feeding the section headline there asserts a book that does not exist, and
+   * attributes it to Rhea. The heading is copy; this is a fact.
+   */
+  name: "Leadership: It's In Your DNA",
   subtitle: "The book behind the method",
   body: [
     "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
@@ -105,7 +118,7 @@ export default async function V1() {
         data={[
           personLd({ name: "Rhea Leckie", jobTitle: "Founder" }),
           bookLd({
-            name: book.title,
+            name: book.name,
             author: "Rhea Leckie",
             path: "/#book",
             description: book.body[1],
@@ -518,7 +531,9 @@ export default async function V1() {
 
               <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
                 <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
-                  <Image src="/book-cover.png" alt={book.title} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
+                  {/* The cover is a picture of the book, so it is named by the
+                    book — not by the section headline. */}
+                <Image src="/book-cover.png" alt={book.name} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
                 </div>
               </figure>
 

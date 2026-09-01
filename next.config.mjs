@@ -35,14 +35,32 @@ const legacyExtensionlessRedirects = [
   // Serviços → Solutions
   ["/our-services", "/solutions"],
   ["/our-services/overview", "/solutions"],
-  ["/our-services/leadership-development", "/solutions/leadership-development"],
+  // ⚠️ PENDENTE DE DECISÃO (Guilherme). O brief 27-08 tirou Leadership Development
+  // da arquitetura, e a solution foi despublicada em 01-09. Esta era provavelmente
+  // a página de serviço com mais tráfego do site antigo, então mandar para o índice
+  // desperdiça relevância — mas índice ainda é muito melhor que 404. Destinos
+  // candidatos quando ele responder: /solutions/manager-development ou
+  // /solutions/talent-development.
+  ["/our-services/leadership-development", "/solutions"],
   ["/our-services/executive-coaching", "/solutions/executive-coaching"],
   ["/our-services/culture-transformation", "/solutions/culture-transformation"],
   ["/our-services/high-performing-teams", "/solutions/high-performing-teams"],
   ["/our-services/women-in-leadership", "/solutions/women-in-leadership"],
-  ["/our-services/inclusion_diversity", "/solutions/inclusion-diversity"],
-  ["/our-services/asian-talent-development", "/solutions/asian-talent-development"],
+  // Inclusion & Diversity saiu da arquitetura (brief 27-08). Categoria aposentada
+  // sem sucessora direta → índice.
+  ["/our-services/inclusion_diversity", "/solutions"],
+  // Renomeada para "Talent Development" pelo brief 27-08 (sai o "Asian").
+  ["/our-services/asian-talent-development", "/solutions/talent-development"],
   ["/our-services/insight-tools", "/solutions"],
+  // Slugs internos da fase anterior do CMS, aposentados em 01-09 na reestruturação
+  // das 8 Solutions. Nunca estiveram no domínio público — só no alpha — mas o
+  // redirect custa nada e evita link morto em e-mail ou documento antigo.
+  ["/solutions/ceo-top-team-transformation", "/solutions/exco-top-150"],
+  ["/solutions/chro-hrlt-effectiveness", "/solutions/hrlt-effectiveness"],
+  ["/solutions/asian-talent-development", "/solutions/talent-development"],
+  ["/solutions/leadership-development", "/solutions"],
+  ["/solutions/talent-succession", "/solutions"],
+  ["/solutions/inclusion-diversity", "/solutions"],
   // Clientes → o case correspondente (decisão do cliente, 2026-07-29). Cada
   // página de cliente do site antigo tem um case 1:1 no CMS. O índice
   // `/our-clients` NÃO aparece aqui de propósito: a IA do brief 27-08 recria
