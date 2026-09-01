@@ -52,7 +52,18 @@ export default function ClientBandCard({ entry }: { entry: CaseListEntry }) {
       {panel && (
         <span
           aria-hidden
-          className="absolute inset-y-0 right-0 w-[58%]"
+          // Narrower from `md` up, so the black holds past the middle before the
+          // dissolve starts. In band coordinates the panel begins at 100%−width
+          // and reaches full opacity 38% of its own width later, so:
+          //
+          //   mobile  (58%)  black 0→42%   · dissolve 42→64%  · colour 64→100%
+          //   desktop (40%)  black 0→60%   · dissolve 60→75%  · colour 75→100%
+          //
+          // The tag line below is capped at 56% to land inside the solid black
+          // on both. It used to be unbounded, so on wide screens it ran into the
+          // dissolve and finished over the brand colour — white on GSK's orange,
+          // which is the worst pairing in the set.
+          className="absolute inset-y-0 right-0 w-[58%] md:w-[40%]"
           style={{
             backgroundColor: panel,
             maskImage: "linear-gradient(to right, transparent 0%, black 38%)",
@@ -62,7 +73,7 @@ export default function ClientBandCard({ entry }: { entry: CaseListEntry }) {
         />
       )}
 
-      <span className="relative min-w-0">
+      <span className="relative min-w-0 md:max-w-[56%]">
         <span className="block text-[20px] font-bold uppercase leading-tight tracking-[0.5px] text-white md:text-[22px]">
           {entry.client}
         </span>
