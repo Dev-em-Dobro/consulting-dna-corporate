@@ -196,44 +196,41 @@ export default async function V1() {
               Promises." — no shout on a page with no other all-caps headline.
 
               `stagger={false}`: the grid below is already staggering. */}
-          <Reveal stagger={false} className="mb-10 md:mb-12 md:text-center">
-            {/* Centred from md up, matching "What we solve" below and the
-                credibility band above — the run this section sits inside.
+          {/* One block, not a heading with a caption under it. Asked whether to
+              join the two sentences, Guli answered *"Sim. Duas linhas do 'mesmo
+              texto'"* and wrote the mobile break out:
 
-                Wide enough to hold the line in one piece at 40px, and balanced
-                so the wrap on narrow screens splits evenly instead of dropping
-                "real." alone — same treatment as the hero h1. */}
-            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
-              Our purpose is to make leadership{" "}
-              <span className="text-brand">real</span>.
-            </h2>
-          </Reveal>
-          {/* `Reveal` IS the grid, as in the credibility band below. It renders
-              its own data-reveal="stagger" and animates its direct children, so
-              nesting a second stagger inside it leaves the terms matched by the
-              opacity-0 rule in globals.css with nothing to animate them — the
-              section renders as an empty band, for real visitors.
+                  Our purpose
+                  is to make
+                  leadership real.
+                  Real pressures.
 
-              The hairline grid is the page's own device for a set of related
-              facts — the case header band, the Measured outcomes cards and the
-              regions grid all use this exact `gap-px border border-line bg-line`
-              construction. White cells on paper, so the set reads as a block
-              instead of six labels floating in white.
+              So both lines carry the same size, weight and tracking, with no
+              margin between them — the cycling line is the sentence continuing,
+              not a subtitle. `stagger={false}` because the reveal has two
+              children that must appear together, not in sequence.
 
-              Two rows of three rather than six across: at six columns the terms
-              shrink to labels and "Real consequences" wraps alone. Equal cells
-              also stop that one term breaking the rhythm of the row. */}
-          {/* One line that types, replacing the 2×3 grid of term cards — Guli's
-              resolution of 01-09. The grid put "real" on screen six times right
-              under a hero that already says it five; this keeps one "Real" and
-              cycles the second word. His hover-to-red request of 31-08 applied
-              to those cells and goes with them — the cells no longer exist.
-
-              Sized to the heading above rather than to the old cards: this is
-              the same sentence continuing, not a caption under it. `stagger`
-              is off because there is a single child to reveal. */}
+              The mobile breaks are explicit `<br>`, not a width that happens to
+              wrap there. The second line is retyped every 55ms, so any wrap the
+              browser derives from content would shift as the word grows and
+              shrinks. Above `sm` they are hidden and both lines flow on their
+              own. */}
           <Reveal stagger={false} className="md:text-center">
-            <p className="text-[26px] font-bold leading-[1.15] tracking-[-0.6px] sm:text-[30px] md:text-[36px]">
+            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
+              Our purpose
+              <br className="sm:hidden" /> is to make
+              <br className="sm:hidden" /> leadership{" "}
+              {/* The stop is inside the span. Guli's mock sets "real." in one
+                  colour; outside, it printed a dark dot hanging off the red
+                  word — and the cycling line below ends in a red stop too, so
+                  the two lines have to punctuate the same way. */}
+              <span className="text-brand">real.</span>
+            </h2>
+            {/* Kept out of the `h2`: the word inside it changes every 55ms, and
+                a heading that rewrites itself is hostile to screen readers and
+                meaningless to a crawler. `RealCycle` is aria-hidden and carries
+                its own accessible name. */}
+            <p className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] sm:text-[34px] md:mx-auto md:text-[40px]">
               <RealCycle words={reals} />
             </p>
           </Reveal>
