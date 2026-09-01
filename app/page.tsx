@@ -8,6 +8,7 @@ import HeroV1 from "@/components/HeroV1";
 import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
+import RealCycle from "@/components/RealCycle";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
@@ -75,16 +76,21 @@ const challenges = [
 
 /**
  * The six terms item 1 asks the homepage to explain "Keeping Leadership Real"
- * with, quoted from the e-mail. Not the seven-term list in its opening, which is
- * about the experience of the site as a whole.
+ * with. Not the seven-term list in its opening, which is about the experience of
+ * the site as a whole.
+ *
+ * The e-mail writes them as "real pressures, real politics…". The word "real" is
+ * dropped here because `RealCycle` supplies it once and holds it fixed while
+ * these cycle — printing it on each term would put it back on screen six times,
+ * which is the thing Guli's 01-09 treatment exists to stop.
  */
 const reals = [
-  "Real pressures",
-  "Real politics",
-  "Real choices",
-  "Real judgement",
-  "Real people",
-  "Real consequences",
+  "Pressures",
+  "Politics",
+  "Choices",
+  "Judgement",
+  "People",
+  "Consequences",
 ];
 
 const differentiators = [
@@ -217,34 +223,19 @@ export default async function V1() {
               Two rows of three rather than six across: at six columns the terms
               shrink to labels and "Real consequences" wraps alone. Equal cells
               also stop that one term breaking the rhythm of the row. */}
-          {/* Hover takes the whole cell to brand — Guli, 31-08: "seria legal
-              colocar efeito de hover com animação pra vermelho."
+          {/* One line that types, replacing the 2×3 grid of term cards — Guli's
+              resolution of 01-09. The grid put "real" on screen six times right
+              under a hero that already says it five; this keeps one "Real" and
+              cycles the second word. His hover-to-red request of 31-08 applied
+              to those cells and goes with them — the cells no longer exist.
 
-              All three layers have to move together or the cell breaks on the
-              way: the rule is `bg-brand`, which would vanish into the new
-              ground, and the term is `text-ink`, which would go unreadable on
-              it. So the rule inverts to white and the term follows.
-
-              These cells are not links and lead nowhere, so there is no paired
-              `active:` variant the way the Solutions rows have one — a press
-              state on something that does not respond to a press reads as a
-              broken affordance. Tailwind's `hover:` is gated on `(hover: hover)`
-              already, so touch simply never enters the state.
-
-              `motion-reduce:transition-none` keeps the colour change and drops
-              the fade, matching how `.sbox__sweep` degrades in globals.css. */}
-          <Reveal className="grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3">
-            {reals.map((term) => (
-              <div
-                key={term}
-                className="group bg-white p-6 transition-colors duration-300 hover:bg-brand motion-reduce:transition-none md:p-7"
-              >
-                <span className="mb-4 block h-[3px] w-8 bg-brand transition-colors duration-300 group-hover:bg-white motion-reduce:transition-none" />
-                <span className="block text-[20px] font-bold leading-[1.15] tracking-[-0.5px] text-ink transition-colors duration-300 group-hover:text-white motion-reduce:transition-none md:text-[24px]">
-                  {term}
-                </span>
-              </div>
-            ))}
+              Sized to the heading above rather than to the old cards: this is
+              the same sentence continuing, not a caption under it. `stagger`
+              is off because there is a single child to reveal. */}
+          <Reveal stagger={false} className="md:text-center">
+            <p className="text-[26px] font-bold leading-[1.15] tracking-[-0.6px] sm:text-[30px] md:text-[36px]">
+              <RealCycle words={reals} />
+            </p>
           </Reveal>
         </div>
       </section>
