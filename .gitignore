@@ -36,6 +36,20 @@ next-env.d.ts
 .claude/
 .env*
 
+# ...and the same files when the leading dot is missing. `.env*` does not match
+# `env.local`, so a file saved without the dot carries the service role key and
+# the admin password straight into `git add .` without a word of complaint.
+# Happened on 31-08; caught before any commit, hence these three lines.
+env*.local
+env.example
+env.demo
+
+# Client e-mail exports (.eml). These are correspondence with CDNA and Axon, not
+# project source, and they do not belong on GitHub even in a private repo. They
+# were committed once and stripped from the branch history on 31-08; this rule
+# is what stops them coming back. Read them locally — see the project memory.
+docs/emails/
+
 # temp artifacts (dev server log + prod vercel-link backup)
 .dev-server.log
 .vercel.prod-backup/
