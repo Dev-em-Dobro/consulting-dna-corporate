@@ -1,13 +1,28 @@
 # Brief 27-08 — item a item, na ordem do email
 
 Os 19 pontos do `docs/email-guilherme-27-08-2026.txt` na sequência em que ele escreveu, com o
-estado de cada um. Atualizado em **2026-08-30**, depois de aplicar a leva de design do Guli
-(29/08) e a reordenação da home.
+estado de cada um. Atualizado em **2026-09-01**, depois da leva de design do Guli de 31/08 e da
+reestruturação das Solutions no CMS.
 
-> **O que mudou nesta atualização:** o design de 29/08 está aplicado — Solutions em black boxes,
-> Our Clients com as faixas de cliente, Our Impact na sequência do mock, o 5H reconstruído com as
-> 25 dimensões, a home reordenada e o ticker de volta no topo. Our Identity ganhou os sete blocos
-> do item 4. Tudo commitado na `feat/brief-27-08-content-structure`, **nada pushado ou publicado**.
+> **O que mudou nesta atualização (01/09):**
+>
+> - **As 8 Solutions confirmadas existem no banco**, publicadas, na ordem do e-mail dele. As 12
+>   entradas antigas foram despublicadas — não apagadas — com todo o texto migrado. Isso fecha o
+>   aviso que estava aqui desde 30/08.
+> - **Manager Development nasceu como solution própria.** Não existia: estava fundida numa entrada
+>   chamada "High-Performing Teams & Manager Impact".
+> - **Quatro flagship cases ligados** (Heineken, GSK ×2, Shell). Frasers Property e adidas não
+>   existem como case.
+> - **A faixa do item 7 foi preenchida em GSK, Heineken e Unilever**, a partir do "At a glance" que
+>   já estava na prosa deles.
+> - **A leva de design do Guli de 31/08** está aplicada, mais a resolução dele de 01/09 para o bloco
+>   embaixo do hero.
+> - **Backups antes de qualquer escrita:** `backup-cms-solutions-2026-09-01.json` e
+>   `backup-cms-cases-2026-09-01.json`.
+>
+> **O que mudou na de 30/08:** o design de 29/08 aplicado — Solutions em black boxes, Our Clients
+> com as faixas de cliente, Our Impact na sequência do mock, o 5H reconstruído com as 25 dimensões,
+> a home reordenada e o ticker de volta no topo. Our Identity ganhou os sete blocos do item 4.
 >
 > ⚠️ **Git não diz o que está publicado.** A branch está 33 commits à frente do `origin`
 > (tip remoto `4ef7a00`, de 28/08), mas o `alpha` **está com o código local de hoje** — o deploy é
@@ -16,11 +31,11 @@ estado de cada um. Atualizado em **2026-08-30**, depois de aplicar a leva de des
 > e a home mostra os seis termos do item 1, que só existem no HEAD. **Nunca inferir o que está
 > publicado a partir de `git rev-list --left-right`. Abrir o site.**
 >
-> ⚠️ **O que o alpha NÃO reflete, e é do CMS, não do código:** o menu de Solutions ainda lista o
-> conjunto antigo — `/solutions/inclusion-diversity`, `/solutions/asian-talent-development`,
-> `/solutions/leadership-development`, `/solutions/ceo-top-team-transformation` — ou seja, os oito
-> nomes confirmados do item 5 não estão visíveis para ninguém que abra o link. E o ticker não
-> renderiza, por não ter entradas. **Os dois só se resolvem no banco que o alpha lê.**
+> ✅ **O aviso do CMS fechou em 01/09.** O menu de Solutions agora lista os oito nomes confirmados,
+> na ordem do e-mail. Os slugs velhos (`inclusion-diversity`, `asian-talent-development`,
+> `ceo-top-team-transformation`, `leadership-development`, `talent-succession`) foram despublicados
+> e têm redirect. **O ticker continua sem renderizar** — não tem entradas, e isso é conteúdo da
+> CDNA, não banco.
 
 **Legenda**
 
@@ -29,7 +44,7 @@ estado de cada um. Atualizado em **2026-08-30**, depois de aplicar a leva de des
 | ✅ | Feito, no código, `tsc` limpo e build passando |
 | 🎨 | **Falta ver com o Guli** — design |
 | 🟠 | **Falta do Guilherme / CDNA** — conteúdo, assets, aprovação ou decisão |
-| ⏳ | Código pronto, falta rodar a migração no banco de produção do CMS |
+| ~~⏳~~ | ~~Falta rodar a migração no CMS~~ — **aposentado em 01/09**: os três tipos novos estão no admin |
 | ⚠️ | Conflito ou risco que precisa de decisão |
 
 ---
@@ -45,11 +60,36 @@ choices, real judgement, real people and real consequences*.
 ✅ Headline e sub-linha aplicadas verbatim do e-mail. CEOs, CHROs & CLOs na primeira tela.
 "When the stakes are high" migrou para a sub-linha, como ele pediu.
 
-🎨 **O tratamento curto e visual dos seis "reals" não existe.** É a única parte do item 1 que
-ainda não foi feita, e é design.
+✅ **O tratamento curto e visual dos seis "reals" existe** — resolvido pelo Guli em 01/09. Era uma
+grade 2×3 de cards com os seis termos; virou **uma linha que digita**, ciclando a segunda palavra:
+*real pressures → real politics → real choices → real judgement → real people → real consequences*.
 
-🎨 **A reordenação quebrou o ritmo visual da home em quatro pontos** — ver item 2.
+O raciocínio: a grade colocava a palavra "real" na tela seis vezes logo abaixo de um hero que já
+diz cinco. A linha mantém um "Real" e move o termo. Também é a mesma frase continuando do título
+acima, não uma legenda embaixo dele, por isso é dimensionada pelo título.
 
+✅ **As duas frases viraram um bloco só** — resolvido com o Guli ainda em 01/09. Perguntado se
+juntava as frases: *"Sim. Duas linhas do 'mesmo texto'"*, com a quebra do mobile escrita por ele:
+
+```
+Our purpose
+is to make
+leadership real.
+Real pressures.
+```
+
+A linha que digita subiu de 26/30/36 para 30/34/40, igual ao título, e o `mb-10 md:mb-12` entre os
+dois saiu. **No mobile as quebras são `<br>` explícitos**, escondidos a partir do `sm` — a segunda
+linha é redigitada a cada 55ms, então quebra derivada do conteúdo pularia de lugar conforme a
+palavra cresce. **No desktop flui natural**, confirmado em 01/09.
+
+O `RealCycle` fica num `<p>` irmão, fora do `<h2>`: visualmente idêntico, mas um heading que se
+reescreve dez vezes por segundo é hostil para leitor de tela e inútil para crawler.
+
+🎨 **Um pedido anterior caducou nessa troca:** o hover vermelho que ele pediu em 31/08 era nas
+células da grade 2×3. Não existem mais células. Precisa de forma nova ou morre.
+
+🎨 **Depois da reordenação valeumaolhada do Gulide como ficou o novo ritmo visual da home** 
 ---
 
 ## 2. Proof muito mais cedo
@@ -60,17 +100,6 @@ Explanation, e não long explanation antes de proof.
 
 ✅ O logo wall e as estatísticas subiram para entre o hero e o "What we solve", que antes vinha
 primeiro. O 90% agora lidera a faixa (`lib/stats.ts`), o que também vale para o Our Impact.
-
-⚠️ Esse é o único ponto onde o mock do Guli e o e-mail se contradizem: o mock do Our Impact põe
-18 years primeiro. Seguimos o e-mail.
-
-🎨 **O que a reordenação quebrou, e precisa de passada do Guli:**
-1. Três faixas escuras seguidas no topo — ticker, hero com vídeo, bloco de credibilidade. O
-   vídeo termina num corte seco contra o cinza chapado.
-2. O logo wall perdeu a deixa: antes vinha depois de uma frase, agora abre sozinho.
-3. "What we solve" e "Client Impact" ficaram os dois em branco puro, colados, com o alinhamento
-   virando de centralizado para esquerdo no meio do scroll.
-4. O mesmo entre o bloco do livro e o de escritórios, ambos no mesmo cinza claro.
 
 *Observação nossa, não pedido dele:* o bloco do livro é a maior seção da home, com 1.409px —
 maior que o hero. Se o Guli for mexer na home, é onde há mais a ganhar contra o item 16.
@@ -113,6 +142,21 @@ Story, como ele pediu. A seção mudou de "Keeping It Real" para **"Keeping Lead
 todos vazios. A frase "cut through complexity…" que ele manda preservar **não existe em lugar
 nenhum do site** — não é preservar, é escrever pela primeira vez.
 
+⚠️ **Our Identity não tem cadastro no CMS** (verificado em 01/09). `app/our-identity/page.tsx` não
+importa nada de `lib/cms` — são sete `<section>` de JSX escrito à mão. **Consequência: quando o
+texto chegar, é trabalho de dev, não de cadastro.** Ninguém da CDNA consegue publicar esta página
+digitando no admin, e por isso a pergunta "vocês preenchem ou nós cadastramos?" não pode ser
+respondida em bloco.
+
+**O mapa completo, para não prometer errado:**
+
+| Preenchível no CMS | Só por código |
+|---|---|
+| home, solutions, cases, our-clients, our-impact, our-partnerships, our-team, insights, awards | **our-identity**, **approach** (o 5H e o bloco de frameworks do item 11), interviews, páginas legais |
+
+É a mesma armadilha já registrada no item 11: se eles responderem "temos mais dois frameworks",
+aquilo também é dev, não cadastro.
+
 **Como está colocado com eles:** como pergunta de prazo — *quando conseguem mandar esses textos?*
 —, dizendo que não acreditamos que quem deva produzi-los sejamos nós. Nesta página o texto é a
 própria identidade da empresa: o que a gente inventasse seria nossa leitura da CDNA, e eles
@@ -139,10 +183,21 @@ Challenge → The Outcome → How CorporateDNA Helps → Evidence → Start a Co
 ✅ Black boxes implementadas, com a geometria medida do mock. Índice liderado pelo outcome. Os
 cinco blocos existem no CMS com ajuda por campo.
 
-🟠 **Reautoria das oito no formato curto.** Os campos estão prontos, falta o texto.
+✅ **As oito existem no banco, publicadas** (01/09), com `sort_order` 1 a 8 na ordem do e-mail —
+o que fecha a pendência da ordem. As 12 antigas foram despublicadas, não apagadas, e
+`problemStatement`, `body`, banner, `proofRefs` e `resources` foram migrados para a substituta.
 
-🟠 **A ordem das oito no índice.** Hoje sai na ordem do CMS. Sugerimos a ordem do e-mail dele,
-que é a que a CDNA confirmou.
+✅ **Manager Development criada.** Não existia como solution: estava dentro de
+"High-Performing Teams & Manager Impact". O item 5 lista as duas separadas e o item 6 dá flagships
+diferentes, então separamos. **Não é decisão pendente** — ele já decidiu, duas vezes, no próprio
+brief. Nasceu vazia por não haver página de origem.
+
+🟠 **`The Outcome` e `How CorporateDNA Helps` estão vazios nas oito.** São 16 campos, e são o que
+separa oito páginas construídas de oito páginas publicáveis. Não estão em branco na tela: trazem
+`Pending final copy from CDNA`, de propósito, para a CDNA ver que o campo existe.
+
+🟠 **O texto da Talent Development ainda diz "We shape Asian leaders".** O item 5 tirou o "Asian"
+do nome; o corpo ficou. Precisa de frase nova deles.
 
 ---
 
@@ -154,7 +209,14 @@ descoberta.
 
 ✅ Campo `flagshipCaseSlug` no CMS.
 
+✅ **Quatro ligados** (01/09): Heineken → ExCo / Top 150, GSK → Culture Transformation, Shell →
+Women in Leadership, GSK → High Performing Teams.
+
 🟠 **Faltam os dois TBC:** Manager Development e Executive Coaching.
+
+🟠 **E dois que o próprio item define, mas cujo case não existe no CMS:** Frasers Property
+(Talent Development) e adidas (HRLT Effectiveness). Ou os cases são criados, ou o flagship dessas
+duas muda.
 
 ⚠️ **Conflito:** o mock do listing (`impact-stories-filtro-aberto.png`) mostra um dropdown por
 indústria como lógica principal, que é o que o item 6 proíbe. Cabe como filtro secundário, com a
@@ -176,9 +238,29 @@ registered 200 millions…") e nós mostrávamos só "Shell". Parecia questão d
 `title` também resolve o logo e a cor da marca da faixa, então escrever a frase longa ali apagava
 os dois. Agora são campos separados.
 
-🟠 **Preencher a faixa** em cada case.
+✅ **A faixa foi preenchida em GSK, Heineken e Unilever** (01/09) — countries, participants, reach
+e intervention. **Não escrevemos nada:** os três já traziam um bloco "At a glance" dentro da prosa,
+que é exatamente o dado que a faixa pede. Movemos para os campos e tiramos o duplicado do corpo.
 
-🟠 **As quotes** no padrão John Murphy / Jorge Gardino.
+🟠 **`Impact` está vazio em 7 dos 8 cases.** A única métrica de resultado em todo o acervo é o
+**88% Net Promoter Score do Shell**. Todo o resto é escala — países, líderes, anos de parceria —
+e nenhum diz o que mudou no cliente. O item pede que o case feche em evidência, e hoje não há
+evidência para fechar. **É o segundo maior buraco de conteúdo do projeto**, atrás só dos 16 campos
+das Solutions.
+
+🟠 **`countries` vazio em 5.** Os textos falam em *markets*, *locations* e *nationalities*.
+"32 markets" não é 32 países, e preencher como se fosse seria inventar.
+
+🟠 **A faixa dos outros cinco** — shell, morgan-stanley, coca-cola, levis, aviva. Há proposta
+extraída da prosa em `docs/tabela-conteudo-cdna-01-09-2026.md`, aguardando confirmação da CDNA. Não
+foi aplicada porque exige interpretação.
+
+🟠 **As oito quotes precisam ser trocadas.** Lidas uma a uma em 01/09: **nenhuma menciona a
+CorporateDNA.** São declarações institucionais — Emma Walmsley sobre cultura, Dolf van den Brink
+sobre renovação, Sunny Jain sobre propósito. O detalhe que fecha o argumento: **o item cita o John
+Murphy como exemplo do tipo certo**, e a quote atribuída a ele no CMS é justamente do tipo genérico.
+Logo, existe uma quote melhor dele. Somando com *"nada vai a produção sem aprovação da CDNA"*, as
+oito são bloqueadoras de lançamento.
 
 🎨 **O mock não mostra a faixa de cinco fatos** — abre com headline e métrica embutida. Seguimos
 o e-mail, que a exige. Perguntar ao Guli se omitiu ou substituiu.
@@ -202,9 +284,12 @@ O título "Client Stories" não está no mock do Guli, e foi acrescentado de pro
 os dois blocos por função — *"Logo wall = immediate credibility, Client stories = depth"* — e sem
 o título a página lia como duas listas de clientes seguidas.
 
-**Página considerada fechada de build.** Falta a confirmação da CDNA. O mapa dela ainda está com o
-"API KEY REQUIRED" carimbado pela CARTO — pendência nossa, ver item 18 —, então "fechada de build"
-não é a mesma coisa que "publicável".
+**Página considerada fechada de build.** Falta a confirmação da CDNA sobre nomes, logos e a linha
+de fechamento — ver Resumo.
+
+> *Corrigido em 01/09:* este parágrafo dizia que o mapa ainda estava com o "API KEY REQUIRED" da
+> CARTO. **Estava desatualizado e contradizia o item 18**, que registra a troca para Esri World
+> Light Gray em 30/08. Confirmado no código: `components/LocationsMap.tsx` usa o Esri, keyless.
 
 ✅ As faixas reproduzem o tratamento do mock: painel na cor da marca dissolvendo no preto, com a
 marca vazada em branco.
@@ -257,9 +342,32 @@ porque "Programme Impact" já é um dos indicadores de lá.
 🟠 **Testimonials sobre a CorporateDNA.** O slot está montado e vazio: o item 7 exige depoimentos
 sobre o trabalho, e as quotes atuais são corporate genéricas.
 
-🟠 **Sobrou da lista de 06/08: quatro coisas em `/approach`** — o "95% of our clients cite 5H®"
-(sem fonte), os **26 countries** em quatro pontos da página contra os 36 do resto do site, o "over
-ten years".
+✅ **A lista de 06/08 estava classificada errada, e foi resolvida em 01/09.** Ela figurava aqui como
+🟠 — "falta do Guilherme" —, mas não estava em aberto: o e-mail dele de **12/08**, escrito para a
+equipe da CDNA e copiado para nós, já continha a decisão.
+
+> *"I have also **instructed the developers to remove** the unsupported 5H claims referring to 95%,
+> 26 countries and 'over ten years' **unless anyone can provide a reliable source**."*
+
+Era instrução para nós, com uma condicional que venceu por decurso de prazo — três semanas sem
+fonte. Ficar em 🟠 fez parecer que aguardávamos resposta quando a resposta tinha chegado e não fora
+aplicada. **Aplicado em 01/09**, nos quatro pontos de `app/approach/page.tsx`:
+
+| era | virou | por quê |
+| :-- | :---- | :------ |
+| `26 countries` (×4: metadata, FAQ, hero, corpo) | **`36 countries`** | correção, não remoção — 36 é o número que ele autorizou no mesmo e-mail, e 26 era a única contradição real com o resto do site |
+| `95% of our clients cite 5H®…` | **removido** | sem fonte |
+| `Over ten years and across…` | **removido** | sem fonte |
+
+⚠️ **O que saiu junto com o 95%, e vale saber.** Não é versão velha do 90% da home: **90% é *work
+sponsored by Chairman/CXO*, 95% é *clients who cite 5H as the secret of our success*** — medições
+diferentes. Saiu por falta de fonte, não por conflito, e volta no dia em que a CDNA apresentar uma.
+O mesmo vale para "over ten years", que era a idade do 5H e não a da empresa.
+
+🟠 **E o e-mail de 12/08 trouxe dois números que o site ainda não usa:** *70+ executive-team
+interventions* e *1,000+ coaching clients*, autorizados por ele junto com os quatro que já estão no
+ar (18 years, 36 countries, 75 faculty, 90% Chairman/CXO). Decidir onde entram — provavelmente na
+faixa de Our Impact, ver item 9.
 
 **A linha de copyright saiu do documento do cliente** (decisão de 30/08 — se eles quiserem mandar
 fonte ou ano, que mandem; não vamos perguntar). **Mas ela continua na página e ninguém está
@@ -270,15 +378,15 @@ para Our Approach). Dois defeitos: o ano é 2021, e o travessão abre um interva
 então na tela lê *"© 2021– 5H is the sole copyright…"*. É também **o único aviso de copyright do
 site inteiro** — o footer não tem nenhum — e cobre o 5H, não a empresa.
 
-⚠️ **Cuidado com o pareamento.** O tracker antigo listava isso como "95% × 90%" e "ten years × 18
-years", como se fossem duas versões do mesmo dado. Não são: **90% é *work sponsored by
-Chairman/CXO*, 95% é *clients who cite 5H as the secret of our success*** — métricas diferentes. E
-"over ten years" é a idade do 5H, não a da empresa. **A única contradição real é 26 × 36
-countries.** Corrigido no PDF de 30/08.
+⚠️ **Cuidado com o pareamento.** Vale de novo, agora que os claims saíram: o tracker antigo listava
+"95% × 90%" e "ten years × 18 years" como se fossem duas versões do mesmo dado. Não são — ver o
+detalhe acima. **A única contradição real era 26 × 36 countries**, e essa foi corrigida, não
+removida.
 
-✅ **O set corporativo está resolvido na prática:** o item 2 do e-mail dele usa "90%
-Chairman/CXO-sponsored" e "18 years" pelo nome, então 90 / 18 / 36 / 75 não precisa de nova
-aprovação.
+✅ **O set corporativo está resolvido:** o item 2 do e-mail de 27/08 usa "90% Chairman/CXO-sponsored"
+e "18 years" pelo nome, e o e-mail de 12/08 autorizou explicitamente os seis — **18 years, 36
+countries, 75 faculty, 90% Chairman/CXO-sponsored, 70+ executive-team interventions e 1,000+
+coaching clients**. Os quatro primeiros estão no ar; os dois últimos ainda não têm lugar.
 
 ---
 
@@ -337,7 +445,7 @@ Harvard, Imperial, Emeld AI, Explore Performance, TerraGrin.
 ✅ Tipo `partnership` no CMS com `enablesForClients` **obrigatório**, rota `/our-partnerships`
 lendo do CMS, nenhum nome hard-coded.
 
-⏳ **Migração `0007` não rodou** — o tipo não aparece no admin até rodar.
+✅ **Migração aplicada em 01/09** — o tipo aparece no admin. Falta o conteúdo (ver item 12 abaixo).
 
 🟠 **O texto de cada parceria**, e confirmação da lista.
 
@@ -359,9 +467,28 @@ o lançamento.
 ✅ Tipo `testimonial_video` com `client` como campo de primeira classe, justamente para a
 over-representação aparecer na listagem em vez de ficar escondida no título.
 
-⏳ Migração `0007`.
+✅ Migração aplicada em 01/09 — o tipo está no admin.
 
-🟠 **Os vídeos.**
+⚠️ **Não existe superfície para eles** (verificado em 01/09). `getTestimonialVideos()` está em
+`lib/cms/map.ts` e o endpoint responde, mas **nenhuma página ou componente consome a função**. Se a
+CDNA cadastrar um vídeo hoje, ele não aparece em lugar nenhum do site.
+
+**O brief não decide isso.** O item 13 manda remover o compilado e criar estrutura modular; não diz
+onde os individuais entram. Por isso a função ficou órfã — construímos a capacidade e o destino
+nunca foi definido. Três candidatos:
+
+| Onde | A favor |
+|---|---|
+| **Página do case** | o tipo tem `caseSlug`, o que sugere ter sido a intenção original |
+| **Our Impact** | o item 9 lista "client testimonials" entre as prioridades da página |
+| **Home** | o compilado saiu de lá (item 13) e nada ocupou o lugar — o item 2 quer prova cedo |
+
+Página própria **não está no brief**: a navegação do item 3 tem nove itens e nenhum é de vídeos.
+
+**Leitura provável:** case + Our Impact, não um dos três. Mas é decisão de produto, não dedução —
+**perguntar ao Guilherme, e ao Guli se envolver layout.**
+
+🟠 **Os vídeos.** Candidatos do item: Yolanda/Heineken, Andrew Morovski, Sonali, Fred/adidas.
 
 ---
 
@@ -430,7 +557,7 @@ sublinhado só onde há link — igual à referência.
 escritórios, parcerias e marcos como o *conteúdo* que entra, não como rótulo a imprimir — os
 campos existem no dado e servem ao corte e à ordenação.
 
-⏳ Migração `0007`.
+✅ Migração aplicada em 01/09 — o tipo está no admin.
 
 🟠 **O conteúdo do ticker, de 2023 em diante.** Mas pode ser que não precise deles: copiar a faixa
 do site antigo é trabalho curto e está à nossa mão. O que segurou foi o corte de 2023 — a faixa
@@ -497,32 +624,155 @@ posição na call (20:38) e agora acha que a Rhea vai querer olhar antes de qual
 
 ## Fora do brief, mas trava o lançamento
 
-- ⏳ **Migração `0007` do CMS não rodou.** Três `ALTER TYPE … ADD VALUE`, puramente aditivas.
-  Enquanto não rodar, `partnership`, `ticker_item` e `testimonial_video` não aparecem no admin —
-  e o ticker da home depende disso. `npm run db:migrate` com `DIRECT_URL` na porta 5432.
-- 🔴 **O formulário de lead não avisa ninguém.** Grava no banco e fica invisível: sem e-mail, sem
-  webhook. Lançar assim é perder lead.
+- ✅ ~~Migração `0007` do CMS~~ — **aplicada em 01/09**, via `ALTER TYPE` direto no banco.
+  `partnership`, `ticker_item` e `testimonial_video` aparecem no admin. Nota para a próxima:
+  a API REST do Supabase aceita DML mas **não DDL** — `ALTER TYPE` só sai por conexão Postgres.
+- 🔴 **O formulário de lead não avisa ninguém** — mas é configuração, não código faltando
+  (verificado em 01/09). O caminho existe inteiro: `ContactForm` → `submitLead` →
+  `POST {CMS}/api/leads` → grava → `dispatchLeadWebhook`. **O dispatcher é no-op porque
+  `LEAD_WEBHOOK_URL` não está setada** (`lib/leads/webhook.ts`: `if (!url) return`). Falta escolher
+  o destino. O CMS já tem `RESEND_API_KEY` no ambiente, então e-mail direto também é barato se for
+  preferível a webhook. Lançar sem isso é perder lead.
 - **Deploy é manual.** O scope da Vercel é `dobro66`, não `impulse66` — o time foi renomeado e os
   docs do repo ainda mandam usar o slug antigo, que só dá erro.
-- **Autor do commit HEAD** precisa ser `impulseaisolutions@gmail.com` ou o time bloqueia. Os
-  commits desta leva estão como `cadu.hd@gmail.com`.
-- **`NEXT_PUBLIC_WHATSAPP_NUMBER`** ainda é `5511999999999`, pendente desde 24/07.
+- ✅ **Autor do commit** — resolvido. Os últimos commits estão como
+  `Impulse Ai Solutions <impulseaisolutions@gmail.com>`, que é o que o time da Vercel exige.
+- **`NEXT_PUBLIC_WHATSAPP_NUMBER`** — o valor de teste `5511999999999` **não existe mais no repo**
+  (verificado em 01/09); o componente lê da env. Falta confirmar se está setada na Vercel, o que
+  não dá para ver do repositório.
+- 🔴 **Nada de 01/09 está publicado.** `app/page.tsx` e `components/HeroV1.tsx` sem commit; os
+  redirects commitados mas não deployados; **52 commits à frente do `origin`**, sem push. As
+  mudanças do CMS, essas sim, estão no ar — é a assimetria que sempre confunde neste projeto.
 - **Cutover do domínio** não está em nenhum tracker.
 
 ---
 
-## Resumo
+## Resumo — 01/09
 
-**Falta ver com o Guli (🎨)** — itens 1, 2, 4, 7, 9, 10, 15 e 16:
-a seção dos seis "reals" na home; o ritmo visual da home reordenada; o design de Our Identity; a
-faixa de cinco fatos no case e a seção 5H dentro dele; se Our Impact está terminada; a DNA-strand
-e a confirmação sobre a roda; o tratamento do time.
+### 🎨 Com o Guli — design
 
-**Falta do Guilherme / CDNA (🟠)** — itens 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 17 e 19:
-praticamente todo o texto de Our Identity; a reautoria das oito Solutions; os dois flagship TBC;
-os números certos do Our Impact e as três definições que faltam; o sign-off das 25 dimensões; os
-frameworks proprietários; o texto das parcerias; os vídeos; os assets do time; o conteúdo do
-ticker; e as duas decisões do item 19.
+| Item | O quê |
+|---|---|
+| 1 | **A linha que digita, embaixo do hero** — resolução dele de 01/09, ainda em revisão. E o hover vermelho que ele pediu em 31/08 caducou junto com as células da grade |
+| 2 | O ritmo visual da home reordenada — duas colisões de cor ainda abertas |
+| 4 | O design de Our Identity |
+| 7 | A faixa de cinco fatos não aparece no mock dele, e a seção 5H dentro do case não foi construída |
+| 9 | Se Our Impact está terminada |
+| 10 | A DNA-strand e a confirmação sobre a roda |
+| 15 | O tratamento do time |
+| 16 | Redução de texto e scroll |
 
-**Nosso, e dá para fazer sem esperar ninguém:** rodar a migração `0007` e ligar a notificação do
-formulário de lead.
+### 🟠 Com a CDNA — conteúdo
+
+Em ordem de impacto no lançamento:
+
+| # | O quê | Item |
+|---|---|---|
+| 1 | **`The Outcome` e `How CorporateDNA Helps` nas 8 Solutions** — 16 campos, o que separa 8 páginas construídas de 8 publicáveis | 5 |
+| 2 | **As 8 quotes dos cases** — nenhuma menciona a CorporateDNA, e o próprio item proíbe. Bloqueia produção pela regra deles | 7 |
+| 3 | **`Impact` em 7 dos 8 cases** — só o Shell tem (88% NPS). Sem isso o case não fecha em evidência | 7 |
+| 4 | **Todo o texto de Our Identity** — sete blocos vazios, três sem equivalente no site antigo | 4 |
+| 5 | O texto da Talent Development ainda diz "Asian" | 5 |
+| 6 | Flagships de Manager Development e Executive Coaching, e os cases de Frasers Property e adidas, que não existem | 6 |
+| 7 | Números e as três definições do Our Impact; sign-off das 25 dimensões; frameworks; texto das parcerias; vídeos; assets do time; conteúdo do ticker | 9, 10, 11, 12, 13, 14, 15, 17 |
+
+### 🟠 Com o Guilherme — decisões, não conteúdo
+
+Estas voltam em minutos e destravam o resto:
+
+1. **Quem preenche?** A CDNA cadastra direto no CMS, ou manda o texto e nós cadastramos? Define o formato de todo o pedido. *(item 19)*
+2. **Para onde aponta `/our-services/leadership-development`?** Saiu da arquitetura e provavelmente era a página de serviço mais acessada do site antigo. Está no índice como interino. Manager Development ou Talent Development? *(item 5)*
+3. O dropdown de indústria no listing de cases, que o item 6 proíbe mas o mock mostra. *(item 6)*
+4. Awards na home e no Our Impact, ou só num dos dois. *(item 2)*
+
+### ✅ Nosso, e dá para fazer sem esperar ninguém
+
+- **Ligar a notificação do formulário de lead** — é o único 🔴 da lista, e lançar assim é perder
+  lead. Ver abaixo: é uma variável de ambiente, não código.
+- **Publicar** — nada de 01/09 está no ar.
+- Confirmar o `NEXT_PUBLIC_WHATSAPP_NUMBER` na Vercel.
+
+---
+
+# Onde paramos — 01/09, fim do dia
+
+*Fechamento do dia, para retomar sem reler o documento inteiro.*
+
+## Nosso, e não depende de ninguém
+
+**1. Nada de hoje está publicado — e essa é a assimetria que sempre confunde neste projeto.**
+As mudanças do **CMS estão no ar agora**: as 8 Solutions novas, os flagships, a faixa dos três
+cases. As mudanças de **código não**: `app/page.tsx` (o bloco junto embaixo do hero) e
+`components/HeroV1.tsx` (o eyebrow branco) estão **sem commit**; os redirects do `next.config.mjs`
+estão commitados mas **não deployados**; e a branch está **52 commits à frente do `origin`**, sem
+push. O deploy é `vercel` manual.
+
+> **Consequência prática:** se o Guilherme ou o Guli abrirem o alpha agora, veem as 8 Solutions
+> novas **e ainda veem o eyebrow vermelho ilegível**. Vale publicar antes de pedir revisão.
+
+**2. O formulário de lead — menor do que parecia.** O caminho existe inteiro:
+
+```
+ContactForm → submitLead → POST {CMS}/api/leads → grava → dispatchLeadWebhook
+```
+
+E o dispatcher (`corporate-dna-cms/lib/leads/webhook.ts`) é **no-op porque `LEAD_WEBHOOK_URL` não
+está setada** — `if (!url) return`. Não falta código, falta destino. Três caminhos: um endpoint que
+mande e-mail, um Zapier/Make, ou Resend direto no CMS, que **já tem `RESEND_API_KEY` no ambiente**.
+
+**3. Checklist do cutover**, tudo do dia da virada: SSL em **Full (strict)** (em Flexible dá loop
+de redirect), **desligar o Under Attack**, garantir que `robots.txt` e `sitemap.xml` venham do app
+e não do managed robots do Cloudflare, e varrer a zona atrás de registro órfão.
+
+**4. `NEXT_PUBLIC_WHATSAPP_NUMBER`** — sem valor de teste no repo; falta confirmar na Vercel.
+
+## Esperando sair daqui
+
+- **E-mail à Axon** — `docs/resposta-axon-01-09.ENVIAR.txt`. Reply All na mensagem do Amit,
+  recolocando `rico.m@` na cópia e acrescentando `nitin.goil@`.
+- **WhatsApp ao Guilherme** — `docs/whats-guilherme-01-09-2026.txt`. Três perguntas que só ele
+  responde. A primeira decide o formato do pedido de conteúdo.
+- **Carta timbrada** — `docs/carta-axon-PARA-O-GUILHERME.txt`, anexa ao WhatsApp/e-mail. Falta o
+  telefone com DDI e a data. **Não colher assinatura antes** da Axon dizer se tem modelo próprio.
+
+## Esperando eles
+
+Ordenado por impacto no lançamento — o detalhe está no Resumo, acima.
+
+1. Os 16 campos das Solutions (`The Outcome` e `How CorporateDNA Helps` nas oito)
+2. As 8 quotes dos cases
+3. O `Impact` de 7 dos 8 cases
+4. Todo o texto de Our Identity — **e esse não é cadastro, é dev**
+5. As três decisões do Guilherme
+6. Confirmação da faixa proposta para os 5 cases restantes
+   (`docs/tabela-conteudo-cdna-01-09-2026.md`)
+7. **Onde entram os vídeos de depoimento** (item 13). Achado em 01/09: o tipo existe no CMS e a
+   camada de leitura existe, mas **nenhuma página consome** — vídeo cadastrado hoje não aparece.
+   O brief não define o destino. Decisão do Guilherme, com o Guli se envolver layout.
+
+> **Padrão que apareceu três vezes hoje, e vale vigiar:** capacidade construída sem superfície ou
+> sem caminho de edição. Our Identity (texto que só entra por código), os frameworks do item 11 (o
+> mesmo), e agora os vídeos de depoimento (tipo sem página que renderize). Nos três, "está pronto"
+> significa coisas diferentes — e é fácil prometer errado ao cliente.
+
+## Datas duras
+
+| Quando | O quê |
+|---|---|
+| **30/09** | A hospedagem da Axon termina. **O backup do WordPress tem que sair antes** — depois disso o servidor é desligado e o conteúdo vai junto |
+| **16/09** | Última data de virada que ainda dá as 2 semanas cheias de rollback (23/09 dá 1 semana; 30/09 dá zero) |
+| **13/10** | O domínio expira |
+
+## Documentos de hoje
+
+| Arquivo | O quê |
+|---|---|
+| `pedido-conteudo-solutions-cases-01-09-2026.md` | registro do que mudou no CMS e por quê |
+| `tabela-conteudo-cdna-01-09-2026.md` | as três tabelas para a CDNA preencher |
+| `Corporate DNA — …Status Update - 01_09.md` | tracker do cliente |
+| `resposta-axon-01-09-2026.md` + `.ENVIAR.txt` | e-mail à Axon |
+| `whats-guilherme-01-09-2026.txt` | WhatsApp |
+| `carta-axon-PARA-O-GUILHERME.txt` | carta timbrada |
+| `backup-cms-solutions-2026-09-01.json` | 13 entradas + 90 versões |
+| `backup-cms-cases-2026-09-01.json` | 13 + 99 versões + 13 facets |
+| `painel-axon/` | prints do portal de faturamento e do GA4 |

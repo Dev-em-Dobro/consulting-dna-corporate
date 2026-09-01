@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "The 5H® Framework — Corporate DNA",
     description:
-      "The 5H® Methodology is the neuroscience-led formula behind Corporate DNA's results across 26 countries — Head, Heart, Hunch, Hands and Habits.",
+      "The 5H® Methodology is the neuroscience-led formula behind Corporate DNA's results across 36 countries — Head, Heart, Hunch, Hands and Habits.",
     alternates: localeAlternates("/approach"),
   };
 }
@@ -75,7 +75,7 @@ const FAQS = [
   {
     question: "Where and with whom has the 5H® Framework been used?",
     answer:
-      "Corporate DNA has applied the 5H® Methodology across culture transformations, leadership development, team building and executive coaching in 26 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
+      "Corporate DNA has applied the 5H® Methodology across culture transformations, leadership development, team building and executive coaching in 36 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
   },
 ];
 
@@ -127,11 +127,23 @@ export default async function FiveHFrameworkPage() {
           faqLd(FAQS),
         ]}
       />
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      {/* ── Hero ───────────────────────────────────────────────────────
+          The subtitle opened with "95% of our clients cite 5H® as the real
+          secret of our success" until 01-09. Guilherme, 12-08, to the CDNA team
+          and copied to us: "I have also instructed the developers to remove the
+          unsupported 5H claims referring to 95%, 26 countries and 'over ten
+          years' unless anyone can provide a reliable source." No source arrived
+          in the three weeks that followed.
+
+          Worth recording what left with it: 95% is not a stale version of the
+          90% the homepage carries. 90% is *work sponsored by Chairman/CXO*, 95%
+          is *clients who cite 5H as the secret of our success* — two different
+          measurements. This one goes for want of a source, not because it
+          contradicts anything, and it can come back the day CDNA produces one. */}
       <PageHero
         eyebrow="Our Approach"
         title={<>Lead with 5H<R /></>}
-        subtitle="95% of our clients cite 5H® as the real secret of our success — the neuroscience-led formula behind our results across 26 countries."
+        subtitle="The neuroscience-led formula behind our results across 36 countries."
         bgImageUrl="/approach-hero.png"
         imageClassName="object-cover object-right"
         overlayClassName="bg-gradient-to-r from-ink via-ink/90 to-ink/65"
@@ -220,7 +232,12 @@ export default async function FiveHFrameworkPage() {
             <p>
               Corporate DNA’s proprietary 5H<R /> Methodology is the
               neuroscience-led formula behind our proven results and global
-              success. Over ten years and across 26 countries, we have used the
+              {/* "Over ten years and across 26 countries" — the age claim goes
+                  (12-08 instruction, no source), the country count is corrected
+                  rather than removed: 36 is the figure Guilherme authorised in
+                  the same e-mail, and 26 was the only real contradiction with
+                  the rest of the site. */}
+              success. Across 36 countries, we have used the
               5H<R /> in all our programs — culture transformations, leadership
               development, building high-performing teams and executive coaching.
             </p>
