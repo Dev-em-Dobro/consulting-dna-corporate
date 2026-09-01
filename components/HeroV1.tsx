@@ -396,9 +396,19 @@ export default function HeroV1() {
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 pt-[110px] md:px-10">
         <div className="mx-auto max-w-[1000px] text-center">
+          {/* Branco, não brand. O eyebrow em #d84339 sobre esta foto media 1.29:1
+              — o vermelho da marca e o céu azul-acinzentado têm quase a mesma
+              luminância, e 13px uppercase com tracking de 2px é o pior caso para
+              contraste baixo. Em branco vai a 6.3:1.
+
+              Não é regra nova: a faixa de credibilidade (page.tsx) já usa
+              white/70 e o Client impact virou branco em 31-08 pelo mesmo motivo.
+              O brand aqui vive como preenchimento — o CTA "Results, Not
+              Promises." — e não como cor de texto sobre imagem. O traço acompanha
+              o texto; deixá-lo vermelho sozinho seria um borrão no mesmo 1.29:1. */}
           <div className="mb-[26px] flex items-center justify-center gap-3">
-            <span className="h-bar inline-block h-0.5 w-9 bg-brand" />
-            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+            <span className="h-bar inline-block h-0.5 w-9 bg-white" />
+            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-white">
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
