@@ -40,7 +40,7 @@ import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
-import { getPeople } from "@/lib/cms/map";
+import { getPeople, getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -160,14 +160,24 @@ const cases: {
 ];
 
 export default async function HomeV3() {
-  // `getTickerEntries()` saiu daqui em 07-09: o único consumidor era o selo do
-  // herói, e ele virou uma faixa de credenciais escritas à mão (ver
-  // HERO_CREDENTIALS em components/HeroV2.tsx). Sem consumidor, buscar o
-  // segmento seria uma ida ao CMS para jogar fora o resultado.
-  const [people, nav, stats] = await Promise.all([
+  // `getTickerEntries()` VOLTOU em 07-09, e só nesta rota. Ele tinha saído no
+  // mesmo dia, quando o selo do herói virou credencial escrita à mão e o
+  // segmento ficou sem consumidor — agora o cartão do canto alterna entre as
+  // entradas do ticker, então há consumidor de novo.
+  //
+  // Por que ligar no CMS em vez de repetir os prêmios à mão aqui: as entradas
+  // do ticker HOJE são exatamente os dois Brandon Hall que estavam escritos no
+  // componente (conferido no ar em 07-09). Ou seja, o texto à mão era uma cópia
+  // do CMS que ninguém ia lembrar de atualizar. Ligado assim, um prêmio novo
+  // cadastrado pelo cliente aparece no herói sozinho.
+  //
+  // A /home-v2 NÃO recebe isto: ela mantém o par escrito à mão, porque as duas
+  // propostas precisam poder morrer separadas.
+  const [people, nav, stats, ticker] = await Promise.all([
     getPeople(),
     buildSiteNav(),
     getSiteStats(),
+    getTickerEntries(),
   ]);
   return (
     // `serif.variable` publica --font-serif-v2 para tudo que está dentro; quem
@@ -242,7 +252,7 @@ export default async function HomeV3() {
           são dois prêmios escolhidos, escritos no componente. */}
 
       {/* HERO */}
-      <HeroV3 />
+      <HeroV3 ticker={ticker} />
 
       {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,

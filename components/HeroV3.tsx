@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { applyEnvClasses } from "@/lib/hero-intro";
+import type { TickerEntry } from "@/lib/cms/map";
 import heroPhoto from "@/public/dna-time/dna-time-06.jpeg";
 
 /**
@@ -151,48 +152,103 @@ const HERO_V3_TINT = {
 };
 
 /**
- * As credenciais da V2 (ver HERO_CREDENTIALS em HeroV2.tsx), repetidas aqui de
- * propósito — MENOS UMA, desde 07-09.
+ * A CREDENCIAL DO CANTO — um cartão só, que ALTERNA entre as entradas do ticker.
  *
- * Importar de lá acoplaria duas propostas que precisam poder morrer separadas:
- * a graça de ter V2 e V3 vivas ao mesmo tempo é que apagar uma pasta não
- * quebra a outra. A duplicação é a mesma escolha já feita entre `app/page.tsx`
- * e `app/home-v2/page.tsx`, e some quando uma das versões vencer.
+ * Como chegou aqui, em três passos no mesmo 07-09, porque a ordem explica o
+ * desenho:
  *
- * O QUE SAIU: o Brandon Hall de 2023, "DE&I Award for Best Advance in Leadership
- * Development for Women". Saiu SÓ DAQUI, a pedido. A V2 continua com as duas, e
- * a home no ar também — se a V3 vencer, essa diferença precisa ser uma decisão
- * consciente e não um resto de proposta, então está escrita aqui.
+ *  1º  Eram duas credenciais escritas à mão, copiadas da V2.
+ *  2º  Saiu a de 2023 a pedido, e sobrou um cartão fixo.
+ *  3º  O cartão passou a alternar entre os itens do ticker, também a pedido.
  *
- * Isto é a razão de a lista não ser importada da V2: as duas propostas agora
- * divergem em conteúdo, não só em layout, e cada uma responde pela sua.
+ * POR QUE VEIO DO CMS E NÃO DA MÃO. Conferido no ar em 07-09, as entradas do
+ * ticker são EXATAMENTE os dois Brandon Hall que estavam escritos no código.
+ * O texto à mão era, portanto, uma cópia do CMS que ninguém ia lembrar de
+ * atualizar — e o passo 2 acabara de provar isso, porque tirar a credencial
+ * daqui não tirou o prêmio do ticker da home no ar. Ligado no segmento, um
+ * prêmio novo cadastrado pelo cliente entra no herói sozinho, e o problema de
+ * "qual das duas mostrar" deixa de existir: mostra as duas, uma de cada vez.
  *
- * EFEITO COLATERAL, E ELE É RUIM — medido depois da remoção, não previsto antes:
- * a colisão com o banner de cookies PIOROU. A caixa é ancorada pela base, então
- * tirar um cartão não a encolhe para cima, encolhe para dentro do banner.
+ * A V2 NÃO MUDA. Ela segue com o par escrito à mão, porque as duas propostas
+ * precisam poder morrer separadas — mesma regra que já vale entre `app/page.tsx`
+ * e `app/home-v2/page.tsx`. Se a V3 vencer, isto aqui é o comportamento que vai
+ * junto, e é decisão consciente e não resto de proposta.
  *
- *   antes  caixa 737→878 (141px), banner cobre 63px = 45% dela, e o cartão de
- *          cima ficava inteiro visível
- *   agora  caixa 789→860  (71px), banner cobre 45px = 63% do ÚNICO cartão
+ * FALLBACK: se o CMS não devolver nada, o cartão cai no par abaixo em vez de
+ * sumir. O canto vazio quebraria a composição da referência, que depende de
+ * peso nas quatro quinas.
  *
- * Ou seja, a credencial que sobrou está quase escondida a 1440x900 até o
- * visitante dispensar o banner. Isto está registrado e NÃO corrigido: a correção
- * é subir a base da caixa acima da altura do banner, o que é decisão de layout
- * desta proposta e não foi pedida. Enquanto não for, o canto inferior direito
- * desta versão é território disputado com a barra de cookies — tensão da
- * estética escolhida (TRIONN empurra tudo para os cantos), não bug de CSS.
+ * A COLISÃO COM O BANNER DE COOKIES ATRAVESSOU os três passos, medida em cada
+ * um a 1440x900. A caixa é ancorada pela BASE, então o que muda a exposição é a
+ * altura dela — e a altura mudou a cada passo, em direções diferentes:
+ *
+ *   1º duas credenciais   caixa 737→878 (141px)  banner cobre 63px = 45%
+ *   2º uma credencial     caixa 789→860  (71px)  banner cobre 45px = 63%
+ *   3º cinco empilhadas   caixa 773→860  (88px)  banner cobre 45px = 51%
+ *
+ * O passo 2 PIOROU: com um cartão só a caixa encolheu para dentro do banner, em
+ * vez de para cima. O passo 3 recuperou parte, porque empilhar dá à caixa a
+ * altura do MAIOR título e não a do atual — o mesmo mecanismo que evita o salto
+ * de altura também a levanta um pouco.
+ *
+ * Nada disso é conserto, e não está consertado: a base cobre sempre os mesmos
+ * 45px. A correção de verdade é subir a base da caixa acima da altura do banner,
+ * decisão de layout que não foi pedida. Enquanto não for, o canto inferior
+ * direito é território disputado com a barra de cookies — tensão da estética
+ * escolhida (a TRIONN empurra tudo para as quinas), não bug de CSS.
  */
-const HERO_CREDENTIALS = [
+const HERO_CREDENTIALS_FALLBACK = [
   {
     distinction: "Gold",
     year: "2024",
     title:
       "Brandon Hall Best Leadership Development for Talent Acceleration Programme for Asian Leaders",
   },
+  {
+    distinction: "Gold",
+    year: "2023",
+    title:
+      "Brandon Hall DE&I Award for Best Advance in Leadership Development for Women",
+  },
 ];
 
-export default function HeroV3() {
+/** Quanto cada credencial fica na tela antes de dar lugar à próxima. */
+const CREDENTIAL_DWELL_MS = 5000;
+
+/**
+ * O texto do ticker vem do CMS numa linha só — "GOLD - <prêmio> <ano>" — porque
+ * o `RunningTicker` imprime a entrada inteira e nunca precisou separar as
+ * partes. O cartão daqui precisa: ele tem coluna de distinção, ano e título.
+ *
+ * Daí o parse. Ele é DELIBERADAMENTE frouxo e sempre devolve alguma coisa: se o
+ * formato mudar no CMS, o pior caso é a linha inteira cair na coluna do título,
+ * que continua legível. Um cartão feio é melhor que um canto vazio, e muito
+ * melhor que uma exceção em componente de cliente.
+ *
+ * `category` e `date` existem na entrada e são o plano B do ano — o
+ * `RunningTicker` não imprime nenhum dos dois (ver o comentário lá), então aqui
+ * eles são fonte de dado, não de texto.
+ */
+function toCredential(entry: TickerEntry) {
+  const m = entry.text.match(/^\s*([A-Za-z]+)\s*[-–—]\s*(.+?)\s*(\d{4})\s*$/);
+  if (m) return { distinction: m[1], year: m[3], title: m[2] };
+  return {
+    distinction: entry.category ?? "",
+    year: entry.date?.slice(0, 4) ?? "",
+    title: entry.text,
+  };
+}
+
+export default function HeroV3({ ticker = [] }: { ticker?: TickerEntry[] }) {
   const scope = useRef<HTMLElement>(null);
+  // A prop é opcional para o componente continuar montável sozinho (e para a
+  // rota não quebrar se o CMS cair): sem entradas, cai no par escrito à mão.
+  const credentials = ticker.length
+    ? ticker.map(toCredential)
+    : HERO_CREDENTIALS_FALLBACK;
+  // A rotação é criada dentro do matchMedia mas precisa ser disparada pelo
+  // `start()`, que mora no mesmo escopo — a ref é a ponte entre os dois.
+  const rotationRef = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(
     () => {
@@ -241,6 +297,46 @@ export default function HeroV3() {
 
         const cleanups: Array<() => void> = [() => tl.kill()];
 
+        // A ROTAÇÃO DA CREDENCIAL. Uma timeline separada da entrada, e não um
+        // trecho dela: a entrada roda uma vez e morre, esta repete para sempre.
+        // Misturar as duas prenderia a entrada viva pelo resto da sessão.
+        //
+        // Só existe com mais de um item — com um só, a caixa é estática e não há
+        // nada para alternar. É o caso do fallback quando o CMS não responde.
+        //
+        // Anima OPACIDADE e mais nada. Sem deslocamento, sem escala: o cartão
+        // mora numa quina, e movimento em quina puxa o olho para longe do
+        // título, que é onde esta composição quer que ele fique. Também é o que
+        // a torna aceitável para quem pediu menos movimento — é fade, não
+        // deslocamento (a entrada já roda para todo mundo pelo mesmo critério
+        // registrado na HeroV2).
+        //
+        // O cruzamento é simultâneo (`"<"`), não um fade-out seguido de
+        // fade-in: com sequência haveria um instante de caixa VAZIA, e uma
+        // moldura de vidro vazia piscando na quina lê como defeito.
+        const cards = gsap.utils.toArray<HTMLElement>("[data-credential]");
+        if (cards.length > 1) {
+          const rotation = gsap.timeline({ repeat: -1, paused: true });
+          cards.forEach((card, i) => {
+            const next = cards[(i + 1) % cards.length];
+            rotation
+              .to(
+                card,
+                { opacity: 0, duration: 0.5, ease: "power2.inOut" },
+                `+=${CREDENTIAL_DWELL_MS / 1000}`
+              )
+              .to(next, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, "<");
+          });
+          // A última volta apaga o último cartão e acende o primeiro, ou seja o
+          // fim da timeline é idêntico ao começo. É isso que faz o `repeat: -1`
+          // emendar sem salto.
+          cleanups.push(() => rotation.kill());
+          cleanups.push(() => {
+            rotationRef.current = null;
+          });
+          rotationRef.current = rotation;
+        }
+
         // Sem vídeo nesta versão, então some toda a máquina de autoplay que a
         // HeroV2 precisa manter: forçar `muted` antes do play para o iOS, os
         // ouvintes de `canplay`/`loadeddata`, o fallback de gesto do usuário e o
@@ -249,8 +345,12 @@ export default function HeroV3() {
         //
         // Sobrou só a timeline, e o `start` existe para o gate do preloader
         // abaixo continuar tendo um lugar único para disparar.
+        // A rotação começa junto da entrada, e não antes: se ela rodasse
+        // durante o preloader, o visitante chegaria no meio de um cruzamento,
+        // ou pior, já teria perdido a primeira credencial sem ver.
         const start = () => {
           tl.play();
+          rotationRef.current?.play();
         };
 
         let begun = false;
@@ -645,11 +745,35 @@ export default function HeroV3() {
                 (ver o comentário dos botões na HeroV2: "a pílula é da marca
                 deles, o canto reto é da nossa"), e a caixa da própria TRIONN
                 também é de canto reto. */}
-            <ul className="border border-white/15 bg-black/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10)] backdrop-blur-md">
-              {HERO_CREDENTIALS.map((c, i) => (
+            {/* AS CREDENCIAIS FICAM TODAS NO DOM, EMPILHADAS, e a rotação só
+                troca qual está opaca. Podia ser um estado de React trocando o
+                item renderizado; não é, por três motivos:
+
+                1. ALTURA. Os títulos têm comprimentos bem diferentes, e trocar
+                   o conteúdo faria a caixa pular de altura a cada 5 segundos —
+                   num canto ancorado pela base, o pulo sobe e desce a peça
+                   inteira. Empilhadas no mesmo célula de grid, a caixa nasce da
+                   altura da MAIOR e não se mexe mais.
+                2. LEITOR DE TELA. Com todas presentes, quem usa leitor recebe a
+                   lista inteira de uma vez e ninguém precisa esperar o carrossel
+                   dar a volta. Por isso também não há `aria-live` aqui: não é
+                   conteúdo que chega, é conteúdo que já está.
+                3. A animação é de opacidade e roda no GSAP, junto do resto do
+                   herói, em vez de re-renderizar o React a cada 5s.
+
+                `grid` + tudo em `col-start-1 row-start-1` é o empilhamento sem
+                `absolute`: com posicionamento absoluto os itens sairiam do fluxo
+                e a caixa perderia a altura, que é justamente o que se quer
+                preservar. */}
+            <ul className="grid border border-white/15 bg-black/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10)] backdrop-blur-md">
+              {credentials.map((c, i) => (
                 <li
-                  key={c.title}
-                  className={`flex items-stretch ${i > 0 ? "border-t border-white/10" : ""}`}
+                  key={`${c.year}-${c.title}`}
+                  data-credential={i}
+                  className="col-start-1 row-start-1 flex items-stretch"
+                  // Só a primeira nasce visível. As outras entram pela timeline;
+                  // sem JS, `credentials` tem uma só e isto não faz diferença.
+                  style={{ opacity: i === 0 ? 1 : 0 }}
                 >
                   <div className="flex w-[84px] shrink-0 flex-col justify-center border-r border-white/10 px-4 py-4">
                     <span className="text-[11px] font-semibold uppercase tracking-[2px] text-[#f4796d]">
@@ -659,7 +783,7 @@ export default function HeroV3() {
                       {c.year}
                     </span>
                   </div>
-                  <p className="line-clamp-2 self-center px-4 py-4 text-[12px] leading-[1.5] text-white/80">
+                  <p className="line-clamp-3 self-center px-4 py-4 text-[12px] leading-[1.5] text-white/80">
                     {c.title}
                   </p>
                 </li>
