@@ -44,6 +44,24 @@ export default function Preloader() {
     // "Request Desktop Website" can fake all of those (see lib/hero-intro.ts).
     const isMobile = isTouchDevice();
 
+    // Duas guardas por rota, e elas NÃO são a mesma coisa. Ambas por pathname e
+    // não por prop, de propósito: o Preloader está no layout e é compartilhado
+    // com a home no ar, então o `/` não pode mudar em nada.
+    const path = window.location.pathname;
+
+    // Nenhuma das duas propostas roda a sequência de frames em canvas do
+    // telefone — não há mais intro em nenhuma. Sem esta guarda o telefone
+    // ficaria parado no spinner baixando 239 frames (2,7 MB, até 25s) de uma
+    // animação que essas páginas não têm.
+    const needsHeroFrames = !/^\/home-v[23]\b/.test(path);
+
+    // Esta é por outro motivo: desde 07-09 NENHUMA das duas propostas usa o
+    // clipe — as duas têm uma fotografia estática de fundo (ver HeroV2.tsx e
+    // HeroV3.tsx). Aquecer o MP4 nelas seria baixar 3,8 MB de um vídeo que a
+    // página não tem. Só a home real (`/`) ainda usa o clipe, e lá ele continua
+    // sendo aquecido normalmente.
+    const needsHeroVideo = !/^\/home-v[23]\b/.test(path);
+
     // All render-critical resources (images, CSS, fonts) are loaded.
     const waitLoad = new Promise<void>((resolve) => {
       if (document.readyState === "complete") resolve();
@@ -52,7 +70,15 @@ export default function Preloader() {
 
     // Warm the hero intro asset so it plays smoothly right after the loader.
     const waitHero = new Promise<void>((resolve) => {
-      if (isMobile) {
+      if (isMobile && !needsHeroFrames) {
+        // Propostas no telefone: o fundo é uma imagem estática que o próprio
+        // herói busca. Não há nada para aquecer aqui.
+        resolve();
+      } else if (!isMobile && !needsHeroVideo) {
+        // /home-v3 no desktop: fundo é fotografia, e quem cuida dela é o
+        // <Image> do Next, com `priority`. Nada para aquecer aqui também.
+        resolve();
+      } else if (isMobile) {
         // Fully download every intro frame BEFORE revealing the site (the
         // phone intro is a GSAP canvas image sequence — see lib/hero-intro.ts),
         // so playback starts instantly and can't stutter on the network.
@@ -89,7 +115,10 @@ export default function Preloader() {
     // Mobile blocks on the full WebP download (see waitHero, capped at 25s), so
     // its hard cap sits above that; desktop never blocks on the hero asset.
     const minTime = new Promise<void>((resolve) => window.setTimeout(resolve, 600));
-    const hardCap = window.setTimeout(finish, isMobile ? 28000 : 9000);
+    const hardCap = window.setTimeout(
+      finish,
+      isMobile && needsHeroFrames ? 28000 : 9000
+    );
 
     Promise.all([waitLoad, waitHero, minTime]).then(finish);
 
