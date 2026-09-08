@@ -184,18 +184,24 @@ const HERO_V3_TINT = {
  *
  *   1º duas credenciais   caixa 737→878 (141px)  banner cobre 63px = 45%
  *   2º uma credencial     caixa 789→860  (71px)  banner cobre 45px = 63%
- *   3º cinco empilhadas   caixa 773→860  (88px)  banner cobre 45px = 51%
+ *   3º ligado ao ticker   caixa 768→878 (111px)  banner cobre 63px = 57%
  *
  * O passo 2 PIOROU: com um cartão só a caixa encolheu para dentro do banner, em
- * vez de para cima. O passo 3 recuperou parte, porque empilhar dá à caixa a
- * altura do MAIOR título e não a do atual — o mesmo mecanismo que evita o salto
- * de altura também a levanta um pouco.
+ * vez de para cima.
  *
- * Nada disso é conserto, e não está consertado: a base cobre sempre os mesmos
- * 45px. A correção de verdade é subir a base da caixa acima da altura do banner,
- * decisão de layout que não foi pedida. Enquanto não for, o canto inferior
- * direito é território disputado com a barra de cookies — tensão da estética
- * escolhida (a TRIONN empurra tudo para as quinas), não bug de CSS.
+ * ATENÇÃO AO PASSO 3: a altura dele NÃO É FIXA, e por isso a linha acima vale
+ * para o conteúdo que está no CMS hoje (medida no alpha, duas entradas). Com a
+ * pilha, a caixa toma a altura do MAIOR título do segmento — então cadastrar um
+ * prêmio de nome comprido cresce a caixa para cima, e um segmento com títulos
+ * curtos a encolhe. Medir isto no stub local dá outro número, porque a amostra
+ * de lá tem cinco entradas de texto mais curto (lá deu 88px).
+ *
+ * Nada disso é conserto, e não está consertado: a base é ancorada e o banner
+ * cobre sempre a mesma faixa. A correção de verdade é subir a base da caixa
+ * acima da altura do banner, decisão de layout que não foi pedida. Enquanto não
+ * for, o canto inferior direito é território disputado com a barra de cookies —
+ * tensão da estética escolhida (a TRIONN empurra tudo para as quinas), não bug
+ * de CSS.
  */
 const HERO_CREDENTIALS_FALLBACK = [
   {
