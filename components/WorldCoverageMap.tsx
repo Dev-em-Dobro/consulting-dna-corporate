@@ -197,8 +197,17 @@ export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
 }: {
-  eyebrow?: string;
-  title?: string;
+  /**
+   * Pass `null` to both to render the map alone, with no header of its own.
+   * /about-v2 needs that: its "Where we work." block opens with a heading and
+   * an intro paragraph the map has no slot for, and a second eyebrow directly
+   * under the first reads as two sections instead of one.
+   *
+   * Optional and off by default — the three homepages render this component
+   * with its header and must not change.
+   */
+  eyebrow?: string | null;
+  title?: string | null;
 }) {
   const regions = await getCoverageRegions();
 
@@ -277,18 +286,31 @@ export default async function WorldCoverageMap({
 
   const placed = placeLabels(pins, cnBoxes);
 
+  // Headerless mode also drops the top padding: the caller's own intro sits
+  // directly above, and stacking both paddings opens a gap the 27-08 brief
+  // (item 16, "excessive white space") asks us to close.
+  const headless = eyebrow === null && title === null;
+
   return (
     <section id="coverage" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24">
-        <div className="mb-2.5 flex items-baseline gap-3">
-          <span className="inline-block h-0.5 w-9 bg-brand" />
-          <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-            {eyebrow}
-          </span>
-        </div>
-        <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-          {title}
-        </h2>
+      <div
+        className={`mx-auto max-w-[1200px] px-6 pb-20 md:px-10 md:pb-24 ${
+          headless ? "pt-0" : "pt-20 md:pt-24"
+        }`}
+      >
+        {eyebrow !== null && (
+          <div className="mb-2.5 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+              {eyebrow}
+            </span>
+          </div>
+        )}
+        {title !== null && (
+          <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+            {title}
+          </h2>
+        )}
 
         <svg
           viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
