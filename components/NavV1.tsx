@@ -43,10 +43,27 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           />
         </Link>
 
-        {/* desktop nav */}
-        <nav className="hidden items-center justify-end gap-[30px] md:flex">
+        {/* desktop nav — `lg` (1024px) and not `md` (768px). Measured with the
+            08-09 menu: the row is 773px wide, and with the logo and its gap it
+            needs ~944px before it stops running past the right edge. On `md` the
+            overflow was clipped rather than scrolled, so the item that vanished
+            was the last one — the Contact button. A hamburger on a tablet beats
+            a CTA that is silently not there. */}
+        <nav className="hidden items-center justify-end gap-[30px] lg:flex">
           {items.map((item) =>
-            item.children ? (
+            item.cta ? (
+              // Outline and not a filled block: this bar is already solid brand
+              // in V1 and sits over the hero photo in V2/V3, so a white border
+              // is the one treatment that reads as a button on both without a
+              // per-header variant. Fills white on hover.
+              <Link
+                key={item.label}
+                href={item.href ?? "#"}
+                className="inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
+              >
+                {item.label}
+              </Link>
+            ) : item.children ? (
               <div key={item.label} className="group relative -top-[2px]">
                 <Link
                   href={item.href ?? "#"}
@@ -91,7 +108,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           aria-expanded={open}
           aria-controls="v1-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white md:hidden"
+          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white lg:hidden"
         >
           <svg
             width="26"
@@ -123,11 +140,23 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
       {open && (
         <nav
           id="v1-mobile-nav"
-          className="border-t border-white/15 bg-brand md:hidden"
+          className="border-t border-white/15 bg-brand lg:hidden"
         >
           <div className="mx-auto flex max-w-[1200px] flex-col px-6 pb-5 pt-1">
             {items.map((item) =>
-              item.children ? (
+              item.cta ? (
+                // Filled here, unlike the desktop outline: the panel is a stack
+                // of bordered rows, and an outlined button inside it would just
+                // read as one more row.
+                <Link
+                  key={item.label}
+                  href={item.href ?? "#"}
+                  onClick={() => setOpen(false)}
+                  className="mt-5 flex items-center justify-center bg-white px-5 py-3.5 text-[15px] font-semibold uppercase tracking-[0.6px] text-brand"
+                >
+                  {item.label}
+                </Link>
+              ) : item.children ? (
                 <div key={item.label} className="border-b border-white/10">
                   <button
                     type="button"

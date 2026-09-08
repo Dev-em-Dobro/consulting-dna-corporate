@@ -5,44 +5,59 @@
  */
 
 export type NavChild = { label: string; href: string };
-export type NavItem = { label: string; href?: string; children?: NavChild[] };
+export type NavItem = {
+  label: string;
+  href?: string;
+  children?: NavChild[];
+  /**
+   * Renders as the header's call-to-action button instead of a plain link.
+   * One item at most — a second button is a second primary action, which is
+   * none. NavV1/NavV2 read this; the footer ignores it and lists it as a link.
+   */
+  cta?: boolean;
+};
 
-// The 27-08 brief sets the final navigation as:
-//   Home | Our Identity | Our Solutions | Our Approach | Our Partnerships |
-//   Our Clients | Our Impact | Our Team | Our Books
+// Navigation agreed with the client on 08-09, replacing the 27-08 brief's list:
+//   About | Approach (5H) | Services ▾ | Team | Clients & Impact | Insights |
+//   Books | Contact (button)
 //
-// Seven of the nine are listed below. `Our Partnerships` and `Our Team` have
-// their routes built (/our-partnerships, /our-team) but stay out of the menu
-// until their content arrives — validated partnership copy and the team
-// photography respectively. A menu item that opens an empty page is worse than
-// a late one, and publishing them is a one-line change here once CDNA delivers.
+// Labels are the client's, verbatim. Routes are NOT renamed to match: `href` is
+// the stable half of this file (nav-server matches the Solutions submenu on
+// `/solutions`, next.config redirects point at these paths, and the sitemap
+// reads them), while labels are copy and have now been rewritten twice in a
+// fortnight. Renaming routes to chase a label change would invalidate every
+// redirect for nothing a visitor can see.
 //
-// Insights is deliberately absent: the brief's list does not include it, and
-// CDNA confirmed on 28-08 that this was intentional. The /insights route stays
-// live — item 18 requires the Reports & Resources capability to be preserved —
-// it is simply no longer reachable from the header. The footer still links it.
-// The header's "Start a Conversation" button was dropped in the same decision;
-// item 5 keeps it as the closing block of every Solution page instead.
+// What moved, and why the mapping is what it is:
+//
+//   • `Home` leaves the menu. The logo already links to `/` in both headers.
+//   • `About` → /our-identity, the identity half of the old /about (which 308s
+//     there). "Our Team" is now its own top-level item, so /about stays split.
+//   • `Team` and `Insights` join the menu. Both routes existed and were kept
+//     out on purpose — Team pending photography, Insights because the 27-08
+//     list omitted it. This structure asks for both, which overrides that.
+//   • `Clients & Impact` is ONE item over two pages. It points at /our-clients
+//     (wall + stories); /our-impact (numbers + proof) is no longer reachable
+//     from the header and is linked from the footer instead. Merging the two
+//     pages is content work nobody has asked for yet — flagged to the client.
+//   • `Contact` returns as a button (`cta`), reversing the 28-08 removal of
+//     "Start a Conversation". It targets the home's `#contact` section, the
+//     same destination /contact and /contact-us already redirect to.
 export const siteNav: NavItem[] = [
-  // Home is now an explicit item, in addition to the clickable logo.
-  { label: "Home", href: "/" },
-  // Identity half of the old /about, which now 308s here (next.config.mjs).
-  { label: "Our Identity", href: "/our-identity" },
-  // No static children: the Solutions submenu is filled from the CMS in
+  { label: "About", href: "/our-identity" },
+  // Plain "(5H)" and not the site's 5H® treatment: labels are strings here (and
+  // are used as React keys), so a superscript would mean a node-typed label
+  // across three components for one nav item.
+  { label: "Approach (5H)", href: "/approach" },
+  // No static children: the Services submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
-  { label: "Our Solutions", href: "/solutions" },
-  // 5H is a methodology applied across every solution, not one of them, so it
-  // sits beside Solutions as "Our Approach" instead of inside its dropdown.
-  { label: "Our Approach", href: "/approach" },
-  // The old single "Client Impact" area, split as the brief requires: the wall
-  // and the stories here, the numbers and proof next door. The faceted case
-  // library keeps its own route (/cases) and is linked from Our Clients.
-  { label: "Our Clients", href: "/our-clients" },
-  { label: "Our Impact", href: "/our-impact" },
-  // Promoted to top level per the brief, and pluralised: the area is meant to
-  // hold books by different team members over time. Points at the home `#book`
-  // section until a listing page exists.
-  { label: "Our Books", href: "/#book" },
+  { label: "Services", href: "/solutions" },
+  { label: "Team", href: "/our-team" },
+  { label: "Clients & Impact", href: "/our-clients" },
+  { label: "Insights", href: "/insights" },
+  // Points at the home `#book` section until a listing page exists.
+  { label: "Books", href: "/#book" },
+  { label: "Contact", href: "/#contact", cta: true },
 ];
 
 export type Region = { slug: string; name: string };
