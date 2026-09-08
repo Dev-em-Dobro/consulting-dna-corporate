@@ -35,12 +35,15 @@ const legacyExtensionlessRedirects = [
   // Serviços → Solutions
   ["/our-services", "/solutions"],
   ["/our-services/overview", "/solutions"],
-  // ⚠️ PENDENTE DE DECISÃO (Guilherme). O brief 27-08 tirou Leadership Development
-  // da arquitetura, e a solution foi despublicada em 01-09. Esta era provavelmente
-  // a página de serviço com mais tráfego do site antigo, então mandar para o índice
-  // desperdiça relevância — mas índice ainda é muito melhor que 404. Destinos
-  // candidatos quando ele responder: /solutions/manager-development ou
-  // /solutions/talent-development.
+  // O brief 27-08 tirou Leadership Development da arquitetura, e a solution foi
+  // despublicada em 01-09. O índice é destino deliberado, não provisório: relendo
+  // o texto daquela página, ela era um guarda-chuva — "individual & collective
+  // leadership", abordagem "whole person", sem público definido. O conteúdo dela
+  // se distribui por pelo menos três das oito novas (ExCo/Top 150, Manager
+  // Development, Talent Development), então apontar para uma só entregaria a maior
+  // parte do tráfego numa página que cobre uma fatia do que a pessoa procurava.
+  // Guarda-chuva aposentado vai para o índice dos sucessores. Confirmação pedida
+  // ao Guilherme em 01-09; se ele apontar uma herdeira clara, trocar aqui.
   ["/our-services/leadership-development", "/solutions"],
   ["/our-services/executive-coaching", "/solutions/executive-coaching"],
   ["/our-services/culture-transformation", "/solutions/culture-transformation"],
@@ -74,8 +77,12 @@ const legacyExtensionlessRedirects = [
   ["/our-clients/heineken", "/cases/heineken"],
   ["/our-clients/levis", "/cases/levis"],
   ["/our-clients/morgan-stanley", "/cases/morgan-stanley"],
-  // O slug da Shell no CMS não é "shell" — vale renomear lá e ajustar aqui.
-  ["/our-clients/shell", "/cases/case-1d007617"],
+  // O slug FOI renomeado no CMS, e este redirect ficou para trás. Medido no
+  // alpha em 07-09: `/cases/shell` responde 200, `/cases/case-1d007617` responde
+  // 404, e portanto `/our-clients/shell` estava mandando o visitante para uma
+  // página morta — 308 para um 404, que é pior que não ter redirect nenhum.
+  // O case antigo continua no CMS como `shell-archived-0b3629b3`; o vivo é este.
+  ["/our-clients/shell", "/cases/shell"],
   ["/our-clients/unilever", "/cases/unilever"],
   ["/testimonials", "/"],
   // Cases / Portfolio → Cases
