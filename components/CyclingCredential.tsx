@@ -97,9 +97,17 @@ export default function CyclingCredential({
       // onde as duas composições querem que ele fique. Também é o que a torna
       // aceitável para quem pediu menos movimento — é fade, não deslocamento.
       //
-      // O cruzamento é simultâneo (`"<"`), não um fade-out seguido de fade-in:
-      // com sequência haveria um instante de caixa VAZIA, e uma moldura de vidro
-      // vazia piscando na quina lê como defeito.
+      // O CRUZAMENTO É DESENCONTRADO, e o número tem motivo. Ele começou
+      // simultâneo (`"<"`), para nunca haver um instante de caixa VAZIA — uma
+      // moldura de vidro vazia piscando na quina lê como defeito. Só que
+      // simultâneo tem o defeito oposto, e ele apareceu numa captura do alpha:
+      // no meio da transição os dois textos ficam a ~50% ao mesmo tempo,
+      // sobrepostos e ilegíveis, porque os dois ocupam a MESMA célula do grid.
+      //
+      // `"<0.25"` atrasa a entrada em meio tempo de fade. Não há quadro vazio
+      // (quando o que sai chega a zero, o que entra já está em 50%) e o pico de
+      // sobreposição cai pela metade: no ponto de encontro os dois estão a ~25%,
+      // em vez de ~50% cada.
       const rotation = gsap.timeline({ repeat: -1, paused: true });
       cards.forEach((card, i) => {
         const next = cards[(i + 1) % cards.length];
@@ -109,7 +117,7 @@ export default function CyclingCredential({
             { opacity: 0, duration: 0.5, ease: "power2.inOut" },
             `+=${CREDENTIAL_DWELL_MS / 1000}`
           )
-          .to(next, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, "<");
+          .to(next, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, "<0.25");
       });
       // A última volta apaga o último cartão e acende o primeiro, ou seja o fim
       // da timeline é idêntico ao começo. É isso que faz o `repeat: -1` emendar
