@@ -239,51 +239,37 @@ const HERO_TINT = {
 };
 
 /**
- * A faixa de credenciais na base do herói. SÓ EXISTE NA V2.
+ * AS CREDENCIAIS SAÍRAM DAQUI em 07-09, e o que ficou é o registro do porquê.
  *
- * O que ela substitui: até 07-09 este espaço era um selo no canto inferior
- * direito alimentado por `ticker[0]` — a entrada MAIS RECENTE do segmento
- * `ticker` do CMS. O problema é que aquele segmento mistura prêmios, regiões
- * novas, escritórios e parcerias, então o único espaço de credencial do herói
- * podia estar exibindo "abrimos escritório em Dubai". Era sorteio, não escolha.
+ * O que existia: uma lista escrita à mão com os dois GOLD da Brandon Hall (2023
+ * e 2024), desenhada como uma faixa logo ABAIXO do herói. Ela nasceu presa na
+ * base da <section> e saiu de lá no mesmo dia por ser "coisa demais na primeira
+ * tela"; agora saiu por inteiro.
  *
- * POR QUE ESTES DOIS, E POR QUE ESCRITOS À MÃO AQUI.
+ * O MOTIVO É O CARTÃO DA QUINA. O `CyclingCredential` mostra os mesmos prêmios,
+ * um de cada vez, e vem do segmento `ticker` do CMS. Manter as duas peças era
+ * dizer a mesma credencial duas vezes na mesma tela — e a versão à mão era a
+ * pior das duas, porque era uma cópia do CMS que ninguém ia lembrar de
+ * atualizar. A dívida que estava anotada aqui ("se a CDNA ganhar outro prêmio,
+ * alguém tem de editar este arquivo") deixou de existir sozinha.
  *
- * O `AwardsMentions.tsx` (compartilhado com o site inteiro) tem cinco prêmios
- * cravados no código, e três são de 2008–2009 com distinção "Finalist" e "Semi
+ * O QUE SE PERDE, e é bom estar escrito: o cartão da quina não aparece no
+ * telefone (ver o comentário dele, com a medição), então a V2 agora fica sem
+ * credencial nenhuma no herói em telas pequenas. É a soma de duas decisões
+ * separadas, não um descuido. O conserto barato, se incomodar, é deixar o cartão
+ * visível no telefone empilhado abaixo dos botões — ao custo dos 40px de altura
+ * que já foram medidos e recusados uma vez.
+ *
+ * O ARGUMENTO ORIGINAL CONTINUA VALENDO e é por isso que este texto fica: o
+ * `AwardsMentions.tsx`, compartilhado com o site inteiro, tem cinco prêmios
+ * cravados no código e três são de 2008–2009, com distinção "Finalist" e "Semi
  * finalist". Pôr "semifinalista, 2009" ao lado dos logos da Coca-Cola e da Shell
- * enfraquece o herói em vez de sustentá-lo.
- *
- * Os dois melhores da casa NÃO estavam em lugar nenhum do código — só nos
- * documentos do cliente (`docs/pedido-conteudo-guilherme-30-08-2026.md:43`).
- * São os dois GOLD da Brandon Hall, de 2023 e 2024. Isso importa em particular
+ * enfraquece o herói em vez de sustentá-lo. Os dois GOLD importam em particular
  * porque a Explore Performance, a referência que a Rhea mandou, ganhou o MESMO
  * prêmio: é o único terreno de comparação direta, e nele estávamos mostrando
- * 2009 contra o 2025 deles.
- *
- * Escritos aqui a pedido (07-09) em vez de virem do CMS. A dívida que isso cria
- * é conhecida: se a CDNA ganhar outro prêmio, alguém tem de editar este arquivo.
- * Se a V2 for aprovada, o caminho certo é um segmento próprio no CMS — `award`
- * de verdade, separado do `ticker` que mistura tudo.
- *
- * O TEXTO É O DO CLIENTE, palavra por palavra, e não foi encurtado: encurtar é
- * copy, e copy é da CDNA. Por isso o título é longo e vai com `line-clamp-2` —
- * o corte é visual, o dado continua inteiro no DOM para leitor de tela.
+ * 2009 contra o 2025 deles. Quem for promover a V2 precisa saber disso antes de
+ * mexer no que o herói mostra.
  */
-const HERO_CREDENTIALS = [
-  {
-    distinction: "Gold",
-    year: "2023",
-    title:
-      "Brandon Hall DE&I Award for Best Advance in Leadership Development for Women",
-  },
-  {
-    distinction: "Gold",
-    year: "2024",
-    title:
-      "Brandon Hall Best Leadership Development for Talent Acceleration Programme for Asian Leaders",
-  },
-];
 
 export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
   const scope = useRef<HTMLElement>(null);
@@ -425,12 +411,13 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
   // intro não há trava, e o herói de tela cheia é o que a referência faz nos
   // dois tamanhos.
   //
-  // O retorno é um FRAGMENTO porque a faixa de credenciais (lá embaixo) é irmã
-  // do herói, e não filha: ela precisa ficar fora da <section> para cair na
-  // segunda dobra. Este comentário está aqui em cima, e não dentro do return,
-  // porque ali já é contexto de JSX — `//` viraria texto na tela.
+  // O retorno voltou a ser só a <section> em 07-09. Ele era um FRAGMENTO
+  // enquanto a faixa de credenciais existia, porque ela era irmã do herói e não
+  // filha — precisava ficar fora da <section> para cair na segunda dobra. A
+  // faixa saiu (ver o bloco no topo do arquivo) e o fragmento perdeu a razão de
+  // ser. Este comentário está aqui em cima, e não dentro do return, porque ali
+  // já é contexto de JSX — `//` viraria texto na tela.
   return (
-    <>
     <section
       ref={scope}
       id="top"
@@ -505,25 +492,8 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           Voltou a `md:pb-0` em 07-09: por algumas horas ele foi `md:pb-[132px]`
           para reservar a faixa de credenciais presa na base do herói. A faixa
           saiu da primeira dobra, então não há mais nada para reservar. */}
-      {/* VIROU LINHA em 07-09, quando o cartão de credencial entrou "ali do lado
-          direito". Antes era um bloco só, alinhado à esquerda, e o lado direito
-          do container ficava vazio de propósito — a referência deixa a foto
-          respirar ali. O pedido preenche esse vazio com a peça que a V3 já tem.
-
-          `md:items-center` e não `items-end` como na V3: lá o cartão é uma quina
-          de uma composição que empurra tudo para os cantos; aqui a composição é
-          centrada na vertical, e um cartão colado na base brigaria com isso.
-
-          AS LARGURAS FECHAM ASSIM, e não são chutadas: o container é 1200px com
-          `md:px-10`, ou seja 1120px úteis. O cartão leva 340px fixos e o vão é
-          40px, então sobram 740px para o texto. O bloco de texto tinha
-          `max-w-[760px]`, então ele encolhe 20px — por isso `md:flex-1`, que o
-          deixa tomar o que sobrar em vez de estourar a linha.
-
-          NO TELEFONE empilha, e o cartão fica DEPOIS dos botões: ele é apoio, e
-          apoio não entra antes da ação. */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 pb-20 pt-[140px] md:flex-row md:items-center md:px-10 md:pb-0 md:pt-[76px]">
-        <div className="md:flex-1 md:max-w-[760px]">
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 pb-20 pt-[140px] md:px-10 md:pb-0 md:pt-[76px]">
+        <div className="max-w-[760px]">
           {/* O EYEBROW É BRANCO, e isso mudou em 07-09 junto com o tratamento
               de cor. Vale a explicação porque a versão anterior deste comentário
               defendia o contrário.
@@ -680,99 +650,60 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
               da Home no documento de conteúdo, então a Rhea pode trazê-la de
               volta ao preencher. */}
         </div>
+      </div>
 
-        {/* O CARTÃO DE CREDENCIAL, o mesmo componente da V3 — ver o cabeçalho
-            do `CyclingCredential` para por que ele é compartilhado e não
-            copiado como o resto das propostas.
+      {/* O CARTÃO DE CREDENCIAL — EMBAIXO E À DIREITA, como o da V3.
 
-            Ele NÃO substitui a faixa de credenciais que está logo abaixo do
-            herói. As duas mostram o mesmo prêmio, e isso é redundância que
-            precisa de decisão do grupo, não minha: a faixa mostra as duas de
-            uma vez e é prateleira, o cartão mostra uma de cada vez e é peça de
-            composição. Se a faixa sair, é uma linha; ela está aqui em cima
-            documentada para ninguém achar que foi esquecimento.
+          Ele já esteve ao lado do texto, centrado na vertical, e estava no lugar
+          errado: o pedido era a quina, igual à V3. A diferença não é de gosto —
+          ao lado do texto ele lê como parte do argumento, na quina lê como
+          credencial de rodapé, que é o que ele é.
 
-            `h-cta` para entrar junto com os botões na timeline de entrada. Sem
-            a classe, o cartão apareceria de cara enquanto o resto do herói
-            ainda estivesse surgindo — e uma peça que já está lá antes de todas
-            as outras lê como se não pertencesse à composição.
+          POR QUE ABSOLUTO, e não mais uma coluna na linha do texto. O texto
+          desta versão é centrado na vertical pela própria <section>
+          (`justify-center`), então o container dele tem a altura do conteúdo e
+          não a do herói. Dentro dele, "embaixo" seria a base do texto, não a
+          base da tela. Ancorar na <section> é o que faz "embaixo" significar
+          embaixo. A V3 não precisa disso porque lá a coluna já ocupa a altura
+          toda e o bloco da quina é o último filho dela.
 
-            SÓ NO DESKTOP (`hidden md:grid`), e isto não é preguiça de responsivo.
-            O pedido foi "do lado direito", e no telefone não existe lado
-            direito: o cartão empilha embaixo dos botões. Medido a 375x812, isso
-            levava o herói a 852px de altura — 40px além da tela — e devolvia
-            exatamente o problema que a decisão de 07-09 resolveu ao tirar as
-            credenciais da primeira dobra ("coisa demais na primeira tela:
-            eyebrow, título, subtítulo, dois botões e mais duas credenciais").
-            Reintroduzir isso pela porta dos fundos seria desfazer uma decisão
-            registrada sem ninguém perceber.
+          ALINHADO AO CONTAINER, não à tela. A V3 é de sangria e o cartão dela
+          para a 40px da borda do navegador; aqui tudo mora na faixa de 1200px,
+          então o cartão acompanha a borda DELA (1280px numa tela de 1440). Se
+          ele fosse até a borda da tela seria o único elemento da V2 a furar a
+          grade — a mesma peça, obedecendo a grade de cada versão.
 
-            No telefone quem carrega as credenciais é a faixa logo abaixo, que
-            já existe e aparece ao primeiro rolar. O `md:grid` e não `md:block`
-            porque o componente É um grid — é assim que ele empilha os cartões
-            sem pular de altura. */}
-        <CyclingCredential
-          entries={ticker}
-          className="hidden md:grid md:w-[340px] md:shrink-0"
-        />
+          `pb-10` põe 40px entre o cartão e a base, contra os 22px da V3. Não é
+          para bater igual: 40px é o mesmo valor do `md:px-10` desta seção, então
+          a folga de baixo rima com a das laterais.
+
+          `pointer-events-none` no invólucro porque ele atravessa a largura toda
+          e não pode virar uma placa invisível sobre o herói; o cartão devolve o
+          `auto` para si.
+
+          SÓ NO DESKTOP (`hidden md:block`), e isto não é preguiça de responsivo.
+          O pedido é uma quina, e no telefone não existe quina: o cartão viraria
+          mais um bloco empilhado. Medido a 375x812 quando ele estava no fluxo,
+          isso levava o herói a 852px — 40px além da tela — e devolvia exatamente
+          o problema que a decisão de 07-09 resolveu ao tirar as credenciais da
+          primeira dobra ("coisa demais na primeira tela: eyebrow, título,
+          subtítulo, dois botões e mais duas credenciais").
+
+          `h-cta` para entrar junto com os botões na timeline. Sem a classe, o
+          cartão apareceria de cara enquanto o resto do herói ainda estivesse
+          surgindo, e uma peça que já está lá antes de todas as outras lê como se
+          não pertencesse à composição. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden md:block">
+        <div className="mx-auto w-full max-w-[1200px] px-6 pb-10 md:px-10">
+          <div className="flex justify-end">
+            <CyclingCredential
+              entries={ticker}
+              className="h-cta pointer-events-auto w-[340px]"
+            />
+          </div>
+        </div>
       </div>
 
     </section>
-
-      {/* A FAIXA DE CREDENCIAIS. Os dados e o porquê estão em HERO_CREDENTIALS,
-          no topo do arquivo; aqui fica só o desenho.
-
-          FORA DA PRIMEIRA DOBRA, por decisão de 07-09. Ela nasceu presa na base
-          do herói, dentro da <section>, e ficou coisa demais na primeira tela:
-          eyebrow, título, subtítulo, dois botões e mais duas credenciais, tudo
-          disputando o mesmo olhar. Agora é uma prateleira logo ABAIXO do herói —
-          aparece ao primeiro rolar, e não junto com o resto.
-
-          Por isso a HeroV2 devolve um fragmento, e não só a <section>: a faixa é
-          irmã do herói, não filha. Fica neste arquivo, e não na página, porque
-          é o herói que ela serve e porque os dados dela moram aqui — quem for
-          promover a V2 leva as duas coisas juntas.
-
-          COR: `bg-ink-2` (#2f2b2c), e não `ink`. É o mesmo raciocínio já usado
-          no LocationsBlock — dois blocos escuros vizinhos com a MESMA cor rimam
-          e viram uma massa só. Aqui a vizinhança é um vídeo escurecido em cima e
-          branco embaixo, então a faixa precisa ser reconhecidamente outra coisa:
-          uma cor chapada, um pouco mais escura e mais fria que o lavado do
-          herói. Trocar para `bg-paper` é uma palavra — mas aí o texto tem de
-          virar escuro, porque hoje ele é branco.
-
-          O filete é coral e o texto é branco. Não é descuido — é a mesma conta
-          do eyebrow: coral aqui daria por volta de 2,4:1 e reprova, e 11px em
-          caixa alta com tracking de 2px é o pior caso possível. Sobre #2f2b2c o
-          branco passa com folga larga. Coral só na marcação, que é a regra da
-          referência.
-
-          Sem animação de entrada de propósito: `.h-cta` saiu da classe. Aquela
-          timeline dispara no carregamento, e animar uma coisa que está fora da
-          tela é gastar a entrada onde ninguém vê. Se for para animar, o certo é
-          `<Reveal>`, no scroll, como o resto da página. */}
-      <aside className="bg-ink-2">
-        <div className="mx-auto w-full max-w-[1200px] px-6 py-8 md:px-10 md:py-10">
-          <ul className="grid gap-x-10 gap-y-5 sm:grid-cols-2 md:max-w-[880px]">
-            {HERO_CREDENTIALS.map((c) => (
-              <li key={c.title} className="flex gap-3">
-                <span
-                  aria-hidden="true"
-                  className="mt-[5px] h-3 w-[2px] shrink-0 bg-[#f4796d]"
-                />
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[2px] text-white">
-                    {c.distinction} &middot; {c.year}
-                  </p>
-                  <p className="mt-1.5 line-clamp-2 text-[13px] leading-[1.45] text-white/90">
-                    {c.title}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
-    </>
   );
 }
