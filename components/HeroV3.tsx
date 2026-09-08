@@ -775,17 +775,53 @@ export default function HeroV3({ ticker = [] }: { ticker?: TickerEntry[] }) {
                   // sem JS, `credentials` tem uma só e isto não faz diferença.
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
-                  <div className="flex w-[84px] shrink-0 flex-col justify-center border-r border-white/10 px-4 py-4">
-                    <span className="text-[11px] font-semibold uppercase tracking-[2px] text-[#f4796d]">
-                      {c.distinction}
-                    </span>
-                    <span className="mt-1 text-[11px] tabular-nums text-white/45">
+                  {/* A COLUNA ESTREITA CARREGA O ANO, E SÓ ELE.
+                      Ela nasceu com distinção em cima e ano embaixo, e isso
+                      funcionava enquanto a distinção era escrita à mão e dizia
+                      sempre "Gold". Ligada ao ticker, ela passou a receber a
+                      CATEGORIA do CMS — "New partnerships", "New regions", "New
+                      offices" — e aí quebrou, medido: a coluna tem 84px, menos
+                      `px-4` dos dois lados sobram 52px úteis, e "partnerships"
+                      sozinha ocupa 104px a 11px com tracking de 2px. É UMA
+                      PALAVRA SÓ: não tem onde quebrar linha, então vazava para
+                      fora da coluna. "New regions" (62px) e "New offices"
+                      (58px) também não cabiam, mas por serem duas palavras
+                      quebravam em duas linhas e disfarçavam o problema.
+
+                      Encolher a fonte não resolve: para "partnerships" caber em
+                      52px seria preciso ~5,5px de corpo. Alargar a coluna também
+                      não: qualquer largura escolhida hoje é refém da próxima
+                      categoria que o cliente cadastrar.
+
+                      Então o conteúdo é que trocou de lado. O ANO tem quatro
+                      dígitos hoje, amanhã e sempre — é o único campo do cartão
+                      com largura garantida, e é ele que merece a coluna fixa. A
+                      categoria foi para o lado largo, onde há 293px e onde ela
+                      cabe inteira. A caixa continua com a mesma cara; o que
+                      mudou é qual campo mora em qual lado.
+
+                      A coluna caiu de 84px para 72px por consequência: "2024" em
+                      11px tabular pede ~26px, e o resto é respiro. */}
+                  <div className="flex w-[72px] shrink-0 flex-col justify-center border-r border-white/10 px-4 py-4">
+                    <span className="text-[12px] tabular-nums text-white/55">
                       {c.year}
                     </span>
                   </div>
-                  <p className="line-clamp-3 self-center px-4 py-4 text-[12px] leading-[1.5] text-white/80">
-                    {c.title}
-                  </p>
+                  <div className="self-center px-4 py-4">
+                    {/* A categoria só aparece se existir: no caminho de fallback
+                        do parse ela pode vir vazia, e um eyebrow vazio deixaria
+                        um buraco de linha em cima do título. */}
+                    {c.distinction ? (
+                      <span className="block text-[11px] font-semibold uppercase tracking-[2px] text-[#f4796d]">
+                        {c.distinction}
+                      </span>
+                    ) : null}
+                    <p
+                      className={`line-clamp-3 text-[12px] leading-[1.5] text-white/80 ${c.distinction ? "mt-1.5" : ""}`}
+                    >
+                      {c.title}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>
