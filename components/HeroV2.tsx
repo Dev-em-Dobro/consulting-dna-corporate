@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { applyEnvClasses, isTouchDevice } from "@/lib/hero-intro";
 import heroPhoto from "@/public/dna-time/dna-time-06.jpeg";
+import CyclingCredential from "@/components/CyclingCredential";
+import type { TickerEntry } from "@/lib/cms/map";
 
 /**
  * Hero da /home-v2 — a versão para o grupo comparar, seguindo a referência
@@ -283,7 +285,7 @@ const HERO_CREDENTIALS = [
   },
 ];
 
-export default function HeroV2() {
+export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
   const scope = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -503,8 +505,25 @@ export default function HeroV2() {
           Voltou a `md:pb-0` em 07-09: por algumas horas ele foi `md:pb-[132px]`
           para reservar a faixa de credenciais presa na base do herói. A faixa
           saiu da primeira dobra, então não há mais nada para reservar. */}
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 pb-20 pt-[140px] md:px-10 md:pb-0 md:pt-[76px]">
-        <div className="max-w-[760px]">
+      {/* VIROU LINHA em 07-09, quando o cartão de credencial entrou "ali do lado
+          direito". Antes era um bloco só, alinhado à esquerda, e o lado direito
+          do container ficava vazio de propósito — a referência deixa a foto
+          respirar ali. O pedido preenche esse vazio com a peça que a V3 já tem.
+
+          `md:items-center` e não `items-end` como na V3: lá o cartão é uma quina
+          de uma composição que empurra tudo para os cantos; aqui a composição é
+          centrada na vertical, e um cartão colado na base brigaria com isso.
+
+          AS LARGURAS FECHAM ASSIM, e não são chutadas: o container é 1200px com
+          `md:px-10`, ou seja 1120px úteis. O cartão leva 340px fixos e o vão é
+          40px, então sobram 740px para o texto. O bloco de texto tinha
+          `max-w-[760px]`, então ele encolhe 20px — por isso `md:flex-1`, que o
+          deixa tomar o que sobrar em vez de estourar a linha.
+
+          NO TELEFONE empilha, e o cartão fica DEPOIS dos botões: ele é apoio, e
+          apoio não entra antes da ação. */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 pb-20 pt-[140px] md:flex-row md:items-center md:px-10 md:pb-0 md:pt-[76px]">
+        <div className="md:flex-1 md:max-w-[760px]">
           {/* O EYEBROW É BRANCO, e isso mudou em 07-09 junto com o tratamento
               de cor. Vale a explicação porque a versão anterior deste comentário
               defendia o contrário.
@@ -661,6 +680,41 @@ export default function HeroV2() {
               da Home no documento de conteúdo, então a Rhea pode trazê-la de
               volta ao preencher. */}
         </div>
+
+        {/* O CARTÃO DE CREDENCIAL, o mesmo componente da V3 — ver o cabeçalho
+            do `CyclingCredential` para por que ele é compartilhado e não
+            copiado como o resto das propostas.
+
+            Ele NÃO substitui a faixa de credenciais que está logo abaixo do
+            herói. As duas mostram o mesmo prêmio, e isso é redundância que
+            precisa de decisão do grupo, não minha: a faixa mostra as duas de
+            uma vez e é prateleira, o cartão mostra uma de cada vez e é peça de
+            composição. Se a faixa sair, é uma linha; ela está aqui em cima
+            documentada para ninguém achar que foi esquecimento.
+
+            `h-cta` para entrar junto com os botões na timeline de entrada. Sem
+            a classe, o cartão apareceria de cara enquanto o resto do herói
+            ainda estivesse surgindo — e uma peça que já está lá antes de todas
+            as outras lê como se não pertencesse à composição.
+
+            SÓ NO DESKTOP (`hidden md:grid`), e isto não é preguiça de responsivo.
+            O pedido foi "do lado direito", e no telefone não existe lado
+            direito: o cartão empilha embaixo dos botões. Medido a 375x812, isso
+            levava o herói a 852px de altura — 40px além da tela — e devolvia
+            exatamente o problema que a decisão de 07-09 resolveu ao tirar as
+            credenciais da primeira dobra ("coisa demais na primeira tela:
+            eyebrow, título, subtítulo, dois botões e mais duas credenciais").
+            Reintroduzir isso pela porta dos fundos seria desfazer uma decisão
+            registrada sem ninguém perceber.
+
+            No telefone quem carrega as credenciais é a faixa logo abaixo, que
+            já existe e aparece ao primeiro rolar. O `md:grid` e não `md:block`
+            porque o componente É um grid — é assim que ele empilha os cartões
+            sem pular de altura. */}
+        <CyclingCredential
+          entries={ticker}
+          className="hidden md:grid md:w-[340px] md:shrink-0"
+        />
       </div>
 
     </section>

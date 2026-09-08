@@ -41,7 +41,7 @@ import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
-import { getPeople } from "@/lib/cms/map";
+import { getPeople, getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -161,14 +161,19 @@ const cases: {
 ];
 
 export default async function HomeV2() {
-  // `getTickerEntries()` saiu daqui em 07-09: o único consumidor era o selo do
-  // herói, e ele virou uma faixa de credenciais escritas à mão (ver
-  // HERO_CREDENTIALS em components/HeroV2.tsx). Sem consumidor, buscar o
-  // segmento seria uma ida ao CMS para jogar fora o resultado.
-  const [people, nav, stats] = await Promise.all([
+  // `getTickerEntries()` VOLTOU em 07-09. Ele tinha saído no mesmo dia, quando o
+  // selo do herói virou credencial escrita à mão e o segmento ficou sem
+  // consumidor — agora o cartão do lado direito do herói alterna entre as
+  // entradas do ticker, então há consumidor de novo.
+  //
+  // A faixa de credenciais abaixo do herói NÃO usa isto: ela segue com o par
+  // escrito à mão em HERO_CREDENTIALS. As duas fontes convivendo é redundância
+  // conhecida e está anotada no ponto de uso, dentro do HeroV2.
+  const [people, nav, stats, ticker] = await Promise.all([
     getPeople(),
     buildSiteNav(),
     getSiteStats(),
+    getTickerEntries(),
   ]);
   return (
     // `serif.variable` publica --font-serif-v2 para tudo que está dentro; quem
@@ -243,7 +248,7 @@ export default async function HomeV2() {
           são dois prêmios escolhidos, escritos no componente. */}
 
       {/* HERO */}
-      <HeroV2 />
+      <HeroV2 ticker={ticker} />
 
       {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
