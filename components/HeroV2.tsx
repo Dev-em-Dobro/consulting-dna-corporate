@@ -450,7 +450,35 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           fica no topo, onde a foto é parede limpa. A mesma imagem, portanto,
           serve melhor ao layout da V3 do que ao desta. Se o texto aqui ficar
           ruidoso, os caminhos são descer o `brightness` do HERO_TINT ou mudar o
-          `object-position` para tirar a plateia de baixo do texto. */}
+          `object-position` para tirar a plateia de baixo do texto.
+
+          O ENQUADRAMENTO NO TELEFONE, corrigido em 07-09 a pedido ("quero que
+          apareça mais a mulher no palco na direita"). A conta, porque o número
+          não é chutado:
+
+            A foto é 960x640, ou seja 3:2. Numa tela de 375x812 o `object-cover`
+            escala pela ALTURA — 812 × 1,5 dá 1218px de largura desenhada, e a
+            tela mostra 375 deles: 30,8% da imagem. Com `object-center` essa
+            janela de 30,8% cai no meio da foto, que é exatamente onde está a
+            plateia sentada. A mulher no palco está por volta dos 82% da largura
+            (medido no desktop, onde a foto aparece inteira: ela ocupa de 1100 a
+            1250px numa tela de 1440).
+
+            Em `object-position: X%` a borda esquerda visível fica em
+            (1218-375)/1218 × X, ou seja 0,692·X. Para a janela ficar centrada
+            nos 82% preciso da borda esquerda em 82% - 15,4% = 66,2%, logo
+            X = 66,2 / 69,2 ≈ 96%.
+
+          Por que 96% e não `object-right` (100%): em 100% a janela vai de 69,2%
+          a 100% e o centro dela cai nos 84,6% — a mulher fica descentralizada e
+          a borda direita da foto encosta na borda da tela, o que endurece o
+          enquadramento. 96% centra nela e ainda deixa uma sobra à direita.
+
+          Só no telefone. No desktop a foto aparece INTEIRA na largura (1440/1,5
+          = 960px de altura desenhada contra 900 de tela, ou seja o corte lá é
+          vertical), então `object-position` horizontal não muda nada — mas
+          `md:object-center` fica explícito para ninguém achar que os 96% valem
+          para os dois tamanhos. */}
       <div
         className="h-media pointer-events-none absolute inset-0 z-0"
         style={{ filter: HERO_TINT.filter }}
@@ -461,7 +489,7 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[96%_center] md:object-center"
           aria-hidden="true"
         />
       </div>
@@ -667,15 +695,23 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           embaixo. A V3 não precisa disso porque lá a coluna já ocupa a altura
           toda e o bloco da quina é o último filho dela.
 
-          ALINHADO AO CONTAINER, não à tela. A V3 é de sangria e o cartão dela
-          para a 40px da borda do navegador; aqui tudo mora na faixa de 1200px,
-          então o cartão acompanha a borda DELA (1280px numa tela de 1440). Se
-          ele fosse até a borda da tela seria o único elemento da V2 a furar a
-          grade — a mesma peça, obedecendo a grade de cada versão.
+          VAI ATÉ A BORDA DA TELA, e isto foi uma correção de 07-09. A primeira
+          versão prendeu o cartão à grade de 1200px, com o argumento de que tudo
+          nesta versão mora nela e o cartão não devia ser o único a furá-la. O
+          argumento estava certo e perdeu assim mesmo: medido, ele parava a 160px
+          da borda da tela contra 40px do cartão da V3, e a 160px a peça não lê
+          como quina — lê como um bloco solto flutuando dentro da grade. Quina é
+          uma relação com a BORDA DA TELA, não com o container.
 
-          `pb-10` põe 40px entre o cartão e a base, contra os 22px da V3. Não é
-          para bater igual: 40px é o mesmo valor do `md:px-10` desta seção, então
-          a folga de baixo rima com a das laterais.
+          Então aqui o invólucro é de largura cheia com `px-6 md:px-10`, que é
+          exatamente o que a V3 usa (`components/HeroV3.tsx`, o container do
+          herói). Os 40px de folga lateral passam a ser os mesmos nas duas, que é
+          o que faz as duas quinas rimarem.
+
+          `pb-10` são 40px até a base — o mesmo valor da folga lateral, e o mesmo
+          `md:pb-10` que a V3 declara. Na V3 a folga medida sai menor (22px)
+          porque lá o conteúdo da coluna transborda um pouco o padding; não vale
+          copiar o número medido, vale copiar o valor declarado.
 
           `pointer-events-none` no invólucro porque ele atravessa a largura toda
           e não pode virar uma placa invisível sobre o herói; o cartão devolve o
@@ -694,7 +730,7 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           surgindo, e uma peça que já está lá antes de todas as outras lê como se
           não pertencesse à composição. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden md:block">
-        <div className="mx-auto w-full max-w-[1200px] px-6 pb-10 md:px-10">
+        <div className="w-full px-6 pb-10 md:px-10">
           <div className="flex justify-end">
             <CyclingCredential
               entries={ticker}
