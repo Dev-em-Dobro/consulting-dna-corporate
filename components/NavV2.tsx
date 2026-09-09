@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
 
 function Chevron({ className = "" }: { className?: string }) {
@@ -109,14 +110,52 @@ export default function NavV2({
   wide = false,
   maxWidthClass = "max-w-[1200px]",
   outlined = false,
+  activeHref,
 }: {
   items?: NavItem[];
   wide?: boolean;
   maxWidthClass?: string;
   outlined?: boolean;
+  /**
+   * Qual item marcar como ativo, quando a rota atual não é a do item.
+   *
+   * Existe por causa da /about-v2: ela É a página About, mas mora numa rota de
+   * proposta, e o item do menu aponta para `/our-identity`. Sem isto o menu
+   * ficaria sem nenhum item marcado justamente na página que o pedido de 09-09
+   * cita ("quando estiver na página about, marcar o menu"). A página declara o
+   * que ela representa, em vez de a nav adivinhar.
+   *
+   * Sem a prop, vale a rota real — então quando isto virar a /about de verdade
+   * o comportamento continua certo e a prop simplesmente sai.
+   */
+  activeHref?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const pathname = usePathname();
+  const current = activeHref ?? pathname;
+
+  /**
+   * Um item está ativo se a rota atual é a dele ou vive debaixo dela.
+   *
+   * As duas exclusões não são detalhe — sem elas o menu marca a coisa errada em
+   * toda página do site:
+   *
+   *   • HREF COM `#` nunca casa. "Books" aponta para `/#book` e "Contact" para
+   *     `/#contact`: os dois são a HOME com uma âncora, e casar por prefixo os
+   *     deixaria ativos em qualquer lugar. Âncora não é página.
+   *   • HREF `/` só casa exato. Todo caminho começa com "/", então prefixo aqui
+   *     marcaria a home em todas as rotas do site ao mesmo tempo.
+   *
+   * O prefixo com barra (`/solutions/` e não `/solutions`) é o que faz o item
+   * Services acender também nas páginas filhas que vêm do CMS, sem acender numa
+   * rota vizinha que só compartilhe o começo do nome.
+   */
+  const isActive = (href?: string) => {
+    if (!href || !current || href.includes("#")) return false;
+    if (href === "/") return current === "/";
+    return current === href || current.startsWith(href + "/");
+  };
 
   /* Tipografia dos itens. Sair da CAIXA ALTA é metade do efeito: 11,5px em
      maiúsculas com peso 600 é o que dá o ar de barra corporativa, e é ele que
@@ -231,10 +270,15 @@ export default function NavV2({
                 <Link
                   href={item.href ?? "#"}
                   aria-haspopup="true"
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={
                     outlined
-                      ? `navlink inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white transition-colors duration-200 ${linkType}`
-                      : `inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline ${linkType}`
+                      ? `navlink inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white transition-colors duration-200 ${
+                          isActive(item.href) ? "navlink--active" : ""
+                        } ${linkType}`
+                      : `inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline ${
+                          isActive(item.href) ? "underline" : ""
+                        } ${linkType}`
                   }
                 >
                   {outlined && <span aria-hidden className="navlink__rule" />}
@@ -261,10 +305,15 @@ export default function NavV2({
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={
                   outlined
-                    ? `navlink inline-flex items-center whitespace-nowrap leading-none text-white transition-colors duration-200 ${linkType}`
-                    : `inline-flex items-center whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 hover:underline ${linkType}`
+                    ? `navlink inline-flex items-center whitespace-nowrap leading-none text-white transition-colors duration-200 ${
+                        isActive(item.href) ? "navlink--active" : ""
+                      } ${linkType}`
+                    : `inline-flex items-center whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 hover:underline ${
+                        isActive(item.href) ? "underline" : ""
+                      } ${linkType}`
                 }
               >
                 {outlined && <span aria-hidden className="navlink__rule" />}

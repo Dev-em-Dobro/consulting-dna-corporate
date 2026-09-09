@@ -363,6 +363,17 @@ body {
 .navlink:active .navlink__rule {
   transform: scaleX(1);
 }
+/* Item da página em que se está: a mesma régua, travada aberta. Ela não é uma
+   segunda decoração — é o estado final do hover virando estado permanente, e é
+   por isso que o ativo e o hover não brigam: passar o mouse por cima do item
+   ativo não muda nada, porque ele já está no destino.
+
+   Vem sem `transition` de entrada porque nasce assim no primeiro quadro; animar
+   a régua do item ativo no carregamento da página seria movimento sem gesto que
+   o justifique. */
+.navlink--active .navlink__rule {
+  transform: scaleX(1);
+}
 /* Sob "reduzir movimento" a régua aparece inteira em vez de se desenhar: ela é
    o estado de hover, não enfeite, então some o movimento e não o traço. */
 @media (prefers-reduced-motion: reduce) {
