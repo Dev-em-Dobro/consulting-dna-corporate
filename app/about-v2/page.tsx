@@ -285,25 +285,129 @@ const PILLARS = [
 const VALUES = [
   {
     name: "Creative Flow",
+    icon: "bulb",
     body: "Our creativity lives in the big ideas and equally in the details and frameworks that hold them together. Execution should feel like flow.",
   },
   {
     name: "Bold Humility",
+    icon: "leaf",
     body: "Boldness lives in duality with humility. Bold enough to move people beyond their comfort zones, humble enough to be sustainable. Confident, never arrogant.",
   },
   {
     name: "Relationship Centricity",
+    icon: "pair",
     body: "We believe in mutually empowered relationships where we learn from each other. Clients should always feel us as deeply invested in their present and their future.",
   },
   {
     name: "Real Results",
+    icon: "target",
     body: "Our relentless quest for excellence is anchored in real issues and real results: engagement up, performance up, collaboration up.",
   },
   {
     name: "Trust & Truth",
+    icon: "shield",
     body: "Trust and truth live in one cycle. We help our clients with the hard right rather than the easy wrong, and hold ourselves accountable for breakthrough results.",
   },
 ];
+
+/**
+ * Os cinco ícones dos valores (09-09).
+ *
+ * ⚠️ ISTO CONTRARIA O QUE ESTAVA ESCRITO AQUI. O comentário do bloco de valores
+ * dizia "sem os ícones da imagem: não existe esse jogo de ícones no site, e os
+ * campos de CMS do outline são { name, body }, sem ícone". Era verdade e deixou
+ * de ser: o cliente pediu os ícones em 09-09, e a referência da Maliha
+ * (`docs/rhea-feedback/about-pagina-inteira.jpeg`) já os trazia — lâmpada,
+ * folha, duas pessoas, alvo e escudo, nessa ordem. Os desenhos abaixo seguem a
+ * referência dela, um a um.
+ *
+ * FICA O EFEITO NO CMS: `{ name, body }` vira `{ name, body, icon }`, e `icon`
+ * não é texto livre — é uma chave para um desenho que existe aqui dentro. Se
+ * esta página for aprovada, o campo tem de virar uma LISTA FECHADA no CMS, não
+ * um campo aberto, senão um valor novo cadastrado pela Rhea sai sem ícone
+ * nenhum e ninguém descobre até alguém abrir a página.
+ *
+ * DESENHADOS À MÃO pelo mesmo motivo do StatIcon, lá em cima: o site não tem
+ * biblioteca de ícones, e agora são NOVE desenhos nesta página. Nove já é o
+ * número em que vale a conversa sobre adotar um set de verdade — o comentário
+ * do StatIcon previa exatamente este momento. Não instalei nada porque a rota
+ * ainda é proposta `noindex`, e uma dependência no `package.json` do site
+ * inteiro por causa dela continua sendo o negócio errado.
+ *
+ * Mesma gramática do StatIcon para os nove ficarem parentes: contorno sem
+ * preenchimento, canto e junta arredondados, traço 1,75 num quadro de 24,
+ * `stroke="currentColor"` para a cor vir do container.
+ */
+function ValueIcon({ name }: { name: string }) {
+  const paths: Record<string, React.ReactNode> = {
+    /* Lâmpada com raios. O bulbo é UM path só — a primeira versão era um
+       <circle> com o gargalo desenhado por baixo, e sobrava um vão de ~1px de
+       cada lado porque a corda do círculo naquela altura é mais estreita que o
+       gargalo. Path único não tem emenda para desalinhar. */
+    bulb: (
+      <>
+        <path d="M12 5.6a4.2 4.2 0 0 0-2.4 7.6c.4.3.6.7.6 1.1v.5h3.6v-.5c0-.4.2-.8.6-1.1A4.2 4.2 0 0 0 12 5.6z" />
+        <path d="M10.2 17.2h3.6M11 19.6h2" />
+        <path d="M12 1.7v1.6M5 5.2l1.1 1.1M19 5.2l-1.1 1.1M2.3 11.5h1.6M20.1 11.5h1.6" />
+      </>
+    ),
+    leaf: (
+      <>
+        <path d="M4.8 19.2c0-8 5.5-13.5 13.5-13.5 0 8-5.5 13.5-13.5 13.5z" />
+        <path d="M3.1 20.9 16.2 7.8" />
+      </>
+    ),
+    /* Duas pessoas SIMÉTRICAS, e não o par assimétrico do `people` da faixa de
+       números lá em cima. Os dois ícones dizem "pessoas" e aparecem na mesma
+       página; se fossem o mesmo desenho, a repetição leria como descuido. Aqui
+       a simetria também é o conteúdo — "relationship centricity" é mútuo. */
+    pair: (
+      <>
+        <circle cx="8.2" cy="8.4" r="2.7" />
+        <circle cx="15.8" cy="8.4" r="2.7" />
+        <path d="M4.8 19.4a3.4 3.4 0 0 1 6.8 0" />
+        <path d="M12.4 19.4a3.4 3.4 0 0 1 6.8 0" />
+      </>
+    ),
+    /* Alvo com a flecha entrando pela direita. Só dois anéis: no corpo em que
+       este ícone é usado (26px) um terceiro anel vira um borrão cinza, e a
+       ponta da flecha já marca o centro. */
+    target: (
+      <>
+        <circle cx="12" cy="12" r="8.4" />
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 12 20.6 3.4" />
+        <path d="M15.8 3.4h4.8v4.8" />
+      </>
+    ),
+    shield: (
+      <>
+        <path d="M12 2.6 4.7 5.6v5.9c0 4.5 3 8.2 7.3 9.3 4.3-1.1 7.3-4.8 7.3-9.3V5.6L12 2.6z" />
+        <path d="M8.9 12.1l2.3 2.3 4-4.4" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      /* 30px, contra os 26px do StatIcon. Os dois são o mesmo desenho de
+         traço, mas fazem trabalhos diferentes: na faixa de números o ícone é
+         subordinado — ele acompanha um número que é o assunto —, e aqui ele
+         ABRE o card, é a primeira coisa que o olho encontra em cada coluna. Na
+         referência da Maliha ele tem cerca de uma vez e meia a altura do título;
+         30px contra um título de 20px é essa proporção. */
+      className="h-[30px] w-[30px]"
+    >
+      {paths[name]}
+    </svg>
+  );
+}
 
 /**
  * Block 6, os escritórios — endereço, telefone e e-mail como o documento pede.
@@ -1374,13 +1478,24 @@ export default async function AboutV2Page() {
           <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
             {VALUES.map((v) => (
               <div key={v.name} className="border-l-2 border-brand pl-5">
+                <span className="mb-3 block text-brand">
+                  <ValueIcon name={v.icon} />
+                </span>
                 {/* ⚠️ 20px pelo mesmo motivo dos pilares, e aqui o aperto é
                     maior: são CINCO colunas, ~250px cada em 1440, ~230px de
                     texto útil. "Relationship Centricity" a 28px pede ~300px e
                     quebraria em três linhas — com a régua vermelha ao lado, um
                     título de três linhas contra um corpo de cinco desmonta o
-                    alinhamento das cinco colunas entre si. */}
-                <h3 className="text-[20px] font-medium leading-[1.2] text-brand">
+                    alinhamento das cinco colunas entre si.
+
+                    O TÍTULO FICOU PRETO em 09-09, quando o ícone entrou, e a
+                    referência da Maliha traz os dois em vermelho. É a correção
+                    certa: com o ícone vermelho acima e a régua vermelha ao lado,
+                    um título também vermelho seria a terceira marca da mesma cor
+                    no mesmo card, e o vermelho pararia de significar alguma
+                    coisa. Assim o ícone chama, o título informa, a régua ancora
+                    — três funções, três tratamentos. */}
+                <h3 className="text-[20px] font-medium leading-[1.2] text-ink">
                   {v.name}
                 </h3>
                 <p className="mt-3 font-serif text-[15px] leading-[1.6] text-muted">
