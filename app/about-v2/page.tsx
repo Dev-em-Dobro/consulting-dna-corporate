@@ -1695,7 +1695,19 @@ export default async function AboutV2Page() {
                     </span>
                   ))}
                 </p>
-                <div className="mt-4 space-y-1.5 leading-[1.5]">
+                {/* `mt-auto` — a linha de contato desce para a BASE do card.
+                    Sem ela, os cinco cards têm altura igual (a grade estica) e
+                    conteúdo desalinhado: Riade tem três linhas de endereço,
+                    Londres e Miami têm duas, então o e-mail nascia numa altura
+                    diferente em cada um. Cinco cards da mesma altura com a
+                    última linha em cinco alturas é o tipo de coisa que ninguém
+                    consegue apontar e todo mundo sente.
+
+                    Com `mt-auto` o endereço encosta no topo, a folga vai toda
+                    para o meio e o contato de todos assenta na mesma base. É o
+                    `flex flex-col` que já estava no card fazendo o trabalho que
+                    ele foi posto ali para fazer. */}
+                <div className="mt-auto space-y-1.5 pt-4 leading-[1.5]">
                   {o.tel && (
                     <a
                       href={`tel:${o.tel.replace(/\s/g, "")}`}
@@ -1718,6 +1730,60 @@ export default async function AboutV2Page() {
                 </div>
               </div>
             ))}
+
+            {/* A SEXTA VAGA. Cinco escritórios numa grade de três deixam um
+                buraco embaixo à direita, e buraco em grade lê como conteúdo que
+                faltou carregar, não como espaço. Ele vira a ação da seção: quem
+                rola até aqui está procurando como falar com a CDNA, e quatro
+                dos cinco cards ao lado terminam num e-mail. O botão fecha a
+                linha em vez de deixá-la pela metade.
+
+                ⚠️ SEM FRASE, e isso é deliberado. O tile pedia uma linha do
+                tipo "não tem escritório perto? falamos com você" — e escrever
+                isso seria copy nossa, que é justamente o que o cliente pediu
+                para pararmos de fazer em 29-08, e o que o cabeçalho deste
+                arquivo registra ("tudo abaixo é transcrição — nada foi escrito
+                por nós"). O rótulo "Get in touch" não é invenção: ele já existe
+                na faixa de fechamento desta mesma página.
+
+                Quando o cliente mandar a frase, ela entra acima do botão e o
+                tile passa a ler como card, não como botão grande.
+
+                `bg-brand` sólido e não branco como os vizinhos: é o único
+                elemento acionável da faixa, e a faixa inteira é de cards
+                brancos sobre `paper`. Contorno aqui não distinguiria nada — a
+                mesma lógica que fez o Contact do menu ser o único preenchido. */}
+            <Link
+              href="/#contact"
+              className="group flex flex-col items-start justify-end bg-brand p-6 text-white transition-colors hover:bg-brand-dark"
+            >
+              {/* "Contact" e não "Get in touch". As duas existem na página, mas
+                  "Get in touch" é o rótulo do botão da faixa de fechamento, que
+                  fica ~250px abaixo deste tile — dois botões idênticos à
+                  distância de uma rolagem leem como repetição, não como duas
+                  chances. "Contact" é o rótulo do item de menu, então também
+                  não é copy nova. */}
+              <span className="font-serif text-[24px] font-medium leading-[1.15] md:text-[28px]">
+                Contact
+              </span>
+              <span className="mt-3 block h-[3px] w-8 flex-none bg-white/70" />
+              {/* A seta anda 4px no hover, o mesmo gesto do botão da faixa
+                  final. Ela mora na base porque é ali que os cinco cards ao
+                  lado terminam — o tile fecha a linha na mesma altura que eles,
+                  em vez de ser um bloco de outra natureza no fim da grade.
+
+                  Sem palavra ao lado da seta de propósito: o rótulo já está no
+                  topo do tile e o alvo clicável é o tile inteiro, então repetir
+                  "Contact" embaixo seria dizer a mesma coisa duas vezes dentro
+                  do mesmo elemento. Quem usa leitor de tela recebe o nome pelo
+                  <span> do topo; a seta é `aria-hidden`. */}
+              <span
+                aria-hidden
+                className="mt-auto pt-4 text-[18px] transition-transform duration-200 group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
           </div>
 
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
@@ -1741,6 +1807,64 @@ export default async function AboutV2Page() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Block 6b · The people behind it ───────────────────────────
+          Pedido pela Maliha em 09-09, apontando o bloco que já existe na
+          /our-identity no ar (`app/our-identity/page.tsx:167`). Copy idêntica —
+          rótulo, título, corpo e "Meet the team →" — porque o pedido foi trazer
+          AQUELE bloco, não desenhar um novo.
+
+          É também o que respondemos à pergunta dela sobre ligar a foto do time
+          a uma galeria: em vez de fazer a fotografia do bloco 2 navegar em
+          silêncio, a rota fica aqui, rotulada, no fim da leitura.
+
+          POSIÇÃO — antes da faixa de fecho, e não depois dela. O pedido foi
+          "última seção"; last CONTENT section é o que faz sentido. A faixa de
+          fecho é a chamada final da página, e dois botões em sequência
+          ("Meet the team", "Get in touch") disputam o mesmo clique. Assim o
+          leitor termina a About, recebe a rota para o time, e só então a
+          chamada comercial. Mover para depois é trocar duas linhas, se
+          discordarem.
+
+          FUNDO BRANCO, e não `paper` como o original. Aqui o bloco anterior (o
+          mapa e os escritórios) já é `paper`; dois `paper` seguidos viram uma
+          faixa só e o corte entre as seções some. Na /our-identity o vizinho é
+          branco, por isso lá o `paper` funciona.
+
+          MEDIDA — container de 1440 e alinhado à esquerda, como todo o resto
+          desta página, em vez da coluna centrada de 820px do original. É a
+          mesma razão da foto do bloco 2: a borda esquerda de tudo cai na mesma
+          linha vertical. O texto fica preso em 680px para não virar linha
+          longa demais numa tela grande.
+
+          BOTÃO DE CONTORNO, não sólido. O sólido vermelho é da faixa logo
+          abaixo, que é a ação principal. Dois preenchidos seguidos anulam a
+          hierarquia — este é o caminho lateral, aquele é o convite. */}
+      <section id="people" className="bg-white">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          <TypeLabel>The people behind it</TypeLabel>
+          <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-ink md:text-[38px]">
+            Identity is what the team does under pressure.
+          </h2>
+          <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-muted">
+            Our leadership, our global faculty and the regions we deliver from
+            now have an area of their own.
+          </p>
+          <Link
+            href="/our-team"
+            className="group mt-8 inline-flex items-center gap-2 border border-ink px-7 py-3.5 text-[16px] font-medium text-ink transition-colors hover:bg-ink hover:text-white"
+          >
+            Meet the team
+            {/* Mesma seta de 4px no hover dos outros dois botões da página. */}
+            <span
+              aria-hidden
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </Link>
         </div>
       </section>
 
