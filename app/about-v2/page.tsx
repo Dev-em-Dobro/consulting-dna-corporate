@@ -551,18 +551,29 @@ export default async function AboutV2Page() {
 
           REDESENHADO em 08-09 sobre a referência da Explore Performance que a
           Rhea aprovou (`docs/rhea-feedback/about-explore.png`): fundo BRANCO,
-          foto sangrando até a borda e ocupando a altura inteira da faixa, texto
-          na outra metade. A Explore põe o texto à esquerda e a foto à direita;
-          aqui é espelhado — foto à esquerda —, que é o lado que o outline da
-          Maliha pede e o que a imagem de página inteira dela mostra.
+          foto ocupando a altura inteira da faixa, texto na outra metade. A
+          Explore põe o texto à esquerda e a foto à direita; aqui é espelhado —
+          foto à esquerda —, que é o lado que o outline da Maliha pede e o que a
+          imagem de página inteira dela mostra.
 
-          O QUE MUDOU DO QUE ESTAVA: a faixa era `bg-ink-2` (escura) e a foto era
-          uma caixa 4:3 solta dentro do container, com respiro dos dois lados.
-          Agora a foto é uma COLUNA DA GRADE, sem padding e sem `aspect`, e é o
-          texto ao lado que define a altura — as duas células de uma grade se
-          esticam para a mais alta por padrão, então `absolute inset-0` na foto
-          faz ela preencher o que sobrar, seja qual for o tamanho do texto. É por
-          isso que não há altura fixa em lugar nenhum aqui.
+          A FOTO NÃO SANGRA. Em 08-09 ela ia até a borda da janela, como na
+          Explore. Em 09-09 o cliente pediu o contrário: ela fica CONTIDA no
+          mesmo `max-w-[1440px]` de todos os outros blocos, inclusive em telas
+          maiores que isso. Daí o container em volta da grade — era o único
+          `mx-auto max-w-[1440px] px-6 md:px-10` que faltava na página, e é ele
+          que faz a borda esquerda da foto cair na mesma linha vertical do logo,
+          do título do hero e dos quatro números.
+
+          O respiro entre as colunas passou a ser `lg:gap-14` na grade. Antes
+          vinha do `lg:px-14` da coluna de texto, que agora não pode existir: com
+          o container por fora, padding horizontal na coluna somaria ao dele e a
+          citação terminaria ~96px antes da margem em vez de alinhar com ela.
+
+          A foto é uma COLUNA DA GRADE, sem padding e sem `aspect`, e é o texto
+          ao lado que define a altura — as duas células de uma grade se esticam
+          para a mais alta por padrão, então `absolute inset-0` na foto faz ela
+          preencher o que sobrar, seja qual for o tamanho do texto. É por isso
+          que não há altura fixa em lugar nenhum aqui.
 
           `min-h-[360px]` só vale abaixo de `lg`: empilhado, a coluna da foto não
           tem irmã para copiar a altura e colapsaria para zero. Em `lg` o
@@ -576,82 +587,95 @@ export default async function AboutV2Page() {
           contraria o outline e espreme quatro textos em meia largura. Fica como
           está até alguém pedir o contrário. */}
       <section id="identity" className="bg-white text-ink">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* ⚠️ A FOTO DO TIME AINDA NÃO EXISTE. O outline pede "the CDNA team
-              group photograph supplied with the slide", que não veio com os
-              anexos, e não há substituto no repositório: as 25 fotos de
-              `public/dna-time` são de eventos e de turmas de programa, não do
-              time da CDNA. Passar uma delas por foto do time seria dizer algo
-              falso na página, então fica o placeholder — agora do tamanho real
-              que a foto vai ocupar, o que também serve para o cliente ver o
-              recorte que precisa mandar (vertical, alto). */}
-          <div className="relative min-h-[360px] lg:min-h-0">
-            <ImagePlaceholder
-              className="absolute inset-0 h-full w-full"
-              label="CDNA team photograph"
-            />
-          </div>
+        <div className="mx-auto max-w-[1440px] px-6 md:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-14">
+            {/* ⚠️ A FOTO DO TIME AINDA NÃO EXISTE. O outline pede "the CDNA team
+                group photograph supplied with the slide", que não veio com os
+                anexos, e não há substituto no repositório: as 25 fotos de
+                `public/dna-time` são de eventos e de turmas de programa, não do
+                time da CDNA. Passar uma delas por foto do time seria dizer algo
+                falso na página, então fica o placeholder — agora do tamanho real
+                que a foto vai ocupar, o que também serve para o cliente ver o
+                recorte que precisa mandar (vertical, alto). */}
+            <div className="relative min-h-[360px] lg:min-h-0">
+              <ImagePlaceholder
+                className="absolute inset-0 h-full w-full"
+                label="CDNA team photograph"
+              />
+            </div>
 
-          <div className="flex items-center px-6 py-16 md:px-10 md:py-20 lg:px-14">
-            <div className="w-full max-w-[680px]">
-              <Eyebrow>Keeping Leadership Real</Eyebrow>
-              {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
-                  em 08-09 contra a referência.
+            <div className="flex items-center py-16 md:py-20">
+              <div className="w-full max-w-[680px]">
+                <Eyebrow>Keeping Leadership Real</Eyebrow>
+                {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
+                    em 08-09 contra a referência.
 
-                  Como estava: a aspa de abertura era `absolute -left-1 -top-6`,
-                  ou seja, pendurada ACIMA da primeira linha e quase colada na
-                  margem. Na referência ela está na mesma altura da primeira
-                  linha, recuada num vão à esquerda, e o texto todo começa depois
-                  dela. É a diferença entre "aspa flutuando sobre a citação" e
-                  "citação recuada com a aspa na margem", que é o desenho certo.
+                    Como estava: a aspa de abertura era `absolute -left-1 -top-6`,
+                    ou seja, pendurada ACIMA da primeira linha e quase colada na
+                    margem. Na referência ela está na mesma altura da primeira
+                    linha, recuada num vão à esquerda, e o texto todo começa depois
+                    dela. É a diferença entre "aspa flutuando sobre a citação" e
+                    "citação recuada com a aspa na margem", que é o desenho certo.
 
-                  Por isso o `pl-9` no <blockquote>: ele abre o vão de 36px onde
-                  a aspa mora, e todo o corpo passa a se alinhar à direita dela,
-                  inclusive as linhas seguintes e a assinatura. Sem o padding a
-                  aspa `absolute` cairia por cima da primeira palavra.
+                    Por isso o `pl-9` no <blockquote>: ele abre o vão de 36px onde
+                    a aspa mora, e todo o corpo passa a se alinhar à direita dela,
+                    inclusive as linhas seguintes e a assinatura. Sem o padding a
+                    aspa `absolute` cairia por cima da primeira palavra.
 
-                  `aria-hidden` nas duas: quem usa leitor de tela já recebe a
-                  citação pelo <blockquote>, e "aspas duplas" lido em voz alta é
-                  ruído. */}
-              <blockquote className="relative pl-9">
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-0 select-none font-serif text-[44px] leading-[0.9] text-brand"
-                >
-                  “
-                </span>
-                <p className="text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
-                  At CDNA, <span className="font-semibold text-brand">Keeping It Real</span>{" "}
-                  isn’t a slogan; it’s how we work. We speak with honesty, design
-                  with truth, and deliver with the same authenticity we expect
-                  from leaders. Our conversations are candid, our relationships
-                  are human, and our programmes are built from real, lived
-                  experience, not theory.
-                </p>
-                <p className="mt-5 text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
-                  CEOs and CHROs respect us for keeping it relevant, resilient,
-                  and real.
-                  {/* A aspa de fechamento acompanha a de abertura: mesmo corpo
-                      (44px) e na altura da linha, não pendurada abaixo dela.
-
-                      `leading-[0]` é o detalhe que faz funcionar. Sem ele, um
-                      glifo de 44px dentro de um parágrafo de 17,5px ESTICA a
-                      caixa da última linha e abre um buraco entre ela e a
-                      assinatura. Com altura de linha zero o glifo transborda da
-                      própria caixa sem empurrar nada, e o `translate-y` o traz
-                      para o nível do texto — a aspa serifada nasce muito acima
-                      da linha de base. */}
+                    `aria-hidden` nas duas: quem usa leitor de tela já recebe a
+                    citação pelo <blockquote>, e "aspas duplas" lido em voz alta é
+                    ruído. */}
+                <blockquote className="relative pl-9">
                   <span
                     aria-hidden
-                    className="ml-1.5 inline-block translate-y-[0.22em] select-none font-serif text-[44px] leading-[0] text-brand"
+                    className="absolute left-0 top-0 select-none font-serif text-[44px] leading-[0.9] text-brand"
                   >
-                    ”
+                    “
                   </span>
-                </p>
-                <footer className="mt-6 text-[14px] font-semibold tracking-[0.2px] text-ink">
-                  Rhea Leckie, Founder &amp; CEO of CDNA Consulting
-                </footer>
-              </blockquote>
+                  <p className="text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
+                    At CDNA, <span className="font-semibold text-brand">Keeping It Real</span>{" "}
+                    isn’t a slogan; it’s how we work. We speak with honesty, design
+                    with truth, and deliver with the same authenticity we expect
+                    from leaders. Our conversations are candid, our relationships
+                    are human, and our programmes are built from real, lived
+                    experience, not theory.
+                  </p>
+                  <p className="mt-5 text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
+                    CEOs and CHROs respect us for keeping it relevant, resilient,
+                    and{" "}
+                    {/* A aspa de fechamento acompanha a de abertura: mesmo corpo
+                        (44px) e na altura da linha, não pendurada abaixo dela.
+
+                        `leading-[0]` é o detalhe que faz funcionar. Sem ele, um
+                        glifo de 44px dentro de um parágrafo de 17,5px ESTICA a
+                        caixa da última linha e abre um buraco entre ela e a
+                        assinatura. Com altura de linha zero o glifo transborda da
+                        própria caixa sem empurrar nada, e o `translate-y` o traz
+                        para o nível do texto — a aspa serifada nasce muito acima
+                        da linha de base.
+
+                        `whitespace-nowrap` na última palavra + aspa, desde 09-09:
+                        ao conter a faixa em 1440 a medida do texto caiu de 680
+                        para 652px, e nessa largura a linha quebrava EXATAMENTE
+                        entre "real." e a aspa, deixando o glifo sozinho numa
+                        linha só dele. Presos, os dois descem juntos quando não
+                        couberem — que é uma quebra normal de parágrafo, não um
+                        órfão. */}
+                    <span className="whitespace-nowrap">
+                      real.
+                      <span
+                        aria-hidden
+                        className="ml-1.5 inline-block translate-y-[0.22em] select-none font-serif text-[44px] leading-[0] text-brand"
+                      >
+                        ”
+                      </span>
+                    </span>
+                  </p>
+                  <footer className="mt-6 text-[14px] font-semibold tracking-[0.2px] text-ink">
+                    Rhea Leckie, Founder &amp; CEO of CDNA Consulting
+                  </footer>
+                </blockquote>
+              </div>
             </div>
           </div>
         </div>
