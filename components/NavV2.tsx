@@ -78,17 +78,88 @@ function Chevron({ className = "" }: { className?: string }) {
  * este mesmo componente e continua em 1200. Mudar a constante alinharia a
  * about e desalinharia a home no mesmo commit.
  */
+/**
+ * `outlined` — o menu na tipografia do teste de 09-09, com o Contact virando
+ * botão vermelho sólido e os demais itens ganhando uma régua vermelha no hover.
+ *
+ * Pedido de 09-09 para a /about-v2, junto com o teste de tipografia: o menu em
+ * caixa alta 11,5px é parte do que a Rhea chama de "quadrado demais". Aqui ele
+ * vira Geist 400 em caixa baixa, 16px — os valores medidos no menu da própria
+ * Explore, e não os da grade escrita. Ver o comentário de `linkType`.
+ *
+ * ⚠️ O NOME DA PROP FICOU MAIOR QUE A COISA. Ela nasceu para dar CONTORNO
+ * vermelho a cada item, e o contorno foi rejeitado no mesmo dia: oito caixas
+ * vermelhas em fila sobre a foto do herói leem como formulário. O que ficou é a
+ * tipografia + o Contact sólido + a régua de hover (`.navlink` no globals.css).
+ * Se o teste for aprovado e isto virar o menu de verdade, o nome muda junto.
+ *
+ * O CONTACT É O ÚNICO SÓLIDO, e é o que sustenta a hierarquia: os outros sete
+ * não têm fundo nenhum, então o vermelho cheio marca a ação primária sozinho —
+ * era o que o contorno branco fazia antes, com menos ênfase.
+ *
+ * Prop, e não um NavV3 copiado, pela mesma razão que `wide` e `maxWidthClass`:
+ * a diferença é um punhado de classes, e a /home-v2 e a /home-v3 usam este
+ * arquivo. Desligado por padrão — quem não pedir continua com o menu de antes.
+ *
+ * Só o cabeçalho de desktop muda. O painel do telefone abre sobre `bg-brand`
+ * sólido, onde régua vermelha é invisível por definição.
+ */
 export default function NavV2({
   items = siteNav,
   wide = false,
   maxWidthClass = "max-w-[1200px]",
+  outlined = false,
 }: {
   items?: NavItem[];
   wide?: boolean;
   maxWidthClass?: string;
+  outlined?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+
+  /* Tipografia dos itens. Sair da CAIXA ALTA é metade do efeito: 11,5px em
+     maiúsculas com peso 600 é o que dá o ar de barra corporativa, e é ele que
+     a referência da Explore Performance não tem.
+
+     PESO 400, e não os 500 da grade de 09-09. A grade escreve "Botões, menu,
+     links de navegação — Geist 500, 16px, espaçamento 0,5px"; medido no menu da
+     própria Explore, que é a referência de onde a grade saiu, os itens são
+     **Platform Web 400, 16px, `letter-spacing: normal`**. A grade endureceu os
+     dois valores no caminho. Aqui vale a medida, não a transcrição — e por isso
+     o espacejamento de 0,5px também caiu junto.
+
+     400 é o mais leve que dá para usar sem mexer no carregamento: a Geist é
+     baixada nesta página com 400/500/600/700. Ela tem 100–300, mas cada peso é
+     um arquivo a mais na primeira dobra, e 300 em corpo de 15px sobre foto já
+     começa a sumir — o menu é branco sobre imagem, não preto sobre branco.
+
+     A família não é declarada aqui: a página envolve a árvore inteira com a
+     Geist trocando o `--font-sans` local, então este componente continua
+     dizendo apenas `font-sans` e serve às duas páginas sem saber de fonte.
+
+     16px EM TODA A FAIXA, sem degrau responsivo — e isso só passou a caber por
+     causa do peso. Medido: a 500 o menu dava 893px a 16px e estourava o tablet
+     de 1024, onde o espaço livre (container menos o logo de 67px e o vão de
+     24px) é de 853px; a solução na época foi cair para 14,5px de 1024 a 1279.
+     A 400 o mesmo menu mede 748px. Sobram 105px em 1024, com folga de sobra
+     para a seta de ~18px que o item Services ganha quando o CMS responde — o
+     que o teste local, com o CMS fora do ar, esconde.
+
+     Ou seja: aliviar o peso pagou o corpo de letra. É por isso que o degrau
+     `xl:` saiu em vez de virar um número menor. */
+  const linkType = outlined
+    ? "text-[16px] font-normal"
+    : "text-[11.5px] font-semibold uppercase tracking-[0.6px]";
+
+  /* O BOTÃO É UM DEGRAU MAIS PESADO QUE OS LINKS — 500 contra 400, mesmo corpo.
+     Não é escolha nossa: medido no header da Explore, os itens são peso 400 e o
+     "Get In Touch" é 500. É a hierarquia sendo dita duas vezes, pelo fundo cheio
+     e pelo peso, que é o que faz um botão continuar lendo como botão mesmo
+     quando o texto dele tem o mesmo tamanho dos vizinhos. */
+  const ctaType = outlined
+    ? "text-[16px] font-medium"
+    : "text-[11.5px] font-semibold uppercase tracking-[0.6px]";
 
   // Único caso que ainda pede fundo sólido: o menu aberto no telefone, senão os
   // itens caem por cima da foto e não se lê nenhum dos dois.
@@ -118,27 +189,55 @@ export default function NavV2({
 
         {/* desktop nav — `lg`, same reason as NavV1: the 08-09 menu is 773px
             wide and gets clipped from the right on a `md` tablet, taking the
-            Contact button with it. */}
-        <nav className="hidden items-center justify-end gap-[30px] lg:flex">
+            Contact button with it.
+
+            O VÃO CAI DE 30px PARA 26px na variante `outlined` porque o rótulo
+            cresceu: 11,5px em caixa alta contra 16px em caixa baixa. Vão
+            fixo com corpo maior aperta o menu sem que ninguém tenha mexido no
+            vão. As larguras estão no comentário de `linkType`, acima. */}
+        <nav
+          className={`hidden items-center justify-end lg:flex ${
+            outlined ? "gap-[26px]" : "gap-[30px]"
+          }`}
+        >
           {items.map((item) =>
             item.cta ? (
-              // Same outline treatment as NavV1 — over the hero photo here
-              // rather than over the brand band, which is exactly why it is an
-              // outline: one button that works on both backgrounds.
+              // Contorno branco no padrão — um botão que funciona tanto sobre a
+              // faixa vermelha quanto sobre a foto, que é justamente por que ele
+              // é contorno e não preenchimento (mesmo tratamento da NavV1).
+              // Em `outlined` ele vira vermelho SÓLIDO: com os sete vizinhos
+              // agora também encapsulados, contorno não distingue mais nada, e
+              // a única forma de o Contact continuar lendo como a ação primária
+              // é ser o único cheio.
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
-                className="inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
+                className={
+                  outlined
+                    ? `inline-flex items-center whitespace-nowrap border border-brand bg-brand px-4 py-2.5 leading-none text-white transition-colors duration-200 hover:border-brand-dark hover:bg-brand-dark ${ctaType}`
+                    : `inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 leading-none text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand ${ctaType}`
+                }
               >
                 {item.label}
               </Link>
             ) : item.children ? (
-              <div key={item.label} className="group relative -top-[2px]">
+              // `-top-[2px]` só no padrão: ele compensa o item que carrega a
+              // seta contra os vizinhos sem caixa. Encapsulados, os oito têm a
+              // mesma altura de caixa e o ajuste vira desalinhamento.
+              <div
+                key={item.label}
+                className="group relative -top-[2px]"
+              >
                 <Link
                   href={item.href ?? "#"}
                   aria-haspopup="true"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline"
+                  className={
+                    outlined
+                      ? `navlink inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white transition-colors duration-200 ${linkType}`
+                      : `inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline ${linkType}`
+                  }
                 >
+                  {outlined && <span aria-hidden className="navlink__rule" />}
                   {item.label}
                   <Chevron className="transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
@@ -162,8 +261,13 @@ export default function NavV2({
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
-                className="inline-flex items-center whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
+                className={
+                  outlined
+                    ? `navlink inline-flex items-center whitespace-nowrap leading-none text-white transition-colors duration-200 ${linkType}`
+                    : `inline-flex items-center whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 hover:underline ${linkType}`
+                }
               >
+                {outlined && <span aria-hidden className="navlink__rule" />}
                 {item.label}
               </Link>
             ),

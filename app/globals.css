@@ -4,6 +4,28 @@
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --color-brand: #d84339;
   --color-brand-dark: #b5342b;
+  /* O vermelho da marca para TEXTO SOBRE FUNDO ESCURO (09-09).
+     Não é cor nova: é o mesmo #d84339 com a mesma matiz (H 3,8°) e a mesma
+     saturação (67%), só com a luminosidade do HSL subindo de 53,5% para 68%.
+     O par claro/escuro de um mesmo tom é o jeito padrão de resolver isto num
+     sistema de cor, e é o que a própria Explore faz — o laranja de texto deles
+     no herói escuro é #EF8565, um coral claro, não o laranja cheio da marca.
+
+     POR QUE PRECISA EXISTIR: #d84339 tem luminância 0,187, e isso impõe um teto.
+     Contra BRANCO PURO ele dá 4,39:1 — o melhor que essa cor consegue em
+     qualquer lugar. Sobre o `ink` do herói ele cai para 2,87:1, que não passa
+     nem na régua de 3:1 de texto grande. Não existe ajuste de fundo que salve:
+     para levá-lo a 4,5:1 o fundo teria de ser mais claro que branco.
+
+     #e47e77 sobre `ink` dá 4,53:1 — passa no AA e, principalmente, iguala a
+     legibilidade que o vermelho já tem no claro. O rótulo passa a ler igual nos
+     dois fundos, que é a regra: `brand` em fundo claro, `brand-light` em fundo
+     escuro.
+
+     SÓ PARA TEXTO. Preenchimento continua sendo `brand` cheio (o botão Contact,
+     a faixa final): área pintada não tem mínimo de contraste contra o que está
+     atrás dela, e é ali que a cor da marca deve aparecer sem diluição. */
+  --color-brand-light: #e47e77;
   --color-ink: #373234;
   --color-ink-2: #2f2b2c;
   --color-paper: #f3f3f3;
@@ -291,6 +313,72 @@ body {
 }
 @media (prefers-reduced-motion: reduce) and (hover: hover) {
   .sbox:hover .sbox__sweep {
+    opacity: 1;
+  }
+}
+
+/* Itens do menu da /about-v2 (09-09) — régua vermelha que cresce da esquerda
+   no hover.
+
+   ⚠️ A PRIMEIRA VERSÃO ERA OUTRA e foi rejeitada na hora: cada item ganhava uma
+   cápsula com contorno vermelho de repouso, e o hover preenchia a cápsula com o
+   mesmo painel inclinado das linhas da Solutions. Oito caixas vermelhas em fila
+   sobre a foto do herói leem como formulário, não como menu — a moldura, que
+   devia organizar, virou o elemento mais barulhento da primeira dobra.
+
+   O que sobra é o gesto sem a caixa. A régua é o traço que a página inteira já
+   usa: o risco do rótulo, a borda dos cinco valores, o filete sob cada cidade.
+   Aqui ela é o sublinhado do item, ausente em repouso e desenhando-se da
+   esquerda para a direita quando o ponteiro chega.
+
+   `scaleX` com origem à esquerda, e não `width`: transformação não recalcula
+   layout, então os oito itens nunca reflowam por causa de um hover. 240ms com
+   saída desacelerada — rápido o bastante para acompanhar o ponteiro, lento o
+   bastante para o traço ser visto sendo desenhado.
+
+   `bottom: -6px` põe a régua abaixo da linha de base sem que o item precise de
+   padding: é a mesma distância do `underline-offset-[6px]` que a variante
+   padrão usa no sublinhado nativo, para os dois menus terem o mesmo ritmo. */
+.navlink {
+  position: relative;
+}
+.navlink__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background-color: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (hover: hover) {
+  .navlink:hover .navlink__rule,
+  .group:hover .navlink__rule {
+    transform: scaleX(1);
+  }
+}
+.navlink:focus-visible .navlink__rule,
+.navlink:active .navlink__rule {
+  transform: scaleX(1);
+}
+/* Sob "reduzir movimento" a régua aparece inteira em vez de se desenhar: ela é
+   o estado de hover, não enfeite, então some o movimento e não o traço. */
+@media (prefers-reduced-motion: reduce) {
+  .navlink__rule {
+    transform: scaleX(1);
+    opacity: 0;
+    transition: opacity 140ms linear;
+  }
+  .navlink:focus-visible .navlink__rule,
+  .navlink:active .navlink__rule {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .navlink:hover .navlink__rule,
+  .group:hover .navlink__rule {
     opacity: 1;
   }
 }
