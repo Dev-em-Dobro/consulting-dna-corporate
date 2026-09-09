@@ -27,9 +27,11 @@
  * levantado com o cliente.
  */
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import SiteShell from "@/components/SiteShell";
-import PageHero from "@/components/PageHero";
+import NavV2 from "@/components/NavV2";
+import SiteFooter from "@/components/SiteFooter";
+import { buildSiteNav } from "@/lib/nav-server";
 import Eyebrow from "@/components/Eyebrow";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
@@ -37,6 +39,7 @@ import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
+import heroPhoto from "@/public/about-hero.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "About V2 (proposta) — Corporate DNA";
@@ -71,11 +74,80 @@ export const revalidate = 300;
  * seção que não veio no anexo. Até ela chegar, ficam aqui.
  */
 const STATS = [
-  { value: "18 years", label: "of senior leadership advisory, since London, 2007" },
-  { value: "36 countries", label: "programmes delivered, across five regions" },
-  { value: "1,000+", label: "leaders coached and teams developed" },
-  { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients" },
+  { value: "18 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
+  { value: "36 countries", label: "programmes delivered, across five regions", icon: "globe" },
+  { value: "1,000+", label: "leaders coached and teams developed", icon: "people" },
+  { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients", icon: "chart" },
 ];
+
+/**
+ * Os quatro ícones da faixa de números, desenhados aqui dentro.
+ *
+ * POR QUE INLINE, e não um pacote: o site não tem biblioteca de ícones. O único
+ * jogo de SVG que existe é o das redes no rodapé e as setas soltas, cada uma
+ * escrita no ponto de uso. Instalar lucide/heroicons por causa de quatro
+ * desenhos numa página de PROPOSTA seria colocar uma dependência no
+ * `package.json` do site inteiro para servir uma rota `noindex` que pode ser
+ * descartada. Se a página for aprovada e os ícones aparecerem também nos cinco
+ * valores (a referência mostra outros cinco lá), aí sim vale a conversa sobre
+ * adotar um set de verdade.
+ *
+ * O DESENHO segue a referência: contorno, sem preenchimento, canto e junta
+ * arredondados, traço de 1,5 num quadro de 24. `stroke="currentColor"` para a
+ * cor vir do `text-brand` do container e não ficar cravada aqui — é assim que
+ * um `hover` ou uma versão em fundo claro continuam funcionando sem tocar no
+ * path. `aria-hidden`: o ícone repete o que o número ao lado já diz.
+ */
+function StatIcon({ name }: { name: string }) {
+  const paths: Record<string, React.ReactNode> = {
+    calendar: (
+      <>
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M3 10h18M8 3v4M16 3v4" />
+      </>
+    ),
+    /* O meridiano é um <ellipse> e não um <path> curvo escrito à mão. A
+       primeira versão tentava desenhar a elipse com dois arcos em `d` e saía
+       uma amêndoa torta — arco de Bézier com raios desiguais é fácil de errar
+       e impossível de conferir lendo o atributo. `rx`/`ry` diz a mesma coisa
+       sem margem para erro. */
+    globe: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <ellipse cx="12" cy="12" rx="3.8" ry="9" />
+        <path d="M3.2 9h17.6M3.2 15h17.6" />
+      </>
+    ),
+    people: (
+      <>
+        <circle cx="9" cy="8" r="3.2" />
+        <path d="M3.2 20a5.8 5.8 0 0 1 11.6 0" />
+        <circle cx="17" cy="7" r="2.4" />
+        <path d="M16.2 12.4a5 5 0 0 1 4.6 5" />
+      </>
+    ),
+    chart: (
+      <>
+        <path d="M3.5 20.5h17" />
+        <path d="M7 20.5V14M12 20.5V9.5M17 20.5V5" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-9 w-9"
+    >
+      {paths[name]}
+    </svg>
+  );
+}
 
 /** Block 2, os quatro pilares. FINAL. */
 const PILLARS = [
@@ -193,55 +265,275 @@ const REGIONS = [
 ];
 
 export default async function AboutV2Page() {
+  const nav = await buildSiteNav();
   return (
-    <SiteShell>
+    /* SEM <SiteShell> — e essa é a razão de o shell estar montado à mão aqui.
+       O SiteShell embute a NavV1: barra vermelha, `sticky`, ocupando 76px do
+       fluxo. O pedido de 08-09 foi o menu SEM FUNDO sobre o herói, como na
+       /home-v2, e isso é a NavV2: `absolute`, transparente, flutuando sobre a
+       primeira dobra. Não dá para pedir isso ao SiteShell sem mudar o shell de
+       todas as páginas do site.
+
+       `relative` no wrapper porque a NavV2 é `absolute`: sem um ancestral
+       posicionado ela se prenderia ao documento inteiro, não a esta árvore.
+
+       `maxWidthClass` em 1440 para a barra correr na mesma margem do conteúdo,
+       que também subiu para 1440. */
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+      <NavV2 items={nav} maxWidthClass="max-w-[1440px]" />
+      <main className="flex-1">
       <JsonLd
         data={breadcrumbLd([{ name: "About", path: "/about-v2" }])}
       />
 
-      {/* ── Breadcrumb ─────────────────────────────────────────────────
-          "Breadcrumb at the top of the page: Home / About" (outline, bloco 3).
-          Fica no mesmo `bg-ink` do PageHero logo abaixo, então os dois leem
-          como uma faixa escura só, e não como duas. */}
-      <nav aria-label="Breadcrumb" className="bg-ink">
-        <ol className="mx-auto flex max-w-[1200px] items-center gap-2 px-6 pt-8 text-[13px] tracking-[0.3px] text-white/55 md:px-10">
-          <li>
-            <Link href="/" className="transition-colors hover:text-white">
-              Home
-            </Link>
-          </li>
-          <li aria-hidden className="text-white/30">
-            /
-          </li>
-          <li aria-current="page" className="text-white/85">
-            About
-          </li>
-        </ol>
-      </nav>
+      {/* ── Primeira dobra · Breadcrumb + Block 1 (hero) + Block 1b (números)
+          ───────────────────────────────────────────────────────────────
+          UMA seção só, de tela cheia, pedido em 08-09: "a hero e a parte com os
+          números ocupando 100vh". Os três pedaços já eram `bg-ink` e liam como
+          uma faixa escura só; agora são de fato um bloco, com a foto atrás dos
+          três e o espaço livre distribuído entre eles — breadcrumb no topo, o
+          título no meio, os números na base.
 
-      {/* ── Block 1 · Hero ─────────────────────────────────────────────
-          Sem `bgImageUrl`: a imagem da Maliha traz um skyline com uma hélice de
-          DNA por cima que não existe entre os nossos arquivos. A faixa escura
-          lisa é o que as outras páginas internas usam, e trocar por uma foto
-          qualquer só para preencher seria inventar arte. Pedido no relatório. */}
-      <PageHero
-        eyebrow="About"
-        title="Keeping Leadership Real."
-        subtitle="Our purpose, our promise, what we believe, and where we work"
-      />
+          ALTURA: `min-h-svh` (100svh CHEIOS) com `pt-[76px]`.
+            • Era `calc(100svh-76px)` enquanto o menu era a NavV1 `sticky`, que
+              OCUPA lugar no fluxo: descontar a barra era o que impedia a faixa
+              dos números de cair abaixo da dobra. Com a NavV2, que é `absolute`
+              e flutua POR CIMA, não há nada a descontar — se o desconto tivesse
+              ficado, sobrariam 76px de branco no fim da dobra.
+            • O `pt-[76px]` substitui o desconto: ele não muda a altura total
+              (a caixa é `border-box`), só impede que o eyebrow nasça debaixo do
+              menu flutuante.
+            • `svh` e não `vh` porque no telefone `100vh` conta a tela COM a
+              barra de endereço retraída: a base do bloco fica escondida atrás
+              do navegador até o usuário rolar.
+          É `min-h`, não `h`: no telefone os quatro números empilham em quatro
+          linhas e não cabem em uma tela — aí o bloco cresce e rola, em vez de
+          cortar conteúdo.
 
-      {/* ── Block 1b · Estatísticas, no escuro ────────────────────────
-          Mesmo desenho da faixa da home e da Our Impact: régua vermelha, número
-          grande em `brand` com count-up, uma linha de contexto embaixo. Quatro
-          em linha no desktop, como a imagem pede — a home usa duas colunas
-          porque lá os rótulos são mais longos. */}
-      <section className="bg-ink text-white">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
-          <Reveal className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label}>
-                <span className="mb-5 block h-[3px] w-8 bg-brand" />
-                <div className="text-[34px] font-bold leading-none tracking-[-1.2px] text-white md:text-[42px]">
+          A ARTE é a que a Maliha mandou em 08-09 (`public/about-hero.jpeg`): o
+          skyline montado — Big Ben, Marina Bay, Burj Khalifa, Kingdom Centre —
+          com a hélice de DNA atravessando o céu. Ela é a imagem definitiva da
+          seção, não mais o placeholder da home V2. Duas ressalvas de arquivo
+          estão anotadas no <Image> logo abaixo. */}
+      <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-ink pt-[76px] text-white">
+        {/* ⚠️ O ARQUIVO É PEQUENO E QUASE QUADRADO: 1373x1145 (1,2:1), 229 KB,
+            e veio pelo WhatsApp, que recomprime. Duas consequências:
+
+            1. LARGURA. A dobra pede algo em torno de 1920px. Em telas de até
+               1440 o upscale é 1,05x e não aparece; num monitor de 1920 é 1,4x e
+               num 2560 é 1,86x, aí a imagem amolece. O escurecimento perdoa
+               muito disso (é arte escura, monocromática e granulada), mas o
+               conserto de verdade é pedir o original à Maliha — o que veio é a
+               cópia que o WhatsApp gerou, não o arquivo dela.
+
+            2. PROPORÇÃO. É 1,2:1, quase quadrada, contra uma dobra de ~1,9:1.
+               Essa diferença é o motivo de a imagem NÃO ser de sangria total —
+               ver a caixa logo abaixo. */}
+
+        {/* A IMAGEM NÃO OCUPA A LARGURA TODA: ela vive numa caixa de 72% presa
+            à DIREITA, e os 28% da esquerda são `ink` puro, sem imagem nenhuma
+            por baixo. Isso responde aos dois pedidos de 08-09 sobre a
+            referência, e o motivo de não dar para resolver com `object-position`
+            merece ficar escrito, porque é contraintuitivo:
+
+              Com `fill` + `object-cover` de sangria total, a imagem é escalada
+              PELA LARGURA (o arquivo é mais "gordo" que a caixa). Aí não sobra
+              folga horizontal nenhuma — o corte é 100% vertical, e mexer no eixo
+              X do `object-position` não move absolutamente nada no desktop. Foi
+              o que travou a primeira tentativa de descentralizar a torre.
+
+            Encolhendo a caixa para 72% os dois problemas caem juntos:
+
+            • "DÁ PRA VER BEM MAIS O DNA". A caixa fica menos alongada (1,4:1 em
+              vez de 1,9:1 numa tela de 1600), então o `object-cover` corta bem
+              menos altura: aparecem ~86% da imagem contra os ~62% de antes. A
+              hélice inteira e o skyline inteiro entram no quadro.
+            • "A TORRE NÃO FICA TÃO CENTRALIZADA". O Burj está a ~51% da largura
+              do arquivo; com a caixa começando em 28% da tela, ele cai em
+              28 + 0,72x0,51 = ~65% da largura da dobra, à direita do centro,
+              como na referência.
+
+            No telefone (`w-full`) volta a ser sangria total — 72% de 390px não
+            daria imagem nenhuma —, e aí sim o eixo X funciona: `62%` puxa o
+            enquadramento para as torres em vez de deixar meia foto de céu. */}
+        <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[72%]">
+          <Image
+            src={heroPhoto}
+            alt=""
+            aria-hidden
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[62%_center] md:object-center"
+          />
+        </div>
+
+        {/* O TRATAMENTO, refeito em 08-09 contra a referência que o cliente
+            mandou (`docs/rhea-feedback/hero-about.png`): "dava pra ver mais da
+            imagem e ela aparecer mais na direita".
+
+            A versão anterior era uma camada chapada de `ink/75` sobre tudo. Isso
+            atendia o contraste do texto e destruía a arte junto: a hélice, que é
+            o motivo de a imagem existir, virava um chiado cinza. A referência
+            faz o contrário — a metade direita é a foto LIMPA, com o branco da
+            hélice e as nuvens em contraste cheio, e o texto mora num campo
+            escuro à esquerda para onde a foto se dissolve.
+
+            Daí as duas camadas serem DIRECIONAIS, e não chapadas:
+
+            1. LAVADO LATERAL. Ele tem uma função a mais desde que a imagem
+               passou a viver numa caixa de 72%: ESCONDER A EMENDA. A borda
+               esquerda da caixa é um corte reto em 28% da largura, e sem nada
+               por cima ela apareceria como uma linha vertical atravessando a
+               dobra. Por isso o gradiente fica opaco até passar dos 28% e só
+               então abre, morrendo a 60% — o olho lê "a foto se dissolve no
+               escuro", que é o que a referência faz, e não "tem uma imagem
+               colada ali". Da metade para a direita não há camada nenhuma, então
+               o skyline e a hélice ficam com o contraste original do arquivo.
+               O preço é o Big Ben, que fica no primeiro terço do arquivo e some;
+               a referência faz a mesma escolha, e é ela que manda.
+            2. FECHO DA BASE. Necessário porque os números atravessam a largura
+               inteira, inclusive a parte clara: "1,000+" e "5 of the top 10"
+               caem justamente sobre os arranha-céus iluminados. O gradiente sobe
+               pela metade de baixo e chega opaco na borda, então os números
+               ficam sobre `ink` sólido. Isso não briga com a referência — nela a
+               orla também é escura.
+
+            Não há mais camada chapada: as duas direcionais já se cruzam na
+            esquerda e somam o suficiente para o texto. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgb(55,50,52) 0%, rgb(55,50,52) 28%, rgba(55,50,52,.82) 36%, rgba(55,50,52,.5) 45%, rgba(55,50,52,.2) 53%, rgba(55,50,52,0) 60%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 -z-10 h-1/2"
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, rgb(55,50,52) 0%, rgba(55,50,52,.96) 22%, rgba(55,50,52,.72) 48%, rgba(55,50,52,.3) 76%, rgba(55,50,52,0) 100%)",
+          }}
+        />
+
+        {/* ⚠️ O BREADCRUMB VISÍVEL SAIU em 08-09, a pedido. Vale registrar que
+            isso CONTRARIA o outline da Maliha, que pede em letra: "Breadcrumb at
+            the top of the page: Home / About" (bloco 3). Foi decisão posterior
+            ao documento, então ganha dele — mas quando a página for revisada com
+            o cliente é bom saber que a ausência é deliberada, e não esquecimento.
+
+            O `breadcrumbLd` no topo do componente FICOU. Ele é dado estruturado
+            invisível, descreve a posição da página na hierarquia do site e não
+            depende de haver uma trilha desenhada na tela. Como a rota é
+            `noindex` e está fora do sitemap, hoje ele não faz diferença nenhuma;
+            se esta página virar a /about de verdade, aí sim vale decidir se
+            mantém o dado sem a trilha visível. */}
+        {/* O título. Escrito aqui, e não com <PageHero>, porque o PageHero é uma
+            <section> com `bg-ink` OPACO próprio: dentro deste bloco ele taparia
+            a foto e a imagem viraria uma tarja no meio da tela, em vez de fundo
+            da dobra inteira. As classes abaixo são as do PageHero não-compacto,
+            copiadas, para o herói continuar idêntico ao das outras páginas
+            internas. Se um dia isto virar a /about de verdade, o caminho é dar
+            ao PageHero uma variante de tela cheia — não mexer nele agora, que a
+            página real depende dele. */}
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
+                About
+              </span>
+            </div>
+            <h1 className="max-w-[900px] text-[38px] font-bold leading-[1.03] tracking-[-1.5px] text-white [text-wrap:balance] sm:text-[48px] md:text-[60px]">
+              Keeping Leadership Real.
+            </h1>
+            {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
+                frase só com `max-width` deixando o navegador decidir: o pedido
+                de 08-09 foi por um ponto de quebra específico ("Our purpose, our
+                promise" / "what we believe, and where we work"), e largura
+                máxima não garante ponto nenhum — ela muda com a fonte carregada,
+                com o zoom e com o tamanho da tela.
+
+                `md:block` e não `block`: no telefone a segunda metade sozinha já
+                ocupa duas linhas, e forçar a quebra ali criaria três linhas com
+                a primeira quase vazia. Abaixo de `md` os spans ficam em linha e
+                o texto reflui normalmente. */}
+            <p className="mt-5 max-w-[620px] text-xl leading-[1.45] text-white/75 md:text-2xl">
+              <span className="md:block">Our purpose, our promise,</span>{" "}
+              <span className="md:block">what we believe, and where we work</span>
+            </p>
+          </div>
+        </div>
+
+        {/* Block 1b · Estatísticas, refeito em 08-09 contra
+            `docs/rhea-feedback/about-pagina-inteira.jpeg`. Três mudanças, e as
+            três vieram da referência:
+
+            1. ÍCONE no lugar da régua vermelha. A faixa da home e da Our Impact
+               abre cada número com um traço de 3px; a referência põe um ícone de
+               contorno vermelho. Aqui ganha a referência — ver StatIcon, no topo
+               do arquivo, para o porquê de serem desenhados à mão.
+            2. DIVISÓRIA vertical entre os itens.
+            3. O NÚMERO NÃO PODE QUEBRAR em duas linhas. "36 countries" e "5 of
+               the top 10" quebravam, e uma coluna com título de duas linhas
+               desalinha a linha de rótulo de todas as outras.
+
+            A CONTA, porque o conserto NÃO é só `whitespace-nowrap`. Sozinho ele
+            troca um defeito por outro pior: em vez de quebrar em duas linhas, o
+            número TRANSBORDA a coluna e invade a vizinha. Foi o que aconteceu na
+            primeira tentativa, e só apareceu porque foi medido.
+
+            Tudo gira em torno de "5 of the top 10", o mais longo dos quatro.
+            Medido no navegador, não estimado: ele ocupa 246px a 38px de fonte,
+            e escala junto com ela. As colunas que recebem divisória perdem mais
+            40px para o `pl-10`, então são elas que apertam:
+
+              1280px de tela → coluna útil de 229px. A 38px pedia 246. ESTOURAVA.
+                                A 34px pede 220. Cabe.
+              1440/1536+     → coluna útil de 270px. A 42px pediria 272 —
+                                estouraria por 2px. A 40px pede 259. Cabe.
+              1024px         → seriam 4 colunas de ~206px no antigo
+                                `lg:grid-cols-4`. Não cabe em tamanho nenhum que
+                                ainda pareça número de destaque.
+
+            Daí as três correções juntas: a grade de quatro colunas subiu de `lg`
+            (1024) para `xl` (1280), então entre 1024 e 1280 ficam duas colunas
+            largas em vez de quatro espremidas; a fonte CAI para 34px na faixa de
+            quatro colunas apertada (xl) e só sobe para 40px em `2xl`; e o teto
+            é 40px, não 42px, por causa dos tais 2px.
+
+            O `text-[34px] md:text-[38px] xl:text-[34px]` parece errado de tão
+            vai-e-volta, e não é: 38px é a faixa de DUAS colunas, onde sobra
+            espaço; xl volta a 34px porque ali entram quatro. O tamanho segue a
+            largura da coluna, não a da tela.
+
+            O `whitespace-nowrap` fica como trava final: se alguém editar um
+            número para algo mais longo, ele transborda de forma visível na
+            revisão em vez de quebrar em silêncio. */}
+        <div className="mx-auto w-full max-w-[1440px] px-6 pb-14 md:px-10 md:pb-20">
+          <Reveal className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 xl:grid-cols-4">
+            {STATS.map((s, i) => (
+              <div
+                key={s.label}
+                /* A divisória mora no ITEM, não no container, porque precisa
+                   sumir em quem abre cada linha da grade — e "primeiro da
+                   linha" muda com o breakpoint, coisa que `divide-x` não sabe
+                   fazer. Com quatro itens fixos dá para resolver pelo índice:
+                     • 2 colunas (sm+): borda nos ímpares, que são a coluna da
+                       direita;
+                     • 4 colunas (xl+): borda em todos menos o primeiro.
+                   No telefone, uma coluna só, não há borda vertical nenhuma. */
+                className={[
+                  i % 2 === 1 ? "sm:border-l sm:border-white/15 sm:pl-10" : "",
+                  i > 0 ? "xl:border-l xl:border-white/15 xl:pl-10" : "",
+                ].join(" ")}
+              >
+                <span className="mb-4 block text-brand">
+                  <StatIcon name={s.icon} />
+                </span>
+                <div className="whitespace-nowrap text-[34px] font-bold leading-none tracking-[-1.2px] text-white md:text-[38px] xl:text-[34px] 2xl:text-[40px]">
                   <Counter value={s.value} />
                 </div>
                 <div className="mt-3 max-w-[240px] text-[15px] leading-[1.45] text-white/70">
@@ -255,34 +547,80 @@ export default async function AboutV2Page() {
 
       {/* ── Block 2 · Our Identity ────────────────────────────────────
           "Two column. Photograph left, quote right. Four pillar cards in a row
-          beneath, full width." Fundo escuro, section label vermelho, aspas
-          vermelhas como elemento de display — tudo isso é do outline. */}
-      <section id="identity" className="bg-ink-2 text-white">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
-            {/* A foto de grupo do time pedida pelo outline ("the CDNA team group
-                photograph supplied with the slide") não veio com os anexos, e
-                não existe no repositório: as fotos de `public/dna-time` são de
-                eventos e de turmas de programa, não do time da CDNA. Passar uma
-                delas por foto do time seria dizer algo falso na página. */}
+          beneath, full width." (outline)
+
+          REDESENHADO em 08-09 sobre a referência da Explore Performance que a
+          Rhea aprovou (`docs/rhea-feedback/about-explore.png`): fundo BRANCO,
+          foto sangrando até a borda e ocupando a altura inteira da faixa, texto
+          na outra metade. A Explore põe o texto à esquerda e a foto à direita;
+          aqui é espelhado — foto à esquerda —, que é o lado que o outline da
+          Maliha pede e o que a imagem de página inteira dela mostra.
+
+          O QUE MUDOU DO QUE ESTAVA: a faixa era `bg-ink-2` (escura) e a foto era
+          uma caixa 4:3 solta dentro do container, com respiro dos dois lados.
+          Agora a foto é uma COLUNA DA GRADE, sem padding e sem `aspect`, e é o
+          texto ao lado que define a altura — as duas células de uma grade se
+          esticam para a mais alta por padrão, então `absolute inset-0` na foto
+          faz ela preencher o que sobrar, seja qual for o tamanho do texto. É por
+          isso que não há altura fixa em lugar nenhum aqui.
+
+          `min-h-[360px]` só vale abaixo de `lg`: empilhado, a coluna da foto não
+          tem irmã para copiar a altura e colapsaria para zero. Em `lg` o
+          `min-h-0` devolve o controle para o esticamento da grade.
+
+          OS QUATRO PILARES ficaram FORA do split, em faixa própria de largura
+          cheia, como o outline manda ("in a row beneath, full width"). A
+          consequência é que a foto preenche a altura do par foto+citação, não a
+          da seção inteira até o fim dos cards. Para a foto descer até lá os
+          pilares teriam de ir para dentro da coluna da direita, em 2x2 — o que
+          contraria o outline e espreme quatro textos em meia largura. Fica como
+          está até alguém pedir o contrário. */}
+      <section id="identity" className="bg-white text-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* ⚠️ A FOTO DO TIME AINDA NÃO EXISTE. O outline pede "the CDNA team
+              group photograph supplied with the slide", que não veio com os
+              anexos, e não há substituto no repositório: as 25 fotos de
+              `public/dna-time` são de eventos e de turmas de programa, não do
+              time da CDNA. Passar uma delas por foto do time seria dizer algo
+              falso na página, então fica o placeholder — agora do tamanho real
+              que a foto vai ocupar, o que também serve para o cliente ver o
+              recorte que precisa mandar (vertical, alto). */}
+          <div className="relative min-h-[360px] lg:min-h-0">
             <ImagePlaceholder
-              className="aspect-[4/3] w-full border-white/15 bg-white/5 text-white/45"
+              className="absolute inset-0 h-full w-full"
               label="CDNA team photograph"
             />
+          </div>
 
-            <div>
+          <div className="flex items-center px-6 py-16 md:px-10 md:py-20 lg:px-14">
+            <div className="w-full max-w-[680px]">
               <Eyebrow>Keeping Leadership Real</Eyebrow>
-              {/* Aspas vermelhas de abertura e fechamento como elemento gráfico,
-                  fora do fluxo do texto — `aria-hidden` porque quem usa leitor
-                  de tela já recebe a citação pelo <blockquote>. */}
-              <blockquote className="relative">
+              {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
+                  em 08-09 contra a referência.
+
+                  Como estava: a aspa de abertura era `absolute -left-1 -top-6`,
+                  ou seja, pendurada ACIMA da primeira linha e quase colada na
+                  margem. Na referência ela está na mesma altura da primeira
+                  linha, recuada num vão à esquerda, e o texto todo começa depois
+                  dela. É a diferença entre "aspa flutuando sobre a citação" e
+                  "citação recuada com a aspa na margem", que é o desenho certo.
+
+                  Por isso o `pl-9` no <blockquote>: ele abre o vão de 36px onde
+                  a aspa mora, e todo o corpo passa a se alinhar à direita dela,
+                  inclusive as linhas seguintes e a assinatura. Sem o padding a
+                  aspa `absolute` cairia por cima da primeira palavra.
+
+                  `aria-hidden` nas duas: quem usa leitor de tela já recebe a
+                  citação pelo <blockquote>, e "aspas duplas" lido em voz alta é
+                  ruído. */}
+              <blockquote className="relative pl-9">
                 <span
                   aria-hidden
-                  className="absolute -left-1 -top-6 select-none font-serif text-[64px] leading-none text-brand"
+                  className="absolute left-0 top-0 select-none font-serif text-[44px] leading-[0.9] text-brand"
                 >
                   “
                 </span>
-                <p className="text-[16.5px] leading-[1.65] text-white/85 md:text-[17.5px]">
+                <p className="text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
                   At CDNA, <span className="font-semibold text-brand">Keeping It Real</span>{" "}
                   isn’t a slogan; it’s how we work. We speak with honesty, design
                   with truth, and deliver with the same authenticity we expect
@@ -290,29 +628,47 @@ export default async function AboutV2Page() {
                   are human, and our programmes are built from real, lived
                   experience, not theory.
                 </p>
-                <p className="mt-5 text-[16.5px] leading-[1.65] text-white/85 md:text-[17.5px]">
+                <p className="mt-5 text-[16.5px] leading-[1.65] text-ink/80 md:text-[17.5px]">
                   CEOs and CHROs respect us for keeping it relevant, resilient,
                   and real.
+                  {/* A aspa de fechamento acompanha a de abertura: mesmo corpo
+                      (44px) e na altura da linha, não pendurada abaixo dela.
+
+                      `leading-[0]` é o detalhe que faz funcionar. Sem ele, um
+                      glifo de 44px dentro de um parágrafo de 17,5px ESTICA a
+                      caixa da última linha e abre um buraco entre ela e a
+                      assinatura. Com altura de linha zero o glifo transborda da
+                      própria caixa sem empurrar nada, e o `translate-y` o traz
+                      para o nível do texto — a aspa serifada nasce muito acima
+                      da linha de base. */}
                   <span
                     aria-hidden
-                    className="ml-2 inline-block translate-y-3 select-none font-serif text-[48px] leading-none text-brand"
+                    className="ml-1.5 inline-block translate-y-[0.22em] select-none font-serif text-[44px] leading-[0] text-brand"
                   >
                     ”
                   </span>
                 </p>
-                <footer className="mt-6 text-[14px] font-semibold tracking-[0.2px] text-white">
+                <footer className="mt-6 text-[14px] font-semibold tracking-[0.2px] text-ink">
                   Rhea Leckie, Founder &amp; CEO of CDNA Consulting
                 </footer>
               </blockquote>
             </div>
           </div>
+        </div>
 
-          {/* Quatro cards brancos, título vermelho, corpo em `ink`. Quatro no
-              desktop, dois por dois no tablet, empilhados no telefone — a grade
-              é a que o outline descreve. `items-stretch` dá altura igual. */}
-          <div className="mt-12 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Quatro pilares, largura cheia, como o outline descreve.
+            `items-stretch` dá altura igual aos quatro.
+
+            O CARD GANHOU BORDA porque a faixa virou branca. Antes ele era
+            `bg-white` puro sobre `bg-ink-2`, e o contraste com o fundo escuro é
+            que desenhava o card. Em cima de branco, branco no branco some — não
+            haveria card nenhum, só quatro blocos de texto soltos. A borda em
+            `line` (#ece9e6) é o traço mais leve do sistema, o mesmo que o
+            ImagePlaceholder usa, e devolve a silhueta sem pesar. */}
+        <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-12 md:px-10 md:pb-20 md:pt-16">
+          <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
-              <div key={p.heading} className="bg-white p-6">
+              <div key={p.heading} className="border border-line bg-white p-6">
                 <h3 className="text-[16px] font-bold leading-[1.25] text-brand">
                   {p.heading}
                 </h3>
@@ -417,7 +773,7 @@ export default async function AboutV2Page() {
           Sem os ícones da imagem: não existe esse jogo de ícones no site, e os
           campos de CMS do outline são { name, body }, sem ícone. */}
       <section id="values" className="bg-white">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <div className="flex flex-col items-center text-center">
             <Eyebrow>What we believe, and how we work.</Eyebrow>
             <p className="max-w-[760px] text-[18px] leading-[1.5] text-ink md:text-[20px]">
@@ -450,7 +806,7 @@ export default async function AboutV2Page() {
           WorldCoverageMap pinta países e marca as cidades das regiões do CMS,
           nunca clientes, então já é esse nível. */}
       <section id="regions" className="bg-white">
-        <div className="mx-auto max-w-[1200px] px-6 pt-16 md:px-10 md:pt-20">
+        <div className="mx-auto max-w-[1440px] px-6 pt-16 md:px-10 md:pt-20">
           <Eyebrow>Where we work.</Eyebrow>
           <p className="mb-12 max-w-[620px] text-[18px] leading-[1.5] text-ink md:text-[20px]">
             With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
@@ -474,7 +830,7 @@ export default async function AboutV2Page() {
           ser o que o texto do outline pede. As cinco regiões abaixo continuam em
           cinco, porque lá o texto é curto e cabe. */}
       <section className="bg-paper">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {OFFICES.map((o) => (
               <div key={o.city} className="flex flex-col bg-white p-6">
@@ -541,7 +897,7 @@ export default async function AboutV2Page() {
           a única versão do bloco que o cliente mandou. O `link_card` fica de
           fora até o texto do bloco 7 chegar. */}
       <section className="bg-ink text-white">
-        <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-8 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
           <p className="text-[26px] font-bold leading-[1.15] tracking-[-0.6px] md:text-[32px]">
             Let’s make leadership real.
           </p>
@@ -554,6 +910,8 @@ export default async function AboutV2Page() {
           </Link>
         </div>
       </section>
-    </SiteShell>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

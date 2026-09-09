@@ -66,12 +66,26 @@ function Chevron({ className = "" }: { className?: string }) {
  * abre como lista de leitura, e largar linha de texto até a borda numa tela
  * grande piora a leitura em vez de melhorar.
  */
+/**
+ * `maxWidthClass` — a largura do container quando `wide` está desligado.
+ *
+ * Nasceu em 08-09 para a /about-v2, que levou o conteúdo para 1440px e pediu
+ * este menu transparente: com o padrão de 1200 o logo ficaria 120px à direita
+ * da borda do título, o mesmo defeito que a prop `wide` resolveu para a
+ * /home-v3, só que num tamanho intermediário.
+ *
+ * Prop com valor padrão em vez de trocar o número aqui dentro: a /home-v2 usa
+ * este mesmo componente e continua em 1200. Mudar a constante alinharia a
+ * about e desalinharia a home no mesmo commit.
+ */
 export default function NavV2({
   items = siteNav,
   wide = false,
+  maxWidthClass = "max-w-[1200px]",
 }: {
   items?: NavItem[];
   wide?: boolean;
+  maxWidthClass?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
@@ -86,7 +100,7 @@ export default function NavV2({
     >
       <div
         className={`mx-auto flex h-[76px] items-center justify-between gap-6 px-6 md:px-10 ${
-          wide ? "w-full" : "max-w-[1200px]"
+          wide ? "w-full" : maxWidthClass
         }`}
       >
         <Link
