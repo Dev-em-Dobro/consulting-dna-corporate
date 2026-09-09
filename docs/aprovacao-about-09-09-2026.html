@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+
+  :root {
+    --brand: #d84339;
+    --brand-dark: #b5342b;
+    --ink: #373234;
+    --ink-2: #2f2b2c;
+    --paper: #f3f3f3;
+    --line: #ece9e6;
+    --muted: #6b6b6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* --- Cover --------------------------------------------------------------- */
+  .cover {
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    padding: 40px 40px 36px;
+    margin: 0 0 30px;              /* contained within @page margins — no bleed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cover::after {                  /* red accent stripe down the left edge */
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--brand);
+  }
+  .cover .brandbar {
+    width: 60px; height: 4px; background: var(--brand);
+    border-radius: 2px; margin-bottom: 26px;
+  }
+  .cover img.logo {
+    height: 40px; width: auto; display: block;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1);   /* white lockup on dark cover */
+  }
+  .cover h1 {
+    font-size: 27pt; line-height: 1.12; font-weight: 700;
+    margin: 0 0 14px; letter-spacing: -0.01em; max-width: 30ch;
+    color: #fff;                        /* override the dark global h1 color */
+    border-bottom: none; padding: 0; page-break-before: avoid;
+  }
+  .cover .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--brand); font-weight: 600; margin: 0 0 10px;
+  }
+  .cover .meta {
+    font-size: 9pt; color: rgba(255,255,255,.72); max-width: 74ch;
+    line-height: 1.6; margin: 18px 0 0;
+  }
+  .cover .meta strong { color: #fff; font-weight: 600; }
+
+  /* --- Typography --------------------------------------------------------- */
+  h1, h2, h3 { font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; }
+
+  h1 {                                  /* "Part A / B ..." top-level */
+    font-size: 17pt; margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--brand);
+    page-break-before: always;
+  }
+  h1:first-of-type { page-break-before: avoid; }
+
+  h2 {
+    font-size: 13pt; margin: 26px 0 10px; color: var(--brand-dark);
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 20px 0 8px; color: var(--ink-2);
+    page-break-after: avoid;
+  }
+
+  p { margin: 0 0 10px; }
+
+  a { color: var(--brand-dark); text-decoration: none; }
+
+  strong { font-weight: 600; color: var(--ink-2); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; }
+  li::marker { color: var(--brand); }
+
+  hr {
+    border: none; border-top: 1px solid var(--line);
+    margin: 22px 0;
+  }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--paper); border-left: 4px solid var(--brand);
+    border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Tables ------------------------------------------------------------- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0 18px;
+    font-size: 9.5pt; page-break-inside: avoid;
+  }
+  thead th {
+    background: var(--ink); color: #fff; text-align: left;
+    font-weight: 600; padding: 8px 10px; font-size: 9pt;
+  }
+  tbody td {
+    padding: 7px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* Keep list items and headings from breaking awkwardly across pages */
+  li, blockquote { page-break-inside: avoid; }
+
+  .footer-note {
+    margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <header class="cover">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgaWQ9IkNhbWFkYV8yIiBkYXRhLW5hbWU9IkNhbWFkYSAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAuNTcgODUuMzIiPg0KICA8ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAuY2xzLTEgew0KICAgICAgICBmaWxsOiAjZDc0NDM4Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTIgew0KICAgICAgICBmaWxsOiAjNTc1NjU2Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTMgew0KICAgICAgICBpc29sYXRpb246IGlzb2xhdGU7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8ZyBpZD0iQ2FtYWRhXzEtMiIgZGF0YS1uYW1lPSJDYW1hZGEgMSI+DQogICAgPGcgaWQ9IkdydXBvXzQiIGRhdGEtbmFtZT0iR3J1cG8gNCI+DQogICAgICA8ZyBpZD0iRE5BIiBjbGFzcz0iY2xzLTMiPg0KICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUuMTgsMjAuNTNjMy40NS02LjQ3LDguMzUtMTEuNSwxNC43LTE1LjExQzI2LjIyLDEuOCwzMy41MiwwLDQxLjc3LDBjMTAuNDcsMCwxOS4yOCwyLjgsMjYuNDIsOC4zOSw3LjE0LDUuNTksMTEuNzQsMTMuMTksMTMuOCwyMi43OWgtMjUuMTFjLTEuNTEtMy4xNy0zLjU5LTUuNTktNi4yNS03LjI2LTIuNjYtMS42Ny01LjczLTIuNS05LjIyLTIuNS01LjQsMC05LjcsMS45Mi0xMi45MSw1Ljc3LTMuMjEsMy44NS00LjgyLDguOTgtNC44MiwxNS40MXMxLjYxLDExLjY4LDQuODIsMTUuNTNjMy4yMSwzLjg1LDcuNTIsNS43NywxMi45MSw1Ljc3LDMuNDksMCw2LjU2LS44Myw5LjIyLTIuNSwyLjY2LTEuNjcsNC43NC00LjA4LDYuMjUtNy4yNmgyNS4xMWMtMi4wNiw5LjYtNi42NiwxNy4yLTEzLjgsMjIuNzktNy4xNCw1LjU5LTE1Ljk1LDguMzktMjYuNDIsOC4zOS04LjI1LDAtMTUuNTUtMS44LTIxLjktNS40MS02LjM1LTMuNjEtMTEuMjUtOC42NS0xNC43LTE1LjExQzEuNzMsNTguMzMsMCw1MC45MywwLDQyLjZzMS43My0xNS42MSw1LjE4LTIyLjA3WiIvPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTE0OC4zMyw2LjEzYzYuNjIsMy41MywxMS43Miw4LjQ3LDE1LjI5LDE0LjgyLDMuNTcsNi4zNSw1LjM2LDEzLjYxLDUuMzYsMjEuNzhzLTEuODEsMTUuMzEtNS40MiwyMS42NmMtMy42MSw2LjM1LTguNzMsMTEuMzMtMTUuMzUsMTQuOTMtNi42MiwzLjYxLTE0LjMsNS40MS0yMy4wMyw1LjQxaC0zMy4yVi44M2gzMy4yYzguODEsMCwxNi41MiwxLjc3LDIzLjE1LDUuMjlaTTEzOS40Nyw1OC41NWMzLjg5LTMuNzMsNS44My05LDUuODMtMTUuODNzLTEuOTQtMTIuMjQtNS44My0xNi4wMWMtMy44OS0zLjc3LTkuMjQtNS42NS0xNi4wNi01LjY1aC04LjA5djQzLjA4aDguMDljNi44MiwwLDEyLjE4LTEuODYsMTYuMDYtNS41OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yNTYuMDksODQuNzNoLTIzLjMybC0zMS4wNi00Ni44OXY0Ni44OWgtMjMuMzJWLjgzaDIzLjMybDMxLjA2LDQ3LjQ4Vi44M2gyMy4zMnY4My44OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjEuNDIsNzEuMDRoLTI5Ljc1bC00LjUyLDEzLjY4aC0yNC41MUwyOTMuMjEuODNoMjYuODlsMzAuNDYsODMuODloLTI0LjYzbC00LjUyLTEzLjY4Wk0zMTUuNTksNTMuMTlsLTkuMDQtMjcuMTMtOC45MiwyNy4xM2gxNy45N1oiLz4NCiAgICAgICAgPC9nPg0KICAgICAgPC9nPg0KICAgIDwvZz4NCiAgPC9nPg0KPC9zdmc+" alt="Corporate DNA" />
+    <p class="eyebrow">Para aprovação</p>
+    <h1>About — aprovação seção a seção</h1>
+    <div class="brandbar"></div>
+    <p class="meta"><strong>Dev em Dobro.</strong> Proposta da página About em <code>/about-v2</code>, para aprovação seção a seção. 09 de setembro de 2026.</p>
+  </header>
+
+  <main>
+    <p><strong>Link:</strong> <a href="https://consulting-dna-corporate-alpha.vercel.app/about-v2">https://consulting-dna-corporate-alpha.vercel.app/about-v2</a></p>
+<p>Se algo parecer igual ao que tu já viu, recarrega segurando <strong>Ctrl+Shift+R</strong> — o
+navegador guarda o estilo antigo, foi o que confundiu da outra vez.</p>
+<p>Como usar: cada bloco abaixo tem <strong>O QUE É</strong>, <strong>O QUE OLHAR</strong> e, quando existe,
+<strong>PENDENTE</strong>. Responde em cima de cada número — &quot;ok&quot; ou o que quiser mudar. O que
+está em PENDENTE não precisa de resposta agora, é o que já sabemos que falta.</p>
+<p>Uma coisa antes: <strong>isto é uma proposta, não o site.</strong> A rota é <code>/about-v2</code>, está
+fora do menu e fora do Google. A <code>/our-identity</code> que está no ar não muda por nada
+daqui até tu aprovar.</p>
+<hr>
+<h2>0. A tipografia — vale para a página inteira</h2>
+<p>Este é o item mais importante da lista, porque ele muda todos os outros.</p>
+<p><strong>O QUE É.</strong> A Rhea disse que a tipografia do site está &quot;quadrada demais&quot; e
+apontou a Explore Performance como referência. A Poppins que usamos hoje é uma
+geométrica — o <code>o</code> é um círculo perfeito — e no peso que a página usava em todo
+título isso lê como bloco.</p>
+<p>A página agora está com <strong>duas famílias novas</strong>: Geist e Source Serif 4. E elas
+estão <strong>invertidas</strong> em relação ao que a grade original propunha: os títulos
+estão na <strong>serifa</strong> e o texto corrido na <strong>grotesca</strong>.</p>
+<p><strong>O QUE OLHAR.</strong> Se o conjunto lê como &quot;consultoria que escreve&quot; ou como
+&quot;apresentação corporativa&quot;. É a pergunta toda.</p>
+<p><strong>PARA TUA INFORMAÇÃO.</strong> Medimos o site da Explore: o h1 deles é 52px, peso 500,
+entrelinha 1,1 — exatamente os números que a grade pedia. Mesmo assim o deles lê
+mais forte, porque a fonte deles (Platform Web) tem um peso 500 bem mais cheio
+que o da Geist, e porque o título deles tem 103 caracteres em três linhas
+enquanto o nosso tem uma linha curta. <strong>Metade da &quot;presença&quot; que falta é copy, não
+tipografia</strong> — se quiserem aquele peso, o caminho é um título mais longo.</p>
+<hr>
+<h2>1. Herói</h2>
+<p><strong>O QUE É.</strong> Rótulo &quot;ABOUT&quot;, título, linha de apoio e a foto que a Maliha mandou,
+tudo ocupando a primeira tela inteira, com a faixa dos quatro números na base.</p>
+<p><strong>O QUE OLHAR.</strong></p>
+<ul>
+<li>O menu ficou em caixa baixa, com o Contact virando botão vermelho sólido, e o
+item da página atual ganha uma régua vermelha embaixo.</li>
+<li>A faixa de números <strong>encolheu de propósito</strong>. Medimos: ela ocupava 24% da
+primeira tela contra 19% da mensagem — a prova tomava mais espaço que o
+recado. Agora está em 18,7% contra 19,2%.</li>
+<li>No telefone a foto desceu para o terço de baixo e o texto ficou sobre fundo
+limpo. Os quatro números viraram 2x2.</li>
+</ul>
+<p><strong>PENDENTE.</strong></p>
+<ul>
+<li><strong>Não existe nenhuma chamada para ação na primeira tela.</strong> O visitante lê o
+título, lê a linha de apoio, vê os números e não tem para onde ir além de
+rolar. Isso é decisão de conteúdo, não de layout.</li>
+<li>O <code>36 countries</code> veio entre colchetes no documento da Maliha — número a
+confirmar.</li>
+<li>O arquivo da foto tem 1373px de largura e veio pelo WhatsApp (recomprimido).
+Numa tela de 1920 ele amolece. O conserto é a Maliha mandar o original.</li>
+</ul>
+<hr>
+<h2>2. Our Identity — foto do time + citação da Rhea</h2>
+<p><strong>O QUE É.</strong> Foto do time de um lado, citação do outro, e os quatro pilares
+embaixo.</p>
+<p><strong>O QUE OLHAR.</strong></p>
+<ul>
+<li>A citação agora <strong>encavala a borda da foto</strong>, seguindo a referência de card
+que o Beto mandou. A sobreposição é curta — 64px, cerca de 10% da largura da
+foto — justamente porque é foto de GRUPO: na referência o card cobre um quarto
+da imagem, e ali é retrato de uma pessoa só. Um quarto aqui seriam duas ou três
+pessoas tapadas.</li>
+<li>Os <strong>quatro pilares viraram cards pretos</strong>, trazendo de volta as black boxes do
+site antigo que a Rhea pediu. Eles não têm efeito de hover de propósito: não
+são clicáveis, e preenchimento no hover promete um link que não existe.</li>
+</ul>
+<p><strong>PENDENTE.</strong></p>
+<ul>
+<li><strong>A FOTO DO TIME NÃO EXISTE AQUI.</strong> O que está na tela é um retângulo cinza
+marcando o tamanho e o recorte. O documento da Maliha diz &quot;the CDNA team group
+photograph supplied with the slide&quot; — a foto está no <em>approved Our Identity
+slide</em>, do <code>CDNA Overview Deck Final 22 Jan 2026.pdf</code>. Do lado de vocês ela já
+foi entregue; até nós ela não chegou. <strong>É o pedido mais urgente desta lista.</strong></li>
+<li>Não usamos nenhuma das 25 fotos que temos no lugar: são de eventos e de turmas
+de programa, não do time da CDNA. Passar uma delas por foto do time seria dizer
+algo falso na página.</li>
+</ul>
+<hr>
+<h2>3. Our Purpose</h2>
+<p><strong>O QUE É.</strong> O bloco escuro com foto de fundo e a citação da Rhea sobre a origem
+da CorporateDNA.</p>
+<p><strong>O QUE OLHAR.</strong></p>
+<ul>
+<li>Segue a seção equivalente da Explore, que vocês mandaram: foto de sangria
+total, escurecida, texto branco centralizado.</li>
+<li>A foto é a da home — a mulher no palco com o público em volta. Reaproveitada de
+propósito: o bloco que fala do PROPÓSITO mostra o trabalho acontecendo.</li>
+<li>O texto senta num <strong>painel de vidro</strong> (translúcido e desfocado). Não é enfeite:
+ele é o que permite a foto aparecer mais sem o texto perder legibilidade.</li>
+</ul>
+<p><strong>⚠️ CONTRARIA O DOCUMENTO.</strong> O texto da Maliha pede, em letra, <em>&quot;Light ground&quot;</em> —
+fundo claro — para este bloco. O pedido de escurecer veio depois, do Beto, então
+ganha do documento. Está registrado aqui para ninguém descobrir isso mais tarde.</p>
+<hr>
+<h2>4. Our Promise</h2>
+<p><strong>O QUE É.</strong> Bloco de fundo claro, coluna única e estreita, fechando com a frase
+vermelha &quot;We invite you to experience the DNA Partnership.&quot;</p>
+<p><strong>O QUE OLHAR.</strong> A medida do texto é <strong>mais estreita</strong> que a dos blocos vizinhos.
+Isso é intencional e vem do documento: <em>&quot;narrower measure than the surrounding
+blocks, to signal a change of register.&quot;</em></p>
+<p><strong>NOTA.</strong> O documento da Maliha e a imagem que ela mandou discordam aqui: a
+imagem põe este bloco em duas colunas, o texto escrito pede coluna única.
+Seguimos o texto, porque ele é a instrução escrita para o desenvolvimento.</p>
+<hr>
+<h2>5. Our Values</h2>
+<p><strong>O QUE É.</strong> Os cinco valores, cada um com ícone vermelho e título preto.</p>
+<p><strong>O QUE OLHAR.</strong></p>
+<ul>
+<li>Os <strong>ícones entraram agora</strong>. Eles já estavam na referência de página inteira
+da Maliha — lâmpada, folha, duas pessoas, alvo e escudo — e foram desenhados à
+mão, um a um, na mesma linguagem dos ícones dos números.</li>
+<li><strong>O título ficou preto, e aí divergimos da referência</strong>, que tem ícone e título
+os dois em vermelho. Com o ícone vermelho em cima e a régua vermelha ao lado,
+um título também vermelho seria a terceira marca da mesma cor no mesmo card, e
+o vermelho pararia de significar alguma coisa.</li>
+</ul>
+<p><strong>PENDENTE.</strong></p>
+<ul>
+<li>O documento diz que <strong>três dos cinco nomes estão em HOLD</strong> (&quot;shown in brackets,
+pending confirmation&quot;) mas não diz quais — a tabela dele traz os cinco sem
+colchete. Estão no ar como escritos. Quais são os três?</li>
+<li>O documento pede que os nomes virem campo de CMS, para trocar sem depender de
+nós. Combinado, quando a página for para valer.</li>
+<li>Um efeito colateral dos ícones: o campo de CMS passa a ser
+<code>{ nome, texto, ícone }</code>, e &quot;ícone&quot; não é texto livre — é uma chave para um
+desenho que existe no código. Se um valor novo for cadastrado com um nome de
+ícone que não existe, ele sai sem ícone. <strong>Esse campo tem que ser lista
+fechada no CMS, não campo aberto.</strong></li>
+</ul>
+<hr>
+<h2>6. Where we work — mapa, escritórios e regiões</h2>
+<p><strong>O QUE É.</strong> A frase de abertura, o mapa mundi, os cinco escritórios e as cinco
+regiões.</p>
+<p><strong>O QUE OLHAR.</strong></p>
+<ul>
+<li>A <strong>sexta vaga da grade de escritórios virou o botão de contato</strong>. Cinco cards
+numa grade de três deixavam um buraco embaixo à direita, e buraco em grade lê
+como conteúdo que não carregou.</li>
+<li>As linhas de contato dos cinco cards agora <strong>terminam todas na mesma altura</strong>,
+mesmo com Riade tendo três linhas de endereço e Miami duas.</li>
+</ul>
+<p><strong>PENDENTE — e aqui tem um problema de dado, não de design.</strong></p>
+<p>Três dos cinco escritórios estão <strong>diferentes</strong> do que o site publica hoje:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Documento da Maliha</th>
+<th>O site no ar</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Singapura</td>
+<td>1 Raffles Place, Level 24, Tower 1, 048616 — +65 6408 0636</td>
+<td>The Great Room, Afro Asia, 63 Robinson Road, Level 8, 068894 — +65 6995 2480</td>
+</tr>
+<tr>
+<td>Dubai</td>
+<td>telefone +971 58 141 2901</td>
+<td>o próprio documento diz, duas linhas abaixo, que Dubai &quot;has no contact details published anywhere&quot;</td>
+</tr>
+<tr>
+<td>Miami</td>
+<td>sem telefone</td>
+<td>+1 305-374-4611</td>
+</tr>
+</tbody></table>
+<p>Não escrevemos nada disso nos dados do site: mudaria a home e a Our Team sem
+ninguém ter confirmado qual versão está certa. <strong>Qual vale?</strong></p>
+<p>Mais três pontos:</p>
+<ul>
+<li>Os <strong>descritores das cinco regiões estão em HOLD</strong> no documento. O que está na
+tela é o texto que aparece na própria imagem da Maliha — placeholder de vocês,
+não copy nossa.</li>
+<li>O &quot;faculty of over 75 senior practitioners&quot; está pendente de confirmação.</li>
+<li><strong>O botão da sexta vaga está sem frase.</strong> Ele pede uma linha do tipo &quot;não tem
+escritório perto? falamos com você&quot; — e a gente não escreve isso, porque vocês
+pediram para pararmos de gerar copy. Manda a frase e ela entra.</li>
+</ul>
+<p><strong>OBSERVAÇÃO NOSSA, para discussão.</strong> As cinco tiles de região repetem, em texto,
+o que o mapa logo acima mostra melhor. Se fizer sentido, elas poderiam virar uma
+linha fina de rótulos embaixo do mapa em vez de cinco cards concorrendo com os
+cards de endereço. O documento pede as regiões, então elas ficam — a pergunta é
+se ficam com esse peso.</p>
+<hr>
+<h2>7. Fecho</h2>
+<p><strong>O QUE É.</strong> A faixa escura com &quot;Let&#39;s make leadership real.&quot; e o botão.</p>
+<p><strong>PENDENTE.</strong> O documento diz &quot;seven blocks&quot; e descreve seis. <strong>O corpo do sétimo
+nunca chegou</strong> — sobrou só a linha de campos de CMS
+(<code>repeatable link_card { heading, body, cta_label, cta_url }</code>), que descreve
+cards de navegação, e não a faixa que está na imagem. O que está no ar é a versão
+da imagem, porque é a única que existe.</p>
+<hr>
+<h2>8. Duas coisas fora das seções</h2>
+<p><strong>O BREADCRUMB SAIU.</strong> O documento pede em letra: <em>&quot;Breadcrumb at the top of the
+page: Home / About&quot;</em>. Foi tirado a pedido do Beto, depois do documento. Está
+registrado porque a ausência é deliberada, não esquecimento.</p>
+<p><strong>AS ROTAS.</strong> O documento pede para renomear <code>/about</code>, <code>/services</code>, <code>/team</code>,
+<code>/clients-impact</code>, <code>/contact</code> e <code>/books</code>, com redirecionamento das atuais.
+<strong>Isso não está feito</strong> — é trabalho de redirects e sitemap, separado desta
+página, e contradiz o menu que já subiu para produção. Precisa de decisão antes
+do lançamento.</p>
+<hr>
+<h2>Resumo do que precisamos de vocês</h2>
+<ol>
+<li><strong>A foto do time</strong> (está no <em>approved Our Identity slide</em>). É o que trava o
+bloco 2.</li>
+<li><strong>Quais três nomes de valores</strong> estão em HOLD.</li>
+<li><strong>Qual endereço vale</strong> para Singapura, e o telefone de Dubai e de Miami.</li>
+<li><strong>Os descritores das cinco regiões.</strong></li>
+<li><strong>A frase do botão de contato</strong> na grade de escritórios.</li>
+<li><strong>O corpo do bloco 7.</strong></li>
+<li>Confirmação de <strong>&quot;36 countries&quot;</strong> e de <strong>&quot;over 75 senior practitioners&quot;</strong>.</li>
+<li>Decisão sobre <strong>renomear as rotas</strong>.</li>
+<li>Se querem uma <strong>chamada para ação na primeira tela</strong>.</li>
+</ol>
+
+  </main>
+
+  <p class="footer-note">Corporate DNA — About · aprovação seção a seção · Dev em Dobro · 09/09/2026</p>
+</body>
+</html>

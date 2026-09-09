@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { marked } from "marked";
 
-const [, , inPath, outPath, metaArg, footerArg] = process.argv;
+const [, , inPath, outPath, metaArg, footerArg, eyebrowArg] = process.argv;
 
 const META =
   metaArg ??
@@ -21,6 +21,12 @@ const META =
 const FOOTER =
   footerArg ??
   "Corporate DNA — Making Leadership Real · Dev em Dobro · Status update 10/08/2026";
+// Cover kicker. Defaults to the original wording so every earlier invocation
+// still reproduces its document byte for byte — same contract as META and
+// FOOTER above. Overridden for documents that are not status updates: the
+// 09-09 About approval sheet is a review form, not a status report, and the
+// kicker is the first thing the client reads.
+const EYEBROW = eyebrowArg ?? "Implementation Status";
 const md = readFileSync(inPath, "utf8");
 const logo = readFileSync("public/cdna-logo-horizontal.svg", "utf8");
 const logoData =
@@ -185,7 +191,7 @@ const page = `<!doctype html>
 <body>
   <header class="cover">
     <img class="logo" src="${logoData}" alt="Corporate DNA" />
-    <p class="eyebrow">Implementation Status</p>
+    <p class="eyebrow">${EYEBROW}</p>
     <h1>${h1}</h1>
     <div class="brandbar"></div>
     <p class="meta">${META}</p>
