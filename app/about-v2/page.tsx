@@ -1399,18 +1399,34 @@ export default async function AboutV2Page() {
 
             Com o painel eles se separam em dois controles independentes:
 
-              véu da seção  68%  → manda em quanto da foto aparece
-              painel        65%  → manda em quanto contraste o texto tem
+              véu da seção  78%  → manda em quanto da foto aparece
+              painel        62%  → manda em quanto contraste o texto tem
 
-            Por isso o véu pôde cair de 78% para 68% SEM que o texto perdesse
-            nada: o que segura a legibilidade agora é o painel, não o véu. A
-            vinheta saiu junto — ela existia só para simular o assento que o
-            painel agora dá de verdade.
+            ⚠️ A COR DOS DOIS NÃO É MAIS O `ink` (09-09, terceiro ajuste). O
+            `ink` é #373234 — um cinza QUENTE, não um preto —, e um véu feito
+            dele deixa a seção inteira cinza por definição, por mais opacidade
+            que se ponha. O pedido foi "mais preto mesmo", e isso é cor, não
+            opacidade: as duas camadas passam a rgb(22,19,20), que é o mesmo
+            matiz do `ink` com a luminosidade lá embaixo. Continua quente — não
+            é preto puro, que ao lado de uma foto de luz incandescente ficaria
+            azulado por contraste simultâneo.
 
-            O 68% é o segundo valor. A primeira tentativa foi 42%, aproveitando
+            O PAINEL TEVE DE ACOMPANHAR, e não é detalhe: ele é composto POR CIMA
+            do véu. Deixá-lo em `ink` cinza enquanto o entorno vira quase-preto
+            faria dele a área mais CLARA da seção, invertendo exatamente o papel
+            que ele tem — o assento escuro do texto viraria uma mancha clara no
+            meio de um campo escuro.
+
+            Por isso o véu pôde abrir sem que o texto perdesse nada: o que
+            segura a legibilidade é o painel, não o véu. A vinheta saiu junto —
+            ela existia só para simular o assento que o painel agora dá de
+            verdade.
+
+            O 78% é o terceiro valor. A primeira tentativa foi 42%, aproveitando
             toda a folga que o painel abriu, e a foto ficou dominante demais — o
-            pedido era "levemente mais", não "o máximo que der". 68% é o
-            meio-termo entre os 78% de antes e aquele 42%.
+            pedido era "levemente mais", não "o máximo que der". Veio 68% como
+            meio-termo, e depois 78% a pedido ("aumentar em 15%"), que é o 68
+            acrescido de 15% dele mesmo e não de 15 pontos.
 
             O DESFOQUE não é enfeite: `backdrop-filter: blur` apaga o detalhe
             fino do que está atrás. Uma foto de salão cheio tem alta frequência —
@@ -1427,7 +1443,7 @@ export default async function AboutV2Page() {
         <div
           aria-hidden
           className="absolute inset-0 -z-10"
-          style={{ backgroundColor: "rgba(55, 50, 52, 0.68)" }}
+          style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
         />
         <div className="mx-auto max-w-[900px] px-6 py-20 md:px-10 md:py-28">
           {/* ⚠️ O FUNDO DO PAINEL TEM DOIS VALORES, e o mais escuro é o padrão.
@@ -1437,7 +1453,7 @@ export default async function AboutV2Page() {
               sustenta sozinho, e `supports-[backdrop-filter]` ALIVIA para 55%
               quando o desfoque está de fato disponível. Progressivo na direção
               certa: quem tem menos recurso recebe mais opacidade, não menos. */}
-          <div className="border border-white/10 bg-[rgba(55,50,52,0.8)] px-6 py-12 backdrop-blur-[14px] supports-[backdrop-filter]:bg-[rgba(55,50,52,0.65)] md:px-14 md:py-16">
+          <div className="border border-white/10 bg-[rgba(22,19,20,0.78)] px-6 py-12 backdrop-blur-[14px] supports-[backdrop-filter]:bg-[rgba(22,19,20,0.62)] md:px-14 md:py-16">
           <div className="flex flex-col items-center text-center">
             {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
                 recomendação registrada aqui. Fica o número para quem reabrir
