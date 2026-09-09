@@ -510,7 +510,16 @@ export default async function AboutV2Page() {
         } as React.CSSProperties
       }
     >
-      <NavV2 items={nav} maxWidthClass="max-w-[1440px]" outlined />
+      <NavV2
+        items={nav}
+        maxWidthClass="max-w-[1440px]"
+        outlined
+        /* Esta rota É a About; o item do menu aponta para `/our-identity`, que
+           é onde a About mora hoje. Sem isto o menu ficaria sem item marcado
+           justamente na página em que o cliente pediu a marcação. Some quando
+           esta virar a página de verdade — aí a rota casa sozinha. */
+        activeHref="/our-identity"
+      />
       <main className="flex-1">
       <JsonLd
         data={breadcrumbLd([{ name: "About", path: "/about-v2" }])}
@@ -1029,7 +1038,35 @@ export default async function AboutV2Page() {
           em meia largura. Fica como está até alguém pedir o contrário. */}
       <section id="identity" className="bg-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-14">
+          {/* A CITAÇÃO ENCAVALA A FOTO — referência de 09-09 (`ref
+              testimonial.png`): foto de um lado, card do depoimento montado por
+              cima da borda dela, deslocado na vertical.
+
+              ⚠️ A SOBREPOSIÇÃO AQUI É CURTA DE PROPÓSITO, e é a única coisa que
+              muda em relação à referência. Lá o card cobre cerca de um quarto da
+              foto, e funciona porque é o retrato de UMA pessoa: o card entra
+              pelo fundo, ao lado do rosto. A nossa é uma foto de GRUPO, e um
+              quarto da largura significa duas ou três pessoas tapadas. São 64px,
+              ~8% da largura da foto num container de 1440 — o suficiente para o
+              olho ler "um está por cima do outro", pouco o bastante para caber
+              na margem da fotografia.
+
+              A SOMBRA existe porque o card é branco sobre seção branca: nas três
+              bordas que não encostam na foto não haveria nada desenhando o card.
+              É o segundo uso de sombra no site (o primeiro é o painel do submenu
+              na nav), e por isso ela é larga, baixa e quase transparente — para
+              dizer "isto está por cima" sem virar um estilo novo.
+
+              CANTO RETO, ao contrário da referência. Mesma decisão já registrada
+              no topo do arquivo sobre os cards arredondados da imagem da Maliha:
+              o que se aproveita da referência é o arranjo, não a linguagem.
+
+              NO TELEFONE não há lado nenhum para encavalar, então o card sobe
+              32px por cima da BASE da foto e recolhe 16px de cada margem. A base
+              é a parte mais segura de uma foto de grupo (é onde ficam os
+              troncos, não os rostos), e o recuo lateral é o que faz a coisa ler
+              como card sobreposto em vez de bloco de texto encostado. */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-0">
             {/* ⚠️ A FOTO DO TIME AINDA NÃO EXISTE, e ela não é uma foto a tirar:
                 é a que já está no "approved Our Identity slide", um slide do
                 `CDNA Overview Deck Final 22 Jan 2026.pdf`. O outline diz
@@ -1052,8 +1089,7 @@ export default async function AboutV2Page() {
               />
             </div>
 
-            <div className="flex items-center py-16 md:py-20">
-              <div className="w-full max-w-[680px]">
+            <div className="relative z-10 mx-4 -mt-8 bg-white px-7 py-9 shadow-[0_18px_50px_-14px_rgba(55,50,52,0.28)] sm:mx-10 lg:mx-0 lg:-ml-16 lg:mt-0 lg:px-12 lg:py-12">
                 <TypeLabel>Keeping Leadership Real</TypeLabel>
                 {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
                     em 08-09 contra a referência.
@@ -1148,7 +1184,6 @@ export default async function AboutV2Page() {
                     Rhea Leckie, Founder &amp; CEO of CDNA Consulting
                   </footer>
                 </blockquote>
-              </div>
             </div>
           </div>
         </div>
