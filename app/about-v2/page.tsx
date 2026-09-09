@@ -1253,25 +1253,58 @@ export default async function AboutV2Page() {
                  superfície; o gesto continua sendo dos itens que levam a algum
                  lugar.
 
-                 A LUMINOSIDADE SUAVE da referência (`card ref.png`) é uma
-                 camada, não uma cor cravada: o fundo continua sendo o `ink` do
-                 site, e por cima vai um gradiente diagonal que levanta o canto
-                 superior esquerdo em 10% de branco e afunda o inferior direito
-                 em 18% de preto. Sai de #4b4648 a #2d292b — o mesmo cinza
-                 quente da marca, com luz de um lado só.
+                 A LUZ VEM DA REFERÊNCIA MEDIDA, não estimada. A primeira
+                 versão usava um gradiente LINEAR a 158° e ficou fraca — o
+                 cliente reparou. Amostrando os pixels de `card ref.png`:
 
-                 Escrito como camada e não como três hexadecimais para o `ink`
-                 continuar sendo a fonte da verdade: se a paleta mudar, o card
-                 acompanha sozinho. A referência é azul-petróleo; a nossa não, e
-                 o que se copia dela é o comportamento da luz, não o matiz.
+                   canto sup. esquerdo  #3d4759  ← o ponto mais claro
+                   meio do topo         #232c3f
+                   canto sup. direito   #1b2334
+                   centro               #1b2334
+                   base (meio)          #151c2e  ← o mais escuro
+
+                 Ou seja: a luz é RADIAL e nasce no canto superior esquerdo, não
+                 espalhada pela aresta de cima. E a queda é rápida — sobre a base
+                 #1b2334, o canto tem 16% de branco por cima e no meio do topo já
+                 caiu para 3,5%. Um gradiente linear distribui esse ganho pela
+                 largura inteira e é exatamente por isso que a versão anterior
+                 parecia lavada em vez de iluminada.
+
+                 Daí as duas camadas: um radial ancorado em `0% 0%` e um linear
+                 só na metade de baixo, para o pé do card fechar como na
+                 referência. Escritas como CAMADAS sobre o `ink`, e não como
+                 hexadecimais, para a cor da marca seguir sendo a fonte da
+                 verdade — a referência é azul-petróleo, a nossa não, e o que se
+                 copia é o comportamento da luz.
+
+                 A ELIPSE É ALTA (85% x 110%), e essa proporção é o segundo
+                 conserto. Uma primeira tentativa de radial usou 68% x 58% e
+                 ainda ficava aquém: batia no canto e morria antes do meio da
+                 lateral esquerda, onde a referência ainda tem +5% de luz. A luz
+                 dela desce pela aresta, não só ilumina o vértice. Conferido
+                 amostrando os mesmos pontos relativos nos dois:
+
+                                    referência   aqui
+                   canto sup. esq.     +16%      +16,5%
+                   meio do topo        +3,5%     +4,5%
+                   meio da esquerda    +5%       +7%
+                   fundo sob o card    −6%       −7%
+
+                 A SOMBRA também estava na referência e faltava aqui: fora do
+                 card o fundo vai de #f9fafa nas laterais para #eaebec logo
+                 abaixo dele, uma queda de ~6% concentrada embaixo. É uma sombra
+                 larga, baixa e deslocada para baixo — a mesma família da que o
+                 card da citação usa, dois blocos acima.
 
                  Canto reto, como todo o resto da página. */
               <div
                 key={p.heading}
-                className="border border-white/10 bg-ink p-6"
+                className="border border-white/10 bg-ink p-6 shadow-[0_18px_38px_-16px_rgba(55,50,52,.30)]"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(158deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.02) 38%, rgba(0,0,0,.18) 100%)",
+                  backgroundImage: [
+                    "radial-gradient(85% 110% at 0% 0%, rgba(255,255,255,.20) 0%, rgba(255,255,255,.10) 30%, rgba(255,255,255,.035) 60%, rgba(255,255,255,0) 100%)",
+                    "linear-gradient(180deg, rgba(0,0,0,0) 42%, rgba(0,0,0,.10) 74%, rgba(0,0,0,.17) 100%)",
+                  ].join(", "),
                 }}
               >
                 {/* ⚠️ 20px, e NÃO os 28px que a grade dá para "h3 dentro de

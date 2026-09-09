@@ -188,7 +188,7 @@ export default function NavV2({
      Ou seja: aliviar o peso pagou o corpo de letra. É por isso que o degrau
      `xl:` saiu em vez de virar um número menor. */
   const linkType = outlined
-    ? "text-[16px] font-normal"
+    ? "font-serif text-[16px] font-normal"
     : "text-[11.5px] font-semibold uppercase tracking-[0.6px]";
 
   /* O BOTÃO É UM DEGRAU MAIS PESADO QUE OS LINKS — 500 contra 400, mesmo corpo.
@@ -197,7 +197,7 @@ export default function NavV2({
      e pelo peso, que é o que faz um botão continuar lendo como botão mesmo
      quando o texto dele tem o mesmo tamanho dos vizinhos. */
   const ctaType = outlined
-    ? "text-[16px] font-medium"
+    ? "font-serif text-[16px] font-medium"
     : "text-[11.5px] font-semibold uppercase tracking-[0.6px]";
 
   // Único caso que ainda pede fundo sólido: o menu aberto no telefone, senão os
