@@ -91,7 +91,12 @@ const geist = Geist({
 
 const serif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  /* 500 entrou com a inversão de 09-09: os títulos de card, que passaram para a
+     serifa, usam `font-medium`. Sem ele o navegador engorda o 400 sozinho, e
+     negrito sintético em serifa é pior que em grotesca — as hastes finas
+     engrossam junto com as grossas e o desenho perde o contraste que define a
+     família. */
+  weight: ["400", "500", "600"],
   variable: "--font-serif-v3",
   display: "swap",
 });
@@ -792,7 +797,7 @@ export default async function AboutV2Page() {
                 −0,2px em vez dos −0,8px da primeira tentativa. Fechar o
                 espacejamento encolhe a linha e trabalha contra a presença que a
                 comparação está pedindo. */}
-            <h1 className="max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
+            <h1 className="font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
               Keeping Leadership Real.
             </h1>
             {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
@@ -811,7 +816,7 @@ export default async function AboutV2Page() {
                 título de propósito: o par "grotesca em cima, serifa embaixo" é
                 o device inteiro. Se a serifa só aparecesse lá embaixo no corpo,
                 o contraste chegaria tarde demais para ser lido como escolha. */}
-            <p className="mt-5 max-w-[620px] font-serif text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
+            <p className="mt-5 max-w-[620px] text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
               <span className="md:block">Our purpose, our promise,</span>{" "}
               <span className="md:block">what we believe, and where we work</span>
             </p>
@@ -972,7 +977,7 @@ export default async function AboutV2Page() {
                     ela mais afina, então a opacidade sobe de 70% para 75%: o
                     desenho da Source Serif tem hastes finas que a 14px em
                     branco/70 começam a sumir contra a foto. */}
-                <div className="mt-2 max-w-[240px] font-serif text-[13px] leading-[1.45] text-white/75 sm:mt-3 sm:text-[14px] sm:leading-[1.5]">
+                <div className="mt-2 max-w-[240px] text-[13px] leading-[1.45] text-white/75 sm:mt-3 sm:text-[14px] sm:leading-[1.5]">
                   {s.label}
                 </div>
               </div>
@@ -1122,7 +1127,7 @@ export default async function AboutV2Page() {
                       tem altura de x menor que a Poppins, então 18px aqui lê
                       com mais ou menos o mesmo tamanho aparente dos 17,5px de
                       antes — a mudança que se vê é o desenho, não a escala. */}
-                  <p className="font-serif text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
+                  <p className="text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
                     At CDNA, <span className="font-semibold text-brand">Keeping It Real</span>{" "}
                     isn’t a slogan; it’s how we work. We speak with honesty, design
                     with truth, and deliver with the same authenticity we expect
@@ -1130,7 +1135,7 @@ export default async function AboutV2Page() {
                     are human, and our programmes are built from real, lived
                     experience, not theory.
                   </p>
-                  <p className="mt-5 font-serif text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
+                  <p className="mt-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
                     CEOs and CHROs respect us for keeping it relevant, resilient,
                     and{" "}
                     {/* A aspa de fechamento acompanha a de abertura: mesmo corpo
@@ -1219,11 +1224,56 @@ export default async function AboutV2Page() {
             borda da janela enquanto o conteúdo continua preso em 1440: fundo no
             container de 1440 deixaria duas tarjas brancas nas laterais em tela
             grande. */}
-        <div className="bg-paper">
+        {/* A BANDA VOLTA A BRANCA. O `bg-paper` entrou em 09-09 para o card
+            BRANCO ter silhueta — a borda em #ece9e6 sobre #fff era invisível na
+            prática. Com o card preto essa razão deixou de existir, e manter a
+            faixa cinza colocaria TRÊS valores na mesma seção (branco da seção,
+            cinza da faixa, preto do card) onde dois bastam. O pedido original
+            era destaque para os cards; preto sobre branco entrega mais destaque
+            do que branco sobre cinza jamais entregou.
+
+            O <div> extra fica, em vez de ser desmontado: ele é o que faria a
+            faixa sangrar até a borda da janela se ela voltar a ter cor, e voltar
+            atrás nisso é uma classe. */}
+        <div className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-12 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
-              <div key={p.heading} className="bg-white p-6">
+              /* AS BLACK BOXES VOLTAM, agora como superfície (09-09).
+                 A Rhea pediu de volta o device do site antigo, e ele já existe
+                 aqui: as linhas da Solutions (`.sbox`, em globals.css) são a
+                 leitura moderna dele. O que muda é o que se aproveita — lá o
+                 preto é o estado de repouso de um LINK, e o gesto é o vermelho
+                 inclinado atravessando no hover; aqui é só a superfície.
+
+                 ⚠️ NÃO TRAGO O VARRIMENTO JUNTO, e é de propósito: estes quatro
+                 cards não são clicáveis. Um preenchimento no hover promete uma
+                 interação que não existe, e o visitante que passa o mouse e não
+                 encontra link aprende que o hover deste site mente. O preto é a
+                 superfície; o gesto continua sendo dos itens que levam a algum
+                 lugar.
+
+                 A LUMINOSIDADE SUAVE da referência (`card ref.png`) é uma
+                 camada, não uma cor cravada: o fundo continua sendo o `ink` do
+                 site, e por cima vai um gradiente diagonal que levanta o canto
+                 superior esquerdo em 10% de branco e afunda o inferior direito
+                 em 18% de preto. Sai de #4b4648 a #2d292b — o mesmo cinza
+                 quente da marca, com luz de um lado só.
+
+                 Escrito como camada e não como três hexadecimais para o `ink`
+                 continuar sendo a fonte da verdade: se a paleta mudar, o card
+                 acompanha sozinho. A referência é azul-petróleo; a nossa não, e
+                 o que se copia dela é o comportamento da luz, não o matiz.
+
+                 Canto reto, como todo o resto da página. */
+              <div
+                key={p.heading}
+                className="border border-white/10 bg-ink p-6"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(158deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.02) 38%, rgba(0,0,0,.18) 100%)",
+                }}
+              >
                 {/* ⚠️ 20px, e NÃO os 28px que a grade dá para "h3 dentro de
                     cards". A grade descreve um card de título curto; estes
                     quatro têm FRASES por título ("We earn the right as your
@@ -1237,10 +1287,10 @@ export default async function AboutV2Page() {
                     reparar que é a mesma correção do h1 — em card pequeno ela
                     aparece ainda mais, porque negrito em corpo pequeno é onde a
                     geométrica mais fecha. */}
-                <h3 className="text-[19px] font-medium leading-[1.25] text-brand md:text-[20px]">
+                <h3 className="font-serif text-[19px] font-medium leading-[1.25] text-white md:text-[20px]">
                   {p.heading}
                 </h3>
-                <p className="mt-3 font-serif text-[15px] leading-[1.6] text-ink/75">
+                <p className="mt-3 text-[15px] leading-[1.6] text-white/70">
                   {p.body}
                 </p>
               </div>
@@ -1393,7 +1443,7 @@ export default async function AboutV2Page() {
                 combinação a letra afina opticamente. Um degrau de peso repõe o
                 que a inversão tira — é o mesmo ajuste, na mesma página, pela
                 mesma razão. */}
-            <h2 className="max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+            <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
               Our purpose is to keep leadership real.
             </h2>
           </div>
@@ -1405,8 +1455,8 @@ export default async function AboutV2Page() {
               o olho lê como erro. O destaque agora vem da inversão de fundo, que
               é mais forte do que a régua era. As aspas vermelhas ficam. */}
           <blockquote className="mt-8 text-center">
-            <p className="font-serif text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
-              <span aria-hidden className="mr-1 text-[28px] leading-none text-brand-light">
+            <p className="text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
+              <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
                 “
               </span>
               <strong className="font-semibold">With roots in Big 4 Consulting</strong>, the
@@ -1417,7 +1467,7 @@ export default async function AboutV2Page() {
               of our clients. Accessing this truth and the powerful
               transformation that it entails, depends on honesty, courage, and
               authenticity.
-              <span aria-hidden className="ml-1 text-[28px] leading-none text-brand-light">
+              <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
                 ”
               </span>
             </p>
@@ -1433,7 +1483,7 @@ export default async function AboutV2Page() {
               curto some. */}
           <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
 
-          <div className="mt-10 space-y-5 text-center font-serif text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
+          <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
             <p>
               That obligation shapes everything we do. We release the power,
               humanity and honesty of leadership in all its parts: the values an
@@ -1464,10 +1514,10 @@ export default async function AboutV2Page() {
               hierarquia vem do corpo e do desenho, e não de engrossar o traço.
               Fica em `ink` cheio, e não no cinza que a grade sugere: aqui ela é
               a promessa, não uma legenda do que vem depois. */}
-          <p className="font-serif text-[20px] leading-[1.4] text-ink md:text-[22px]">
+          <p className="text-[20px] leading-[1.4] text-ink md:text-[22px]">
             To keep our craft real: honest with ourselves, true to our clients.
           </p>
-          <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.65] text-muted md:text-[18px]">
+          <div className="mt-6 space-y-5 text-[17px] leading-[1.65] text-muted md:text-[18px]">
             <p>
               We do not hide behind language to sound more intelligent. We do not
               build layers that clients have to climb over to reach us. We listen
@@ -1485,7 +1535,7 @@ export default async function AboutV2Page() {
               ela fecha o bloco como declaração, e a grotesca é a voz de título
               nesta página. É o mesmo papel da faixa final ("Let's make
               leadership real."), e as duas têm de soar igual. */}
-          <p className="mt-10 text-[22px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[26px]">
+          <p className="font-serif mt-10 text-[22px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[26px]">
             We invite you to experience the DNA Partnership.
           </p>
         </div>
@@ -1503,7 +1553,7 @@ export default async function AboutV2Page() {
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <div className="flex flex-col items-center text-center">
             <TypeLabel>What we believe, and how we work.</TypeLabel>
-            <p className="max-w-[760px] font-serif text-[20px] leading-[1.4] text-ink md:text-[22px]">
+            <p className="max-w-[760px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
               <strong className="font-semibold">Our values</strong> are deeply
               human centric, and always in service of a client’s greatness. We do
               not compromise on them, however complex the circumstances.
@@ -1530,10 +1580,10 @@ export default async function AboutV2Page() {
                     no mesmo card, e o vermelho pararia de significar alguma
                     coisa. Assim o ícone chama, o título informa, a régua ancora
                     — três funções, três tratamentos. */}
-                <h3 className="text-[20px] font-medium leading-[1.2] text-ink">
+                <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
                   {v.name}
                 </h3>
-                <p className="mt-3 font-serif text-[15px] leading-[1.6] text-muted">
+                <p className="mt-3 text-[15px] leading-[1.6] text-muted">
                   {v.body}
                 </p>
               </div>
@@ -1552,7 +1602,7 @@ export default async function AboutV2Page() {
       <section id="regions" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 pt-16 md:px-10 md:pt-20">
           <TypeLabel>Where we work.</TypeLabel>
-          <p className="mb-12 max-w-[620px] font-serif text-[20px] leading-[1.4] text-ink md:text-[22px]">
+          <p className="mb-12 max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
             With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
             a faculty of over 75 senior practitioners, we deliver globally.
           </p>
@@ -1585,11 +1635,11 @@ export default async function AboutV2Page() {
                     regra não é "28px é grande demais", é "28px pede título
                     curto". Vendo os três blocos juntos dá para decidir se a
                     grade continua com um número só ou passa a ter dois. */}
-                <h3 className="text-[24px] font-medium leading-[1.15] text-ink md:text-[28px]">
+                <h3 className="font-serif text-[24px] font-medium leading-[1.15] text-ink md:text-[28px]">
                   {o.city}
                 </h3>
                 <span className="mt-3 block h-[3px] w-8 flex-none bg-brand" />
-                <p className="mt-4 font-serif text-[14px] leading-[1.6] text-muted">
+                <p className="mt-4 text-[14px] leading-[1.6] text-muted">
                   {o.address.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -1633,10 +1683,10 @@ export default async function AboutV2Page() {
                     baixa, o tile passa a ter título e legenda em vez de dois
                     rótulos empilhados, e alinha com os valores, que são a outra
                     grade de cinco da página. */}
-                <h3 className="text-[20px] font-medium leading-[1.2] text-ink">
+                <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
                   {r.name}
                 </h3>
-                <p className="mt-3 font-serif text-[14px] leading-[1.6] text-muted">
+                <p className="mt-3 text-[14px] leading-[1.6] text-muted">
                   {r.descriptor}
                 </p>
               </div>
@@ -1656,7 +1706,7 @@ export default async function AboutV2Page() {
           fora até o texto do bloco 7 chegar. */}
       <section className="bg-ink text-white">
         <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-8 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
-          <p className="text-[28px] font-medium leading-[1.15] tracking-[-0.6px] md:text-[36px]">
+          <p className="font-serif text-[28px] font-medium leading-[1.15] tracking-[-0.6px] md:text-[36px]">
             Let’s make leadership real.
           </p>
           {/* Botão — Geist 500 a 16px, caixa baixa, sem espacejamento. Era
