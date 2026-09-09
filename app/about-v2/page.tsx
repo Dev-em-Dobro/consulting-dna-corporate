@@ -617,8 +617,27 @@ export default async function AboutV2Page() {
             internas. Se um dia isto virar a /about de verdade, o caminho é dar
             ao PageHero uma variante de tela cheia — não mexer nele agora, que a
             página real depende dele. */}
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
+        {/* NO TELEFONE O TÍTULO ENCOSTA NO TOPO; no desktop ele continua
+            centrado no espaço que sobra.
+
+            O `items-center` sozinho distribui a folga em partes iguais acima e
+            abaixo, e no telefone isso rendia 183px de vazio entre a base do menu
+            e o rótulo — medido em 393x852, com outros 183px espelhados embaixo.
+            O que funciona no desktop, onde a dobra é larga e o título ocupa uma
+            linha só, vira um buraco numa tela estreita: o visitante abre a
+            página e a primeira coisa que vê é o nada entre o logo e o texto.
+
+            `items-start` no telefone tira a metade de cima da folga e joga tudo
+            para baixo, onde ela não é buraco nenhum — é justamente onde a foto
+            começa (307px). O bloco passa a ler como texto em cima, foto no meio,
+            números embaixo, que era a composição pretendida quando a imagem
+            desceu para os 64% de baixo.
+
+            O `pt-16` no lugar do `py-12` é o "pode ter espaço, mas não tanto":
+            64px abaixo do menu em vez dos 183px de antes, e em vez dos 48px que
+            o padding original entregaria sozinho, que colariam demais. */}
+        <div className="flex flex-1 items-start md:items-center">
+          <div className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
             <TypeLabel onDark>About</TypeLabel>
             {/* h1 — Geist 500 a 52px, entrelinha 1,1, como a grade pede.
                 Duas coisas mudaram além da família:
