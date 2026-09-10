@@ -37,6 +37,8 @@ import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
+import TypeLabel from "@/components/TypeLabel";
+import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
@@ -102,68 +104,6 @@ const serif = Source_Serif_4({
   display: "swap",
 });
 
-/**
- * Rótulo acima do título — régua vermelha + palavra, a 14px/1,3px da grade.
- *
- * Cópia local do <Eyebrow>, e não uma prop nova nele: o Eyebrow compartilhado
- * serve a cinco páginas no ar (Our Identity, Our Team, Our Clients, Our Impact,
- * Our Partnerships) e está cravado em 12,5px/600/2px. Mudá-lo para testar uma
- * fonte numa rota `noindex` mexeria nas cinco. Se a tipografia for aprovada, o
- * caminho é o contrário: esta vira a definição e o componente some daqui.
- */
-function TypeLabel({
-  children,
-  onDark = false,
-}: {
-  children: React.ReactNode;
-  /**
-   * Fundo escuro — troca o vermelho da marca pelo tom claro dele.
-   *
-   * Existe porque #d84339 não é legível como TEXTO sobre `ink`: 2,87:1, abaixo
-   * até da régua de 3:1 de texto grande, e sem conserto possível pelo fundo (a
-   * conta está no `--color-brand-light`, em globals.css). O tom claro é o mesmo
-   * vermelho com a luminosidade subida, e devolve 4,53:1.
-   *
-   * A RÉGUA MUDA JUNTO com a palavra. Elas leem como um objeto só; deixar o
-   * traço no vermelho cheio e clarear apenas o texto pareceria defeito de
-   * renderização, não decisão. E o traço tem o mesmo problema: 2,87:1 é
-   * limítrofe até para elemento gráfico, cuja régua é 3:1.
-   */
-  onDark?: boolean;
-}) {
-  /* Classes ESCRITAS POR INTEIRO nas duas pontas, e não montadas com
-     `bg-${tone}`: a Tailwind gera o CSS varrendo o código-fonte atrás de nomes
-     de classe literais, então um nome concatenado em tempo de execução nunca
-     chega a existir na folha de estilo. O elemento sai com a classe no HTML e
-     sem regra nenhuma por trás — falha silenciosa, que só aparece olhando a
-     tela. */
-  return (
-    <div className="mb-5 flex items-center gap-3">
-      <span
-        className={`inline-block h-0.5 w-9 ${onDark ? "bg-brand-light" : "bg-brand"}`}
-      />
-      {/* ⚠️ `text-left` EXPLÍCITO, mesmo dentro de blocos centralizados.
-          Sem ele o texto herda o `text-center` do pai e se centraliza DENTRO
-          DA PRÓPRIA CAIXA. Enquanto cabe numa linha ninguém nota; quando quebra
-          em duas — "WHAT WE BELIEVE, AND HOW / WE WORK." num telefone — a
-          primeira linha recua para o meio da caixa e abre um vão aparente
-          contra a régua, que continua colada na borda esquerda. O vão medido
-          era 12px, o percebido era o dobro, e a causa não estava no `gap`:
-          estava no alinhamento interno.
-
-          O par régua+texto continua centralizado COMO UNIDADE quando o bloco
-          pai é centralizado — o que muda é o texto parar de se recentralizar
-          por dentro. */}
-      <span
-        className={`text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
-          onDark ? "text-brand-light" : "text-brand"
-        }`}
-      >
-        {children}
-      </span>
-    </div>
-  );
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "About — Corporate DNA";
@@ -2224,19 +2164,22 @@ export default async function AboutV2Page() {
             Our leadership, our global faculty and the regions we deliver from
             now have an area of their own.
           </p>
-          <Link
-            href="/our-team"
-            className="group mt-8 inline-flex items-center gap-2 border border-white/45 px-7 py-3.5 text-[16px] font-medium text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
-          >
-            Meet the team
-            {/* Mesma seta de 4px no hover dos outros dois botões da página. */}
-            <span
-              aria-hidden
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            >
-              →
-            </span>
-          </Link>
+          {/* O MESMO BOTÃO DA HOME, desde 10-09 — mesmo componente, mesmas
+              cores, mesma animação (o bloco vermelho claro varrendo da seta para
+              a esquerda). Ver `components/HoverFillButton.tsx`.
+
+              ERA UM BOTÃO DE CONTORNO, e a nota acima explicava por quê: o
+              sólido vermelho pertencia à faixa de fecho logo abaixo, que era a
+              ação principal, e dois preenchidos seguidos anulariam a hierarquia.
+              ESSA FAIXA SAIU em 09-09 (ver o comentário logo abaixo desta
+              seção). Sem ela não há segundo botão para disputar nada, então o
+              motivo do contorno morreu junto — este virou o único CTA da página
+              e pode ser sólido.
+
+              O rótulo passa a ser caixa alta, porque é o tratamento do
+              componente. Se "Meet the team" tiver de voltar a ser em caixa
+              mista, é uma prop de tipografia, não um botão diferente. */}
+          <HoverFillButton label="Meet the team" href="/our-team" className="mt-8" />
         </div>
       </section>
 

@@ -1,6 +1,13 @@
+import Link from "next/link";
+
 /**
- * Botão de envio com o efeito do segundo componente do 21st (`hover-button`),
- * mandado em 10-09 depois que o `arrow-fill` foi descartado.
+ * Botão com o efeito do segundo componente do 21st (`hover-button`), mandado em
+ * 10-09 depois que o `arrow-fill` foi descartado.
+ *
+ * ONDE ELE RODA: o envio do formulário de contato na home (`/`) e o "Meet the
+ * team" no fim da `/about`. O segundo entrou em 10-09, com o pedido de usar as
+ * MESMAS cores do primeiro — por isso as cores estão fixas aqui dentro em vez de
+ * virarem prop.
  *
  * O EFEITO: no repouso, um quadrado de vermelho mais CLARO na ponta direita do
  * botão, com a seta branca dentro. No hover o quadrado ESTICA para a esquerda
@@ -88,27 +95,70 @@
 /** hsl(4, 72%, 60%) — ver a nota de cor no cabeçalho antes de trocar. */
 const BLOCK = "#e25950";
 
-export default function HoverFillSubmit({
+// Classes comuns às duas formas (botão de envio e link). O que muda entre elas é
+// só a largura, logo abaixo.
+//
+// `overflow-hidden` guarda o bloco dentro do botão — sem ele o efeito vaza.
+// O `pr` reserva a faixa do bloco MAIS uma folga, senão o rótulo encosta nele:
+// é a largura do bloco (52px) + 8px de respiro. No telefone tudo encolhe, e é
+// essa largura que decide se "Start a Conversation" cabe em uma linha.
+const BASE =
+  "group relative items-center justify-center overflow-hidden bg-brand py-4 pl-6 pr-[60px] text-sm font-bold uppercase tracking-[0.5px] text-white max-sm:pl-3 max-sm:pr-[46px] max-sm:text-[13px] max-sm:tracking-[0.3px]";
+
+// `flex w-full` para o botão do formulário, que ocupa a coluna inteira;
+// `inline-flex` para o link, que se ajusta ao texto — que é, aliás, o que o
+// componente original do 21st faz.
+const WIDTH = { block: "flex w-full", inline: "inline-flex" } as const;
+
+/**
+ * Duas formas, um visual só.
+ *
+ *  • sem `href` → `<button type="submit">`, para dentro de formulário.
+ *  • com `href` → `<Link>`, para navegação.
+ *
+ * Um componente e não dois porque o miolo (rótulo, bloco, seta) é idêntico, e é
+ * nele que mora tudo o que custou caro: a geometria do bloco, a margem que
+ * centra a seta e as contas de contraste. Duplicar seria duplicar isso.
+ */
+export default function HoverFillButton({
   label,
+  href,
   disabled = false,
+  fullWidth = false,
+  className = "",
 }: {
   label: string;
+  /** Presente = vira link; ausente = vira botão de envio. */
+  href?: string;
+  /** Só vale na forma botão. */
   disabled?: boolean;
+  fullWidth?: boolean;
+  /** Margem do ponto de uso. Espaçamento é do contexto, não do botão. */
+  className?: string;
 }) {
+  const cls = `${BASE} ${WIDTH[fullWidth ? "block" : "inline"]} ${className}`;
+
+  if (href) {
+    return (
+      <Link href={href} className={cls}>
+        <Inner label={label} />
+      </Link>
+    );
+  }
   return (
     <button
       type="submit"
       disabled={disabled}
-      // `flex` (e não o `inline-flex` do original) porque este botão ocupa a
-      // largura do formulário. `justify-center` centra o rótulo na caixa de
-      // conteúdo, que já exclui o `pr` — é o que o mantém longe do bloco.
-      // `overflow-hidden` guarda o bloco dentro do botão.
-      // O `pr` reserva a faixa do bloco MAIS uma folga, senão o rótulo centrado
-      // encosta nele. Como o bloco agora vai até a borda, esse número é a
-      // largura dele (52px) + 8px de respiro. No telefone tudo encolhe: é a
-      // largura que decide se "Start a Conversation" cabe em uma linha.
-      className="group relative mt-1 flex w-full cursor-pointer items-center justify-center overflow-hidden bg-brand py-4 pl-6 pr-[60px] text-sm font-bold uppercase tracking-[0.5px] text-white disabled:pointer-events-none disabled:opacity-60 max-sm:pl-3 max-sm:pr-[46px] max-sm:text-[13px] max-sm:tracking-[0.3px]"
+      className={`${cls} cursor-pointer disabled:pointer-events-none disabled:opacity-60`}
     >
+      <Inner label={label} />
+    </button>
+  );
+}
+
+function Inner({ label }: { label: string }) {
+  return (
+    <>
       {/* O rótulo é branco e NÃO muda — como no original. Sobre o BLOCK ele fica
           em 3,63:1, abaixo dos 4,5:1 de texto; a nota de contraste no cabeçalho
           explica por que não dá para consertar sem abrir mão do vermelho claro,
@@ -156,6 +206,6 @@ export default function HoverFillSubmit({
           </svg>
         </div>
       </div>
-    </button>
+    </>
   );
 }

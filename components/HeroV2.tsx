@@ -550,7 +550,16 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
               definitiva continua sendo do Guli, quando as fotos chegarem. */}
           <div className="mb-7 flex items-center gap-3">
             <span className="h-bar inline-block h-px w-9 bg-[#f4796d]" />
-            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-white">
+            {/* ESCALA DO TypeLabel — 14px/500/1,3px, os mesmos da /about, para
+                o rótulo do herói não abrir a página numa métrica e as seções
+                abaixo noutra.
+
+                NÃO virou <TypeLabel> como os rótulos de seção por duas razões,
+                as duas específicas deste: `h-eyebrow` e `h-bar` são âncoras da
+                animação de entrada do herói (o GSAP busca essas classes), e o
+                texto aqui é BRANCO sobre foto, não o vermelho da marca. Só a
+                métrica é compartilhada; classe e cor ficam. */}
+            <span className="h-eyebrow text-[14px] font-medium uppercase tracking-[1.3px] text-white">
               Global leadership advisory &amp; executive coaching
             </span>
           </div>

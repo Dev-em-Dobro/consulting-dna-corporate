@@ -3,6 +3,7 @@ import { COVERAGE_ISO3, countriesToIso3 } from "@/lib/coverage";
 import { getCoverageRegions } from "@/lib/cms/map";
 import { geocode } from "@/lib/geocode";
 import { CITY_COORDS } from "@/lib/city-coords";
+import TypeLabel from "@/components/TypeLabel";
 
 /**
  * World coverage map (008 FR-608–612). An async SERVER component rendering a
@@ -197,6 +198,7 @@ export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
   tone = "white",
+  typeLabel = false,
 }: {
   /**
    * Pass `null` to both to render the map alone, with no header of its own.
@@ -226,6 +228,18 @@ export default async function WorldCoverageMap({
    * below. The palette of COVERED countries is saturated and doesn't care.
    */
   tone?: "white" | "paper";
+  /**
+   * Renderiza o rótulo pelo <TypeLabel> (14px/500/1,3px) em vez do span local
+   * de 13px/600/2px.
+   *
+   * Existe para a home, que em 10-09 adotou o TypeLabel em todos os rótulos de
+   * seção: sem isto o mapa era o único bloco daquela página abrindo numa
+   * métrica diferente das seções vizinhas.
+   *
+   * Desligado por padrão porque as três homes antigas renderizam este mapa com
+   * o rótulo de antes e não podem mudar. Mesmo padrão de `maxWidthClass`.
+   */
+  typeLabel?: boolean;
 }) {
   const regions = await getCoverageRegions();
 
@@ -327,14 +341,17 @@ export default async function WorldCoverageMap({
           headless ? "pt-0" : "pt-20 md:pt-24"
         }`}
       >
-        {eyebrow !== null && (
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-              {eyebrow}
-            </span>
-          </div>
-        )}
+        {eyebrow !== null &&
+          (typeLabel ? (
+            <TypeLabel>{eyebrow}</TypeLabel>
+          ) : (
+            <div className="mb-2.5 flex items-baseline gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+                {eyebrow}
+              </span>
+            </div>
+          ))}
         {title !== null && (
           <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             {title}

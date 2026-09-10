@@ -9,7 +9,7 @@ import {
   type FormEvent,
 } from "react";
 import { submitLead } from "@/app/actions/submit-lead";
-import HoverFillSubmit from "@/components/HoverFillSubmit";
+import HoverFillButton from "@/components/HoverFillButton";
 
 type FieldKey = "name" | "email" | "organisation" | "message";
 type Values = Record<FieldKey, string>;
@@ -226,9 +226,11 @@ export default function ContactForm({
       )}
 
       {submit === "hover-fill" ? (
-        <HoverFillSubmit
+        <HoverFillButton
           label={sending ? "Sending…" : "Start a Conversation"}
           disabled={sending}
+          fullWidth
+          className="mt-1"
         />
       ) : (
         <button

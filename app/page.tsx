@@ -33,6 +33,7 @@ import Link from "next/link";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV2 from "@/components/HeroV2";
 import NavV2 from "@/components/NavV2";
+import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
 import RealCycle from "@/components/RealCycle";
@@ -277,7 +278,7 @@ export default async function Home() {
       //
       // Sem `!`: os títulos só declaram PESO (`font-semibold`), nunca família, e
       // família aplicada direto no elemento já vence a que ele herdaria daqui.
-      className={`${geist.variable} ${serif.variable} font-sans relative w-full overflow-x-hidden bg-white [&_h1]:font-serif [&_h2]:font-serif [&_h3]:font-serif [&_[data-awards-band]]:bg-ink [&_#awards_h2]:text-[40px]! [&_#awards_h2]:font-semibold! [&_#awards_h2]:tracking-[-0.5px]! [&_#awards_h3]:text-[28px]! [&_#awards_h3]:font-semibold!`}
+      className={`${geist.variable} ${serif.variable} font-sans relative w-full overflow-x-hidden bg-white [&_h1]:font-serif [&_h2]:font-serif [&_h3]:font-serif [&_h3]:tracking-normal [&_[data-awards-band]]:bg-ink [&_#awards_h2]:text-[40px]! [&_#awards_h2]:font-semibold! [&_#awards_h2]:tracking-[-0.5px]! [&_#coverage_h2]:font-semibold! [&_#coverage_h2]:tracking-[-0.5px]! [&_#awards_h3]:text-[24px]! md:[&_#awards_h3]:text-[26px]! [&_#awards_h3]:font-medium! [&_#awards_h3]:leading-[1.2]!`}
     >
       <JsonLd
         data={[
@@ -459,10 +460,7 @@ export default async function Home() {
       {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
       <section id="solve" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24 md:text-center">
-          <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
-          </div>
+          <TypeLabel className="md:justify-center">What we solve</TypeLabel>
           <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink md:mx-auto">
             The leadership challenges that determine enterprise performance.
           </h2>
@@ -493,7 +491,7 @@ export default async function Home() {
             {challenges.map((ch) => (
               <div key={ch.num} className="bg-white p-10 hover:bg-[#fafafa]">
                 <div className="mb-[18px] text-[13px] font-bold tracking-[1px] text-brand">{ch.num}</div>
-                <h3 className="mb-3 text-2xl font-semibold tracking-[-0.3px] text-ink">{ch.title}</h3>
+                <h3 className="mb-3 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">{ch.title}</h3>
                 <p className="text-base leading-[1.6] text-[#4a4548]">{ch.body}</p>
               </div>
             ))}
@@ -506,10 +504,7 @@ export default async function Home() {
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Corporate DNA</span>
-          </div>
+          <TypeLabel>Why Corporate DNA</TypeLabel>
           <h2 className="mb-[52px] max-w-[760px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
@@ -520,7 +515,7 @@ export default async function Home() {
                   {d.n}
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[21px] font-semibold tracking-[-0.3px] text-ink">{d.title}</h3>
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">{d.title}</h3>
                   <p className="text-base leading-[1.6] text-[#4a4548]">{d.body}</p>
                 </div>
               </div>
@@ -565,18 +560,16 @@ export default async function Home() {
           {/* O filete e o eyebrow voltam a ser vermelhos — era isso que o fundo
               vermelho tinha tirado deles. No tom claro de fundo escuro: o
               #d84339 sobre ink mede 2,9:1 e reprovaria em 13px. */}
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span
-              className="inline-block h-0.5 w-9"
-              style={{ backgroundColor: "var(--accent-on-dark)" }}
-            />
-            <span
-              className="text-[13px] font-semibold uppercase tracking-[2px]"
-              style={{ color: "var(--accent-on-dark)" }}
-            >
-              Client impact
-            </span>
-          </div>
+          {/* ⚠️ TROCA DE TOM, e não só de tipografia: este rótulo era o único
+              pintado com `--accent-on-dark` (#f4796d) em vez das classes da
+              marca. O `onDark` do TypeLabel usa `brand-light` (#e47e77). Os dois
+              passam em contraste sobre `ink` — 4,7:1 e 4,53:1 — e o
+              `--accent-on-dark` está declarado no wrapper como PLACEHOLDER até
+              o cliente escolher a accent definitiva. Unifiquei para o rótulo não
+              ficar sendo o único vermelho diferente da página. Se a accent
+              definitiva for escolhida e for outra, o lugar de mudar passa a ser
+              o `brand-light` em globals.css, que vale para as duas páginas. */}
+          <TypeLabel onDark>Client impact</TypeLabel>
           <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white">
             Results, not promises — measured where it matters.
           </h2>
@@ -619,10 +612,11 @@ export default async function Home() {
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
           <div>
-            <div className="mb-2.5 flex items-baseline gap-3">
-              <span className="inline-block h-0.5 w-9 bg-brand" />
-              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
-            </div>
+            {/* `onDark` — a seção é escura e o rótulo estava em `bg-brand`/
+                `text-brand` cheio, que sobre `ink` dá 2,87:1 e reprova até a
+                régua de elemento gráfico. O tom claro devolve 4,53:1. Ou seja,
+                unificar o rótulo consertou um problema de contraste de brinde. */}
+            <TypeLabel onDark>Our approach</TypeLabel>
             <h2 className="mb-5 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white">
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
@@ -649,10 +643,7 @@ export default async function Home() {
       {people.length > 0 && (
         <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
-          </div>
+          <TypeLabel>Our people</TypeLabel>
           <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Senior advisors who have sat where our clients sit.
           </h2>
@@ -673,7 +664,7 @@ export default async function Home() {
               </p>
               <div className="mt-8 space-y-6">
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
                     The DNA Experience
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -684,7 +675,7 @@ export default async function Home() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
                     Trusted Relationships
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -696,7 +687,7 @@ export default async function Home() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
                     Inclusion &amp; Diversity
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -736,8 +727,11 @@ export default async function Home() {
                 `flow-root` contains the float so the endorsements block below
                 starts on a clean line. */}
             <div className="flow-root px-6 pb-10 pt-12 md:p-0">
-              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
-              <h3 className="mb-6 mt-6 text-[24px] sm:text-[28px] font-semibold leading-[1.2] tracking-[-0.4px] text-white">
+              {/* Escala do TypeLabel. Fica como <span> solto, e não vira o
+                  componente, porque aqui não existe a régua vermelha — é um
+                  kicker dentro do card do livro, não um rótulo de seção. */}
+              <span className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">{book.subtitle}</span>
+              <h3 className="mb-6 mt-6 text-[24px] md:text-[26px] font-medium leading-[1.2] text-white">
                 {book.title}
               </h3>
 
@@ -775,10 +769,10 @@ export default async function Home() {
           `tone="dark"` is Guli's 31-08 fix: this block and the book block above
           were both light grey and touching. Homepage only — the same block runs
           light on Our Clients and Our Team, which have different neighbours. */}
-      <LocationsBlock tone="dark" maxWidthClass="max-w-[1440px]" />
+      <LocationsBlock tone="dark" maxWidthClass="max-w-[1440px]" typeLabel />
 
       {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
-      <WorldCoverageMap />
+      <WorldCoverageMap typeLabel />
 
       {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
           A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`

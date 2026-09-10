@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { offices as defaultOffices, type Office } from "@/lib/offices";
 import LocationsCarousel from "./LocationsCarousel";
+import TypeLabel from "./TypeLabel";
 
 // Keep Leaflet out of the initial homepage bundle — it only loads when the
 // section scrolls into view (see the IntersectionObserver below).
@@ -20,6 +21,7 @@ export default function LocationsBlock({
   context = "From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Corporate DNA brings global perspective and locally relevant delivery to leadership challenges across 36 countries.",
   tone = "paper",
   maxWidthClass = "max-w-[1200px]",
+  typeLabel = false,
 }: {
   offices?: Office[];
   eyebrow?: string;
@@ -40,6 +42,15 @@ export default function LocationsBlock({
    * 560px por desenho próprio e não acompanham a coluna da página.
    */
   maxWidthClass?: string;
+  /**
+   * Renderiza o rótulo pelo <TypeLabel> (14px/500/1,3px) em vez do span local
+   * de 13px/600/2px, acompanhando o `tone` para o contraste sobre fundo escuro.
+   *
+   * Existe para a home, que em 10-09 adotou o TypeLabel em todos os rótulos de
+   * seção. Desligado por padrão: /our-clients, /our-team e /home-v3 renderizam
+   * este bloco com o rótulo de antes. Mesmo padrão de `maxWidthClass`.
+   */
+  typeLabel?: boolean;
   /**
    * Ground the block sits on. `dark` is Guli's 31-08 fix for the homepage,
    * where this block and the book block above it were both light grey and
@@ -127,12 +138,16 @@ export default function LocationsBlock({
     >
       <div className="py-24">
         <div className={`mx-auto mb-12 ${maxWidthClass} px-6 md:px-10`}>
-          <div className="flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-              {eyebrow}
-            </span>
-          </div>
+          {typeLabel ? (
+            <TypeLabel onDark={dark}>{eyebrow}</TypeLabel>
+          ) : (
+            <div className="flex items-baseline gap-3">
+              <span className="inline-block h-0.5 w-9 bg-brand" />
+              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+                {eyebrow}
+              </span>
+            </div>
+          )}
           {context ? (
             <p
               className={`mt-4 max-w-[640px] text-[15px] leading-[1.6] md:text-[16px] ${
