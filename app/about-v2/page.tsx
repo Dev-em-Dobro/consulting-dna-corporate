@@ -1297,15 +1297,32 @@ export default async function AboutV2Page() {
                  card da citação usa, dois blocos acima.
 
                  Canto reto, como todo o resto da página. */
+              /* Especificação do cliente, 09-09, palavra por palavra: "White
+                 cards, rounded corners, red bold heading, charcoal body. Equal
+                 height, four across on desktop, two by two on tablet, stacked
+                 on mobile."
+
+                 Ela ganha de duas decisões anteriores, e as duas vinham do lado
+                 deles — registro para ninguém tratar como capricho nosso:
+                   • ERAM PRETOS A PEDIDO DA RHEA, que pediu de volta o device do
+                     site antigo. Branco desfaz isso.
+                   • CANTO ARREDONDADO CONTRARIA O SISTEMA. O cabeçalho desta
+                     página registra que os cards arredondados da referência da
+                     Maliha foram descartados porque o site é de canto vivo.
+                     Estes quatro são os únicos cantos redondos da /about-v2.
+
+                 "BOLD" É 600, NÃO 700: a Source Serif carrega 400/500/600 aqui.
+                 Pedir 700 faria o navegador engordar o 600 sozinho, e negrito
+                 sintético em serifa borra o contraste entre haste fina e grossa.
+                 Para 700 de verdade, acrescentar "700" ao `weight` no topo.
+
+                 ⚠️ TINHA UM QUARTO DE DISCO crescendo do canto no scroll, pedido
+                 em 09-09 e removido no mesmo dia: sobre card preto ele era branco
+                 e funcionava; sobre card branco virou rosa e não ficou bom. Saiu
+                 junto o componente `PillarCard`, que existia só para animá-lo. */
               <div
                 key={p.heading}
-                className="border border-white/10 bg-ink p-6 shadow-[0_18px_38px_-16px_rgba(55,50,52,.30)]"
-                style={{
-                  backgroundImage: [
-                    "radial-gradient(85% 110% at 0% 0%, rgba(255,255,255,.20) 0%, rgba(255,255,255,.10) 30%, rgba(255,255,255,.035) 60%, rgba(255,255,255,0) 100%)",
-                    "linear-gradient(180deg, rgba(0,0,0,0) 42%, rgba(0,0,0,.10) 74%, rgba(0,0,0,.17) 100%)",
-                  ].join(", "),
-                }}
+                className="rounded-xl border border-line bg-white p-6 shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)]"
               >
                 {/* ⚠️ 20px, e NÃO os 28px que a grade dá para "h3 dentro de
                     cards". A grade descreve um card de título curto; estes
@@ -1320,10 +1337,10 @@ export default async function AboutV2Page() {
                     reparar que é a mesma correção do h1 — em card pequeno ela
                     aparece ainda mais, porque negrito em corpo pequeno é onde a
                     geométrica mais fecha. */}
-                <h3 className="font-serif text-[19px] font-medium leading-[1.25] text-white md:text-[20px]">
+                <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
                   {p.heading}
                 </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-white/70">
+                <p className="mt-3 text-[15px] leading-[1.6] text-ink/80">
                   {p.body}
                 </p>
               </div>
@@ -1446,14 +1463,6 @@ export default async function AboutV2Page() {
           style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
         />
         <div className="mx-auto max-w-[900px] px-6 py-20 md:px-10 md:py-28">
-          {/* ⚠️ O FUNDO DO PAINEL TEM DOIS VALORES, e o mais escuro é o padrão.
-              `backdrop-filter` não existe em todo navegador; onde ele falha, o
-              painel vira um retângulo translúcido comum e o desfoque — que é
-              metade do contraste — some sem aviso. Então o padrão é 72%, que se
-              sustenta sozinho, e `supports-[backdrop-filter]` ALIVIA para 55%
-              quando o desfoque está de fato disponível. Progressivo na direção
-              certa: quem tem menos recurso recebe mais opacidade, não menos. */}
-          <div className="border border-white/10 bg-[rgba(22,19,20,0.78)] px-6 py-12 backdrop-blur-[14px] supports-[backdrop-filter]:bg-[rgba(22,19,20,0.62)] md:px-14 md:py-16">
           <div className="flex flex-col items-center text-center">
             {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
                 recomendação registrada aqui. Fica o número para quem reabrir
@@ -1544,51 +1553,77 @@ export default async function AboutV2Page() {
               inside out, complete, and rooted in truth and impact.
             </p>
           </div>
-          </div>
         </div>
       </section>
 
       {/* ── Block 4 · Our Promise ─────────────────────────────────────
-          "Single column prose. Narrower measure than the surrounding blocks, to
-          signal a change of register." Daí `max-w-[680px]` contra os 820px do
-          bloco anterior — a imagem põe isto em duas colunas, o texto escrito
-          pede coluna única, e o texto ganha. */}
+          Declaração à esquerda, explicação à direita. Escolhido em 09-09 entre
+          três versões montadas e comparadas na tela — as outras duas eram texto
+          empilhado, variando só a medida e a posição.
+
+          POR QUE ESTA. Das sete seções da página, seis empilham texto. O medo
+          registrado era o leitor cansar antes do fim, e a resposta não é mudar
+          corpo de letra: é ter, em algum ponto da leitura, uma seção que se lê
+          de outro jeito. Esta é a candidata natural porque o conteúdo já vem
+          partido em dois — uma promessa e a explicação dela. O arranjo não foi
+          imposto ao texto; ele estava no texto.
+
+          ⚠️ TENSÃO COM O OUTLINE, e ela é real. O documento diz "Type: single
+          column prose. Narrower measure than the surrounding blocks, to signal a
+          change of register." A imagem que a Maliha mandou mostra este bloco em
+          duas colunas; o texto pede uma, e a regra do cabeçalho deste arquivo é
+          que o documento ganha da imagem.
+
+          O argumento para esta versão: a PROSA continua em coluna única. O que o
+          documento rejeita é partir o corpo do texto em duas colunas, e não é o
+          que acontece aqui — a coluna da esquerda é a declaração e o convite, a
+          da direita é a prosa inteira, sem quebra. É argumento, não certeza. Se
+          alguém do lado do cliente ler ao pé da letra, cai; as versões A (três
+          tempos escalonados) e B (bloco estreito centrado) ficaram guardadas
+          para esse caso.
+
+          O CONVITE SOBE para junto da declaração, e não fica no pé da prosa. O
+          outline manda ele "standalone, larger, red"; à esquerda, embaixo da
+          promessa, ele fecha a coluna de voz — promessa e convite são as duas
+          frases que a CDNA diz na primeira pessoa. A prosa da direita explica as
+          duas. Deixá-lo embaixo da coluna direita o transformaria em conclusão
+          do argumento, que é outra coisa.
+
+          `md:col-span-5` e `md:col-start-7 md:col-span-6` de 12, com `gap-x-16`:
+          a declaração fica em ~530px e a prosa em ~650px num container de 1440.
+          A coluna direita é a mais larga de propósito — ela tem quatro vezes
+          mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
-        <div className="mx-auto max-w-[680px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28">
           <TypeLabel>What we promise.</TypeLabel>
-          {/* Esta é a "linha de apoio" da grade: Source Serif 4 400 a 22px,
-              entrelinha 1,4. Era 19px em NEGRITO grotesco, e o negrito estava
-              fazendo o trabalho de hierarquia sozinho — o bloco não tem título,
-              só o rótulo, então esta frase é o topo dele. Na serifa grande a
-              hierarquia vem do corpo e do desenho, e não de engrossar o traço.
-              Fica em `ink` cheio, e não no cinza que a grade sugere: aqui ela é
-              a promessa, não uma legenda do que vem depois. */}
-          <p className="text-[20px] leading-[1.4] text-ink md:text-[22px]">
-            To keep our craft real: honest with ourselves, true to our clients.
-          </p>
-          <div className="mt-6 space-y-5 text-[17px] leading-[1.65] text-muted md:text-[18px]">
-            <p>
-              We do not hide behind language to sound more intelligent. We do not
-              build layers that clients have to climb over to reach us. We listen
-              as much as we talk. We hold the space for our clients to be their
-              real, unedited selves, and meet us in true partnership.
-            </p>
-            <p>
-              Boldness lives in duality with humility. Our designs, ideas and
-              methods of challenging are bold enough to nudge traditional comfort
-              zones, and incubated through humility so the results are
-              sustainable. We are confident, but never arrogant.
-            </p>
+          <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="font-serif text-[28px] font-medium leading-[1.2] tracking-[-0.4px] text-ink md:text-[36px]">
+                To keep our craft real: honest with ourselves, true to our
+                clients.
+              </p>
+              <p className="mt-8 font-serif text-[21px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[25px]">
+                We invite you to experience the DNA Partnership.
+              </p>
+            </div>
+            <div className="space-y-5 text-[17px] leading-[1.7] text-muted lg:col-span-6 lg:col-start-7 md:text-[18px]">
+              <p>
+                We do not hide behind language to sound more intelligent. We do
+                not build layers that clients have to climb over to reach us. We
+                listen as much as we talk. We hold the space for our clients to
+                be their real, unedited selves, and meet us in true partnership.
+              </p>
+              <p>
+                Boldness lives in duality with humility. Our designs, ideas and
+                methods of challenging are bold enough to nudge traditional
+                comfort zones, and incubated through humility so the results are
+                sustainable. We are confident, but never arrogant.
+              </p>
+            </div>
           </div>
-          {/* "Closing line: standalone, larger, red." Em Geist, não na serifa:
-              ela fecha o bloco como declaração, e a grotesca é a voz de título
-              nesta página. É o mesmo papel da faixa final ("Let's make
-              leadership real."), e as duas têm de soar igual. */}
-          <p className="font-serif mt-10 text-[22px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[26px]">
-            We invite you to experience the DNA Partnership.
-          </p>
         </div>
       </section>
+
 
       {/* ── Block 5 · Our Values ──────────────────────────────────────
           "Five cards, or a stacked list with a red rule between each. Not a
@@ -1609,12 +1644,49 @@ export default async function AboutV2Page() {
             </p>
           </div>
 
-          <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+          <Reveal className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {VALUES.map((v) => (
-              <div key={v.name} className="border-l-2 border-brand pl-5">
-                <span className="mb-3 block text-brand">
+              /* CARD DE VERDADE — 09-09, sobre a referência de card que o
+                 Ricardo mandou (`card ref 4.png`): faixa colorida no topo com o
+                 ícone dentro, corpo branco embaixo, sombra suave.
+
+                 O QUE FOI PEGO DA REFERÊNCIA e o que não foi. Pego: a ideia de o
+                 topo ser uma faixa de outra cor, com o ícone morando nela em vez
+                 de flutuar sobre o texto. Não pego: canto arredondado e faixa em
+                 degradê ocupando 40% do card. O site inteiro é de canto vivo — o
+                 cabeçalho deste arquivo registra que os cards arredondados da
+                 referência da Maliha foram descartados por isso — e o pedido foi
+                 explícito: "mais sutil que esse, o topo sendo um detalhe".
+
+                 Daí `bg-brand/[0.07]`: vermelho da marca a 7%, um rosa quase
+                 branco. Colorido o bastante para o topo existir, longe o
+                 bastante de virar área — que é o que a análise da referência da
+                 Rhea aponta como o defeito do site ("o acento nunca vira área,
+                 só marca").
+
+                 SAIU A RÉGUA VERMELHA À ESQUERDA. Com a faixa no topo, ela seria
+                 a segunda marca vermelha do mesmo card. Antes desta mudança a
+                 faixa de valores tinha ONZE elementos vermelhos — cinco ícones,
+                 cinco réguas e o rótulo; agora tem seis, e cinco deles são
+                 ícones dentro de uma faixa pálida.
+
+                 A SOMBRA É MUITO MAIS FRACA que as duas que já existem na página
+                 (`0_18px_38px` nos pilares, `0_18px_50px` no card da citação).
+                 Aquelas erguem superfícies grandes sobre foto ou sobre fundo
+                 escuro; esta é branca sobre branco e só precisa dar aresta. Uma
+                 sombra de 18px aqui faria cinco cartões pequenos parecerem
+                 flutuar, que é o visual de dashboard que a página não tem.
+
+                 O `hover` fecha o gesto: a sombra abre um pouco. O card não é
+                 clicável — é reação de proximidade, a mesma dos escritórios. */
+              <div
+                key={v.name}
+                className="flex flex-col bg-white shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)] transition-shadow duration-200 hover:shadow-[0_12px_30px_-12px_rgba(55,50,52,0.22)]"
+              >
+                <div className="flex items-center bg-brand/[0.07] px-5 py-4 text-brand">
                   <ValueIcon name={v.icon} />
-                </span>
+                </div>
+                <div className="px-5 pb-6 pt-5">
                 {/* ⚠️ 20px pelo mesmo motivo dos pilares, e aqui o aperto é
                     maior: são CINCO colunas, ~250px cada em 1440, ~230px de
                     texto útil. "Relationship Centricity" a 28px pede ~300px e
@@ -1624,17 +1696,17 @@ export default async function AboutV2Page() {
 
                     O TÍTULO FICOU PRETO em 09-09, quando o ícone entrou, e a
                     referência da Maliha traz os dois em vermelho. É a correção
-                    certa: com o ícone vermelho acima e a régua vermelha ao lado,
-                    um título também vermelho seria a terceira marca da mesma cor
-                    no mesmo card, e o vermelho pararia de significar alguma
-                    coisa. Assim o ícone chama, o título informa, a régua ancora
-                    — três funções, três tratamentos. */}
-                <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
-                  {v.name}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-muted">
-                  {v.body}
-                </p>
+                    certa: com o ícone vermelho na faixa acima, um título também
+                    vermelho seria a segunda marca da mesma cor no mesmo card, e
+                    o vermelho pararia de significar alguma coisa. Assim a faixa
+                    chama e o título informa — duas funções, dois tratamentos. */}
+                  <h3 className="min-h-[2.4em] font-serif text-[20px] font-medium leading-[1.2] text-ink">
+                    {v.name}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-[1.6] text-muted">
+                    {v.body}
+                  </p>
+                </div>
               </div>
             ))}
           </Reveal>
@@ -1674,55 +1746,74 @@ export default async function AboutV2Page() {
           cinco, porque lá o texto é curto e cabe. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {/* LISTA, NÃO GRADE DE CARDS — 09-09.
+
+              O que estava aqui eram cinco cards brancos numa grade de três, mais
+              um tile vermelho na sexta vaga. O pedido foi "cara de coisa cara", e
+              card branco com borda não chega lá: é o vocabulário de painel de
+              controle, e a caixa é justamente o que faz um endereço parecer um
+              campo de formulário.
+
+              A troca é por lista. Cada escritório vira uma FILEIRA de largura
+              cheia, separada por filete, com três colunas dentro: cidade grande
+              em serifa, endereço, contato. Sem caixa, sem fundo, sem sombra —
+              o que desenha a estrutura é o alinhamento e o vazio entre as
+              colunas. É o desenho de papel timbrado e de página de relatório
+              impresso, e é onde mora a sensação de caro: espaço gasto com
+              confiança em vez de espaço preenchido.
+
+              É também MAIS contido que a versão anterior, não menos. Sai um
+              retângulo vermelho de área cheia — que a análise da referência
+              aponta como o defeito do nosso site inteiro ("o acento nunca vira
+              área, só marca") — e entra uma linha vermelha de texto no pé.
+
+              ⚠️ SEM NUMERAÇÃO. A referência numera os cards dela (`01 02 03`) e
+              a primeira versão desta lista ia fazer o mesmo. Não dá: são cinco
+              SEDES, e numerar sede é criar ranking. "01 London / 05 Miami" é uma
+              conversa que ninguém no cliente quer ter.
+
+              O TELEFONE QUE FALTA deixa de ser problema. Riade e Miami não têm
+              número no outline, e na grade isso abria um buraco visível porque os
+              cards tinham altura igual e conteúdo desigual. Numa fileira, a
+              coluna de contato simplesmente tem uma linha em vez de duas, e
+              ninguém percebe. A pendência continua — ver o doc do Guli —, mas
+              deixou de ser dívida visual.
+
+              `items-baseline` alinha a linha de base da cidade com a primeira
+              linha do endereço e do contato. É o que faz as três colunas
+              parecerem uma fileira só em vez de três blocos vizinhos, e é a
+              diferença entre lista e tabela. */}
+          <div className="border-t border-line">
             {OFFICES.map((o) => (
-              <div key={o.city} className="flex flex-col bg-white p-6">
-                {/* AQUI os 28px da grade cabem, e é por isso que ficam: o
-                    título é uma palavra só, o card tem ~310px em três colunas,
-                    e "Singapore" a 28px em Geist 500 ocupa ~145px dos ~262px
-                    úteis. É o contraponto útil aos pilares e aos valores — a
-                    regra não é "28px é grande demais", é "28px pede título
-                    curto". Vendo os três blocos juntos dá para decidir se a
-                    grade continua com um número só ou passa a ter dois. */}
-                <h3 className="font-serif text-[24px] font-medium leading-[1.15] text-ink md:text-[28px]">
+              <div
+                key={o.city}
+                className="grid grid-cols-1 items-baseline gap-x-10 gap-y-3 border-b border-line py-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] md:py-10"
+              >
+                <h3 className="font-serif text-[30px] font-medium leading-[1.05] tracking-[-0.5px] text-ink md:text-[38px]">
                   {o.city}
                 </h3>
-                <span className="mt-3 block h-[3px] w-8 flex-none bg-brand" />
-                <p className="mt-4 text-[14px] leading-[1.6] text-muted">
+                <p className="text-[15px] leading-[1.7] text-muted">
                   {o.address.map((line) => (
                     <span key={line} className="block">
                       {line}
                     </span>
                   ))}
                 </p>
-                {/* `mt-auto` — a linha de contato desce para a BASE do card.
-                    Sem ela, os cinco cards têm altura igual (a grade estica) e
-                    conteúdo desalinhado: Riade tem três linhas de endereço,
-                    Londres e Miami têm duas, então o e-mail nascia numa altura
-                    diferente em cada um. Cinco cards da mesma altura com a
-                    última linha em cinco alturas é o tipo de coisa que ninguém
-                    consegue apontar e todo mundo sente.
-
-                    Com `mt-auto` o endereço encosta no topo, a folga vai toda
-                    para o meio e o contato de todos assenta na mesma base. É o
-                    `flex flex-col` que já estava no card fazendo o trabalho que
-                    ele foi posto ali para fazer. */}
-                <div className="mt-auto space-y-1.5 pt-4 leading-[1.5]">
+                <div className="text-[15px] leading-[1.7]">
                   {o.tel && (
                     <a
                       href={`tel:${o.tel.replace(/\s/g, "")}`}
-                      className="block text-[14px] text-muted transition-colors hover:text-brand"
+                      className="block text-muted transition-colors hover:text-brand"
                     >
                       {o.tel}
                     </a>
                   )}
-                  {/* O <wbr> depois do @ fica mesmo com o card largo: é o ponto
-                      de quebra que o navegador tem de usar primeiro se a coluna
-                      apertar (telefone estreito), em vez de partir o domínio no
-                      meio. `break-words` fica de rede. */}
+                  {/* O <wbr> depois do @ continua: com a coluna de contato em
+                      ~1fr de 1440, o domínio cabe inteiro, mas no tablet a
+                      fileira aperta e é ali que o navegador tem de quebrar. */}
                   <a
                     href={`mailto:${o.email}`}
-                    className="block break-words text-[14px] text-brand transition-colors hover:text-brand-dark"
+                    className="block break-words text-brand transition-colors hover:text-brand-dark"
                   >
                     {o.email.split("@")[0]}@<wbr />
                     {o.email.split("@")[1]}
@@ -1730,67 +1821,54 @@ export default async function AboutV2Page() {
                 </div>
               </div>
             ))}
-
-            {/* A SEXTA VAGA. Cinco escritórios numa grade de três deixam um
-                buraco embaixo à direita, e buraco em grade lê como conteúdo que
-                faltou carregar, não como espaço. Ele vira a ação da seção: quem
-                rola até aqui está procurando como falar com a CDNA, e quatro
-                dos cinco cards ao lado terminam num e-mail. O botão fecha a
-                linha em vez de deixá-la pela metade.
-
-                ⚠️ SEM FRASE, e isso é deliberado. O tile pedia uma linha do
-                tipo "não tem escritório perto? falamos com você" — e escrever
-                isso seria copy nossa, que é justamente o que o cliente pediu
-                para pararmos de fazer em 29-08, e o que o cabeçalho deste
-                arquivo registra ("tudo abaixo é transcrição — nada foi escrito
-                por nós"). O rótulo "Get in touch" não é invenção: ele já existe
-                na faixa de fechamento desta mesma página.
-
-                Quando o cliente mandar a frase, ela entra acima do botão e o
-                tile passa a ler como card, não como botão grande.
-
-                `bg-brand` sólido e não branco como os vizinhos: é o único
-                elemento acionável da faixa, e a faixa inteira é de cards
-                brancos sobre `paper`. Contorno aqui não distinguiria nada — a
-                mesma lógica que fez o Contact do menu ser o único preenchido. */}
-            <Link
-              href="/#contact"
-              className="group flex flex-col items-start justify-end bg-brand p-6 text-white transition-colors hover:bg-brand-dark"
-            >
-              {/* "Contact" e não "Get in touch". As duas existem na página, mas
-                  "Get in touch" é o rótulo do botão da faixa de fechamento, que
-                  fica ~250px abaixo deste tile — dois botões idênticos à
-                  distância de uma rolagem leem como repetição, não como duas
-                  chances. "Contact" é o rótulo do item de menu, então também
-                  não é copy nova. */}
-              <span className="font-serif text-[24px] font-medium leading-[1.15] md:text-[28px]">
-                Contact
-              </span>
-              <span className="mt-3 block h-[3px] w-8 flex-none bg-white/70" />
-              {/* A seta anda 4px no hover, o mesmo gesto do botão da faixa
-                  final. Ela mora na base porque é ali que os cinco cards ao
-                  lado terminam — o tile fecha a linha na mesma altura que eles,
-                  em vez de ser um bloco de outra natureza no fim da grade.
-
-                  Sem palavra ao lado da seta de propósito: o rótulo já está no
-                  topo do tile e o alvo clicável é o tile inteiro, então repetir
-                  "Contact" embaixo seria dizer a mesma coisa duas vezes dentro
-                  do mesmo elemento. Quem usa leitor de tela recebe o nome pelo
-                  <span> do topo; a seta é `aria-hidden`. */}
-              <span
-                aria-hidden
-                className="mt-auto pt-4 text-[18px] transition-transform duration-200 group-hover:translate-x-1"
-              >
-                →
-              </span>
-            </Link>
           </div>
 
+          {/* O CONTATO VIRA UMA LINHA, e não mais um tile.
+
+              Na grade ele existia para tapar a sexta vaga — "buraco em grade lê
+              como conteúdo que faltou carregar". Em lista não há vaga, então a
+              justificativa dele acabou junto com a grade.
+
+              Fica como marca: texto vermelho, seta, nada de área. O rótulo
+              continua sendo "Contact", que é o item do menu, e não "Get in
+              touch", que é o botão da faixa de fechamento ~250px abaixo — dois
+              rótulos idênticos a uma rolagem de distância leem como repetição.
+
+              Vale lembrar que esta seção NÃO precisa carregar a conversão: a
+              faixa logo abaixo é a chamada da página. Aqui é só a saída para
+              quem chegou procurando com quem falar e não achou a própria
+              cidade. */}
+          <Link
+            href="/#contact"
+            className="group mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-brand transition-colors hover:text-brand-dark"
+          >
+            Contact
+            <span
+              aria-hidden
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </Link>
+
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
-              { name, descriptor }. Os descritores estão em HOLD. */}
-          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+              { name, descriptor }. Os descritores estão em HOLD.
+
+              `mt-16`, e não os `mt-5` de antes — 09-09. Os 20px vinham de casar
+              com o `gap-5` da grade de cards que existia acima; sem a grade,
+              eles deixavam o link "Contact" mais perto destes tiles do que da
+              lista a que ele pertence, e o link passava a ler como rótulo desta
+              faixa. O vão maior devolve o link ao grupo certo.
+
+              SEM `bg-white` — 09-09. Tirados os cards dos escritórios, estes
+              cinco eram as únicas caixas que sobravam na faixa e passavam a
+              saltar como resto do desenho antigo. Ficam o filete vermelho no
+              topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
+              sem a caixa. O `p-6` também sai, porque padding sem fundo só
+              empurra o texto para longe do filete que o ancora. */}
+          <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {REGIONS.map((r) => (
-              <div key={r.name} className="border-t-2 border-brand bg-white p-6">
+              <div key={r.name} className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
                     tratamento do rótulo vermelho, aplicado a um TÍTULO, e
                     caixa alta em grotesca pesada é exatamente o "quadrado" que
