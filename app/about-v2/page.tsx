@@ -1248,7 +1248,7 @@ export default async function AboutV2Page() {
             faixa sangrar até a borda da janela se ela voltar a ter cor, e voltar
             atrás nisso é uma classe. */}
         <div className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-12 md:px-10 md:pb-20 md:pt-16">
+          <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
               /* AS BLACK BOXES VOLTAM, agora como superfície (09-09).
@@ -1398,13 +1398,33 @@ export default async function AboutV2Page() {
           Por isso o rótulo desta seção é escrito à mão em vez de usar o
           <TypeLabel> — ele viria com a régua colada, e ela já está embaixo. */}
       <section id="purpose" className="relative isolate overflow-hidden bg-ink text-white">
+        {/* NO TELEFONE O ENQUADRAMENTO VAI PARA A DIREITA (09-09), onde está a
+            mulher de pé no palco. Centralizado, o corte mostrava o meio do
+            salão — plateia de costas — e a pessoa que dá sentido à foto ficava
+            fora da tela.
+
+            A CONTA. Numa seção de 1028px de altura por 390 de largura, a caixa
+            tem proporção 0,38:1 contra 1,50:1 do arquivo, então o `object-cover`
+            escala PELA ALTURA: a imagem sai com 1543px de largura dentro de uma
+            caixa de 390. Sobram 1153px de folga horizontal e nenhuma vertical —
+            só o eixo X manda. A mulher está a ~80% da largura do arquivo, o que
+            a põe a 1242px da borda esquerda da imagem escalada; a 85% de
+            deslocamento a janela abre em 980px e ela cai a dois terços da tela,
+            à direita do centro e inteira.
+
+            `md:object-center` DEVOLVE O PADRÃO no desktop, e ali o eixo X não
+            teria efeito nenhum de qualquer forma: numa dobra larga a caixa fica
+            mais alongada que o arquivo, a escala passa a ser pela LARGURA e a
+            folga vira vertical. É a mesma armadilha já documentada duas vezes
+            neste arquivo, no herói — o eixo que funciona depende de qual lado
+            sobra, e ele troca com a proporção da caixa. */}
         <Image
           src={purposePhoto}
           alt=""
           aria-hidden
           fill
           sizes="100vw"
-          className="-z-20 object-cover object-center"
+          className="-z-20 object-cover object-[85%_center] md:object-center"
         />
         {/* HISTÓRICO DO TRATAMENTO, porque a versão final inverte a lógica das
             duas primeiras e isso não se adivinha lendo o código.
@@ -1474,7 +1494,7 @@ export default async function AboutV2Page() {
           className="absolute inset-0 -z-10"
           style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
         />
-        <div className="mx-auto max-w-[900px] px-6 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
           <div className="flex flex-col items-center text-center">
             {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
                 recomendação registrada aqui. Fica o número para quem reabrir
@@ -1621,7 +1641,7 @@ export default async function AboutV2Page() {
           A coluna direita é a mais larga de propósito — ela tem quatro vezes
           mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
           <TypeLabel>What we promise.</TypeLabel>
           <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -1661,7 +1681,7 @@ export default async function AboutV2Page() {
           Sem os ícones da imagem: não existe esse jogo de ícones no site, e os
           campos de CMS do outline são { name, body }, sem ícone. */}
       <section id="values" className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           <div className="flex flex-col items-center text-center">
             <TypeLabel>What we believe, and how we work.</TypeLabel>
             <p className="max-w-[760px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
@@ -1782,7 +1802,7 @@ export default async function AboutV2Page() {
           ser o que o texto do outline pede. As cinco regiões abaixo continuam em
           cinco, porque lá o texto é curto e cabe. */}
       <section className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
               ORDEM, 09-09: as regiões passaram a vir LOGO ABAIXO DO MAPA, e os
               escritórios depois delas. O mapa mostra onde a CDNA opera; a régua
@@ -1938,7 +1958,7 @@ export default async function AboutV2Page() {
           abaixo, que é a ação principal. Dois preenchidos seguidos anulam a
           hierarquia — este é o caminho lateral, aquele é o convite. */}
       <section id="people" className="bg-ink text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           <TypeLabel onDark>The people behind it</TypeLabel>
           <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
             Identity is what the team does under pressure.
