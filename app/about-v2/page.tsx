@@ -1042,7 +1042,19 @@ export default async function AboutV2Page() {
           da direita, em 2x2 — o que contraria o outline e espreme quatro textos
           em meia largura. Fica como está até alguém pedir o contrário. */}
       <section id="identity" className="bg-white text-ink">
-        <div className="mx-auto max-w-[1440px] px-6 md:px-10">
+        {/* RESPIRO ENTRE O HERÓI E A FOTO (09-09). A foto nascia colada na base
+            do herói — medido, zero pixel entre o fim de um e o começo da outra.
+
+            Emenda direta entre uma dobra escura de sangria total e uma
+            fotografia clara não lê como continuidade, lê como falha de
+            espaçamento: são duas superfícies de peso muito diferente que se
+            tocam sem transição, e o olho procura a borda que deveria existir.
+
+            48px no telefone e 64px no desktop — deliberadamente MENOS que os
+            64/80px que as outras seções usam de respiro. Aqui não se quer uma
+            separação de seção: o herói e a foto do time contam a mesma coisa em
+            sequência, então o vão precisa dizer "respira" sem dizer "acabou". */}
+        <div className="mx-auto max-w-[1440px] px-6 pt-12 md:px-10 md:pt-16">
           {/* A CITAÇÃO ENCAVALA A FOTO — referência de 09-09 (`ref
               testimonial.png`): foto de um lado, card do depoimento montado por
               cima da borda dela, deslocado na vertical.
@@ -1501,8 +1513,23 @@ export default async function AboutV2Page() {
                 combinação a letra afina opticamente. Um degrau de peso repõe o
                 que a inversão tira — é o mesmo ajuste, na mesma página, pela
                 mesma razão. */}
-            <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              Our purpose is to keep leadership real.
+            {/* A MEDIDA SUBIU DE 720 PARA 820px em 09-09, e o número não é
+                estético: medido, o título a 40px pede 744px numa linha só. Preso
+                em 720 ele quebrava por 24px e largava "real." sozinho na segunda
+                linha. 820px é a largura cheia do container (900 menos os 80 de
+                padding), então é o teto real, não um valor escolhido.
+
+                `whitespace-nowrap` nas duas últimas palavras para as telas onde
+                ele quebra de qualquer jeito. Sem isso a quebra leva UMA palavra
+                para baixo — órfã, e num título de 40px isso é a coisa mais
+                visível da seção. Presas, "leadership real." descem juntas, que é
+                uma quebra de frase normal.
+
+                As duas coisas juntas: cabe inteira onde couber, e onde não
+                couber quebra com duas palavras embaixo. */}
+            <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+              Our purpose is to keep{" "}
+              <span className="whitespace-nowrap">leadership real.</span>
             </h2>
           </div>
 
