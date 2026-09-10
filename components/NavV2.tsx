@@ -260,12 +260,30 @@ export default function NavV2({
                 {item.label}
               </Link>
             ) : item.children ? (
-              // `-top-[2px]` só no padrão: ele compensa o item que carrega a
-              // seta contra os vizinhos sem caixa. Encapsulados, os oito têm a
-              // mesma altura de caixa e o ajuste vira desalinhamento.
+              // ALINHAMENTO DO ITEM COM SETA — corrigido em 09-09, medido.
+              //
+              // Ele nascia 3px acima dos vizinhos, e eram duas causas somadas:
+              //
+              //   2px  do `-top-[2px]` que estava aqui. Ele compensava um estado
+              //        antigo do menu, e o próprio comentário anterior já
+              //        avisava que "encapsulados, os oito têm a mesma altura de
+              //        caixa e o ajuste vira desalinhamento". Era o caso.
+              //   1px  do wrapper. Ele é um `div` de bloco e herda `line-height:
+              //        24px`, enquanto o link dentro dele tem 16px. Sendo o
+              //        wrapper o item flex da barra, o link ficava ancorado na
+              //        LINHA DE BASE dessa caixa de 24px em vez de centrado
+              //        nela — os vizinhos são links de 16px direto, sem caixa
+              //        intermediária.
+              //
+              // `flex items-center` no wrapper elimina a caixa de linha: o link
+              // passa a ser filho flex e é alinhado pelo mesmo algoritmo que
+              // posiciona os outros oito. Medido depois: diferença 0,0px.
+              //
+              // Vale para as três páginas que usam esta barra — /about-v2,
+              // /home-v2 e /home-v3.
               <div
                 key={item.label}
-                className="group relative -top-[2px]"
+                className="group relative flex items-center"
               >
                 <Link
                   href={item.href ?? "#"}
@@ -358,12 +376,48 @@ export default function NavV2({
         </button>
       </div>
 
-      {/* mobile panel */}
-      {open && (
-        <nav
-          id="v1-mobile-nav"
-          className="border-t border-white/15 bg-brand lg:hidden"
-        >
+      {/* ── Painel do telefone ────────────────────────────────────────
+          ABERTURA SUAVE — 09-09. Antes era `{open && (...)}`: montagem
+          condicional, sem transição possível. O painel aparecia e sumia de um
+          quadro para o outro, e no telefone isso lê como a página tendo pulado.
+
+          Agora ele fica SEMPRE MONTADO e o que muda é o estado. A altura anima
+          pelo truque de grade — `grid-rows-[0fr]` para `grid-rows-[1fr]`, com
+          `overflow-hidden` no filho. É a única forma de animar até "a altura do
+          conteúdo" sem medir nada em JS nem cravar um `max-height` chutado, que
+          é o defeito clássico deste componente: chuta baixo e corta o menu,
+          chuta alto e a animação fica lenta no fim, parada, esperando o tempo
+          acabar.
+
+          `invisible` acompanha o fechado, e não é enfeite: sem ele o painel
+          continua no fluxo de foco, e quem navega por teclado ou leitor de tela
+          entra em oito links invisíveis depois do botão do menu. Com
+          `visibility` na transição, ele só some DEPOIS da animação — daí o
+          `transition-[grid-template-rows,opacity,visibility]`.
+
+          O `aria-hidden` segue o mesmo estado, para leitor de tela e foco
+          contarem a mesma história.
+
+          ⚠️ CURVA ASSIMÉTRICA — a duração e a easing moram DENTRO das strings de
+          cada estado, e não na classe comum, de propósito.
+
+          A primeira versão usava `ease-out` nos dois sentidos e o fechamento
+          ficou travado. `ease-out` é `cubic-bezier(0, 0, 0.2, 1)`: começa rápido
+          e tem cauda longa. Entrando isso é o certo — o conteúdo chega depressa
+          e assenta devagar. Saindo é o defeito: o painel colapsa quase todo no
+          primeiro terço e o último pedaço se arrasta enquanto o dedo já saiu do
+          botão. A saída pede o contrário, `ease-in`, e menos tempo: 200ms contra
+          300ms. Fechar tem de parecer imediato; abrir é que pode ter graça. */}
+      <nav
+        id="v1-mobile-nav"
+        aria-hidden={!open}
+        className={`grid border-t border-white/15 bg-brand transition-[grid-template-rows,opacity,visibility] lg:hidden ${
+          open
+            ? "visible grid-rows-[1fr] opacity-100 duration-300 ease-out"
+            : "invisible grid-rows-[0fr] opacity-0 duration-200 ease-in"
+        }`}
+      >
+        <div className="overflow-hidden">
           <div className="mx-auto flex max-w-[1200px] flex-col px-6 pb-5 pt-1">
             {items.map((item) =>
               item.cta ? (
@@ -393,20 +447,40 @@ export default function NavV2({
                       }
                     />
                   </button>
-                  {openGroup === item.label && (
-                    <div className="pb-2">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          href={child.href}
-                          onClick={() => setOpen(false)}
-                          className="block py-2.5 pl-4 text-[14px] font-medium tracking-[0.3px] text-white/85"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                  {/* Mesmo truque de grade do painel, e pela mesma razão: aqui
+                      são oito filhos de altura variável, então qualquer
+                      `max-height` seria chute. 250ms contra os 300 do painel —
+                      é um movimento menor, dentro de outro que já está
+                      acontecendo, e igualar os dois faria o submenu parecer
+                      atrasado.
+
+                      CURVA ASSIMÉTRICA, como no painel: `ease-out` para entrar,
+                      `ease-in` e mais curto para sair. Ver a explicação lá em
+                      cima — a mesma cauda que trava o fechamento do painel
+                      travava o deste submenu. */}
+                  <div
+                    className={`grid transition-[grid-template-rows] ${
+                      openGroup === item.label
+                        ? "grid-rows-[1fr] duration-250 ease-out"
+                        : "grid-rows-[0fr] duration-200 ease-in"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pb-2">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            onClick={() => setOpen(false)}
+                            tabIndex={openGroup === item.label ? undefined : -1}
+                            className="block py-2.5 pl-4 text-[14px] font-medium tracking-[0.3px] text-white/85"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               ) : (
                 <Link
@@ -420,8 +494,8 @@ export default function NavV2({
               ),
             )}
           </div>
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

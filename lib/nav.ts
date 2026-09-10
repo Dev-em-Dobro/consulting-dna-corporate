@@ -31,7 +31,7 @@ export type NavItem = {
 // What moved, and why the mapping is what it is:
 //
 //   • `Home` leaves the menu. The logo already links to `/` in both headers.
-//   • `About` → /our-identity, the identity half of the old /about (which 308s
+//   • `About` → /about. Desde 09-09 a About real mora aqui; a página antiga
 //     there). "Our Team" is now its own top-level item, so /about stays split.
 //   • `Team` and `Insights` join the menu. Both routes existed and were kept
 //     out on purpose — Team pending photography, Insights because the 27-08
@@ -44,7 +44,7 @@ export type NavItem = {
 //     "Start a Conversation". It targets the home's `#contact` section, the
 //     same destination /contact and /contact-us already redirect to.
 export const siteNav: NavItem[] = [
-  { label: "About", href: "/our-identity" },
+  { label: "About", href: "/about" },
   // Plain "(5H)" and not the site's 5H® treatment: labels are strings here (and
   // are used as React keys), so a superscript would mean a node-typed label
   // across three components for one nav item.

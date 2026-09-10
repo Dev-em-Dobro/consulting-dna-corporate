@@ -39,6 +39,7 @@ import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
+import { localeAlternates } from "@/lib/seo/alternates";
 import heroPhoto from "@/public/about-hero.jpeg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito — ver a caixa de comentário daquela seção. Mesmo arquivo que a
@@ -165,13 +166,27 @@ function TypeLabel({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "About V2 (proposta) — Corporate DNA";
+  const title = "About — Corporate DNA";
   return {
     title,
     description:
       "Our purpose, our promise, what we believe, and where we work.",
-    // Sem `alternates`: o canonical de /our-identity é da página real.
-    robots: { index: false, follow: false },
+    // PROMOVIDA EM 09-09. Era `/about-v2`, uma proposta `noindex` sem canonical
+    // porque a página de verdade era `/our-identity`. Agora esta É a página de
+    // verdade, e as duas linhas abaixo mudaram juntas de propósito:
+    //
+    //   • entra o `alternates`, que faltava — sem canonical próprio a página
+    //     não tem como se declarar a versão boa de si mesma.
+    //   • sai o `robots: noindex`. Ele não podia ficar: `/about` entrou no
+    //     `sitemap.ts` no mesmo commit, e sitemap dizendo "indexe" com a página
+    //     dizendo "não indexe" é pior que qualquer um dos dois sozinho — é
+    //     sinal contraditório, e o Google resolve contra a gente.
+    //
+    // O que sustenta a decisão: o `robots.ts` do site libera tudo menos `/v1` e
+    // `/preview/`, e o domínio real ainda serve o WordPress antigo — o que está
+    // exposto é um endereço `vercel.app`. Quem for revisar antes do lançamento,
+    // revise por lá.
+    alternates: localeAlternates("/about"),
     openGraph: { title },
     twitter: { title },
   };
@@ -531,15 +546,15 @@ export default async function AboutV2Page() {
         items={nav}
         maxWidthClass="max-w-[1440px]"
         outlined
-        /* Esta rota É a About; o item do menu aponta para `/our-identity`, que
-           é onde a About mora hoje. Sem isto o menu ficaria sem item marcado
-           justamente na página em que o cliente pediu a marcação. Some quando
-           esta virar a página de verdade — aí a rota casa sozinha. */
-        activeHref="/our-identity"
+        /* Sem `activeHref` desde 09-09, e isso é o conserto e não uma omissão.
+           Enquanto esta rota era `/about-v2`, o item "About" do menu apontava
+           para `/our-identity` e a marcação de item ativo precisava ser forçada
+           à mão. Agora a rota e o `href` do menu são o mesmo `/about`, então o
+           casamento acontece sozinho — era o que o comentário anterior previa. */
       />
       <main className="flex-1">
       <JsonLd
-        data={breadcrumbLd([{ name: "About", path: "/about-v2" }])}
+        data={breadcrumbLd([{ name: "About", path: "/about" }])}
       />
 
       {/* ── Primeira dobra · Breadcrumb + Block 1 (hero) + Block 1b (números)

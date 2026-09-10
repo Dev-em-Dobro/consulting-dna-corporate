@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticPaths = [
     "",
-    "/our-identity",
+    "/about",
     "/approach",
     "/solutions",
     "/solutions/leadership",
@@ -40,7 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/cookies",
     "/terms",
     // `/our-partnerships` is added below, only once it has content.
-    // `/about` is gone — it 308s to /our-identity (next.config.mjs).
+    // `/our-identity` e `/about-v2` 308am para `/about` (next.config.mjs).
+    // `/about-v1` é o arquivo da página antiga e fica FORA do sitemap.
     // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
   ];
 

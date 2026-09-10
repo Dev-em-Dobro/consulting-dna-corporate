@@ -11,7 +11,14 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Our Identity — Corporate DNA",
     description:
       "Who Corporate DNA is, how the firm came to be, what it believes and the difference it makes — the identity behind a global leadership advisory.",
-    alternates: localeAlternates("/our-identity"),
+    // ARQUIVO, desde 09-09. Esta era a About do site; a nova mora em `/about` e
+    // `/our-identity` 308a para lá. Guardada a pedido, para não se perder.
+    //
+    // `noindex` e sem canonical: ela ficou fora do menu e fora do sitemap, e
+    // duas páginas com o mesmo assunto disputando busca é o problema que
+    // canonical existe para evitar — aqui a resposta certa é a página não
+    // concorrer.
+    robots: { index: false, follow: false },
   };
 }
 export const revalidate = 300;

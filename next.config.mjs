@@ -16,9 +16,9 @@ const legacyDottedRedirects = [
   ["/see_us_in_action.html", "/cases"],
   ["/our_team.html", "/our-team"],
   ["/our_advisor.html", "/our-team"],
-  ["/our_identity.html", "/our-identity"],
-  ["/our_story.html", "/our-identity#story"],
-  ["/way-values.html", "/our-identity#values"],
+  ["/our_identity.html", "/about"],
+  ["/our_story.html", "/about"],
+  ["/way-values.html", "/about#values"],
   ["/our-way-head.html", "/approach"],
   ["/ten-ingredients.html", "/approach"],
   ["/book-endorsement.html", "/#book"],
@@ -96,11 +96,11 @@ const legacyExtensionlessRedirects = [
   ["/our-advisors", "/our-team"],
   ["/our-way/our-team-and-network", "/our-team"],
   // Identidade / Sobre → a página real de Our Identity e suas seções
-  ["/our-story", "/our-identity#story"],
+  ["/our-story", "/about"],
   // O antigo /our-approach agora tem página real (5H), não só a âncora da home.
   ["/our-approach", "/approach"],
   ["/our-way", "/#approach"],
-  ["/our-way/our-values", "/our-identity#values"],
+  ["/our-way/our-values", "/about#values"],
   ["/our-way/our-thinking", "/#approach"],
   ["/our-way/head-heart-hunch-hands", "/approach"],
   ["/10-dna-ingredients", "/approach"],
@@ -130,8 +130,20 @@ const legacyExtensionlessRedirects = [
 // cannot be routed here; nothing in the site links to those anchors any more.
 // `/cases` is deliberately NOT redirected: the faceted case library and its
 // detail pages stay where they are, and Our Clients links into them.
+// ⚠️ A DIREÇÃO SE INVERTEU em 09-09. Antes `/about` apontava para
+// `/our-identity`; agora a About real MORA em `/about` e é `/our-identity` que
+// aponta para ela. A página antiga não foi jogada fora — virou `/about-v1`,
+// fora do menu e fora do sitemap, para consulta.
+//
+// Os três redirects abaixo cobrem os três caminhos que as pessoas já têm:
+//   • `/our-identity` está no menu que ESTÁ EM PRODUÇÃO e nos resultados de
+//     busca. Sem este 308 ele passa a dar 404 no dia do deploy.
+//   • `/about-v2` foi o endereço mandado para revisão do cliente, inclusive na
+//     mensagem do grupo. Links já enviados continuam abrindo.
+//   • `/our_identity.html` é a página legada do WordPress, tratada mais acima.
 const splitAreaRedirects = [
-  { source: "/about", destination: "/our-identity", permanent: true },
+  { source: "/our-identity", destination: "/about", permanent: true },
+  { source: "/about-v2", destination: "/about", permanent: true },
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and

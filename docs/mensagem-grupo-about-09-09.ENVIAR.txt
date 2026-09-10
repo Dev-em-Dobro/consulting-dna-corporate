@@ -1,8 +1,13 @@
 PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
 NOTA: negrito no WhatsApp é *asterisco simples* — está formatado abaixo
-STATUS: ⚠️ NÃO ENVIAR AINDA — o alpha está uma versão atrás do que está
-        descrito aqui. O Vercel CLI deslogou sozinho ao se atualizar e o
-        deploy não subiu. Rodar `npx vercel login`, subir, e só então mandar.
+STATUS: ⚠️ NÃO ENVIAR AINDA — conferido no alpha às 23h de 09/09: ele NÃO tem
+        a seção do time, NÃO tem os cards brancos da spec do cliente, NÃO tem
+        os escritórios em lista, e ainda tem a faixa de fecho que já saiu
+        daqui. É a versão de antes do trabalho do dia inteiro.
+        Rodar `npx vercel login` (o CLI deslogou ao se atualizar), depois
+        `npx vercel --prod --scope dobro66 --yes`, conferir a página, e só
+        então mandar. Sem isso a mensagem aponta para uma página que não
+        existe.
 
 ⚠️ CONFERIR ANTES: o Beto disse "as 5 primeiras" e nomeou quatro. Incluí
    *What we believe* como a quinta, porque é a que vem em seguida na página e
@@ -39,14 +44,24 @@ attention first:
 5. What we believe
 
 *Everything after those is still moving.* Where we work, the offices and the
-regions, and the closing band are all going through another pass. Comments on
-them are welcome but they will change anyway.
+regions are going through another pass. Comments on them are welcome but they
+will change anyway.
 
 One thing that is not a bug: in *Keeping Leadership Real* you will see a grey
 rectangle where the team photograph goes. The layout is finished — the
 photograph is the one we are waiting on. It is the one already in the approved
 Our Identity slide, from the CDNA Overview Deck of 22 January. If someone can
 send that file across, that block is done.
+
+*Rhea — is this the direction you had in mind?* That is the one answer we would
+most like before tomorrow. The page was built from Maliha's outline, and a good
+deal of what is on the screen came from our reading of it rather than from
+anything anyone said directly. If the whole thing is pointing the wrong way, it
+is much cheaper to hear that now than after we finish it.
+
+*Open it on a desktop if you can.* It works on a phone, but the desktop layout
+is the one we have been designing against and the one that is furthest along —
+the phone version is catching up.
 
 If a page looks the same as last time you opened it, reload holding
 *Ctrl+Shift+R* — the browser keeps the old styling.
