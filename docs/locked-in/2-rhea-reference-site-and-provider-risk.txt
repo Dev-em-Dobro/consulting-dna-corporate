@@ -1,0 +1,263 @@
+DOC 2 - RHEA: THE REFERENCE SITE SHE LIKED, AND HER CONCERN ABOUT
+DEPENDING ON A PROVIDER
+
+Two separate things she raised. Both are likely to come up in the same conversation.
+
+
+######################################################################
+PART A - THE REFERENCE SITE
+######################################################################
+
+======================================================================
+WHAT SHE ACTUALLY WROTE
+======================================================================
+
+"please see the newly launched website by our partners Explore Performance who Mike
+and I know well. Tom and Axe offer expedition based simulations. They are smaller but
+an adjacent partner to similar clients - I LOVE THE CLARITY AND VISUAL APPEAL OF THE
+WEBSITE https://www.explore-performance.com/about/ - Nitin/Guilly/JP - please be
+inspired"
+
+Two details worth noticing: she sent the ABOUT page, not the home page. And she copied
+three colleagues with no specific request attached.
+
+======================================================================
+WHO EXPLORE PERFORMANCE ARE
+======================================================================
+
+A leadership company founded in Singapore by Tom Cooke and Grant "Axe" Rawlinson.
+Their product is expedition-based simulation - they film their own expeditions and use
+the footage as programme material. The site claims 40,000 participants, 25 countries,
+7 expeditions.
+
+They won BRANDON HALL GOLD AND SILVER IN 2025 - the same award Corporate DNA holds.
+Their winning case was UBS cultural integration after the Credit Suisse merger:
+20,000 leaders, 5 continents, 8 months.
+
+They are a partner, not a competitor. Adjacent, and smaller.
+
+======================================================================
+WHAT "CLARITY AND VISUAL APPEAL" MEANS IN PRACTICE - SIX CONCRETE THINGS
+======================================================================
+
+1. TWO TYPE FAMILIES, ONE OF THEM A SERIF.
+   Headlines in a geometric sans; body text in a SERIF with generous line height. That
+   pairing is what gives the editorial, publication feel instead of a SaaS feel.
+   Corporate DNA's site uses one typeface, Poppins, for everything.
+
+2. ONE ACCENT COLOUR, USED SPARINGLY.
+   Dark petrol base, white, light grey. Coral appears on maybe 5% of the screen - the
+   eyebrow, the numerals 01 02 03, a 2px rule at the top of a card. NEVER as a section
+   background.
+
+3. PHOTOGRAPHY OF THE WORK HAPPENING.
+   Facilitator on stage, participants at the table, the group in the room, the boat in
+   the Tasman. All their own, no stock. In the hero the photo is DARKENED HEAVILY,
+   almost monochrome, so white text sits flat on top of it.
+
+4. ONE SECTION PATTERN, REPEATED TOP TO BOTTOM.
+   Eyebrow in caps -> large headline ending in a full stop -> serif subtitle, centred
+   -> grid. Every section. That repetition is where the feeling of "clarity" actually
+   comes from: nothing on the page has to be re-learned.
+
+5. COPY WITH A NUMBER INSIDE IT.
+   "40,000 participants across 25 countries." "20,000 leaders, 5 continents, 8 months."
+   No generic consulting sentence survives without a figure next to it.
+
+6. ORGANISED BY CLIENT MOMENT, NOT BY PRODUCT.
+   Their main section is called "The moments we partner in", and the cards are:
+   Aligning leaders at scale / Driving growth ambitions / Defining culture / Leading
+   transformation / Sustaining behaviour change / Influencing at the highest level.
+   The client recognises themselves before having to understand the catalogue.
+
+======================================================================
+WHAT CORPORATE DNA'S SITE ALREADY DOES THE SAME WAY
+======================================================================
+
+Worth opening with this, otherwise the conversation starts as though we were at zero.
+
+  Eyebrow in caps with a rule    YES - "- OUR PEOPLE", "- WHAT WE SOLVE"
+  Large numbers as proof         YES - 90% / 18 / 36 / 75
+  Per-client metrics in cases    YES - Heineken 45%, Coca-Cola 43, Shell 2,582
+  Client logos                   YES, and stronger - Nestle, Coca-Cola, Unilever, BP,
+                                 HSBC, Disney, LEGO, adidas, McLaren
+  Team portraits                 YES - JP, Phil, Paul, Nitin
+  Organised by client problem    YES - the "What we solve" section is exactly this
+
+THE ARGUMENT STRUCTURE IS THE SAME. THE DIFFERENCE IS VISUAL FINISH, NOT ARCHITECTURE.
+Nothing here requires throwing the site away.
+
+======================================================================
+WHERE THE REAL GAPS ARE - FOUR OF THEM, WITH HONEST COST
+======================================================================
+
+1. THE HERO HAS NO CONTRAST.
+   The iceberg photo has a bright sky and the white text disappears into it. That is
+   literally the opposite of "clarity", and it is the first second of the site anyone
+   sees. Darkening the image fixes it. COST: HOURS.
+
+2. RED IS USED AS A BACKGROUND, NOT AS AN ACCENT.
+   The cases section is a solid red block, the nav bar is red, the numbers are red, the
+   links are red. In the reference, the accent never becomes an area - it only marks.
+   Reducing red to marks and letting white breathe is the highest effect for the lowest
+   effort. COST: DAYS.
+
+3. THE PHOTOGRAPHY SHOWS THE PEOPLE, NOT THE WORK.
+   The portraits are posed and the team photo is a dinner. No image shows a session
+   happening - room, flip chart, facilitator standing, group working. THIS IS NOT CODE,
+   IT IS AN ASSET LIBRARY. Either Corporate DNA has those photos somewhere, or someone
+   has to photograph the next delivery. THIS IS A QUESTION FOR HER, NOT A TASK FOR US.
+
+4. THE AWARDS SCROLL PAST IN A TICKER.
+   The moving strip at the top truncates the text and cannot be read. Explore
+   Performance shows the same awards as fixed badges with context. Swapping the ticker
+   for a badge block is cheap credibility. COST: HOURS.
+
+BONUS, AND IT IS A BUG RATHER THAN A DESIGN QUESTION: the cookie banner is pinned to
+the bottom of the screen and covers content on every scroll. It appears in every
+screenshot. Worth fixing before any aesthetic discussion.
+
+======================================================================
+THE OPEN QUESTION - AND IT DECIDES EVERYTHING
+======================================================================
+
+"Clarity" could mean the LOOK of the page, or it could mean that you UNDERSTAND WHAT
+THEY DO IN TEN SECONDS. Those two readings lead to completely different work, and her
+message does not distinguish between them. Finding out which one she means is worth
+more than any conclusion reached without her.
+
+======================================================================
+THE RISK IN THIS CONVERSATION, AND THE LINE THAT CONTAINS IT
+======================================================================
+
+Her message ends "Nitin/Guilly/JP - please be inspired" - three people, no specific
+request. That is the seed of an open-ended redesign, four weeks before a cutover with
+a hard date.
+
+The response that holds both things together:
+
+  "Great reference, and we can bring a lot of it across. Let me split it into two
+   lists: what can be done BEFORE we switch the domain without moving the date - hero
+   contrast, the use of red, the award badges - and what is content work, mainly
+   photography of programmes actually running, which depends on an asset library I
+   don't have. Do you want me to bring both lists with timings?"
+
+This agrees with her, delivers something immediately, and turns a diffuse request into
+two lists with named owners - without ever saying no, and without opening the schedule.
+
+
+######################################################################
+PART B - HER CONCERN ABOUT DEPENDING ON A PROVIDER
+######################################################################
+
+======================================================================
+WHAT SHE ASKED, IN SUBSTANCE
+======================================================================
+
+Three questions, raised over WhatsApp:
+
+  "Can we move after 3 months or is it annual?"
+  "Can we host ourselves?"
+  "Can the developer host it?"
+
+And someone on the Corporate DNA side wrote: "We should have a schematic for each part
+of the digital landscape with providers / owners / internal owners."
+
+HER CONCERN IS LEGITIMATE AND IT IS EXACTLY THE AXON SITUATION - a domain whose
+administrative contact is an employee who left, access held by an outside provider, and
+nobody internally holding the keys. She is right to raise it. Do not be defensive about
+it; agree with her.
+
+======================================================================
+THE STRAIGHT ANSWERS
+======================================================================
+
+"CAN WE MOVE AFTER 3 MONTHS, OR IS IT ANNUAL?"
+The Axon hosting is ALREADY CANCELLED, ending 30 September. Nobody has to decide to
+leave; that has happened. What needs a decision is the launch date, because the ability
+to roll back to the old site shrinks to zero on 30 September.
+
+"CAN WE HOST OURSELVES?"
+Yes. The new site is not WordPress. It runs on Vercel, and there is no server to
+administer. The account can be in Corporate DNA's name - AND IT SHOULD BE.
+
+"CAN THE DEVELOPER HOST IT?"
+Technically yes, and today it is: three accounts are in Dev em Dobro's name. That is
+precisely the dependency she is worried about, so it is better to raise it before being
+asked.
+
+======================================================================
+CORPORATE DNA ALREADY SET THE RULE - QUOTE IT BACK TO HER
+======================================================================
+
+Guilherme wrote it on 1 September, first to us and then in English to Axon:
+
+  "Wherever possible, please use the following as Corporate DNA's institutional
+   owner/account: singapore@corporatednaconsulting.com. We would also like Nitin Goil
+   and Nicole to have administrator access so that ownership and control do not depend
+   on a single individual or external provider. Corporate DNA retains ownership and
+   administrative control of the accounts, while our technical partners receive the
+   permissions required to manage them."
+
+And in short: "CORPORATE DNA OWNS; OUR PARTNERS MANAGE."
+
+That is the answer to her whole concern, and it came from her own team - not from us.
+The work now is executing it, not proposing it.
+
+======================================================================
+THE THREE ACCOUNTS IN OUR NAME TODAY, AND THE PLAN FOR EACH
+======================================================================
+
+VERCEL (team dobro66)
+  What it does: hosts the new website and the CMS
+  Plan: create a Corporate DNA team under singapore@, transfer the project, add Nitin
+        and Nicole. No downtime, no code change.
+
+SUPABASE
+  What it does: the content database - case studies, Solutions pages
+  Plan: transfer to a Corporate DNA organisation.
+  WARNING, separate issue: it is on a free plan with no backups. Needs fixing
+  regardless of ownership.
+
+RESEND
+  What it does: sends CMS login and password-reset emails
+  Plan: same handover.
+
+Plus NEON, a read-only legacy database kept as a rollback copy. It can be retired after
+launch; no action needed.
+
+DECLARE THESE BEFORE BEING ASKED. They are listed with a transfer path, which is the
+difference between a disclosed dependency and a discovered one.
+
+======================================================================
+WHAT ONLY CORPORATE DNA CAN ANSWER
+======================================================================
+
+1. Which mailbox owns the CLOUDFLARE account today - and whether it is tied to
+   Allison's.
+2. Who administers the MICROSOFT 365 tenant. Eztech is the likely answer; nobody has
+   confirmed it.
+3. Who uses ZOHO, SENDGRID and MAILCHIMP with the domain - five entries in the SPF
+   record are authorised to send email as Corporate DNA, and each needs a named owner
+   or removal.
+4. THE LMS - which platform, at what address, contracted by whom, and whether it sits
+   on the Axon server.
+
+======================================================================
+IF THE LMS COMES UP - DO NOT AGREE TO ANYTHING YET
+======================================================================
+
+Someone suggested combining the website hosting with the LMS hosting. DO NOT AGREE TO
+THAT IN THE MEETING WITHOUT KNOWING WHAT THE LMS IS. DNS was checked on 3 September and
+no LMS subdomain resolves under any likely name, so either it runs on another domain or
+under a name we could not guess.
+
+Combining them only makes sense if the LMS is WordPress. If it is a ready-made platform
+- Moodle, TalentLMS, Docebo, Teachable - there is no such thing as "shared hosting";
+they are two separate services, and promising it now creates a problem later.
+
+The right question is: "WHICH LMS IS IT, WHO BOUGHT IT, AND IS IT LIVE TODAY?"
+
+And one serious case to rule out: IF THE LMS RUNS ON THE SAME AXON SERVER AS THE
+WORDPRESS SITE, IT GOES DOWN WITH IT ON 30 SEPTEMBER. That has nothing to do with DNS
+and would be the most serious thing in this whole project.

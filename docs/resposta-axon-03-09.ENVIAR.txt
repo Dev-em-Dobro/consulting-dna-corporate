@@ -1,0 +1,143 @@
+RESPOSTA À AXON — 03/09/2026
+Responde ao "gentle reminder" do Rico com os cinco itens. Corpo em texto puro.
+
+────────────────────────────────────────────────────────────────────────
+COMO MANDAR: **Responder a todos** no e-mail do Rico de 03/09 que começa
+             com "Just a gentle reminder regarding the remaining items"
+             (12:04 SGT). É o que enumera os cinco pontos, e a nossa
+             resposta segue a mesma ordem.
+
+CÓPIA:       deixar como o Reply All preencher. A Axon recolocou o
+             Spencer e a Maliha na thread por conta própria; não vale a
+             briga de tirar agora.
+
+PREENCHER ANTES DE MANDAR:
+             nada. Todos os nomes, endereços e valores já estão no corpo.
+
+CONFIRMADO ANTES DE ESCREVER:
+             o TXT google-site-verification citado no §4 foi consultado
+             hoje, 03/09, no 1.1.1.1 — ainda está publicado na zona.
+
+O QUE ESTE E-MAIL COMPROMETE:
+             uma data, para duas coisas. Até 20/09 sai a decisão sobre a
+             extensão da hospedagem (§2) e a posição sobre o backup do
+             site antigo (§5). Anotar na agenda.
+
+POSTURA NO §5 (decidida em 03/09):
+             não abrir a discussão de acesso agora. Só avisar que
+             estamos analisando, pedir para não mexerem em nada e
+             prometer resposta no dia 20. Motivo: não queremos resolver
+             isso hoje nem gerar custo. A oferta de crédito de
+             manutenção é recusada de leve, sem negociar preço.
+             O que NÃO entrou aqui de propósito, e fica guardado para o
+             dia 20 se precisarmos pedir acesso: perguntar se o reset
+             atinge só o cPanel ou também os logins do WordPress, e
+             pedir um usuário FTP adicional em vez de reset.
+
+VERIFICADO NO DNS HOJE (contexto para o dia 20):
+             MX é 100% Microsoft 365, único, sem fallback — reset de
+             cPanel não afeta e-mail de ninguém. E não há webmail/mail/
+             ftp/cpanel publicados no domínio. O risco real é só o
+             login do WordPress, se alguém da CDNA ainda publicar lá.
+
+FORA DESTE E-MAIL:
+             travas do domínio, auto-renew do domínio, invalidação dos
+             EPP já emitidos e a fatura de S$ 22 em aberto. Continuam
+             pendentes de uma conversa separada.
+
+FORMATO:     cada parágrafo é uma linha só, sem quebra manual, para o
+             Gmail preencher a largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+
+Dear Rico,
+
+Thank you for the reminder, and for moving so quickly once Nicole's Google Account was in place. Taking your points in the same order.
+
+1. DOMAIN ADMINISTRATIVE CONTACT
+
+Thank you for waiving the letterhead requirement — that saves a signature round-trip, and we appreciate Amit vouching for Rhea directly. Rhea will confirm by reply-all in this thread.
+
+For the record, so there is no ambiguity when you go to the registrar: Rhea Leckie, rhea.l@corporatednaconsulting.com, as primary administrative contact; Guilherme Mendes, Nitin Goil and Jon-Paul Pritchard on the notification list where the registrar supports it; and Allison Vickery's mailbox removed from all domain correspondence. The postal address is unchanged.
+
+2. HOSTING EXTENSION
+
+Understood: no monthly option, minimum one quarter, 1 October to 31 December 2026, SGD 150. Corporate DNA will confirm the decision by 20 September, which leaves you ten days before the current term ends.
+
+3. GOOGLE ANALYTICS
+
+Thank you for adding Nicole. Two items from Guilherme's 1 September email are still open on that property:
+
+- singapore@corporatednaconsulting.com as Corporate DNA's institutional owner/administrator. This is the whole point of the exercise — the account should not depend on any single individual, internal or external.
+- nitin.goil@corporatednaconsulting.com as administrator.
+
+If either address is not yet linked to a Google Account, tell us which one and we will have it created the same way Nicole did, rather than have the invitation fail silently.
+
+On the legacy UA property, we take your point and there is nothing to do about it. We already have access to the GA4 property under the same account and will install and validate the tag on the new site before cutover. That is on our side and needs nothing from Axon.
+
+4. GOOGLE SEARCH CONSOLE
+
+This is the one item that has not moved since we first raised it, and it matters more than Analytics for the organic visibility Amit was right to flag.
+
+The domain's DNS zone still publishes a Google verification record — we queried it again today:
+
+google-site-verification=qhJkWlL-UVvC_XuGzji8FuWTGDFZiP2ynGRIAsxIoIU
+
+So a verified property exists, and someone holds it. Please tell us which Google account that is and who currently has owner or full access, and grant access to singapore@corporatednaconsulting.com, nitin.goil@corporatednaconsulting.com and nicole.phoon@corporatednaconsulting.com.
+
+If the property is not under Axon's control, please say so plainly and we will pursue it from Corporate DNA's side.
+
+5. WORDPRESS BACKUP
+
+Thank you for setting out the options. Nothing is needed from Axon on this at the moment.
+
+Corporate DNA does want a complete archive of the legacy site before the server is retired, and Dev em Dobro will take that backup ourselves rather than ask Axon to produce it. We are reviewing internally what is actually required — part of it we may be able to obtain without touching the server at all — so we would rather not have anything changed or reset while that review is under way. Please leave the existing credentials exactly as they are for now.
+
+We will come back to you on this point by 20 September, together with the hosting decision in item 2, and will tell you then whether we need anything from you at all. If we do, we would expect it to be a straightforward access request rather than work on your side, so we do not anticipate needing the maintenance-credit assistance for the backup.
+
+6. THE CUTOVER
+
+Unchanged and agreed. We will send the exact apex A and www record values, with the proposed date, time and timezone, before making any change. MX, SPF, DKIM and DMARC will not be touched, so Microsoft 365 mail is unaffected. Cloudflare's Under Attack mode stays on through the change and validation and comes off at go-live, and we will tell you when we disable it. No assistance is needed on the DNS work itself.
+
+Thank you again for the pace on Nicole's access. Item 4 is the only one where we are waiting on you.
+
+Best regards,
+Ricardo
+
+
+════════════════════════════════════════════════════════════════════════
+MENSAGEM PARA O GUILHERME (PT) — thread separada, não à Axon
+════════════════════════════════════════════════════════════════════════
+
+Fala, Guilherme, tudo certo?
+
+A Axon respondeu a leva toda. Resumo do que mudou e do que ficou parado.
+
+Boa notícia primeiro: a carta em papel timbrado caiu. Como o Amit conhece a Rhea de Singapura, ele aceita que ela confirme por e-mail mesmo. Então não precisa mais do telefone, nem de assinatura, nem de impressão — e não tem custo, eles dão até três trocas de contato de graça.
+
+O que falta aí do lado de vocês:
+
+1. A Rhea precisa dar um "responder a todos" na thread autorizando a troca do contato administrativo para o e-mail dela e a remoção da Allison. É a única coisa que trava esse item, e é uma frase.
+
+2. A Nicole precisa aceitar o convite do Google Analytics que o Rico mandou hoje. Ela já criou a conta Google e ele já a adicionou como administradora; falta só clicar.
+
+3. Hospedagem: eles responderam o preço. Não existe extensão mensal, o mínimo é um trimestre — 01/10 a 31/12, S$ 150. Eu disse a eles que a Corporate DNA confirma até 20/09, então dá para decidir com o conteúdo mais adiantado e sem correr. Se a gente lançar com folga antes de 30/09, não precisa de nada; se apertar, os S$ 150 compram a janela de rollback.
+
+Duas coisas que eles ainda não entregaram, e que eu cobrei de novo agora:
+
+4. Search Console. Perguntei três vezes e ainda não responderam quem é o dono da propriedade. Fui atrás e confirmei hoje que o registro de verificação do Google continua publicado no DNS de vocês, então a propriedade existe e alguém tem. Mandei o código na cara deles pedindo para dizerem de quem é. Vale a mesma pergunta aí dentro que eu já tinha feito: alguém da CDNA já acessou isso alguma vez, ou lembra quem cuidava de SEO na época? Se aparecer internamente, resolve na hora.
+
+5. Backup do WordPress. Aqui vale você saber como ficou. Em vez de dar o acesso, eles devolveram a pergunta ("confirmem como vocês querem fazer o backup") e ofereceram vender um crédito de manutenção para fazerem o serviço.
+
+Eu não quis abrir essa discussão agora. Respondi só que estamos analisando internamente, pedi para não mexerem em nada por enquanto e disse que damos a posição até 20/09, junto com a da hospedagem. Recusei de leve a oferta paga, sem entrar em negociação de preço — não faz sentido gerar custo antes de sabermos do que precisamos.
+
+O motivo de segurar: eles falam em resetar as senhas do cPanel e do WordPress, e reset é coisa que a gente não desfaz. Fui ver o impacto no DNS hoje, e a notícia é boa: e-mail não corre risco nenhum, o MX de vocês aponta 100% para o Microsoft 365 e não passa pelo servidor deles. Também não existe webmail, ftp ou cpanel publicado no domínio, então ninguém aí acessa aquilo por um endereço de vocês.
+
+Sobra um ponto só, e é o que eu vou precisar te perguntar antes do dia 20: **alguém da CDNA ainda entra no WordPress antigo para publicar alguma coisa?** Se ninguém entra, não há impacto nenhum e a decisão fica fácil. Pode ir puxando essa resposta com calma aí dentro, não é urgente.
+
+Também pedi de novo o que você tinha definido sobre ownership: o singapore@ como conta institucional e o Nitin como administrador. Eles atenderam só a Nicole, e só no Analytics.
+
+Uma data para segurar: enquanto a extensão não for comprada, o backup precisa sair antes de 30/09 — é quando o servidor desliga e o WordPress e as mídias vão junto. Se comprarmos o trimestre, o prazo real vira 31/12, mas eu não quero que o backup fique pendurado numa renovação que ainda não foi decidida.
+
+Abraço,
+Ricardo

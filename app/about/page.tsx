@@ -653,17 +653,119 @@ export default async function AboutV2Page() {
               fugir do texto.
 
             A foto continua inteira e visível: ela ganhou dois terços da dobra
-            só para si, em vez de ficar atrás de tudo com o texto por cima. */}
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-[64%] w-full md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[72%]">
-          <Image
-            src={heroPhoto}
-            alt=""
-            aria-hidden
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+            só para si, em vez de ficar atrás de tudo com o texto por cima.
+
+            ⚠️ "INTEIRA" ERA O PROBLEMA — corrigido em 10-09, a pedido ("a foto
+            teria que aparecer mais, talvez até dar um leve zoom na torre").
+
+            O que a medição mostrou: mostrar o arquivo inteiro num telefone é
+            desperdício, porque o arquivo tem 23% de ÁGUA na base e um terço de
+            céu vazio no topo. Medido em 390x844, com `ink` (#373234) valendo
+            luminância 52 — ou seja, "52 = fundo chapado, sem imagem nenhuma":
+
+              y 304–420  topo da foto (céu vazio)  → compositava a 48–51
+              y 430–620  a hélice de DNA           → 73–101
+              y 680–844  água / reflexo            → 49–55
+
+            Das duas pontas saía a MESMA COISA que pintar a cor de fundo. Dos
+            540px de caixa, ~190px carregavam imagem visível — e eram os 190px
+            mais vazios do arquivo. O `object-position` não resolve, pelo motivo
+            já escrito acima: no telefone o eixo Y não tem folga nenhuma.
+
+            A SAÍDA É A IMAGEM SER MAIOR QUE A CAIXA QUE A CORTA. O `<Image>`
+            passou a viver num wrapper de 172,4% de altura (1/0,58) deslocado
+            24,1% para cima, dentro de uma caixa `overflow-hidden`. Isso recorta
+            a janela do arquivo em 14%–72%: fora o céu morto, fora a água,
+            dentro a hélice e a torre. Percentagem pura, sem JS — o `top` em %
+            resolve contra a altura do bloco continente, que é a caixa.
+
+            O QUE O ZOOM CUSTA, e não é pouco: recorte come resolução. A largura
+            de render no telefone sobe de 647px para 1117px contra um arquivo de
+            1373px. Num telefone DPR 3 isso pede 3351px e temos 1373 — upscale
+            de 2,44x, contra 1,41x antes. Nos screenshots de revisão (DPR 1) não
+            aparece; num iPhone de verdade vai amolecer. A arte é escura,
+            monocromática e granulada, o que perdoa bastante, mas isto promove
+            "pedir o original à Maliha" de item de backlog a PRÉ-REQUISITO: o
+            que temos é a cópia que o WhatsApp recomprimiu.
+
+            A DOSE É A LEVE, e o teto tem motivo. Testados 58% (leve), 50%
+            (médio) e 44% (forte) de janela. Do médio para cima a hélice sai do
+            quadro e sobra uma torre sozinha — que é trocar a imagem DESTA
+            empresa por uma foto de banco de imagens. A hélice é o motivo de o
+            arquivo existir; ela é o teto do zoom, não o enquadramento da torre.
+
+            ⚠️ A CAIXA É ANCORADA EM PIXEL (`top-[344px]`), E NÃO MAIS EM `h-[64%]`.
+            Isto é conserto de um defeito que a percentagem escondia, encontrado
+            medindo o iPhone SE (375x667) depois de o zoom entrar.
+
+            O TEXTO NÃO ENCOLHE COM A TELA. O bloco da mensagem é ancorado no
+            topo (`items-start` + `pt-16`), então o rótulo, o h1 e a linha de
+            apoio caem SEMPRE nos mesmos y — h1 em 174–253, linha de apoio em
+            273–326 — em qualquer altura de telefone. A caixa em percentagem,
+            não: em 844 ela começava em 304 (22px depois do texto, tudo bem) e
+            em 667 começava em 240, ou seja 86px ANTES de o texto acabar. A
+            linha de apoio inteira caía em cima da foto.
+
+            E o gradiente novo não salva, justamente porque ele é curto de
+            propósito: aos 20% da caixa já abriu. Medido no SE, contraste de
+            pior caso da linha de apoio (branco/75):
+
+              antes            4,12
+              com `h-[64%]`    1,38   ← ilegível
+              ancorado         7,84
+
+            344px = os 326 onde o texto acaba + 18 de folga. Em 844 a foto
+            começa 40px mais abaixo do que começava (500px de caixa em vez de
+            540) e o brilho medido dela cai de 111 para 90 — ainda 23% acima dos
+            73 de antes. É a troca certa: 21 pontos de brilho num telefone
+            grande valem menos que uma linha de apoio ilegível num pequeno.
+
+            SE O TÍTULO MUDAR, ESTE NÚMERO MUDA. Ele é a única coisa aqui que
+            depende do texto que está escrito — e o degrau em `min-[360px]` é
+            exatamente isso acontecendo: abaixo de 360 de largura o h1 quebra em
+            TRÊS linhas em vez de duas, e a linha de apoio termina em 393 em vez
+            de 326. Um anular só serviria a um dos dois casos.
+
+              < 360   h1 em 3 linhas, texto acaba em 393 → caixa em 412
+              ≥ 360   h1 em 2 linhas, texto acaba em 326 → caixa em 344
+
+            Medido em 320, 360, 375, 390 e 430. O `min-[360px]:` é o mesmo
+            recurso que a faixa de números já usa logo abaixo.
+
+            ⚠️ 320 CONTINUA SENDO UMA TELA RUIM AQUI, e isso é anterior a este
+            trabalho: com o h1 em três linhas a dobra mede 746px numa tela de
+            568, ou seja os números nascem fora dela. (Antes deste commit era
+            pior — 1581px, quase três telas.) O que o anular resolve é só o
+            texto em cima da foto; o resto é a faixa de números não caber, que é
+            decisão de conteúdo e está anotada mais abaixo. */}
+        <div className="absolute inset-x-0 bottom-0 top-[412px] -z-10 w-full overflow-hidden min-[360px]:top-[344px] md:inset-y-0 md:left-auto md:right-0 md:top-0 md:h-auto md:w-[72%]">
+          {/* O wrapper do zoom. Só existe no telefone: em `md` ele volta a ser
+              do tamanho da caixa (`md:top-0 md:h-full`) e o desktop continua
+              exatamente como estava — sangria de 72% à direita, arquivo inteiro,
+              escala pela largura. */}
+          <div className="absolute inset-x-0 top-[-24.1%] h-[172.4%] md:top-0 md:h-full">
+            <Image
+              src={heroPhoto}
+              alt=""
+              aria-hidden
+              fill
+              priority
+              /* ⚠️ O RAMO DO TELEFONE NÃO É `100vw`. Era, e estava errado antes
+                 mesmo do zoom: com `object-cover` escalando pela ALTURA, a
+                 largura de render no telefone nunca foi a da tela. Com 390 de
+                 viewport ela é 1117px, ou seja 287vw — dizer `100vw` fazia o
+                 navegador pedir a variante de 640px e depois esticá-la.
+
+                 O DESKTOP FICA EM `100vw`, e não nos 72vw da caixa, porque lá a
+                 largura de render é `max(0,72·W, 1,199·H)` — o cover escolhe o
+                 maior dos dois eixos, e em janela alta quem manda é a altura.
+                 Em 1920x1080 dá 72vw; em 1440x900, 75vw; em 1280x1024, 96vw.
+                 Cravar 72vw sub-pediria a imagem justamente nas janelas mais
+                 altas. Sobra-pedir custa bytes, sub-pedir custa nitidez. */
+              sizes="(max-width: 767px) 287vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
         </div>
 
         {/* O TRATAMENTO, refeito em 08-09 contra a referência que o cliente
@@ -714,28 +816,88 @@ export default async function AboutV2Page() {
               "linear-gradient(to right, rgb(55,50,52) 0%, rgb(55,50,52) 28%, rgba(55,50,52,.82) 36%, rgba(55,50,52,.5) 45%, rgba(55,50,52,.2) 53%, rgba(55,50,52,0) 60%)",
           }}
         />
-        {/* EMENDA DA FOTO NO TELEFONE. A caixa da imagem começa num corte reto a
-            36% da altura; sem nada por cima, essa borda apareceria como uma
-            linha horizontal atravessando a dobra — o mesmo defeito que o lavado
-            lateral resolve no desktop, girado 90°. O gradiente cobre exatamente
-            a caixa da foto e vai de `ink` opaco no topo dela a transparente aos
-            34%, então o olho lê "a foto emerge do escuro" em vez de "tem uma
-            imagem colada ali". */}
+        {/* ⚠️ AS DUAS CAMADAS DO TELEFONE FORAM SEPARADAS EM 10-09, e essa é a
+            mudança que permitiu o zoom sem quebrar a leitura dos números.
+
+            O ERRO ERA ESTRUTURAL, não de valor: a emenda (`h-[64%]`, do topo da
+            foto para baixo) e o fecho (`h-[58%]`, da base para cima) SE
+            SOBREPUNHAM em 490px de uma dobra de 844. Duas camadas empilhadas
+            somam por 1-(1-a1)(1-a2), então a cobertura no meio era o produto de
+            duas curvas que ninguém consegue ler olhando o código — e o piso
+            resultante nunca descia de 0,36. Na prática: o brilho máximo da
+            hélice (238 no arquivo) saía a 156. A arte nunca aparecia a mais de
+            ~65% do valor dela, em lugar nenhum da dobra.
+
+            E os dois trabalhos são em pontas OPOSTAS da tela: esconder o corte
+            reto no topo da foto, e proteger os números na base. Escurecer o meio
+            não servia a nenhum dos dois — só apagava a foto.
+
+            Agora são duas camadas QUE NÃO SE TOCAM:
+
+              costura  y 304–434  (24% da caixa da foto)  → ink → transparente
+              livre    y 434–464  → sem camada nenhuma, a foto no valor cheio
+              scrim    y 464–844  (45% da seção)          → transparente → ink
+
+            MEDIDO, contraste de pior caso (o pixel mais claro atrás de cada
+            texto) contra branco/75, e brilho médio da foto:
+
+                                      antes   agora
+              "18 years"               2,62    3,47
+              legenda esq. de cima     4,22    5,07
+              "36 countries"           2,67    3,97
+              legenda dir. de cima     3,92    5,21
+              "1,000+"                 6,17    6,76
+              "5 of the top 10"        6,23    6,67
+              brilho da foto y330-460    60      94
+
+            A foto fica 57% mais clara E todo texto melhora. Não há troca — o
+            que havia era desperdício.
+
+            Vale registrar que a primeira linha de números JÁ FALHAVA antes:
+            2,62 e 2,67 estão abaixo dos 3:1 que texto grande pede. A versão
+            anterior escondia isso escurecendo tudo por igual, o que faz um
+            defeito de composição parecer resolvido. */}
+        {/* COSTURA. A caixa da imagem começa num corte reto; sem nada por cima,
+            essa borda apareceria como uma linha horizontal atravessando a dobra
+            — o mesmo defeito que o lavado lateral resolve no desktop, girado
+            90°. Este é o único trabalho dela: morre aos 24% da caixa e não
+            encosta no resto.
+
+            O `top` É COPIADO DA CAIXA DA FOTO, degrau de 360 inclusive, e não
+            `h-[64%]`: os dois têm de cobrir exatamente o mesmo retângulo. Se um
+            for percentagem e o outro pixel, eles descolam a cada altura de tela
+            e a costura passa a cobrir o lugar errado — que é pior do que não
+            existir. Mexeu num, mexe no outro. */}
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 -z-10 h-[64%] md:hidden"
+          className="absolute inset-x-0 bottom-0 top-[412px] -z-10 min-[360px]:top-[344px] md:hidden"
           style={{
             backgroundImage:
-              "linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,.72) 14%, rgba(55,50,52,.28) 26%, rgba(55,50,52,0) 34%)",
+              "linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(52,47,49,.72) 7%, rgba(44,40,42,.24) 15%, rgba(40,36,38,0) 24%)",
           }}
         />
-        {/* FECHO DA BASE. No telefone ele sobe mais (`h-[58%]` contra metade da
-            dobra) porque os números agora ocupam duas linhas em vez de quatro,
-            mas cada linha é mais larga: as quatro células atravessam a faixa
-            inteira, inclusive a parte onde a torre é clara. */}
+        {/* SCRIM DOS NÚMEROS — telefone. Começa em 45% da seção (y 464), logo
+            acima da primeira linha de células (y 552), e não em 58% como antes:
+            fechar mais alto não protegia nada e custava a hélice inteira.
+            Termina em `ink` cheio na borda, que é o que casa com o `bg-ink` da
+            seção e com o corte para o bloco branco seguinte. */}
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 -z-10 h-[58%] md:h-1/2"
+          className="absolute inset-x-0 bottom-0 -z-10 h-[45%] md:hidden"
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, rgb(55,50,52) 0%, rgba(55,50,52,.97) 22%, rgba(46,42,44,.88) 48%, rgba(40,36,38,.72) 72%, rgba(38,34,36,.35) 90%, rgba(38,34,36,0) 100%)",
+          }}
+        />
+        {/* FECHO DA BASE — desktop, INTOCADO. Separado do telefone em 10-09
+            porque `style` não aceita variante responsiva: mudar o gradiente de
+            um elemento só mudaria as duas telas junto. A composição do desktop
+            é outra (foto sangrando à direita, arquivo inteiro, sem zoom) e não
+            tem o problema que o telefone tinha — os números aqui atravessam a
+            largura toda e continuam precisando da metade de baixo opaca. */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 -z-10 hidden h-1/2 md:block"
           style={{
             backgroundImage:
               "linear-gradient(to top, rgb(55,50,52) 0%, rgba(55,50,52,.96) 22%, rgba(55,50,52,.72) 48%, rgba(55,50,52,.3) 76%, rgba(55,50,52,0) 100%)",
@@ -1836,18 +1998,53 @@ export default async function AboutV2Page() {
 
           O outline pede o mapa "region level only, with no per client pins" — o
           WorldCoverageMap pinta países e marca as cidades das regiões do CMS,
-          nunca clientes, então já é esse nível. */}
-      <section id="regions" className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 pt-10 md:px-10 md:pt-20">
+          nunca clientes, então já é esse nível.
+
+          ⚠️ FUNDO `paper` NOS TRÊS PEDAÇOS — 10-09. Esta seção são três irmãos
+          no DOM (este cabeçalho, o mapa, e os escritórios abaixo), e eles
+          estavam em `white`, `white` e `paper`. Duas consequências, ambas
+          erradas: o único corte de cor da região caía DENTRO da seção, partindo
+          o mapa das locations que ele ilustra; e a fronteira com o `#values`
+          logo acima, que é onde a página realmente muda de assunto, não tinha
+          corte nenhum — eram três faixas brancas seguidas.
+
+          A borda do `paper` sobe para cá. Os três pedaços passam a dividir um
+          chão só, "Where we work" lê como um bloco, e o degrau branco→paper
+          marca a passagem de "What we believe" para "Where we work".
+
+          O `#values` acima fica `white` e o `#people` abaixo fica `ink`, então
+          a faixa não encosta em nenhum vizinho da mesma cor. */}
+      <section id="regions" className="bg-paper">
+        {/* ⚠️ O VÃO ATÉ O MAPA É `pb-12` AQUI, e não `mb-12` no parágrafo.
+            Não é preferência de estilo: com a margem no parágrafo, a página
+            ganhava uma faixa BRANCA de 48px entre este bloco e o mapa.
+
+            O motivo é colapso de margem. Quem é flex item nesta página é o
+            `<main className="flex-1">` (linha 555) — as `section` dentro dele
+            são blocos comuns, não itens de flex, e portanto NÃO abrem contexto
+            de formatação próprio. A margem inferior do último filho então sobe
+            por este `<div>` e por esta `<section>`, que não tinham
+            padding-bottom nenhum, e vira margem DA SEÇÃO. O vão passa a mostrar
+            o fundo do `<main>`, que é transparente, e por trás dele o `bg-white`
+            do wrapper externo.
+
+            Enquanto esta seção era branca ninguém via. Ao passar para `paper`
+            (10-09) a margem fugida virou uma listra branca no meio da faixa.
+
+            Padding não colapsa. Trocar `mb-12` por `pb-12` mantém os mesmos
+            48px e prende o vão dentro do `paper`. Vale para qualquer seção
+            colorida desta página: o espaçamento final tem de ser padding do
+            container, nunca margem do último filho. */}
+        <div className="mx-auto max-w-[1440px] px-6 pb-12 pt-10 md:px-10 md:pt-20">
           <TypeLabel>Where we work.</TypeLabel>
-          <p className="mb-12 max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
+          <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
             With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
             a faculty of over 75 senior practitioners, we deliver globally.
           </p>
         </div>
       </section>
 
-      <WorldCoverageMap eyebrow={null} title={null} />
+      <WorldCoverageMap eyebrow={null} title={null} tone="paper" />
 
       {/* Escritórios: cidade, endereço, telefone e e-mail, os quatro campos que
           o outline lista.

@@ -1,0 +1,39 @@
+E-MAIL AO GUILHERME — 01/09/2026
+
+────────────────────────────────────────────────────────────────────────
+PARA:    Guilherme
+CÓPIA:   Guli
+
+ANEXAR:  Corporate DNA — Status Update 01-09.pdf   (16 páginas, já gerado)
+
+ASSUNTO: Corporate DNA — status de 1º de setembro e três perguntas
+
+AVISO NO WHATS antes: docs/whats-guilherme-01-09-2026.txt
+
+POR QUE ESTÁ CURTO: o e-mail de 30/08 era longo e não foi respondido.
+         O detalhe todo está no PDF. No corpo ficam só as três perguntas
+         que dependem do Guilherme e que ele responde do celular —
+         enterradas em 16 páginas, não seriam respondidas também.
+
+FORMATO: sem quebra de linha manual, para o Gmail preencher a largura.
+────────────────────────────────────────────────────────────────────────
+
+
+Guilherme, tudo certo?
+
+Segue o status atualizado em anexo. Vale a leitura: mudou bastante coisa hoje, principalmente as 8 Solutions que você confirmou no e-mail de 27/08, que agora estão publicadas de verdade e na ordem que você escreveu — até hoje o site ainda mostrava as antigas.
+
+O que precisa de vocês está na Parte B, em ordem de impacto no lançamento. O que está com o Guli, na Parte C. Coloquei ele em cópia.
+
+Duas coisas dependem só de você, e são rápidas:
+
+1. Quem da CDNA vai preencher o conteúdo no sistema? Me diz os nomes que eu passo os acessos e o tutorial. Vou deixar tudo testado antes, para ninguém perder tempo com campo que não funciona. Uma ressalva que está no B13: Our Identity e Our Approach não passam pelo sistema, são montadas no código, então o texto delas vem para mim de qualquer jeito.
+
+2. Leadership Development saiu da arquitetura, e a URL antiga dela continua indexada no Google — quando o domínio virar, ela precisa apontar para algum lugar ou vira erro. Fui reler o texto daquela página e ela era um guarda-chuva: fala de liderança individual e coletiva, sem público definido. O conteúdo dela se espalha por pelo menos três das oito novas. Por isso deixei apontando para o índice de Solutions, e acho que esse é o destino certo mesmo. Se você achar que uma das oito herda a maior parte do que aquela página era, me diz qual que eu troco.
+
+Uma coisa que resolvi seguindo o brief e não precisa de resposta, só para você saber: Manager Development não existia como Solution, estava fundida numa entrada chamada "High-Performing Teams & Manager Impact". Como o item 5 lista as duas e o item 6 dá flagship diferente para cada, separei. Ela nasceu vazia porque não havia página de origem.
+
+E uma sugestão que está no B13 e vale o olhar de vocês dois: nas páginas que ainda não têm texto, o conteúdo de vocês chegando antes do Guli desenhar economiza uma rodada inteira de design. Não precisa vir pronto — bullet points ou material bruto já destravam.
+
+Abraço,
+Ricardo

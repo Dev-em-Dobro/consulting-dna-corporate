@@ -59,7 +59,21 @@ const awards: Award[] = [
   },
 ];
 
-export default function AwardsMentions() {
+export default function AwardsMentions({
+  maxWidthClass = "max-w-[1200px]",
+}: {
+  /**
+   * Largura do container da faixa.
+   *
+   * Existe desde 10-09, quando a home subiu de 1200 para 1440: a faixa
+   * continuava em 1200 e passava a abrir 120px à direita das seções vizinhas.
+   *
+   * Prop com o padrão antigo em vez de trocar o número aqui: o componente
+   * também roda na /our-impact, na /home-v1 e na /home-v3, que seguem em 1200.
+   * Mesmo padrão do `maxWidthClass` da NavV2 e do LocationsBlock.
+   */
+  maxWidthClass?: string;
+} = {}) {
   const scope = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -134,7 +148,7 @@ export default function AwardsMentions() {
     <section id="awards" ref={scope} className="bg-white">
       {/* Same box as the `#book` section: constrained on desktop, full-bleed on
           mobile (no horizontal padding below `md`). */}
-      <div className="mx-auto max-w-[1200px] pb-14 md:px-10 md:py-24">
+      <div className={`mx-auto ${maxWidthClass} pb-14 md:px-10 md:py-24`}>
         <div data-awards-band className="overflow-hidden bg-brand px-6 py-12 md:px-14 md:py-16">
           <h2
             data-awards-title

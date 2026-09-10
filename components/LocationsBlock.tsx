@@ -19,10 +19,27 @@ export default function LocationsBlock({
   eyebrow = "Our Global Presence",
   context = "From our established hubs in London, Singapore, Dubai and Riyadh, together with our Americas presence, Corporate DNA brings global perspective and locally relevant delivery to leadership challenges across 36 countries.",
   tone = "paper",
+  maxWidthClass = "max-w-[1200px]",
 }: {
   offices?: Office[];
   eyebrow?: string;
   context?: string;
+  /**
+   * Largura do container do cabeçalho e da lista de fallback.
+   *
+   * Existe desde 10-09, quando a home subiu de 1200 para 1440: este bloco
+   * continuava em 1200 e passava a abrir 120px à direita de todas as seções
+   * vizinhas, o que numa faixa de cor só lê como defeito de alinhamento.
+   *
+   * Prop com o padrão antigo, e não uma troca do número aqui dentro, porque o
+   * bloco também roda na /our-clients, na /our-team e na /home-v3, que seguem
+   * em 1200 — mudar a constante alinharia a home e desalinharia as outras três.
+   * Mesmo padrão do `maxWidthClass` da NavV2.
+   *
+   * Só o cabeçalho e o fallback mudam: o mapa e o carrossel são presos em
+   * 560px por desenho próprio e não acompanham a coluna da página.
+   */
+  maxWidthClass?: string;
   /**
    * Ground the block sits on. `dark` is Guli's 31-08 fix for the homepage,
    * where this block and the book block above it were both light grey and
@@ -109,7 +126,7 @@ export default function LocationsBlock({
       className={dark ? "bg-ink-2" : "bg-paper"}
     >
       <div className="py-24">
-        <div className="mx-auto mb-12 max-w-[1200px] px-6 md:px-10">
+        <div className={`mx-auto mb-12 ${maxWidthClass} px-6 md:px-10`}>
           <div className="flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
@@ -128,7 +145,7 @@ export default function LocationsBlock({
         </div>
 
         {mapFailed ? (
-          <div className="mx-auto max-w-[1200px] px-6 md:px-10">
+          <div className={`mx-auto ${maxWidthClass} px-6 md:px-10`}>
             <OfficeGrid offices={offices} dark={dark} />
           </div>
         ) : (

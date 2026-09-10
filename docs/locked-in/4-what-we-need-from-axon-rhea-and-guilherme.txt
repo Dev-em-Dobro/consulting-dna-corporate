@@ -1,0 +1,191 @@
+DOC 4 - WHAT WE STILL NEED, AND FROM WHOM
+
+Everything blocked, with a named owner. Nothing here is waiting on Dev em Dobro.
+
+======================================================================
+A - FROM AXON (RICO / AMIT)
+======================================================================
+
+A1. GOOGLE SEARCH CONSOLE
+    What: who holds the property, and access for singapore@, Nitin and Nicole.
+    Status: asked three times since 31 August. NO ANSWER. The only item genuinely
+            blocked on Axon.
+    Why it matters: carries search history and ownership verification. Matters more
+            than Analytics.
+
+A2. GOOGLE ANALYTICS OWNERSHIP
+    What: singapore@corporatednaconsulting.com as owner, and Nitin Goil as
+          administrator.
+    Status: requested by Guilherme on 1 September. Only Nicole was added.
+    Why it matters: this is the whole point of the ownership rule.
+
+A3. LATEST DATE FOR THE HOSTING INSTRUCTION
+    What: the last date Axon can accept the instruction without the account lapsing.
+    Status: asked 3 September.
+    Why it matters: if their billing needs it before 20 September, the decision has to
+            move forward.
+
+A4. NO AUTO-RENEWAL
+    What: confirmation the account will not auto-renew for a full annual term.
+    Status: asked 3 September.
+    Why it matters: the panel shows Axon-P500 as Cancelled, due 30 September. It should
+            stay that way.
+
+A5. REGISTRAR LOCKS
+    What: enable clientTransferProhibited and clientUpdateProhibited.
+    Status: NOT YET RAISED.
+    Why it matters: costs nothing, and should ride along with the contact change.
+
+A6. DOMAIN RENEWAL
+    What: the domain expires 13 OCTOBER. Separate from hosting.
+    Status: NOT YET RAISED.
+    Why it matters: nobody has confirmed who renews it or whether the S$ 22 invoice
+            relates to it.
+
+A7. LEGACY WORDPRESS ACCESS
+    What: cPanel, or FTP plus a database export.
+    Status: DELIBERATELY PARKED UNTIL 20 SEPTEMBER. Axon was asked to change nothing.
+    Why it matters: held back on purpose, to avoid cost and an irreversible password
+            reset.
+
+======================================================================
+B - FROM RHEA
+======================================================================
+
+B1. ONE REPLY-ALL EMAIL
+    What: authorising the domain administrative contact change to
+          rhea.l@corporatednaconsulting.com, and the removal of Allison Vickery's
+          mailbox.
+    Why it matters: THIS IS THE SINGLE THING BLOCKING THE DOMAIN CONTACT. No letterhead
+          needed any more, no cost. Rico chased it again this morning. Until she
+          replies, the contact stays as a former employee's mailbox - and the domain
+          expires 13 October.
+
+B2. WHAT "CLARITY" MEANS
+    What: the look of the page, or understanding what they do in ten seconds.
+    Why it matters: the two readings lead to completely different work.
+
+B3. PHOTOGRAPHY
+    What: does Corporate DNA have photography of programmes actually running?
+    Why it matters: the single biggest visual gap versus the reference site. Not a code
+          problem - it is an asset library question, and only she can answer it.
+
+B4. DOES THE REFERENCE CHANGE THE LAUNCH DATE
+    What: or is it an improvement after the domain switch?
+    Why it matters: the question that must not stay implicit.
+
+B5. ONE SPECIFIC SECTION
+    What: is there one section of the reference she would point at and say "I want
+          that"?
+    Why it matters: turns a diffuse request into a scoped one.
+
+======================================================================
+C - FROM GUILHERME
+======================================================================
+
+He is fronting this day to day, and most of these are things only Corporate DNA knows.
+
+--- ACCESS AND OWNERSHIP ---
+
+C1. Which mailbox owns the CLOUDFLARE account - and whether it is tied to Allison's.
+    If it is tied to a departed employee's mailbox, it is the same problem as the
+    domain contact, one layer down.
+
+C2. Does singapore@corporatednaconsulting.com EXIST as a working mailbox, and who
+    monitors it? Every transfer plan points at it. If nobody reads it, the rule does
+    not work.
+
+C3. Who administers the MICROSOFT 365 tenant? Eztech (Tay Weida) is the likely answer
+    and he is on the thread. Nobody has confirmed it in writing.
+
+C4. Who uses ZOHO, SENDGRID and MAILCHIMP with the domain? Five entries in the SPF
+    record are authorised to send email as Corporate DNA. Each needs a named owner or
+    removal.
+
+C5. IS ANYONE STILL PUBLISHING ON THE OLD WORDPRESS SITE? Decides whether a credential
+    reset would interrupt someone. Needed before 20 September. Not urgent - but needed.
+
+C6. Confirmation that Nicole has ACCEPTED the Google Analytics invitation. Axon added
+    her on 3 September at 07:07; the invitation still has to be accepted.
+
+--- THE LMS - FOUR OPEN QUESTIONS ---
+
+C7.  WHICH LMS IS IT? Moodle, TalentLMS, Docebo, Teachable, something else?
+
+C8.  AT WHAT ADDRESS DOES IT LIVE? DNS was checked on 3 September: no LMS subdomain
+     resolves under any of 34 likely names, and there is no wildcard record.
+
+C9.  WHO CONTRACTED IT, AND IS IT LIVE TODAY?
+
+C10. DOES IT SIT ON THE AXON SERVER? If it does, IT GOES DOWN ON 30 SEPTEMBER with the
+     WordPress site. That is the most serious unresolved risk in the project, and it
+     has nothing to do with DNS.
+
+Also: if learners log in somewhere, the new website needs an entry point for them. None
+of the 52 redirects covers an LMS path.
+
+--- CONTENT - THE LAUNCH DATE DEPENDS ON THIS, NOT ON THE TECHNICAL WORK ---
+
+The site is technically ready to schedule. The content is not.
+
+C11. TWO BLOCKS ON ALL 8 SOLUTIONS: "The Outcome" (what changes in the business) and
+     "How CorporateDNA Helps" (the intervention, in one sentence). The Challenge block
+     is already live.
+
+C12. TALENT DEVELOPMENT NEEDS A NEW SENTENCE. The brief removed "Asian" from the name
+     but the text still says "We shape Asian leaders".
+
+C13. MANAGER DEVELOPMENT IS EMPTY. The solution did not previously exist - it was
+     merged into "High-Performing Teams & Manager Impact".
+
+C14. TWO FLAGSHIP CASES MISSING: Manager Development and Executive Coaching. Also, the
+     Frasers Property and adidas cases do not exist in the CMS, so Talent Development
+     and HRLT Effectiveness have no flagship.
+
+C15. ALL 8 CASE QUOTES ARE WRONG IN KIND. The brief asks for testimonials about
+     Corporate DNA's work. None of the eight mentions Corporate DNA - they are generic
+     corporate quotes. The named model is a John Murphy or Jorge Gardino quote about
+     the work.
+
+C16. "IMPACT" IS MISSING ON 7 OF 8 CASES. The only outcome metric in the entire library
+     is Shell's 88% Net Promoter Score. Everything else is scale - countries, leaders,
+     years. IF THAT DATA EXISTS IN AN INTERNAL DECK OR REPORT, IT IS THE SINGLE THING
+     THAT WOULD MOST IMPROVE THE SITE.
+
+C17. "COUNTRIES" IS MISSING ON 5 OF 8 CASES. The existing texts say markets, locations
+     and nationalities. "32 markets" is not 32 countries, and filling it in as though
+     it were would be inventing data.
+
+C18. DECISION: does Corporate DNA fill this into the CMS directly, or send it as a
+     table? Decides the format of the request. If it is the CMS, we need to know who
+     gets access. A tutorial already exists.
+
+======================================================================
+D - ON OUR SIDE, NOT BLOCKED ON ANYONE
+======================================================================
+
+D1. SUPABASE HAS NO BACKUP. Free plan: no automatic backup, no point-in-time recovery.
+    If the database is lost, every case study and Solutions page is retyped from
+    scratch. THE ONLY ITEM IN THE LANDSCAPE WITH TOTAL-LOSS RISK. Needs an owner and a
+    schedule this week - independent of whose account it is.
+
+D2. COOKIE BANNER covers content on every scroll. Appears in every screenshot. A finish
+    bug, not a design question. Fix before any aesthetic discussion.
+
+D3. GA4 TAG installation and validation. We have the access; it is a cutover checklist
+    item.
+
+D4. SEND AXON the exact DNS values, date, time and timezone - when the launch date
+    exists.
+
+======================================================================
+THE TWO DECISIONS WITH A DATE ON THEM
+======================================================================
+
+1. RHEA'S EMAIL - no cost, no deadline stated by Axon, but the domain expires 13
+   October and nothing moves until she replies.
+
+2. THE HOSTING EXTENSION - SGD 150 for 1 October to 31 December. ANSWER DUE 20
+   SEPTEMBER. Recommendation: take it. Without it the rollback window shrinks to zero
+   on 30 September; with it the launch date gets chosen on merit rather than on a
+   hosting invoice.

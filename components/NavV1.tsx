@@ -29,7 +29,18 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
 
   return (
     <header className="sticky top-0 z-50 bg-brand text-white">
-      <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
+      {/* 1440px, e não os 1200px históricos, desde 08-09.
+          O conteúdo da /about-v2 subiu para 1440 e o logo ficava 120px à direita
+          da borda do título numa tela de 1600 — a barra e o conteúdo têm de
+          correr na mesma margem, senão parece defeito.
+
+          ⚠️ ESTA BARRA É DE TODAS AS PÁGINAS. As demais ainda têm conteúdo em
+          1200, então nelas a relação agora está INVERTIDA: a barra é mais larga
+          que o conteúdo. É a mesma quantidade de desalinhamento de antes, do
+          outro lado, e some quando o resto do site migrar para 1440.
+          O painel do menu no telefone (mais abaixo) segue em 1200 de propósito:
+          ele só aparece abaixo de `lg`, onde nem 1200 nem 1440 chegam a valer. */}
+      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="/"
           className="flex flex-none items-center gap-3"

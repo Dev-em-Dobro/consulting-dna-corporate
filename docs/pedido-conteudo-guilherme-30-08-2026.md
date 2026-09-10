@@ -35,11 +35,39 @@ esse OK, menos chance de retrabalho.
 
 HOME
 
-Estrutura pronta, esperando conteúdo:
+O ticker (item 17) — já está no ar, e sobrou pouca coisa:
 
-- Conteúdo do ticker, de 2023 em diante. O componente já está no ar, no mesmo lugar do site
-  antigo. Cabe award, novo escritório, nova região, nova parceria e marco relevante. Cada item é
-  um texto curto, com link opcional.
+Fomos buscar a faixa do site antigo em vez de pedir o conteúdo do zero. São nove itens. O item 17
+pede "2023 onwards", e com esse corte, que é seu, só dois passam:
+
+  GOLD - Brandon Hall DE&I Award for Best Advance in Leadership Development for Women 2023
+  GOLD - Brandon Hall Best Leadership Development for Talent Acceleration Programme for Asian
+  Leaders (Leadership & Enterprise) 2024
+
+Esses dois já estão cadastrados e rodando na home, para vocês verem a faixa funcionando.
+
+Ficam de fora cinco, todos prêmios anteriores a 2023: Corporate Excellence Awards 2022, Women
+Entrepreneur India 2021, British Indian Awards 2015, HSBC UK Start-Up Awards 2009 e Women of the
+Future Awards 2008. Nossa leitura é que eles não somem do site — mudam de lugar. A faixa antiga
+acumulava duas funções, ticker e lista de prêmios, e no site novo existe uma seção Awards própria,
+onde os legados de 2008 e 2009 fazem sentido. Se concordarem, não há nada a decidir aqui: os
+prêmios antigos vão para Awards e o ticker fica com marcos de 2023 em diante.
+
+Faltam três coisas, e as três são rápidas:
+
+- As datas de "CDNA Signs Partnership Agreement with Harvard Business Impact" e "CDNA Opens new
+  Office in Saudi Arabia". São os dois itens que mais se encaixam no que o item 17 pede — nova
+  parceria e novo escritório — mas sem a data não sabemos se passam no corte de 2023. Se passarem,
+  entram na hora.
+
+- Para onde esses dois devem levar. No site antigo os dois eram clicáveis e apontavam para posts do
+  WordPress, que não existem no site novo. Três saídas: recriar os dois posts como Insights,
+  apontar a parceria para Our Partnerships e o escritório para o bloco de escritórios da home, ou
+  deixar os dois sem link. A terceira é a mais segura para o dia 1º, porque um link que morre no
+  cutover do domínio é pior do que nenhum link.
+
+- Se dois itens bastam. Com o corte de 2023, a faixa nasce com duas linhas. Se quiserem mais
+  densidade, aí sim precisamos de vocês: marcos de 2023 para cá que não estavam na faixa antiga.
 
 Decisões:
 

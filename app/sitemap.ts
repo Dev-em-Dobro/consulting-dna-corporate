@@ -42,6 +42,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // `/our-partnerships` is added below, only once it has content.
     // `/our-identity` e `/about-v2` 308am para `/about` (next.config.mjs).
     // `/about-v1` é o arquivo da página antiga e fica FORA do sitemap.
+    // "" (a home) é a antiga `/home-v2`, promovida em 10-09. `/home-v2` 308a
+    // para cá; `/home-v1` é o arquivo da home antiga e fica FORA, com
+    // `noindex`. `/home-v3` segue proposta, `noindex`, e também fora.
     // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
   ];
 

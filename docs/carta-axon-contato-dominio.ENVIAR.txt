@@ -1,0 +1,122 @@
+CARTA PARA A AXON — troca do contato administrativo do domínio
+ARQUIVO DE TRABALHO. Não mandar este para o cliente.
+
+╔══════════════════════════════════════════════════════════════════════╗
+║  O QUE ANEXAR NA MENSAGEM AO GUILHERME:                              ║
+║  docs/carta-axon-PARA-O-GUILHERME.txt                                ║
+║  (mesma carta, sem estas anotações internas)                         ║
+║                                                                      ║
+║  Se mudar qualquer coisa aqui, replicar lá — são dois arquivos.      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+────────────────────────────────────────────────────────────────────────
+POR QUE ESTA CARTA EXISTE
+  O Amit (Axon, 01/09) exige "a formal request on CDNA's company
+  letterhead, signed or authorised by the company owner or authorised
+  representative" para alterar o contato administrativo do domínio.
+  Não é cobrado.
+
+QUEM ASSINA
+  Rhea Leckie, como Founder & CEO — ou o Guilherme, como authorised
+  representative. Um dos dois, não os dois.
+
+PREENCHER ANTES DE ASSINAR (1 campo)
+  [PHONE]    telefone com DDI — sugestão: a linha principal do
+             escritório, não celular de pessoa
+
+  Cargos já fechados e batendo com o e-mail à Axon: Rhea (Founder &
+  CEO), Guilherme (CEO, Corporate DNA Americas), Nitin (Regional
+  Director), JP (Senior Facilitator).
+
+ENDEREÇO POSTAL — já preenchido
+  Conferido no painel da Axon em 31/08: a conta está no nome da
+  Corporate DNA Consulting, com a Rhea Leckie como titular, em Sheik
+  Rashid Tower, Dubai WTC. Bate com o escritório de Dubai do site.
+  Evidência em docs/painel-axon/painel finance.png
+
+SE TROCAR O CONTATO PRINCIPAL
+  A carta indica a RHEA como single point of record. Se preferir o
+  Guilherme, trocar o nome nos dois lugares marcados com ◆.
+
+COMO ENVIAR
+  Perguntamos à Axon no e-mail de 01/09 para qual endereço mandar e se
+  PDF escaneado basta. Aguardar a resposta antes de enviar.
+────────────────────────────────────────────────────────────────────────
+
+
+[PAPEL TIMBRADO DA CORPORATE DNA CONSULTING]
+
+
+[date]
+
+
+Axon 1Pro Solutions
+Attention: Amit Kumar / Rico M.
+
+
+Dear Sirs,
+
+RE: corporatednaconsulting.com — request to update the domain
+    administrative contact
+
+I write on behalf of Corporate DNA Consulting, the registrant of the domain
+name corporatednaconsulting.com, to formally request an update to the
+domain's administrative contact record.
+
+The contact currently on record, Allison Vickery
+(allison.vickery@corporatednaconsulting.com), has left the company. That
+mailbox is no longer monitored and must be removed from all correspondence
+relating to this domain, including renewal notices, contact verification and
+any authorisation or EPP code.
+
+Please record the following as the domain's administrative contact:
+
+    Full name:        Rhea Leckie                                      ◆
+    Role:             Founder & Chief Executive Officer                ◆
+    Email address:    rhea.l@corporatednaconsulting.com                ◆
+    Telephone:        [PHONE]
+    Postal address:   unchanged. For the avoidance of doubt, the address
+                      held on the account is:
+                          Corporate DNA Consulting
+                          Sheik Rashid Tower
+                          Dubai World Trade Centre
+                          Dubai, United Arab Emirates
+
+Please note that earlier correspondence was sent to a previous address for
+Rhea Leckie which is no longer in use. The address above is the correct one.
+
+In addition, please copy the following people on all correspondence relating
+to this domain. If your registrar record supports only a single
+administrative contact, the contact above is the record contact and the three
+below should be added to your notification list:
+
+    Guilherme Mendes      CEO, Corporate DNA Americas
+                          gm@corporatednaconsulting.com
+
+    Nitin Goil            Regional Director
+                          nitin.goil@corporatednaconsulting.com
+
+    Jon-Paul Pritchard    Senior Facilitator
+                          jp.pritchard@corporatednaconsulting.com
+
+Corporate DNA Consulting confirms that Dev em Dobro, represented by Ricardo,
+is authorised to correspond with Axon on our behalf in relation to the
+website and the DNS configuration of this domain. This authorisation does not
+extend to transferring the domain, changing the registrant, or requesting any
+authorisation or EPP code; any such request must be confirmed in writing by
+Corporate DNA Consulting.
+
+The domain is to remain registered with Axon. No transfer is requested, and
+no authorisation or EPP code is required. Any code previously issued should
+be treated as void.
+
+Please confirm in writing once the contact record has been updated.
+
+Yours faithfully,
+
+
+
+____________________________________
+Rhea Leckie                                                            ◆
+Founder & Chief Executive Officer                                      ◆
+Corporate DNA Consulting

@@ -1,20 +1,6 @@
-# E-mail ao Guilherme — item a item (30/08)
+ASSUNTO: Brief 27-08 — item a item, e o que falta de vocês
 
-> Rascunho para revisão antes de enviar. O corpo é **texto puro**, para colar direto no Gmail.
->
-> **Anexo:** `Corporate DNA — Consolidated Implementation Status Update - 30_08.md`, em PDF, nos
-> baldes que ele pediu no item 19. Gerar com
-> `node scripts/status-pdf.mjs <in.md> <out.html>` e imprimir pelo Chrome.
->
-> **Cópia:** Guli. A mensagem separada para ele já foi enviada pelo WhatsApp; este e-mail é a
-> versão que a CDNA lê.
->
-> **Substitui** `pedido-conteudo-guilherme-30-08-2026.md`, que era organizado por página. Este é
-> por item do brief, que é como ele escreveu e como o tracker está montado.
-
----
-
-**Assunto:** Brief 27-08 — item a item, e o que falta de vocês
+------------------------------------------------------------
 
 Fala, Guilherme, tudo certo?
 
@@ -47,8 +33,8 @@ abaixo do hero com os seis termos que você lista — real pressures, real polit
 real judgement, real people, real consequences — e nada além deles. Uma frase de abertura seria
 copy inventada; se vocês quiserem uma, ela vem de vocês.
 
-Sobre esse bloco, uma ressalva: **ele existe, mas o tratamento visual ainda precisa passar pelo
-Guli.** O que está pronto é a estrutura funcionando — os seis termos, no lugar certo, com os
+Sobre esse bloco, uma ressalva: ele existe, mas o tratamento visual ainda precisa passar pelo
+Guli. O que está pronto é a estrutura funcionando — os seis termos, no lugar certo, com os
 espaçamentos do sistema atual. Você pediu que essa explicação fosse "curta e visual", e o visual é
 justamente o que ele ainda não olhou. Colocamos de pé para o bloco existir e para vocês verem os
 termos em contexto, não como proposta final de layout.
@@ -368,3 +354,4 @@ Rhea vai querer olhar antes de publicar de qualquer forma.
 Qualquer coisa é só chamar.
 
 Abraço,
+[ASSINATURA]

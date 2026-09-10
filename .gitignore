@@ -54,3 +54,9 @@ docs/emails/
 .dev-server.log
 .vercel.prod-backup/
 .gstack/
+
+# O pacote de conteúdo bruto do cliente. São 2,96 GB — entrar no git aqui é o
+# tipo de coisa que só sai reescrevendo histórico, e o conteúdo útil dele já
+# chega ao repo processado (imagens em public/, texto nos docs). Guardar a cópia
+# local; o original vive no drive do cliente.
+docs/Content.zip

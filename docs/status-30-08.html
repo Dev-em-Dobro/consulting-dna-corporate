@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+
+  :root {
+    --brand: #d84339;
+    --brand-dark: #b5342b;
+    --ink: #373234;
+    --ink-2: #2f2b2c;
+    --paper: #f3f3f3;
+    --line: #ece9e6;
+    --muted: #6b6b6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* --- Cover --------------------------------------------------------------- */
+  .cover {
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    padding: 40px 40px 36px;
+    margin: 0 0 30px;              /* contained within @page margins — no bleed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cover::after {                  /* red accent stripe down the left edge */
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--brand);
+  }
+  .cover .brandbar {
+    width: 60px; height: 4px; background: var(--brand);
+    border-radius: 2px; margin-bottom: 26px;
+  }
+  .cover img.logo {
+    height: 40px; width: auto; display: block;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1);   /* white lockup on dark cover */
+  }
+  .cover h1 {
+    font-size: 27pt; line-height: 1.12; font-weight: 700;
+    margin: 0 0 14px; letter-spacing: -0.01em; max-width: 30ch;
+    color: #fff;                        /* override the dark global h1 color */
+    border-bottom: none; padding: 0; page-break-before: avoid;
+  }
+  .cover .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--brand); font-weight: 600; margin: 0 0 10px;
+  }
+  .cover .meta {
+    font-size: 9pt; color: rgba(255,255,255,.72); max-width: 74ch;
+    line-height: 1.6; margin: 18px 0 0;
+  }
+  .cover .meta strong { color: #fff; font-weight: 600; }
+
+  /* --- Typography --------------------------------------------------------- */
+  h1, h2, h3 { font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; }
+
+  h1 {                                  /* "Part A / B ..." top-level */
+    font-size: 17pt; margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--brand);
+    page-break-before: always;
+  }
+  h1:first-of-type { page-break-before: avoid; }
+
+  h2 {
+    font-size: 13pt; margin: 26px 0 10px; color: var(--brand-dark);
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 20px 0 8px; color: var(--ink-2);
+    page-break-after: avoid;
+  }
+
+  p { margin: 0 0 10px; }
+
+  a { color: var(--brand-dark); text-decoration: none; }
+
+  strong { font-weight: 600; color: var(--ink-2); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; }
+  li::marker { color: var(--brand); }
+
+  hr {
+    border: none; border-top: 1px solid var(--line);
+    margin: 22px 0;
+  }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--paper); border-left: 4px solid var(--brand);
+    border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Tables ------------------------------------------------------------- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0 18px;
+    font-size: 9.5pt; page-break-inside: avoid;
+  }
+  thead th {
+    background: var(--ink); color: #fff; text-align: left;
+    font-weight: 600; padding: 8px 10px; font-size: 9pt;
+  }
+  tbody td {
+    padding: 7px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* Keep list items and headings from breaking awkwardly across pages */
+  li, blockquote { page-break-inside: avoid; }
+
+  .footer-note {
+    margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <header class="cover">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgaWQ9IkNhbWFkYV8yIiBkYXRhLW5hbWU9IkNhbWFkYSAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAuNTcgODUuMzIiPg0KICA8ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAuY2xzLTEgew0KICAgICAgICBmaWxsOiAjZDc0NDM4Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTIgew0KICAgICAgICBmaWxsOiAjNTc1NjU2Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTMgew0KICAgICAgICBpc29sYXRpb246IGlzb2xhdGU7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8ZyBpZD0iQ2FtYWRhXzEtMiIgZGF0YS1uYW1lPSJDYW1hZGEgMSI+DQogICAgPGcgaWQ9IkdydXBvXzQiIGRhdGEtbmFtZT0iR3J1cG8gNCI+DQogICAgICA8ZyBpZD0iRE5BIiBjbGFzcz0iY2xzLTMiPg0KICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUuMTgsMjAuNTNjMy40NS02LjQ3LDguMzUtMTEuNSwxNC43LTE1LjExQzI2LjIyLDEuOCwzMy41MiwwLDQxLjc3LDBjMTAuNDcsMCwxOS4yOCwyLjgsMjYuNDIsOC4zOSw3LjE0LDUuNTksMTEuNzQsMTMuMTksMTMuOCwyMi43OWgtMjUuMTFjLTEuNTEtMy4xNy0zLjU5LTUuNTktNi4yNS03LjI2LTIuNjYtMS42Ny01LjczLTIuNS05LjIyLTIuNS01LjQsMC05LjcsMS45Mi0xMi45MSw1Ljc3LTMuMjEsMy44NS00LjgyLDguOTgtNC44MiwxNS40MXMxLjYxLDExLjY4LDQuODIsMTUuNTNjMy4yMSwzLjg1LDcuNTIsNS43NywxMi45MSw1Ljc3LDMuNDksMCw2LjU2LS44Myw5LjIyLTIuNSwyLjY2LTEuNjcsNC43NC00LjA4LDYuMjUtNy4yNmgyNS4xMWMtMi4wNiw5LjYtNi42NiwxNy4yLTEzLjgsMjIuNzktNy4xNCw1LjU5LTE1Ljk1LDguMzktMjYuNDIsOC4zOS04LjI1LDAtMTUuNTUtMS44LTIxLjktNS40MS02LjM1LTMuNjEtMTEuMjUtOC42NS0xNC43LTE1LjExQzEuNzMsNTguMzMsMCw1MC45MywwLDQyLjZzMS43My0xNS42MSw1LjE4LTIyLjA3WiIvPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTE0OC4zMyw2LjEzYzYuNjIsMy41MywxMS43Miw4LjQ3LDE1LjI5LDE0LjgyLDMuNTcsNi4zNSw1LjM2LDEzLjYxLDUuMzYsMjEuNzhzLTEuODEsMTUuMzEtNS40MiwyMS42NmMtMy42MSw2LjM1LTguNzMsMTEuMzMtMTUuMzUsMTQuOTMtNi42MiwzLjYxLTE0LjMsNS40MS0yMy4wMyw1LjQxaC0zMy4yVi44M2gzMy4yYzguODEsMCwxNi41MiwxLjc3LDIzLjE1LDUuMjlaTTEzOS40Nyw1OC41NWMzLjg5LTMuNzMsNS44My05LDUuODMtMTUuODNzLTEuOTQtMTIuMjQtNS44My0xNi4wMWMtMy44OS0zLjc3LTkuMjQtNS42NS0xNi4wNi01LjY1aC04LjA5djQzLjA4aDguMDljNi44MiwwLDEyLjE4LTEuODYsMTYuMDYtNS41OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yNTYuMDksODQuNzNoLTIzLjMybC0zMS4wNi00Ni44OXY0Ni44OWgtMjMuMzJWLjgzaDIzLjMybDMxLjA2LDQ3LjQ4Vi44M2gyMy4zMnY4My44OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjEuNDIsNzEuMDRoLTI5Ljc1bC00LjUyLDEzLjY4aC0yNC41MUwyOTMuMjEuODNoMjYuODlsMzAuNDYsODMuODloLTI0LjYzbC00LjUyLTEzLjY4Wk0zMTUuNTksNTMuMTlsLTkuMDQtMjcuMTMtOC45MiwyNy4xM2gxNy45N1oiLz4NCiAgICAgICAgPC9nPg0KICAgICAgPC9nPg0KICAgIDwvZz4NCiAgPC9nPg0KPC9zdmc+" alt="Corporate DNA" />
+    <p class="eyebrow">Implementation Status</p>
+    <h1>Corporate DNA — Consolidated Implementation Status</h1>
+    <div class="brandbar"></div>
+    <p class="meta"><strong>Prepared by Beto &amp; Cadu / Dev em Dobro.</strong> In response to the consolidated brief of 27 Aug 2026 and to Guli&rsquo;s design pass of 29 Aug 2026. <strong>Updated 2026-08-30.</strong> Scope: the public website only.</p>
+  </header>
+
+  <main>
+    <p><strong>In response to the consolidated brief of 27 Aug 2026, and to Guli&#39;s design pass of 29 Aug.</strong> Prepared by: Dev em Dobro. Date: 2026-08-30. Scope: the public website only (the content system is a separate project that the site feeds from).</p>
+<blockquote>
+<p>This update supersedes the 28-08 status. The brief remains the single source of truth: where it conflicts with earlier direction on content, architecture or design, the brief wins. Where it conflicts with the design mock, we have said so explicitly rather than choosing quietly.</p>
+</blockquote>
+<p><strong>Target: 1 September 2026.</strong> Parts B and C are what stands between here and that date.</p>
+<hr>
+<h2>How to read this</h2>
+<p>Part A is what has been built. <strong>Parts B and C are the ones that matter for the date</strong>: what we need from CDNA, and what is still with Guli. Everything after them is context.</p>
+<p><strong>Everything in Part A is on the review site now</strong>, including the navigation change and all of Guli&#39;s 29-08 pass. Two things to know before you look, both of them ours and neither a design question:</p>
+<ul>
+<li><strong>The Solutions menu still lists the old set</strong>, Inclusion &amp; Diversity among them. The eight confirmed names live in the content system, and the switch-over there has not been applied to the review site&#39;s database yet. The pages are built; the menu is reading old data.</li>
+<li><strong>The ticker shows nothing</strong>, because it has no entries yet — see B10. It takes up no space until it has something to say.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Label</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>CDNA</strong></td>
+<td align="left">Waiting on CDNA — new text, a fact to confirm, or a sign-off (any client name, logo, quote or figure).</td>
+</tr>
+<tr>
+<td align="left"><strong>Guli</strong></td>
+<td align="left">Waiting on creative direction before it can be built.</td>
+</tr>
+<tr>
+<td align="left"><strong>Us</strong></td>
+<td align="left">Ours to do — no new build or sign-off needed.</td>
+</tr>
+<tr>
+<td align="left"><strong>After launch</strong></td>
+<td align="left">Safe to add once the site is live.</td>
+</tr>
+</tbody></table>
+<hr>
+<h1>Part A — Delivered</h1>
+<h2>Since the 27-08 brief</h2>
+<ol>
+<li><strong>The eight Solutions are registered</strong> in the content system, in the brief&#39;s order, each with the five blocks and a flagship field.</li>
+<li><strong>The five Solution blocks are editable</strong> → <em>The Challenge → The Outcome → How Corporate DNA Helps → Evidence → Start a Conversation</em>. The old free-form body is retained but demoted to &quot;further detail (optional)&quot;.</li>
+<li><strong>The case header band is editable and rendering</strong> → <em>Countries · Participants/Leaders · Reach/Scale · Intervention · Impact</em>, at the top of the case before the story. Blank slots do not appear.</li>
+<li><strong>Three new content areas</strong> → Partnerships (item 12), the running ticker (item 17) and individual client testimonial videos (item 13).</li>
+<li><strong>Team Climate Assessment removed</strong> from &quot;Proprietary frameworks and diagnostics we own&quot;.</li>
+<li><strong>Quote guidance built into the editor</strong> — quote fields carry an on-screen note that they must be testimonials about Corporate DNA and need approval before publishing.</li>
+<li><strong>Navigation aligned to item 3.</strong> &quot;Home&quot; appears explicitly; &quot;Our Solutions&quot; and &quot;Our Books&quot; renamed. Insights and the &quot;Start a Conversation&quot; button left the header, as neither appears in the brief&#39;s list; Insights stays reachable from the footer, because item 18 requires the Reports &amp; Resources capability to be preserved and a page nothing links to is preserved in name only. Our Partnerships and Our Team have routes but stay out of the menu until their content arrives.</li>
+</ol>
+<h2>Since Guli&#39;s 29-08 design pass</h2>
+<ol start="8">
+<li><strong>Homepage — the new hierarchy (items 1 and 2).</strong> &quot;Keeping Leadership Real&quot; is the headline, with the approved sub-line, and CEOs, CHROs &amp; CLOs now appear on the first screen. &quot;When the stakes are high&quot; moved into the sub-line, as the brief asks. The logo wall and the statistics moved above &quot;What we solve&quot;, so the page runs Claim → Proof → Explanation, and <strong>90% Chairman/CXO now leads the figures</strong> instead of 18 years.</li>
+<li><strong>&quot;Keeping Leadership Real&quot; is now explained, not just asserted.</strong> A block sits under the hero carrying the six terms from item 1 — real pressures, real politics, real choices, real judgement, real people, real consequences — and nothing else. A framing sentence would have been invented copy. <strong>Its visual treatment still needs Guli</strong> — see C1. What exists is the structure working, not a finished layout.</li>
+<li><strong>The running ticker is back at the top of the page</strong>, directly under the navigation, where the old site carried it. It shows nothing until there are 2023-onwards entries to show, so it costs no space while the content is settled — see B10.</li>
+<li><strong>The compiled testimonial video has been removed</strong> from the public site (item 13). The modular structure for individual films is built and waiting.</li>
+<li><strong>Solutions now use the black boxes</strong> (item 5), in a modern reading of the old site&#39;s treatment.</li>
+<li><strong>Our Clients rebuilt</strong> (item 8), in the order the item sets out: the logo wall first for immediate credibility, then <strong>Client Stories</strong> — the branded client bands — for depth, then the real global-footprint map and the closing photograph you supplied. <strong>As far as build goes we consider this page finished — it needs your confirmation rather than more work.</strong></li>
+<li><strong>Our Impact rebuilt</strong> (item 9) in the sequence the mock lays out: figures → &quot;Our clients say&quot; → Our Social Impact → per-engagement results → Awards.</li>
+<li><strong>The 5H explorer rebuilt</strong> (item 10) with <strong>all 25 dimensions</strong>, transcribed from your own wheel. Content sits above the controls, at a fixed height, with the Inner/Outer Game rule inverting as you move between them.</li>
+<li><strong>Our Identity now carries the seven blocks item 4 lists</strong> — including Our Purpose, Keeping Leadership Real and the 5H reference, none of which existed. All are deliberately empty; see Part B.</li>
+<li><strong>A separate <code>Headline</code> field for case studies.</strong> The mock leads a case on its outcome rather than the client&#39;s name. The client name field also resolves the brand logo and the band colour, so the two are now separate fields — writing the headline into the old one silently removed both.</li>
+</ol>
+<hr>
+<h1>Part B — What we need from CDNA</h1>
+<p>Ordered by what most holds the launch.</p>
+<h3>B1 · Our Identity — the whole page <strong>[CDNA]</strong></h3>
+<p>Seven blocks are built and every one is empty. This is the largest content dependency in the project, and the page where we would most prefer not to guess.</p>
+<p><strong>Item 4 of your 27-08 e-mail sets this page out in detail</strong>, which helped a great deal: Our Purpose, Our Story, Our Values, Keeping Leadership Real, the London origin story, the founder point of view, and the 5H as part of who we are — with two conditions we have respected. <strong>London sits inside the company story rather than standing as an isolated founder quote</strong>, and the 5H is referenced here only, with the full explanation kept on Our Approach. The structure on the site now matches that list. What is missing is the text.</p>
+<ul>
+<li><strong>Our Purpose.</strong> The item asks it to preserve &quot;cut through complexity, connect the present and deliver the truth — real problems and real solutions&quot;. We looked for that sentence across the current site and could not find it, so in practice this is writing it rather than preserving it.</li>
+<li><strong>Our Story</strong>, with London and the founder&#39;s point of view <em>inside</em> the narrative.</li>
+<li><strong>Our Values.</strong></li>
+<li><strong>Keeping Leadership Real</strong> — what it means, as part of the identity. The homepage now leads on this line.</li>
+<li><strong>The 5H as part of who we are</strong> — a short reference only.</li>
+<li><strong>Why We Are Different</strong> — still with Rhea, JP and Nitin since the 05-08 brief.</li>
+</ul>
+<p><strong>When would you be able to send us this text?</strong> We ask early because this is the one page where we would rather not write on your behalf. We could put something readable together, or shorten the old site&#39;s text until it fits the seven blocks, but neither feels right here. Our Identity is where the company says who it is, and anything we drafted would be our reading of Corporate DNA rather than yours — you would most likely want to rewrite it. The old site does not help us much either: three of the seven blocks have no equivalent there, and the sentence item 4 asks us to preserve is not on it.</p>
+<p><strong>Direction would help us more than a draft to approve.</strong> For each of the seven blocks: the text that should be there — or, where you would prefer us to shape it, the raw material and the points it has to make, in your words. London is the clearest example: we know it belongs inside the story rather than beside it, and the story itself is yours to tell.</p>
+<p><strong>And then the design.</strong> Guli has not drawn this screen yet. Our suggestion, if it works for you, is to take it in that order — you confirm the text that goes in, and Guli designs the page around the text that actually exists. Designing the blocks empty and fitting the copy in afterwards tends to leave the layout fighting the length of the text, and item 16 asks for less scrolling, which is a decision about how much text there is before it is a decision about type.</p>
+<p><strong>Question:</strong> &quot;Why We Are Different&quot; is not in item 4&#39;s list of seven. Does it stay on the page?</p>
+<h3>B2 · Our Impact — three definitions <strong>[CDNA]</strong></h3>
+<p>The page cannot be finished without these, and none of them is a design question.</p>
+<ul>
+<li><strong>Which figures are correct?</strong> The mock uses 18 years / 36 countries / 75 faculty / 90% Chairman. The old site&#39;s &quot;By the numbers&quot; carries <strong>nine</strong> different indicators.</li>
+<li><strong>Are &quot;measurable results&quot; and &quot;impact statistics&quot; the same thing, or two blocks?</strong></li>
+<li><strong>What are &quot;programme outcomes&quot; and &quot;evidence across regions&quot;?</strong> Neither is defined in the brief and neither exists on the old site.</li>
+</ul>
+<p><em>Our reading, for you to confirm or correct:</em> the old site&#39;s nine figures split cleanly in two — company figures (founded, countries, leadership teams and coaching clients served, top FTSE 10) and programme results (NPS, engagement, programme impact, talent promoted). If &quot;impact statistics&quot; is the first group and &quot;programme outcomes&quot; the second, the page carries two figure bands rather than one, and &quot;measurable results&quot; is the umbrella over both. &quot;Programme Impact&quot; is already one of those nine, which is what points us this way.</p>
+<h3>B3 · Three claims on Our Approach <strong>[CDNA]</strong></h3>
+<p><strong>The corporate figures are settled</strong> — item 2 of your 27-08 e-mail names &quot;90% Chairman/CXO-sponsored&quot; and &quot;18 years&quot;, which is the set the homepage and Our Impact now use, alongside 36 countries and 75 faculty. Nothing there needs revisiting.</p>
+<p>What is still open is narrower: three things on the Our Approach page, flagged on the 06-08 list and never closed.</p>
+<ul>
+<li><strong>&quot;95% of our clients cite 5H® as the real secret of our success.&quot;</strong> It is on the page today. Confirm the figure, or tell us to take it out.</li>
+<li><strong>&quot;across 26 countries&quot;</strong>, in four places on that page, where every other page says <strong>36 countries</strong>. This is the one straight contradiction on the site: same fact, two numbers.</li>
+<li><strong>&quot;Over ten years&quot;</strong>, describing how long the 5H has been in use. This may well be correct — a methodology can be younger than the firm — but it sits a click away from &quot;18 years&quot;, and a visitor reads the two as a conflict rather than as two different facts.</li>
+</ul>
+<p>None of these needs new copy. A yes, a no, or a corrected figure is enough, and applying it is a quick change on our side.</p>
+<h3>B4 · Sign-off on the 25 5H dimensions <strong>[CDNA]</strong></h3>
+<p><strong>Where to look:</strong> they are the line that cycles inside Guli&#39;s new Inner &amp; Outer Game section on Our Approach. Each of the five faculties carries five of the wheel&#39;s twenty-five dimensions, rotating one after another. What needs your sign-off is that text, not the design around it.</p>
+<p>The names are transcribed from your own wheel artwork and reproduced verbatim, lower-case and all. They are your proprietary IP and nothing reaches production without approval.</p>
+<p><strong>One thing in there is ours, and you may want it different: the order.</strong> The wheel is a circle with no beginning, and the mock does not fix a sequence, so we read each faculty along its arc in the direction its labels run. If you want a different order within any faculty, tell us and it is a one-line change.</p>
+<h3>B5 · Solutions content <strong>[CDNA]</strong></h3>
+<p>The eight pages re-authored in the short five-block format. The fields are ready.</p>
+<p>Also: <strong>the flagship case for Manager Development and Executive Coaching</strong> — the two marked TBC in item 6.</p>
+<h3>B6 · Testimonials about Corporate DNA <strong>[CDNA]</strong></h3>
+<p>Item 7 requires quotes to be testimonials about the work, not generic corporate quotes. Today&#39;s are the second kind, so the slots on Our Impact are built and held empty rather than filled with what the brief asks us to replace.</p>
+<h3>B7 · Approvals on Our Clients <strong>[CDNA]</strong></h3>
+<ul>
+<li>The client names and logos on the page.</li>
+<li>The closing line — <em>&quot;We cut cross cultural boundaries…&quot;</em> — taken from the old site for the mock, not re-approved this cycle.</li>
+</ul>
+<h3>B8 · Our Partnerships <strong>[CDNA]</strong></h3>
+<p>The route and the content area exist and are empty. What we need is the list confirmed — Harvard, Imperial, Emeld AI, Explore Performance, TerraGrin, plus any other validated relationship — and, for each one, the answer to item 12&#39;s own question: <em>what does this partnership enable for our clients?</em> The item is explicit that logos and announcements are not enough, so the copy is the page.</p>
+<p><strong>Our recommendation is the same as for Our Identity: text and images first, design after.</strong> We suggest Guli only draws this screen once the partnership copy and the images are in hand, and designs it around what actually arrives. How many partnerships there are, how long each description runs, and whether each has a usable image are all things that change the layout — designing before they are known would very likely mean doing it twice.</p>
+<h3>B9 · Our Team assets <strong>[CDNA]</strong></h3>
+<p>Item 15: the group photograph of the six-person leadership team, the black-and-white individual portraits, and the final list of who appears. The page has a route but stays out of the menu until these arrive.</p>
+<p><strong>And a question item 15 does not answer, because it is not its subject.</strong> Item 15 scopes black and white to the team portraits. But the photograph you sent for the foot of Our Clients is also black and white, while the Social Impact carousel on Our Impact runs in colour. Is black and white the treatment for photography across the site, or does it stay on the portraits as item 15 words it? We are asking rather than deciding, since either answer is defensible and the two pages currently disagree.</p>
+<h3>B10 · Ticker content, 2023 onwards <strong>[CDNA]</strong></h3>
+<p>The strip is built and sits under the navigation, reproducing the old site&#39;s treatment — dark band, white text, underlined only where an item links out. What it carries is item 17&#39;s list: awards, new regions, new offices, new partnerships and milestones, 2023 onwards.</p>
+<p><strong>If all you want is the old site&#39;s strip carried across as it stands, say so and we do it.</strong> That is a short job on our side, not a blocker, and it does not need you to write anything new. We have not done it unasked because the old strip predates the 2023 cut the item sets, so some of it would come across and some would not, and that is your call rather than ours.</p>
+<p><strong>What we genuinely cannot resolve ourselves is the links.</strong> On the old site some ticker items were clickable. The field exists and works, so we can carry them — but a link has to lead somewhere, and for several of these there is no obvious destination on the new site. So: do the items link, and if they do, where does each one go? This is the part that was not clear to us, and it is the only thing here that actually needs an answer from you.</p>
+<h3>B11 · Proprietary frameworks and diagnostics <strong>[CDNA]</strong></h3>
+<p>Which ones go in. The structure is prepared and empty, as the brief asks.</p>
+<h3>B12 · Two decisions <strong>[CDNA]</strong></h3>
+<ul>
+<li><strong>The case listing filter.</strong> The mock shows an industry dropdown as the main way in, which item 6 rules out. It works as a secondary filter with discovery by Solution leading — but not as drawn.</li>
+<li><strong>Awards now appears on both the homepage and Our Impact.</strong> Guli moved it to Our Impact but never showed a homepage mock, and item 2 wants proof early on the homepage. One place or both?</li>
+</ul>
+<h3>B13 · How content should reach us <strong>[CDNA]</strong></h3>
+<p>Do you send it already validated, or do we propose and you review? We ask because this has caused rework before, and we assume Rhea will want to see it either way. The answer changes our week.</p>
+<hr>
+<h1>Part C — What is still with Guli</h1>
+<p>Guli has seen this list. These are the six priorities the brief set for him.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Priority</th>
+<th align="left">State</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Homepage visual hierarchy</td>
+<td align="left">The reorder is done. <strong>The &quot;Keeping Leadership Real&quot; block and two joins still need a design pass from Guli, if you want one</strong> — see C1.</td>
+</tr>
+<tr>
+<td align="left">Solutions visual system</td>
+<td align="left"><strong>Done</strong>, applied.</td>
+</tr>
+<tr>
+<td align="left">5H visual language</td>
+<td align="left"><strong>Explorer done.</strong> Four questions from item 10 remain open — see C2.</td>
+</tr>
+<tr>
+<td align="left">Our Clients / Our Impact</td>
+<td align="left"><strong>Our Clients done. Our Impact is not</strong> — see C3.</td>
+</tr>
+<tr>
+<td align="left">Team treatment</td>
+<td align="left"><strong>Not started.</strong></td>
+</tr>
+<tr>
+<td align="left">Reduction of text and scrolling</td>
+<td align="left">Partly. See C4.</td>
+</tr>
+</tbody></table>
+<p><strong>Two pages are not on that list</strong> — Our Identity and Our Partnerships were not among the six — and neither has a design. In both cases our suggestion is the same: the design follows the content rather than preceding it. See B1 and B8.</p>
+<h3>C1 · The homepage, three things <strong>[Guli]</strong></h3>
+<p><strong>The &quot;Keeping Leadership Real&quot; block.</strong> Item 1 asks for the explanation to be &quot;curta e visual&quot;. We built the short; the visual is his. It is standing on the current system&#39;s spacing so the block exists and CDNA can see the six terms in context — it is not a proposed layout.</p>
+<p><strong>And two joins the reorder opened.</strong> The new order satisfies item 2, but it cost the page some of its rhythm. The block above closed two of the four breaks. Two remain, and both change the colour rhythm of the whole page, which is why we have not touched them:</p>
+<ul>
+<li>&quot;What we solve&quot; and &quot;Client Impact&quot; are both pure white and now adjacent, with the alignment switching from centred to left mid-scroll. The dark band used to separate them.</li>
+<li>The same collision between the book block and the offices block.</li>
+</ul>
+<h3>C2 · Item 10, four open points <strong>[Guli + CDNA]</strong></h3>
+<ul>
+<li><strong>The 5H wheel.</strong> Our reading is that Guli&#39;s new Inner &amp; Outer Game section <em>is</em> the wheel in a modern reading — Inner/Outer, the five Hs and the 25 dimensions in one system, which is what the item asks for. So the wheel does not return as an image. Please confirm.</li>
+<li><strong>The DNA-strand imagery.</strong> The brief names it as one of the disconnected elements. It is still on the page, and Guli did not replace it. Now that the new section sits above it, does it stay or go?</li>
+<li><strong>&quot;The highlighting of an H without explanation.&quot;</strong> We could not identify what this refers to on the current page. Could you point at it?</li>
+<li><strong>The rotating dimensions do not lead anywhere.</strong> Each faculty cycles through its five dimensions at one second each — deliberately quicker than reading pace, to raise curiosity rather than explain. That works as an effect, but nothing in the section answers the curiosity it raises: the cards are not clickable and there is no fuller description of a dimension anywhere on the site. Asked about it on the call, Guli said he had only designed the card system and had not considered the click. So the question is his and yours together: does a dimension open into something, and if it does, what is on the other side? It is also the point where item 16&#39;s &quot;less text&quot; and this section pull against each other, which is why we are asking rather than building one.</li>
+</ul>
+<h3>C3 · Our Impact is not finished <strong>[Guli]</strong></h3>
+<p>Three things item 9 asks for have no treatment in the mock: <strong>programme outcomes</strong>, <strong>evidence across regions</strong> and <strong>dashboards</strong>. Guli said on the call that he did not know what &quot;programme outcomes&quot; was — which is why B2 above matters before he can finish.</p>
+<p>Also: <strong>Our Social Impact and Awards are not in item 9.</strong> He brought both from the old site. It reads right to us, but you should confirm rather than us assume.</p>
+<h3>C4 · Reduction of text and scrolling <strong>[Guli + CDNA]</strong></h3>
+<p>Our Clients is 18% shorter, and the shared page header now has a compact variant other pages can adopt. But the deeper reduction is content, not design — a point Guli made himself. <strong>What design delivers is less scrolling, which is not the same as less text.</strong> The text itself was approved in the previous cycle, and cutting it unilaterally would break the brief&#39;s own rule.</p>
+<hr>
+<h1>Part D — Preserved (item 18)</h1>
+<p>Verified: headless architecture, the content system, security, the Cloudflare/cutover path, analytics and SEO, the responsive foundation, editable statistics, author approval controls, Reports &amp; Resources, proof components, multilingual readiness, reusable components and infrastructure ownership. Nothing was removed.</p>
+<hr>
+<h1>Part E — Can follow immediately after launch</h1>
+<ul>
+<li>The three new testimonials (Dyson, adidas, one more).</li>
+<li>The new Corporate DNA video around Keeping Leadership Real (item 14).</li>
+<li>The remaining individual testimonial films, added through the content system.</li>
+<li>Captions for video accessibility.</li>
+</ul>
+<hr>
+<h1>Part F — Impact on 1 September</h1>
+<p><strong>Three things are ours and are being done regardless.</strong> A database migration that switches on Partnerships, the ticker and testimonial videos in the editor; the lead form, which currently records enquiries without notifying anyone; and the deployment path.</p>
+<p><strong>What decides the date is Part B.</strong> Every page that is built and empty stays empty until the text arrives. Our Identity is the clearest case: seven blocks, no copy, and a design we suggest should follow the text rather than precede it. It carries two waits, not one.</p>
+<p><strong>And one question we asked in the previous cycle and have not had answered:</strong> does &quot;launch on the 1st&quot; mean the review site is complete, or the live domain switches over? Today <code>corporatednaconsulting.com</code> still serves the old site. The switch itself is quick — two DNS records — but it is not in any tracker, and the two readings need very different amounts of runway.</p>
+<hr>
+<h1>Part G — Materially outside the agreed scope</h1>
+<p><strong>&quot;Dashboards&quot; (item 9),</strong> if it means live data visualisation — filtering results by region, industry or year. That is a new build. If it means a strong visual treatment of static figures, it is inside scope and belongs to Guli.</p>
+<p><strong>Knockout logo assets.</strong> The client bands knock the brand mark out of the panel in white, as the mock does. Our logo files are opaque colour-on-white, so the knockout is monochrome — Heineken loses the red of its star. Matching the mock exactly needs each brand&#39;s own knockout asset, which is an asset request rather than a build.</p>
+
+  </main>
+
+  <p class="footer-note">Corporate DNA - Making Leadership Real | Dev em Dobro | Status update 30/08/2026</p>
+</body>
+</html>

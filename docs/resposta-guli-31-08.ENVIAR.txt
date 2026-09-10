@@ -1,0 +1,116 @@
+Guli, fechei os teus pontos. Está tudo no alpha, no link de sempre:
+
+https://consulting-dna-corporate-alpha.vercel.app
+
+Se algo parecer igual ao que tu viu antes, recarrega segurando Ctrl+Shift+R —
+o navegador guarda o estilo antigo e foi o que te confundiu da última vez.
+
+O que ficou:
+
+1. CLIENT IMPACT VERMELHO
+Fundo na cor da marca, título e a chamada acima dele em branco, cards seguem
+brancos. Um detalhe que não estava no pedido mas era obrigatório: o tracinho ao
+lado do "Client impact" era vermelho e sumiria no fundo novo — virou branco.
+
+2. LIVRO x ESCRITÓRIOS
+Escureci os ESCRITÓRIOS, não o livro. Tu escreveu "mesma coisa" sem dizer qual
+dos dois, e escolhi esse porque o card do livro logo acima já é escuro: deixar a
+seção do livro quase preta engoliria o card dentro dela. Ficou no cinza quase
+preto que a gente já usa no ticker e nos black boxes, pra não inventar cor nova.
+
+Fiz só na home. O mesmo bloco roda em Our Clients e Our Team, onde não existe a
+colisão que tu apontou — escurecer lá seria tomar uma decisão que tu não tomou.
+Se preferir o livro no lugar dos escritórios, é ajuste rápido.
+
+3. FOTOS
+Todas passaram a preencher em vez de caber, então acabaram as margens nas fotos
+fora de proporção. Pega os dois carrosséis: o da home e o do Our Impact.
+
+Um aviso: apliquei só em fotografia. As logos (parede de clientes, prêmios,
+parceiros) continuam "cabendo" de propósito — ali cortar é justamente o defeito.
+
+4. O BOTÃO DIAGONAL
+Tu tinha razão e a gente tinha lido errado. Tratamos a diagonal como forma
+parada, e ela é a frente de uma varredura. Agora o vermelho entra pela direita e
+termina preenchendo o botão inteiro, sem a cunha escura sobrando.
+
+Sobre o "muito rápido", uma coisa que só apareceu medindo: a aresta só é visível
+enquanto atravessa o botão, e isso é uma fatia do trajeto — antes disso ela está
+fora, depois já cobriu tudo. Na versão original ela aparecia por cerca de 58
+milissegundos, três quadros. Ou seja, essa diagonal nunca foi vista por ninguém,
+nem na primeira versão. Ajustei pra ficar visível por volta de 350ms. Continua
+sendo um gesto rápido, mas agora dá pra ver que entra torto. Se achar que ficou
+lento, é um número só e a gente muda.
+
+5. OS SEIS TERMOS
+Hover animado pro vermelho, com o traço e o texto invertendo pra branco junto —
+senão os dois sumiam no fundo novo.
+
+6. O EXPLORER 5H
+Não era cache. Ele está publicado e girando; o que travava era uma pausa nossa:
+quando o mouse ficava parado em cima do painel, a rotação parava. Como a pessoa
+leva o cursor justamente até aquilo que está olhando, ela congelava na cara de
+quem fosse revisar. Foi o que aconteceu contigo.
+
+Fui atrás da gravação da call antes de mexer, porque eu não queria desfazer algo
+teu. Essa pausa não é tua: no trecho em que tu especifica o componente (04:00 a
+05:22) não tem hover em lugar nenhum, e o mecanismo de tempo de leitura que tu
+desenhou é o clique — "conforme o usuário clicar, daí a gente deixa um tempo de
+leitura razoável". Ela entrou por documento nosso. Tirei.
+
+Ficou exatamente a tua spec: 1 segundo girando sozinho, 3 segundos depois do
+clique. Vale tu saber porque é mudança de comportamento, não de cor.
+
+
+O QUE VEIO NA TUA MENSAGEM MAS NÃO É NOSSO PRA FAZER
+
+A imagem do DNA. Tu falou que fica e que vai refazer com aprovação do Guilherme.
+Segue contigo. Uma observação sobre ordem: como ela já reprovou uma vez e precisa
+de uma segunda rodada de aprovação, é o item com maior tempo de espera de toda a
+lista. Se der pra mandar a direção pro Guilherme hoje, o relógio da aprovação
+começa a correr enquanto tu toca o resto.
+
+Our Impact. Concordamos contigo. Só uma correção no diagnóstico: números nós
+temos — 90% Chairman/CXO, 18 anos, 36 países, 75 de faculty, mais os nove
+indicadores do site antigo. O que não existe é a divisão: quais deles são
+"impact statistics" e quais são "programme outcomes". Isso é uma resposta do
+Guilherme, não uma pesquisa nossa, e uma frase dele destrava a página. Muda o
+tamanho do problema: não é espera indefinida por conteúdo, é uma pergunta.
+
+O ticker. Ticker não é o esquema de fotos — é a tarja de texto embaixo do menu,
+que o site antigo tinha. Hoje ela não aparece porque não tem nenhum item
+cadastrado, então nem ocupa espaço. Teu palpite sobre as fotos foi bom e virou o
+item 3 aqui em cima, mas a pergunta do ticker continua aberta e é com o
+Guilherme: quais marcos de 2023 pra cá entram, e pra onde apontam os que forem
+clicáveis.
+
+
+TRÊS COISAS QUE PRECISAM DE TI
+
+1. O ok no bloco dos seis termos. A gente tinha pedido tua revisão pro Guilherme
+poder olhar essa parte, que é nova. Tu respondeu com o pedido de hover, mas o ok
+mesmo não veio. É a coisa mais nova da home e a única que ele ainda não viu.
+
+2. Qual bloco escurece, se tu discordar da minha escolha do item 2.
+
+3. O alinhamento. A gente relatou duas coisas naquele ponto: os dois blocos
+brancos colados E o alinhamento virando de centralizado pra esquerdo no meio do
+scroll. Tu resolveu a cor e não falou do alinhamento. Ele continua: o bloco dos
+"reals" e o "What we solve" centralizados, e a partir do Client Impact tudo à
+esquerda. Com o vermelho ficou bem menos gritante, porque a troca de cor já marca
+o corte de seção e o alinhamento mudando lê como intenção. Mas é tua decisão se
+fica assim.
+
+
+UMA QUE A GENTE ACHOU E NÃO ESTAVA EM LISTA NENHUMA
+
+O mapa mundial e o Awards estão os dois em branco puro e colados — exatamente a
+mesma colisão que tu mandou arrumar, uma seção mais abaixo. Tu não tinha como
+ver: aquele bloco do mapa só aparece quando o conteúdo carrega, então ele não
+estava no que tu olhou. Depois dos ajustes de hoje, é a última adjacência
+branco-com-branco que sobrou na home.
+
+
+Por último: tu falou que ia olhar nosso e-mail com mais calma. Quando olhar, me
+avisa se tiver mais alguma coisa pra ajeitar. Prefiro receber tudo de uma vez e
+resolver junto do que ir descobrindo aos poucos — ainda mais nesta semana.

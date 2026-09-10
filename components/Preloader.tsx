@@ -45,22 +45,30 @@ export default function Preloader() {
     const isMobile = isTouchDevice();
 
     // Duas guardas por rota, e elas NÃO são a mesma coisa. Ambas por pathname e
-    // não por prop, de propósito: o Preloader está no layout e é compartilhado
-    // com a home no ar, então o `/` não pode mudar em nada.
+    // não por prop, de propósito: o Preloader está no layout, é compartilhado
+    // por TODAS as páginas, e a maioria delas não tem herói nenhum para aquecer.
     const path = window.location.pathname;
 
-    // Nenhuma das duas propostas roda a sequência de frames em canvas do
-    // telefone — não há mais intro em nenhuma. Sem esta guarda o telefone
-    // ficaria parado no spinner baixando 239 frames (2,7 MB, até 25s) de uma
-    // animação que essas páginas não têm.
-    const needsHeroFrames = !/^\/home-v[23]\b/.test(path);
+    // ⚠️ A LISTA SE INVERTEU em 10-09, junto com a promoção da V2 para `/`.
+    // Antes isto era uma lista de EXCEÇÕES (`/home-v2` e `/home-v3` não
+    // aquecem, todo o resto aquece), porque quem usava a intro era a home. Hoje
+    // a home é a V2 e quem usa a intro é uma rota só — a `/home-v1`, o arquivo.
+    // Virou lista de INCLUSÃO pelo mesmo motivo que ela existe: se um dia
+    // aparecer outra rota, o padrão seguro é não baixar nada.
+    //
+    // Deixar como estava era o erro silencioso desta mudança: `/` passaria a
+    // casar com a regra antiga e o telefone ficaria parado no spinner baixando
+    // 239 frames (2,7 MB, até 25s) de uma animação que a home nova não tem.
+    const usesHeroIntro = /^\/home-v1\b/.test(path);
 
-    // Esta é por outro motivo: desde 07-09 NENHUMA das duas propostas usa o
-    // clipe — as duas têm uma fotografia estática de fundo (ver HeroV2.tsx e
-    // HeroV3.tsx). Aquecer o MP4 nelas seria baixar 3,8 MB de um vídeo que a
-    // página não tem. Só a home real (`/`) ainda usa o clipe, e lá ele continua
-    // sendo aquecido normalmente.
-    const needsHeroVideo = !/^\/home-v[23]\b/.test(path);
+    // A sequência de frames em canvas do telefone (só a HeroV1 a roda).
+    const needsHeroFrames = usesHeroIntro;
+
+    // O clipe do desktop, por outro motivo: desde 07-09 nem a V2 nem a V3 usam
+    // `hero-intro.mp4` — as duas têm fotografia estática de fundo, cuidada pelo
+    // `<Image>` do Next com `priority` (ver HeroV2.tsx e HeroV3.tsx). Aquecer o
+    // MP4 nelas seria baixar 3,8 MB de um vídeo que a página não tem.
+    const needsHeroVideo = usesHeroIntro;
 
     // All render-critical resources (images, CSS, fonts) are loaded.
     const waitLoad = new Promise<void>((resolve) => {
@@ -71,11 +79,11 @@ export default function Preloader() {
     // Warm the hero intro asset so it plays smoothly right after the loader.
     const waitHero = new Promise<void>((resolve) => {
       if (isMobile && !needsHeroFrames) {
-        // Propostas no telefone: o fundo é uma imagem estática que o próprio
-        // herói busca. Não há nada para aquecer aqui.
+        // Telefone, em qualquer rota que não seja a `/home-v1`: o fundo é uma
+        // imagem estática que o próprio herói busca. Nada para aquecer aqui.
         resolve();
       } else if (!isMobile && !needsHeroVideo) {
-        // /home-v3 no desktop: fundo é fotografia, e quem cuida dela é o
+        // Desktop, mesma coisa: o fundo é fotografia, e quem cuida dela é o
         // <Image> do Next, com `priority`. Nada para aquecer aqui também.
         resolve();
       } else if (isMobile) {

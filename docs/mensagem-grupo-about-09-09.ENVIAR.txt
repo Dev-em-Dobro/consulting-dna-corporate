@@ -1,13 +1,8 @@
 PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
 NOTA: negrito no WhatsApp é *asterisco simples* — está formatado abaixo
-STATUS: ⚠️ NÃO ENVIAR AINDA — conferido no alpha às 23h de 09/09: ele NÃO tem
-        a seção do time, NÃO tem os cards brancos da spec do cliente, NÃO tem
-        os escritórios em lista, e ainda tem a faixa de fecho que já saiu
-        daqui. É a versão de antes do trabalho do dia inteiro.
-        Rodar `npx vercel login` (o CLI deslogou ao se atualizar), depois
-        `npx vercel --prod --scope dobro66 --yes`, conferir a página, e só
-        então mandar. Sem isso a mensagem aponta para uma página que não
-        existe.
+STATUS: ✅ LIBERADA — deploy feito em 09/09 (commit 68e7260) e conferido no ar:
+        /about responde 200 com o trabalho do dia, /about-v2 e /our-identity
+        308am para lá, nenhum recurso falhou, nenhuma imagem quebrada.
 
 ⚠️ CONFERIR ANTES: o Beto disse "as 5 primeiras" e nomeou quatro. Incluí
    *What we believe* como a quinta, porque é a que vem em seguida na página e
@@ -18,7 +13,7 @@ STATUS: ⚠️ NÃO ENVIAR AINDA — conferido no alpha às 23h de 09/09: ele N�
 We have been working on the *About* page. It is still in development, but it is
 far enough along to be worth a look:
 
-https://consulting-dna-corporate-alpha.vercel.app/about-v2
+https://consulting-dna-corporate-alpha.vercel.app/about
 
 *Please treat this as a preview, not a review.* We are closing the page
 tomorrow — that is the point to send feedback, and we would rather you spend

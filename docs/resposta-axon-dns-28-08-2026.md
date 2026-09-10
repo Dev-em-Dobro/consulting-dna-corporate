@@ -33,8 +33,14 @@ Olhei os dois e-mails. Resumo: **quase nada precisa ser feito.** O cutover não 
 acesso ao Cloudflare já é nosso desde 13/08, e o próprio Amit escreveu *"now that you have full
 control"*. O domínio fica onde está. O que sai daqui são três confirmações e um pedido.
 
-Deixei o e-mail em inglês pronto lá embaixo, endereçado ao Rico e ao Amit com a CDNA em cópia. É só
-mandar.
+Deixei o e-mail em inglês pronto lá embaixo, endereçado ao Rico e ao Amit com a CDNA em cópia.
+
+**Quem manda sou eu, e por isso ele abre explicando de onde veio.** O e-mail do Rico foi para a
+Rhea, com cópia para Maliha, Finance e Amit — eu não estou na thread, então não dá para responder
+dentro dela. Começa uma nova, com o assunto deles preservado para eles ligarem uma coisa à outra.
+E abre dizendo quem eu sou e que respondo em nome de vocês: fornecedor não deve executar mudança de
+domínio a pedido de um terceiro que apareceu do nada, e você em cópia é o que confirma o mandato.
+Se preferir mandar você mesmo, me avisa que eu troco o começo — aí ele não precisa de nada disso.
 
 ### 1. O domínio fica na Axon
 
@@ -86,9 +92,13 @@ Ricardo
 > Endereçado a eles porque são eles que têm perguntas em aberto. A CDNA lê como cópia e fica a par
 > das decisões — sem virar um relatório de status do projeto, que não é assunto de fornecedor.
 
-**Subject:** corporatednaconsulting.com — domain, and how the cutover will run
+**Subject:** corporatednaconsulting.com — domain, and how the cutover will run (re: your 19 August reminder)
 
 Dear Rico and Amit,
+
+I am Ricardo, from Dev em Dobro — the provider Guilherme Mendes confirmed to you on 12 August as the team building Corporate DNA's new website.
+
+Your reminder of 19 August was addressed to Rhea, and it reached us inside CDNA, forwarded on to Guilherme, who passed it to us to answer. Since I was not on the original thread I cannot reply within it, so this is a new message on the same subject — I have kept your subject line for reference and copied CDNA, who can confirm that we are answering on their behalf and that the decisions below are theirs.
 
 Thank you for the reminder, and for arranging the Cloudflare access.
 

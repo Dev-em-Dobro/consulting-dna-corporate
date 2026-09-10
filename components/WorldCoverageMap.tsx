@@ -196,6 +196,7 @@ function countryLabelPos(
 export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
+  tone = "white",
 }: {
   /**
    * Pass `null` to both to render the map alone, with no header of its own.
@@ -208,6 +209,23 @@ export default async function WorldCoverageMap({
    */
   eyebrow?: string | null;
   title?: string | null;
+  /**
+   * Ground the map sits on. `paper` exists for /about, where the whole "Where
+   * we work" block (this map + the offices below it) shares one band so the two
+   * halves read as one section — see the note at the call site.
+   *
+   * A prop rather than a change to the component, for the same reason
+   * LocationsBlock has one: the three homepages render this map on white and
+   * must not move.
+   *
+   * ⚠️ The map is DRAWN against its ground, so this is not only a CSS class.
+   * Country borders are stroked in the ground colour, which is what makes the
+   * landmasses read as shapes cut out of the page rather than outlined on top
+   * of it; and the un-covered countries need to stay as far from the ground as
+   * they were on white, or the empty world washes out. Both follow `tone`
+   * below. The palette of COVERED countries is saturated and doesn't care.
+   */
+  tone?: "white" | "paper";
 }) {
   const regions = await getCoverageRegions();
 
@@ -291,8 +309,19 @@ export default async function WorldCoverageMap({
   // (item 16, "excessive white space") asks us to close.
   const headless = eyebrow === null && title === null;
 
+  // The two colours that are a function of the ground (see the `tone` doc).
+  // `ground` is every stroke that means "the page behind this": country
+  // borders, the pin keyline, the city-label halo. `emptyFill` is the
+  // un-covered world; it sits ~28 points below white, so on paper (#f3f3f3) it
+  // has to come down too or the difference halves and the map reads washed out.
+  const ground = tone === "paper" ? "#f3f3f3" : "#ffffff";
+  const emptyFill = tone === "paper" ? "#e0dbd6" : "#e7e3df";
+
   return (
-    <section id="coverage" className="bg-white">
+    <section
+      id="coverage"
+      className={tone === "paper" ? "bg-paper" : "bg-white"}
+    >
       <div
         className={`mx-auto max-w-[1200px] px-6 pb-20 md:px-10 md:pb-24 ${
           headless ? "pt-0" : "pt-20 md:pt-24"
@@ -323,11 +352,11 @@ export default async function WorldCoverageMap({
             if (!d) return null;
             const fill = covered.has(f.id)
               ? (colorFor[f.id] ?? "#d84339")
-              : "#e7e3df";
+              : emptyFill;
             // Key by index — some GeoJSON features share id "-99" (disputed
             // territories), which would otherwise collide.
             return (
-              <path key={i} d={d} fill={fill} stroke="#fff" strokeWidth={0.4} />
+              <path key={i} d={d} fill={fill} stroke={ground} strokeWidth={0.4} />
             );
           })}
           {/* Country names, centred on the country (no pin). */}
@@ -357,10 +386,10 @@ export default async function WorldCoverageMap({
               <path
                 d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
                 fill="#373234"
-                stroke="#fff"
+                stroke={ground}
                 strokeWidth={0.6}
               />
-              <circle cx="0" cy="-12.8" r="2.4" fill="#fff" />
+              <circle cx="0" cy="-12.8" r="2.4" fill={ground} />
             </g>
           ))}
           {/* City labels, placed to avoid overlapping each other and the pins. */}
@@ -373,7 +402,7 @@ export default async function WorldCoverageMap({
               fontSize={FONT}
               fontWeight={600}
               fill="#373234"
-              stroke="#fff"
+              stroke={ground}
               strokeWidth={2}
               paintOrder="stroke"
               style={{ fontFamily: "var(--font-poppins), sans-serif" }}

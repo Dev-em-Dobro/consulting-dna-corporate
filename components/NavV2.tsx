@@ -25,7 +25,11 @@ function Chevron({ className = "" }: { className?: string }) {
 }
 
 /**
- * Nav da /home-v2 — cópia da NavV1 com uma mudança: a barra deixa de ser uma
+ * Nav da home (`/`), da `/about` e da `/home-v3`. Desde 10-09, quando a V2
+ * virou o site, este é o menu que a maioria das páginas novas usa; a NavV1
+ * segue no `SiteShell`, servindo o resto do site e a `/home-v1`.
+ *
+ * Nasceu como cópia da NavV1 com uma mudança: a barra deixa de ser uma
  * faixa vermelha em cima da foto, passa a flutuar sobre ela e vai embora junto
  * com o herói quando a página rola.
  *

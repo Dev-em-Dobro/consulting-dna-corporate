@@ -1,10 +1,14 @@
 /**
  * /home-v3 — a terceira home para o grupo comparar. NÃO é o site.
  *
+ * ⚠️ 10-09: A V2 GANHOU E VIROU A HOME. Ela não mora mais em `/home-v2` — mora
+ * em `/`, e `/home-v2` 308a para lá. A comparação que esta página existe para
+ * permitir continua de pé, só que agora é `/home-v3` contra `/`.
+ *
  * A DIFERENÇA PARA A V2 É SÓ O HERÓI. Do fim do herói para baixo, esta página é
- * byte a byte a `/home-v2`: mesmas seções, mesma ordem, mesmo tratamento. Foi o
+ * byte a byte a home: mesmas seções, mesma ordem, mesmo tratamento. Foi o
  * pedido de 07-09 — "pode mexer só na hero e deixar o resto como está". Quem
- * comparar `/home-v2` e `/home-v3` está comparando dois heróis, e só isso.
+ * comparar `/home-v3` e `/` está comparando dois heróis, e só isso.
  *
  * REFERÊNCIA DIFERENTE DA V2. A V2 segue a Explore Performance, que a Rhea
  * mandou em 03-09. Esta segue a TRIONN (`ref 10.png`), que é um estúdio de
@@ -12,12 +16,13 @@
  * enorme, conteúdo empurrado para os CANTOS em vez de centrado, e o miolo da
  * tela deixado quase vazio. O mapeamento está comentado em `HeroV3.tsx`.
  *
- * Como está montada: cópia da `app/home-v2/page.tsx`, não refactor. Mesma
- * lógica de sempre neste projeto — enquanto é proposta, nada que está no ar
- * pode depender de arquivo que a proposta mexa. Se a V3 vencer, ela sobe para
- * `/` e as duas pastas somem; se não, apaga-se a pasta e não sobrou nada atrás.
- * O preço é drift: mudanças na `/home-v2` a partir de hoje não aparecem aqui
- * sozinhas.
+ * Como está montada: cópia da V2 — hoje `app/page.tsx` —, não refactor. Mesma
+ * lógica de sempre neste projeto: enquanto é proposta, nada que está no ar pode
+ * depender de arquivo que a proposta mexa. Essa regra vale agora com mais peso,
+ * não com menos, porque o arquivo do qual ela é cópia É o site. Se a V3 vencer,
+ * ela sobe para `/` do mesmo jeito que a V2 subiu; se não, apaga-se a pasta e
+ * não sobrou nada atrás. O preço é drift: mudanças feitas em `/` a partir de
+ * hoje não aparecem aqui sozinhas.
  *
  * `noindex` porque é conteúdo duplicado da home — não pode ser indexado nem
  * concorrer com ela na busca. Não está no `app/sitemap.ts` (a lista lá é

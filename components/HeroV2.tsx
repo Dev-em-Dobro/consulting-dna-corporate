@@ -10,12 +10,15 @@ import CyclingCredential from "@/components/CyclingCredential";
 import type { TickerEntry } from "@/lib/cms/map";
 
 /**
- * Hero da /home-v2 — a versão para o grupo comparar, seguindo a referência
- * Explore Performance que a Rhea mandou em 03-09.
+ * Hero da HOME (`/`) desde 10-09 — e também da `/home-v3`, que só troca o herói
+ * e reaproveita todo o resto. Nasceu seguindo a referência Explore Performance
+ * que a Rhea mandou em 03-09.
  *
- * É uma CÓPIA da HeroV1, não um refactor: a home que está no ar não pode mudar
- * enquanto isto é só uma proposta. Se a V2 for aprovada, o caminho é promover
- * este arquivo e apagar o outro; se não for, apaga-se este.
+ * Era uma CÓPIA da HeroV1, feita para que a home no ar não mudasse enquanto
+ * isto era proposta. A proposta ganhou, então o de cima e o de baixo trocaram
+ * de lugar: este arquivo é o site, e a HeroV1 é que ficou para trás, viva
+ * apenas na `/home-v1` (o arquivo da home antiga). As duas seguem separadas de
+ * propósito — mexer aqui não deve poder quebrar o arquivo, nem o contrário.
  *
  * O que muda em relação à V1, e por quê:
  *  - Texto alinhado à esquerda, não centrado — é o padrão da referência.
@@ -520,7 +523,11 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
           Voltou a `md:pb-0` em 07-09: por algumas horas ele foi `md:pb-[132px]`
           para reservar a faixa de credenciais presa na base do herói. A faixa
           saiu da primeira dobra, então não há mais nada para reservar. */}
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 pb-20 pt-[140px] md:px-10 md:pb-0 md:pt-[76px]">
+      {/* 1440px desde 10-09, junto com o resto da home — a coluna da página
+          subiu de 1200 para 1440 e o herói tem de correr na mesma margem, senão
+          o título abre num eixo e as seções seguintes noutro. Este componente é
+          renderizado só pela home, então a mudança não alcança outra página. */}
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 pt-[140px] md:px-10 md:pb-0 md:pt-[76px]">
         <div className="max-w-[760px]">
           {/* O EYEBROW É BRANCO, e isso mudou em 07-09 junto com o tratamento
               de cor. Vale a explicação porque a versão anterior deste comentário
@@ -582,7 +589,17 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
 
               Peso 600 e não 500 porque a Poppins em 500 sobre foto escura fica
               fina demais. Voltar para 64px é trocar um número nesta linha. */}
-          <h1 className="h-title mb-7 text-[34px] font-semibold leading-[1.1] tracking-[-0.3px] text-white sm:text-[44px] md:text-[56px]">
+          {/* ESCALA E TRACKING DA /about — 10-09. Era 34/44/56 com
+              `tracking-[-0.3px]`, valores calibrados para a Geist; com o título
+              agora em serifa (ver a variante `[&_h1]:font-serif` no wrapper da
+              home) o espacejamento apertado da grotesca fecha demais as letras.
+              Os números são os do h1 da About: 36/44/52 e -0,2px.
+
+              O `&nbsp;` abaixo continua sendo o que controla a quebra. Não
+              copiei o `[text-wrap:balance]` da About junto justamente por isso —
+              lá a quebra é livre e equilibrada pelo navegador, aqui ela é
+              decidida à mão, e as duas coisas brigariam. */}
+          <h1 className="h-title mb-7 text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white sm:text-[44px] md:text-[52px]">
             Keeping Leadership&nbsp;Real<span className="text-brand">.</span>
           </h1>
           {/* Serifa no corpo — o par tipográfico do item 2.1 da leitura da

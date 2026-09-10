@@ -141,9 +141,18 @@ const legacyExtensionlessRedirects = [
 //   • `/about-v2` foi o endereço mandado para revisão do cliente, inclusive na
 //     mensagem do grupo. Links já enviados continuam abrindo.
 //   • `/our_identity.html` é a página legada do WordPress, tratada mais acima.
+//
+// 10-09: a home teve o MESMO movimento. A `/home-v2` foi escolhida e subiu para
+// `/`; a home que estava no ar virou `/home-v1`, fora do menu e fora do
+// sitemap. `/home-v2` era o endereço mandado para o grupo comparar, então links
+// já enviados continuam abrindo — agora na home de verdade.
+//
+// `/home-v3` NÃO entra aqui: ela continua sendo proposta viva. A comparação que
+// ela existe para permitir segue de pé, só que agora é `/home-v3` contra `/`.
 const splitAreaRedirects = [
   { source: "/our-identity", destination: "/about", permanent: true },
   { source: "/about-v2", destination: "/about", permanent: true },
+  { source: "/home-v2", destination: "/", permanent: true },
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and

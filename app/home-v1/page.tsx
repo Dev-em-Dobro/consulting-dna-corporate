@@ -1,37 +1,25 @@
 /**
- * /home-v2 — a home alternativa, para o grupo comparar. NÃO é o site.
+ * /home-v1 — ARQUIVO. Esta foi a home do site até 10-09, quando a `/home-v2`
+ * (a proposta saída da referência que a Rhea mandou em 03-09) foi escolhida e
+ * subiu para `/`.
  *
- * Por que existe: na call de 03-09 a Rhea mandou a Explore Performance como
- * referência ("I love the clarity and visual appeal") e pediu, literalmente,
- * exemplos em vez de conversa — `[56:49]` "send me some examples and say 'Ria,
- * should it be like this?' — talking will only help 50%, examples will help
- * more". Esta rota é esse exemplo, servido lado a lado com a home real em `/`,
- * que continua exatamente como está.
+ * Guardada a pedido, para não se perder: fica fora do menu, fora do sitemap e
+ * com `noindex`. Duas páginas com o mesmo assunto disputando busca é o problema
+ * que se evita, e entre a home e o arquivo quem perde é o arquivo.
  *
- * Como está montada: é uma cópia da `app/page.tsx`, não um refactor dela. A
- * duplicação é deliberada e temporária — enquanto isto é proposta, a home no ar
- * não pode depender de nenhum arquivo que a proposta mexa. Se a V2 for
- * aprovada, ela sobe para `/` e esta pasta some; se não for, apaga-se a pasta e
- * não sobrou nada atrás. O preço é drift: mudanças feitas em `/` a partir de
- * hoje não aparecem aqui sozinhas.
- *
- * `noindex` porque é conteúdo duplicado da home — não pode ser indexado nem
- * concorrer com ela na busca. Não está no `app/sitemap.ts` (a lista lá é
- * explícita) e não está no menu (o nav vem do CMS).
- *
- * O que muda em relação à home real está comentado em cada ponto, sempre com a
- * origem: leitura da referência em
- * `docs/reuniao-rhea-03-09-2026-referencia-explore-performance.md` e decisões
- * da call interna em `docs/rhea-feedback/analise-call-interna-03-09-2026.md`.
+ * É a única página que ainda usa a `HeroV1` — e, com ela, a intro em vídeo:
+ * a sequência de 239 frames no telefone e o `hero-intro.mp4` no desktop. O
+ * `Preloader` aquece esses assets por PATHNAME, e desde 10-09 a lista dele é
+ * exatamente esta rota. Se este arquivo mudar de endereço, a guarda de lá muda
+ * junto, senão a home volta a baixar 3,8 MB de um vídeo que ela não tem.
  */
 import type { Metadata } from "next";
-import { Source_Serif_4 } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import methodology from "@/public/5H-methodology.jpg";
-import HeroV2 from "@/components/HeroV2";
-import NavV2 from "@/components/NavV2";
+import HeroV1 from "@/components/HeroV1";
+import NavV1 from "@/components/NavV1";
 import Reveal from "@/components/Reveal";
 import LogoMarquee from "@/components/LogoMarquee";
 import RealCycle from "@/components/RealCycle";
@@ -45,34 +33,21 @@ import { getPeople, getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
+import RunningTicker from "@/components/RunningTicker";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
 
-// Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
-// título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
-// A Explore Performance usa freight-text-pro, que é da Adobe; a Source Serif é
-// o equivalente livre mais próximo em desenho e em altura de x.
-//
-// Carregada AQUI, e não no layout: assim a home real não baixa mais uma fonte
-// por causa de uma proposta. Escolha de família é do Guli — isto é um lugar
-// para ele decidir em cima, e trocar é uma linha.
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  variable: "--font-serif-v2",
-  display: "swap",
-});
-
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Home V2 (proposta) | Corporate DNA";
+  const title = "Home V1 (arquivo) | Corporate DNA";
   return {
     title,
     description: SITE_DESCRIPTION,
-    // Sem `alternates`: o canonical de "/" é da home real. Esta página é
-    // duplicata para revisão interna e não pode reivindicá-lo.
+    // Sem `alternates`: o canonical de "/" é da home, que agora é a V2. Este é
+    // o arquivo e não pode reivindicá-lo — era exatamente esta linha, ao
+    // contrário, que a V2 carregava enquanto era proposta.
     robots: { index: false, follow: false },
     openGraph: { title, description: SITE_DESCRIPTION },
     twitter: { title, description: SITE_DESCRIPTION },
@@ -155,20 +130,11 @@ const cases: {
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants", caseSlug: "heineken" },
   { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
-  // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
-  // número tem que ser trocado nos dois lugares até a V2 ser decidida.
+  // Era a nossa própria prova social errada, e para menos.
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
 ];
 
-export default async function HomeV2() {
-  // `getTickerEntries()` VOLTOU em 07-09. Ele tinha saído no mesmo dia, quando o
-  // selo do herói virou credencial escrita à mão e o segmento ficou sem
-  // consumidor — agora o cartão do lado direito do herói alterna entre as
-  // entradas do ticker, então há consumidor de novo.
-  //
-  // A faixa de credenciais abaixo do herói NÃO usa isto: ela segue com o par
-  // escrito à mão em HERO_CREDENTIALS. As duas fontes convivendo é redundância
-  // conhecida e está anotada no ponto de uso, dentro do HeroV2.
+export default async function HomeV1() {
   const [people, nav, stats, ticker] = await Promise.all([
     getPeople(),
     buildSiteNav(),
@@ -176,37 +142,7 @@ export default async function HomeV2() {
     getTickerEntries(),
   ]);
   return (
-    // `serif.variable` publica --font-serif-v2 para tudo que está dentro; quem
-    // usa hoje é o subtítulo do herói. Fica no wrapper, e não no layout, para a
-    // home real não herdar nada desta proposta.
-    <div
-      // --accent-on-dark: o vermelho da marca sobre fundo escuro mede 2,9:1,
-      // que reprova para texto pequeno. Este tom clareado dá 4,7:1 sobre o ink
-      // e é o mesmo do herói. Regra da V2, em uma frase: brand #d84339 sobre
-      // fundo claro, este tom sobre fundo escuro. Está declarado aqui, e não
-      // espalhado, para o Guli trocar em um lugar só quando escolher a accent
-      // color definitiva.
-      style={{ ["--accent-on-dark" as string]: "#f4796d" }}
-      // [&_[data-awards-band]]: a faixa de prêmios tem fundo vermelho dentro do
-      // AwardsMentions, que é componente compartilhado com o resto do site.
-      // Em vez de duplicar o componente, a V2 sobrescreve pelo gancho
-      // `data-awards-band` que ele já expõe. Escopado a esta árvore: nenhuma
-      // outra página muda.
-      // [&_button[type=submit]]: o botão do formulário é ink dentro do
-      // ContactForm, também compartilhado. Com a seção de contato virando
-      // escura, o vermelho sumiria justamente da ação principal da página — e a
-      // referência faz o contrário, o acento vive no CTA. O `!` é porque a
-      // classe original do componente tem a mesma especificidade.
-      //
-      // `relative` para o nav absoluto se prender aqui, e não no documento.
-      // `scroll-mt` saiu junto com a barra fixa: sem nada por cima do conteúdo,
-      // âncora não cai mais atrás de barra nenhuma.
-      // [&_#awards_h2] / [&_#awards_h3]: os títulos do AwardsMentions são os
-      // únicos fora da escala — 52px onde toda seção usa 40, e 30px onde os
-      // cards usam 28. Medido no navegador, não estimado. Compartilhado com o
-      // resto do site, então nivelado aqui em vez de no componente.
-      className={`${serif.variable} relative w-full overflow-x-hidden bg-white [&_[data-awards-band]]:bg-ink [&_button[type=submit]]:bg-brand! [&_button[type=submit]]:hover:bg-brand-dark! [&_#awards_h2]:text-[40px]! [&_#awards_h2]:font-semibold! [&_#awards_h2]:tracking-[-0.5px]! [&_#awards_h3]:text-[28px]! [&_#awards_h3]:font-semibold!`}
-    >
+    <div className="w-full overflow-x-hidden bg-white">
       <JsonLd
         data={[
           personLd({ name: "Rhea Leckie", jobTitle: "Founder" }),
@@ -219,36 +155,16 @@ export default async function HomeV2() {
           }),
         ]}
       />
-      {/* NAV — flutuando sobre o herói em vez de faixa vermelha por cima dele.
-          O porquê está na NavV2. */}
-      <NavV2 items={nav} />
+      {/* NAV */}
+      <NavV1 items={nav} />
 
-      {/* SEM TICKER AQUI — é a mudança mais visível da V2, e é uma proposta,
-          não uma decisão tomada.
-
-          O histórico: a faixa está no ar por causa do item 17 do briefing de
-          27-08, foi ela que a Rhea reclamou na apresentação, e a escolha do que
-          fazer ficou registrada como "decisão delegada a nós" (`[44:21]`). Na
-          call interna o Guli propôs mover para baixo, sem caixa em volta
-          (`[03:21]`), e o Guilherme concordou.
-
-          Aqui ela sai inteira, e o conteúdo não se perde: o herói ganhou uma
-          faixa de credenciais na base (o §4.4 da leitura da referência —
-          "trocar o ticker por um bloco de selos" — porque rolando o texto
-          trunca e não dá para ler), e a faixa de prêmios do rodapé
-          (`AwardsMentions`, mais abaixo) continua onde está.
-
-          Se o grupo preferir manter a faixa, ela volta em uma linha, logo antes
-          do `AwardsMentions`, que é exatamente o que o Guli propôs.
-
-          ATUALIZAÇÃO 07-09: até esta data o herói mostrava `ticker[0]`, a
-          entrada mais RECENTE do segmento. Como o segmento mistura prêmios,
-          regiões, escritórios e parcerias, o espaço de credencial do herói era
-          sorteio — podia cair um escritório novo no lugar de um prêmio. Agora
-          são dois prêmios escolhidos, escritos no componente. */}
+      {/* TICKER — directly under the nav, where the old CDNA site carried it
+          (27-08 brief, item 17). Renders nothing until the CMS has 2023+ entries,
+          so it costs no vertical space while the content is still being written. */}
+      <RunningTicker entries={ticker} />
 
       {/* HERO */}
-      <HeroV2 ticker={ticker} />
+      <HeroV1 />
 
       {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
@@ -323,7 +239,7 @@ export default async function HomeV2() {
               shrinks. Above `sm` they are hidden and both lines flow on their
               own. */}
           <Reveal stagger={false} className="md:text-center">
-            <h2 className="max-w-[900px] text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
+            <h2 className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
               Our purpose
               <br className="sm:hidden" /> is to make
               <br className="sm:hidden" /> leadership{" "}
@@ -337,7 +253,7 @@ export default async function HomeV2() {
                 a heading that rewrites itself is hostile to screen readers and
                 meaningless to a crawler. `RealCycle` is aria-hidden and carries
                 its own accessible name. */}
-            <p className="max-w-[900px] text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] sm:text-[34px] md:mx-auto md:text-[40px]">
+            <p className="max-w-[900px] text-[30px] font-bold leading-[1.1] tracking-[-0.8px] sm:text-[34px] md:mx-auto md:text-[40px]">
               <RealCycle words={reals} />
             </p>
           </Reveal>
@@ -383,23 +299,10 @@ export default async function HomeV2() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
           </div>
-          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink md:mx-auto">
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink md:mx-auto">
             The leadership challenges that determine enterprise performance.
           </h2>
-          {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do herói.
-              É o par tipográfico saindo da primeira dobra, que era o item 2.1
-              da leitura da referência: "eyebrow em caps → título grande →
-              subtítulo em serifa → grid", o mesmo padrão em toda seção.
-
-              Só o subtítulo, e não todo o texto de corpo: o Guli descreveu o
-              par ao contrário (Poppins no corpo, uma fonte expressiva nos
-              títulos), e comprometer o corpo inteiro do site com serifa antes
-              de ele bater o martelo seria decidir por ele. Este papel já estava
-              decidido no herói; isto só o repete. */}
-          <p
-            className="max-w-[620px] text-[19px] leading-[1.65] text-muted md:mx-auto"
-            style={{ fontFamily: "var(--font-serif-v2)" }}
-          >
+          <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
             We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
           </p>
         </Reveal>
@@ -430,7 +333,7 @@ export default async function HomeV2() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Corporate DNA</span>
           </div>
-          <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink">
+          <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-2">
@@ -458,46 +361,25 @@ export default async function HomeV2() {
           layer — and stays empty until CDNA supplies the individual films.
           `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
-      {/* CLIENT IMPACT — fundo escuro na V2, vermelho só nas marcações.
+      {/* CLIENT IMPACT — brand red, Guli's fix of 31-08.
 
-          O QUE ERA: o Guli pintou esta faixa de vermelho em 31-08, e por um
-          motivo real. A reordenação tinha deixado esta seção e "What we solve"
-          as duas brancas e coladas, com o alinhamento trocando de centrado para
-          esquerda no meio da rolagem. Em vez de recolocar um divisor, ele deu
-          cor própria à faixa: fundo vermelho, eyebrow e título brancos, cards
-          brancos.
+          The reorder left this section and "What we solve" both pure white and
+          adjacent, with the alignment switching from centred to left mid-scroll;
+          the dark band used to separate them. Rather than reinstate a divider,
+          Guli gave the band its own colour: red ground, white eyebrow and
+          title, cards still white. That both breaks the collision and makes the
+          proof band the loudest thing between the hero and the book.
 
-          POR QUE MUDA: o problema que ele resolveu continua resolvido com fundo
-          escuro — o que separava as duas seções brancas era a faixa TER cor,
-          não a cor ser vermelha. E o vermelho como área é exatamente o que a
-          leitura da referência aponta como a mudança de maior efeito por menor
-          esforço (§4.2: "na referência o acento nunca vira área, só marca").
-          Trocando por ink, o vermelho volta a aparecer aqui onde ele funciona:
-          o filete do eyebrow, o rótulo "Challenge", o traço e o número da
-          métrica dentro de cada card branco.
-
-          Ink e não outra cor porque a seção seguinte visível é `#people`, que é
-          branca (o bloco `#approach`, que era escuro, está desligado logo
-          abaixo). Escuro aqui mantém o ritmo claro-escuro-claro em vez de
-          empilhar dois blocos da mesma cor, que foi o problema original. */}
-      <section id="impact" className="bg-ink text-white">
+          The eyebrow rule turns white here. It is `bg-brand` everywhere else on
+          the page, which on red would be invisible — the rule marks the eyebrow,
+          so it has to be the one colour the ground is not. */}
+      <section id="impact" className="bg-brand text-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          {/* O filete e o eyebrow voltam a ser vermelhos — era isso que o fundo
-              vermelho tinha tirado deles. No tom claro de fundo escuro: o
-              #d84339 sobre ink mede 2,9:1 e reprovaria em 13px. */}
           <div className="mb-2.5 flex items-baseline gap-3">
-            <span
-              className="inline-block h-0.5 w-9"
-              style={{ backgroundColor: "var(--accent-on-dark)" }}
-            />
-            <span
-              className="text-[13px] font-semibold uppercase tracking-[2px]"
-              style={{ color: "var(--accent-on-dark)" }}
-            >
-              Client impact
-            </span>
+            <span className="inline-block h-0.5 w-9 bg-white" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-white">Client impact</span>
           </div>
-          <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-white">
+          <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
             Results, not promises — measured where it matters.
           </h2>
           {/* `bg-white` on the cards below is now load-bearing, not decoration:
@@ -543,7 +425,7 @@ export default async function HomeV2() {
               <span className="inline-block h-0.5 w-9 bg-brand" />
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
             </div>
-            <h2 className="mb-5 text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-white">
+            <h2 className="mb-5 text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
@@ -573,13 +455,10 @@ export default async function HomeV2() {
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
           </div>
-          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink">
+          <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Senior advisors who have sat where our clients sit.
           </h2>
-          <p
-            className="mb-12 max-w-[640px] text-[19px] leading-[1.65] text-muted"
-            style={{ fontFamily: "var(--font-serif-v2)" }}
-          >
+          <p className="mb-12 max-w-[640px] text-lg leading-[1.55] text-muted">
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
           <PeopleGrid people={people} />
@@ -593,7 +472,7 @@ export default async function HomeV2() {
               </p>
               <div className="mt-8 space-y-6">
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
                     The DNA Experience
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -604,7 +483,7 @@ export default async function HomeV2() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
                     Trusted Relationships
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -616,7 +495,7 @@ export default async function HomeV2() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.3px] text-ink">
+                  <h3 className="mb-2 text-[17px] font-bold tracking-[-0.3px] text-ink">
                     Inclusion &amp; Diversity
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -657,7 +536,7 @@ export default async function HomeV2() {
                 starts on a clean line. */}
             <div className="flow-root px-6 pb-10 pt-12 md:p-0">
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">{book.subtitle}</span>
-              <h3 className="mb-6 mt-6 text-[24px] sm:text-[28px] font-semibold leading-[1.2] tracking-[-0.4px] text-white">
+              <h3 className="mb-6 mt-6 text-[26px] sm:text-[30px] font-bold leading-[1.15] tracking-[-0.6px] text-white">
                 {book.title}
               </h3>
 
@@ -700,35 +579,17 @@ export default async function HomeV2() {
       {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />
 
-      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
-          A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`
-          no wrapper lá em cima, sem duplicar o componente. Os logos dos prêmios
-          são claros, então funcionam sobre o ink do mesmo jeito que funcionavam
-          sobre o vermelho. */}
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png */}
       <AwardsMentions />
 
-      {/* CONTACT — a terceira e última área vermelha da página.
-
-          Vira ink pelo mesmo motivo das outras duas, e aqui a troca custa
-          menos ainda: o formulário já é um card branco por cima do fundo, e o
-          botão de enviar já é ink. O vermelho continua presente onde importa —
-          os asteriscos de campo obrigatório e o link de política — que é
-          marcação, não área.
-
-          O rodapé logo abaixo é branco, então a seção escura não encosta em
-          outra escura. */}
-      <section id="contact" className="bg-ink text-white">
+      {/* CONTACT */}
+      <section id="contact" className="bg-brand text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-[72px] px-10 py-[88px] md:grid-cols-[1.1fr_1fr]">
           <div>
-            {/* Era 44px: o único título de seção fora do padrão de 40 no
-                arquivo. Nivelado. */}
-            <h2 className="mb-6 text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-white [text-wrap:balance]">
+            <h2 className="mb-6 text-[32px] sm:text-[38px] md:text-[44px] font-bold leading-[1.08] tracking-[-1px] text-white [text-wrap:balance]">
               What is changing, and where does leadership need to go?
             </h2>
-            <p
-              className="mb-2 max-w-[460px] text-[19px] leading-[1.65] text-white/90"
-              style={{ fontFamily: "var(--font-serif-v2)" }}
-            >
+            <p className="mb-2 max-w-[460px] text-[19px] leading-[1.6] text-white/90">
               Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
             </p>
           </div>
