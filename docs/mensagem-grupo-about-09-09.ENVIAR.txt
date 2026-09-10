@@ -1,0 +1,52 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: negrito no WhatsApp é *asterisco simples* — está formatado abaixo
+STATUS: ⚠️ NÃO ENVIAR AINDA — o alpha está uma versão atrás do que está
+        descrito aqui. O Vercel CLI deslogou sozinho ao se atualizar e o
+        deploy não subiu. Rodar `npx vercel login`, subir, e só então mandar.
+
+⚠️ CONFERIR ANTES: o Beto disse "as 5 primeiras" e nomeou quatro. Incluí
+   *What we believe* como a quinta, porque é a que vem em seguida na página e
+   está no mesmo estado das outras. Se não for essa, é só trocar a linha.
+
+────────────────────────────────────────────────────────────────────────
+
+We have been working on the *About* page. It is still in development, but it is
+far enough along to be worth a look:
+
+https://consulting-dna-corporate-alpha.vercel.app/about-v2
+
+*Please treat this as a preview, not a review.* We are closing the page
+tomorrow — that is the point to send feedback, and we would rather you spend
+your time on it once, on something finished, than twice.
+
+One thing worth explaining, because it will be the first thing you notice.
+
+*The sections deliberately do not look alike.* About is a long page — nine
+blocks — and if each one were a heading with text underneath, scrolling it
+would feel like reading the same section nine times. So each block is built
+differently: one is a full screen with the skyline, one is a photograph with
+the quote laid over its edge, one is dark with a photograph behind it, one is
+a narrow single column, one is a row of cards. The variety is doing a job, not
+decorating.
+
+*The five that are settled* — these are close to final, and worth your
+attention first:
+
+1. The opening screen
+2. Keeping Leadership Real — the team photograph and your quote
+3. Why Corporate DNA exists
+4. What we promise
+5. What we believe
+
+*Everything after those is still moving.* Where we work, the offices and the
+regions, and the closing band are all going through another pass. Comments on
+them are welcome but they will change anyway.
+
+One thing that is not a bug: in *Keeping Leadership Real* you will see a grey
+rectangle where the team photograph goes. The layout is finished — the
+photograph is the one we are waiting on. It is the one already in the approved
+Our Identity slide, from the CDNA Overview Deck of 22 January. If someone can
+send that file across, that block is done.
+
+If a page looks the same as last time you opened it, reload holding
+*Ctrl+Shift+R* — the browser keeps the old styling.
