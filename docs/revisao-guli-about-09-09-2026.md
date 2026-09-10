@@ -30,7 +30,7 @@ for ok, o que ajuda é *o que* está errado, não a solução: a gente aplica.
 | 5. Our Values | | |
 | 6. Our Regions | | |
 | 7. The people behind it | | |
-| 8. Fecho | | |
+| 8. Fecho (removido) | | |
 
 ---
 
@@ -97,10 +97,11 @@ fechada.
 
 ### Alternância de fundos
 
-`ink` → `white` → `ink com foto` → `paper` → `white` → `white` → `paper` → `white` → `ink`.
+`ink` → `white` → `ink com foto` → `paper` → `white` → `white` → `paper` → `ink`.
 
 **Aberto:** a sequência tem dois `white` seguidos no meio (Values e o cabeçalho de Regions).
-Funciona porque a segunda é curta, mas é o ponto mais frágil do ritmo.
+Funciona porque a segunda é curta, mas é o ponto mais frágil do ritmo. A página fecha em `ink`
+desde 09/09, quando a faixa de fecho saiu e a seção do time herdou o escuro — ver a seção 8.
 
 ---
 
@@ -296,8 +297,9 @@ fotografia do bloco 2 navegar em silêncio, a rota fica aqui, rotulada, no fim d
   disputam o mesmo clique.
 - **Botão de contorno**, não sólido. O sólido vermelho é da faixa logo abaixo, que é a ação
   principal.
-- **Fundo branco**, e não `paper` como no original: o bloco anterior já é `paper`, e dois
-  seguidos viram uma faixa só.
+- **Fundo escuro**, a pedido do cliente em 09/09. Era branco. Como a faixa de fecho saiu no
+  mesmo pedido, é esta seção que agora encerra a página — e o escuro no fim continua existindo,
+  só que carregando o time.
 - **Alinhado à esquerda em 1440**, e não na coluna centrada de 820px do original.
 
 **Aberto — e é o ponto mais fraco da página:** a metade direita fica vazia. Numa tela de 1440 o
@@ -306,23 +308,23 @@ o botão para a margem direita — mas isso repete a estrutura da faixa logo aba
 
 ---
 
-## 8. Fecho
+## 8. Fecho — removido
 
-![Fecho](revisao-guli-about/9-fecho.png)
+A página tinha uma faixa final escura com *"Let's make leadership real."* e um botão
+"Get in touch", montada a partir da imagem da Maliha. **O cliente pediu para tirar em 09/09.**
 
-**De onde veio:** a imagem da Maliha. Assinatura, frase e um botão.
+**Consequência, e ela é sua para avaliar:** a About passou a ser a única página do site que
+termina **sem chamada de contato**. O outline de Services registra que a faixa compartilhada
+roda em todas as outras. O contato continua alcançável — pelo link "Contact" no fim dos
+escritórios e pelo botão do menu — mas deixou de ser o último gesto da página.
 
-**⚠️ Aqui o documento e a imagem descrevem coisas diferentes, e o documento está incompleto.**
-O outline diz "seven blocks" e descreve seis. Do sétimo sobrou só a linha de campos:
-`repeatable link_card { heading, body, cta_label, cta_url }` — cards de navegação, sem título e
-sem texto. A imagem mostra a faixa de fecho. Não é um contra o outro: são duas coisas
-diferentes, e uma delas não veio inteira.
+O escuro no fim não se perdeu: a seção 7 passou a fundo escuro no mesmo pedido. O que mudou é
+que o fim da página carrega o time em vez da chamada comercial.
 
-Montamos a versão da imagem porque era a única completa. Os `link_card` ficam de fora até o
-texto chegar.
-
-**Aberto:** quando o texto do bloco 7 chegar, os cards entram **junto** com a faixa ou **no
-lugar** dela.
+**⚠️ O bloco 7 do outline continua sem chegar.** Dele veio só a linha de campos de CMS —
+`repeatable link_card { heading, body, cta_label, cta_url }`, cards de navegação sem título e
+sem texto. A faixa que saiu vinha da imagem, não desse campo. Se o texto aparecer, é aqui que
+ele entra.
 
 ---
 

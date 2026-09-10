@@ -1947,19 +1947,19 @@ export default async function AboutV2Page() {
           BOTÃO DE CONTORNO, não sólido. O sólido vermelho é da faixa logo
           abaixo, que é a ação principal. Dois preenchidos seguidos anulam a
           hierarquia — este é o caminho lateral, aquele é o convite. */}
-      <section id="people" className="bg-white">
+      <section id="people" className="bg-ink text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <TypeLabel>The people behind it</TypeLabel>
-          <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-ink md:text-[38px]">
+          <TypeLabel onDark>The people behind it</TypeLabel>
+          <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
             Identity is what the team does under pressure.
           </h2>
-          <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-muted">
+          <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-white/70">
             Our leadership, our global faculty and the regions we deliver from
             now have an area of their own.
           </p>
           <Link
             href="/our-team"
-            className="group mt-8 inline-flex items-center gap-2 border border-ink px-7 py-3.5 text-[16px] font-medium text-ink transition-colors hover:bg-ink hover:text-white"
+            className="group mt-8 inline-flex items-center gap-2 border border-white/45 px-7 py-3.5 text-[16px] font-medium text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
           >
             Meet the team
             {/* Mesma seta de 4px no hover dos outros dois botões da página. */}
@@ -1973,38 +1973,22 @@ export default async function AboutV2Page() {
         </div>
       </section>
 
-      {/* ── Block 7 · Fecho ───────────────────────────────────────────
-          O outline diz "seven blocks" e descreve seis: o corpo do sétimo não
-          veio no arquivo, sobrou só a linha de campos de CMS
-          (`repeatable link_card { heading, body, cta_label, cta_url }`), que
-          descreve cards de navegação e não a faixa da imagem.
+      {/* ⚠️ A FAIXA DE FECHO SAIU em 09-09, a pedido do cliente. Era o Block 7:
+          fundo escuro, "Let’s make leadership real." e um botão "Get in touch".
 
-          Montado como está na imagem — assinatura, frase e um botão — porque é
-          a única versão do bloco que o cliente mandou. O `link_card` fica de
-          fora até o texto do bloco 7 chegar. */}
-      <section className="bg-ink text-white">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-8 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
-          <p className="font-serif text-[28px] font-medium leading-[1.15] tracking-[-0.6px] md:text-[36px]">
-            Let’s make leadership real.
-          </p>
-          {/* Botão — Geist 500 a 16px, caixa baixa, sem espacejamento. Era
-              14px/600/maiúsculas. A caixa alta some pelo mesmo motivo que sumiu
-              do menu: é o que dá voz de barra corporativa a um texto de três
-              palavras.
+          CONSEQUÊNCIA, para quem for cobrar depois: a About passou a ser a única
+          página do site que termina SEM chamada de contato. O outline de Services
+          registra que a faixa compartilhada roda em todas as outras. O contato
+          continua alcançável — pelo link "Contact" no fim dos escritórios e pelo
+          botão do menu — mas deixou de ser o último gesto da página.
 
-              Os 0,5px de espacejamento que a grade pede saíram depois de medir
-              o botão da própria Explore: 16px, peso 500, `letter-spacing:
-              normal`. Os dois botões da página — este e o Contact do menu —
-              seguem o mesmo par, que antes não tinham. */}
-          <Link
-            href="/#contact"
-            className="inline-flex flex-none items-center gap-2 bg-brand px-7 py-3.5 text-[16px] font-medium text-white transition-colors hover:bg-brand-dark"
-          >
-            Get in touch
-            <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
+          O que fecha a página agora é a seção "The people behind it", que passou
+          a fundo escuro no mesmo pedido. O escuro no fim continua existindo; o
+          que mudou é que ele carrega o time em vez da chamada comercial.
+
+          O bloco 7 do OUTLINE, esse, nunca chegou: dele veio só a linha de campos
+          de CMS (`repeatable link_card`), sem título e sem texto. Se aquele texto
+          aparecer, é aqui que ele entra. */}
       </main>
       <SiteFooter />
     </div>
