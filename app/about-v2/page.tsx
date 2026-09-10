@@ -1671,69 +1671,79 @@ export default async function AboutV2Page() {
             </p>
           </div>
 
-          <Reveal className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {/* LISTA EMPILHADA COM RÉGUA VERMELHA ENTRE CADA — 09-09.
+              É a SEGUNDA das duas formas que o outline do cliente oferece, em
+              letra: "Five cards, or a stacked list with a red rule between each.
+              Not a carousel: all five must be visible without interaction."
+
+              ⚠️ ISTO SUBSTITUI OS CARDS construídos horas antes nesta mesma
+              data, sobre a `card ref 4.png` — faixa rosa no topo, ícone dentro
+              dela, sombra suave. Aqueles cumpriam "cinco cards" e "todos
+              visíveis", mas não tinham a régua vermelha, e a régua está no texto
+              do cliente. Escolhida a lista em vez de encaixar a régua entre os
+              cards porque, para haver régua ENTRE eles, eles teriam de encostar
+              — e aí o vão e a sombra individual do card cairiam de qualquer
+              forma. Se a lista não convencer, os cards estão no commit 02cdc51.
+
+              QUATRO RÉGUAS PARA CINCO ITENS: nenhuma antes do primeiro,
+              nenhuma depois do último. É o que "between each" quer dizer.
+
+              Feito com `border-t-2` em cada item mais `first:border-t-0`, e NÃO
+              com `divide-y-2`, que seria o idiomático. O `divide-*` da Tailwind
+              v4 emite `border-width: calc(2px * var(--tw-divide-y-reverse))`, e
+              aqui a variável não chegou inicializada na folha servida — o `calc`
+              resolvia para zero e as réguas simplesmente não existiam, com a COR
+              aplicada, que é o tipo de falha que passa despercebido numa revisão
+              rápida. Borda explícita não depende de variável nenhuma.
+
+              ⚠️ A LINHA TEM DE SE DIVIDIR EM COLUNAS, e isso não é estética. A
+              faixa mede 1360px num container de 1440. Corpo de texto correndo a
+              largura toda daria ~180 caracteres por linha, contra os 45–75 que
+              se consegue ler sem perder a linha de volta. Por isso o título
+              ocupa a coluna da esquerda e o texto a da direita, e o texto ainda
+              leva um teto de 680px: a 17px isso dá ~85 caracteres, que é o
+              limite de cima do confortável.
+
+              Empilhado abaixo de `md`, onde a largura já resolve a medida
+              sozinha e duas colunas só espremeriam as duas.
+
+              ⚠️ O `grid-cols-[minmax(0,1fr)]` NA BASE não é redundante com o
+              `grid` de uma coluna que viria por padrão. A trilha implícita é
+              `auto`, e trilha `auto` se dimensiona pelo max-content do conteúdo
+              — o que faz o `max-w-[680px]` do parágrafo virar largura
+              PREFERIDA em vez de teto. Medido num telefone de 390px: o texto
+              saía com 680px e transbordava a tela. `minmax(0,1fr)` põe o piso
+              da trilha em zero e devolve ao `max-w` o papel de teto.
+
+              OS TÍTULOS CRESCERAM de 20px para 24/26px. Nos cards eles estavam
+              limitados pela coluna de ~250px — "Relationship Centricity" a 28px
+              pedia 300px e quebrava em três linhas. Aqui a coluna da esquerda
+              tem ~440px e o aperto some, então o tamanho volta ao que a grade
+              tipográfica pede para título de bloco. */}
+          <Reveal className="mt-12">
             {VALUES.map((v) => (
-              /* CARD DE VERDADE — 09-09, sobre a referência de card que o
-                 Ricardo mandou (`card ref 4.png`): faixa colorida no topo com o
-                 ícone dentro, corpo branco embaixo, sombra suave.
-
-                 O QUE FOI PEGO DA REFERÊNCIA e o que não foi. Pego: a ideia de o
-                 topo ser uma faixa de outra cor, com o ícone morando nela em vez
-                 de flutuar sobre o texto. Não pego: canto arredondado e faixa em
-                 degradê ocupando 40% do card. O site inteiro é de canto vivo — o
-                 cabeçalho deste arquivo registra que os cards arredondados da
-                 referência da Maliha foram descartados por isso — e o pedido foi
-                 explícito: "mais sutil que esse, o topo sendo um detalhe".
-
-                 Daí `bg-brand/[0.07]`: vermelho da marca a 7%, um rosa quase
-                 branco. Colorido o bastante para o topo existir, longe o
-                 bastante de virar área — que é o que a análise da referência da
-                 Rhea aponta como o defeito do site ("o acento nunca vira área,
-                 só marca").
-
-                 SAIU A RÉGUA VERMELHA À ESQUERDA. Com a faixa no topo, ela seria
-                 a segunda marca vermelha do mesmo card. Antes desta mudança a
-                 faixa de valores tinha ONZE elementos vermelhos — cinco ícones,
-                 cinco réguas e o rótulo; agora tem seis, e cinco deles são
-                 ícones dentro de uma faixa pálida.
-
-                 A SOMBRA É MUITO MAIS FRACA que as duas que já existem na página
-                 (`0_18px_38px` nos pilares, `0_18px_50px` no card da citação).
-                 Aquelas erguem superfícies grandes sobre foto ou sobre fundo
-                 escuro; esta é branca sobre branco e só precisa dar aresta. Uma
-                 sombra de 18px aqui faria cinco cartões pequenos parecerem
-                 flutuar, que é o visual de dashboard que a página não tem.
-
-                 O `hover` fecha o gesto: a sombra abre um pouco. O card não é
-                 clicável — é reação de proximidade, a mesma dos escritórios. */
               <div
                 key={v.name}
-                className="flex flex-col bg-white shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)] transition-shadow duration-200 hover:shadow-[0_12px_30px_-12px_rgba(55,50,52,0.22)]"
+                className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-3 border-t-2 border-brand py-7 first:border-t-0 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:py-8"
               >
-                <div className="flex items-center bg-brand/[0.07] px-5 py-4 text-brand">
-                  <ValueIcon name={v.icon} />
-                </div>
-                <div className="px-5 pb-6 pt-5">
-                {/* ⚠️ 20px pelo mesmo motivo dos pilares, e aqui o aperto é
-                    maior: são CINCO colunas, ~250px cada em 1440, ~230px de
-                    texto útil. "Relationship Centricity" a 28px pede ~300px e
-                    quebraria em três linhas — com a régua vermelha ao lado, um
-                    título de três linhas contra um corpo de cinco desmonta o
-                    alinhamento das cinco colunas entre si.
-
-                    O TÍTULO FICOU PRETO em 09-09, quando o ícone entrou, e a
-                    referência da Maliha traz os dois em vermelho. É a correção
-                    certa: com o ícone vermelho na faixa acima, um título também
-                    vermelho seria a segunda marca da mesma cor no mesmo card, e
-                    o vermelho pararia de significar alguma coisa. Assim a faixa
-                    chama e o título informa — duas funções, dois tratamentos. */}
-                  <h3 className="min-h-[2.4em] font-serif text-[20px] font-medium leading-[1.2] text-ink">
+                {/* O ÍCONE VOLTA PARA O LADO DO TÍTULO. No card ele morava numa
+                    faixa própria acima do texto, que é o que a referência fazia;
+                    numa linha larga aquilo o deixaria sozinho num canto, longe
+                    da palavra que ele ilustra. `items-start` e não `items-center`
+                    porque "Relationship Centricity" quebra em duas linhas e o
+                    ícone tem de alinhar com a PRIMEIRA delas, não com o meio do
+                    bloco. */}
+                <div className="flex items-start gap-4">
+                  <span className="mt-0.5 flex-none text-brand">
+                    <ValueIcon name={v.icon} />
+                  </span>
+                  <h3 className="font-serif text-[24px] font-medium leading-[1.2] text-ink md:text-[26px]">
                     {v.name}
                   </h3>
-                  <p className="mt-3 text-[15px] leading-[1.6] text-muted">
-                    {v.body}
-                  </p>
                 </div>
+                <p className="max-w-[680px] text-[16px] leading-[1.65] text-muted md:text-[17px]">
+                  {v.body}
+                </p>
               </div>
             ))}
           </Reveal>
@@ -1773,6 +1783,49 @@ export default async function AboutV2Page() {
           cinco, porque lá o texto é curto e cabe. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
+              ORDEM, 09-09: as regiões passaram a vir LOGO ABAIXO DO MAPA, e os
+              escritórios depois delas. O mapa mostra onde a CDNA opera; a régua
+              seguinte natural é o nome dessas regiões, não o endereço de uma
+              recepção. Endereço é dado de contato e fecha a seção.
+
+              Some com a inversão o `mt-16` que separava estes tiles do link de
+              contato — agora eles abrem o bloco e o vão fica com a lista, abaixo.
+
+              { name, descriptor }. Os descritores estão em HOLD.
+
+              `mt-16`, e não os `mt-5` de antes — 09-09. Os 20px vinham de casar
+              com o `gap-5` da grade de cards que existia acima; sem a grade,
+              eles deixavam o link "Contact" mais perto destes tiles do que da
+              lista a que ele pertence, e o link passava a ler como rótulo desta
+              faixa. O vão maior devolve o link ao grupo certo.
+
+              SEM `bg-white` — 09-09. Tirados os cards dos escritórios, estes
+              cinco eram as únicas caixas que sobravam na faixa e passavam a
+              saltar como resto do desenho antigo. Ficam o filete vermelho no
+              topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
+              sem a caixa. O `p-6` também sai, porque padding sem fundo só
+              empurra o texto para longe do filete que o ancora. */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {REGIONS.map((r) => (
+              <div key={r.name} className="border-t-2 border-brand pt-5">
+                {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
+                    tratamento do rótulo vermelho, aplicado a um TÍTULO, e
+                    caixa alta em grotesca pesada é exatamente o "quadrado" que
+                    esta página está testando tirar. Em Geist 500 a 20px, caixa
+                    baixa, o tile passa a ter título e legenda em vez de dois
+                    rótulos empilhados, e alinha com os valores, que são a outra
+                    grade de cinco da página. */}
+                <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
+                  {r.name}
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.6] text-muted">
+                  {r.descriptor}
+                </p>
+              </div>
+            ))}
+          </div>
+
           {/* LISTA, NÃO GRADE DE CARDS — 09-09.
 
               O que estava aqui eram cinco cards brancos numa grade de três, mais
@@ -1810,7 +1863,7 @@ export default async function AboutV2Page() {
               linha do endereço e do contato. É o que faz as três colunas
               parecerem uma fileira só em vez de três blocos vizinhos, e é a
               diferença entre lista e tabela. */}
-          <div className="border-t border-line">
+          <div className="mt-16 border-t border-line">
             {OFFICES.map((o) => (
               <div
                 key={o.city}
@@ -1846,69 +1899,6 @@ export default async function AboutV2Page() {
                     {o.email.split("@")[1]}
                   </a>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* O CONTATO VIRA UMA LINHA, e não mais um tile.
-
-              Na grade ele existia para tapar a sexta vaga — "buraco em grade lê
-              como conteúdo que faltou carregar". Em lista não há vaga, então a
-              justificativa dele acabou junto com a grade.
-
-              Fica como marca: texto vermelho, seta, nada de área. O rótulo
-              continua sendo "Contact", que é o item do menu, e não "Get in
-              touch", que é o botão da faixa de fechamento ~250px abaixo — dois
-              rótulos idênticos a uma rolagem de distância leem como repetição.
-
-              Vale lembrar que esta seção NÃO precisa carregar a conversão: a
-              faixa logo abaixo é a chamada da página. Aqui é só a saída para
-              quem chegou procurando com quem falar e não achou a própria
-              cidade. */}
-          <Link
-            href="/#contact"
-            className="group mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-brand transition-colors hover:text-brand-dark"
-          >
-            Contact
-            <span
-              aria-hidden
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            >
-              →
-            </span>
-          </Link>
-
-          {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
-              { name, descriptor }. Os descritores estão em HOLD.
-
-              `mt-16`, e não os `mt-5` de antes — 09-09. Os 20px vinham de casar
-              com o `gap-5` da grade de cards que existia acima; sem a grade,
-              eles deixavam o link "Contact" mais perto destes tiles do que da
-              lista a que ele pertence, e o link passava a ler como rótulo desta
-              faixa. O vão maior devolve o link ao grupo certo.
-
-              SEM `bg-white` — 09-09. Tirados os cards dos escritórios, estes
-              cinco eram as únicas caixas que sobravam na faixa e passavam a
-              saltar como resto do desenho antigo. Ficam o filete vermelho no
-              topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
-              sem a caixa. O `p-6` também sai, porque padding sem fundo só
-              empurra o texto para longe do filete que o ancora. */}
-          <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {REGIONS.map((r) => (
-              <div key={r.name} className="border-t-2 border-brand pt-5">
-                {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
-                    tratamento do rótulo vermelho, aplicado a um TÍTULO, e
-                    caixa alta em grotesca pesada é exatamente o "quadrado" que
-                    esta página está testando tirar. Em Geist 500 a 20px, caixa
-                    baixa, o tile passa a ter título e legenda em vez de dois
-                    rótulos empilhados, e alinha com os valores, que são a outra
-                    grade de cinco da página. */}
-                <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
-                  {r.name}
-                </h3>
-                <p className="mt-3 text-[14px] leading-[1.6] text-muted">
-                  {r.descriptor}
-                </p>
               </div>
             ))}
           </div>
@@ -1994,3 +1984,4 @@ export default async function AboutV2Page() {
     </div>
   );
 }
+
