@@ -1,0 +1,80 @@
+PARA: Maliha (quem subiu os outlines Part 2 e os retratos em 09/09)
+      Se ela não estiver no grupo de WhatsApp, vai pelo mesmo canal por onde vieram os outlines.
+NOTA: negrito no WhatsApp é *asterisco simples* — está formatado abaixo.
+      Se for por e-mail, tirar os asteriscos.
+STATUS: PRONTA PARA ENVIAR
+
+⚠️ NÃO ENVIAR AINDA — checar o zip primeiro. Ver "PISTA EM ABERTO" abaixo.
+
+CONTEXTO INTERNO (não enviar):
+  O deck é citado pelo nome em `docs/analise.txt`, a avaliação do site de 11/07, que o usa como
+  fonte dos números (18 anos, 36 países, 75 faculty, 70+, 1.000+, 90%) e menciona "named
+  senior-client testimony". Ou seja: alguém do nosso lado leu esse arquivo em julho.
+
+  ONDE JÁ FOI PROCURADO (09/09), sem resultado:
+   • repositório, Downloads, Documentos, Desktop e D:\projetos-clientes-impulse
+   • os 43 .eml de docs/emails, parseados por script — anexos de `filename=` e de `name=`,
+     com cabeçalhos MIME decodificados. O arquivo inteiro tem 4 anexos distintos:
+     GA4-user-registration-error.png, image.png, image001.jpg, status-cliente-2026-07-29-v3.pdf
+   • links de arquivo no corpo dos e-mails (SharePoint/OneDrive/Drive/WeTransfer/Dropbox):
+     só dois, e os dois são nossos — o status de 29/07 e o cms-user-manual.pdf
+   • Google Drive, por título ("Overview", "CDNA", "Corporate DNA") e por sharedWithMe:
+     tudo que aparece é nosso, mais os uploads da Maliha de 09/09
+   • as 8 menções a "overview deck" nos e-mails são todas a MESMA frase, de um e-mail NOSSO
+     ("...the four differentiation pillars already present in the overview deck")
+
+  PISTA EM ABERTO — checar antes de mandar esta mensagem:
+   `OneDrive_1_18-07-2026.zip`, 237 MB, de 18/07, na pasta do Drive "Corporate DNA Consulting"
+   (id 137Gs6eRfZlB2eVb0urjNiGre-rKKpNvG). É um despejo do OneDrive deles e é o lugar mais
+   provável do deck. Não está nesta máquina, então não foi aberto. O Drive lista o conteúdo de
+   um zip na pré-visualização, sem baixar.
+   Se o deck estiver lá, esta mensagem não precisa ser enviada — só a parte dos retratos e a
+   decisão de uma foto ou duas continuam valendo.
+
+------------------------------------------------------------------------------------------
+
+Thank you for the three Part 2 outlines and the portraits — they arrived and we have read all of
+them. The Services sheet in particular gives us ten services with copy that can be built as
+written, which is a lot of ground.
+
+One file would unlock more than anything else you could send us right now: *the CDNA Overview
+Deck, Final, 22 January 2026*. Could you send us the PDF itself?
+
+It is worth digging out because it answers four separate things we would otherwise have to ask
+you for one at a time.
+
+*1. The About page is waiting on a single photograph, and it is already in that deck.*
+Your own outline says Block 2 "reproduces the approved Our Identity slide", and the image line
+reads: "the CDNA team group photograph supplied with the slide. Landscape crop, no treatment."
+So from your side that photograph has been supplied. It simply never reached us — it was not
+among the 8 September attachments and it is not in the Drive folder. Everything else on that
+page is built and carries your final copy. This is the only thing between it and finished.
+
+*2. The testimonials.*
+We have read all eight quotes currently sitting on the case studies, and none of them is about
+Corporate DNA: they are about culture, renewal and purpose. The brief asks for the other kind —
+the John Murphy and Jorge Gardino standard. The deck is described as carrying named
+senior-client testimony, which would settle this across every case at once rather than case by
+case.
+
+*3. The slide Rhea asked about on 3 September* — service lines set against many client logos.
+She said showing one case study per service gives depth but not breadth, and that something of
+that shape is missing from the site. We have since built the data behind it. Seeing the
+original would tell us what it is meant to look like.
+
+*4. The helix slide*, for the same reason.
+
+Two smaller things, while you are in there:
+
+*The group photograph — one or two?*
+Your Team outline raises this and it is your call, not ours: the same photograph on /about and
+on /team is visible to anyone who looks at both. If there are two usable images, we will use
+two. If there is one, tell us which page it belongs to and we will leave the other slot empty
+rather than repeat it.
+
+*Two portraits are missing.*
+Rhea, JP, Mike and Gen arrived. Guilherme Mendes and Nitin Goil have not. And your Approach
+outline makes the case that Dr Nigel Guenole is CDNA's Head of Assessments rather than an
+external partner, and belongs in the leadership grid — if you agree, he needs a portrait too.
+
+Nothing here needs to be polished or renamed. The original files are what help us most.

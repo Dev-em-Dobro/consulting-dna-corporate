@@ -1,0 +1,43 @@
+PARA: Maliha — resposta à mensagem de 09/09 ("Services Approach & Team uploaded.
+      Please confirm receipt. I will be sharing 2 additional photos tomorrow.")
+NOTA: negrito no WhatsApp é *asterisco simples*. Se for por e-mail, tirar os asteriscos.
+STATUS: PRONTA PARA ENVIAR
+FOCO: só a About. Um pedido, mais nada.
+
+CONTEXTO INTERNO (não enviar):
+  • A palavra "slide" ficou FORA da mensagem de propósito. Ela aparece no outline dela
+    ("the CDNA team group photograph supplied with the slide"), mas nós não sabemos a que slide
+    ou a que arquivo isso se refere, e afirmar que sabemos é assumir uma coisa que não checamos.
+    A mensagem diz só o que é verificável: procuramos na pasta do Drive e não está lá.
+  • Também saiu a explicação de resolução. Se ela apontar onde o arquivo está, pegamos o
+    original de qualquer jeito — a conversa sobre pixels só é necessária se vier algo pequeno.
+  • Duas saídas oferecidas de propósito: ela APONTAR onde está (a gente busca) ou SUBIR no
+    Drive. A primeira custa uma frase para ela; é a mais provável de acontecer.
+
+  FICOU DE FORA DE PROPÓSITO — tudo isto continua valendo e continua NÃO dito ao cliente:
+
+  • O DECK (`CDNA Overview Deck Final 22 Jan 2026.pdf`). Ver
+    `pedido-deck-cdna-09-09-2026.ENVIAR.txt`. Só depois de abrirmos o
+    `OneDrive_1_18-07-2026.zip` (237 MB, Drive, pasta "Corporate DNA Consulting").
+  • OS RETRATOS QUE FALTAM: Guilherme Mendes e Nitin Goil (dos seis nomes do outline do Team),
+    mais Dr Nigel Guenole, que o outline do Approach coloca na grade de liderança como Head of
+    Assessments. É assunto da /team. As "2 additional photos" de amanhã provavelmente já são os
+    dois primeiros — dá para confirmar quando chegarem, sem perguntar.
+  • UMA FOTO OU DUAS: o outline do Team diz que a foto de grupo "is currently earmarked for
+    /about" e pergunta se a mesma serve as duas páginas. A About já é a dona por nota dela
+    mesma, então a decisão só trava a /team e pode esperar.
+  • DEZ SERVIÇOS CONTRA OITO no site: Judgement in AI e Family Business Consulting são páginas
+    novas, não lacunas. Levar noutro momento.
+
+------------------------------------------------------------------------------------------
+
+Received — Services, Approach and Team are all in, and we have read all three. Noted on the
+placeholders.
+
+The About page is waiting on one image: the CDNA team group photograph your outline asks for,
+landscape crop and no treatment. We could not find it in the Drive folder, and it was not among
+the 8 September attachments. Everything else on that page is built and carries your final copy,
+so this is the only thing left on it.
+
+Could you point us to where it lives? We are happy to go and fetch it ourselves. Or drop it into
+the Drive folder with tomorrow's two, whichever is easier for you.
