@@ -830,7 +830,7 @@ export default async function AboutV2Page() {
                 o contraste chegaria tarde demais para ser lido como escolha. */}
             <p className="mt-5 max-w-[620px] text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
               <span className="md:block">Our purpose, our promise,</span>{" "}
-              <span className="md:block">what we believe, and where we work</span>
+              <span className="md:block">what we believe, and where we work.</span>
             </p>
           </div>
         </div>
@@ -966,14 +966,37 @@ export default async function AboutV2Page() {
                   i > 0 ? "xl:border-l xl:border-white/15 xl:pl-10" : "",
                 ].join(" ")}
               >
-                {/* O ícone SOME NO TELEFONE. Em duas colunas de 161px ele custa
-                    26px de altura por célula, vezes duas linhas, numa dobra que
-                    já estava estourando — e é o elemento com menos informação
-                    dos três (o número e o rótulo dizem tudo). `text-brand-light`
-                    e não `text-brand` pelo mesmo motivo do rótulo do herói: o
-                    vermelho cheio sobre `ink` dá 2,87:1, abaixo até da régua de
-                    3:1 que vale para elemento gráfico. */}
-                <span className="mb-3 hidden text-brand-light sm:block">
+                {/* ⚠️ O ÍCONE FICOU ESCONDIDO NO TELEFONE POR UM TEMPO, e a
+                    razão deixou de valer sem que ninguém percebesse. Ele saiu
+                    quando a dobra do telefone estava estourando — a seção media
+                    1102px numa tela de 844 e o quarto número ficava fora — e
+                    26px por célula vezes duas linhas era espaço que não existia.
+
+                    Duas mudanças depois (a foto descendo para os 64% de baixo e
+                    o título encostando no topo) a dobra passou a fechar em 844px
+                    exatos, e a restrição simplesmente evaporou. Medido ao
+                    restaurar: os ícones custam 40px, tirados do vão VAZIO entre
+                    a linha de apoio e os números — a seção continua em 844px, o
+                    respiro do menu continua em 64px e a foto continua começando
+                    em 304px. Custo real: nenhum.
+
+                    Fica registrado porque é o tipo de decisão que envelhece mal:
+                    ela estava certa quando foi tomada e virou dívida silenciosa
+                    duas mudanças depois.
+
+                    A MARGEM CAI PARA 8px NO TELEFONE (`mb-2`), 12px de `sm` para
+                    cima. Restaurados com os 12px de todo lugar, os ícones cabiam
+                    em 390x844 mas estouravam o iPhone SE por 8px — 675px numa
+                    tela de 667. São 4px por linha vezes duas linhas vezes... na
+                    verdade 4px por célula em duas fileiras, e a conta fecha
+                    porque é exatamente o que faltava. Vale medir na tela mais
+                    apertada, não na mais comum: 844 dava folga e escondia o
+                    problema.
+
+                    `text-brand-light` e não `text-brand` pelo mesmo motivo do
+                    rótulo do herói: o vermelho cheio sobre `ink` dá 2,87:1,
+                    abaixo até da régua de 3:1 que vale para elemento gráfico. */}
+                <span className="mb-2 block text-brand-light sm:mb-3">
                   <StatIcon name={s.icon} />
                 </span>
                 {/* Geist 600. A grade pede "48px+" para número grande; os
