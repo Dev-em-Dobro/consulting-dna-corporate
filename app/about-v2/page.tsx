@@ -141,8 +141,20 @@ function TypeLabel({
       <span
         className={`inline-block h-0.5 w-9 ${onDark ? "bg-brand-light" : "bg-brand"}`}
       />
+      {/* ⚠️ `text-left` EXPLÍCITO, mesmo dentro de blocos centralizados.
+          Sem ele o texto herda o `text-center` do pai e se centraliza DENTRO
+          DA PRÓPRIA CAIXA. Enquanto cabe numa linha ninguém nota; quando quebra
+          em duas — "WHAT WE BELIEVE, AND HOW / WE WORK." num telefone — a
+          primeira linha recua para o meio da caixa e abre um vão aparente
+          contra a régua, que continua colada na borda esquerda. O vão medido
+          era 12px, o percebido era o dobro, e a causa não estava no `gap`:
+          estava no alinhamento interno.
+
+          O par régua+texto continua centralizado COMO UNIDADE quando o bloco
+          pai é centralizado — o que muda é o texto parar de se recentralizar
+          por dentro. */}
       <span
-        className={`text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
+        className={`text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
           onDark ? "text-brand-light" : "text-brand"
         }`}
       >
@@ -1682,7 +1694,17 @@ export default async function AboutV2Page() {
           campos de CMS do outline são { name, body }, sem ícone. */}
       <section id="values" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
-          <div className="flex flex-col items-center text-center">
+          {/* ALINHADO À ESQUERDA NO TELEFONE, centralizado a partir de `md`.
+              Centralizado numa coluna de 342px o texto quebra em seis linhas
+              esfarrapadas dos dois lados, e — o que pesa mais — fica fora do
+              eixo da lista logo abaixo, que é toda alinhada à esquerda. Dois
+              alinhamentos diferentes na mesma seção, num telefone, leem como
+              descuido.
+
+              No desktop a centralização continua fazendo sentido: são duas
+              linhas curtas no meio de uma faixa de 1360px, e ali elas anunciam
+              o bloco em vez de disputar eixo com ele. */}
+          <div className="flex flex-col items-start text-left md:items-center md:text-center">
             <TypeLabel>What we believe, and how we work.</TypeLabel>
             <p className="max-w-[760px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
               <strong className="font-semibold">Our values</strong> are deeply
@@ -1778,7 +1800,7 @@ export default async function AboutV2Page() {
           WorldCoverageMap pinta países e marca as cidades das regiões do CMS,
           nunca clientes, então já é esse nível. */}
       <section id="regions" className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 pt-16 md:px-10 md:pt-20">
+        <div className="mx-auto max-w-[1440px] px-6 pt-10 md:px-10 md:pt-20">
           <TypeLabel>Where we work.</TypeLabel>
           <p className="mb-12 max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
             With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
