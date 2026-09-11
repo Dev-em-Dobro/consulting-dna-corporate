@@ -52,6 +52,7 @@ import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
+import { officialPortrait } from "@/lib/team";
 
 // Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
 // título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
@@ -211,12 +212,23 @@ export default async function Home() {
   // A faixa de credenciais abaixo do herói NÃO usa isto: ela segue com o par
   // escrito à mão em HERO_CREDENTIALS. As duas fontes convivendo é redundância
   // conhecida e está anotada no ponto de uso, dentro do HeroV2.
-  const [people, nav, stats, ticker] = await Promise.all([
+  const [cmsPeople, nav, stats, ticker] = await Promise.all([
     getPeople(),
     buildSiteNav(),
     getSiteStats(),
     getTickerEntries(),
   ]);
+
+  /* OS RETRATOS DEIXAM DE VIR DO CMS (11-09). O texto continua vindo — nome,
+     cargo, bio, o perfil do modal. Só a FOTO é substituída pelos arquivos que a
+     Maliha mandou em 09-09, porque o que está no CMS é a leva antiga: a da Rhea
+     é outra foto, e a do Guilherme está gravada como `whatsapp-image-2026-07-25`.
+     Subir os novos pelo admin de produção não é possível desta máquina.
+
+     `img: officialPortrait(...)` sem `??  p.img` de propósito: quem ainda não tem
+     retrato oficial fica SEM foto, nas iniciais, em vez de continuar publicando a
+     antiga. Foi a instrução — "as que não tiver pode deixar sem por enquanto". */
+  const people = cmsPeople.map((p) => ({ ...p, img: officialPortrait(p.name) }));
   return (
     // `geist.variable` e `serif.variable` publicam --font-geist-v3 e
     // --font-serif-v2 para tudo que está dentro. Ficam no wrapper, e não no
@@ -372,64 +384,102 @@ export default async function Home() {
           interchangeable: the seven in the opening are about the experience of
           the whole site; these six are harder — pressures, politics,
           consequences — and are the ones item 1 attaches to the homepage. */}
-      <section id="real" className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-10 py-16 md:py-20">
-          {/* One heading, no eyebrow. The old site splits the line as "Our
-              Purpose... is to make leadership REAL"; kept whole here, because
-              an eyebrow would leave the h2 reading as a fragment on its own,
-              and the section only needs a title.
+      {/* ── PURPOSE + WHAT WE SOLVE — uma seção só desde 10-09 ────────────
+          Antes eram DUAS, e o problema era que diziam a mesma coisa em ordens
+          diferentes: a `#real` nomeava as pressões, a `#solve` prometia
+          resolvê-las. Separadas, eram duas faixas centralizadas de ritmo quase
+          idêntico, com a faixa de logos e números entre elas.
 
-              "REAL" is all-caps on the old site. Here it takes the brand colour
-              instead, the device the hero's own CTA uses for "Results, Not
-              Promises." — no shout on a page with no other all-caps headline.
+          ONDE O BLOCO FUNDIDO FICOU: logo abaixo do herói, ANTES da faixa de
+          credibilidade — decisão do cliente em 10-09 ("essa seção vai embaixo
+          da hero e depois vem a seção de clientes").
 
-              `stagger={false}`: the grid below is already staggering. */}
-          {/* One block, not a heading with a caption under it. Asked whether to
-              join the two sentences, Guli answered *"Sim. Duas linhas do 'mesmo
-              texto'"* and wrote the mobile break out:
+          ⚠️ ISSO INVERTE UMA ORDEM QUE ESTAVA DOCUMENTADA. O comentário da faixa
+          de credibilidade, logo abaixo, registra o princípio do brief de 27-08
+          (item 2): "Claim → Proof → Explanation, e não long explanation antes de
+          proof" — foi por isso que os logos e os números tinham sido movidos
+          para ANTES do "What we solve". Agora o herói afirma, esta seção
+          explica, e só então a prova chega.
 
-                  Our purpose
-                  is to make
-                  leadership real.
-                  Real pressures.
+          Fica escrito porque o princípio não deixou de existir: ele foi
+          sobreposto por uma decisão de composição, e quem for mexer nisto
+          depois precisa saber que os dois estão em tensão, não que um foi
+          esquecido.
 
-              So both lines carry the same size, weight and tracking, with no
-              margin between them — the cycling line is the sentence continuing,
-              not a subtitle. `stagger={false}` because the reveal has two
-              children that must appear together, not in sequence.
+          DUAS COLUNAS, COM O `solve` À ESQUERDA. A ordem foi invertida a pedido
+          em 10-09: o que resolvemos abre, o propósito fecha. A fração maior
+          (1,15fr) acompanha o propósito porque é ele que carrega o título de
+          48px e a linha animada, que reserva a largura da palavra mais longa.
 
-              The mobile breaks are explicit `<br>`, not a width that happens to
-              wrap there. The second line is retyped every 55ms, so any wrap the
-              browser derives from content would shift as the word grows and
-              shrinks. Above `sm` they are hidden and both lines flow on their
-              own. */}
-          <Reveal stagger={false} className="md:text-center">
-            <h2 className="max-w-[900px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink [text-wrap:balance] sm:text-[34px] md:mx-auto md:text-[40px]">
-              Our purpose
-              <br className="sm:hidden" /> is to make
-              <br className="sm:hidden" /> leadership{" "}
-              {/* The stop is inside the span. Guli's mock sets "real." in one
-                  colour; outside, it printed a dark dot hanging off the red
-                  word — and the cycling line below ends in a red stop too, so
-                  the two lines have to punctuate the same way. */}
-              <span className="text-brand">real.</span>
-            </h2>
-            {/* Kept out of the `h2`: the word inside it changes every 55ms, and
-                a heading that rewrites itself is hostile to screen readers and
-                meaningless to a crawler. `RealCycle` is aria-hidden and carries
-                its own accessible name. */}
-            <p className="max-w-[900px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] sm:text-[34px] md:mx-auto md:text-[40px]">
-              <RealCycle words={reals} />
-            </p>
-          </Reveal>
-        </div>
+          A DIVISÓRIA VERTICAL é o que ancora o par. Com o texto menor à esquerda
+          e o título grande à direita, sem nada entre eles as duas colunas
+          flutuam. É a régua da faixa de números da /about, girada 90°.
+
+          `lg:items-center` e não `items-start`: uma coluna é duas linhas de
+          título grande e a outra são três blocos de tamanhos diferentes —
+          alinhadas pelo topo, uma termina muito abaixo e o par lê torto. */}
+      <section id="solve" className="bg-white">
+        <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
+          <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-0">
+            <div>
+              <TypeLabel>What we solve</TypeLabel>
+              {/* ⚠️ `font-sans!` CONTRA A REGRA DA PÁGINA, e de propósito. O
+                  wrapper da home força `[&_h2]:font-serif` em todo h2, e aqui
+                  isso empataria: o propósito ao lado também é serifa, nos mesmos
+                  600, e dois títulos em serifa lado a lado achatam a hierarquia
+                  que as duas colunas existem para criar.
+
+                  A grotesca na coluna de apoio contra a serifa na coluna do
+                  enunciado é o MESMO par que o site já usa em toda seção
+                  (rótulo em Geist → título → corpo em serifa); aqui ele só
+                  opera entre colunas em vez de entre linhas. */}
+              <h2 className="font-sans! mb-5 text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[32px]">
+                The leadership challenges that determine enterprise performance.
+              </h2>
+              {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do
+                  herói, o par tipográfico saindo da primeira dobra. */}
+              <p
+                className="max-w-[560px] text-[18px] leading-[1.6] text-muted md:text-[20px]"
+                style={{ fontFamily: "var(--font-serif-v2)" }}
+              >
+                We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+              </p>
+            </div>
+
+            <div className="lg:border-l lg:border-line lg:pl-24">
+              <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] text-ink md:text-[48px]">
+                Our purpose is to make leadership{" "}
+                {/* O ponto fica DENTRO do span: fora dele, sairia um pingo
+                    escuro pendurado na palavra vermelha, e a linha de baixo
+                    termina com ponto vermelho também. */}
+                <span className="text-brand">real.</span>
+              </h2>
+              {/* Fora do `h2`: a palavra muda a cada 55ms, e um heading que se
+                  reescreve é hostil a leitor de tela e sem sentido para um
+                  crawler. O RealCycle é `aria-hidden` e carrega o próprio nome
+                  acessível com as seis palavras numa frase só. */}
+              <p className="mt-4 font-serif text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] md:text-[48px]">
+                <RealCycle words={reals} />
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
-      {/* CREDIBILITY — proof, before any explanation.
+      {/* CREDIBILITY — o mural de logos e os números.
           The brief's ordering principle is "Claim → Proof → Explanation, e não
           long explanation antes de proof" (item 2), so the logo wall and the
-          statistics now sit between the hero and "What we solve", which used to
-          come first. */}
+          statistics were moved to sit between the hero and "What we solve".
+
+          ⚠️ EM 10-09 O CLIENTE INVERTEU ISSO. A seção fundida "purpose + what we
+          solve" passou a vir logo abaixo do herói, e esta faixa desceu para
+          depois dela — "essa seção vai embaixo da hero e depois vem a seção de
+          clientes". Ou seja: a explicação voltou a preceder a prova.
+
+          O parágrafo acima fica como está de propósito. Ele registra POR QUE
+          esta faixa foi parar aqui, e continua sendo o argumento contra a
+          ordem atual — se alguém trouxer o assunto de volta, é este o texto a
+          citar. O que mudou foi a decisão, não o princípio. */}
       <section className="bg-ink text-white">
         <div className="pb-[34px] pt-[70px]">
           <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
@@ -458,31 +508,6 @@ export default async function Home() {
       </section>
 
       {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
-      <section id="solve" className="bg-white">
-        <Reveal className="mx-auto max-w-[1440px] px-10 py-24 md:text-center">
-          <TypeLabel className="md:justify-center">What we solve</TypeLabel>
-          <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink md:mx-auto">
-            The leadership challenges that determine enterprise performance.
-          </h2>
-          {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do herói.
-              É o par tipográfico saindo da primeira dobra, que era o item 2.1
-              da leitura da referência: "eyebrow em caps → título grande →
-              subtítulo em serifa → grid", o mesmo padrão em toda seção.
-
-              Só o subtítulo, e não todo o texto de corpo: o Guli descreveu o
-              par ao contrário (Poppins no corpo, uma fonte expressiva nos
-              títulos), e comprometer o corpo inteiro do site com serifa antes
-              de ele bater o martelo seria decidir por ele. Este papel já estava
-              decidido no herói; isto só o repete. */}
-          <p
-            className="max-w-[620px] text-[19px] leading-[1.65] text-muted md:mx-auto"
-            style={{ fontFamily: "var(--font-serif-v2)" }}
-          >
-            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
-          </p>
-        </Reveal>
-      </section>
-
       {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="challenges" className="bg-white">
@@ -555,28 +580,35 @@ export default async function Home() {
           branca (o bloco `#approach`, que era escuro, está desligado logo
           abaixo). Escuro aqui mantém o ritmo claro-escuro-claro em vez de
           empilhar dois blocos da mesma cor, que foi o problema original. */}
-      <section id="impact" className="bg-ink text-white">
+      {/* ⚠️ FUNDO CLARO DESDE 10-09, a pedido. Era `bg-ink text-white`.
+          Com a seção fundida subindo para logo abaixo do herói, esta faixa
+          passou a vir imediatamente depois do mural de logos, que também é
+          `ink` — duas faixas escuras encostadas, e a segunda perdia a virada
+          que a separava da primeira.
+
+          `bg-paper` E NÃO `bg-white`, e a razão está nos cards: eles são
+          `bg-white` com `border-line`. Sobre branco eles sumiriam no fundo e a
+          borda de 1px teria de sustentar a forma sozinha; sobre `paper` o
+          próprio preenchimento já os separa, e a borda volta a ser acabamento
+          em vez de estrutura.
+
+          O QUE MUDOU JUNTO: o rótulo perdeu o `onDark` e o h2 voltou a `ink`.
+          Os dois são obrigatórios, não estéticos — `brand-light` (#e47e77)
+          sobre `paper` mede 2,6:1, e texto branco sobre `paper` não mede nada. */}
+      <section id="impact" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          {/* O filete e o eyebrow voltam a ser vermelhos — era isso que o fundo
-              vermelho tinha tirado deles. No tom claro de fundo escuro: o
-              #d84339 sobre ink mede 2,9:1 e reprovaria em 13px. */}
-          {/* ⚠️ TROCA DE TOM, e não só de tipografia: este rótulo era o único
-              pintado com `--accent-on-dark` (#f4796d) em vez das classes da
-              marca. O `onDark` do TypeLabel usa `brand-light` (#e47e77). Os dois
-              passam em contraste sobre `ink` — 4,7:1 e 4,53:1 — e o
-              `--accent-on-dark` está declarado no wrapper como PLACEHOLDER até
-              o cliente escolher a accent definitiva. Unifiquei para o rótulo não
-              ficar sendo o único vermelho diferente da página. Se a accent
-              definitiva for escolhida e for outra, o lugar de mudar passa a ser
-              o `brand-light` em globals.css, que vale para as duas páginas. */}
-          <TypeLabel onDark>Client impact</TypeLabel>
-          <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white">
+          {/* Sobre fundo claro o rótulo usa o vermelho CHEIO da marca (#d84339).
+              Era `brand-light` enquanto a faixa era escura, porque o cheio sobre
+              `ink` mede 2,9:1 e reprovaria em 13px. Sobre `paper` a conta se
+              inverte: o cheio passa e o claro é que reprovaria. Régua e texto
+              trocam juntos — o `TypeLabel` já faz isso sozinho. */}
+          <TypeLabel>Client impact</TypeLabel>
+          <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Results, not promises — measured where it matters.
           </h2>
-          {/* `bg-white` on the cards below is now load-bearing, not decoration:
-              they used to inherit the section's white ground, and on red they
-              would otherwise go transparent. Guli: "os cards continuam com
-              fundo branco." */}
+          {/* `bg-white` nos cards continua sendo estrutural, não decoração: com
+              a faixa em `paper`, é o preenchimento branco que os destaca do
+              fundo. Guli: "os cards continuam com fundo branco." */}
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
             {cases.map((c) => (
               <article key={c.client} className="flex flex-col border border-line bg-white">

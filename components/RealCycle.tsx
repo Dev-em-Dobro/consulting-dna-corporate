@@ -36,7 +36,23 @@ const HOLD_MS = 1500;
 /** Beat between erasing one word and starting the next. */
 const GAP_MS = 260;
 
-export default function RealCycle({ words }: { words: string[] }) {
+export default function RealCycle({
+  words,
+  onDark = false,
+}: {
+  words: string[];
+  /**
+   * Inverte as duas cores para fundo escuro.
+   *
+   * O "Real" fixo estava cravado em `text-ink` — invisível sobre `ink`. E a
+   * palavra que cicla estava em `text-brand`: #d84339 sobre escuro dá 2,87:1, o
+   * mesmo motivo pelo qual a régua do rótulo vira `brand-light` na /about.
+   * As duas trocam JUNTAS; clarear só uma quebraria o par que a linha é.
+   */
+  onDark?: boolean;
+}) {
+  const staticTone = onDark ? "text-white" : "text-ink";
+  const wordTone = onDark ? "text-brand-light" : "text-brand";
   const [reduceMotion, setReduceMotion] = useState(false);
   const [index, setIndex] = useState(0);
   const [length, setLength] = useState(0);
@@ -89,19 +105,19 @@ export default function RealCycle({ words }: { words: string[] }) {
     .toLowerCase()} and ${words[words.length - 1].toLowerCase()}.`;
 
   if (reduceMotion) {
-    return <span className="text-ink">{sentence}</span>;
+    return <span className={staticTone}>{sentence}</span>;
   }
 
   const longest = words.reduce((a, b) => (b.length > a.length ? b : a));
 
   return (
     <>
-      <span aria-hidden className="whitespace-nowrap text-ink">
+      <span aria-hidden className={`whitespace-nowrap ${staticTone}`}>
         Real{" "}
         <span className="inline-grid justify-items-start align-bottom">
           {/* Reserves the line's width. Never visible, never read. */}
           <span className="invisible col-start-1 row-start-1">{longest}.</span>
-          <span className="col-start-1 row-start-1 text-brand">
+          <span className={`col-start-1 row-start-1 ${wordTone}`}>
             {words[index].slice(0, length)}
             {length === words[index].length ? "." : ""}
             <span className="tw-caret" />

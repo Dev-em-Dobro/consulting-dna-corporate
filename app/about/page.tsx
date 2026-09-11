@@ -1206,7 +1206,7 @@ export default async function AboutV2Page() {
             64/80px que as outras seções usam de respiro. Aqui não se quer uma
             separação de seção: o herói e a foto do time contam a mesma coisa em
             sequência, então o vão precisa dizer "respira" sem dizer "acabou". */}
-        <div className="mx-auto max-w-[1440px] px-6 pt-12 md:px-10 md:pt-16">
+        <Reveal className="mx-auto max-w-[1440px] px-6 pt-12 md:px-10 md:pt-16">
           {/* A CITAÇÃO ENCAVALA A FOTO — referência de 09-09 (`ref
               testimonial.png`): foto de um lado, card do depoimento montado por
               cima da borda dela, deslocado na vertical.
@@ -1355,7 +1355,7 @@ export default async function AboutV2Page() {
                 </blockquote>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Quatro pilares, largura cheia, como o outline descreve.
             `items-stretch` dá altura igual aos quatro.
@@ -1400,7 +1400,7 @@ export default async function AboutV2Page() {
             faixa sangrar até a borda da janela se ela voltar a ter cor, e voltar
             atrás nisso é uma classe. */}
         <div className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
+          <Reveal className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
               /* AS BLACK BOXES VOLTAM, agora como superfície (09-09).
@@ -1510,7 +1510,7 @@ export default async function AboutV2Page() {
               </div>
             ))}
           </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -1646,7 +1646,7 @@ export default async function AboutV2Page() {
           className="absolute inset-0 -z-10"
           style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
         />
-        <div className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
+        <Reveal className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
           <div className="flex flex-col items-center text-center">
             {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
                 recomendação registrada aqui. Fica o número para quem reabrir
@@ -1752,7 +1752,7 @@ export default async function AboutV2Page() {
               inside out, complete, and rooted in truth and impact.
             </p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── Block 4 · Our Promise ─────────────────────────────────────
@@ -1793,7 +1793,7 @@ export default async function AboutV2Page() {
           A coluna direita é a mais larga de propósito — ela tem quatro vezes
           mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
           <TypeLabel>What we promise.</TypeLabel>
           <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -1820,7 +1820,7 @@ export default async function AboutV2Page() {
               </p>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
 
@@ -1975,13 +1975,13 @@ export default async function AboutV2Page() {
             48px e prende o vão dentro do `paper`. Vale para qualquer seção
             colorida desta página: o espaçamento final tem de ser padding do
             container, nunca margem do último filho. */}
-        <div className="mx-auto max-w-[1440px] px-6 pb-12 pt-10 md:px-10 md:pt-20">
+        <Reveal className="mx-auto max-w-[1440px] px-6 pb-12 pt-10 md:px-10 md:pt-20">
           <TypeLabel>Where we work.</TypeLabel>
           <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
             With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
             a faculty of over 75 senior practitioners, we deliver globally.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <WorldCoverageMap eyebrow={null} title={null} tone="paper" />
@@ -1999,7 +1999,7 @@ export default async function AboutV2Page() {
           ser o que o texto do outline pede. As cinco regiões abaixo continuam em
           cinco, porque lá o texto é curto e cabe. */}
       <section className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
               ORDEM, 09-09: as regiões passaram a vir LOGO ABAIXO DO MAPA, e os
               escritórios depois delas. O mapa mostra onde a CDNA opera; a régua
@@ -2119,7 +2119,7 @@ export default async function AboutV2Page() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── Block 6b · The people behind it ───────────────────────────
@@ -2155,7 +2155,7 @@ export default async function AboutV2Page() {
           abaixo, que é a ação principal. Dois preenchidos seguidos anulam a
           hierarquia — este é o caminho lateral, aquele é o convite. */}
       <section id="people" className="bg-ink text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           <TypeLabel onDark>The people behind it</TypeLabel>
           <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
             Identity is what the team does under pressure.
@@ -2179,8 +2179,8 @@ export default async function AboutV2Page() {
               O rótulo passa a ser caixa alta, porque é o tratamento do
               componente. Se "Meet the team" tiver de voltar a ser em caixa
               mista, é uma prop de tipografia, não um botão diferente. */}
-          <HoverFillButton label="Meet the team" href="/our-team" className="mt-8" />
-        </div>
+          <HoverFillButton label="Meet the team" href="/team" className="mt-8" />
+        </Reveal>
       </section>
 
       {/* ⚠️ A FAIXA DE FECHO SAIU em 09-09, a pedido do cliente. Era o Block 7:

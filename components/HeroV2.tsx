@@ -559,7 +559,28 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
                 animação de entrada do herói (o GSAP busca essas classes), e o
                 texto aqui é BRANCO sobre foto, não o vermelho da marca. Só a
                 métrica é compartilhada; classe e cor ficam. */}
-            <span className="h-eyebrow text-[14px] font-medium uppercase tracking-[1.3px] text-white">
+            {/* ⚠️ VOLTOU A SER CORAL EM 10-09, A PEDIDO — e contra a medição
+                acima, que continua valendo. Remedi no herói atual, na região
+                exata do rótulo (88,325 → 444×21), pior caso de luminância de
+                fundo 0,0844:
+
+                  branco    #ffffff   7,81:1   ✓
+                  coral     #f4796d   2,90:1   ✗
+                  brand-lt  #e47e77   2,81:1   ✗
+                  brand     #d84339   1,78:1   ✗
+
+                O mínimo para texto pequeno é 4,5:1, e 14px em caixa alta com
+                tracking é o pior caso que existe nessa faixa. Nenhum dos três
+                vermelhos passa; o coral é o menos ruim dos três e é o mesmo do
+                filete ao lado, que é o que "a cor vermelha do herói" quer dizer.
+
+                COMO CONSERTAR SEM PERDER A COR, se alguém quiser depois: um
+                escurecimento local atrás do rótulo (uns 120×30px a ~55% de
+                `ink`) leva o coral para perto de 4,6:1 sem mexer no filtro do
+                herói inteiro, que é claro de propósito para o vídeo aparecer.
+                Não foi feito aqui porque muda o desenho do herói e isso é
+                decisão de quem pediu a cor. */}
+            <span className="h-eyebrow text-[14px] font-medium uppercase tracking-[1.3px] text-[#f4796d]">
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
