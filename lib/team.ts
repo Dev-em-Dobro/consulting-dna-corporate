@@ -46,6 +46,18 @@ export type Leader = {
   quote: string;
   /** Ausente = card com as iniciais. */
   portrait?: string;
+  /**
+   * Classe Tailwind de `object-position`, quando o recorte centrado não serve.
+   *
+   * POR QUE ISTO É DADO E NÃO ESTILO: o quadro é 4:5 para todo mundo, mas cada
+   * arquivo chegou numa proporção diferente (de 1,21:1 a 0,67:1), e o
+   * `object-cover` corta o excedente pelo CENTRO. Quanto ele corta, e de onde,
+   * é propriedade DA FOTO — não da grade. Um `if` no JSX esconderia isso num
+   * componente que não sabe nada sobre os arquivos.
+   *
+   * Ausente = `object-center`, que é o que serve para quatro dos cinco.
+   */
+  portraitPosition?: string;
 };
 
 export const leaders: Leader[] = [
@@ -108,6 +120,20 @@ export const leaders: Leader[] = [
     quote:
       "Some of the most important moments in my work have started with a room going quiet and tension rising. If you can hold that moment and give it language, rather than rescue it, something more honest usually emerges.",
     portrait: "/team/genevieve-james.png",
+    /* DESCE 27px NO QUADRO, medido em 11-09 e não estimado. O arquivo dela é
+       1024×1536 (2:3), o mais alto dos cinco, contra um quadro 4:5 — então o
+       `object-cover` escala pela largura e sobram ~108px de altura para cortar.
+       Centrado, o corte tira 54px de cima e a cabeça dela encostava a 8px da
+       borda, enquanto a do JP, na mesma fileira, ficava a 49px. Lado a lado o
+       card dela lia como enquadramento errado.
+
+       25% em vez de 50% deixa 27px do corte em cima em vez de 54: a cabeça vai
+       para ~35px da borda, que é o alvo pedido e fica entre os outros quatro.
+       O que sai é ombro, embaixo, onde não faz falta.
+
+       SE O ARQUIVO TROCAR, este número não vale mais — ele é do recorte deste
+       JPEG, não da pessoa. */
+    portraitPosition: "object-[50%_25%]",
   },
   {
     name: "Jon Paul Pritchard",

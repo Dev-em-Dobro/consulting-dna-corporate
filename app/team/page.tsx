@@ -119,7 +119,7 @@ export default function OurTeamPage() {
                         alt={`${p.name}, ${p.role}`}
                         fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover object-center"
+                        className={`object-cover ${p.portraitPosition ?? "object-center"}`}
                       />
                     ) : (
                       /* Sem retrato — iniciais, e não um avatar genérico de
@@ -186,7 +186,40 @@ export default function OurTeamPage() {
             claro → cinza → cinza, cinco blocos sem uma virada. O escuro no meio
             dá espinha à rolagem e separa a liderança da DNA experience sem
             filete nenhum. */}
-        <section id="faculty" className="bg-ink">
+        {/* A IMAGEM DE FUNDO É DO CLIENTE, gerada e escolhida por ele em 11-09.
+            Ela NÃO é o slot 06 do documento — aquele pede uma imagem POR REGIÃO
+            atrás dos cinco quadros, e continua em aberto. Esta é a seção
+            inteira ganhando fundo, o que é outra coisa e não ocupa o lugar
+            daquilo: quando as cinco chegarem, elas entram nos quadros e este
+            fundo continua onde está.
+
+            `bg-ink` FICA NA SEÇÃO por baixo de tudo. É o que se vê enquanto o
+            JPEG carrega e é para onde a seção volta se ele falhar — sem isso, o
+            primeiro paint é texto branco sobre branco.
+
+            DUAS CAMADAS DE ESCURECIMENTO, e as duas são necessárias por motivos
+            diferentes. A uniforme (`ink/60`) segura o pior caso da foto, que são
+            as luzes das cidades — laranja quase branco, bem embaixo da coluna
+            de texto. A horizontal (`ink` → `ink/20`) faz o lado esquerdo, onde
+            vivem o título e o parágrafo, ficar mais escuro que o direito, onde
+            não há texto e a imagem pode aparecer. Medições no rodapé do bloco.
+
+            `isolate` NÃO É ENFEITE: as camadas são `-z-10` para ficarem atrás do
+            conteúdo, e sem um contexto de empilhamento próprio elas ficariam
+            atrás do fundo da PÁGINA, o que na prática as apaga. */}
+        <section id="faculty" className="relative isolate overflow-hidden bg-ink">
+          <Image
+            src="/team/faculty-global-dna.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="-z-10 object-cover object-center"
+          />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/60" />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/70 to-ink/20"
+          />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             {/* `onDark` troca o #d84339 pelo tom claro: o vermelho cheio mede
                 2,87:1 sobre `ink` e reprova como texto. A conta está no
@@ -229,7 +262,32 @@ export default function OurTeamPage() {
               {facultyRegions.map((region, i) => (
                 <div
                   key={region}
-                  className={`flex min-h-[120px] items-end bg-ink p-6 ${
+                  /* OS QUADROS FICARAM TRANSLÚCIDOS por causa do fundo novo.
+                     Eram `bg-ink` cheio, e sobre a imagem cinco retângulos
+                     opacos leem como cinco buracos recortados nela — a grade
+                     passaria a esconder justamente o que ela agora atravessa.
+                     `ink/70` com um borrão de 2px deixa a imagem passar sem
+                     disputar com o nome da região, e o `gap-px` continua
+                     desenhando a grade porque os vãos mostram o `white/15` do
+                     pai em cima da foto, não em cima do `ink`.
+
+                     70% E NÃO 55%, QUE ERA O PRIMEIRO NÚMERO — e o motivo é
+                     margem, não reprovação. Medido em 11-09 a 1440px: na faixa
+                     onde as letras realmente estão, "India" dava 8,0:1 com 55%,
+                     que passa com folga. Mas o quadro INTEIRO, medido de ponta
+                     a ponta, caía a 3,01:1 na parte de cima, onde a borda
+                     iluminada do planeta atravessa e o fundo vira branco
+                     estourado. Hoje não há letra ali; basta o texto reflui numa
+                     largura diferente, ou a imagem ser trocada, para haver.
+                     Passar só por causa de onde a linha caiu é frágil.
+
+                     De onde sai o número: sobre branco puro o quadro fica em
+                     `255 − 203·alfa`, e 4,5:1 (o mínimo para texto normal — 18px
+                     semibold não alcança o corte de "texto grande", que é
+                     18,66px em negrito) exige 119 ou menos, o que dá alfa 0,67.
+                     70% é o degrau seguinte, e leva o quadro inteiro para
+                     ~10:1. */
+                  className={`flex min-h-[120px] items-end bg-ink/70 p-6 backdrop-blur-[2px] ${
                     i === facultyRegions.length - 1 && facultyRegions.length % 2
                       ? "col-span-2 md:col-span-1"
                       : ""
