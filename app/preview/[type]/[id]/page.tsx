@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionView from "@/components/views/SolutionView";
+import { serviceFromSolutionVM } from "@/lib/services";
 import InsightView from "@/components/views/InsightView";
 import CaseView from "@/components/views/CaseView";
 import RegionView from "@/components/views/RegionView";
@@ -39,7 +40,12 @@ export default async function PreviewPage({
       <div className="bg-amber-400 px-4 py-2 text-center text-xs font-bold uppercase tracking-[1.5px] text-black">
         Preview · draft — not yet published
       </div>
-      {result.kind === "solution" && <SolutionView s={result.vm} />}
+      {/* `serviceFromSolutionVM`: as páginas de serviço saíram do CMS em 11-09
+          (ver `lib/services.ts`), então o rascunho precisa ser traduzido para o
+          formato novo antes de entrar no mesmo template. */}
+      {result.kind === "solution" && (
+        <SolutionView service={serviceFromSolutionVM(result.vm)} />
+      )}
       {result.kind === "insight" && <InsightView i={result.vm} />}
       {result.kind === "case" && <CaseView c={result.vm} />}
       {result.kind === "region" && (

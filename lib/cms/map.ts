@@ -168,6 +168,8 @@ export type SolutionVM = {
   // `flagshipCaseSlug` + `proofRefs`; the CTA closes the page.
   outcome?: string; howWeHelp?: string; flagshipCaseSlug?: string;
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
+  // Bloco 6 do outline de 09-09, por serviço (campos novos no CMS em 11-09).
+  ctaStrapline?: string; ctaLine?: string; ctaLabel?: string;
   proofRefs?: ProofRef[];
   resources?: ResourceLink[];
 };
@@ -548,6 +550,11 @@ function mapSolution(raw: unknown): SolutionVM | null {
     flagshipCaseSlug: plainText(d.flagshipCaseSlug)?.trim() || undefined,
     body: d.body,
     cta: d.cta ? { label: plainText(d.cta.label), href: d.cta.href } : undefined,
+    // `plainText` porque os três são texto simples no editor, mas o campo de
+    // richtext ao lado ensina o hábito de colar com marcação.
+    ctaStrapline: plainText(d.ctaStrapline),
+    ctaLine: plainText(d.ctaLine),
+    ctaLabel: plainText(d.ctaLabel),
     coverUrl: d.coverUrl,
     bannerUrl: d.bannerUrl,
     proofRefs: mapProofRefs(d.proofRefs),

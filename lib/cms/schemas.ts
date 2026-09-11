@@ -154,6 +154,12 @@ export const solutionData = z
     flagshipCaseSlug: z.string().optional(),
     body: z.string().optional(),
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
+    // Bloco 6 do outline de 09-09 — a faixa de CTA escrita para o serviço.
+    // Três campos novos no CMS (11-09); ausentes nas entradas antigas, e aí a
+    // página cai no convite compartilhado.
+    ctaStrapline: z.string().optional(),
+    ctaLine: z.string().optional(),
+    ctaLabel: z.string().optional(),
     proofRefs: z.array(proofRef).optional(),
     resources: z.array(resourceRef).optional(),
     coverUrl: z.string().url().optional(),

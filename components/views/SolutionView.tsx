@@ -1,168 +1,107 @@
-import Link from "next/link";
-import PageHero from "@/components/PageHero";
-import RichText from "@/components/RichText";
-import ResourceDownloads from "@/components/ResourceDownloads";
-import type { ProofRef, SolutionVM } from "@/lib/cms/map";
-
-/** Attribution line: "Author, Role" — either part optional. */
-function attribution(p: ProofRef): string | undefined {
-  return [p.author, p.role].filter(Boolean).join(", ") || undefined;
-}
+import SolutionHero from "@/components/solutions/SolutionHero";
+import SolutionSection from "@/components/solutions/SolutionSection";
+import SolutionEvidence from "@/components/solutions/SolutionEvidence";
+import SolutionCta from "@/components/solutions/SolutionCta";
+import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
 
 /**
- * "Client Perspective" proof block — surfaces the solution's CMS `proofRefs`
- * as attributed client quotes, each optionally linking to its case study.
- * Renders nothing when a solution has no proof (the common case today).
+ * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
+ *
+ * Renderiza nada quando não há citação, que é o caso de nove dos dez hoje. O
+ * outline conta o mesmo: "Nine of the ten have no publishable testimonial. Four
+ * have one identified but not chosen: adidas, GSK Mexico, Heineken and Vodafone.
+ * Only Executive Coaching has text that can ship."
  */
-function ClientPerspective({ proofRefs }: { proofRefs: ProofRef[] }) {
+function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial }) {
   return (
-    <section className="bg-ink">
-      <div className="mx-auto max-w-[900px] px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[13px] font-semibold uppercase tracking-[1.5px] text-brand">
+    <section className="bg-paper">
+      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
           Client Perspective
         </p>
-        <div className="mt-12 space-y-14">
-          {proofRefs.map((p, i) => {
-            const cite = attribution(p);
-            return (
-              <figure key={i}>
-                <blockquote className="text-[22px] sm:text-[26px] md:text-[30px] font-medium leading-[1.45] tracking-[-0.3px] text-white [text-wrap:balance]">
-                  “{p.quote}”
-                </blockquote>
-                {(cite || p.caseSlug) && (
-                  <figcaption className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                    {cite && (
-                      <cite className="not-italic text-[13px] font-semibold uppercase tracking-[1.5px] text-brand">
-                        {cite}
-                      </cite>
-                    )}
-                    {p.caseSlug && (
-                      <Link
-                        href={`/cases/${p.caseSlug}`}
-                        className="text-[13px] font-semibold uppercase tracking-[1.5px] text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
-                      >
-                        Read the story
-                      </Link>
-                    )}
-                  </figcaption>
-                )}
-              </figure>
-            );
-          })}
-        </div>
+        <figure className="mt-12 max-w-[900px]">
+          <blockquote className="font-serif text-[22px] font-medium leading-[1.4] tracking-[-0.2px] text-ink [text-wrap:balance] sm:text-[26px] md:text-[30px]">
+            “{testimonial.quote}”
+          </blockquote>
+          <figcaption className="mt-6 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-brand">
+            {testimonial.attribution}
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
 }
 
 /**
- * One of the brief's named blocks — a labelled heading over rich text. Renders
- * nothing when the CMS has not authored that block yet, so a partially-filled
- * solution never shows an empty section.
- */
-function Block({ label, html }: { label: string; html?: string }) {
-  if (!html?.trim()) return null;
-  return (
-    <div className="border-t border-line pt-10 first:border-t-0 first:pt-0">
-      <p className="text-[13px] font-semibold uppercase tracking-[1.5px] text-brand">
-        {label}
-      </p>
-      <RichText html={html} className="mt-5" />
-    </div>
-  );
-}
-
-/**
- * Detail body for a solution. Shared by the live page and the preview route.
+ * O template de página de serviço — "one template, ten instances".
  *
- * The 27-08 brief (item 5) fixes the same five blocks for every Solution page,
- * so it answers "Is this the solution to my problem?" without long roadmaps,
- * tool inventories or scoping methodology:
+ * OS SEIS BLOCOS SÃO OS DO OUTLINE DE 09-09 (seção 3.2), nesta ordem:
+ *   1. Hero               — nome, banner statement, imagem
+ *   2. The Outcome        — o que muda no negócio
+ *   3. How CDNA Helps     — a intervenção
+ *   4. Evidence           — o caso-carro-chefe e seus números
+ *   5. Testimonial        — condicional, existe em um dos dez
+ *   6. Start a Conversation — por serviço, não a faixa compartilhada
  *
- *   1. The Challenge        — the hero subtitle (`problemStatement`)
- *   2. The Outcome          — `outcome`
- *   3. How CDNA Helps       — `howWeHelp`
- *   4. Evidence             — flagship case + client quotes
- *   5. Start a Conversation — the closing CTA
+ * O CONTEÚDO VEM DE `lib/services.ts`, não do CMS — o porquê está na caixa de
+ * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos 4, 5 e 6
+ * finalmente têm dado (a strapline e a linha do CTA não existiam no CMS, e esta
+ * faixa vinha mostrando o texto padrão), e "The Challenge" some.
+ *
+ * ⚠️ "THE CHALLENGE" SAIU. O template de cinco blocos do brief de 27-08 abria com
+ * ele; o de 09-09 não tem esse bloco — o herói passou a carregar a "banner
+ * statement", e é ela que ocupa aquele lugar.
  */
-export default function SolutionView({ s }: { s: SolutionVM }) {
-  // Block 5 is a standing element of the structure, not authored copy: when the
-  // CMS has no CTA we fall back to the brief's own label and the contact section.
-  const ctaHref = s.cta?.href ?? "/#contact";
-  const ctaLabel = s.cta?.label ?? "Start a Conversation";
-  const hasBody =
-    !!s.outcome?.trim() || !!s.howWeHelp?.trim() || !!s.body?.trim();
-
+export default function SolutionView({ service }: { service: Service }) {
   return (
     <>
-      <PageHero
-        // Renamed with the area (27-08 brief, item 3).
-        eyebrow="Our Solutions"
-        title={s.title}
-        subtitle={s.problemStatement}
-        bgImageUrl={s.bannerUrl ?? s.coverUrl}
-        imageClassName="object-cover object-[center_15%]"
+      <SolutionHero
+        /* "Our Services", e não "Our Solutions": o menu acertado com o cliente
+           em 08-09 chama a área de Services, e o índice abre com o mesmo rótulo.
+           A rota segue `/solutions` de propósito — ver a caixa em `lib/nav.ts`
+           sobre por que os caminhos não foram renomeados atrás dos rótulos. */
+        eyebrow="Our Services"
+        title={service.title}
+        subtitle={service.banner}
       />
 
-      {hasBody && (
-        <section className="bg-white">
-          <div className="mx-auto max-w-[820px] space-y-10 px-6 py-20 md:px-10 md:py-24">
-            <Block label="The Outcome" html={s.outcome} />
-            <Block label="How Corporate DNA Helps" html={s.howWeHelp} />
-            {/* Legacy / overflow narrative — unlabelled so it reads as part of
-                the page rather than a sixth block the brief did not ask for. */}
-            {s.body?.trim() && (
-              <div className="border-t border-line pt-10 first:border-t-0 first:pt-0">
-                <RichText html={s.body} />
-              </div>
-            )}
-          </div>
-        </section>
+      {/* SEM FOTO NOS DOIS BLOCOS — ver a caixa no topo do `SolutionSection`.
+          Em resumo: eram duas imagens genéricas repetidas nas dez páginas, e o
+          CMS não tem campo por bloco para o cliente trocá-las. */}
+      <SolutionSection
+        label="The Outcome"
+        html={paragraphs(service.outcome)}
+        side="left"
+        tone="white"
+      />
+
+      <SolutionSection
+        label="How Corporate DNA Helps"
+        html={paragraphs(service.howWeHelp)}
+        side="right"
+        tone="paper"
+      />
+
+      {service.evidence && (
+        <SolutionEvidence
+          caseSlug={service.evidence.caseSlug}
+          caseTitle={
+            service.evidence.title
+              ? `${service.evidence.client} — ${service.evidence.title}`
+              : service.evidence.client
+          }
+          body={service.evidence.body}
+          facts={service.evidence.facts}
+        />
       )}
 
-      {/* Block 4 — Evidence: the flagship case for this solution, then quotes. */}
-      {s.flagshipCaseSlug && (
-        <section className="bg-paper">
-          <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
-            <p className="text-[13px] font-semibold uppercase tracking-[1.5px] text-brand">
-              Evidence
-            </p>
-            <Link
-              href={`/cases/${s.flagshipCaseSlug}`}
-              className="mt-5 inline-block text-[22px] font-bold leading-[1.25] tracking-[-0.5px] text-ink underline-offset-[6px] transition-colors hover:text-brand hover:underline sm:text-[26px]"
-            >
-              Read the flagship client story →
-            </Link>
-          </div>
-        </section>
-      )}
+      {service.testimonial && <ClientPerspective testimonial={service.testimonial} />}
 
-      {s.proofRefs?.length ? <ClientPerspective proofRefs={s.proofRefs} /> : null}
-
-      {/* Block 5 — Start a Conversation.
-
-          `py`, not `pb`. The CTA used to carry bottom padding only, so the
-          button sat flush against whatever section preceded it. With the white
-          `Block` list above that reads as tight spacing; with the dark
-          `ClientPerspective` above it reads as broken, because the button
-          straddles the colour boundary with nothing between them.
-
-          That block only renders when the solution has `proofRefs`, so the
-          defect appeared exactly on the solutions that have client quotes —
-          which is why it looked like the quotes caused it. They only revealed
-          it. Measured at 0px from section top to button on every solution. */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
-          <a
-            href={ctaHref}
-            className="inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
-          >
-            {ctaLabel}
-          </a>
-        </div>
-      </section>
-
-      {s.resources?.length ? <ResourceDownloads resources={s.resources} /> : null}
+      <SolutionCta
+        strapline={service.cta.strapline}
+        line={service.cta.line}
+        ctaLabel={service.cta.label}
+      />
     </>
   );
 }
