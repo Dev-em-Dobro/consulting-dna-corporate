@@ -29,6 +29,7 @@
  */
 import Image from "next/image";
 import fallbackPhoto from "@/public/solutions/service-hero-fallback.jpg";
+import HeroIntro from "@/components/HeroIntro";
 
 export default function SolutionHero({
   eyebrow,
@@ -142,14 +143,30 @@ export default function SolutionHero({
         }}
       />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10">
+      {/* A ENTRADA É A DA HOME, desde 11-09 — a escada de
+          `lib/hero-timeline.ts`, a mesma que a /about roda. Este herói é o de
+          /team, o das dez páginas de serviço e o do índice: sem isto, sair da
+          home ou da /about para qualquer uma delas era passar de um herói que
+          entra para um que já está lá.
+
+          AQUI DÁ PARA USAR A RÉGUA (`h-bar`), que a /about não tem: lá o rótulo
+          é um `TypeLabel`, que traz a régua dentro e entra como peça única; aqui
+          o traço é um `<span>` separado, então ele cresce da esquerda antes de o
+          rótulo aparecer, exatamente como na home. Não há `h-cta` — este herói
+          não tem botão.
+
+          ⚠️ AS CLASSES NASCEM COM `opacity: 0` (globals.css, sob `html.js`), e é
+          o `HeroIntro` que as revela. Tirar o wrapper e deixar as classes
+          publica um herói invisível — ele tem prazo de segurança de 10s
+          justamente para que nenhum caminho termine assim. */}
+      <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10">
         <div className="mb-5 flex items-center gap-3">
-          <span className="inline-block h-0.5 w-9 bg-brand-light" />
+          <span className="h-bar inline-block h-0.5 w-9 bg-brand-light" />
           {/* `text-left` EXPLÍCITO. Sem ele o texto herda alinhamento do pai e se
               centraliza DENTRO DA PRÓPRIA CAIXA quando quebra em duas linhas — a
               primeira recua para o meio e abre um vão aparente contra a régua,
               que continua colada à esquerda. */}
-          <span className="text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
+          <span className="h-eyebrow text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
             {eyebrow}
           </span>
         </div>
@@ -158,16 +175,16 @@ export default function SolutionHero({
             imagem limitando a coluna, o título tem a largura da página, e num
             herói de sangria total ele é a única coisa que segura a composição
             contra a foto. */}
-        <h1 className="font-serif max-w-[760px] text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
+        <h1 className="h-title font-serif max-w-[760px] text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
           {title}
         </h1>
 
         {subtitle && (
-          <p className="mt-6 max-w-[560px] text-[19px] leading-[1.45] text-white/80 md:text-[21px]">
+          <p className="h-sub mt-6 max-w-[560px] text-[19px] leading-[1.45] text-white/80 md:text-[21px]">
             {subtitle}
           </p>
         )}
-      </div>
+      </HeroIntro>
     </section>
   );
 }
