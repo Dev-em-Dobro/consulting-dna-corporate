@@ -34,6 +34,7 @@ import NavV2 from "@/components/NavV2";
 import SiteFooter from "@/components/SiteFooter";
 import { buildSiteNav } from "@/lib/nav-server";
 import Reveal from "@/components/Reveal";
+import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
@@ -884,8 +885,19 @@ export default async function AboutV2Page() {
             64px abaixo do menu em vez dos 183px de antes, e em vez dos 48px que
             o padding original entregaria sozinho, que colariam demais. */}
         <div className="flex flex-1 items-start md:items-center">
-          <div className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
-            <TypeLabel onDark>About</TypeLabel>
+          {/* A ENTRADA DO HERÓI É A DA HOME, desde 11-09 — a escada de
+              `lib/hero-timeline.ts`, rodada por `HeroIntro`. O resto da página
+              já revelava por rolagem, mas o herói está acima da dobra: o
+              `Reveal` dispararia na hora e tudo entraria junto, num fade só.
+
+              SEM `h-bar` E SEM `h-cta` aqui: o rótulo desta página traz a
+              própria régua dentro do `TypeLabel` (por isso a classe vai NELE, e
+              os dois entram como uma peça), e o herói não tem botão. A timeline
+              pula o que não encontra. */}
+          <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
+            <TypeLabel onDark className="h-eyebrow">
+              About
+            </TypeLabel>
             {/* h1 — Geist 500 a 52px, entrelinha 1,1, como a grade pede.
                 Duas coisas mudaram além da família:
 
@@ -926,7 +938,7 @@ export default async function AboutV2Page() {
                 −0,2px em vez dos −0,8px da primeira tentativa. Fechar o
                 espacejamento encolhe a linha e trabalha contra a presença que a
                 comparação está pedindo. */}
-            <h1 className="font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
+            <h1 className="h-title font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
               Keeping Leadership Real.
             </h1>
             {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
@@ -945,11 +957,11 @@ export default async function AboutV2Page() {
                 título de propósito: o par "grotesca em cima, serifa embaixo" é
                 o device inteiro. Se a serifa só aparecesse lá embaixo no corpo,
                 o contraste chegaria tarde demais para ser lido como escolha. */}
-            <p className="mt-5 max-w-[620px] text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
+            <p className="h-sub mt-5 max-w-[620px] text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
               <span className="md:block">Our purpose, our promise,</span>{" "}
               <span className="md:block">what we believe, and where we work.</span>
             </p>
-          </div>
+          </HeroIntro>
         </div>
 
         {/* Block 1b · Estatísticas, refeito em 08-09 contra

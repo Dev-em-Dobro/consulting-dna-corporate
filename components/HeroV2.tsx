@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { applyEnvClasses, isTouchDevice } from "@/lib/hero-intro";
+import { buildHeroIntro } from "@/lib/hero-timeline";
 import heroPhoto from "@/public/dna-time/dna-time-06.jpeg";
 import CyclingCredential from "@/components/CyclingCredential";
 import type { TickerEntry } from "@/lib/cms/map";
@@ -319,43 +320,14 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
         // intro para esperar (não há mais), mas para não animar atrás do
         // preloader: se rodasse na hora, a entrada terminaria escondida e o
         // conteúdo apareceria já pronto quando a cortina subisse.
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
-        // fromTo (not from): the targets start hidden via CSS, so we must state
-        // the visible end explicitly — otherwise GSAP would read the hidden CSS
-        // value as the destination and animate hidden -> hidden.
+        // A ENTRADA SAIU DAQUI EM 11-09, para `lib/hero-timeline.ts`, quando a
+        // /about passou a rodar a mesma escada. Nenhum número mudou na mudança
+        // de casa — curvas, distâncias e sobreposições são as que estavam aqui.
+        // O que se ganha é não ter dois conjuntos deles para ajustar.
         //
-        // `.h-bg` saiu da timeline: o véu escuro nasce pronto, porque tem de
+        // `.h-bg` continua FORA dela: o véu escuro nasce pronto, porque tem de
         // estar lá no primeiro frame do vídeo. Ver o cabeçalho do arquivo.
-        tl.fromTo(
-          ".h-bar",
-          { autoAlpha: 0, scaleX: 0, transformOrigin: "left" },
-          { autoAlpha: 1, scaleX: 1, duration: 0.6 },
-          0
-        )
-          .fromTo(
-            ".h-eyebrow",
-            { autoAlpha: 0, x: -12 },
-            { autoAlpha: 1, x: 0, duration: 0.5 },
-            "-=0.3"
-          )
-          .fromTo(
-            ".h-title",
-            { autoAlpha: 0, y: 46, skewY: 2 },
-            { autoAlpha: 1, y: 0, skewY: 0, duration: 1 },
-            "-=0.15"
-          )
-          .fromTo(
-            ".h-sub",
-            { autoAlpha: 0, y: 26 },
-            { autoAlpha: 1, y: 0, duration: 0.8 },
-            "-=0.6"
-          )
-          .fromTo(
-            ".h-cta",
-            { autoAlpha: 0, y: 22 },
-            { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.6 },
-            "-=0.5"
-          );
+        const tl = buildHeroIntro(scope.current!);
 
         const cleanups: Array<() => void> = [() => tl.kill()];
 
