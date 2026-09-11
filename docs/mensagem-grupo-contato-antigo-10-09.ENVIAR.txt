@@ -1,0 +1,42 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: SEM NEGRITO, a pedido (10-09). O texto abaixo não tem asterisco nenhum,
+      então serve igual para WhatsApp e para e-mail — colar como está.
+STATUS: ⬜ NÃO ENVIADA
+
+POR QUE PARA O GRUPO, E NÃO PARA A AXON:
+    A Axon tem o WordPress e saberia ler a configuração do formulário, mas pedir
+    isso a eles agora reabre o item A7 do doc 4 — o acesso ao site antigo, que
+    foi PARADO DE PROPÓSITO até 20/09 para não gerar custo nem provocar reset de
+    senha. E a pergunta não é técnica: quem sabe para qual caixa o lead cai é
+    quem recebe o lead. O grupo responde de graça e em um dia.
+
+POR QUE ISTO IMPORTA AGORA:
+    O formulário do site NOVO grava o lead no banco e não avisa ninguém — sem
+    e-mail, sem webhook. Hoje um contato entra e fica invisível até alguém abrir
+    o Supabase. Isso precisa estar resolvido ANTES do lançamento, e a resposta
+    desta mensagem é o que destrava: sem saber para onde ia, não dá para decidir
+    para onde passa a ir.
+
+O QUE ESTA MENSAGEM COMPROMETE:
+    nada. É só uma pergunta.
+
+O QUE FOI CORTADO, E POR QUÊ:
+    a primeira versão tinha cinco parágrafos e explicava cada coisa (por que a
+    caixa pode estar abandonada, por que várias pessoas é mais seguro, por que
+    agora). Encurtada em 10-09: em grupo de WhatsApp, explicação a mais faz a
+    pergunta demorar mais para ser respondida, não menos. As três perguntas
+    continuam lá — endereço, quem lê, e quem deve receber daqui para frente —
+    junto com o atalho do e-mail encaminhado, que é o que faz alguém conseguir
+    responder sem procurar configuração.
+
+FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
+         preencher a largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+Quick one about the contact form on the current site — the one at the bottom of the homepage.
+
+When someone fills it in, where does that enquiry land? We need the address it goes to, and who actually reads that inbox. If nobody remembers how it was set up, forwarding us one old notification answers it — the To: line is all we need.
+
+And while we are here: once the new site is live, should it keep going to the same person, or to more than one of you? Several addresses is usually safer.
+
+It is the last piece of the contact form we cannot decide for you.

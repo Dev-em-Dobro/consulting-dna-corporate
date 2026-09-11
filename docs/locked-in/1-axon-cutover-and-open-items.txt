@@ -179,3 +179,50 @@ The content database (Supabase) is on a FREE PLAN WITH NO AUTOMATIC BACKUP AND N
 POINT-IN-TIME RECOVERY. If it is lost, every case study and Solutions page is retyped
 from scratch. This is unrelated to Axon and needs an owner and a schedule. It is the
 only item in the whole landscape with total-loss risk.
+
+======================================================================
+ADDENDUM - 11 SEPTEMBER 2026: ONE MORE DNS ITEM, TO RIDE WITH THE CUTOVER
+======================================================================
+
+6. SENDER DOMAIN FOR CONTACT-FORM NOTIFICATIONS - deliberately parked until cutover.
+
+The new site's contact form now emails the enquiry out (CMS: lib/leads/notify.ts,
+wired into POST /api/leads, shipped 11 September). Rhea's answer of 10 September:
+it goes to ceo-office@corporatednaconsulting.com and the PMO team forwards from there.
+
+The notification is SENT from a domain verified in Resend. corporatednaconsulting.com
+is not one, so until this item is done the mail leaves from a Dev em Dobro domain with
+the enquirer's address on Reply-To. That works and is live-able; it just means the
+client sees an agency sender on their own leads.
+
+DECIDED 11 SEPTEMBER: do not touch the zone now. Do it as part of the cutover, when
+we are in Cloudflare anyway.
+
+Why it is safe to do then, verified by DNS query on 11 September:
+  - The zone IS on Cloudflare (pam/mario.ns.cloudflare.com) and Dev em Dobro has had
+    access since the invitation was accepted on 13 August. Axon is not involved.
+  - resend._domainkey and send.corporatednaconsulting.com are both FREE - no TXT, no
+    MX. Nothing to overwrite.
+  - Resend puts its SPF on the `send` SUBDOMAIN, not the apex. THE ROOT SPF IS NOT
+    EDITED, which matters here: the apex TXT already carries five includes plus an ip4
+    block (SendGrid, Zoho, Outlook, Mailchimp, dnssmarthost) and is near SPF's ten
+    DNS-lookup ceiling. Adding to it could break mail that works today.
+  - The apex MX (Microsoft 365) is untouched. An MX on `send` does not compete with it.
+  - DMARC is v=DMARC1; p=none - no enforcement, so nothing can start bouncing. rua
+    reports go to Carol.Medcalf@corporatednaconsulting.com.
+
+What the change is, when the time comes:
+  a. Create corporatednaconsulting.com in the Resend account that owns the production
+     RESEND_API_KEY. THIS ACCOUNT IS NOT YET DECIDED - see below.
+  b. Add in Cloudflare, DNS-only (not proxied): TXT resend._domainkey (value from
+     Resend), MX send -> feedback-smtp.<region>.amazonses.com priority 10, TXT send ->
+     v=spf1 include:amazonses.com ~all. Skip the tracking CNAME.
+  c. Set LEAD_NOTIFY_FROM on the CMS project in Vercel to an address on the domain, and
+     LEAD_NOTIFY_TO to ceo-office@corporatednaconsulting.com. Redeploy the CMS.
+
+OPEN QUESTION, AND IT IS THE SUPABASE QUESTION AGAIN: which Resend account owns this?
+The CMS .env.example records a 19 July decision that the key comes from the Impulse
+account. The account we can operate day to day is a Dev em Dobro one. Either way the
+client's sending domain ends up inside an agency account - the same shape as the
+content database. It belongs in the handover conversation with the domain and Vercel,
+not in a DNS ticket.

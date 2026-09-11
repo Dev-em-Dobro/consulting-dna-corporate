@@ -1,0 +1,48 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: sem negrito, como as últimas. Serve igual para WhatsApp e para e-mail.
+STATUS: ✅ LIBERADA — deploy rodado em 10-09 e conferido no alpha.
+
+O QUE FOI CONFERIDO NO AR (10-09, depois de `vercel --prod --yes`):
+    /           não contém `hero-intro.mp4` → é a home NOVA (a V2)
+    /home-v1    200 → o arquivo da home antiga existe
+    /home-v2    308 → redireciona para /
+    /about      200
+    o botão novo está nas duas páginas, com o bloco #e25950
+
+    O sinal mais confiável de que a home certa subiu é a AUSÊNCIA do
+    `hero-intro.mp4`: a V2 não tem vídeo nenhum, a antiga tinha.
+
+⚠️ O QUE ESTA MENSAGEM COMPROMETE — três coisas, todas com data:
+    1. Que as duas páginas estão prontas para revisão (estão).
+    2. O lançamento em 15/09.
+    3. A /our-services LIBERADA AMANHÃ, 11/09. Esta é a única que ainda não
+       está cumprida no momento em que a mensagem sai. Se amanhã escorregar,
+       é melhor avisar antes de eles perguntarem.
+
+SOBRE O AVISO DE DESKTOP:
+    Entrou logo depois dos links, e não no fim, de propósito: é instrução de
+    COMO abrir. No fim da mensagem chegaria depois de metade do grupo já ter
+    aberto no celular — que é onde as pessoas abrem link de WhatsApp.
+
+SOBRE A /home-v1:
+    Existe, fora do menu e do sitemap, para consulta. NÃO entrou na mensagem de
+    propósito: a V2 já foi escolhida, e oferecer a antiga de volta a cinco dias
+    do lançamento é convidar a reabrir uma decisão fechada. Se alguém perguntar
+    "e a antiga?", o endereço é /home-v1.
+
+FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
+         preencher a largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+The home page and the About page are both ready for you to look at.
+
+Home: https://consulting-dna-corporate-alpha.vercel.app/
+About: https://consulting-dna-corporate-alpha.vercel.app/about
+
+Please look at them on a desktop for now — we are still working through the mobile layouts, so anything that looks off on a phone is probably already on our list.
+
+One thing before you open the home: this is the new version, the one we sent you to compare. It has now replaced the old homepage rather than sitting next to it, so the opening screen, the typography and the order of the sections will all look different from the site you remember.
+
+Please treat this as a review rather than a preview — both pages are as finished as we can make them without your input. What helps most is going through them in one pass and sending everything back together, here in the group. We are holding the 15 September launch, so the earlier it comes back, the more of it we can act on.
+
+We should also have Our Services ready for you to test tomorrow.
