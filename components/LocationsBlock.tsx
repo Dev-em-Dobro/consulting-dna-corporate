@@ -22,6 +22,7 @@ export default function LocationsBlock({
   tone = "paper",
   maxWidthClass = "max-w-[1200px]",
   typeLabel = false,
+  align = "left",
 }: {
   offices?: Office[];
   eyebrow?: string;
@@ -34,7 +35,7 @@ export default function LocationsBlock({
    * vizinhas, o que numa faixa de cor só lê como defeito de alinhamento.
    *
    * Prop com o padrão antigo, e não uma troca do número aqui dentro, porque o
-   * bloco também roda na /our-clients, na /our-team e na /home-v3, que seguem
+   * bloco também roda na /our-clients, na /team e na /home-v3, que seguem
    * em 1200 — mudar a constante alinharia a home e desalinharia as outras três.
    * Mesmo padrão do `maxWidthClass` da NavV2.
    *
@@ -47,10 +48,23 @@ export default function LocationsBlock({
    * de 13px/600/2px, acompanhando o `tone` para o contraste sobre fundo escuro.
    *
    * Existe para a home, que em 10-09 adotou o TypeLabel em todos os rótulos de
-   * seção. Desligado por padrão: /our-clients, /our-team e /home-v3 renderizam
+   * seção. Desligado por padrão: /our-clients, /team e /home-v3 renderizam
    * este bloco com o rótulo de antes. Mesmo padrão de `maxWidthClass`.
    */
   typeLabel?: boolean;
+  /**
+   * Alinhamento do cabeçalho — o rótulo e o parágrafo de contexto.
+   *
+   * O CORPO DESTE BLOCO SEMPRE FOI CENTRADO: o mapa é preso em 560px com
+   * `mx-auto`, e a régua de cidades, o carrossel e o endereço vivem na mesma
+   * coluna de 560, todos com `text-center`. Só o cabeçalho corria à esquerda,
+   * na largura da página. Com `center` o bloco inteiro passa a ter um eixo só.
+   *
+   * `left` por padrão porque é o que /our-clients e /home-v3 têm hoje, e
+   * porque na home o cabeçalho alinha com as seções vizinhas — mesmo critério
+   * de `maxWidthClass` e `typeLabel`.
+   */
+  align?: "left" | "center";
   /**
    * Ground the block sits on. `dark` is Guli's 31-08 fix for the homepage,
    * where this block and the book block above it were both light grey and
@@ -68,6 +82,7 @@ export default function LocationsBlock({
   tone?: "paper" | "dark";
 }) {
   const dark = tone === "dark";
+  const centered = align === "center";
   const [activeIndex, setActiveIndex] = useState(0);
   const [inView, setInView] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -139,9 +154,17 @@ export default function LocationsBlock({
       <div className="py-24">
         <div className={`mx-auto mb-12 ${maxWidthClass} px-6 md:px-10`}>
           {typeLabel ? (
-            <TypeLabel onDark={dark}>{eyebrow}</TypeLabel>
+            /* `justify-center` E NÃO `text-center` no pai: o rótulo é um par
+               régua+palavra dentro de um flex. Centrar o texto do contêiner não
+               move um flex item; o que move é o eixo principal. O `TypeLabel`
+               aceita classes de layout exatamente para isto. */
+            <TypeLabel onDark={dark} className={centered ? "justify-center" : ""}>
+              {eyebrow}
+            </TypeLabel>
           ) : (
-            <div className="flex items-baseline gap-3">
+            <div
+              className={`flex items-baseline gap-3 ${centered ? "justify-center" : ""}`}
+            >
               <span className="inline-block h-0.5 w-9 bg-brand" />
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
                 {eyebrow}
@@ -149,10 +172,14 @@ export default function LocationsBlock({
             </div>
           )}
           {context ? (
+            /* `mx-auto` MAIS `text-center`: o primeiro centra a CAIXA de 640px
+               na página, o segundo centra as linhas dentro dela. Só o primeiro
+               deixaria um parágrafo alinhado à esquerda no meio da tela — que é
+               o desalinhamento de sempre, movido de lugar. */
             <p
               className={`mt-4 max-w-[640px] text-[15px] leading-[1.6] md:text-[16px] ${
-                dark ? "text-white/70" : "text-muted"
-              }`}
+                centered ? "mx-auto text-center" : ""
+              } ${dark ? "text-white/70" : "text-muted"}`}
             >
               {context}
             </p>

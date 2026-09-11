@@ -52,7 +52,11 @@ export const siteNav: NavItem[] = [
   // No static children: the Services submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
   { label: "Services", href: "/solutions" },
-  { label: "Team", href: "/our-team" },
+  // `/team` e não `/our-team` desde 11-09, a pedido. É a exceção que a nota lá
+  // em cima prevê: não é o label perseguindo a rota, é a rota mudando por
+  // decisão de endereço — e o `/our-team` que está em produção continua
+  // respondendo, por 308 em next.config.
+  { label: "Team", href: "/team" },
   { label: "Clients & Impact", href: "/our-clients" },
   { label: "Insights", href: "/insights" },
   // Points at the home `#book` section until a listing page exists.

@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import {
-  getSolutionCards,
   getCaseCards,
   getInsightCards,
   getRegionCards,
   getPartnerships,
 } from "@/lib/cms/map";
+import { services } from "@/lib/services";
 
 export const revalidate = 3600;
 
@@ -15,8 +15,10 @@ export const revalidate = 3600;
 const abs = (path: string) => `${SITE_URL}${path || "/"}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [solutions, cases, insights, regions, partnerships] = await Promise.all([
-    getSolutionCards(),
+  // As páginas de serviço saíram do CMS em 11-09 (ver `lib/services.ts`), então
+  // os dez slugs vêm do módulo e não de um fetch — o sitemap não pode listar a
+  // taxonomia antiga enquanto as rotas publicadas são outras.
+  const [cases, insights, regions, partnerships] = await Promise.all([
     getCaseCards(),
     getInsightCards(),
     getRegionCards(),
@@ -32,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/solutions/regions",
     "/our-clients",
     "/our-impact",
-    "/our-team",
+    "/team",
     "/cases",
     "/insights",
     "/awards",
@@ -54,7 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (partnerships.length > 0) staticPaths.push("/our-partnerships");
 
   const dynamicPaths = [
-    ...solutions.map((s) => `/solutions/${s.slug}`),
+    ...services.map((s) => `/solutions/${s.slug}`),
     ...cases.map((c) => `/cases/${c.slug}`),
     ...insights.map((i) => `/insights/${i.slug}`),
     ...regions.map((r) => `/solutions/regions/${r.slug}`),

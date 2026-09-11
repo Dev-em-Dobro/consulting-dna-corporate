@@ -14,8 +14,11 @@ const legacyDottedRedirects = [
   ["/our_clients.html", "/our-clients"],
   ["/what-our-client-says.html", "/"],
   ["/see_us_in_action.html", "/cases"],
-  ["/our_team.html", "/our-team"],
-  ["/our_advisor.html", "/our-team"],
+  // Direto para `/team`, e não para `/our-team`: a rota foi renomeada em 11-09 e
+  // um destino desatualizado aqui viraria 308 → 308. A corrente funciona, mas
+  // cada salto é um round-trip, e buscadores tratam cadeia como sinal fraco.
+  ["/our_team.html", "/team"],
+  ["/our_advisor.html", "/team"],
   ["/our_identity.html", "/about"],
   ["/our_story.html", "/about"],
   ["/way-values.html", "/about#values"],
@@ -58,11 +61,33 @@ const legacyExtensionlessRedirects = [
   // Slugs internos da fase anterior do CMS, aposentados em 01-09 na reestruturação
   // das 8 Solutions. Nunca estiveram no domínio público — só no alpha — mas o
   // redirect custa nada e evita link morto em e-mail ou documento antigo.
-  ["/solutions/ceo-top-team-transformation", "/solutions/exco-top-150"],
+  // ⚠️ REVISADOS EM 11-09, quando os dez serviços do outline de 09-09 passaram a
+  // ser a lista publicada (`lib/services.ts` — os slugs de destino são os de lá,
+  // e é ali que se confere se um destino ainda existe).
+  //
+  // ⚠️ `exco-top-150` ESTÁ NO AR. Conferido em 11-09 contra o alpha, não contra
+  // o backup de 01-09: o CMS de produção foi reautorado depois daquele backup e
+  // hoje publica oito solutions com os slugs limpos, `exco-top-150` entre elas.
+  // Sem a linha abaixo, a URL que existe hoje viraria 404 no próximo deploy.
+  //
+  // Vale como lembrete de método: o backup do repositório é uma FOTOGRAFIA de
+  // uma data, e conteúdo muda no painel sem passar por aqui. Para saber o que
+  // está publicado, abrir o site.
+  ["/solutions/exco-top-150", "/solutions/top-150-leadership-development"],
+  ["/solutions/ceo-top-team-transformation", "/solutions/top-150-leadership-development"],
+  // O outline é explícito sobre onde Leadership Development foi parar: o caso da
+  // Heineken "arrived labelled Leadership Development, which is not a service on
+  // this site. Mapped to ExCo / Top 150." Herdeira clara — sai o índice.
+  ["/solutions/leadership-development", "/solutions/top-150-leadership-development"],
   ["/solutions/chro-hrlt-effectiveness", "/solutions/hrlt-effectiveness"],
   ["/solutions/asian-talent-development", "/solutions/talent-development"],
-  ["/solutions/leadership-development", "/solutions"],
-  ["/solutions/talent-succession", "/solutions"],
+  // Succession é o que Talent Development entrega ("successor readiness",
+  // "bench strength" na copy do cliente) — herdeira mais próxima que o índice.
+  ["/solutions/talent-succession", "/solutions/talent-development"],
+  // Duplicata do CMS, no plural, com o mesmo conteúdo da singular.
+  ["/solutions/culture-transformations", "/solutions/culture-transformation"],
+  // Inclusion & Diversity continua sem sucessora: Women in Leadership é UMA
+  // fatia dela, não a categoria. Índice, como antes.
   ["/solutions/inclusion-diversity", "/solutions"],
   // Clientes → o case correspondente (decisão do cliente, 2026-07-29). Cada
   // página de cliente do site antigo tem um case 1:1 no CMS. O índice
@@ -92,9 +117,11 @@ const legacyExtensionlessRedirects = [
   ["/portfolio/edf-leadership-impact-influence-presence", "/cases"],
   ["/portfolio/a-leadership-participant-reflects-on-the-dark-side-profile", "/cases"],
   ["/our-impact/see-us-in-action", "/cases"],
-  // Time / Advisors → a página real de Our Team (antes: âncora da home)
-  ["/our-advisors", "/our-team"],
-  ["/our-way/our-team-and-network", "/our-team"],
+  // Time / Advisors → a página real de Team (antes: âncora da home). Destino
+  // atualizado em 11-09 com a renomeação da rota; ver a nota em
+  // `legacyDottedRedirects` sobre não encadear 308.
+  ["/our-advisors", "/team"],
+  ["/our-way/our-team-and-network", "/team"],
   // Identidade / Sobre → a página real de Our Identity e suas seções
   ["/our-story", "/about"],
   // O antigo /our-approach agora tem página real (5H), não só a âncora da home.
@@ -153,6 +180,14 @@ const splitAreaRedirects = [
   { source: "/our-identity", destination: "/about", permanent: true },
   { source: "/about-v2", destination: "/about", permanent: true },
   { source: "/home-v2", destination: "/", permanent: true },
+  // 11-09: `/our-team` vira `/team`, a pedido. Este 308 não é opcional e é o
+  // mais exposto dos três acima — `/our-team` NÃO é um endereço de revisão que
+  // circulou por WhatsApp, é a rota que está no menu EM PRODUÇÃO, no sitemap
+  // entregue aos buscadores, e o destino de quatro redirects do WordPress
+  // antigo (/our_team.html, /our_advisor.html, /our-advisors,
+  // /our-way/our-team-and-network — todos já repontados direto para /team).
+  // Sem esta linha, a rota que hoje responde 200 passa a dar 404 no deploy.
+  { source: "/our-team", destination: "/team", permanent: true },
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and
