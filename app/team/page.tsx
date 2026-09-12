@@ -516,7 +516,18 @@ export default function OurTeamPage() {
                escurecimentos laterais não previam. Aqui vale igual — é ele que
                deixa o gradiente trabalhar sobre uma base já assentada, em vez
                de sozinho contra a imagem cheia. */
-            className="-z-10 object-cover object-top saturate-[.65]"
+            /* ⚠️ 70% NA VERTICAL, E O NÚMERO NÃO É ESTÉTICO SOZINHO — 12-09,
+               pedido de subir a hélice. O eixo horizontal não tem folga aqui: a
+               imagem escalada dá exatamente a largura do container, então
+               `object-position` só age na vertical, e a conta é contraintuitiva
+               — para a hélice SUBIR na tela, a janela de recorte tem de DESCER
+               na origem, ou seja, a porcentagem aumenta.
+
+               `bottom` (100%) foi testado e sobe demais: a hélice passa a cruzar
+               o rótulo, que é o elemento que menos aguenta fundo claro. 70%
+               deixa o brilho na faixa do título e acima dos cartões, com o
+               rótulo ainda sobre preto e o terço de baixo limpo. */
+            className="-z-10 object-cover object-[50%_20%] saturate-[.65]"
           />
           {/* ⚠️ ABERTO EM 12-09, a pedido: a imagem aparece mais. Os números
               vieram de 75% no plano e `ink/45` na ponta direita, que eram os da
