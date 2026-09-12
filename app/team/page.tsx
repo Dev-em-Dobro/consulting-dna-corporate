@@ -207,21 +207,39 @@ export default function OurTeamPage() {
             cartões, não tinha imagem nenhuma, e o globo volta a ser o assunto.
             A seção aqui fica `ink` liso, e quem faz o trabalho visual é o
             mosaico — que é o que o documento pede que ele faça. */}
-        <section id="faculty" className="bg-ink">
+        <section id="faculty" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             {/* `onDark` troca o #d84339 pelo tom claro: o vermelho cheio mede
                 2,87:1 sobre `ink` e reprova como texto. A conta está no
                 componente. */}
-            <TypeLabel onDark>Global faculty</TypeLabel>
+            {/* ⚠️ A SEÇÃO FICOU CLARA EM 12-09, e é correção de ritmo, não de gosto.
+                Quando o globo veio para cá ela virou `ink`; quando ele foi para
+                o bloco 6 ela continuou escura, e a página passou a correr
+                escuro por TRÊS seções seguidas — esta, a DNA experience e o
+                mapa. Três massas escuras em fila não têm divisa entre si: o
+                leitor perde onde um assunto acaba e o outro começa.
+
+                `paper` E NÃO BRANCO: a liderança e o slot da foto de grupo,
+                logo acima, já são brancos. Uma terceira seção branca colada
+                nelas seria o mesmo problema invertido. O cinza é o degrau que
+                o site usa entre blocos claros, e agora a página lê
+                branco → cinza → escuro → escuro, com o par escuro fechando no
+                mapa, que é onde ele sempre esteve.
+
+                O MOSAICO NÃO MUDOU NADA. Os cartões trazem a própria foto e o
+                próprio escurecimento, então os nomes seguem brancos sobre a
+                imagem, medidos, independentes do fundo da seção. Foi por isso
+                que a troca custou quatro linhas de cor e mais nada. */}
+            <TypeLabel>Global faculty</TypeLabel>
             {/* A MESMA ESCALA, mas SEM o `mb-[52px]`: aqui o que vem depois do
                 título é um parágrafo de corpo, não a grade. Na home o 52px
                 existe para abrir o título dos cartões; entre título e texto
                 corrido ele viraria um buraco. O respiro fica no `mt-6` do
                 parágrafo, que já estava certo. */}
-            <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+            <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
               A faculty of 75 senior practitioners across 36 countries.
             </h2>
-            <p className="mt-6 max-w-[720px] font-serif text-[17px] leading-[1.7] text-white/75 md:text-[18px]">
+            <p className="mt-6 max-w-[720px] font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
               Our facilitators and coaches come from the behavioural sciences,
               organisation development, psychology and business. They span over twenty
               nationalities and a wide range of social identities. They are senior enough
@@ -278,7 +296,7 @@ export default function OurTeamPage() {
               {facultyRegions.map((region) => (
                 <div
                   key={region.name}
-                  className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink/70"
+                  className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white"
                 >
                   {/* ── SLOT 06 ────────────────────────────────────────────
                       O documento pede, em letra: *"Type: regional mosaic
@@ -301,77 +319,107 @@ export default function OurTeamPage() {
                     />
                   ) : (
                     <ImagePlaceholder
-                      tone="dark"
+                      /* `light` desde 12-09, junto com a seção: o slot vazio
+                         agora mora sobre `paper`, e o tom escuro do placeholder
+                         foi calibrado para viver sobre `ink`. */
+                      tone="light"
                       label="Faculty image"
                       className="absolute inset-0 h-full w-full rounded-2xl"
                     />
                   )}
 
+                  {/* ⚠️ OS DOIS ESCURECIMENTOS SÓ EXISTEM COM FOTO, desde
+                      12-09. Eles corriam sempre, e enquanto a seção era escura
+                      ninguém via o efeito no estado vazio. Com ela clara ficou
+                      evidente: sem imagem por baixo, o preto e o vermelho não
+                      tinham o que escurecer e simplesmente sujavam o
+                      placeholder — cada cartão desbotava de cinza-claro no topo
+                      para um marrom no pé, e o rótulo "Faculty image" ficava no
+                      meio da lama. Um slot tem de ler como slot.
+
+                      É o mesmo princípio do botão de compra em `BookCard`: o que
+                      existe para servir a um conteúdo ausente não fica
+                      desenhado à espera dele. */}
+                  {region.image && (
+                    <>
                   {/* O ESCURECIMENTO É NEUTRO E SEMPRE EXISTE, inclusive por
-                      cima do placeholder. Duas razões: o nome precisa de fundo
-                      medido, e a foto que vai entrar é desconhecida — clara ou
-                      escura, o degradê é o que garante que o nome continue
-                      legível sem ter de ajustar cinco vezes quando as imagens
-                      chegarem. `to-transparent` no topo deixa dois terços da
-                      foto respirarem. */}
-                  {/* ALONGADO PARA 3/5 COM RAMPA MAIS SUAVE, 11-09, depois de
-                      ver a grade preenchida. A 1/2 com `via-ink/70` o
-                      escurecimento subia rápido demais e nas fotos claras — céu
-                      de Singapura, fachada rosa de Jaipur — a passagem lia como
-                      uma faixa colada por cima da imagem, e não como sombra.
-                      Mais longo e mais leve no meio, o mesmo preto chega ao
-                      mesmo lugar sem anunciar onde começou. */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/55 to-transparent"
-                  />
-                  {/* A COR DA REFERÊNCIA, por cima do neutro e não no lugar
-                      dele. Na referência cada cartão tem um degradê colorido no
-                      pé, e é ele que faz a grade parecer desenhada em vez de
-                      cinco fotos escurecidas iguais.
+                          cima do placeholder. Duas razões: o nome precisa de fundo
+                          medido, e a foto que vai entrar é desconhecida — clara ou
+                          escura, o degradê é o que garante que o nome continue
+                          legível sem ter de ajustar cinco vezes quando as imagens
+                          chegarem. `to-transparent` no topo deixa dois terços da
+                          foto respirarem. */}
+                      {/* ALONGADO PARA 3/5 COM RAMPA MAIS SUAVE, 11-09, depois de
+                          ver a grade preenchida. A 1/2 com `via-ink/70` o
+                          escurecimento subia rápido demais e nas fotos claras — céu
+                          de Singapura, fachada rosa de Jaipur — a passagem lia como
+                          uma faixa colada por cima da imagem, e não como sombra.
+                          Mais longo e mais leve no meio, o mesmo preto chega ao
+                          mesmo lugar sem anunciar onde começou. */}
+                      <div
+                        aria-hidden
+                        className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/55 to-transparent"
+                      />
+                      {/* A COR DA REFERÊNCIA, por cima do neutro e não no lugar
+                          dele. Na referência cada cartão tem um degradê colorido no
+                          pé, e é ele que faz a grade parecer desenhada em vez de
+                          cinco fotos escurecidas iguais.
 
-                      A ORDEM DAS DUAS CAMADAS É O PONTO. O preto embaixo é
-                      quem entrega o contraste do nome, e está medido; a cor vem
-                      depois, fraca, só tingindo. Se fosse a cor a segurar a
-                      legibilidade, o nome passaria a depender de quanto tom tem
-                      naquele pedaço da foto, e cada imagem nova exigiria medir
-                      de novo.
+                          A ORDEM DAS DUAS CAMADAS É O PONTO. O preto embaixo é
+                          quem entrega o contraste do nome, e está medido; a cor vem
+                          depois, fraca, só tingindo. Se fosse a cor a segurar a
+                          legibilidade, o nome passaria a depender de quanto tom tem
+                          naquele pedaço da foto, e cada imagem nova exigiria medir
+                          de novo.
 
-                      `mix-blend-soft-light` E NÃO CAMADA CHAPADA: chapado sobre
-                      foto escura vira véu leitoso e apaga o assunto; soft light
-                      mantém a luminância da imagem e desloca só o matiz. É o
-                      mesmo raciocínio do `multiply` do herói, um degrau mais
-                      suave porque aqui a área é pequena e repetida cinco vezes.
+                          `mix-blend-soft-light` E NÃO CAMADA CHAPADA: chapado sobre
+                          foto escura vira véu leitoso e apaga o assunto; soft light
+                          mantém a luminância da imagem e desloca só o matiz. É o
+                          mesmo raciocínio do `multiply` do herói, um degrau mais
+                          suave porque aqui a área é pequena e repetida cinco vezes.
 
-                      ⏳ UMA COR SÓ HOJE (`brand`), e não cinco. O site tem um
-                      acento, e existe decisão de 10-09 de que ele não vira área.
-                      Cinco cores tiradas das fotos é o que a referência faz e é
-                      possível numa linha — o campo `tint` já está em
-                      `FacultyRegion` para isso. Mas isso é decisão de paleta,
-                      não de implementação, e é do cliente. */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 mix-blend-soft-light"
-                    style={{
-                      backgroundImage:
-                        region.tint ??
-                        /* A IMAGEM INTEIRA, e não só o pé — pedido de 11-09, e é
-                           o que a referência faz: o tom atravessa o cartão e vai
-                           sumindo para cima, em vez de terminar numa faixa.
+                          ⏳ UMA COR SÓ HOJE (`brand`), e não cinco. O site tem um
+                          acento, e existe decisão de 10-09 de que ele não vira área.
+                          Cinco cores tiradas das fotos é o que a referência faz e é
+                          possível numa linha — o campo `tint` já está em
+                          `FacultyRegion` para isso. Mas isso é decisão de paleta,
+                          não de implementação, e é do cliente. */}
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 mix-blend-soft-light"
+                        style={{
+                          backgroundImage:
+                            region.tint ??
+                            /* A IMAGEM INTEIRA, e não só o pé — pedido de 11-09, e é
+                               o que a referência faz: o tom atravessa o cartão e vai
+                               sumindo para cima, em vez de terminar numa faixa.
 
-                           E MAIS FRACO: a primeira versão usava o `brand` cheio
-                           e o pé dos cinco cartões ficava vermelho de verdade,
-                           que é a área que a decisão de 10-09 evita. Aqui ele
-                           entra a 52% embaixo, cai para 20% no meio e chega a
-                           zero no topo — tinge sem tomar conta.
+                               E MAIS FRACO: a primeira versão usava o `brand` cheio
+                               e o pé dos cinco cartões ficava vermelho de verdade,
+                               que é a área que a decisão de 10-09 evita. Aqui ele
+                               entra a 52% embaixo, cai para 20% no meio e chega a
+                               zero no topo — tinge sem tomar conta.
 
-                           Os três pontos são do MESMO vermelho (#d84339, o
-                           `brand`) em alfas diferentes, e não três cores: o que
-                           varia é quanto dele há, não qual é. */
-                        "linear-gradient(to top, rgba(216,67,57,.52) 0%, rgba(216,67,57,.20) 45%, rgba(216,67,57,0) 100%)",
-                    }}
-                  />
-                  <span className="absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] text-white">
+                               Os três pontos são do MESMO vermelho (#d84339, o
+                               `brand`) em alfas diferentes, e não três cores: o que
+                               varia é quanto dele há, não qual é. */
+                            "linear-gradient(to top, rgba(216,67,57,.52) 0%, rgba(216,67,57,.20) 45%, rgba(216,67,57,0) 100%)",
+                        }}
+                      />
+                    </>
+                  )}
+
+                  {/* ⚠️ O NOME TROCA DE COR COM O ESTADO, e isto é o conserto
+                      de um defeito que só apareceu quando a seção ficou clara em
+                      12-09. Branco é a cor certa SOBRE A FOTO, com os dois
+                      escurecimentos por baixo. Sem foto, os escurecimentos não
+                      existem (ver acima) e branco cairia sobre um placeholder
+                      claro — invisível. */}
+                  <span
+                    className={`absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] ${
+                      region.image ? "text-white" : "text-ink"
+                    }`}
+                  >
                     {region.name}
                   </span>
                 </div>
