@@ -1,7 +1,7 @@
 PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
 NOTA: SEM NEGRITO, como as últimas de 10-09. Serve igual para WhatsApp e e-mail.
 STATUS: ⬜ NÃO ENVIADA
-QUANDO: junto com a entrega da /our-services, ou logo depois dela. Sozinha, fora
+QUANDO: junto com a entrega de Services (a página é /solutions — o /our-services é rota do WordPress antigo, que hoje 308 para lá), ou logo depois dela. Sozinha, fora
         de contexto, vira "os desenvolvedores querendo mais arquivo".
 
 POR QUE ESTA MENSAGEM EXISTE:

@@ -60,3 +60,15 @@ docs/emails/
 # chega ao repo processado (imagens em public/, texto nos docs). Guardar a cópia
 # local; o original vive no drive do cliente.
 docs/Content.zip
+
+# O drive de fotografias da Maliha (10-09), pelo mesmo motivo e por mais um.
+# São ~13 MB de originais, e o conteúdo útil já chega processado em
+# public/team/. O motivo a mais: uma das pastas dentro dele chama-se
+# "cDNA. Approach " COM ESPAÇO NO FIM, que o git aqui nem consegue abrir e que
+# quebra um checkout no Windows.
+#
+# ENTROU POR ACIDENTE EM 11-09, num `git add docs/` que varreu tudo, e foi
+# preciso desfazer o commit. É exatamente para isso que esta linha existe: a
+# exclusão era uma decisão que só vivia na cabeça de quem lembrava dela.
+# Para versionar as fotos um dia, renomear as pastas primeiro.
+docs/maliha-drive-10-09/
