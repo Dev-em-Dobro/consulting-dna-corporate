@@ -489,13 +489,26 @@ export default function OurTeamPage() {
             título mora) mais escura que a direita. */}
         <section className="relative isolate overflow-hidden bg-ink">
           <Image
-            src="/team/faculty-global-dna.jpg"
+            src="/team/dna-helix.jpg"
             alt=""
             fill
             sizes="100vw"
-            /* O FILTRO É O DO HERÓI, copiado — pedido de 12-09 ("a opacidade da
-               imagem de fundo pode usar como está na hero"). `HERO_TINT.filter`
-               em `SolutionHero`: dessatura para .65 e escurece para .68.
+            /* ⚠️ A IMAGEM TROCOU EM 12-09: era o globo com a hélice por cima
+               (`faculty-global-dna.jpg`, que entrou na Global faculty em 11-09 e
+               migrou para cá), e virou a hélice sozinha sobre preto. A diferença
+               que importa para o resto deste bloco é de LUMINÂNCIA: o globo
+               tinha luzes de cidade quase brancas espalhadas na metade de baixo,
+               e era isso que obrigava o escurecimento a trabalhar tanto. Esta é
+               preta em quase toda a área, com o brilho concentrado na diagonal.
+
+               ⚠️ O `brightness` SAIU COM O GLOBO. O filtro do herói é
+               `saturate(.65) brightness(.68)`, e o segundo valor existe lá para
+               uma foto de sala com luz tungstênio — e existia aqui para as luzes
+               de cidade do globo. Sobre uma imagem que já é preta em 90% da área
+               ele não domava nada: só apagava a hélice, que é a única coisa que
+               a imagem tem para mostrar. O `saturate` FICA, e aí ele trabalha:
+               tira o azul-frio da hélice e a deixa prata, que é o que a paleta
+               desta página aceita sem introduzir uma cor nova.
 
                O `brightness` é a peça que se esquece ao copiar só o gradiente:
                no herói ele existe porque `multiply` escurecia por definição e,
@@ -503,7 +516,7 @@ export default function OurTeamPage() {
                escurecimentos laterais não previam. Aqui vale igual — é ele que
                deixa o gradiente trabalhar sobre uma base já assentada, em vez
                de sozinho contra a imagem cheia. */
-            className="-z-10 object-cover object-center saturate-[.65] brightness-[.68]"
+            className="-z-10 object-cover object-top saturate-[.65]"
           />
           {/* ⚠️ ABERTO EM 12-09, a pedido: a imagem aparece mais. Os números
               vieram de 75% no plano e `ink/45` na ponta direita, que eram os da
@@ -527,51 +540,32 @@ export default function OurTeamPage() {
               mantém escura exatamente a coluna onde o rótulo e o título vivem,
               e deixa os outros 75% abertos — que é onde a imagem aparece e onde
               não há texto nenhum. Fechar tudo de novo teria desfeito o pedido. */}
-          {/* OS DOIS ESCURECIMENTOS SÃO OS DO HERÓI, os mesmos quatro pontos:
-              .90 na borda esquerda, .66 aos 38%, .24 aos 62% e .06 no fim. Com
-              o filtro da imagem por baixo, é exatamente o tratamento do herói
-              das páginas de serviço — que é o que foi pedido.
+          {/* ⚠️ UM VÉU UNIFORME, E NÃO MAIS O GRADIENTE DO HERÓI. Pedido de
+              12-09 ("deixar a opacidade mais uniforme… um pouco mais forte para
+              não aparecer tanto o DNA e ofuscar os textos"), e é também a saída
+              certa por medição.
 
-              O QUE ELE SUBSTITUI: um plano de `ink/55` mais um degradê próprio
-              com `from-25%`. Aquilo chegou lá por tentativa e medição; isto é o
-              arranjo que já passou por seis variações em 10-09. Uma decisão a
-              menos para manter em dois lugares.
+              O QUE HAVIA AQUI, em ordem: os quatro pontos do herói; depois um
+              platô de 18% à esquerda, porque o rótulo reprovava; depois os
+              pontos da direita rebaixados, porque a hélice sumia; depois o platô
+              esticado até 55%, porque o TÍTULO reprovava. Quatro ajustes para
+              fazer uma curva horizontal servir a um bloco cujo texto atravessa
+              a tela — e mesmo assim o pior pixel do título ficava em 2,80:1.
 
-              ⚠️ NO TELEFONE O HORIZONTAL NÃO SERVE, e o herói já sabia disso: em
-              390px o texto atravessa a largura inteira, então "escuro à
-              esquerda, claro à direita" deixa o fim de cada linha sobre foto
-              crua. Lá a saída é um gradiente VERTICAL, porque o texto é
-              ancorado embaixo. Aqui o texto está em cima e os cartões embaixo,
-              então o vertical do herói não serve tampouco — o que serve é um
-              plano, e é o que fica abaixo de `md`. */}
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 bg-ink/72 md:hidden"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 hidden md:block"
-            style={{
-              backgroundImage:
-                /* ⚠️ O GRADIENTE É O DO HERÓI COM UM PLATÔ NO COMEÇO, e o platô não é
-                   licença poética: com os quatro pontos exatos do herói, medido
-                   em 12-09, o rótulo `brand-light` deu 3,86:1 — abaixo dos 4,5
-                   que 14px em caixa alta exige. O título passou (4,75:1), porque
-                   é branco e grande. É sempre o rótulo que reprova.
+              A RAZÃO DE O GRADIENTE NÃO SERVIR AQUI é a diferença entre esta
+              imagem e a do herói. Lá a foto é uniforme e o texto mora à
+              esquerda, então escuro-à-esquerda-claro-à-direita casa com a
+              composição. Aqui o assunto é uma DIAGONAL brilhante que cruza
+              justamente a segunda linha do título, e nenhuma curva horizontal
+              resolve um brilho que anda na diagonal: onde ela protege o texto,
+              apaga a imagem; onde mostra a imagem, apaga o texto.
 
-                   Segurar `.90` até os 18% mantém escura só a coluna onde o
-                   rótulo e o título vivem. Os outros três pontos são os do herói,
-                   intactos, então a imagem continua abrindo do mesmo jeito à
-                   direita — que é o que foi pedido.
-
-                   POR QUE O HERÓI NÃO TEM ESTE PROBLEMA: lá o rótulo vive sobre
-                   a parte mais escura da composição. E quando ele não vive — na
-                   home — o problema EXISTE e está documentado em `HeroV2`, com o
-                   coral medindo 2,90:1 e mantido a pedido. Aqui dava para
-                   resolver sem perder a imagem, então resolvi. */
-                "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.90) 18%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
-            }}
-          />
+              Plano resolve os dois de uma vez e é o que foi pedido. 62% vem da
+              conta: no estouro da hélice o fundo vale ~255, branco a 3,0:1 exige
+              composto ≤149, e `255 − 205·alfa ≤ 149` dá alfa ≥ 0,52. 62% deixa
+              margem e é onde a hélice ainda lê como assunto. */
+          }
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/[0.62]" />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel onDark>The DNA experience</TypeLabel>
             {/* A escala do h2 da Client impact, inteira — 28/34/40, peso 600,
