@@ -36,8 +36,10 @@ export default function SolutionHero({
   title,
   subtitle,
   imageUrl,
-  tint = "linear-gradient(120deg, #6b5d61 0%, #93615a 55%, #c2564a 100%)",
-  imageFilter = "saturate-[.55]",
+  tint = "none",
+  imageFilter = "saturate-[.65] brightness-[.68]",
+  scrollCueHref,
+  scrollCueLabel = "Scroll to see more",
 }: {
   eyebrow: string;
   title: string;
@@ -52,17 +54,51 @@ export default function SolutionHero({
    * medida que cada serviço ganha a sua, sem tocar em código.
    */
   imageUrl?: string;
-  /** O duotone sobre a foto. Ver a caixa no ponto de uso. */
+  /**
+   * A camada `multiply` por cima da foto. **O padrão é não ter nenhuma.**
+   *
+   * ⚠️ ERA UM DUOTONE ATÉ 11-09 — `linear-gradient(120deg, #6b5d61, #93615a,
+   * #c2564a)`, carvão indo para vermelho. Saiu a pedido, primeiro na /team e
+   * agora nas doze rotas: o vermelho daqueles heróis nunca veio da fotografia,
+   * vinha desta camada. `none` é valor válido de `background-image`, então o
+   * `div` continua no DOM e simplesmente não pinta — saída limpa, sem prop nova
+   * e sem ramo no JSX.
+   *
+   * Quem passar um gradiente aqui reativa o duotone para a sua página.
+   */
   tint?: string;
   /**
-   * Filtro CSS aplicado à FOTO, antes do tint.
+   * Filtro CSS aplicado à FOTO.
    *
-   * Existe por causa do laranja. O tint é `multiply`, e multiply sobre a luz
-   * tungstênio amarela da foto padrão dá laranja — não era o vermelho da marca
-   * errado, era a cor da lâmpada entrando na conta. Dessaturar antes tira o
-   * amarelo da equação e o mesmo tint passa a ler como cinza indo para vermelho.
+   * É O DA HOME, copiado de `HERO_TINT.filter` em `HeroV2` — as duas páginas
+   * passam a tratar a foto do herói igual.
+   *
+   * O `brightness` NÃO É ENFEITE, e é a peça que se esquece ao tirar um
+   * duotone: `multiply` escurece por definição, então remover a camada devolve
+   * à foto um brilho que os escurecimentos laterais deste herói não previam.
+   * O `.68` repõe em neutro o que a camada fazia em cor. Sem ele o texto branco
+   * perde contraste no terço claro da imagem.
+   *
+   * O `saturate` subiu de `.55` para `.65` junto: o `.55` existia para matar a
+   * luz tungstênio amarela da foto padrão, que o `multiply` transformava em
+   * laranja. Sem `multiply` esse problema não existe, e dessaturar tanto só
+   * apagava a imagem.
    */
   imageFilter?: string;
+  /**
+   * Âncora da seta de rolagem no pé da dobra (`"#what-we-do"`). SEM ELA A SETA
+   * NÃO EXISTE, e o padrão é não existir de propósito: este herói serve doze
+   * rotas, e a seta só se paga onde a dobra cheia realmente esconde o resto.
+   *
+   * É UM LINK E NÃO UM BOTÃO porque o `html { scroll-behavior: smooth }` do
+   * `globals.css` já entrega a rolagem suave de graça — e um `<a href="#...">`
+   * funciona sem JS, o que mantém este componente de servidor. A NavV2 é
+   * `absolute`, então ela rola junto e não há barra fixa para descontar do
+   * destino.
+   */
+  scrollCueHref?: string;
+  /** O que o leitor de tela ouve. A seta em si é `aria-hidden`. */
+  scrollCueLabel?: string;
 }) {
   const src = imageUrl ?? fallbackPhoto;
   return (
@@ -93,15 +129,13 @@ export default function SolutionHero({
         className={`-z-30 object-cover object-center ${imageFilter}`}
       />
 
-      {/* DUOTONE — `multiply`, não camada chapada. Chapado sobre foto escura
-          vira lama, porque clareia as sombras; o multiply mantém os pretos e
-          tinge só o que tem luz.
+      {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
+          DOM para quem quiser reativar um duotone por página.
 
-          POR QUE NÃO O VERMELHO DA MARCA PURO, testado e descartado: a página
-          usa vermelho como ACENTO — rótulo, régua, CTA, divisórias. Com o fundo
-          também vermelho o acento perde a função e o rótulo vira parte da
-          parede. O degradê resolve: começa em carvão, onde o texto mora, e só
-          chega ao vermelho na borda oposta. */}
+          O `multiply` fica aqui e não vira camada chapada porque é a única
+          mistura que serve a este lugar: chapado sobre foto escura vira lama,
+          já que clareia as sombras; o multiply mantém os pretos e tinge só o
+          que tem luz. Quem devolver um gradiente ao `tint` herda isso de graça. */}
       <div
         aria-hidden
         className="absolute inset-0 -z-20 mix-blend-multiply"
@@ -183,6 +217,81 @@ export default function SolutionHero({
           <p className="h-sub mt-6 max-w-[560px] text-[19px] leading-[1.45] text-white/80 md:text-[21px]">
             {subtitle}
           </p>
+        )}
+
+        {/* A SETA DE ROLAGEM — mora aqui dentro, e não ao lado do <HeroIntro>,
+            porque o `buildHeroIntro` só enxerga o que está dentro do escopo
+            dele. O posicionamento não sofre com isso: o wrapper do HeroIntro
+            não tem `position`, então o `absolute` daqui se mede pela <section>,
+            que é `relative` — a seta fica presa ao pé da DOBRA, e não ao pé do
+            bloco de texto, que no desktop está centralizado.
+
+            À ESQUERDA, e não centralizada, por duas razões que apontam para o
+            mesmo lugar. A composição é toda de eixo esquerdo — régua, rótulo,
+            título, apoio — e uma seta no meio abriria um segundo eixo só para
+            ela. E é onde o escurecimento do desktop é mais forte (.90 na borda
+            esquerda contra ~.38 no centro): centralizada, ela cairia justamente
+            na parte clara da foto, onde branco a 65% deixa de ser legível.
+
+            O `max-w-[1440px] px-6/px-10` repete o do <HeroIntro> porque é o que
+            faz a seta nascer exatamente na mesma margem do título em telas mais
+            largas que 1440 — sem isso ela encostaria na borda da janela.
+
+            SÓ NO DESKTOP (`hidden md:block`), e isto foi medido, não presumido.
+            No telefone o texto é ancorado embaixo (`justify-end`) e ocupa a
+            dobra até o fim: num 390×844 o subtítulo termina a 764px de 844, e
+            não sobra faixa vazia onde pôr a seta. Com o banner de cookies
+            aberto fica pior — ele tem 163px ali (contra 85 no desktop, porque o
+            texto reflui), e a seta, empurrada por `--consent-h`, aterrissava em
+            cima da palavra "leaders" no meio do título.
+
+            E ela também serve menos ali: quem inventou o gesto de rolar foi o
+            telefone. Quem precisa do convite é o visitante de desktop diante de
+            uma dobra cheia, de sangria total e parada, que não dá nenhum sinal
+            de ter página embaixo. */}
+        {scrollCueHref && (
+          <div className="h-cue absolute inset-x-0 hidden md:block">
+            <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">
+              {/* COM RÓTULO, e não a seta sozinha. Posta nua no canto, a 26px e
+                  a quase 200px do fim do subtítulo, ela lia como respingo da
+                  foto — um traço que se ignora, não um convite. O rótulo lhe dá
+                  peso de instrução, e é a mesma micro-tipografia em versalete do
+                  `eyebrow` lá em cima, então entra na família em vez de virar
+                  peça avulsa.
+
+                  BRANCO E NÃO `brand-light`: nesta página o vermelho é o acento
+                  que marca o COMEÇO das coisas (régua, rótulo, CTA). Um segundo
+                  vermelho no pé disputaria essa função. */}
+              <a
+                href={scrollCueHref}
+                aria-label={scrollCueLabel}
+                className="inline-flex items-center gap-3 py-2 text-white/60 transition-colors hover:text-white"
+              >
+                <span className="text-[12px] font-medium uppercase leading-none tracking-[1.6px]">
+                  Scroll
+                </span>
+                <span className="cue-bob block">
+                  <svg
+                    aria-hidden
+                    width="16"
+                    height="24"
+                    viewBox="0 0 16 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {/* Haste comprida com ponta curta: é a mesma régua de 36×2
+                        do rótulo, virada de pé. Um chevron solto seria de outra
+                        família gráfica. */}
+                    <path d="M8 2v18" />
+                    <path d="m2.5 15.5 5.5 5.5 5.5-5.5" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
         )}
       </HeroIntro>
     </section>

@@ -9,7 +9,7 @@
  *
  * ⚠️ OS ALVOS NASCEM ESCONDIDOS, e isto é o que torna a função obrigatória e
  * não decorativa. `app/globals.css` zera a opacidade de `.h-bar`, `.h-eyebrow`,
- * `.h-title`, `.h-sub` e `.h-cta` sob `html.js`, para que nada pisque montado
+ * `.h-title`, `.h-sub`, `.h-cta` e `.h-cue` sob `html.js`, para que nada pisque montado
  * antes de o GSAP assumir. Quem põe uma dessas classes numa página e NÃO roda
  * esta timeline publica um bloco invisível. Por isso quem chama precisa de um
  * disparo garantido — ver o `gate` em `HeroIntro.tsx` e em `HeroV2.tsx`, os dois
@@ -40,6 +40,7 @@ export function buildHeroIntro(root: HTMLElement): gsap.core.Timeline {
   const title = find(".h-title");
   const sub = find(".h-sub");
   const cta = find(".h-cta");
+  const cue = find(".h-cue");
 
   // A régua cresce a partir da esquerda, e é ela que dá a partida.
   if (bar.length) {
@@ -84,6 +85,19 @@ export function buildHeroIntro(root: HTMLElement): gsap.core.Timeline {
       { autoAlpha: 0, y: 22 },
       { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.6 },
       tl.duration() ? "-=0.5" : 0,
+    );
+  }
+  // A seta de rolagem é sempre a ÚLTIMA, e entra quase sem sobreposição —
+  // diferente dos outros, ela não faz parte da frase. Primeiro a página se
+  // apresenta; só então ela diz que há mais. Ela também é o único alvo que vive
+  // colado na base da dobra, longe do bloco de texto, então subir 10px (e não
+  // 26 como a linha de apoio) é o suficiente para ler como chegada.
+  if (cue.length) {
+    tl.fromTo(
+      cue,
+      { autoAlpha: 0, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.6 },
+      tl.duration() ? "-=0.15" : 0,
     );
   }
 

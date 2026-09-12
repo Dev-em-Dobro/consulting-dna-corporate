@@ -49,9 +49,49 @@ html.js .h-eyebrow,
 html.js .h-title,
 html.js .h-sub,
 html.js .h-cta,
+html.js .h-cue,
 html.js [data-reveal="stagger"] > *,
 html.js [data-reveal="block"] {
   opacity: 0;
+}
+
+/* Scroll cue — a seta que fecha a primeira dobra dos heróis de altura cheia.
+   Entra por último na escada de `lib/hero-timeline.ts` (`.h-cue`), e só DEPOIS
+   começa a chamar atenção: o convite a rolar não pode competir com o título
+   enquanto ele ainda está chegando.
+
+   SÃO DOIS ELEMENTOS DE PROPÓSITO, o mesmo arranjo do pin do mapa acima: o
+   GSAP escreve `transform` no `.h-cue` para a entrada, e uma @keyframes também
+   escreveria `transform` se morasse no mesmo nó — e keyframe vence estilo
+   inline, então o balanço comeria a entrada. O `.cue-bob` é um filho, e cada
+   um fica com o seu transform.
+
+   O `bottom` MORA AQUI e não em utilitário do Tailwind porque precisa somar
+   `--consent-h` — a altura que o `CookieConsent` publica enquanto está na tela.
+   Sem isso a seta nasce debaixo do banner de cookies (z-9999, `fixed`), ou
+   seja, invisível exatamente na primeira visita, que é quando ela serve. */
+.h-cue {
+  bottom: calc(1.75rem + var(--consent-h, 0px));
+  transition: bottom 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (min-width: 768px) {
+  .h-cue {
+    bottom: calc(2.25rem + var(--consent-h, 0px));
+  }
+}
+.cue-bob {
+  animation: cue-bob 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes cue-bob {
+  0%, 72%, 100% { transform: translateY(0); }
+  36% { transform: translateY(7px); }
+}
+/* Sob "reduzir movimento" a seta FICA — ela é informação (há mais página
+   abaixo), não enfeite. O que sai é só o laço infinito, que é justamente a
+   classe de movimento que a preferência existe para desligar. */
+@media (prefers-reduced-motion: reduce) {
+  .cue-bob { animation: none; }
+  .h-cue { transition: none; }
 }
 
 /* Phone/tablet hero intro, gated on the `touch` class that the inline <head>

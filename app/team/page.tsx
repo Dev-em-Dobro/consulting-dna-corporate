@@ -70,27 +70,16 @@ export default function OurTeamPage() {
             documento diz estar reservada para a About, com a pergunta em aberto
             de se uma serve as duas páginas. Enquanto não se decide, dividir a
             padrão é melhor que um slot vazio na primeira tela. */}
-        {/* SEM O DUOTONE, a pedido em 11-09: cinza como na home.
-            O vermelho do herói das páginas de serviço não vem da foto, vem da
-            camada `multiply` que o `tint` pinta por cima dela. `none` é valor
-            válido de `background-image`, então a camada continua no DOM e
-            simplesmente não pinta — é a saída limpa, sem prop nova.
-
-            O FILTRO É O DA HOME, copiado: `saturate(.65) brightness(.68)`
-            (`HERO_TINT.filter`, em HeroV2). O `brightness` não é enfeite —
-            multiply escurece por definição, e tirar a camada devolve à foto um
-            brilho que os escurecimentos laterais do herói não previam. Ele
-            repõe o que a camada fazia, em neutro.
-
-            CONTRASTE: o texto só melhora. Os gradientes que o sustentam já são
-            `rgba(35,31,33,…)` puros e não mudaram; a foto por baixo ficou mais
-            escura, não mais clara. */}
+        {/* SEM O DUOTONE, a pedido em 11-09: cinza como na home. Esta página foi
+            a primeira, e passava `tint="none"` com o filtro da home escrito aqui.
+            As páginas de serviço pediram o mesmo no mesmo dia, e aí os dois
+            valores viraram o PADRÃO do `SolutionHero` — o raciocínio inteiro
+            (por que `none`, por que o `brightness` não é enfeite) mora agora nas
+            props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
         <SolutionHero
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
           subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
-          tint="none"
-          imageFilter="saturate-[.65] brightness-[.68]"
         />
 
         {/* ── Leadership ────────────────────────────────────────────────── */}

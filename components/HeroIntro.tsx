@@ -19,7 +19,7 @@ gsap.registerPlugin(useGSAP);
  * anterior. A timeline é literalmente a mesma função (`lib/hero-timeline.ts`).
  *
  * COMO SE USA: as classes vão nos elementos DE DENTRO — `h-bar`, `h-eyebrow`,
- * `h-title`, `h-sub`, `h-cta`. As que não existirem são puladas.
+ * `h-title`, `h-sub`, `h-cta`, `h-cue`. As que não existirem são puladas.
  *
  * ⚠️ ESSAS CLASSES NASCEM COM `opacity: 0` (app/globals.css, sob `html.js`).
  * Quem as escreve sem este componente por volta publica texto invisível. É por
