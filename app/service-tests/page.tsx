@@ -1,6 +1,24 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import heroPhoto from "@/public/solutions/service-hero-fallback.jpg";
+/**
+ * A hélice de DNA sobre a Terra à noite, mandada em 11-09. É a primeira imagem
+ * deste projeto que NÃO é fotografia de evento: não tem rosto, não tem marca de
+ * terceiro na parede, não insinua relação com cliente nenhum. Por isso ela pode
+ * repetir-se nas dez páginas sem o problema que tirou as fotos daqui — repetição
+ * de ilustração lê como identidade; repetição de fotografia lê como falta de
+ * material.
+ *
+ * Veio PNG de 2,6 MB; convertida para JPEG de 303 KB (qualidade 82), porque o
+ * arquivo mora no repositório e o Next só otimiza o que serve, não o que versiona.
+ *
+ * ⚠️ A COMPOSIÇÃO DECIDE O LAYOUT, e não o contrário. A hélice arqueia no TERÇO
+ * SUPERIOR; o globo e as luzes de cidade ocupam os dois terços de baixo, com o
+ * ponto mais brilhante embaixo à esquerda. O espaço realmente escuro e vazio é o
+ * alto ao centro-direita, entre as voltas da hélice. Texto claro só é legível ali
+ * ou sobre escurecimento — e é isso que separa as versões 7 e 8 abaixo.
+ */
+import dnaEarth from "@/public/solutions/dna-earth.jpg";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -367,6 +385,127 @@ function V6() {
   );
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   7 · A HÉLICE AO FUNDO, TEXTO CENTRADO
+   A imagem cobre a seção inteira e o texto vai para o meio, em coluna curta.
+   O escurecimento é PAREJO — um véu de cima a baixo — porque texto centrado
+   cruza a largura toda e não existe um lado seguro para deixar limpo.
+   O que resolve: presença máxima com uma imagem que pode repetir nas dez
+   páginas sem parecer falta de material.
+   O limite: véu parejo é o que mais apaga a imagem. Ela vira textura, não
+   assunto — e aqui ela TEM assunto (é a marca desenhada).
+   ───────────────────────────────────────────────────────────────────────── */
+function V7() {
+  return (
+    <>
+      {[
+        { label: LABEL_A, text: TEXT_A, pos: "object-[50%_28%]" },
+        { label: LABEL_B, text: TEXT_B, pos: "object-[50%_72%]" },
+      ].map((b) => (
+        <section
+          key={b.label}
+          className="relative isolate flex min-h-[520px] items-center overflow-hidden bg-ink text-white"
+        >
+          {/* O RECORTE MUDA ENTRE OS BLOCOS e é o que impede a repetição de
+              parecer erro: o primeiro enquadra a hélice, o segundo desce para
+              as luzes de cidade. Mesma imagem, dois assuntos. */}
+          <Image
+            src={dnaEarth}
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className={`-z-20 object-cover ${b.pos}`}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom, rgba(24,22,23,.62) 0%, rgba(24,22,23,.78) 50%, rgba(24,22,23,.62) 100%)",
+            }}
+          />
+          <div className="mx-auto w-full max-w-[1440px] px-6 py-20 text-center md:px-10 md:py-24">
+            <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
+              {b.label}
+            </p>
+            {/* `mx-auto` com medida de 820: centrado não pode ser largo, senão
+                a linha fica comprida e o olho perde o começo da seguinte. */}
+            <p className="mx-auto mt-7 max-w-[820px] font-serif text-[22px] leading-[1.5] text-white [text-wrap:balance] md:text-[27px]">
+              {b.text}
+            </p>
+          </div>
+        </section>
+      ))}
+    </>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   8 · A HÉLICE AO FUNDO, COM ELA VISÍVEL ONDE NÃO HÁ TEXTO
+   A mesma imagem, e a diferença é só o escurecimento: em vez de um véu
+   parejo, ele é LATERAL e para na metade. O texto encosta num lado e a
+   imagem fica limpa no outro.
+   Na primeira linha o texto vai para a DIREITA, que é onde o céu é escuro e
+   vazio entre as voltas da hélice — e aí o globo aceso sobra livre à
+   esquerda, que é a parte que vale a pena mostrar. Na segunda linha inverte.
+   O que resolve: a imagem deixa de ser papel de parede e vira metade da
+   composição, sem custar legibilidade.
+   O limite: a área limpa tem de ser realmente escura na foto. Funciona com
+   ESTA imagem; com outra, o escurecimento tem de ser remedido.
+   ───────────────────────────────────────────────────────────────────────── */
+function V8() {
+  return (
+    <>
+      {[
+        { label: LABEL_A, text: TEXT_A, textRight: true, pos: "object-[38%_30%]" },
+        { label: LABEL_B, text: TEXT_B, textRight: false, pos: "object-[62%_70%]" },
+      ].map((b) => (
+        <section
+          key={b.label}
+          className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-ink text-white"
+        >
+          <Image
+            src={dnaEarth}
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className={`-z-20 object-cover ${b.pos}`}
+          />
+          {/* PARA EM 58% e não atravessa: é o que deixa a outra metade com a
+              imagem crua. Os dois primeiros pontos são quase opacos porque o
+              texto vive ali; a queda é rápida para o véu não invadir o lado
+              limpo. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundImage: b.textRight
+                ? "linear-gradient(to left, rgba(24,22,23,.90) 0%, rgba(24,22,23,.84) 30%, rgba(24,22,23,.42) 58%, rgba(24,22,23,0) 86%)"
+                : "linear-gradient(to right, rgba(24,22,23,.90) 0%, rgba(24,22,23,.84) 30%, rgba(24,22,23,.42) 58%, rgba(24,22,23,0) 86%)",
+            }}
+          />
+          <div
+            className={`mx-auto flex w-full max-w-[1440px] px-6 py-20 md:px-10 md:py-24 ${
+              b.textRight ? "justify-end" : ""
+            }`}
+          >
+            <div className="max-w-[560px]">
+              <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
+                {b.label}
+              </p>
+              <p className="mt-7 font-serif text-[21px] leading-[1.5] text-white md:text-[25px]">
+                {b.text}
+              </p>
+            </div>
+          </div>
+        </section>
+      ))}
+    </>
+  );
+}
+
 export default function ServiceSectionTests() {
   const variants = [
     {
@@ -398,6 +537,16 @@ export default function ServiceSectionTests() {
       name: "Numerada",
       note: "O número vira o gráfico e diz o que hoje não está dito: que os dois blocos são uma sequência — primeiro o que muda, depois como.",
       node: <V6 />,
+    },
+    {
+      name: "Hélice ao fundo · texto centrado",
+      note: "A imagem cobre a seção e o texto vai para o meio. O escurecimento é parejo, porque texto centrado cruza a largura toda e não sobra lado seguro — e é isso que mais apaga a imagem.",
+      node: <V7 />,
+    },
+    {
+      name: "Hélice ao fundo · imagem limpa onde não há texto",
+      note: "Mesma imagem, escurecimento lateral que para na metade. Na primeira linha o texto vai para a direita, onde o céu é escuro, e o globo aceso fica livre à esquerda. Na segunda inverte.",
+      node: <V8 />,
     },
   ];
 
