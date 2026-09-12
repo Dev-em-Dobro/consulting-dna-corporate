@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
-import type { ServiceFact } from "@/lib/services";
+import { factIsMeasure, type ServiceFact } from "@/lib/services";
 
 /**
  * Bloco 4 do outline — Evidence. Quatro cards de mesmo tamanho sobre faixa
@@ -118,21 +118,46 @@ export default function SolutionEvidence({
                 }}
               >
                 <div className="mt-auto">
-                  {/* O `Counter` CONTA SÓ O QUE É NÚMERO, e é ele mesmo que
-                      decide: ele procura o primeiro número na string, e quando
-                      não acha nenhum devolve o texto parado. Isso importa aqui
-                      porque metade dos fatos destas páginas NÃO é medida —
-                      "Enterprise wide", "Multi market", e a cascata inteira da
-                      GSK ("CEO led", "LT aligned"…). Passar todos pelo
-                      componente é seguro e evita um `if` que teria de adivinhar
-                      a mesma coisa que ele já sabe.
-                      Os que contam: 150, 1.000+, 92%, 93%, 400+, 20+, 18. */}
-                  <Counter
-                    value={f.value}
-                    className="block text-[24px] font-semibold leading-[1.12] tracking-[-0.5px] text-white md:text-[27px]"
-                  />
+                  {/* MEDIDA E PALAVRA NÃO TÊM O MESMO TRATAMENTO, decidido em
+                      11-09 porque os números estavam pequenos demais para o que
+                      são: eles são a prova da seção, e saíam do mesmo tamanho de
+                      um subtítulo. Quem decide é `factIsMeasure` — e vale ler a
+                      caixa dele em `lib/services.ts`, porque "N-1 embedded" já
+                      derrubou uma versão dessa regra.
+
+                      ⚠️ O VERMELHO É O `brand-light`, NÃO O DA MARCA, e aqui a
+                      conta não é opcional. Medido sobre o preenchimento REAL do
+                      card (não sobre `ink` puro — há um gradiente de luz branca
+                      de 7% a 2% por cima dele, fundo efetivo ~#3c3739):
+
+                        brand      #d84339   2,66:1   ✗
+                        brand-lt   #e47e77   4,20:1   ✓
+                        branco     #ffffff  11,68:1   ✓
+
+                      O mínimo para texto GRANDE é 3,0, e a partir de 24px todo
+                      texto é grande para a norma — então o número passa, com
+                      folga, e o vermelho cheio reprovaria mesmo assim. É a
+                      mesma razão pela qual a régua do rótulo desta seção já usa
+                      o tom claro.
+
+                      A PALAVRA FICA BRANCA e num corpo intermediário. Pintar
+                      "Management activated" de vermelho a 48px transformaria um
+                      passo de uma sequência em manchete, e a cascata da GSK são
+                      quatro passos de igual peso. Ela também é a única que pode
+                      quebrar em duas linhas, e por isso mantém entrelinha de
+                      texto e não de número. */}
+                  {factIsMeasure(f) ? (
+                    <Counter
+                      value={f.value}
+                      className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[38px] md:text-[48px]"
+                    />
+                  ) : (
+                    <div className="text-[21px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[23px]">
+                      {f.value}
+                    </div>
+                  )}
                   {f.label && (
-                    <div className="mt-2 font-serif text-[13px] leading-[1.45] text-white/70 md:text-[14px]">
+                    <div className="mt-3 font-serif text-[14px] leading-[1.45] text-white/75 md:text-[15px]">
                       {f.label}
                     </div>
                   )}

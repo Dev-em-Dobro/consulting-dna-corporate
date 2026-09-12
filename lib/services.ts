@@ -42,6 +42,36 @@
 /** Um fato da faixa de evidência: o número grande e o que ele conta. */
 export type ServiceFact = { value: string; label?: string };
 
+/**
+ * Este fato é uma MEDIDA ou uma PALAVRA?
+ *
+ * A faixa de evidência mistura os dois, e não por descuido — é o que os cinco
+ * casos do documento têm. São medidas: 150, 18, 400+, 7 years, 92%, 93%, 150+,
+ * 1,000+, 20+, 6 to 12. São palavras: "Enterprise wide", "Multi market", e a
+ * cascata da GSK ("CEO led", "LT aligned", "Management activated",
+ * "N-1 embedded") — que o próprio outline aponta como o único dos cinco sem
+ * número nenhum.
+ *
+ * Tratar os dois igual é o que deixava a faixa sem destaque: um número existe
+ * para ser visto de longe, uma frase existe para ser lida.
+ *
+ * ⚠️ O TESTE É "COMEÇA COM DÍGITO", E NÃO "TEM DÍGITO" — a primeira versão era
+ * a segunda, e **"N-1 embedded"** a derrubou na mesma tarde. Ela tem o "1", foi
+ * classificada como medida, saiu em vermelho a 48px quebrando em duas linhas, e
+ * transformou o quarto passo de uma cascata de quatro passos iguais numa
+ * manchete. "N-1" é nível de organograma, não quantidade.
+ *
+ * O `[^A-Za-z]*` na frente deixa passar um símbolo inicial ("$2M", "+40%"),
+ * que não existe nos dados de hoje mas é o que viria do CMS. Uma medida escrita
+ * por extenso ("one hundred and fifty") cairia como palavra — e nesse caso o
+ * lugar de consertar é a copy, não a expressão regular.
+ *
+ * NÃO É MAIS O MESMO TESTE DO `Counter`, que procura número em qualquer posição.
+ * Não precisa ser: o ramo de palavra nem chega a montar o `Counter`, então ele
+ * nunca vê "N-1 embedded". Quem decide o tratamento é esta função, sozinha.
+ */
+export const factIsMeasure = (fact: ServiceFact) => /^[^A-Za-z]*\d/.test(fact.value);
+
 export type ServiceEvidence = {
   /** Nome do cliente, em caixa alta no documento. */
   client: string;
