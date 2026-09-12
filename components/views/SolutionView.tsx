@@ -2,53 +2,8 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
-import ServiceCard from "@/components/solutions/ServiceCard";
-import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
-import {
-  paragraphs,
-  services,
-  type Service,
-  type ServiceTestimonial,
-} from "@/lib/services";
-
-/**
- * O pé de cada página de serviço — as outras nove.
- *
- * POR QUE ELE EXISTE: até 11-09 a página de serviço era um beco. Ela terminava
- * na faixa de CTA, e quem não quisesse falar com a gente naquele instante não
- * tinha para onde ir a não ser o menu ou o botão de voltar. São dez serviços
- * cujos públicos se sobrepõem — quem lê "Manager Development" é candidato a
- * "High Performing Teams" — e nada na página dizia que os outros existiam.
- *
- * FICA ANTES DO CTA, e não depois: o convite é o fim da página em todas as dez,
- * e empurrá-lo para o meio para terminar numa grade de navegação inverte a
- * prioridade. Aqui a ordem é: você leu este, aqui estão os outros, e agora o
- * convite.
- *
- * ⚠️ EXCLUI O SERVIÇO ATUAL pelo slug. Sem isso a grade mostraria dez, com a
- * página em que a pessoa já está no meio delas.
- *
- * NÃO É UMA LISTA DE "RELACIONADOS": não há dado de relação entre serviços em
- * lugar nenhum — nem no outline, nem no CMS —, e inventar uma afinidade
- * ("quem vê isto também vê aquilo") seria editorial nosso sem base. São as
- * outras nove, na ordem do documento, que é a ordem deliberada dele.
- */
-function MoreServices({ currentSlug }: { currentSlug: string }) {
-  const others = services.filter((s) => s.slug !== currentSlug);
-  return (
-    <section className="bg-paper">
-      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <TypeLabel>More services</TypeLabel>
-        <Reveal className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {others.map((s) => (
-            <ServiceCard key={s.slug} service={s} headingLevel="h3" />
-          ))}
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
 
 /**
  * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
@@ -143,7 +98,25 @@ export default function SolutionView({ service }: { service: Service }) {
 
       {service.testimonial && <ClientPerspective testimonial={service.testimonial} />}
 
-      <MoreServices currentSlug={service.slug} />
+      {/* ⚠️ NÃO PONHA UMA GRADE DE "MORE SERVICES" AQUI. Ela chegou a existir,
+          entre a citação e o CTA — as outras nove em `ServiceCard`, na ordem do
+          documento, com a atual filtrada pelo slug — e saiu em 11-09 pela mesma
+          régua que tirou o mural de clientes do índice: o §3.2 não pede. Ele
+          fecha a página em seis blocos, e o sexto é o convite.
+
+          O ARGUMENTO A FAVOR CONTINUA DE PÉ, e é por isso que fica escrito: a
+          página termina no CTA, então quem não quiser falar com a gente naquele
+          instante não tem para onde ir além do menu ou do botão de voltar. São
+          dez serviços de públicos sobrepostos — quem lê Manager Development é
+          candidato a High Performing Teams — e nada aqui diz que os outros
+          existem.
+
+          Diferente do mural, este bloco não afirmaria nada: são as nossas dez
+          páginas com as banner statements que o próprio cliente escreveu. Mesmo
+          assim é estrutura que o documento não pede, e isso é decisão dele.
+          Se voltar, que volte como pedido — e aí é reinstalar o `ServiceCard`
+          numa grade de três colunas com `headingLevel="h3"`, para não quebrar a
+          escada de cabeçalhos sob o rótulo da seção. */}
 
       <SolutionCta
         strapline={service.cta.strapline}

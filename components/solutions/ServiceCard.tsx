@@ -2,13 +2,19 @@ import Link from "next/link";
 import type { Service } from "@/lib/services";
 
 /**
- * Um serviço como card — o do índice `/solutions`, agora em um lugar só.
+ * Um serviço como card — o do índice `/solutions`.
  *
- * Saiu de dentro de `app/solutions/page.tsx` em 11-09, quando o pé de cada
- * página de serviço passou a listar as outras nove. Eram os mesmos card: mesma
- * borda, mesma serifa, mesmo "Explore →". Duplicar significaria que o próximo
- * ajuste de borda ou de hover teria de ser feito duas vezes, e a segunda é a que
- * se esquece.
+ * ⚠️ TEM UM CONSUMIDOR SÓ, e a história explica por quê. Ele saiu de dentro de
+ * `app/solutions/page.tsx` em 11-09 para ser usado também no pé de cada página
+ * de serviço, numa grade com as outras nove. Aquele bloco foi removido no mesmo
+ * dia — o outline não o pede, e a caixa em `SolutionView` guarda o raciocínio.
+ * O card ficou extraído porque o índice lê melhor assim e porque, se a grade
+ * voltar, ela volta usando isto e não uma cópia.
+ *
+ * SEM PROP DE NÍVEL DE CABEÇALHO. Ele chegou a ter uma (`h2` no índice, `h3` no
+ * pé), e ela saiu junto com o único caso que a justificava. Se a grade voltar,
+ * ela precisa de `h3` para não quebrar a escada de cabeçalhos sob o rótulo da
+ * seção — e aí a prop volta com ela, em vez de ficar aqui sem uso esperando.
  *
  * O CARD LIDERA PELA BANNER STATEMENT, e não pelo outcome, porque é o que a
  * sub-linha do índice promete: "Everyone starts with what is at stake for the
@@ -18,27 +24,15 @@ import type { Service } from "@/lib/services";
  * O CARD INTEIRO É O LINK, não só o nome: um alvo de clique do tamanho do card é
  * o que funciona no telefone, onde estas fileiras viram uma coluna só.
  */
-export default function ServiceCard({
-  service,
-  /**
-   * `h2` no índice, onde cada card é uma seção da página; `h3` no pé de uma
-   * página de serviço, onde eles vivem sob o título "More services" e pular de
-   * h2 para h2 quebraria a escada de cabeçalhos para quem navega por elas.
-   */
-  headingLevel = "h2",
-}: {
-  service: Service;
-  headingLevel?: "h2" | "h3";
-}) {
-  const Heading = headingLevel;
+export default function ServiceCard({ service }: { service: Service }) {
   return (
     <Link
       href={`/solutions/${service.slug}`}
       className="group flex flex-col border border-line bg-white p-8 transition-colors hover:border-brand/40 md:p-10"
     >
-      <Heading className="font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[27px]">
+      <h2 className="font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[27px]">
         {service.title}
-      </Heading>
+      </h2>
       <p className="mt-4 max-w-[520px] font-serif text-[16px] leading-[1.6] text-muted md:text-[17px]">
         {service.banner}
       </p>
