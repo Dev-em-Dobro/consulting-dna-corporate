@@ -478,10 +478,32 @@ export default function OurTeamPage() {
             sizes="100vw"
             className="-z-10 object-cover object-center"
           />
-          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/75" />
+          {/* ⚠️ ABERTO EM 12-09, a pedido: a imagem aparece mais. Os números
+              vieram de 75% no plano e `ink/45` na ponta direita, que eram os da
+              Global faculty — e lá eles existiam para segurar CINCO cartões e um
+              texto longo por cima. Aqui por cima há três cartões brancos, que
+              trazem o próprio fundo, e duas linhas de cabeçalho. Sobra imagem
+              para mostrar.
+
+              O que NÃO afrouxou foi a esquerda: o `from-ink` continua cheio, e é
+              ele que sustenta o rótulo e o título. O que abriu foi o miolo e a
+              direita — 55% no plano, e o horizontal indo a `ink/25` —, que é
+              justamente onde não há texto. */}
+          {/* ⚠️ O `from-25%` NÃO É ENFEITE DE SINTAXE, é o que salvou o rótulo.
+              Abrir o fundo derrubou o "Global faculty"… quer dizer, o "The DNA
+              experience": medido depois da abertura, o `brand-light` do rótulo
+              caiu para 3,78:1, abaixo dos 4,5 que texto de 14px em caixa alta
+              exige. O título passou folgado (7,5:1) porque é branco e grande —
+              quem reprova é sempre o rótulo, que é pequeno e colorido.
+
+              Segurar o degradê em `ink` cheio até os primeiros 25% da largura
+              mantém escura exatamente a coluna onde o rótulo e o título vivem,
+              e deixa os outros 75% abertos — que é onde a imagem aparece e onde
+              não há texto nenhum. Fechar tudo de novo teria desfeito o pedido. */}
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/55" />
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/45"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink from-25% via-ink/65 to-ink/25"
           />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel onDark>The DNA experience</TypeLabel>
@@ -555,8 +577,19 @@ export default function OurTeamPage() {
             continua em 1440 porque é ele que centra a caixa na página inteira;
             o que mudou é o conteúdo dentro dela. */}
         <div id="presence">
+          {/* ⚠️ CLARO DESDE 12-09, e o `dark` que estava aqui era herança da
+              home, onde ele existe por um motivo que nesta página não vale: lá
+              esta faixa vinha logo abaixo do bloco do livro, também cinza, e as
+              duas viravam uma massa só — o `dark` foi a correção do Guli em
+              31-08 para aquele encontro específico.
+
+              Aqui o vizinho de cima é a DNA experience, que é escura e carrega
+              a imagem de fundo. Escuro contra escuro devolvia o mesmo problema
+              que o `dark` resolve lá, ao contrário. Com `paper`, a página fecha
+              claro e a única massa escura do miolo fica isolada entre dois
+              claros, que é o que dá ritmo à rolagem. */}
           <LocationsBlock
-            tone="dark"
+            tone="paper"
             maxWidthClass="max-w-[1440px]"
             typeLabel
             align="center"
