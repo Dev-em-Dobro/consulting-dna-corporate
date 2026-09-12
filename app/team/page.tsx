@@ -250,7 +250,7 @@ export default function OurTeamPage() {
             <div className="mt-12 grid grid-cols-2 gap-px border border-white/15 bg-white/15 md:grid-cols-5">
               {facultyRegions.map((region, i) => (
                 <div
-                  key={region}
+                  key={region.name}
                   /* OS QUADROS FICARAM TRANSLÚCIDOS por causa do fundo novo.
                      Eram `bg-ink` cheio, e sobre a imagem cinco retângulos
                      opacos leem como cinco buracos recortados nela — a grade
@@ -276,14 +276,84 @@ export default function OurTeamPage() {
                      18,66px em negrito) exige 119 ou menos, o que dá alfa 0,67.
                      70% é o degrau seguinte, e leva o quadro inteiro para
                      ~10:1. */
-                  className={`flex min-h-[120px] items-end bg-ink/70 p-6 backdrop-blur-[2px] ${
+                  className={`flex flex-col bg-ink/70 backdrop-blur-[2px] ${
                     i === facultyRegions.length - 1 && facultyRegions.length % 2
                       ? "col-span-2 md:col-span-1"
                       : ""
                   }`}
                 >
-                  <span className="font-serif text-[18px] font-semibold leading-[1.2] text-white">
-                    {region}
+                  {/* ── SLOT 06 ────────────────────────────────────────────
+                      O MOSAICO DO DOCUMENTO, agora com lugar visível para a
+                      imagem de cada região. Decisão de 11-09, depois de reler o
+                      bloco 5: *"Type: regional mosaic beneath, five tiles
+                      matching the About page regions… HOLD A representative
+                      selection or mosaic image per region. Slot 06."* A versão
+                      anterior mostrava só o nome, com o argumento de que cinco
+                      caixas tracejadas mudariam o desenho do bloco em vez de
+                      mostrá-lo.
+
+                      O QUE DERRUBOU AQUELE ARGUMENTO é o mesmo raciocínio já
+                      registrado aqui em cima para a foto de grupo: quem revisa
+                      esta página é o cliente, que escreveu o HOLD. Sem o slot,
+                      ele não consegue julgar a única coisa que a revisão existe
+                      para decidir — se o layout funciona com as cinco dentro.
+
+                      4:3 PORQUE NÃO SE SABE A ORIENTAÇÃO. O documento aceita
+                      "a representative selection OR mosaic image", que podem ser
+                      um retrato ou uma colagem larga. 4:3 é a proporção que
+                      recorta mal as duas por igual, em vez de favorecer uma
+                      leitura e ter de mudar quando vier a outra. É também a
+                      pergunta que a mensagem de Team faz.
+
+                      ⚠️ O TRACEJADO CONVIVE COM O GLOBO, e isso é o custo aceito
+                      da escolha: são cinco marcações por cima de uma imagem de
+                      fundo. O `dark` do `ImagePlaceholder` existe exatamente
+                      para este caso — 16% de preenchimento e borda a 40%, medido
+                      para ler como slot sem virar mancha. */}
+                  {/* ⚠️ O QUADRO QUE ATRAVESSA AS DUAS COLUNAS PRECISA DE OUTRA
+                      PROPORÇÃO, e só se vê no telefone. Com 4:3 em largura
+                      dobrada, o slot da India saía com o dobro da altura dos
+                      outros quatro — 256px contra 128 — e a última região
+                      passava a parecer destacada, que é justamente o contrário
+                      do "cinco tiles" do documento. `8/3` é o 4:3 dos vizinhos
+                      medido na largura dobrada: mesma altura, fileira alinhada.
+                      A partir de `md` ele volta a ser um quadro normal e a
+                      proporção volta com ele. */}
+                  <div
+                    className={`relative w-full md:aspect-[4/3] ${
+                      i === facultyRegions.length - 1 && facultyRegions.length % 2
+                        ? "aspect-[8/3]"
+                        : "aspect-[4/3]"
+                    }`}
+                  >
+                    {region.image ? (
+                      <Image
+                        src={region.image}
+                        alt={`Corporate DNA faculty — ${region.name}`}
+                        fill
+                        sizes="(min-width: 768px) 20vw, 50vw"
+                        className="object-cover object-center"
+                      />
+                    ) : (
+                      /* O RÓTULO DIZ O QUE O SLOT RECEBE, e não a região — o
+                         nome dela já está logo abaixo, no quadro. A primeira
+                         versão repetia "Americas" dentro e fora, a 20cm de
+                         distância, e isso não lê como slot rotulado: lê como
+                         defeito de renderização. */
+                      <ImagePlaceholder
+                        tone="dark"
+                        label="Faculty image"
+                        className="absolute inset-0 h-full w-full"
+                      />
+                    )}
+                  </div>
+                  {/* O NOME FICA FORA DA IMAGEM, embaixo dela, e não sobreposto:
+                      sobre foto que ainda não existe não há como medir contraste,
+                      e quando ela chegar seria preciso um escurecimento novo em
+                      cada uma das cinco. Embaixo, o nome lê sobre o `ink/70` do
+                      quadro, que já está medido em ~10:1. */}
+                  <span className="p-6 font-serif text-[18px] font-semibold leading-[1.2] text-white">
+                    {region.name}
                   </span>
                 </div>
               ))}

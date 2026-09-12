@@ -202,11 +202,11 @@ function RegionTilesGlass() {
     <div className="mt-12 grid grid-cols-2 gap-px border border-white/20 bg-white/20 md:grid-cols-5">
       {facultyRegions.map((region) => (
         <div
-          key={region}
+          key={region.name}
           className="flex min-h-[120px] items-end bg-[rgba(22,19,20,0.45)] p-6 backdrop-blur-[3px]"
         >
           <span className="font-serif text-[18px] font-semibold leading-[1.2] text-white">
-            {region}
+            {region.name}
           </span>
         </div>
       ))}
@@ -223,7 +223,7 @@ function RegionLine({ onDark = false }: { onDark?: boolean }) {
       }`}
     >
       {facultyRegions.map((region, i) => (
-        <li key={region} className="flex items-center gap-4">
+        <li key={region.name} className="flex items-center gap-4">
           {/* O separador é o vermelho da marca, e some antes do primeiro item.
               `aria-hidden` porque é pontuação visual: um leitor de tela já lê a
               lista como lista. */}
@@ -233,7 +233,7 @@ function RegionLine({ onDark = false }: { onDark?: boolean }) {
               className={`inline-block h-[3px] w-[3px] ${onDark ? "bg-brand-light" : "bg-brand"}`}
             />
           )}
-          {region}
+          {region.name}
         </li>
       ))}
     </ul>
@@ -255,9 +255,9 @@ export default function TeamTestsPage() {
             <Heading />
             <div className="mt-12 grid grid-cols-2 gap-px border border-line bg-line md:grid-cols-5">
               {facultyRegions.map((region) => (
-                <div key={region} className="flex min-h-[120px] items-end bg-white p-6">
+                <div key={region.name} className="flex min-h-[120px] items-end bg-white p-6">
                   <span className="font-serif text-[18px] font-semibold leading-[1.2] text-ink">
-                    {region}
+                    {region.name}
                   </span>
                 </div>
               ))}
@@ -320,9 +320,9 @@ export default function TeamTestsPage() {
                   divisória vertical cairia entre uma linha e a de baixo. */}
               <div className="mt-12 grid grid-cols-2 gap-y-6 border-t border-white/15 pt-8 md:grid-cols-5 md:divide-x md:divide-white/15">
                 {facultyRegions.map((region) => (
-                  <div key={region} className="px-0 md:px-6 md:first:pl-0 md:last:pr-0">
+                  <div key={region.name} className="px-0 md:px-6 md:first:pl-0 md:last:pr-0">
                     <span className="font-serif text-[17px] font-semibold leading-[1.25] text-white md:text-[18px]">
-                      {region}
+                      {region.name}
                     </span>
                   </div>
                 ))}
@@ -403,10 +403,10 @@ export default function TeamTestsPage() {
                   coisas sem grade e sem carrossel. */}
               <ul className="mt-12 space-y-4">
                 {facultyRegions.map((region) => (
-                  <li key={region} className="flex items-center gap-4">
+                  <li key={region.name} className="flex items-center gap-4">
                     <span aria-hidden className="inline-block h-[2px] w-7 bg-brand-light" />
                     <span className="font-serif text-[18px] font-semibold leading-[1.2] text-white md:text-[20px]">
-                      {region}
+                      {region.name}
                     </span>
                   </li>
                 ))}
@@ -471,7 +471,7 @@ export default function TeamTestsPage() {
             <div className="grid grid-cols-2 gap-px bg-white/20 md:grid-cols-5">
               {facultyRegions.map((region) => (
                 <div
-                  key={region}
+                  key={region.name}
                   className="relative flex min-h-[200px] items-end p-6 md:min-h-[260px]"
                 >
                   <span
@@ -479,7 +479,7 @@ export default function TeamTestsPage() {
                     className="absolute inset-0 bg-gradient-to-t from-[rgba(22,19,20,0.92)] via-[rgba(22,19,20,0.3)] to-transparent"
                   />
                   <span className="relative font-serif text-[18px] font-semibold leading-[1.2] text-white md:text-[20px]">
-                    {region}
+                    {region.name}
                   </span>
                 </div>
               ))}

@@ -195,12 +195,40 @@ export function officialPortrait(name: string): string | undefined {
  * imagem por região. A cobrança das imagens saiu em
  * `docs/mensagem-grupo-team-imagens-11-09.ENVIAR.txt`.
  */
-export const facultyRegions = [
-  "Americas",
-  "UK & Europe",
-  "GCC & Middle East",
-  "Asia",
-  "India",
+export type FacultyRegion = {
+  name: string;
+  /**
+   * A imagem do slot 06, quando chegar. Ausente = o quadro sai só com o nome.
+   *
+   * ⏳ NENHUMA DAS CINCO EXISTE HOJE. O documento de Team as promete em letra,
+   * como HOLD — que na convenção dele (aberta na primeira página) significa
+   * "content still needed":
+   *
+   *   Block 5 · Global faculty
+   *   Type: regional mosaic beneath, five tiles matching the About page
+   *   regions: Americas, UK & Europe, GCC & Middle East, Asia, India.
+   *   Not 75 individual profiles.
+   *   HOLD  A representative selection or mosaic image per region. Slot 06.
+   *
+   * ⚠️ O DOCUMENTO DE SERVICES NÃO FALA DISTO, conferido em 11-09 no arquivo
+   * original: a palavra "image" aparece uma vez lá, e é a foto de herói das
+   * páginas de serviço. Quem pede o mosaico é este documento, não aquele.
+   */
+  image?: string;
+};
+
+/**
+ * ✅ OS CINCO NOMES SÃO OS DA ABOUT, à letra, como o documento manda ("five
+ * tiles matching the About page regions"). Conferido contra o `REGIONS` de
+ * `app/about/page.tsx` em 11-09 — os cinco batem, na mesma ordem. Se um dia
+ * mudarem de um lado, mudam dos dois: é instrução do cliente, não coincidência.
+ */
+export const facultyRegions: FacultyRegion[] = [
+  { name: "Americas" },
+  { name: "UK & Europe" },
+  { name: "GCC & Middle East" },
+  { name: "Asia" },
+  { name: "India" },
 ];
 
 /**
