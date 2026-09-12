@@ -9,6 +9,7 @@ import TypeLabel from "@/components/TypeLabel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { books } from "@/lib/books";
+import heroImage from "@/public/books/hero-books.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -45,7 +46,19 @@ export default function BooksPage() {
             palavra minha, não dele. Pior: afirma que os DOIS livros estão por
             trás do método, e do segundo não se sabe nada. Se ele não servir, o
             substituto é uma linha deles. */}
-        <SolutionHero eyebrow="Our Books" title="The books behind the method." />
+        {/* FOTO PRÓPRIA, e esta é a primeira página nova a ter uma — as outras
+            dividem a `service-hero-fallback`. A mesa de executivo com o livro
+            em cima é o assunto literal da página, então aqui a imagem não é
+            atmosfera, é o objeto.
+
+            O `imageFilter` fica no padrão (`saturate-[.65] brightness-[.68]`):
+            o vermelho da capa é quase o `brand`, e sem o filtro ele brigaria
+            com a régua e o rótulo, que são da mesma cor logo ao lado. */}
+        <SolutionHero
+          eyebrow="Our Books"
+          title="The books behind the method."
+          imageUrl={heroImage}
+        />
 
         {books.map((book) => (
           <section key={book.name} className="bg-paper">

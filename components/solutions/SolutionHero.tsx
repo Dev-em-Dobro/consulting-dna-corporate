@@ -27,7 +27,7 @@
  *     como um objeto só.
  *   • Largura de 1440 e `100svh` com `pt-[76px]`.
  */
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import fallbackPhoto from "@/public/solutions/service-hero-fallback.jpg";
 import HeroIntro from "@/components/HeroIntro";
 
@@ -46,14 +46,20 @@ export default function SolutionHero({
   /** A "banner statement" do outline de 09-09 — uma frase, não um parágrafo. */
   subtitle?: string;
   /**
-   * A foto do serviço, quando o CMS tem uma (`bannerMediaId` → `bannerUrl`).
+   * A foto do herói.
    *
-   * SEM ELA CAI NUM PADRÃO, e isso é decisão, não descuido: são dez páginas e
-   * nenhuma tem fotografia própria hoje. Um slot vazio em dez páginas lê como
-   * site inacabado; a mesma foto em dez lê como identidade — e some sozinha à
-   * medida que cada serviço ganha a sua, sem tocar em código.
+   * DOIS TIPOS DE PROPÓSITO: `string` é o CMS (`bannerMediaId` → `bannerUrl`,
+   * uma URL do CDN) e `StaticImageData` é arquivo do repositório. O `next/image`
+   * sempre aceitou os dois; era o tipo daqui que só aceitava um, e isso apareceu
+   * em 12-09 quando a `/books` ganhou fotografia própria — a primeira página a
+   * não dividir a padrão.
+   *
+   * SEM ELA CAI NUM PADRÃO, e isso é decisão, não descuido: das doze rotas que
+   * usam este herói, onze não têm fotografia própria. Um slot vazio em onze
+   * páginas lê como site inacabado; a mesma foto em onze lê como identidade — e
+   * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
-  imageUrl?: string;
+  imageUrl?: string | StaticImageData;
   /**
    * A camada `multiply` por cima da foto. **O padrão é não ter nenhuma.**
    *
