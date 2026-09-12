@@ -634,29 +634,28 @@ function V9() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   10 · A DIAGONAL É A EMENDA ENTRE OS DOIS BLOCOS
-   Correção da 9. O defeito dela não era o ângulo, era ONDE o ângulo estava:
-   só nas laterais internas dos painéis. Em cima e embaixo o corte continuava
-   reto, então na altura em que um bloco termina e o outro começa passava uma
-   LINHA HORIZONTAL atravessando a página — e ela cortava as duas diagonais
-   pela metade, deixando dois trapézios se encarando com uma cunha de fundo
-   claro entre eles. Duas silhuetas brigando, que é o "uma embaixo da outra
-   não fica legal".
-   Aqui os painéis voltam a ter borda RETA e o único ângulo da composição é a
-   emenda: o segundo bloco sobe 90px por cima do primeiro e tem o topo
-   cortado em diagonal, então a fronteira entre branco e `paper` é uma linha
-   inclinada de ponta a ponta. Ela corta a base da primeira imagem e dá o
-   topo inclinado da segunda — as duas ganham o ângulo de uma vez, do mesmo
-   gesto, e nenhuma linha horizontal sobra para brigar com ele.
-   O limite: é uma composição de DOIS blocos, não um bloco repetível. Se um
-   dia forem três, a emenda tem de alternar de direção ou vira escada.
+   10 · UMA TELA CHEIA POR BLOCO, LADOS ALTERNADOS
+   Onde a série chegou depois de quatro rodadas, e o que sobrou é menos do
+   que começou — na ordem certa.
+   A 9 tinha o corte diagonal nas laterais internas dos painéis. O defeito
+   não era o ângulo: era que em cima e embaixo o corte continuava reto, então
+   entre um bloco e outro passava uma LINHA HORIZONTAL que fatiava as duas
+   diagonais pela metade e deixava dois trapézios se encarando. A correção
+   foi mover o ângulo para a EMENDA, e ela funcionava.
+   Aí cada bloco ganhou uma tela inteira — e com uma tela inteira a diagonal
+   deixou de ser necessária. O que ela resolvia era dizer onde um bloco
+   termina e o outro começa; a altura cheia já diz isso sozinha, e diz sem um
+   gesto que data. Saiu a pedido, e o argumento dela tinha acabado antes.
+   O que carrega a composição agora: a tela cheia, a troca de lado e a troca
+   de tom. Nada além disso.
+   O limite: é o tratamento mais generoso dos dez e a rolagem mais longa.
+   Dois parágrafos ocupam duas telas, e numa página de serviço vêm mais
+   quatro blocos depois.
    ───────────────────────────────────────────────────────────────────────── */
 function V10() {
   return (
     <div className="relative">
-      {/* BLOCO 1 — texto à esquerda, imagem à direita, borda reta.
-          `pb` generoso: a emenda sobe 90px na borda direita, e é a imagem que
-          deve ser cortada por ela, nunca o texto. */}
+      {/* BLOCO 1 — texto à esquerda, imagem à direita. */}
       <section className="bg-white">
         {/* ⚠️ `svh` E NÃO `vh`, sempre — a mesma regra do `SolutionHero`. No
             telefone `100vh` conta a tela COM a barra de endereço retraída, e a
@@ -695,30 +694,19 @@ function V10() {
         </div>
       </section>
 
-      {/* BLOCO 2 — sobe 90px e tem o topo em diagonal.
-          `-mt-[90px]` com o clip começando em 90px do lado ESQUERDO: à
-          esquerda a fronteira cai exatamente onde cairia sem nada, e à
-          direita ela sobe os 90px inteiros. A inclinação sobe para a direita
-          porque é ali que está a imagem do bloco de cima — é ela que o corte
-          tem de morder.
+      {/* BLOCO 2 — imagem à esquerda, texto à direita.
+          `paper` CONTRA O BRANCO DE CIMA, e é o que separa as duas telas agora
+          que a diagonal saiu. Sem a troca de tom, duas seções de altura cheia
+          com a imagem em lados opostos ainda leriam como uma só rolagem
+          contínua — a cor é o que marca a virada.
 
-          ⚠️ SÓ A PARTIR DE `lg`. No telefone os blocos empilham, a imagem
-          ocupa a largura inteira e uma diagonal de 90px sobre 390px de largura
-          não é inclinação, é canto quebrado. */}
-      {/* AS DUAS CORES VOLTAM (11-09). Foram branco/branco por uma rodada, e
-          ali a emenda só sobrevivia onde encontrava imagem para cortar — o que
-          era limpo, mas com a seção agora em tela cheia deixava as duas
-          separadas por nada em mais de metade da largura. Com `paper` embaixo a
-          inclinada volta a atravessar de borda a borda e é ela que diz onde uma
-          tela termina e a outra começa, que é justamente o trabalho que aparece
-          quando cada bloco ocupa uma tela inteira.
-
-          ⚠️ `calc(100svh+90px)` E NÃO `100svh`: esta seção sobe 90px por baixo
-          da anterior, então sem a compensação a parte VISÍVEL dela seria uma
-          tela menos o que ficou escondido. O leitor não vê `min-height`, vê o
-          que sobra depois da emenda. */}
-      <section className="bg-paper lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
-        <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-[calc(100svh+90px)] lg:flex-row-reverse lg:items-stretch">
+          ⚠️ SEM `-mt` E SEM COMPENSAÇÃO DE ALTURA. Enquanto havia emenda
+          diagonal esta seção subia 90px sob a anterior e precisava de
+          `calc(100svh+90px)` para a parte visível dar uma tela. Tirado o
+          corte, `100svh` é exatamente uma tela e as duas linhas saíram juntas —
+          deixar a compensação para trás daria 90px de sobra sem motivo. */}
+      <section className="bg-paper">
+        <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:flex-row-reverse lg:items-stretch">
           <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pl-16 xl:pl-24">
             <div className="max-w-[560px]">
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
@@ -730,10 +718,7 @@ function V10() {
               </p>
             </div>
           </div>
-          {/* `lg:pt-[90px]` no PAINEL e não na seção: a seção inteira subiu,
-              então sem isto a imagem começaria acima da emenda e apareceria
-              atravessando o bloco de cima. */}
-          <div className="relative min-h-[280px] lg:w-[44%] lg:pt-[90px]">
+          <div className="relative min-h-[280px] lg:w-[44%]">
             <Image
               src={dnaEarth}
               alt=""
@@ -797,8 +782,8 @@ export default function ServiceSectionTests() {
       node: <V9 />,
     },
     {
-      name: "A diagonal é a emenda  ·  correção da 09",
-      note: "O defeito da 09 não era o ângulo, era a linha horizontal entre os dois blocos cortando as duas diagonais pela metade. Aqui os painéis voltam a ter borda reta e o único ângulo é a fronteira entre os blocos, que corta a base da primeira imagem e dá o topo da segunda.",
+      name: "Uma tela cheia por bloco",
+      note: "Onde a série chegou. A diagonal saiu: o que ela resolvia era dizer onde um bloco termina e o outro começa, e a altura cheia já diz isso sozinha. Sobram três coisas — a tela inteira, a troca de lado e a troca de tom.",
       node: <V10 />,
     },
   ];
