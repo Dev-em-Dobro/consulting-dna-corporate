@@ -35,7 +35,7 @@ export default function SolutionBoxList({
       {solutions.map((s) => (
         <li key={s.slug}>
           <Link
-            href={`/solutions/${s.slug}`}
+            href={`/services/${s.slug}`}
             className="sbox group flex items-center gap-6 bg-ink-2 px-6 py-5 outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 md:px-8 md:py-6"
           >
             {/* The brand fill. Purely decorative: the row is one link and the

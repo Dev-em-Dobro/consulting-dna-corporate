@@ -17,7 +17,7 @@ import { services } from "./services";
 export async function buildSiteNav(): Promise<NavItem[]> {
   const solutionChildren = services.map((s) => ({
     label: s.title,
-    href: `/solutions/${s.slug}`,
+    href: `/services/${s.slug}`,
   }));
 
   // Matched on `href`, not on the label: labels are copy and get renamed by the
@@ -25,7 +25,7 @@ export async function buildSiteNav(): Promise<NavItem[]> {
   // route is stable. A label match fails silently — the submenu just stops
   // appearing, with no error — which is exactly what happened after that rename.
   return siteNav.map((item) =>
-    item.href === "/solutions"
+    item.href === "/services"
       ? { ...item, children: [...(item.children ?? []), ...solutionChildren] }
       : item,
   );

@@ -36,7 +36,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: localeAlternates(`/solutions/regions/${region}`),
+    alternates: localeAlternates(`/services/regions/${region}`),
     openGraph: {
       title,
       description,

@@ -151,7 +151,7 @@ export default function NavV2({
    *   • HREF `/` só casa exato. Todo caminho começa com "/", então prefixo aqui
    *     marcaria a home em todas as rotas do site ao mesmo tempo.
    *
-   * O prefixo com barra (`/solutions/` e não `/solutions`) é o que faz o item
+   * O prefixo com barra (`/services/` e não `/services`) é o que faz o item
    * Services acender também nas páginas filhas que vêm do CMS, sem acender numa
    * rota vizinha que só compartilhe o começo do nome.
    */

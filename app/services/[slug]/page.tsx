@@ -36,7 +36,7 @@ export async function generateMetadata({
   return {
     title,
     description: service?.banner,
-    alternates: localeAlternates(`/solutions/${slug}`),
+    alternates: localeAlternates(`/services/${slug}`),
     openGraph: { title, description: service?.banner },
   };
 }
@@ -52,12 +52,12 @@ export default async function SolutionDetailPage({
 
   const jsonLd = [
     breadcrumbLd([
-      { name: "Solutions", path: "/solutions" },
-      { name: service.title, path: `/solutions/${slug}` },
+      { name: "Services", path: "/services" },
+      { name: service.title, path: `/services/${slug}` },
     ]),
     serviceLd({
       name: service.title,
-      path: `/solutions/${slug}`,
+      path: `/services/${slug}`,
       description: service.banner,
     }),
   ];

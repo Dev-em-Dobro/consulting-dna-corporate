@@ -23,7 +23,7 @@ export type NavItem = {
 //
 // Labels are the client's, verbatim. Routes are NOT renamed to match: `href` is
 // the stable half of this file (nav-server matches the Solutions submenu on
-// `/solutions`, next.config redirects point at these paths, and the sitemap
+// `/services`, next.config redirects point at these paths, and the sitemap
 // reads them), while labels are copy and have now been rewritten twice in a
 // fortnight. Renaming routes to chase a label change would invalidate every
 // redirect for nothing a visitor can see.
@@ -51,7 +51,7 @@ export const siteNav: NavItem[] = [
   { label: "Approach (5H)", href: "/approach" },
   // No static children: the Services submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
-  { label: "Services", href: "/solutions" },
+  { label: "Services", href: "/services" },
   // `/team` e não `/our-team` desde 11-09, a pedido. É a exceção que a nota lá
   // em cima prevê: não é o label perseguindo a rota, é a rota mudando por
   // decisão de endereço — e o `/our-team` que está em produção continua

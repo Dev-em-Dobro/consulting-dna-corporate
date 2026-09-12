@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Leadership profiles — Corporate DNA",
     description:
       "The senior advisory team behind Corporate DNA — leaders who have sat where our clients sit, delivering across 36 countries with a 75-strong faculty.",
-    alternates: localeAlternates("/solutions/leadership"),
+    alternates: localeAlternates("/services/leadership"),
   };
 }
 export const revalidate = 300;

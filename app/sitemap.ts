@@ -29,9 +29,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "",
     "/about",
     "/approach",
-    "/solutions",
-    "/solutions/leadership",
-    "/solutions/regions",
+    "/services",
+    "/services/leadership",
+    "/services/regions",
     "/our-clients",
     "/our-impact",
     "/team",
@@ -56,10 +56,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (partnerships.length > 0) staticPaths.push("/our-partnerships");
 
   const dynamicPaths = [
-    ...services.map((s) => `/solutions/${s.slug}`),
+    ...services.map((s) => `/services/${s.slug}`),
     ...cases.map((c) => `/cases/${c.slug}`),
     ...insights.map((i) => `/insights/${i.slug}`),
-    ...regions.map((r) => `/solutions/regions/${r.slug}`),
+    ...regions.map((r) => `/services/regions/${r.slug}`),
   ];
 
   const entry = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({

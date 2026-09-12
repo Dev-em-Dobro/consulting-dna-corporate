@@ -8,8 +8,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 // Legacy corporatednaconsulting.com paths that carry a file extension (.html/.php).
 const legacyDottedRedirects = [
   ["/index.html", "/"],
-  ["/our_services.html", "/solutions"],
-  ["/insight-tools.html", "/solutions"],
+  ["/our_services.html", "/services"],
+  ["/insight-tools.html", "/services"],
   ["/industry-examples.html", "/cases"],
   ["/our_clients.html", "/our-clients"],
   ["/what-our-client-says.html", "/"],
@@ -26,7 +26,7 @@ const legacyDottedRedirects = [
   ["/ten-ingredients.html", "/approach"],
   ["/book-endorsement.html", "/#book"],
   ["/our-impact.html", "/our-impact"],
-  ["/Impact-and-global-reach.html", "/solutions/regions"],
+  ["/Impact-and-global-reach.html", "/services/regions"],
   ["/our-news.html", "/insights"],
   ["/email-us.html", "/#contact"],
   ["/privacy-policy.html", "/privacy"],
@@ -35,9 +35,9 @@ const legacyDottedRedirects = [
 // Extensionless legacy paths (previously applied in middleware.ts, now that the
 // middleware is gone they move here). A destination may carry a `#hash`.
 const legacyExtensionlessRedirects = [
-  // Serviços → Solutions
-  ["/our-services", "/solutions"],
-  ["/our-services/overview", "/solutions"],
+  // Serviços → Services
+  ["/our-services", "/services"],
+  ["/our-services/overview", "/services"],
   // O brief 27-08 tirou Leadership Development da arquitetura, e a solution foi
   // despublicada em 01-09. O índice é destino deliberado, não provisório: relendo
   // o texto daquela página, ela era um guarda-chuva — "individual & collective
@@ -47,17 +47,17 @@ const legacyExtensionlessRedirects = [
   // parte do tráfego numa página que cobre uma fatia do que a pessoa procurava.
   // Guarda-chuva aposentado vai para o índice dos sucessores. Confirmação pedida
   // ao Guilherme em 01-09; se ele apontar uma herdeira clara, trocar aqui.
-  ["/our-services/leadership-development", "/solutions"],
-  ["/our-services/executive-coaching", "/solutions/executive-coaching"],
-  ["/our-services/culture-transformation", "/solutions/culture-transformation"],
-  ["/our-services/high-performing-teams", "/solutions/high-performing-teams"],
-  ["/our-services/women-in-leadership", "/solutions/women-in-leadership"],
+  ["/our-services/leadership-development", "/services"],
+  ["/our-services/executive-coaching", "/services/executive-coaching"],
+  ["/our-services/culture-transformation", "/services/culture-transformation"],
+  ["/our-services/high-performing-teams", "/services/high-performing-teams"],
+  ["/our-services/women-in-leadership", "/services/women-in-leadership"],
   // Inclusion & Diversity saiu da arquitetura (brief 27-08). Categoria aposentada
   // sem sucessora direta → índice.
-  ["/our-services/inclusion_diversity", "/solutions"],
+  ["/our-services/inclusion_diversity", "/services"],
   // Renomeada para "Talent Development" pelo brief 27-08 (sai o "Asian").
-  ["/our-services/asian-talent-development", "/solutions/talent-development"],
-  ["/our-services/insight-tools", "/solutions"],
+  ["/our-services/asian-talent-development", "/services/talent-development"],
+  ["/our-services/insight-tools", "/services"],
   // Slugs internos da fase anterior do CMS, aposentados em 01-09 na reestruturação
   // das 8 Solutions. Nunca estiveram no domínio público — só no alpha — mas o
   // redirect custa nada e evita link morto em e-mail ou documento antigo.
@@ -73,22 +73,22 @@ const legacyExtensionlessRedirects = [
   // Vale como lembrete de método: o backup do repositório é uma FOTOGRAFIA de
   // uma data, e conteúdo muda no painel sem passar por aqui. Para saber o que
   // está publicado, abrir o site.
-  ["/solutions/exco-top-150", "/solutions/top-150-leadership-development"],
-  ["/solutions/ceo-top-team-transformation", "/solutions/top-150-leadership-development"],
+  ["/solutions/exco-top-150", "/services/top-150-leadership-development"],
+  ["/solutions/ceo-top-team-transformation", "/services/top-150-leadership-development"],
   // O outline é explícito sobre onde Leadership Development foi parar: o caso da
   // Heineken "arrived labelled Leadership Development, which is not a service on
   // this site. Mapped to ExCo / Top 150." Herdeira clara — sai o índice.
-  ["/solutions/leadership-development", "/solutions/top-150-leadership-development"],
-  ["/solutions/chro-hrlt-effectiveness", "/solutions/hrlt-effectiveness"],
-  ["/solutions/asian-talent-development", "/solutions/talent-development"],
+  ["/solutions/leadership-development", "/services/top-150-leadership-development"],
+  ["/solutions/chro-hrlt-effectiveness", "/services/hrlt-effectiveness"],
+  ["/solutions/asian-talent-development", "/services/talent-development"],
   // Succession é o que Talent Development entrega ("successor readiness",
   // "bench strength" na copy do cliente) — herdeira mais próxima que o índice.
-  ["/solutions/talent-succession", "/solutions/talent-development"],
+  ["/solutions/talent-succession", "/services/talent-development"],
   // Duplicata do CMS, no plural, com o mesmo conteúdo da singular.
-  ["/solutions/culture-transformations", "/solutions/culture-transformation"],
+  ["/solutions/culture-transformations", "/services/culture-transformation"],
   // Inclusion & Diversity continua sem sucessora: Women in Leadership é UMA
   // fatia dela, não a categoria. Índice, como antes.
-  ["/solutions/inclusion-diversity", "/solutions"],
+  ["/solutions/inclusion-diversity", "/services"],
   // Clientes → o case correspondente (decisão do cliente, 2026-07-29). Cada
   // página de cliente do site antigo tem um case 1:1 no CMS. O índice
   // `/our-clients` NÃO aparece aqui de propósito: a IA do brief 27-08 recria
@@ -138,7 +138,7 @@ const legacyExtensionlessRedirects = [
   ["/book-endorsements", "/#book"],
   // Impacto / Alcance — /our-impact agora é página real, não âncora da home
   ["/our-impact/return-on-investment", "/our-impact"],
-  ["/our-way/our-impact-and-global-reach", "/solutions/regions"],
+  ["/our-way/our-impact-and-global-reach", "/services/regions"],
   // Notícias → Insights
   ["/our-news", "/insights"],
   // Contato → home #contact
@@ -149,6 +149,27 @@ const legacyExtensionlessRedirects = [
   // Legal
   ["/privacy-policy", "/privacy"],
   ["/copyright", "/terms"],
+  // ⚠️ `/solutions` VIRA `/services` (11-09). Estas duas linhas são o que impede
+  // a área inteira de dar 404 no dia do deploy, e são o caso mais exposto do
+  // arquivo: `/solutions` é a rota do item **Services do menu que está em
+  // produção**, está no sitemap entregue aos buscadores e é o destino de nove
+  // redirects do WordPress antigo (todos já repontados acima, direto para
+  // `/services`, para ninguém tomar dois saltos).
+  //
+  // A MUDANÇA É DECISÃO DE ENDEREÇO, não label perseguindo rota — é a exceção
+  // que a caixa do `lib/nav.ts` prevê, e o mesmo movimento que `/our-team` →
+  // `/team` fez em 11-09. Quem manda é o documento do cliente
+  // (`CDNA_03_Services.docx`), que titula o §3.1 de "Index page (/services)" e
+  // o §3.2 de "Detail page template (/services/[slug])".
+  //
+  // A ORDEM AQUI É O QUE FAZ FUNCIONAR. Estas linhas têm de ficar DEPOIS das
+  // `source: "/solutions/..."` específicas lá de cima (`exco-top-150`,
+  // `chro-hrlt-effectiveness`, `5h-framework`…): o Next casa na ordem do array,
+  // e um curinga antes delas mandaria `/solutions/exco-top-150` para
+  // `/services/exco-top-150`, que não existe. Pôr no `splitAreaRedirects` teria
+  // esse efeito, porque aquele bloco é espalhado antes deste.
+  ["/solutions", "/services"],
+  ["/solutions/:path*", "/services/:path*"],
 ];
 
 // Areas the 27-08 brief split in two. `/about` became Our Identity + Our Team,
@@ -191,7 +212,7 @@ const splitAreaRedirects = [
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and
-// send to the English equivalent, e.g. /pt/solutions → /solutions, /es → /.
+// send to the English equivalent, e.g. /pt/services → /services, /es → /.
 const retiredLocaleRedirects = [
   { source: "/pt", destination: "/", permanent: true },
   { source: "/es", destination: "/", permanent: true },

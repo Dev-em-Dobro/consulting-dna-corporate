@@ -113,7 +113,7 @@ export default async function FiveHFrameworkPage() {
       <JsonLd
         data={[
           // 5H is the methodology behind every solution, not a solution itself,
-          // so it hangs off the home — not off /solutions.
+          // so it hangs off the home — not off /services.
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Our Approach", path: "/approach" },

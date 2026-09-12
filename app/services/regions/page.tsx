@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Regions — Corporate DNA",
     description:
       "Corporate DNA's global delivery — senior leadership advisory and executive coaching across 36 countries, with local insight in every region.",
-    alternates: localeAlternates("/solutions/regions"),
+    alternates: localeAlternates("/services/regions"),
   };
 }
 export const revalidate = 300;
@@ -36,7 +36,7 @@ export default async function RegionsPage() {
             {regions.map((r) => (
               <Link
                 key={r.slug}
-                href={`/solutions/regions/${r.slug}`}
+                href={`/services/regions/${r.slug}`}
                 className="group flex items-center justify-between bg-white p-8 transition-colors hover:bg-paper"
               >
                 <span className="text-[19px] font-semibold tracking-[-0.3px] text-ink group-hover:text-brand">

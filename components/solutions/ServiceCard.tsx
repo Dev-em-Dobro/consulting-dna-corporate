@@ -2,10 +2,10 @@ import Link from "next/link";
 import type { Service } from "@/lib/services";
 
 /**
- * Um serviço como card — o do índice `/solutions`.
+ * Um serviço como card — o do índice `/services`.
  *
  * ⚠️ TEM UM CONSUMIDOR SÓ, e a história explica por quê. Ele saiu de dentro de
- * `app/solutions/page.tsx` em 11-09 para ser usado também no pé de cada página
+ * `app/services/page.tsx` em 11-09 para ser usado também no pé de cada página
  * de serviço, numa grade com as outras nove. Aquele bloco foi removido no mesmo
  * dia — o outline não o pede, e a caixa em `SolutionView` guarda o raciocínio.
  * O card ficou extraído porque o índice lê melhor assim e porque, se a grade
@@ -27,7 +27,7 @@ import type { Service } from "@/lib/services";
 export default function ServiceCard({ service }: { service: Service }) {
   return (
     <Link
-      href={`/solutions/${service.slug}`}
+      href={`/services/${service.slug}`}
       className="group flex flex-col border border-line bg-white p-8 transition-colors hover:border-brand/40 md:p-10"
     >
       <h2 className="font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[27px]">

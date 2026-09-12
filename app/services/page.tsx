@@ -5,20 +5,16 @@ import ServiceCard from "@/components/solutions/ServiceCard";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
-import LogoMarquee from "@/components/LogoMarquee";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { services } from "@/lib/services";
-
-const [logoRow1, logoRow2] = clientLogoRows;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Our Services — Corporate DNA",
     description:
       "Real impact for individuals, leaders, teams and organisations — ten ways in, each starting with what is at stake for the business.",
-    alternates: localeAlternates("/solutions"),
+    alternates: localeAlternates("/services"),
   };
 }
 
@@ -80,31 +76,18 @@ export default function SolutionsPage() {
             collection so the two pages cannot drift" — isso depende do tipo
             `partnership` no CMS, que ainda espera a migração 0007. Enquanto não
             roda, o texto vive aqui. */}
-        {/* MURAL DE CLIENTES — o mesmo da home, mesmos arquivos, mesmas duas
-            fileiras em sentidos opostos.
+        {/* ⚠️ NÃO PONHA O MURAL DE CLIENTES AQUI. Ele chegou a existir entre
+            esta faixa e a grade — as mesmas duas fileiras da home, lendo de
+            `lib/logos.ts` — e saiu em 11-09 por uma razão só: o §3.1 não pede.
+            O outline lista herói, dez cards e a faixa de parceiros, e a página
+            entrega isso.
 
-            ⚠️ SÓ NO ÍNDICE, E ISSO É DELIBERADO. Aqui o mural é afirmação da
-            EMPRESA: estes são os clientes da CorporateDNA. Dentro de "Women in
-            Leadership" ele viraria afirmação do SERVIÇO — sugeriria que aqueles
-            clientes compraram aquele serviço, que é exatamente a armadilha que
-            a mensagem de fotos de 11-09 descreve para as fotografias ("would
-            suggest a relationship the photograph does not prove"). O mesmo
-            raciocínio vale para logo.
-
-            É o único lugar desta página com prova de qualquer tipo: até aqui
-            são dez cards de texto e um bloco de parceiros. */}
-        <section className="bg-white pt-20 md:pt-24">
-          <div className="mx-auto max-w-[1440px] px-6 md:px-10">
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[1.3px] text-muted">
-              Trusted by leadership teams at
-            </p>
-          </div>
-          <div className="flex flex-col gap-5">
-            <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
-            <LogoMarquee logos={logoRow2} duration={logoRowDuration(logoRow2)} reverse />
-          </div>
-        </section>
-
+            O argumento a favor era razoável (sem ele a página é dez cards de
+            texto e um parágrafo, sem prova de nada), e pode voltar — mas como
+            pedido ao cliente, não como decisão nossa. O mural é afirmação sobre
+            clientes REAIS, e `lib/logos.ts` registra que cada nome ali é
+            aprovação da CDNA, não mudança de código. Se voltar, que volte pelo
+            mesmo caminho por onde entrou na home. */}
         <section className="bg-white">
           <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-20 md:grid-cols-[1fr_1.4fr] md:gap-16 md:px-10 md:py-24">
             <div>
