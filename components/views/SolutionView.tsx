@@ -2,7 +2,53 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
-import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
+import ServiceCard from "@/components/solutions/ServiceCard";
+import TypeLabel from "@/components/TypeLabel";
+import Reveal from "@/components/Reveal";
+import {
+  paragraphs,
+  services,
+  type Service,
+  type ServiceTestimonial,
+} from "@/lib/services";
+
+/**
+ * O pé de cada página de serviço — as outras nove.
+ *
+ * POR QUE ELE EXISTE: até 11-09 a página de serviço era um beco. Ela terminava
+ * na faixa de CTA, e quem não quisesse falar com a gente naquele instante não
+ * tinha para onde ir a não ser o menu ou o botão de voltar. São dez serviços
+ * cujos públicos se sobrepõem — quem lê "Manager Development" é candidato a
+ * "High Performing Teams" — e nada na página dizia que os outros existiam.
+ *
+ * FICA ANTES DO CTA, e não depois: o convite é o fim da página em todas as dez,
+ * e empurrá-lo para o meio para terminar numa grade de navegação inverte a
+ * prioridade. Aqui a ordem é: você leu este, aqui estão os outros, e agora o
+ * convite.
+ *
+ * ⚠️ EXCLUI O SERVIÇO ATUAL pelo slug. Sem isso a grade mostraria dez, com a
+ * página em que a pessoa já está no meio delas.
+ *
+ * NÃO É UMA LISTA DE "RELACIONADOS": não há dado de relação entre serviços em
+ * lugar nenhum — nem no outline, nem no CMS —, e inventar uma afinidade
+ * ("quem vê isto também vê aquilo") seria editorial nosso sem base. São as
+ * outras nove, na ordem do documento, que é a ordem deliberada dele.
+ */
+function MoreServices({ currentSlug }: { currentSlug: string }) {
+  const others = services.filter((s) => s.slug !== currentSlug);
+  return (
+    <section className="bg-paper">
+      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+        <TypeLabel>More services</TypeLabel>
+        <Reveal className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {others.map((s) => (
+            <ServiceCard key={s.slug} service={s} headingLevel="h3" />
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 /**
  * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
@@ -15,7 +61,7 @@ import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/service
 function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial }) {
   return (
     <section className="bg-paper">
-      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+      <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
           Client Perspective
         </p>
@@ -27,7 +73,7 @@ function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial })
             {testimonial.attribution}
           </figcaption>
         </figure>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -96,6 +142,8 @@ export default function SolutionView({ service }: { service: Service }) {
       )}
 
       {service.testimonial && <ClientPerspective testimonial={service.testimonial} />}
+
+      <MoreServices currentSlug={service.slug} />
 
       <SolutionCta
         strapline={service.cta.strapline}

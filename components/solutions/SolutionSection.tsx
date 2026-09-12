@@ -1,6 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import RichText from "@/components/RichText";
+import Reveal from "@/components/Reveal";
 
 /**
  * Um bloco de conteúdo do template de serviço: rótulo, título e texto de um
@@ -84,7 +85,12 @@ export default function SolutionSection({
   if (!image) {
     return (
       <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
-        <div className="mx-auto grid max-w-[1440px] gap-8 px-6 py-20 md:grid-cols-[1fr_1.6fr] md:gap-16 md:px-10 md:py-24">
+        {/* O rótulo entra primeiro e o texto 0,12s depois — a mesma cascata que
+            a home e a /about usam, e que estas dez páginas eram as únicas da
+            linguagem nova a não ter. Num bloco de duas peças o escalonamento é
+            sutil por definição; o que ele resolve é o parágrafo não aparecer
+            montado de uma vez ao entrar na dobra. */}
+        <Reveal className="mx-auto grid max-w-[1440px] gap-8 px-6 py-20 md:grid-cols-[1fr_1.6fr] md:gap-16 md:px-10 md:py-24">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
             {label}
           </p>
@@ -92,7 +98,7 @@ export default function SolutionSection({
             html={html}
             className="max-w-[760px] font-serif text-[20px] leading-[1.55] text-ink md:text-[24px]"
           />
-        </div>
+        </Reveal>
       </section>
     );
   }

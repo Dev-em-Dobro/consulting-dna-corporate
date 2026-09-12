@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Counter from "@/components/Counter";
+import Reveal from "@/components/Reveal";
 import type { ServiceFact } from "@/lib/services";
 
 /**
@@ -63,7 +65,12 @@ export default function SolutionEvidence({
 
   return (
     <section className="bg-ink text-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+      {/* Os filhos diretos deste `Reveal` são o rótulo, o título, o parágrafo,
+          a grade de cards e o link — e é nessa ordem que eles entram. A grade
+          entra como UM bloco, não card a card: os quatro têm o mesmo peso por
+          decisão de 10-09, e escaloná-los daria a um deles a primazia de chegar
+          primeiro, que é a hierarquia que aquela decisão desfez. */}
+      <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
           Evidence
         </p>
@@ -111,9 +118,19 @@ export default function SolutionEvidence({
                 }}
               >
                 <div className="mt-auto">
-                  <div className="text-[24px] font-semibold leading-[1.12] tracking-[-0.5px] text-white md:text-[27px]">
-                    {f.value}
-                  </div>
+                  {/* O `Counter` CONTA SÓ O QUE É NÚMERO, e é ele mesmo que
+                      decide: ele procura o primeiro número na string, e quando
+                      não acha nenhum devolve o texto parado. Isso importa aqui
+                      porque metade dos fatos destas páginas NÃO é medida —
+                      "Enterprise wide", "Multi market", e a cascata inteira da
+                      GSK ("CEO led", "LT aligned"…). Passar todos pelo
+                      componente é seguro e evita um `if` que teria de adivinhar
+                      a mesma coisa que ele já sabe.
+                      Os que contam: 150, 1.000+, 92%, 93%, 400+, 20+, 18. */}
+                  <Counter
+                    value={f.value}
+                    className="block text-[24px] font-semibold leading-[1.12] tracking-[-0.5px] text-white md:text-[27px]"
+                  />
                   {f.label && (
                     <div className="mt-2 font-serif text-[13px] leading-[1.45] text-white/70 md:text-[14px]">
                       {f.label}
@@ -133,7 +150,7 @@ export default function SolutionEvidence({
             Read the client story <span aria-hidden>→</span>
           </Link>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }

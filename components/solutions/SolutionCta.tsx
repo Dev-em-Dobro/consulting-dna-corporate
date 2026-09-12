@@ -27,6 +27,7 @@
  * três props e apagar os padrões. O layout não muda.
  */
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 
 export default function SolutionCta({
   strapline,
@@ -42,7 +43,11 @@ export default function SolutionCta({
   return (
     <section className="bg-brand text-white">
       <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <div className="max-w-[720px]">
+        {/* O `Reveal` fica na caixa INTERNA, e não na de 1440: os filhos diretos
+            dele têm de ser o rótulo, o título, a linha e o botão. Posto na caixa
+            de fora, o único filho seria esta `div` e a faixa inteira entraria
+            de uma vez, que é o que ela já fazia. */}
+        <Reveal className="max-w-[720px]">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-white/70">
             Let’s talk
           </p>
@@ -64,7 +69,7 @@ export default function SolutionCta({
           >
             {ctaLabel ?? "Start a Conversation"}
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
