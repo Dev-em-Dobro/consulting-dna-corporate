@@ -241,11 +241,31 @@ export type FacultyRegion = {
  * mudarem de um lado, mudam dos dois: é instrução do cliente, não coincidência.
  */
 export const facultyRegions: FacultyRegion[] = [
-  { name: "Americas" },
-  { name: "UK & Europe" },
-  { name: "GCC & Middle East" },
-  { name: "Asia" },
-  { name: "India" },
+  /* ⚠️⚠️ AS CINCO IMAGENS ABAIXO SÃO PROVISÓRIAS E ESTÃO NO AR. ⚠️⚠️
+     Decisão do Ricardo em 12-09, ciente do que custa.
+
+     O QUE ELAS SÃO: pontos turísticos do Wikimedia Commons — Vizcaya (Miami),
+     Tower Bridge, Burj Khalifa, Marina Bay Sands e Hawa Mahal. Licença livre,
+     recortadas em 4:5. Quatro das cinco são cidades onde a CDNA tem escritório,
+     o que não é acaso, mas TAMBÉM NÃO É O QUE O SLOT 06 PEDE: o documento pede
+     "a representative selection or mosaic image per region", ou seja, a faculty
+     ou o trabalho acontecendo. Um cartão-postal de Jaipur não mostra ninguém.
+
+     O QUE ISSO CUSTA, e é por isso que está escrito aqui e não escondido: quem
+     revisa esta página é o cliente. Ele vai abrir e ver Tower Bridge rotulado
+     "UK & Europe" — e pode entender que escolhemos ilustrar a faculty dele com
+     foto de banco. Se a conversa vier, a resposta honesta é que são marcadores
+     de lugar enquanto as dele não chegam, e que saem no dia em que chegarem.
+
+     PARA TROCAR: substituir o caminho de cada uma. Para voltar ao slot vazio:
+     apagar as cinco linhas `image` e a pasta `public/team/mock/`. A seção já
+     sabe fazer os dois — sem `image` ela mostra o slot tracejado e o nome em
+     escuro, com `image` mostra a foto com o nome em branco. */
+  { name: "Americas", image: "/team/mock/miami.jpg" },
+  { name: "UK & Europe", image: "/team/mock/london.jpg" },
+  { name: "GCC & Middle East", image: "/team/mock/dubai.jpg" },
+  { name: "Asia", image: "/team/mock/singapore.jpg" },
+  { name: "India", image: "/team/mock/jaipur.jpg" },
 ];
 
 /**
