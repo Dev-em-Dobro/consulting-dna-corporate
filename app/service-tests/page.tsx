@@ -633,6 +633,98 @@ function V9() {
   );
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   10 · A DIAGONAL É A EMENDA ENTRE OS DOIS BLOCOS
+   Correção da 9. O defeito dela não era o ângulo, era ONDE o ângulo estava:
+   só nas laterais internas dos painéis. Em cima e embaixo o corte continuava
+   reto, então na altura em que um bloco termina e o outro começa passava uma
+   LINHA HORIZONTAL atravessando a página — e ela cortava as duas diagonais
+   pela metade, deixando dois trapézios se encarando com uma cunha de fundo
+   claro entre eles. Duas silhuetas brigando, que é o "uma embaixo da outra
+   não fica legal".
+   Aqui os painéis voltam a ter borda RETA e o único ângulo da composição é a
+   emenda: o segundo bloco sobe 90px por cima do primeiro e tem o topo
+   cortado em diagonal, então a fronteira entre branco e `paper` é uma linha
+   inclinada de ponta a ponta. Ela corta a base da primeira imagem e dá o
+   topo inclinado da segunda — as duas ganham o ângulo de uma vez, do mesmo
+   gesto, e nenhuma linha horizontal sobra para brigar com ele.
+   O limite: é uma composição de DOIS blocos, não um bloco repetível. Se um
+   dia forem três, a emenda tem de alternar de direção ou vira escada.
+   ───────────────────────────────────────────────────────────────────────── */
+function V10() {
+  return (
+    <div className="relative">
+      {/* BLOCO 1 — texto à esquerda, imagem à direita, borda reta.
+          `pb` generoso: a emenda sobe 90px na borda direita, e é a imagem que
+          deve ser cortada por ela, nunca o texto. */}
+      <section className="bg-white">
+        <div className="mx-auto flex max-w-[1440px] flex-col lg:flex-row lg:items-stretch">
+          <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pr-16 xl:pr-24">
+            <div className="max-w-[560px]">
+              <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+                {LABEL_A}
+              </p>
+              <span className="mt-7 block h-0.5 w-9 bg-brand" />
+              <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
+                {TEXT_A}
+              </p>
+            </div>
+          </div>
+          <div className="relative min-h-[280px] lg:min-h-[520px] lg:w-[44%]">
+            <Image
+              src={dnaEarth}
+              alt=""
+              aria-hidden
+              fill
+              sizes="(min-width: 1024px) 44vw, 100vw"
+              className="object-cover object-[46%_34%]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* BLOCO 2 — sobe 90px e tem o topo em diagonal.
+          `-mt-[90px]` com o clip começando em 90px do lado ESQUERDO: à
+          esquerda a fronteira cai exatamente onde cairia sem nada, e à
+          direita ela sobe os 90px inteiros. A inclinação sobe para a direita
+          porque é ali que está a imagem do bloco de cima — é ela que o corte
+          tem de morder.
+
+          ⚠️ SÓ A PARTIR DE `lg`. No telefone os blocos empilham, a imagem
+          ocupa a largura inteira e uma diagonal de 90px sobre 390px de largura
+          não é inclinação, é canto quebrado. */}
+      <section className="bg-paper lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
+        <div className="mx-auto flex max-w-[1440px] flex-col lg:flex-row-reverse lg:items-stretch">
+          <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pl-16 xl:pl-24">
+            <div className="max-w-[560px]">
+              <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+                {LABEL_B}
+              </p>
+              <span className="mt-7 block h-0.5 w-9 bg-brand" />
+              <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
+                {TEXT_B}
+              </p>
+            </div>
+          </div>
+          {/* `lg:pt-[90px]` no PAINEL e não na seção: a seção inteira subiu,
+              então sem isto a imagem começaria acima da emenda e apareceria
+              atravessando o bloco de cima. */}
+          <div className="relative min-h-[280px] lg:min-h-[520px] lg:w-[44%] lg:pt-[90px]">
+            <Image
+              src={dnaEarth}
+              alt=""
+              aria-hidden
+              fill
+              sizes="(min-width: 1024px) 44vw, 100vw"
+              className="object-cover object-[58%_66%]"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function ServiceSectionTests() {
   const variants = [
     {
@@ -679,6 +771,11 @@ export default function ServiceSectionTests() {
       name: "Painel com corte diagonal  ·  ref 3",
       note: "A única sobre fundo claro com imagem. A diagonal é o elemento gráfico, e ela espelha entre os dois blocos — então eles formam um vai e volta em vez de duas fatias iguais. O texto fica preto sobre claro, que é onde lê melhor.",
       node: <V9 />,
+    },
+    {
+      name: "A diagonal é a emenda  ·  correção da 09",
+      note: "O defeito da 09 não era o ângulo, era a linha horizontal entre os dois blocos cortando as duas diagonais pela metade. Aqui os painéis voltam a ter borda reta e o único ângulo é a fronteira entre os blocos, que corta a base da primeira imagem e dá o topo da segunda.",
+      node: <V10 />,
     },
   ];
 
