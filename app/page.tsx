@@ -42,6 +42,8 @@ import Counter from "@/components/Counter";
 import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
+import BookCard from "@/components/books/BookCard";
+import { books } from "@/lib/books";
 import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople, getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
@@ -126,30 +128,20 @@ export async function generateMetadata(): Promise<Metadata> {
 // so the two walls cannot drift apart (27-08 brief, item 8).
 const [logoRow1, logoRow2] = clientLogoRows;
 
-const book = {
-  /**
-   * The section's headline — a positioning line, NOT the book's name. Kept as
-   * authored (CDNA confirmed on 01-09 that it is the same book, and that this
-   * heading is deliberately not the title).
-   */
-  title:
-    "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
-  /**
-   * The published title, as it appears on the cover, in the endorsements and on
-   * the Amazon listing the CTA points to. Separate from `title` because the
-   * JSON-LD below declares it to search engines as the *name of the book*:
-   * feeding the section headline there asserts a book that does not exist, and
-   * attributes it to Rhea. The heading is copy; this is a fact.
-   */
-  name: "Leadership: It's In Your DNA",
-  subtitle: "The book behind the method",
-  body: [
-    "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
-    "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
-    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a Corporate DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
-    "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
-  ],
-};
+/**
+ * A home mostra UM livro, e `/books` mostra todos.
+ *
+ * O texto saiu daqui para `lib/books.ts` em 11-09, quando a página de livros
+ * passou a existir — mesma razão de `clientLogoRows` logo acima e de
+ * `officialPortrait` em `lib/team.ts`: duas telas com o mesmo conteúdo em duas
+ * cópias divergem na primeira correção feita de um lado só.
+ *
+ * `[0]` e não uma busca por nome: a ordem do módulo é a ordem de publicação, e o
+ * primeiro é o carro-chefe. Quando o segundo livro entrar, esta linha continua
+ * certa sem tocar em nada — e se um dia a home tiver de mostrar outro, o lugar
+ * de decidir é aqui, numa linha.
+ */
+const book = books[0];
 
 const challenges = [
   { num: "01", title: "CEO & executive performance", body: "Support for new and established CEOs and C-suite leaders navigating transitions, first 100 days and sustained top-team pressure." },
@@ -754,46 +746,19 @@ export default async function Home() {
       {/* BOOK */}
       <section id="book" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] py-14 md:px-10 md:py-24">
-          <div className="bg-ink text-white md:border md:border-line md:p-14">
-            {/* Blog-post layout: the cover floats and the copy wraps around it.
-                `flow-root` contains the float so the endorsements block below
-                starts on a clean line. */}
-            <div className="flow-root px-6 pb-10 pt-12 md:p-0">
-              {/* Escala do TypeLabel. Fica como <span> solto, e não vira o
-                  componente, porque aqui não existe a régua vermelha — é um
-                  kicker dentro do card do livro, não um rótulo de seção. */}
-              <span className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">{book.subtitle}</span>
-              <h3 className="mb-6 mt-6 text-[24px] md:text-[26px] font-medium leading-[1.2] text-white">
-                {book.title}
-              </h3>
+          {/* O CARTÃO VIROU COMPONENTE em 11-09, quando `/books` passou a
+              existir: a mesma composição em duas telas, lendo do mesmo
+              `lib/books.ts`. O que se evita é a divergência silenciosa — a
+              primeira correção de texto feita de um lado só.
 
-              <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
-                <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
-                  {/* The cover is a picture of the book, so it is named by the
-                    book — not by the section headline. */}
-                <Image src="/book-cover.png" alt={book.name} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
-                </div>
-              </figure>
+              Aqui ele é `h3` porque a seção da home já tem o seu cabeçalho; em
+              `/books` cada livro é seção e o cartão é `h2`.
 
-              <div className="space-y-4 text-[17px] leading-[1.65] text-white/80">
-                {book.body.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-              <a
-                href="https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark"
-              >
-                Buy on Amazon
-              </a>
-            </div>
-
-            {/* Recovered from the legacy /book-endorsements page, which now
-                redirects here. Inside the card so it reads as one block. */}
+              Os endossos continuam DENTRO do cartão, recuperados da antiga
+              /book-endorsements, que redireciona para cá. */}
+          <BookCard book={book}>
             <BookEndorsements />
-          </div>
+          </BookCard>
         </Reveal>
       </section>
 

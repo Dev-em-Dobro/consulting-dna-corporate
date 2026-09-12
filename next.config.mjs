@@ -24,11 +24,15 @@ const legacyDottedRedirects = [
   ["/way-values.html", "/about#values"],
   ["/our-way-head.html", "/approach"],
   ["/ten-ingredients.html", "/approach"],
-  ["/book-endorsement.html", "/#book"],
+  // ⚠️ DESTINO ATUALIZADO EM 11-09: era `/#book`, a seção da home. Com `/books`
+  // existindo, a página de endossos legada tem um destino próprio — e o leitor
+  // que procurava endossos cai onde eles estão, e não numa home de onde precisa
+  // rolar até achar.
+  ["/book-endorsement.html", "/books"],
   ["/our-impact.html", "/our-impact"],
   ["/Impact-and-global-reach.html", "/services/regions"],
   ["/our-news.html", "/insights"],
-  ["/email-us.html", "/#contact"],
+  ["/email-us.html", "/contact"],
   ["/privacy-policy.html", "/privacy"],
 ];
 
@@ -134,18 +138,26 @@ const legacyExtensionlessRedirects = [
   // Rota interna antiga do 5H (ficou pública durante o desenvolvimento).
   ["/solutions/5h-framework", "/approach"],
   // Livro → seção da home (não há página dedicada do livro)
-  ["/our-book", "/#book"],
-  ["/book-endorsements", "/#book"],
+  // Idem, 11-09: os dois apontavam para a âncora da home porque não havia
+  // página de livros. Agora há.
+  ["/our-book", "/books"],
+  ["/book-endorsements", "/books"],
   // Impacto / Alcance — /our-impact agora é página real, não âncora da home
   ["/our-impact/return-on-investment", "/our-impact"],
   ["/our-way/our-impact-and-global-reach", "/services/regions"],
   // Notícias → Insights
   ["/our-news", "/insights"],
-  // Contato → home #contact
-  ["/contact", "/#contact"],
-  ["/contact-us", "/#contact"],
-  ["/brochure-request-form", "/#contact"],
-  ["/asia-pacific-and-global-team-form", "/#contact"],
+  // Contato → a página real de Contact (antes: âncora da home).
+  //
+  // ⚠️ `["/contact", "/#contact"]` SAIU DAQUI EM 11-09 e não pode voltar. Com
+  // ele no lugar, `app/contact/page.tsx` nunca é alcançada: redirect é avaliado
+  // ANTES do filesystem, então a rota inteira continuaria pulando para a home.
+  // É a mesma armadilha descrita na caixa do `/our-clients` mais acima — lá o
+  // redirect nunca chegou a ser escrito por isso; aqui ele existia e teve de
+  // ser removido no mesmo commit que criou a página.
+  ["/contact-us", "/contact"],
+  ["/brochure-request-form", "/contact"],
+  ["/asia-pacific-and-global-team-form", "/contact"],
   // Legal
   ["/privacy-policy", "/privacy"],
   ["/copyright", "/terms"],

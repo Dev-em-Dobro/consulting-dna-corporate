@@ -59,9 +59,11 @@ export const siteNav: NavItem[] = [
   { label: "Team", href: "/team" },
   { label: "Clients & Impact", href: "/our-clients" },
   { label: "Insights", href: "/insights" },
-  // Points at the home `#book` section until a listing page exists.
-  { label: "Books", href: "/#book" },
-  { label: "Contact", href: "/#contact", cta: true },
+  // `/books` desde 11-09. O plano registrado em 30-08 era exatamente este: menu
+  // no plural apontando para a seção da home "e criar a página quando houver um
+  // segundo livro". O cliente confirmou os dois, a página existe, o link segue.
+  { label: "Books", href: "/books" },
+  { label: "Contact", href: "/contact", cta: true },
 ];
 
 export type Region = { slug: string; name: string };
