@@ -693,7 +693,18 @@ function V10() {
           ⚠️ SÓ A PARTIR DE `lg`. No telefone os blocos empilham, a imagem
           ocupa a largura inteira e uma diagonal de 90px sobre 390px de largura
           não é inclinação, é canto quebrado. */}
-      <section className="bg-paper lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
+      {/* ⚠️ OS DOIS BLOCOS SÃO BRANCOS, a pedido em 11-09, e isso MUDA o que a
+          emenda é. Com branco contra `paper` ela era uma fronteira de tom
+          atravessando a página inteira de borda a borda. Com branco contra
+          branco ela desaparece no lado do texto e só existe ONDE HÁ IMAGEM
+          PARA CORTAR — a base da primeira e o topo da segunda.
+
+          É menos gesto e mais resultado: o ângulo deixa de ser uma faixa
+          decorativa e passa a ser só o corte das duas fotografias, com o resto
+          da página seguindo branco e contínuo, como o resto do site. O clip
+          continua necessário exatamente por isso: é ele que produz o corte,
+          mesmo sem contraste de fundo para anunciá-lo. */}
+      <section className="bg-white lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
         <div className="mx-auto flex max-w-[1440px] flex-col lg:flex-row-reverse lg:items-stretch">
           <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pl-16 xl:pl-24">
             <div className="max-w-[560px]">
