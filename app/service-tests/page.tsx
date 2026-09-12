@@ -539,6 +539,100 @@ function V8() {
   );
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   9 · PAINEL COM CORTE DIAGONAL  ← a `ei ref services 22222`
+   A única das nove sobre fundo CLARO com imagem. Texto de um lado, painel de
+   imagem do outro, e o que separa os dois não é uma borda reta: é um corte
+   inclinado, que alarga o painel de cima para baixo.
+   O que resolve: a diagonal é o elemento gráfico que faltava. Ela dá direção
+   e movimento sem depender de escurecer nada — e mantém o texto em preto
+   sobre claro, que é onde ele lê melhor e é o resto da página.
+   A alternância aqui é a diagonal ESPELHADA, não só o lado trocado, então os
+   dois blocos formam um "vai e volta" em vez de duas fatias iguais.
+   O limite: corte diagonal é gesto forte e data rápido. E ele come um pedaço
+   da imagem — com foto de pessoa isso seria problema; com esta ilustração,
+   que não tem assunto num canto só, não é.
+   ───────────────────────────────────────────────────────────────────────── */
+function V9() {
+  return (
+    <>
+      {[
+        {
+          label: LABEL_A,
+          text: TEXT_A,
+          imageRight: true,
+          tone: "bg-white",
+          /* Topo recuado, base cheia: o painel ALARGA descendo, como na
+             referência. É a inclinação que puxa o olho para baixo, na direção
+             em que a página é lida. */
+          clip: "lg:[clip-path:polygon(9%_0,100%_0,100%_100%,0_100%)]",
+          pos: "object-[46%_34%]",
+        },
+        {
+          label: LABEL_B,
+          text: TEXT_B,
+          imageRight: false,
+          tone: "bg-paper",
+          /* O espelho exato do de cima (x → 100-x), e não outra inclinação:
+             espelhar fecha o movimento; inventar um segundo ângulo abriria uma
+             terceira direção sem motivo. */
+          clip: "lg:[clip-path:polygon(0_0,91%_0,100%_100%,0_100%)]",
+          pos: "object-[58%_66%]",
+        },
+      ].map((b) => (
+        <section key={b.label} className={b.tone}>
+          {/* CONTIDO EM 1440, e não em sangria até a janela como na referência.
+              Não é escolha de gosto: a /about fez exatamente esta troca em
+              09-09 a pedido do cliente ("a foto fica CONTIDA no mesmo
+              max-w-[1440px], inclusive em telas maiores"), e o `SolutionSection`
+              seguiu em 10-09. Duas páginas com regra oposta de sangria seriam
+              dois sites. O que se perde é a foto tocar a borda; o que se ganha é
+              a diagonal começar na mesma linha vertical do logo e do rodapé. */}
+          <div
+            className={`mx-auto flex max-w-[1440px] flex-col lg:items-stretch ${
+              b.imageRight ? "lg:flex-row" : "lg:flex-row-reverse"
+            }`}
+          >
+            <div
+              className={`flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 ${
+                b.imageRight ? "lg:pr-16 xl:pr-24" : "lg:pl-16 xl:pl-24"
+              }`}
+            >
+              <div className="max-w-[560px]">
+                <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+                  {b.label}
+                </p>
+                {/* A RÉGUA VEM DA REFERÊNCIA, onde ela separa o título do texto
+                    de apoio. Aqui ela usa a medida que o site já tem — 36×2, a
+                    mesma do rótulo do herói — em vez de um traço novo. */}
+                <span className="mt-7 block h-0.5 w-9 bg-brand" />
+                <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
+                  {b.text}
+                </p>
+              </div>
+            </div>
+
+            {/* `min-h` maior que nos outros painéis: a diagonal precisa de
+                altura para ser inclinação e não um canto lascado. */}
+            <div
+              className={`relative min-h-[280px] lg:min-h-[520px] lg:w-[44%] ${b.clip}`}
+            >
+              <Image
+                src={dnaEarth}
+                alt=""
+                aria-hidden
+                fill
+                sizes="(min-width: 1024px) 44vw, 100vw"
+                className={`object-cover ${b.pos}`}
+              />
+            </div>
+          </div>
+        </section>
+      ))}
+    </>
+  );
+}
+
 export default function ServiceSectionTests() {
   const variants = [
     {
@@ -580,6 +674,11 @@ export default function ServiceSectionTests() {
       name: "Hélice ao fundo · imagem limpa onde não há texto",
       note: "Mesma imagem, escurecimento lateral que para na metade. Na primeira linha o texto vai para a direita, onde o céu é escuro, e o globo aceso fica livre à esquerda. Na segunda inverte.",
       node: <V8 />,
+    },
+    {
+      name: "Painel com corte diagonal  ·  ref 3",
+      note: "A única sobre fundo claro com imagem. A diagonal é o elemento gráfico, e ela espelha entre os dois blocos — então eles formam um vai e volta em vez de duas fatias iguais. O texto fica preto sobre claro, que é onde lê melhor.",
+      node: <V9 />,
     },
   ];
 
