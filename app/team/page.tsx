@@ -247,112 +247,79 @@ export default function OurTeamPage() {
                 ele mostra `white/15` sobre `ink`, e vira um retângulo cinza
                 claro pendurado ao lado de "India", que lê como quadro que
                 faltou carregar. */}
-            <div className="mt-12 grid grid-cols-2 gap-px border border-white/15 bg-white/15 md:grid-cols-5">
-              {facultyRegions.map((region, i) => (
+            {/* ── O MOSAICO ──────────────────────────────────────────────
+                CARTÕES, E NÃO MAIS UMA GRADE DE FILETES. Refeito em 11-09 sobre
+                uma referência que o Ricardo trouxe (cartões de destino: foto
+                sangrando, cantos arredondados, nome sobre um escurecimento na
+                base). O que ela resolve aqui é real: a versão anterior tinha a
+                imagem em cima e o nome numa barra separada embaixo, dois
+                retângulos por região. Com o nome DENTRO da foto, cada região
+                vira uma peça só — que é o que "mosaic" quer dizer.
+
+                O QUE DA REFERÊNCIA NÃO VEIO, e nenhum dos três é de gosto:
+                  • O DEGRADÊ COLORIDO POR CARTÃO (verde num, roxo no outro).
+                    É uma cor tirada de cada foto. Aqui o acento é um vermelho
+                    só, e existe decisão de 10-09 de que ele nunca vira área, só
+                    marca. Cinco tons novos desfariam isso de uma vez.
+                  • A LINHA DE NÚMEROS ("1.345 Hotels · 24 Packages"). Não há
+                    dado por região em lugar nenhum: o documento dá 75 e 36 no
+                    total, e reparti-los seria número inventado numa página de
+                    prova.
+                  • O "EXPLORE NOW →". Não há para onde ir. As cinco regiões da
+                    faculty não têm página; as de `/services/regions` são outra
+                    taxonomia (cidades de escritório). Um call to action que não
+                    leva a lugar nenhum é pior que nenhum.
+
+                SEM `col-span` NO ÚLTIMO, e isso some junto com os filetes. Ele
+                existia porque a quinta região deixava meia célula vazia e o
+                `bg-white/15` do pai aparecia ali como um retângulo pendurado.
+                Com cartões separados por vão, não há fundo de grade para vazar:
+                a célula que sobra simplesmente não existe. */}
+            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
+              {facultyRegions.map((region) => (
                 <div
                   key={region.name}
-                  /* OS QUADROS FICARAM TRANSLÚCIDOS por causa do fundo novo.
-                     Eram `bg-ink` cheio, e sobre a imagem cinco retângulos
-                     opacos leem como cinco buracos recortados nela — a grade
-                     passaria a esconder justamente o que ela agora atravessa.
-                     `ink/70` com um borrão de 2px deixa a imagem passar sem
-                     disputar com o nome da região, e o `gap-px` continua
-                     desenhando a grade porque os vãos mostram o `white/15` do
-                     pai em cima da foto, não em cima do `ink`.
-
-                     70% E NÃO 55%, QUE ERA O PRIMEIRO NÚMERO — e o motivo é
-                     margem, não reprovação. Medido em 11-09 a 1440px: na faixa
-                     onde as letras realmente estão, "India" dava 8,0:1 com 55%,
-                     que passa com folga. Mas o quadro INTEIRO, medido de ponta
-                     a ponta, caía a 3,01:1 na parte de cima, onde a borda
-                     iluminada do planeta atravessa e o fundo vira branco
-                     estourado. Hoje não há letra ali; basta o texto reflui numa
-                     largura diferente, ou a imagem ser trocada, para haver.
-                     Passar só por causa de onde a linha caiu é frágil.
-
-                     De onde sai o número: sobre branco puro o quadro fica em
-                     `255 − 203·alfa`, e 4,5:1 (o mínimo para texto normal — 18px
-                     semibold não alcança o corte de "texto grande", que é
-                     18,66px em negrito) exige 119 ou menos, o que dá alfa 0,67.
-                     70% é o degrau seguinte, e leva o quadro inteiro para
-                     ~10:1. */
-                  className={`flex flex-col bg-ink/70 backdrop-blur-[2px] ${
-                    i === facultyRegions.length - 1 && facultyRegions.length % 2
-                      ? "col-span-2 md:col-span-1"
-                      : ""
-                  }`}
+                  className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink/70"
                 >
                   {/* ── SLOT 06 ────────────────────────────────────────────
-                      O MOSAICO DO DOCUMENTO, agora com lugar visível para a
-                      imagem de cada região. Decisão de 11-09, depois de reler o
-                      bloco 5: *"Type: regional mosaic beneath, five tiles
-                      matching the About page regions… HOLD A representative
-                      selection or mosaic image per region. Slot 06."* A versão
-                      anterior mostrava só o nome, com o argumento de que cinco
-                      caixas tracejadas mudariam o desenho do bloco em vez de
-                      mostrá-lo.
+                      O documento pede, em letra: *"Type: regional mosaic
+                      beneath, five tiles matching the About page regions… HOLD
+                      A representative selection or mosaic image per region.
+                      Slot 06."* HOLD é "content still needed" na convenção dele.
 
-                      O QUE DERRUBOU AQUELE ARGUMENTO é o mesmo raciocínio já
-                      registrado aqui em cima para a foto de grupo: quem revisa
-                      esta página é o cliente, que escreveu o HOLD. Sem o slot,
-                      ele não consegue julgar a única coisa que a revisão existe
-                      para decidir — se o layout funciona com as cinco dentro.
+                      4:5 AGORA, E NÃO 4:3. Com o nome dentro do cartão, a foto
+                      precisa de altura para ter onde o nome cair sem cobrir o
+                      assunto — é a proporção da referência, e a mesma dos
+                      retratos da liderança logo acima, o que faz as duas grades
+                      da página rimarem. */}
+                  {region.image ? (
+                    <Image
+                      src={region.image}
+                      alt={`Corporate DNA faculty — ${region.name}`}
+                      fill
+                      sizes="(min-width: 768px) 20vw, 50vw"
+                      className="object-cover object-center"
+                    />
+                  ) : (
+                    <ImagePlaceholder
+                      tone="dark"
+                      label="Faculty image"
+                      className="absolute inset-0 h-full w-full rounded-2xl"
+                    />
+                  )}
 
-                      4:3 PORQUE NÃO SE SABE A ORIENTAÇÃO. O documento aceita
-                      "a representative selection OR mosaic image", que podem ser
-                      um retrato ou uma colagem larga. 4:3 é a proporção que
-                      recorta mal as duas por igual, em vez de favorecer uma
-                      leitura e ter de mudar quando vier a outra. É também a
-                      pergunta que a mensagem de Team faz.
-
-                      ⚠️ O TRACEJADO CONVIVE COM O GLOBO, e isso é o custo aceito
-                      da escolha: são cinco marcações por cima de uma imagem de
-                      fundo. O `dark` do `ImagePlaceholder` existe exatamente
-                      para este caso — 16% de preenchimento e borda a 40%, medido
-                      para ler como slot sem virar mancha. */}
-                  {/* ⚠️ O QUADRO QUE ATRAVESSA AS DUAS COLUNAS PRECISA DE OUTRA
-                      PROPORÇÃO, e só se vê no telefone. Com 4:3 em largura
-                      dobrada, o slot da India saía com o dobro da altura dos
-                      outros quatro — 256px contra 128 — e a última região
-                      passava a parecer destacada, que é justamente o contrário
-                      do "cinco tiles" do documento. `8/3` é o 4:3 dos vizinhos
-                      medido na largura dobrada: mesma altura, fileira alinhada.
-                      A partir de `md` ele volta a ser um quadro normal e a
-                      proporção volta com ele. */}
+                  {/* O ESCURECIMENTO É NEUTRO E SEMPRE EXISTE, inclusive por
+                      cima do placeholder. Duas razões: o nome precisa de fundo
+                      medido, e a foto que vai entrar é desconhecida — clara ou
+                      escura, o degradê é o que garante que o nome continue
+                      legível sem ter de ajustar cinco vezes quando as imagens
+                      chegarem. `to-transparent` no topo deixa dois terços da
+                      foto respirarem. */}
                   <div
-                    className={`relative w-full md:aspect-[4/3] ${
-                      i === facultyRegions.length - 1 && facultyRegions.length % 2
-                        ? "aspect-[8/3]"
-                        : "aspect-[4/3]"
-                    }`}
-                  >
-                    {region.image ? (
-                      <Image
-                        src={region.image}
-                        alt={`Corporate DNA faculty — ${region.name}`}
-                        fill
-                        sizes="(min-width: 768px) 20vw, 50vw"
-                        className="object-cover object-center"
-                      />
-                    ) : (
-                      /* O RÓTULO DIZ O QUE O SLOT RECEBE, e não a região — o
-                         nome dela já está logo abaixo, no quadro. A primeira
-                         versão repetia "Americas" dentro e fora, a 20cm de
-                         distância, e isso não lê como slot rotulado: lê como
-                         defeito de renderização. */
-                      <ImagePlaceholder
-                        tone="dark"
-                        label="Faculty image"
-                        className="absolute inset-0 h-full w-full"
-                      />
-                    )}
-                  </div>
-                  {/* O NOME FICA FORA DA IMAGEM, embaixo dela, e não sobreposto:
-                      sobre foto que ainda não existe não há como medir contraste,
-                      e quando ela chegar seria preciso um escurecimento novo em
-                      cada uma das cinco. Embaixo, o nome lê sobre o `ink/70` do
-                      quadro, que já está medido em ~10:1. */}
-                  <span className="p-6 font-serif text-[18px] font-semibold leading-[1.2] text-white">
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink via-ink/70 to-transparent"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] text-white">
                     {region.name}
                   </span>
                 </div>
