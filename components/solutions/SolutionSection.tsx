@@ -39,6 +39,7 @@ export default function SolutionSection({
   tone = "white",
   image,
   imageAlt = "",
+  imagePosition = "object-center",
 }: {
   label: string;
   html: string;
@@ -60,6 +61,16 @@ export default function SolutionSection({
   image?: StaticImageData;
   /** Vazio quando a foto é decorativa — o texto ao lado já diz o que ela mostra. */
   imageAlt?: string;
+  /**
+   * `object-position` do painel, em classe do Tailwind.
+   *
+   * EXISTE PORQUE O PAINEL É ALTO E ESTREITO: 44% de largura por uma tela de
+   * altura é um retrato, e `object-cover` sobre um arquivo apaisado joga fora
+   * as laterais. Onde a imagem é recortada deixa de ser detalhe — com o padrão
+   * `object-center`, uma foto cujo assunto está em cima ou embaixo simplesmente
+   * some. Cada bloco escolhe o seu.
+   */
+  imagePosition?: string;
 }) {
   const imageLeft = side === "left";
 
@@ -103,6 +114,34 @@ export default function SolutionSection({
     );
   }
 
+  /* ⚠️ O ARRANJO COM FOTO MUDOU EM 12-09 — é a variação 10 de `/service-tests`,
+     escolhida depois de dez tratamentos postos lado a lado. O que ela tem, e
+     por que cada peça está aqui:
+
+     UMA TELA CHEIA POR BLOCO (`lg:min-h-svh`). Antes eram 440px de altura
+     mínima e os dois blocos cabiam quase juntos numa rolagem, o que os fazia
+     ler como uma pilha. Com uma tela cada, a troca de bloco é a própria
+     rolagem. `svh` e não `vh` pela mesma razão do herói: no telefone `100vh`
+     conta a tela COM a barra de endereço retraída e a base fica escondida.
+
+     A ALTURA VAI NO CONTAINER INTERNO, não na `<section>`. É ele que carrega o
+     `items-stretch`, então é dele que o painel de imagem herda "ocupe a altura
+     toda"; posta na seção, a foto ficaria com a altura do parágrafo.
+
+     56/44 E NÃO 50/50. Meia tela para um parágrafo de quatro linhas deixava a
+     coluna curta e a foto larga demais; com 56% o texto respira e a imagem
+     continua sendo metade da composição.
+
+     O QUE FOI TESTADO E DESCARTADO, para ninguém refazer: um corte DIAGONAL na
+     borda interna do painel (variação 9). O ângulo não era o problema — o
+     problema é que em cima e embaixo o corte seguia reto, então entre um bloco
+     e outro passava uma linha horizontal que fatiava as duas diagonais pela
+     metade. Movê-la para a emenda entre as seções resolvia, mas com tela cheia
+     ela deixou de ter função: o que a diagonal dizia era onde um bloco acaba e
+     o outro começa, e a altura já diz isso sozinha.
+
+     ⚠️ SÓ DE `lg` PARA CIMA. Empilhado no telefone, duas telas cheias viram
+     quatro, e o visitante rola quatro telas para ler dois parágrafos. */
   return (
     <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
       {/* ⚠️ CONTIDO EM 1440, NÃO EM SANGRIA TOTAL — mudado em 10-09 a pedido.
@@ -114,33 +153,28 @@ export default function SolutionSection({
           telas maiores que isso"). Duas páginas com regra oposta de sangria
           seriam dois sites.
 
-          O que se perde: em monitor largo a foto deixa de tocar a borda, então
-          o bloco lê como cartão largo em vez de faixa. O que se ganha: a borda
-          esquerda da imagem cai na MESMA linha vertical do logo, do título do
-          herói e do rodapé.
-
-          `lg:flex` e não `grid`: as duas metades precisam ter a mesma altura e
-          encostar uma na outra, e é mais simples com duas caixas de 50%.
+          `lg:flex` e não `grid`: as duas colunas precisam ter a mesma altura e
+          encostar uma na outra, e é mais simples com duas caixas.
 
           `lg` e não `md`: em tablet retrato (768) meia largura dá 384px para o
           texto, e a medida fica curta demais — três a quatro palavras por linha.
           Até `lg` os dois empilham, imagem em cima. */}
       <div
-        className={`mx-auto max-w-[1440px] lg:flex lg:items-stretch ${
+        className={`mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:items-stretch ${
           imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"
         }`}
       >
-        {/* `sizes="(min-width:1024px) 50vw, 100vw"`: até `lg` os blocos empilham
-            e a imagem ocupa a largura toda; de `lg` para cima ela é metade. */}
-        <div className="relative min-h-[260px] lg:min-h-[440px] lg:w-1/2">
+        {/* `min-h` só para o empilhado: de `lg` para cima quem manda é o
+            `items-stretch` do pai. */}
+        <div className="relative min-h-[280px] lg:w-[44%]">
           {image ? (
             <Image
               src={image}
               alt={imageAlt}
               aria-hidden={imageAlt ? undefined : true}
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-center"
+              sizes="(min-width: 1024px) 44vw, 100vw"
+              className={`object-cover ${imagePosition}`}
             />
           ) : (
             <ImagePlaceholder className="absolute inset-0 h-full w-full" label="Imagem" />
@@ -152,19 +186,24 @@ export default function SolutionSection({
             e do rodapé, e o lado que encosta na imagem leva um respiro maior,
             para o texto não colar na foto. */}
         <div
-          className={`flex items-center px-6 py-16 md:px-10 lg:w-1/2 lg:py-24 ${
-            imageLeft ? "lg:pl-14 xl:pl-20" : "lg:pr-14 xl:pr-20"
+          className={`flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 ${
+            imageLeft ? "lg:pl-16 xl:pl-24" : "lg:pr-16 xl:pr-24"
           }`}
         >
-          <div className="max-w-[520px]">
+          <div className="max-w-[560px]">
             <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
               {label}
             </p>
+            {/* A RÉGUA DE 36×2 entre o rótulo e o texto — a mesma do rótulo do
+                herói. Com o bloco ocupando uma tela, rótulo e parágrafo ficam
+                longe de qualquer outra coisa, e sem ela os dois flutuavam
+                soltos no meio do branco. */}
+            <span className="mt-7 block h-0.5 w-9 bg-brand" />
             {/* `font-serif` no corpo — é o par da grade editorial: grotesca no
                 rótulo, serifa no texto. Ver `lib/fonts.ts`. */}
             <RichText
               html={html}
-              className="mt-5 font-serif text-[18px] leading-[1.6] text-ink md:text-[19px]"
+              className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]"
             />
           </div>
         </div>

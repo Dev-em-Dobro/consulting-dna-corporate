@@ -6,6 +6,15 @@ import Reveal from "@/components/Reveal";
 import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
 
 /**
+ * ⏳ OS DOIS BLOCOS APONTAM PARA O MESMO ARQUIVO HOJE, e os dois nomes existem
+ * de propósito: quando o par definitivo chegar, é trocar um import cada e mais
+ * nada — sem caçar uso dentro do JSX. Os recortes que os diferenciam estão no
+ * ponto de uso, porque é lá que se vê o painel ao lado do texto.
+ */
+import outcomeImage from "@/public/solutions/dna-earth.jpg";
+import helpsImage from "@/public/solutions/dna-earth.jpg";
+
+/**
  * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
  *
  * Renderiza nada quando não há citação, que é o caso de nove dos dez hoje. O
@@ -66,14 +75,39 @@ export default function SolutionView({ service }: { service: Service }) {
         subtitle={service.banner}
       />
 
-      {/* SEM FOTO NOS DOIS BLOCOS — ver a caixa no topo do `SolutionSection`.
-          Em resumo: eram duas imagens genéricas repetidas nas dez páginas, e o
-          CMS não tem campo por bloco para o cliente trocá-las. */}
+      {/* A FOTO VOLTA AOS DOIS BLOCOS EM 12-09, e o que mudou desde 11-09 — quando
+          ela saiu — não foi a opinião, foi a natureza do arquivo.
+
+          O QUE TINHA SAÍDO, e por quê: eram duas FOTOGRAFIAS de evento, iguais
+          nas dez páginas, e o `solutionSchema` só tem um campo de imagem (o do
+          herói). Ou seja, eram a única coisa da página que o cliente não
+          poderia trocar ao assumir o conteúdo — justamente a que mais ocupa
+          tela. Pior: quase todo o acervo tem marca de terceiro à vista, e uma
+          foto de cliente como ilustração genérica insinua uma relação que ela
+          não prova.
+
+          O QUE ENTRA NO LUGAR não é fotografia: é ILUSTRAÇÃO. Sem rosto, sem
+          marca na parede, sem cliente exposto — e por isso pode repetir nas dez
+          páginas sem o problema de antes. Ilustração repetida lê como
+          identidade; fotografia repetida lê como falta de material. É a mesma
+          distinção que a mensagem de fotos de 11-09 faz ao cliente.
+
+          ⏳ AS DUAS SÃO A MESMA IMAGEM POR ENQUANTO, em recortes diferentes. O
+          par definitivo — uma para o Outcome e outra para o How We Help — está
+          para ser gerado. Quando chegar, é trocar os dois imports; o layout não
+          muda.
+
+          O RECORTE É O QUE DIFERENCIA os blocos hoje, e não é enfeite: o painel
+          tem 44% de largura por uma tela de altura, ou seja, é um retrato alto
+          recortando um arquivo apaisado. `34%` de altura pega a hélice; `66%`
+          desce para as luzes de cidade. Mesma imagem, dois assuntos. */}
       <SolutionSection
         label="The Outcome"
         html={paragraphs(service.outcome)}
         side="left"
         tone="white"
+        image={outcomeImage}
+        imagePosition="object-[46%_34%]"
       />
 
       <SolutionSection
@@ -81,6 +115,8 @@ export default function SolutionView({ service }: { service: Service }) {
         html={paragraphs(service.howWeHelp)}
         side="right"
         tone="paper"
+        image={helpsImage}
+        imagePosition="object-[58%_66%]"
       />
 
       {service.evidence && (
