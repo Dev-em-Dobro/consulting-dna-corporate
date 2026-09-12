@@ -241,19 +241,11 @@ export type FacultyRegion = {
  * mudarem de um lado, mudam dos dois: é instrução do cliente, não coincidência.
  */
 export const facultyRegions: FacultyRegion[] = [
-  // ⚠️⚠️ AS CINCO `image` ABAIXO SÃO MOCK, NÃO VÃO PARA O AR. ⚠️⚠️
-  // Pontos turísticos (Wikimedia Commons) ligados em 11-09 só para ver a grade
-  // preenchida, no formato da referência que o Ricardo trouxe. Quatro dos cinco
-  // são as cidades de escritório da CDNA — Miami, Londres, Dubai, Singapura.
-  // antes de o slot 06 chegar. Elas não são do cliente e não têm relação com a
-  // região que rotulam. Os arquivos estão em `public/team/mock/`, que está no
-  // .gitignore — então num clone limpo estes caminhos dão 404.
-  // PARA DESFAZER: apagar as cinco linhas `image` e a pasta.
-  { name: "Americas", image: "/team/mock/miami.jpg" },
-  { name: "UK & Europe", image: "/team/mock/london.jpg" },
-  { name: "GCC & Middle East", image: "/team/mock/dubai.jpg" },
-  { name: "Asia", image: "/team/mock/singapore.jpg" },
-  { name: "India", image: "/team/mock/jaipur.jpg" },
+  { name: "Americas" },
+  { name: "UK & Europe" },
+  { name: "GCC & Middle East" },
+  { name: "Asia" },
+  { name: "India" },
 ];
 
 /**
