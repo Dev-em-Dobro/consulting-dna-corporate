@@ -50,20 +50,25 @@ export default async function InsightsPage() {
             página ganhar a sua. */}
         <SolutionHero eyebrow="Insights" title="Let’s share some insights." />
 
-        {/* A BIBLIOTECA FICA EM 820px, e não nos 1440 do herói. Não é descuido
-            de alinhamento: 1440 é medida de grade — dez cards, cinco quadros de
-            região —, e isto é uma lista para LER. A 1440 as linhas de título e
-            resumo ficariam longas demais. O rótulo acompanha a coluna do texto,
-            então o eixo interno do bloco é coerente mesmo com o herói mais
-            largo — é o mesmo critério que a /cases usa, e as duas continuam
-            alinhadas entre si. */}
-        {/* ⏳ SEM RÓTULO DE SEÇÃO. Chegou a ter um — e ele era copy INVENTADA
-            por nós ("Latest thinking"), que é exatamente o que esta página não
-            pode ter. O herói já diz "Insights" no rótulo dele; repetir a palavra
-            aqui não acrescenta, e qualquer outra frase seria nossa. Quando o
-            cliente escrever uma linha para esta seção, ela entra aqui. */}
+        {/* ⚠️ A BIBLIOTECA FOI PARA 1440px EM 12-09, e isto REVERTE o que eu
+            tinha escrito aqui em 11-09. O argumento era "1440 é medida de grade
+            e isto é uma lista para ler, a 1440 as linhas ficariam longas
+            demais". Ele está errado, e o erro foi olhar para a largura do
+            CONTAINER em vez de para a largura do CARD.
+
+            A biblioteca já é uma grade de três colunas. Dentro de 820px cada
+            card ficava com ~256px, que é estreito para título mais resumo — os
+            cards espremidos, não as linhas longas. A 1440 com `px-10` sobram
+            1360, e três colunas com `gap-6` dão ~437px por card. A medida de
+            leitura que eu queria proteger é a do CARD, e ela melhorou ao abrir
+            o container, não piorou.
+
+            O que some junto: o desalinhamento com o resto do site. Todas as
+            outras páginas novas correm em 1440, e esta era a única em 820 — o
+            rótulo e os cards começavam 310px adentro enquanto tudo o mais
+            começa em 40px. */}
         <section id="library" className="bg-white">
-          <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
+          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             {insights.length === 0 ? (
               <EmptyNotice>No insights published yet.</EmptyNotice>
             ) : (
