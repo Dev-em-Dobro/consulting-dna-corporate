@@ -204,10 +204,21 @@ export default function OurTeamPage() {
             sizes="100vw"
             className="-z-10 object-cover object-center"
           />
-          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/60" />
+          {/* ⚠️ ESCURECIDO EM 11-09, DEPOIS QUE OS QUADROS GANHARAM FOTO. Era
+              `ink/60` mais um degradê de `ink` a `ink/20`, e aquilo estava certo
+              enquanto o globo era a única imagem do bloco — ele era o assunto
+              visual. Com as cinco regiões carregando fotografia, a seção passou
+              a ter SEIS imagens, e o globo virou uma disputando atrás das
+              outras. Escurecer resolve sem tirá-lo: ele vira ambiente, que é o
+              papel que sobrou para ele.
+
+              75% no plano e o horizontal fechando em `ink/45` em vez de
+              `ink/20` — o lado direito era onde a foto mais aparecia, e é
+              justamente onde não há texto nem cartão para justificá-la. */}
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/75" />
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/70 to-ink/20"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/45"
           />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             {/* `onDark` troca o #d84339 pelo tom claro: o vermelho cheio mede
@@ -315,9 +326,16 @@ export default function OurTeamPage() {
                       legível sem ter de ajustar cinco vezes quando as imagens
                       chegarem. `to-transparent` no topo deixa dois terços da
                       foto respirarem. */}
+                  {/* ALONGADO PARA 3/5 COM RAMPA MAIS SUAVE, 11-09, depois de
+                      ver a grade preenchida. A 1/2 com `via-ink/70` o
+                      escurecimento subia rápido demais e nas fotos claras — céu
+                      de Singapura, fachada rosa de Jaipur — a passagem lia como
+                      uma faixa colada por cima da imagem, e não como sombra.
+                      Mais longo e mais leve no meio, o mesmo preto chega ao
+                      mesmo lugar sem anunciar onde começou. */}
                   <div
                     aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink via-ink/70 to-transparent"
+                    className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/55 to-transparent"
                   />
                   <span className="absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] text-white">
                     {region.name}
