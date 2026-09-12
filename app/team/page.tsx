@@ -342,6 +342,23 @@ export default function OurTeamPage() {
                       desenhado à espera dele. */}
                   {region.image && (
                     <>
+                      {/* VÉU LEVE SOBRE O CARTÃO INTEIRO, pedido de 12-09 e
+                          também da referência: lá a cor cobre a foto toda, não
+                          só o pé, e é isso que faz os cartões lerem como um
+                          conjunto em vez de cinco fotografias cruas lado a lado.
+
+                          PLANO, e não mais um degradê: os dois que já existem
+                          aqui têm direção (o preto sobe do pé, o vermelho
+                          atravessa); um terceiro com direção brigaria com eles.
+                          O que faltava era exatamente o que não tem direção —
+                          uma camada uniforme que baixa a foto inteira um degrau.
+
+                          22% É LEVE DE PROPÓSITO. O trabalho pesado de
+                          legibilidade é do preto embaixo, que está medido; este
+                          véu é de composição, não de contraste. Passar de ~30%
+                          começa a apagar o assunto das fotos, que é o que os
+                          cinco cartões existem para mostrar. */}
+                      <div aria-hidden className="absolute inset-0 bg-ink/[0.22]" />
                   {/* O ESCURECIMENTO É NEUTRO E SEMPRE EXISTE, inclusive por
                           cima do placeholder. Duas razões: o nome precisa de fundo
                           medido, e a foto que vai entrar é desconhecida — clara ou
@@ -476,7 +493,17 @@ export default function OurTeamPage() {
             alt=""
             fill
             sizes="100vw"
-            className="-z-10 object-cover object-center"
+            /* O FILTRO É O DO HERÓI, copiado — pedido de 12-09 ("a opacidade da
+               imagem de fundo pode usar como está na hero"). `HERO_TINT.filter`
+               em `SolutionHero`: dessatura para .65 e escurece para .68.
+
+               O `brightness` é a peça que se esquece ao copiar só o gradiente:
+               no herói ele existe porque `multiply` escurecia por definição e,
+               quando o duotone saiu, a foto ficou com um brilho que os
+               escurecimentos laterais não previam. Aqui vale igual — é ele que
+               deixa o gradiente trabalhar sobre uma base já assentada, em vez
+               de sozinho contra a imagem cheia. */
+            className="-z-10 object-cover object-center saturate-[.65] brightness-[.68]"
           />
           {/* ⚠️ ABERTO EM 12-09, a pedido: a imagem aparece mais. Os números
               vieram de 75% no plano e `ink/45` na ponta direita, que eram os da
@@ -500,10 +527,50 @@ export default function OurTeamPage() {
               mantém escura exatamente a coluna onde o rótulo e o título vivem,
               e deixa os outros 75% abertos — que é onde a imagem aparece e onde
               não há texto nenhum. Fechar tudo de novo teria desfeito o pedido. */}
-          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/55" />
+          {/* OS DOIS ESCURECIMENTOS SÃO OS DO HERÓI, os mesmos quatro pontos:
+              .90 na borda esquerda, .66 aos 38%, .24 aos 62% e .06 no fim. Com
+              o filtro da imagem por baixo, é exatamente o tratamento do herói
+              das páginas de serviço — que é o que foi pedido.
+
+              O QUE ELE SUBSTITUI: um plano de `ink/55` mais um degradê próprio
+              com `from-25%`. Aquilo chegou lá por tentativa e medição; isto é o
+              arranjo que já passou por seis variações em 10-09. Uma decisão a
+              menos para manter em dois lugares.
+
+              ⚠️ NO TELEFONE O HORIZONTAL NÃO SERVE, e o herói já sabia disso: em
+              390px o texto atravessa a largura inteira, então "escuro à
+              esquerda, claro à direita" deixa o fim de cada linha sobre foto
+              crua. Lá a saída é um gradiente VERTICAL, porque o texto é
+              ancorado embaixo. Aqui o texto está em cima e os cartões embaixo,
+              então o vertical do herói não serve tampouco — o que serve é um
+              plano, e é o que fica abaixo de `md`. */}
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink from-25% via-ink/65 to-ink/25"
+            className="absolute inset-0 -z-10 bg-ink/72 md:hidden"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 hidden md:block"
+            style={{
+              backgroundImage:
+                /* ⚠️ O GRADIENTE É O DO HERÓI COM UM PLATÔ NO COMEÇO, e o platô não é
+                   licença poética: com os quatro pontos exatos do herói, medido
+                   em 12-09, o rótulo `brand-light` deu 3,86:1 — abaixo dos 4,5
+                   que 14px em caixa alta exige. O título passou (4,75:1), porque
+                   é branco e grande. É sempre o rótulo que reprova.
+
+                   Segurar `.90` até os 18% mantém escura só a coluna onde o
+                   rótulo e o título vivem. Os outros três pontos são os do herói,
+                   intactos, então a imagem continua abrindo do mesmo jeito à
+                   direita — que é o que foi pedido.
+
+                   POR QUE O HERÓI NÃO TEM ESTE PROBLEMA: lá o rótulo vive sobre
+                   a parte mais escura da composição. E quando ele não vive — na
+                   home — o problema EXISTE e está documentado em `HeroV2`, com o
+                   coral medindo 2,90:1 e mantido a pedido. Aqui dava para
+                   resolver sem perder a imagem, então resolvi. */
+                "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.90) 18%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
+            }}
           />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel onDark>The DNA experience</TypeLabel>
@@ -528,6 +595,16 @@ export default function OurTeamPage() {
                   key={s.title}
                   className="flex flex-col border border-line bg-white shadow-[0_2px_4px_rgba(35,31,33,0.04),0_14px_30px_-18px_rgba(35,31,33,0.22)]"
                 >
+                  {/* ⏸️ O VERMELHO FOI TESTADO EM 12-09 E DESCARTADO no mesmo
+                      dia — a faixa chegou a ser `bg-brand` e voltou a `ink` a
+                      pedido. Fica registrado porque o teste tem um número útil:
+                      branco sobre `brand` dá 4,39:1, o que PASSA para um título
+                      de 20px semibold (mínimo 3,0). Ou seja, não foi o contraste
+                      que reprovou, foi a composição — três faixas de vermelho
+                      cheio sobre a foto puxavam mais atenção que o título da
+                      seção, e a decisão de 10-09 sobre o acento não virar área
+                      continua valendo. */
+                  }
                   <div className="bg-ink px-[26px] py-[22px] text-white">
                     {/* Serifa, e não o sans da home. O cartão é o mesmo objeto;
                         a tipografia é a desta página, que é editorial de ponta
