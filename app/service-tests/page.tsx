@@ -496,14 +496,27 @@ function V8() {
               A QUEDA CONTINUA RÁPIDA depois do platô — 44% → 88% — porque é ela
               que preserva o ponto desta versão: a metade sem texto fica com a
               imagem crua. Aumentar opacidade alargando o véu resolveria a
-              leitura e mataria a ideia. */}
+              leitura e mataria a ideia.
+
+              SÃO DUAS CAMADAS NUM `background-image` SÓ, e não dois elementos.
+              A de baixo é um véu CHAPADO de .30 sobre a imagem inteira, pedido
+              em 11-09: sem ele a metade limpa ficava com a foto em brilho
+              total, mais acesa que qualquer outra faixa do site, e a seção lia
+              como banner e não como parte da página. A de cima é o gradiente
+              lateral de sempre. Camada de CSS composita sozinha — a primeira
+              listada fica por cima —, então sob o texto o alfa efetivo é
+              1-(1-.95)(1-.30) = .965, quase preto, e do lado limpo é .30.
+              Ou seja: a imagem inteira desce um degrau e o texto continua
+              ganhando o seu próprio escuro por cima disso. */}
           <div
             aria-hidden
             className="absolute inset-0 -z-10"
             style={{
-              backgroundImage: b.textRight
-                ? "linear-gradient(to left, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)"
-                : "linear-gradient(to right, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)",
+              backgroundImage: `${
+                b.textRight
+                  ? "linear-gradient(to left, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)"
+                  : "linear-gradient(to right, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)"
+              }, linear-gradient(rgba(24,22,23,.30), rgba(24,22,23,.30))`,
             }}
           />
           <div
