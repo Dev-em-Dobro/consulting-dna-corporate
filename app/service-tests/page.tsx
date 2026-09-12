@@ -417,12 +417,18 @@ function V7() {
             sizes="100vw"
             className={`-z-20 object-cover ${b.pos}`}
           />
+          {/* SUBIU DE .62/.78/.62 PARA .76/.86/.76. Texto centrado não tem lado
+              seguro — ele cruza a largura inteira, então passa por cima da
+              hélice, do limbo aceso do globo e das luzes de cidade no mesmo
+              parágrafo. O véu tem de servir ao PIOR pedaço, e o pior pedaço
+              aqui é claro. Esta versão paga isso apagando mais a imagem; é o
+              preço de centralizar, e é exatamente o que a 08 evita. */}
           <div
             aria-hidden
             className="absolute inset-0 -z-10"
             style={{
               backgroundImage:
-                "linear-gradient(to bottom, rgba(24,22,23,.62) 0%, rgba(24,22,23,.78) 50%, rgba(24,22,23,.62) 100%)",
+                "linear-gradient(to bottom, rgba(24,22,23,.76) 0%, rgba(24,22,23,.86) 50%, rgba(24,22,23,.76) 100%)",
             }}
           />
           <div className="mx-auto w-full max-w-[1440px] px-6 py-20 text-center md:px-10 md:py-24">
@@ -473,17 +479,31 @@ function V8() {
             sizes="100vw"
             className={`-z-20 object-cover ${b.pos}`}
           />
-          {/* PARA EM 58% e não atravessa: é o que deixa a outra metade com a
-              imagem crua. Os dois primeiros pontos são quase opacos porque o
-              texto vive ali; a queda é rápida para o véu não invadir o lado
-              limpo. */}
+          {/* O PLATÔ ESCURO COBRE A COLUNA DE TEXTO INTEIRA e só então cai.
+              A coluna tem 560px encostada numa borda de um container de 1440,
+              ou seja, ela vive nos primeiros ~42% da largura contados a partir
+              daquele lado — por isso o platô vai até 44% e não até 30%. A
+              primeira versão começava a clarear no meio do parágrafo, e era ali
+              que a leitura quebrava, não na borda.
+
+              ⚠️ .95 E NÃO .90, e o motivo é a fotografia, não o gosto: no
+              segundo bloco o texto cai sobre as luzes de cidade, que são a área
+              mais clara do arquivo inteiro. Um véu calibrado pelo céu escuro do
+              primeiro bloco não serve para o segundo. Medido depois de aplicar:
+              o pior pixel sob o texto fica em 4,5:1 contra branco, que é a régua
+              de AA para corpo de texto.
+
+              A QUEDA CONTINUA RÁPIDA depois do platô — 44% → 88% — porque é ela
+              que preserva o ponto desta versão: a metade sem texto fica com a
+              imagem crua. Aumentar opacidade alargando o véu resolveria a
+              leitura e mataria a ideia. */}
           <div
             aria-hidden
             className="absolute inset-0 -z-10"
             style={{
               backgroundImage: b.textRight
-                ? "linear-gradient(to left, rgba(24,22,23,.90) 0%, rgba(24,22,23,.84) 30%, rgba(24,22,23,.42) 58%, rgba(24,22,23,0) 86%)"
-                : "linear-gradient(to right, rgba(24,22,23,.90) 0%, rgba(24,22,23,.84) 30%, rgba(24,22,23,.42) 58%, rgba(24,22,23,0) 86%)",
+                ? "linear-gradient(to left, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)"
+                : "linear-gradient(to right, rgba(24,22,23,.95) 0%, rgba(24,22,23,.93) 44%, rgba(24,22,23,.44) 68%, rgba(24,22,23,0) 88%)",
             }}
           />
           <div
