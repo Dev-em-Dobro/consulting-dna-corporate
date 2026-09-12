@@ -22,8 +22,20 @@ QUANDO: É A PRIMEIRA DA FILA. As duas mensagens de fotografia já escritas —
        console limpo nas duas páginas
    ⚠️ O DEPLOY CONTINUA MANUAL, e com uma pegadinha: `vercel --prod --yes` sozinho
    devolve "Not authorized". O time foi renomeado — o comando que funciona é
-   `npx vercel --prod --yes --scope dobro66`. Qualquer commit posterior a c8217d5
-   volta a NÃO estar no ar.
+   `npx vercel --prod --yes --scope dobro66`.
+
+⛔ MAS A CONFERÊNCIA ACIMA VALE PARA c8217d5, E O AR JÁ FICOU PARA TRÁS. Depois
+   dela entraram dois commits que NÃO estão publicados:
+       00e7350  tira a seta de rolagem do índice de Services
+       c84c8a9  a /insights ganha o menu flutuante e o herói de sangria total
+   Consequência para quem for enviar: o /services no ar AINDA MOSTRA a seta
+   "SCROLL" no pé da primeira dobra, que já foi retirada no código a pedido. A
+   mensagem não descreve a seta, então nada no corpo fica falso — mas manda o
+   cliente abrir a página, e a página não é a do último commit.
+   ⚠️ A DECISÃO DE 11-09 FOI NÃO DEPLOYAR AINDA, porque o deploy sobe a cópia
+   local inteira e levaria junto a /insights, que ninguém revisou. Antes de
+   enviar esta mensagem: rodar o deploy e reconferir, ou aceitar conscientemente
+   que o visitante vê a versão de c8217d5.
 
 ⚠️ O ENDEREÇO DE SERVICES MUDOU HOJE, e é por isso que ele está no corpo da
    mensagem em vez de ficar só no rodapé. Era /solutions, virou /services, porque
