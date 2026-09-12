@@ -1,7 +1,7 @@
 PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
 NOTA: SEM NEGRITO, como as últimas de 10-09. Serve igual para WhatsApp e e-mail.
 STATUS: ⬜ NÃO ENVIADA
-QUANDO: junto com a entrega de Services (a página é /solutions — o /our-services é rota do WordPress antigo, que hoje 308 para lá), ou logo depois dela. Sozinha, fora
+QUANDO: logo depois da mensagem de status de 11-09 (`mensagem-grupo-status-team-services-11-09`), que é a entrega de Services. Sozinha, fora
         de contexto, vira "os desenvolvedores querendo mais arquivo".
 
 POR QUE ESTA MENSAGEM EXISTE:
@@ -31,6 +31,11 @@ O QUE FICOU DE FORA, E POR QUÊ:
 
 FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
          preencher a largura inteira ao colar. Não reformatar.
+
+⚠️ A ROTA MUDOU EM 11-09: a página de Services era /solutions e hoje é /services
+   (as dez ficam em /services/<slug>). Os endereços antigos continuam abrindo por 308,
+   mas o endereço a MANDAR é /services. Conferir antes de colar qualquer link.
+
 ────────────────────────────────────────────────────────────────────────
 
 One suggestion on the service pages, and it is a suggestion rather than a request — nothing here holds up the launch.

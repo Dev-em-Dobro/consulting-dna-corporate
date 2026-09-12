@@ -44,8 +44,6 @@ export default function SolutionsPage() {
           eyebrow="Our Services"
           title="Real impact for individuals, leaders, teams and organisations."
           subtitle="Ten ways in. Everyone starts with what is at stake for the business."
-          scrollCueHref="#what-we-do"
-          scrollCueLabel="Scroll to what we do"
         />
 
         <section id="what-we-do" className="bg-paper">

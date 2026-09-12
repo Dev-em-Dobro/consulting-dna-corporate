@@ -1,0 +1,79 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: SEM NEGRITO, como as de 10-09 e 11-09. Serve igual para WhatsApp e e-mail.
+STATUS: ⬜ NÃO ENVIADA
+QUANDO: É A PRIMEIRA DA FILA. As duas mensagens de fotografia já escritas —
+        `mensagem-grupo-fotos-servicos-11-09` e `mensagem-grupo-team-imagens-11-09`
+        — são o seguimento desta, nessa ordem, e não devem sair antes. As duas
+        pedem arquivo; mandar pedido antes de entrega faz a semana inteira ler
+        como cobrança.
+
+✅ A PRECONDIÇÃO ESTÁ CUMPRIDA. Deploy de produção rodado em 11-09 sobre o commit
+   c8217d5 e conferido no alpha depois dele:
+       /team                              200
+       /services                          200
+       as dez páginas de serviço          200 (as dez, uma a uma)
+       /solutions                         308 → /services
+       /solutions/executive-coaching      308 → /services/executive-coaching
+       /solutions/exco-top-150            308 → /services/top-150-leadership-development
+       /our-services                      308 → /services
+       /our-team                          308 → /team
+       sitemap: 50 URLs em /services, zero em /solutions
+       nenhum href="/solutions" sobrando em home, /team, /services, /about, /approach
+       console limpo nas duas páginas
+   ⚠️ O DEPLOY CONTINUA MANUAL, e com uma pegadinha: `vercel --prod --yes` sozinho
+   devolve "Not authorized". O time foi renomeado — o comando que funciona é
+   `npx vercel --prod --yes --scope dobro66`. Qualquer commit posterior a c8217d5
+   volta a NÃO estar no ar.
+
+⚠️ O ENDEREÇO DE SERVICES MUDOU HOJE, e é por isso que ele está no corpo da
+   mensagem em vez de ficar só no rodapé. Era /solutions, virou /services, porque
+   é assim que o documento deles chama: o CDNA_03_Services.docx titula o §3.1 de
+   "Index page (/services)" e o §3.2 de "Detail page template (/services/[slug])".
+   Todo link antigo continua abrindo por 308, mas o endereço a mandar é /services.
+   ⚠️ As duas mensagens de fotografia ainda diziam /solutions no cabeçalho; foram
+   corrigidas em 11-09, no mesmo dia. Conferir antes de enviar cada uma.
+
+O QUE ESTA MENSAGEM NÃO FAZ, de propósito:
+    • NÃO PEDE FOTOGRAFIA, nem lista o que falta item a item. Isso é o assunto das
+      duas mensagens seguintes, cada uma para uma página. Aqui entra uma frase só
+      dizendo que as lacunas existem e que o pedido vem separado — senão esta vira
+      um terceiro pedido e as três se atropelam.
+    • NÃO PROMETE DATA. O 15/09 não aparece. A mensagem fala do que está pronto e
+      do que vem depois; comprometer prazo dentro de um status é decisão do
+      Ricardo, não do texto.
+    • NÃO ENTRA NAS DUAS PERGUNTAS EM ABERTO DO §3.1 (as duas marcas de parceiro,
+      e se a faixa de convite fica no índice). São perguntas de detalhe, e postas
+      aqui empurrariam a mensagem de "está pronto, olhem" para "temos pendências".
+      Vão na mensagem de fotos de Services, que já é sobre o que falta naquela
+      página.
+
+A FRASE SOBRE AS DAILIES É O PEDIDO REAL desta mensagem. Não é enfeite de
+    processo: as duas páginas foram construídas a partir de documento, sem o
+    cliente ver tela no meio, e o risco disso é uma revisão longa no fim. Trocar
+    isso por correção contínua é o que a mensagem está propondo, e é por isso que
+    ela fala em "as we go" e não em "final review".
+
+CONTACT É SUGESTÃO NOSSA, e está escrita como sugestão. O argumento no corpo é o
+    que se sustenta sem o cliente ter de acreditar em gosto: é a página que as
+    pessoas procuram pelo nome, é a que vai em assinatura de e-mail e em
+    diretório, e hoje não existe endereço para mandar — só a home com âncora.
+
+FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
+         preencher a largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+An update on where things stand after today, and what we are picking up next.
+
+Team and Services are both built and live. Team is at /team, and Services is at /services with the ten service pages under it. Both follow your outlines block by block, and both read end to end today rather than being half a page.
+
+One thing to flag on the address. The services area used to sit at /solutions and now sits at /services, which is what your own build outline calls it. Every old link still works — /solutions, /our-services and the old WordPress paths all redirect — so nothing you have already opened or sent is broken. The address to use from here is /services.
+
+Parts of the content your outlines mark as outstanding have not reached us yet. Where that is the case we built around the gap rather than waiting on it, so nothing is blocked. We will send the specific asks for each page separately, so they do not get buried inside a status note.
+
+Once those pieces land we will come back and do a final pass on both pages. Until then the base is there and it is real, which means the most useful thing now is your eyes on it.
+
+We would rather fold your reactions in as we go than collect them into one long review at the end. Anything that comes up in the dailies, tell us and we will work it in — that loop is much faster, and it is easier to change a page while we are still in it.
+
+Next up is Insights. After that we want to give Books its own page. It currently lives as a section on the home, and a published book with endorsements is asking for more room than a homepage block gives it.
+
+One suggestion while we are on structure. Contact exists only as a section at the bottom of the home. We think it should be its own page. It is the page people go looking for by name, it is what gets linked from an email signature or a directory listing, and right now there is no address to send them to other than the homepage with an anchor on the end. Happy to build it if you agree.

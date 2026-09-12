@@ -1,7 +1,7 @@
 PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
 NOTA: SEM NEGRITO, como as de 10-09 e 11-09. Serve igual para WhatsApp e e-mail.
 STATUS: ⬜ NÃO ENVIADA
-QUANDO: depois da mensagem de Services (a página é /solutions), e não junto. As duas pedem fotografia, e no mesmo
+QUANDO: depois da mensagem de fotos de Services, e não junto. As duas pedem fotografia, e no mesmo
         dia viram "os desenvolvedores querendo arquivo" em vez de dois assuntos.
 
 ⚠️ ANTES DE ENVIAR, DUAS CONFERÊNCIAS:
@@ -75,6 +75,11 @@ O QUE FICOU DE FORA, E POR QUÊ:
 
 FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
          preencher a largura inteira ao colar. Não reformatar.
+
+⚠️ A ROTA MUDOU EM 11-09: a página de Services era /solutions e hoje é /services
+   (as dez ficam em /services/<slug>). Os endereços antigos continuam abrindo por 308,
+   mas o endereço a MANDAR é /services. Conferir antes de colar qualquer link.
+
 ────────────────────────────────────────────────────────────────────────
 
 An update on the Team page, and one decision we would like to park with you.
