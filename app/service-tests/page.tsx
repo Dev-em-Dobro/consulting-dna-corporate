@@ -658,7 +658,19 @@ function V10() {
           `pb` generoso: a emenda sobe 90px na borda direita, e é a imagem que
           deve ser cortada por ela, nunca o texto. */}
       <section className="bg-white">
-        <div className="mx-auto flex max-w-[1440px] flex-col lg:flex-row lg:items-stretch">
+        {/* ⚠️ `svh` E NÃO `vh`, sempre — a mesma regra do `SolutionHero`. No
+            telefone `100vh` conta a tela COM a barra de endereço retraída, e a
+            base do bloco fica escondida atrás do navegador até a pessoa rolar.
+
+            A ALTURA VAI NO CONTAINER INTERNO e não na `<section>`: é ele que
+            carrega o `items-stretch`, então é dele que o painel de imagem herda
+            "ocupe a altura toda". Posta na seção, a imagem continuaria com a
+            altura do texto e sobraria fundo embaixo dela.
+
+            `lg:` porque no telefone as duas colunas empilham — duas telas
+            cheias uma sobre a outra viram quatro, e aí o visitante rola quatro
+            telas para ler dois parágrafos. */}
+        <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:flex-row lg:items-stretch">
           <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pr-16 xl:pr-24">
             <div className="max-w-[560px]">
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
@@ -670,7 +682,7 @@ function V10() {
               </p>
             </div>
           </div>
-          <div className="relative min-h-[280px] lg:min-h-[520px] lg:w-[44%]">
+          <div className="relative min-h-[280px] lg:w-[44%]">
             <Image
               src={dnaEarth}
               alt=""
@@ -693,19 +705,20 @@ function V10() {
           ⚠️ SÓ A PARTIR DE `lg`. No telefone os blocos empilham, a imagem
           ocupa a largura inteira e uma diagonal de 90px sobre 390px de largura
           não é inclinação, é canto quebrado. */}
-      {/* ⚠️ OS DOIS BLOCOS SÃO BRANCOS, a pedido em 11-09, e isso MUDA o que a
-          emenda é. Com branco contra `paper` ela era uma fronteira de tom
-          atravessando a página inteira de borda a borda. Com branco contra
-          branco ela desaparece no lado do texto e só existe ONDE HÁ IMAGEM
-          PARA CORTAR — a base da primeira e o topo da segunda.
+      {/* AS DUAS CORES VOLTAM (11-09). Foram branco/branco por uma rodada, e
+          ali a emenda só sobrevivia onde encontrava imagem para cortar — o que
+          era limpo, mas com a seção agora em tela cheia deixava as duas
+          separadas por nada em mais de metade da largura. Com `paper` embaixo a
+          inclinada volta a atravessar de borda a borda e é ela que diz onde uma
+          tela termina e a outra começa, que é justamente o trabalho que aparece
+          quando cada bloco ocupa uma tela inteira.
 
-          É menos gesto e mais resultado: o ângulo deixa de ser uma faixa
-          decorativa e passa a ser só o corte das duas fotografias, com o resto
-          da página seguindo branco e contínuo, como o resto do site. O clip
-          continua necessário exatamente por isso: é ele que produz o corte,
-          mesmo sem contraste de fundo para anunciá-lo. */}
-      <section className="bg-white lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
-        <div className="mx-auto flex max-w-[1440px] flex-col lg:flex-row-reverse lg:items-stretch">
+          ⚠️ `calc(100svh+90px)` E NÃO `100svh`: esta seção sobe 90px por baixo
+          da anterior, então sem a compensação a parte VISÍVEL dela seria uma
+          tela menos o que ficou escondido. O leitor não vê `min-height`, vê o
+          que sobra depois da emenda. */}
+      <section className="bg-paper lg:-mt-[90px] lg:[clip-path:polygon(0_90px,100%_0,100%_100%,0_100%)]">
+        <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-[calc(100svh+90px)] lg:flex-row-reverse lg:items-stretch">
           <div className="flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 lg:pl-16 xl:pl-24">
             <div className="max-w-[560px]">
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
@@ -720,7 +733,7 @@ function V10() {
           {/* `lg:pt-[90px]` no PAINEL e não na seção: a seção inteira subiu,
               então sem isto a imagem começaria acima da emenda e apareceria
               atravessando o bloco de cima. */}
-          <div className="relative min-h-[280px] lg:min-h-[520px] lg:w-[44%] lg:pt-[90px]">
+          <div className="relative min-h-[280px] lg:w-[44%] lg:pt-[90px]">
             <Image
               src={dnaEarth}
               alt=""
