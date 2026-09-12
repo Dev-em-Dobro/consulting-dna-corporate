@@ -58,6 +58,12 @@ export default function BooksPage() {
           eyebrow="Our Books"
           title="The books behind the method."
           imageUrl={heroImage}
+          /* `object-left` E NÃO O PADRÃO CENTRADO: o livro é o assunto, e
+             centrado ele nascia debaixo do h1. Medido — a sobra horizontal do
+             `object-cover` aqui é de 353px, e gastá-la toda leva o livro de
+             x 483 para x 660, com o título terminando em 540. É o máximo que o
+             enquadramento dá, e é o bastante: 120px de folga. */
+          imagePosition="object-left"
         />
 
         {books.map((book) => (

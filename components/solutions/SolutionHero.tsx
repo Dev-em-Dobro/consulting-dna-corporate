@@ -38,6 +38,7 @@ export default function SolutionHero({
   imageUrl,
   tint = "none",
   imageFilter = "saturate-[.65] brightness-[.68]",
+  imagePosition = "object-center",
   scrollCueHref,
   scrollCueLabel = "Scroll to see more",
 }: {
@@ -60,6 +61,23 @@ export default function SolutionHero({
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
+  /**
+   * `object-position` da foto, em classe do Tailwind. Padrão `object-center`.
+   *
+   * EXISTE PORQUE O TEXTO MORA SEMPRE À ESQUERDA. Numa foto de atmosfera isso
+   * não importa — dá no mesmo o que fica atrás do título. Importa quando a foto
+   * tem UM assunto: a `/books` tem o livro, e centrado ele nascia debaixo do
+   * `h1`. Deslocar o enquadramento manda o assunto para a metade livre sem
+   * mexer no arquivo nem no texto.
+   *
+   * ⚠️ O CURSO É O QUE `object-cover` SOBRA, e é bom medir antes de escolher: se
+   * a foto e o quadro tiverem quase a mesma proporção, a sobra é de dezenas de
+   * pixels e nenhum valor aqui resolve nada. Foi o caso da primeira versão desta
+   * mesma imagem — 94px de curso vertical, contra os 150px que o assunto
+   * precisava subir. A saída ali foi recortar o arquivo, não mover o
+   * enquadramento.
+   */
+  imagePosition?: string;
   /**
    * A camada `multiply` por cima da foto. **O padrão é não ter nenhuma.**
    *
@@ -132,7 +150,7 @@ export default function SolutionHero({
         fill
         priority
         sizes="100vw"
-        className={`-z-30 object-cover object-center ${imageFilter}`}
+        className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
       />
 
       {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
