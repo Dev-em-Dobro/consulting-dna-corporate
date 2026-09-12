@@ -215,6 +215,23 @@ export type FacultyRegion = {
    * páginas de serviço. Quem pede o mosaico é este documento, não aquele.
    */
   image?: string;
+  /**
+   * A cor do degradê por cima da foto, no pé do cartão.
+   *
+   * DE ONDE VEIO: a referência de 11-09 (cartões de destino) põe uma cor
+   * diferente em cada cartão, tirada da própria foto — verde no templo, roxo no
+   * entardecer de Dubai. É o que faz a grade dela parecer desenhada em vez de
+   * um filtro repetido.
+   *
+   * ⚠️ O DEGRADÊ COLORIDO NÃO SUBSTITUI O ESCURECIMENTO NEUTRO, ele vem POR
+   * CIMA dele. A legibilidade do nome continua sendo trabalho do preto, que é
+   * medido; a cor entra depois, em alfa baixo, só como tom. Invertendo a ordem
+   * — cor forte fazendo o contraste — o nome passaria a depender de quanto
+   * vermelho tem ali, e cada troca de foto viraria uma nova medição.
+   *
+   * Ausente = só o neutro, como nas outras seções escuras do site.
+   */
+  tint?: string;
 };
 
 /**
@@ -224,11 +241,19 @@ export type FacultyRegion = {
  * mudarem de um lado, mudam dos dois: é instrução do cliente, não coincidência.
  */
 export const facultyRegions: FacultyRegion[] = [
-  { name: "Americas" },
-  { name: "UK & Europe" },
-  { name: "GCC & Middle East" },
-  { name: "Asia" },
-  { name: "India" },
+  // ⚠️⚠️ AS CINCO `image` ABAIXO SÃO MOCK, NÃO VÃO PARA O AR. ⚠️⚠️
+  // Pontos turísticos (Wikimedia Commons) ligados em 11-09 só para ver a grade
+  // preenchida, no formato da referência que o Ricardo trouxe. Quatro dos cinco
+  // são as cidades de escritório da CDNA — Miami, Londres, Dubai, Singapura.
+  // antes de o slot 06 chegar. Elas não são do cliente e não têm relação com a
+  // região que rotulam. Os arquivos estão em `public/team/mock/`, que está no
+  // .gitignore — então num clone limpo estes caminhos dão 404.
+  // PARA DESFAZER: apagar as cinco linhas `image` e a pasta.
+  { name: "Americas", image: "/team/mock/miami.jpg" },
+  { name: "UK & Europe", image: "/team/mock/london.jpg" },
+  { name: "GCC & Middle East", image: "/team/mock/dubai.jpg" },
+  { name: "Asia", image: "/team/mock/singapore.jpg" },
+  { name: "India", image: "/team/mock/jaipur.jpg" },
 ];
 
 /**

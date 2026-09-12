@@ -196,30 +196,18 @@ export default function OurTeamPage() {
             `isolate` NÃO É ENFEITE: as camadas são `-z-10` para ficarem atrás do
             conteúdo, e sem um contexto de empilhamento próprio elas ficariam
             atrás do fundo da PÁGINA, o que na prática as apaga. */}
-        <section id="faculty" className="relative isolate overflow-hidden bg-ink">
-          <Image
-            src="/team/faculty-global-dna.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="-z-10 object-cover object-center"
-          />
-          {/* ⚠️ ESCURECIDO EM 11-09, DEPOIS QUE OS QUADROS GANHARAM FOTO. Era
-              `ink/60` mais um degradê de `ink` a `ink/20`, e aquilo estava certo
-              enquanto o globo era a única imagem do bloco — ele era o assunto
-              visual. Com as cinco regiões carregando fotografia, a seção passou
-              a ter SEIS imagens, e o globo virou uma disputando atrás das
-              outras. Escurecer resolve sem tirá-lo: ele vira ambiente, que é o
-              papel que sobrou para ele.
+        {/* ⚠️ O GLOBO SAIU DAQUI EM 11-09 e foi para o bloco 6. Ele entrou nesta
+            seção quando os cinco quadros eram só nome, e ali era o assunto
+            visual do bloco. Quando eles ganharam fotografia a conta virou: seis
+            imagens na mesma seção, e a de fundo passou a competir com as cinco
+            que carregam a informação. Escurecê-lo resolvia pela metade — ele
+            parava de disputar e também parava de somar.
 
-              75% no plano e o horizontal fechando em `ink/45` em vez de
-              `ink/20` — o lado direito era onde a foto mais aparecia, e é
-              justamente onde não há texto nem cartão para justificá-la. */}
-          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/75" />
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/45"
-          />
+            Onde ele está agora ganha as duas coisas: o bloco 6 é texto em
+            cartões, não tinha imagem nenhuma, e o globo volta a ser o assunto.
+            A seção aqui fica `ink` liso, e quem faz o trabalho visual é o
+            mosaico — que é o que o documento pede que ele faça. */}
+        <section id="faculty" className="bg-ink">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             {/* `onDark` troca o #d84339 pelo tom claro: o vermelho cheio mede
                 2,87:1 sobre `ink` e reprova como texto. A conta está no
@@ -337,6 +325,52 @@ export default function OurTeamPage() {
                     aria-hidden
                     className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/55 to-transparent"
                   />
+                  {/* A COR DA REFERÊNCIA, por cima do neutro e não no lugar
+                      dele. Na referência cada cartão tem um degradê colorido no
+                      pé, e é ele que faz a grade parecer desenhada em vez de
+                      cinco fotos escurecidas iguais.
+
+                      A ORDEM DAS DUAS CAMADAS É O PONTO. O preto embaixo é
+                      quem entrega o contraste do nome, e está medido; a cor vem
+                      depois, fraca, só tingindo. Se fosse a cor a segurar a
+                      legibilidade, o nome passaria a depender de quanto tom tem
+                      naquele pedaço da foto, e cada imagem nova exigiria medir
+                      de novo.
+
+                      `mix-blend-soft-light` E NÃO CAMADA CHAPADA: chapado sobre
+                      foto escura vira véu leitoso e apaga o assunto; soft light
+                      mantém a luminância da imagem e desloca só o matiz. É o
+                      mesmo raciocínio do `multiply` do herói, um degrau mais
+                      suave porque aqui a área é pequena e repetida cinco vezes.
+
+                      ⏳ UMA COR SÓ HOJE (`brand`), e não cinco. O site tem um
+                      acento, e existe decisão de 10-09 de que ele não vira área.
+                      Cinco cores tiradas das fotos é o que a referência faz e é
+                      possível numa linha — o campo `tint` já está em
+                      `FacultyRegion` para isso. Mas isso é decisão de paleta,
+                      não de implementação, e é do cliente. */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 mix-blend-soft-light"
+                    style={{
+                      backgroundImage:
+                        region.tint ??
+                        /* A IMAGEM INTEIRA, e não só o pé — pedido de 11-09, e é
+                           o que a referência faz: o tom atravessa o cartão e vai
+                           sumindo para cima, em vez de terminar numa faixa.
+
+                           E MAIS FRACO: a primeira versão usava o `brand` cheio
+                           e o pé dos cinco cartões ficava vermelho de verdade,
+                           que é a área que a decisão de 10-09 evita. Aqui ele
+                           entra a 52% embaixo, cai para 20% no meio e chega a
+                           zero no topo — tinge sem tomar conta.
+
+                           Os três pontos são do MESMO vermelho (#d84339, o
+                           `brand`) em alfas diferentes, e não três cores: o que
+                           varia é quanto dele há, não qual é. */
+                        "linear-gradient(to top, rgba(216,67,57,.52) 0%, rgba(216,67,57,.20) 45%, rgba(216,67,57,0) 100%)",
+                    }}
+                  />
                   <span className="absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] text-white">
                     {region.name}
                   </span>
@@ -373,9 +407,36 @@ export default function OurTeamPage() {
             home. O outline move os strands e não diz uma palavra sobre ele —
             se vem junto, se fica lá, se some. Pergunta de meia linha para o
             cliente, não pendência de conteúdo. */}
-        <section className="bg-paper">
+        {/* ⚠️ ESTA SEÇÃO ERA CLARA (`bg-paper`) ATÉ 11-09. Recebeu o globo que
+            estava na Global faculty, a pedido, e com ele veio a virada de tom: o
+            rótulo passa a `onDark`, o título a branco.
+
+            O QUE NÃO MUDOU, E É O PONTO: os cartões continuam brancos. Sobre a
+            imagem eles leem como peças pousadas em cima dela, que é mais forte
+            do que eram sobre o cinza — e não exigiu redesenhar nada, porque o
+            cartão já era branco com faixa `ink` no topo. A sombra deles vira
+            quase invisível no escuro; fica, porque ainda trabalha nas partes
+            claras da foto.
+
+            OS DOIS ESCURECIMENTOS SÃO OS MESMOS que a faculty usava, com os
+            mesmos números — o plano de 75% para segurar as luzes das cidades, e
+            o horizontal fechando em `ink/45`, que mantém a esquerda (onde o
+            título mora) mais escura que a direita. */}
+        <section className="relative isolate overflow-hidden bg-ink">
+          <Image
+            src="/team/faculty-global-dna.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="-z-10 object-cover object-center"
+          />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/75" />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/45"
+          />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel>The DNA experience</TypeLabel>
+            <TypeLabel onDark>The DNA experience</TypeLabel>
             {/* A escala do h2 da Client impact, inteira — 28/34/40, peso 600,
                 tracking -0,5px, `mb-[52px]` até os cartões. A serifa não é
                 desvio: a home força `[&_h2]:font-serif` no wrapper, então o
@@ -383,7 +444,7 @@ export default function OurTeamPage() {
                 Serif 4 aqui, serif-v2 lá), e isso é a página, não a seção.
 
                 Sem `mt`: o `TypeLabel` já traz `mb-5`, igual à home. */}
-            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
               {dnaLead}
             </h2>
             {/* A SOMBRA DOS CARTÕES É ADIÇÃO NOSSA — a home não tem. Dois
