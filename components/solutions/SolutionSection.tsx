@@ -1,5 +1,4 @@
 import Image, { type StaticImageData } from "next/image";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
 
@@ -24,13 +23,13 @@ import Reveal from "@/components/Reveal";
  * página inteira, Team veio com retratos. Então a ordem é dela e o desenho é
  * nosso, o que também quer dizer que isto aqui ainda não foi visto por ela.
  *
- * A IMAGEM É PLACEHOLDER, e não descuido: não existe fotografia por serviço, e
- * o material que existe (`docs/Content.zip`, lote de 11/06) é quase todo em
- * sede de cliente com a marca deles na parede — usar aquilo como ilustração
- * genérica insinuaria uma relação que a foto não prova, além de expor cliente
- * sem consentimento. O herói usa a única foto do lote sem marca visível.
- * Trocar `<ImagePlaceholder>` por `<Image fill>` é a única edição quando o
- * material próprio chegar.
+ * ⚠️ HOJE O PAINEL NÃO TEM FOTO NENHUMA, e isso é decisão de 12-09: ele é um
+ * campo de cor com o nome do bloco em corpo grande. Não existe fotografia por
+ * serviço, e o material que existe (`docs/Content.zip`, lote de 11/06) é quase
+ * todo em sede de cliente com a marca deles na parede — usar aquilo como
+ * ilustração genérica insinuaria uma relação que a foto não prova, além de
+ * expor cliente sem consentimento. O herói usa a única foto do lote sem marca
+ * visível. Passar `image` é a única edição quando material próprio chegar.
  */
 export default function SolutionSection({
   label,
@@ -40,6 +39,7 @@ export default function SolutionSection({
   image,
   imageAlt = "",
   imagePosition = "object-center",
+  panelTone = "ink",
 }: {
   label: string;
   html: string;
@@ -71,48 +71,19 @@ export default function SolutionSection({
    * some. Cada bloco escolhe o seu.
    */
   imagePosition?: string;
+  /**
+   * A cor do painel quando NÃO há foto. Ignorado quando há.
+   *
+   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço fecha em
+   * `bg-brand` (o `SolutionCta`) e tem a evidência em `bg-ink`. Dois painéis da
+   * mesma cor aqui ou anulam a diferença entre os blocos, ou antecipam uma
+   * faixa que vem depois. Por isso o Outcome vai de `ink` e o How We Help de
+   * `brand`: o escuro antes do vermelho constrói na direção do convite final,
+   * em vez de repeti-lo antes da hora.
+   */
+  panelTone?: "ink" | "brand";
 }) {
   const imageLeft = side === "left";
-
-  /* SEM FOTO, O BLOCO NÃO VIRA UM SLOT VAZIO — vira um bloco tipográfico.
-     Decidido em 11-09, e a razão é o CMS: `solutionSchema` tem UM campo de
-     imagem (`bannerMediaId`, o herói) e nenhum por bloco. As fotos que estavam
-     aqui eram import fixo, as MESMAS nas dez páginas, e portanto a única coisa
-     da página que o cliente não poderia trocar quando assumir o conteúdo —
-     justamente a que mais ocupa tela.
-
-     Some a alternância de lado, que existia para dar ritmo entre fotos. O ritmo
-     passa a vir dos fundos (branco → `paper` → `ink` na evidência → vermelho no
-     CTA), que é o mesmo recurso que a About usa.
-
-     O prop `image` continua aqui de propósito: quando existir fotografia POR
-     SERVIÇO — e aí com campo de mídia por bloco no CMS — é passar a foto e o
-     layout de duas colunas volta sem mais nada.
-
-     A FOTO FOI PEDIDA AO CLIENTE: `docs/mensagem-grupo-fotos-servicos-11-09.
-     ENVIAR.txt`, oferecida como sugestão de desenho e não como pendência de
-     lançamento. Se vier material, o campo de mídia por bloco no CMS é a nossa
-     parte do trabalho. */
-  if (!image) {
-    return (
-      <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
-        {/* O rótulo entra primeiro e o texto 0,12s depois — a mesma cascata que
-            a home e a /about usam, e que estas dez páginas eram as únicas da
-            linguagem nova a não ter. Num bloco de duas peças o escalonamento é
-            sutil por definição; o que ele resolve é o parágrafo não aparecer
-            montado de uma vez ao entrar na dobra. */}
-        <Reveal className="mx-auto grid max-w-[1440px] gap-8 px-6 py-20 md:grid-cols-[1fr_1.6fr] md:gap-16 md:px-10 md:py-24">
-          <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
-            {label}
-          </p>
-          <RichText
-            html={html}
-            className="max-w-[760px] font-serif text-[20px] leading-[1.55] text-ink md:text-[24px]"
-          />
-        </Reveal>
-      </section>
-    );
-  }
 
   /* ⚠️ O ARRANJO COM FOTO MUDOU EM 12-09 — é a variação 10 de `/service-tests`,
      escolhida depois de dez tratamentos postos lado a lado. O que ela tem, e
@@ -160,13 +131,35 @@ export default function SolutionSection({
           texto, e a medida fica curta demais — três a quatro palavras por linha.
           Até `lg` os dois empilham, imagem em cima. */}
       <div
-        className={`mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:items-stretch ${
+        className={`mx-auto flex max-w-[1440px] flex-col lg:items-stretch ${image ? "lg:min-h-svh" : "lg:min-h-[78svh]"}  ${
           imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"
         }`}
       >
-        {/* `min-h` só para o empilhado: de `lg` para cima quem manda é o
-            `items-stretch` do pai. */}
-        <div className="relative min-h-[280px] lg:w-[44%]">
+        {/* O PAINEL — foto quando existe uma, CAMPO DE COR quando não existe.
+            É o mesmo lugar e a mesma medida nos dois casos, e é isso que faz o
+            dia da troca ser uma linha.
+
+            ⚠️ SEM FOTO NÃO É SLOT VAZIO NEM PLACEHOLDER TRACEJADO. A página é
+            de venda e vai ao ar assim; caixa tracejada anuncia obra inacabada
+            para quem nunca vai saber o que deveria estar ali. O campo cheio com
+            o nome do bloco em corpo grande é uma composição ACABADA que por
+            acaso não tem foto — e continua sendo, se foto nenhuma chegar.
+
+            POR QUE O RÓTULO MUDA DE LADO. Ele era uma linha de 14px no alto da
+            coluna de texto. Aqui vira o assunto do painel, em serifa grande, e
+            SAI da coluna de texto — dizer duas vezes, uma pequena e outra
+            grande, seria a mesma palavra competindo consigo. O parágrafo fica
+            sozinho do outro lado, que é o que ele precisa.
+
+            NO PÉ E NÃO CENTRADO: o campo é alto, e texto no meio de um retângulo
+            colorido lê como placa. Ancorado embaixo, o vazio acima vira margem
+            deliberada — é a composição da referência do Prisma, onde o tipo
+            grande mora no rodapé da imagem. */}
+        <div
+          className={`relative flex min-h-[280px] items-end lg:min-h-0 lg:w-[44%] ${
+            image ? "" : panelTone === "brand" ? "bg-brand" : "bg-ink"
+          }`}
+        >
           {image ? (
             <Image
               src={image}
@@ -177,7 +170,9 @@ export default function SolutionSection({
               className={`object-cover ${imagePosition}`}
             />
           ) : (
-            <ImagePlaceholder className="absolute inset-0 h-full w-full" label="Imagem" />
+            <p className="font-serif px-6 pb-12 pt-16 text-[38px] font-semibold leading-[1.02] tracking-[-1px] text-white md:px-10 md:text-[58px] lg:pb-16 lg:text-[68px]">
+              {label}
+            </p>
           )}
         </div>
 
@@ -191,14 +186,12 @@ export default function SolutionSection({
           }`}
         >
           <div className="max-w-[560px]">
-            <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
-              {label}
-            </p>
-            {/* A RÉGUA DE 36×2 entre o rótulo e o texto — a mesma do rótulo do
-                herói. Com o bloco ocupando uma tela, rótulo e parágrafo ficam
-                longe de qualquer outra coisa, e sem ela os dois flutuavam
-                soltos no meio do branco. */}
-            <span className="mt-7 block h-0.5 w-9 bg-brand" />
+            {/* A RÉGUA DE 36×2 ABRE A COLUNA agora que o rótulo saiu daqui. Ela
+                é a mesma do rótulo do herói, e sem ela o parágrafo começaria no
+                nada: num bloco de uma tela, um texto solto no meio do branco não
+                tem onde encostar. Dois traços iguais na mesma tela — este e o do
+                herói — é o que faz os blocos lerem como uma família. */}
+            <span className="block h-0.5 w-9 bg-brand" />
             {/* `font-serif` no corpo — é o par da grade editorial: grotesca no
                 rótulo, serifa no texto. Ver `lib/fonts.ts`. */}
             <RichText

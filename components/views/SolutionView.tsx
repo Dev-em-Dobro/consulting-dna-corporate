@@ -5,14 +5,6 @@ import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
 import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
 
-/**
- * ⏳ OS DOIS BLOCOS APONTAM PARA O MESMO ARQUIVO HOJE, e os dois nomes existem
- * de propósito: quando o par definitivo chegar, é trocar um import cada e mais
- * nada — sem caçar uso dentro do JSX. Os recortes que os diferenciam estão no
- * ponto de uso, porque é lá que se vê o painel ao lado do texto.
- */
-import outcomeImage from "@/public/solutions/dna-earth.jpg";
-import helpsImage from "@/public/solutions/dna-earth.jpg";
 
 /**
  * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
@@ -75,39 +67,36 @@ export default function SolutionView({ service }: { service: Service }) {
         subtitle={service.banner}
       />
 
-      {/* A FOTO VOLTA AOS DOIS BLOCOS EM 12-09, e o que mudou desde 11-09 — quando
-          ela saiu — não foi a opinião, foi a natureza do arquivo.
+      {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot
+          esperando arquivo. O painel é um CAMPO DE COR com o nome do bloco em
+          corpo grande.
 
-          O QUE TINHA SAÍDO, e por quê: eram duas FOTOGRAFIAS de evento, iguais
-          nas dez páginas, e o `solutionSchema` só tem um campo de imagem (o do
-          herói). Ou seja, eram a única coisa da página que o cliente não
-          poderia trocar ao assumir o conteúdo — justamente a que mais ocupa
-          tela. Pior: quase todo o acervo tem marca de terceiro à vista, e uma
-          foto de cliente como ilustração genérica insinua uma relação que ela
-          não prova.
+          COMO SE CHEGOU AQUI. Uma ilustração gerada chegou a entrar nos dois
+          (a hélice sobre a Terra, em recortes diferentes), e antes dela havia
+          fotografia de evento. Postas cinco direções lado a lado, esta foi a
+          escolhida, e o argumento é o mais simples de todos: é a única que não
+          pode ficar brega, não depende de arquivo que ainda não existe, e é
+          DIFERENTE em cada uma das dez páginas de graça — porque o que preenche
+          o campo é o nome do bloco, não uma imagem repetida.
 
-          O QUE ENTRA NO LUGAR não é fotografia: é ILUSTRAÇÃO. Sem rosto, sem
-          marca na parede, sem cliente exposto — e por isso pode repetir nas dez
-          páginas sem o problema de antes. Ilustração repetida lê como
-          identidade; fotografia repetida lê como falta de material. É a mesma
-          distinção que a mensagem de fotos de 11-09 faz ao cliente.
+          O QUE ISSO FECHA: a armadilha que voltou três vezes neste arquivo. Foto
+          de cliente insinua relação que ela não prova; foto genérica repetida
+          nas dez lê como falta de material; ilustração gerada resolve os dois e
+          cria um terceiro, que é datar. Campo de cor com tipografia não tem
+          nenhum dos três.
 
-          ⏳ AS DUAS SÃO A MESMA IMAGEM POR ENQUANTO, em recortes diferentes. O
-          par definitivo — uma para o Outcome e outra para o How We Help — está
-          para ser gerado. Quando chegar, é trocar os dois imports; o layout não
-          muda.
-
-          O RECORTE É O QUE DIFERENCIA os blocos hoje, e não é enfeite: o painel
-          tem 44% de largura por uma tela de altura, ou seja, é um retrato alto
-          recortando um arquivo apaisado. `34%` de altura pega a hélice; `66%`
-          desce para as luzes de cidade. Mesma imagem, dois assuntos. */}
+          ⚠️ O `image` CONTINUA SENDO PROP e o layout já sabe recebê-lo. No dia
+          em que houver fotografia POR SERVIÇO — com campo de mídia por bloco no
+          CMS, que é a nossa parte — é passar a imagem e o painel troca de
+          conteúdo sem mudar de medida. Ver `docs/mensagem-grupo-fotos-servicos-
+          11-09.ENVIAR.txt`, onde isso foi pedido ao cliente como sugestão de
+          desenho e não como pendência de lançamento. */}
       <SolutionSection
         label="The Outcome"
         html={paragraphs(service.outcome)}
         side="left"
         tone="white"
-        image={outcomeImage}
-        imagePosition="object-[46%_34%]"
+        panelTone="ink"
       />
 
       <SolutionSection
@@ -115,8 +104,7 @@ export default function SolutionView({ service }: { service: Service }) {
         html={paragraphs(service.howWeHelp)}
         side="right"
         tone="paper"
-        image={helpsImage}
-        imagePosition="object-[58%_66%]"
+        panelTone="brand"
       />
 
       {service.evidence && (
