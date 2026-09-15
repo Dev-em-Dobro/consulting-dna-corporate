@@ -110,13 +110,19 @@ export type Service = {
    * A imagem do card no índice `/services` — item 12 da daily de 14-09:
    * *"a bit of image, just to call out each of the [services]."*
    *
-   * ⏳ SEIS DOS DEZ TÊM, e a ausência é deliberada em vez de um arquivo
-   * qualquer. Estes seis são as banners fotográficas do site ANTIGO
-   * (`public/solutions-banners/`), recortadas em 16:10: são material da própria
-   * CDNA, já publicado, e não banco de imagem. Os quatro sem — Manager
-   * Development, HRLT Effectiveness, Judgement in AI e Family Business
-   * Consulting — são serviços que o site velho não tinha, então não há foto
-   * deles em lugar nenhum.
+   * ⏳ OITO DOS DEZ TÊM, e a ausência dos outros dois é deliberada em vez de um
+   * arquivo qualquer. Os arquivos vêm de duas origens, e vale saber qual é qual:
+   *
+   *   • SEIS são as banners fotográficas do site ANTIGO
+   *     (`public/solutions-banners/`), recortadas em 16:10: material da própria
+   *     CDNA, já publicado, e não banco de imagem.
+   *   • DOIS chegaram em 15-09, escolhidos pelo Ricardo — Manager Development e
+   *     Judgement in AI. São imagens GERADAS, 1536x1024 recortadas para 16:10, e
+   *     o registro importa: o site velho não tinha esses dois serviços, então não
+   *     existia foto deles em lugar nenhum.
+   *
+   * Seguem sem arquivo HRLT Effectiveness e Family Business Consulting, pela
+   * mesma razão — serviços novos, sem acervo.
    *
    * O CARD SEM FOTO NÃO FICA VAZIO: ele cai no campo de cor com o nome do
    * serviço, que é o mesmo recurso que as páginas de dentro usam desde 12-09 e
@@ -125,8 +131,8 @@ export type Service = {
    * medida; o que muda é o que preenche o quadro.
    *
    * ⚠️ ISTO É O "USE GENERIC FOR NOW" DELA, de 15-09, e não a escolha final. Ela
-   * ficou de mandar as imagens da grade; quando chegarem, é trocar seis caminhos
-   * e acrescentar quatro. O layout não muda.
+   * ficou de mandar as imagens da grade; quando chegarem, é trocar oito caminhos
+   * e acrescentar dois. O layout não muda.
    *
    * ⚠️ O ARQUIVO DO TOP 150 É `diversification.png` do acervo antigo — um
    * conselho ao redor da mesa com a cidade atrás. O NOME do arquivo fala de
@@ -243,6 +249,7 @@ export const services: Service[] = [
   },
   {
     slug: "manager-development",
+    cardImage: "/services/cards/manager-development.jpg",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     outcome:
@@ -317,6 +324,7 @@ export const services: Service[] = [
   },
   {
     slug: "judgement-in-ai",
+    cardImage: "/services/cards/judgement-in-ai.jpg",
     title: "Judgement in AI",
     banner:
       "Build the human judgement required to make better decisions in an AI-augmented world.",
