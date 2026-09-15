@@ -106,6 +106,34 @@ export type Service = {
   cta: { strapline: string; line: string; label: string };
   evidence?: ServiceEvidence;
   testimonial?: ServiceTestimonial;
+  /**
+   * A imagem do card no índice `/services` — item 12 da daily de 14-09:
+   * *"a bit of image, just to call out each of the [services]."*
+   *
+   * ⏳ SEIS DOS DEZ TÊM, e a ausência é deliberada em vez de um arquivo
+   * qualquer. Estes seis são as banners fotográficas do site ANTIGO
+   * (`public/solutions-banners/`), recortadas em 16:10: são material da própria
+   * CDNA, já publicado, e não banco de imagem. Os quatro sem — Manager
+   * Development, HRLT Effectiveness, Judgement in AI e Family Business
+   * Consulting — são serviços que o site velho não tinha, então não há foto
+   * deles em lugar nenhum.
+   *
+   * O CARD SEM FOTO NÃO FICA VAZIO: ele cai no campo de cor com o nome do
+   * serviço, que é o mesmo recurso que as páginas de dentro usam desde 12-09 e
+   * pelo mesmo motivo — não fica brega, não depende de arquivo que não existe, e
+   * é diferente em cada card de graça. A grade continua com dez objetos da mesma
+   * medida; o que muda é o que preenche o quadro.
+   *
+   * ⚠️ ISTO É O "USE GENERIC FOR NOW" DELA, de 15-09, e não a escolha final. Ela
+   * ficou de mandar as imagens da grade; quando chegarem, é trocar seis caminhos
+   * e acrescentar quatro. O layout não muda.
+   *
+   * ⚠️ O ARQUIVO DO TOP 150 É `diversification.png` do acervo antigo — um
+   * conselho ao redor da mesa com a cidade atrás. O NOME do arquivo fala de
+   * inclusão, o CONTEÚDO serve a uma jornada de ExCo. Fica escrito para ninguém
+   * concluir mais tarde que houve troca de imagem entre serviços.
+   */
+  cardImage?: string;
 };
 
 /**
@@ -117,6 +145,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "top-150-leadership-development",
+    cardImage: "/services/cards/top-150-leadership-development.jpg",
     title: "Top 150 Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
@@ -150,6 +179,7 @@ export const services: Service[] = [
   },
   {
     slug: "culture-transformation",
+    cardImage: "/services/cards/culture-transformation.jpg",
     title: "Culture Transformation",
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
@@ -183,6 +213,7 @@ export const services: Service[] = [
   },
   {
     slug: "talent-development",
+    cardImage: "/services/cards/talent-development.jpg",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
     outcome:
@@ -226,6 +257,7 @@ export const services: Service[] = [
   },
   {
     slug: "women-in-leadership",
+    cardImage: "/services/cards/women-in-leadership.jpg",
     title: "Women in Leadership",
     banner:
       "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
@@ -241,6 +273,7 @@ export const services: Service[] = [
   },
   {
     slug: "high-performing-teams",
+    cardImage: "/services/cards/high-performing-teams.jpg",
     title: "High Performing Teams",
     banner:
       "Turn groups of strong individuals into leadership teams that perform collectively.",
@@ -299,6 +332,7 @@ export const services: Service[] = [
   },
   {
     slug: "executive-coaching",
+    cardImage: "/services/cards/executive-coaching.jpg",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     outcome:

@@ -5,6 +5,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
+import teamStairs from "@/public/team/team-stairs.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { leaders, facultyRegions, dnaLead, dnaStrands } from "@/lib/team";
@@ -37,16 +38,17 @@ export async function generateMetadata(): Promise<Metadata> {
  * ele continua vivo por 308 em `next.config.mjs` — e os quatro legados passaram
  * a apontar direto para cá, sem escala.
  *
- * ⏳ O HOLD DA FOTO DE GRUPO VIROU SLOT VISÍVEL, decisão de 11-09 e uma REVERSÃO
- * da anterior. A primeira versão escondia o bloco sem foto, para que a página
- * lesse como completa. O problema é de quem está olhando: quem revisa esta
- * página é o próprio cliente, que escreveu os HOLD e sabe o que deve; esconder
- * o bloco tira dele justamente a decisão que a revisão existe para tomar — se o
- * layout funciona. O bloco 4 sai com placeholder, compondo como vai compor com
- * a foto dentro.
+ * ✅ O BLOCO 4 TEM FOTO DESDE 15-09 — a do time na escada, do pacote do Drive.
+ * Ele passou 11-09 a 15-09 como slot VISÍVEL, e essa decisão fica registrada
+ * porque o raciocínio vale para o próximo HOLD: a primeira versão escondia o
+ * bloco sem foto, para a página ler como completa, e isso estava errado por
+ * causa de quem revisa — é o próprio cliente, que escreveu os HOLD e sabe o que
+ * deve. Esconder o bloco tirava dele a única decisão que a revisão existia para
+ * tomar: se o layout funciona. Placeholder dimensionado e rotulado pelo que vai
+ * receber, nunca aviso de pendência.
  *
- * O que isto NÃO é: cobrança. O placeholder é dimensionado e rotulado pelo que
- * vai receber, e não um aviso de pendência — o cliente não precisa de lembrete.
+ * (E ele provou o próprio ponto: a foto que chegou é RETRATO, o slot era 16:9, e
+ * o bloco teve de ser refeito. Ver a caixa dele.)
  *
  * ⏸️ O BLOCO 3 (PERSPECTIVES) FOI CONSTRUÍDO E RETIRADO NO MESMO DIA. Eram duas
  * faixas escuras intercaladas na grade, com a frase de uma pessoa ampliada sobre
@@ -68,10 +70,15 @@ export default function OurTeamPage() {
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         {/* ⚠️ HERÓI SEM FOTO PRÓPRIA: cai na mesma imagem padrão das páginas de
-            serviço. A foto certa aqui é a de grupo, que é HOLD — e que o
-            documento diz estar reservada para a About, com a pergunta em aberto
-            de se uma serve as duas páginas. Enquanto não se decide, dividir a
-            padrão é melhor que um slot vazio na primeira tela. */}
+            serviço. Dividir a padrão continua sendo melhor que um slot vazio na
+            primeira tela.
+
+            E NÃO, A FOTO DA ESCADA NÃO SERVE AQUI. Ela já roda duas vezes no
+            site desde 15-09 (bloco 4 abaixo e a /about); uma terceira aparição,
+            na primeira dobra desta mesma página, é a repetição que o
+            `CDNA_04_Team.docx` chama de "visible". O herói próprio continua na
+            lista de imagens pendente com a Maliha — ela avisou na call de 14-09
+            que cada página precisa de hero E de fundo. */}
         {/* SEM O DUOTONE, a pedido em 11-09: cinza como na home. Esta página foi
             a primeira, e passava `tint="none"` com o filtro da home escrito aqui.
             As páginas de serviço pediram o mesmo no mesmo dia, e aí os dois
@@ -121,21 +128,62 @@ export default function OurTeamPage() {
         </section>
 
         {/* ── Bloco 4 · Group photograph ───────────────────────────────── */}
-        {/* SLOT CLARO, e não mais uma faixa escura: as duas faixas de citação
-            logo acima já são `ink`, e uma terceira caixa escura em seguida
-            empilharia três blocos da mesma cor. Sobre branco, a foto de grupo
-            lê como o respiro entre a liderança e a faculty — que é a posição
-            que o documento dá a ela.
+        {/* ✅ A FOTO CHEGOU EM 15-09 — o time sentado na escada, que a própria
+            Maliha procurava na call de 14-09. O slot esperava desde 11-09.
 
-            16:9 (4:3 no telefone) porque o que entra aqui é uma foto de seis
-            pessoas lado a lado: em 21:9 as cabeças ficariam numa tira fina no
-            meio do quadro. */}
-        <section className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24">
-            <ImagePlaceholder
-              label="Group photograph"
-              className="aspect-[4/3] w-full sm:aspect-[16/9]"
-            />
+            ⚠️ O SLOT DE 16:9 NÃO SERVIA. Ele foi dimensionado para "uma foto de
+            seis pessoas lado a lado", e a que veio tem as seis em TRÊS DEGRAUS:
+            é 1066x1600, retrato 2:3. Numa faixa 16:9 de largura cheia sobrariam
+            ~40% da altura, cortando a fileira de cima e a de baixo.
+
+            A SAÍDA É A COMPOSIÇÃO DO PRÓPRIO MOCKUP DELA
+            (`docs/mockup-team-maliha-14-09-2026.png`): a foto de um lado e, do
+            outro, sobre escuro, o rótulo "ONE TEAM" com "Different
+            perspectives. A shared purpose." Ali a foto é paisagem e ocupa dois
+            terços; aqui ela é retrato, então as proporções invertem — a imagem
+            fica na coluna mais estreita e o texto ganha ar. O objeto é o mesmo.
+
+            A COPY É DELA, do mesmo mockup, e não nossa. Ela NÃO está no
+            `CDNA_04_Team.docx`, que para o bloco 4 só diz "HOLD, slot 04" — ou
+            seja, é conteúdo novo que apareceu no desenho. Fica anotado porque,
+            se o cliente revisar o texto da página contra o Word, estas duas
+            linhas não vão estar lá.
+
+            ESCURO, e não o branco que o slot tinha. O branco existia porque um
+            placeholder cinza sobre `ink` sumiria; com a foto dentro, a faixa
+            escura é o que separa a liderança (branca) da faculty (`paper`) e é
+            o que o mockup mostra. A foto traz o próprio branco para dentro.
+
+            ⚠️ MESMA FOTO DA /about, em recorte diferente (lá vai em 4:5, aqui
+            inteira em 2:3). O documento avisa que repetir a fotografia "is
+            visible". Decisão consciente de 15-09 para não deixar os dois slots
+            vazios; a segunda foto continua valendo a pena pedir. */}
+        <section className="bg-ink text-white">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
+            <div className="relative aspect-[2/3] w-full">
+              <Image
+                src={teamStairs}
+                alt="The Corporate DNA team on the office stairs"
+                fill
+                sizes="(min-width: 768px) 38vw, 100vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div>
+              <TypeLabel onDark>One team</TypeLabel>
+              <p className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-white md:text-[40px]">
+                Different perspectives.
+                <br />A shared purpose.
+              </p>
+              {/* O FILETE VERMELHO FECHA O BLOCO, como no mockup — lá ele
+                  aparece sob a frase, curto e à esquerda. É a mesma marca que o
+                  `TypeLabel` traz em cima, repetida embaixo para emoldurar as
+                  duas linhas. */}
+              <span
+                aria-hidden
+                className="mt-7 block h-0.5 w-16 bg-brand"
+              />
+            </div>
           </div>
         </section>
 

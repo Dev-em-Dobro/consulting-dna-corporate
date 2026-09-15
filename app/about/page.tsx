@@ -36,7 +36,6 @@ import { buildSiteNav } from "@/lib/nav-server";
 import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import LocationsBlock from "@/components/LocationsBlock";
 import { offices as siteOffices, type Office } from "@/lib/offices";
@@ -46,6 +45,7 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 import heroPhoto from "@/public/skyline-dna.jpg";
+import teamStairs from "@/public/team-stairs-about.jpg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito — ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
@@ -1295,25 +1295,36 @@ export default async function AboutV2Page() {
               troncos, não os rostos), e o recuo lateral é o que faz a coisa ler
               como card sobreposto em vez de bloco de texto encostado. */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-0">
-            {/* ⚠️ A FOTO DO TIME AINDA NÃO EXISTE, e ela não é uma foto a tirar:
-                é a que já está no "approved Our Identity slide", um slide do
-                `CDNA Overview Deck Final 22 Jan 2026.pdf`. O outline diz
-                "supplied with the slide" porque, do lado da CDNA, ela já foi
-                entregue — só não chegou até nós. O deck foi lido para escrever
-                a avaliação de 11-07 (`docs/analise.txt`, que o cita pelo nome),
-                mas o arquivo não está no repositório nem é anexo de nenhum dos
-                `.eml` arquivados. Pedido em 09-09.
+            {/* ✅ A FOTO DO TIME CHEGOU EM 15-09 — o time sentado na escada, que
+                é a que a Maliha procurava na própria call de 14-09 ("do you guys
+                already have the one of the teams sitting on the stairs?"). Ela
+                veio na pasta `1.About Page` do Drive e com o nome
+                `About page.jpeg`, ou seja endereçada a ESTA página.
 
-                Não há substituto: as 25 fotos de `public/dna-time` são de
-                eventos e de turmas de programa, não do time da CDNA, e passar
-                uma delas por foto do time seria dizer algo falso na página.
+                O placeholder que estava aqui esperava a foto do "approved Our
+                Identity slide", pedida em 09-09 e que nunca chegou. É outra
+                imagem; esta a substitui.
 
-                O placeholder fica no TAMANHO E NA PROPORÇÃO reais, o que serve
-                de amostra do recorte a pedir — paisagem 3:2, sem tratamento. */}
-            <div className="relative aspect-[3/2] self-center">
-              <ImagePlaceholder
-                className="absolute inset-0 h-full w-full"
-                label="CDNA team photograph"
+                ⚠️ O QUADRO VIROU RETRATO, e não foi escolha: o arquivo dela é
+                1066x1600 (2:3) e o slot era paisagem 3:2. Um 3:2 tirado de um
+                2:3 sobra 711px de altura — o corte comeria as cabeças da fileira
+                de cima e os pés da de baixo. 4:5 tira 267px, metade do forro e
+                metade do piso, e não encosta em ninguém. O bloco fica mais alto;
+                o card de citação ao lado continua centrado nele.
+
+                ⚠️ A MESMA FOTO RODA NA /team, num recorte diferente (lá ela vai
+                inteira, em 2:3). O `CDNA_04_Team.docx` avisa que usar a mesma
+                fotografia nas duas páginas "is visible", e isso continua sendo
+                verdade — foi decisão consciente de preencher os dois slots
+                agora, com recortes que não leem como o mesmo arquivo repetido.
+                A segunda foto continua valendo a pena pedir. */}
+            <div className="relative aspect-[4/5] self-center">
+              <Image
+                src={teamStairs}
+                alt="The Corporate DNA team on the office stairs"
+                fill
+                sizes="(min-width: 1024px) 54vw, 100vw"
+                className="object-cover object-center"
               />
             </div>
 
