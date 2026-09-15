@@ -305,7 +305,43 @@ export const facultyRegions: FacultyRegion[] = [
 export const dnaLead =
   "With our “One DNA TEAM” principle, we execute as one collaborative team.";
 
+/**
+ * Bloco 6 do outline — as QUATRO vertentes da DNA experience.
+ *
+ * ⚠️ ERAM TRÊS ATÉ 15-09, E ISSO ERA UM FURO CONTRA O DOCUMENTO. O
+ * `CDNA_04_Team.docx` escreve, em letra: *"Type: four strands, moved here from
+ * the homepage: One DNA TEAM, The DNA Experience, Trusted Relationships,
+ * Inclusion & Diversity."* A primeira faltava — ela estava sendo consumida como
+ * a FRASE DE ABERTURA da seção (o `dnaLead` logo acima), que é o que a home faz,
+ * e na migração para cá ninguém notou que aqui ela também tem de ser cartão.
+ * O mockup de 14-09 confirma: quatro colunas, e a primeira é "One DNA TEAM".
+ *
+ * O `dnaLead` FICA COMO TÍTULO DA SEÇÃO. Ele não vira redundância: a frase
+ * apresenta o princípio ("With our One DNA TEAM principle, we execute as one
+ * collaborative team") e o cartão diz o que ele é. É a mesma relação que o
+ * título tem com os outros três.
+ *
+ * ⚠️ O CORPO DA PRIMEIRA É CURTO E O DAS OUTRAS TRÊS É LONGO, e isso é conhecido
+ * e não tem conserto hoje. As três longas são a copy da home, que o outline
+ * manda trazer para cá. Para a primeira não existe versão longa em lugar nenhum:
+ * a linha abaixo é a do MOCKUP dela, que é a única fonte que a descreve.
+ *
+ * O documento aponta para uma saída, e nós não temos o arquivo: *"FINAL Copy
+ * exists. See the About outline, Home block 8, for the condensed version."* O
+ * `CDNA_About_Page_Dev_Outline.docx` que veio no pacote de 15-09 cobre a
+ * navegação e a About, e NÃO tem esse bloco 8 — foi procurado. Quando a versão
+ * condensada chegar, as quatro ficam do mesmo tamanho e os cartões equilibram;
+ * é trocar três `body`.
+ */
 export const dnaStrands = [
+  {
+    title: "One DNA TEAM",
+    /* DO MOCKUP (`docs/mockup-team-maliha-14-09-2026.png`), não do Word — mesma
+       procedência da frase "Different perspectives. A shared purpose." do bloco
+       4. Fica anotado porque, se o cliente revisar o texto da página contra o
+       documento, esta linha não vai estar lá. */
+    body: "A community of curious, courageous and caring people.",
+  },
   {
     title: "The DNA Experience",
     body: "We blend our individual talents with the collective expertise of our global pool of 75 members across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time.",

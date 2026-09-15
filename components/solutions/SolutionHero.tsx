@@ -239,11 +239,13 @@ export default function SolutionHero({
             `aria-label` NO <nav>, e não um cabeçalho: é o que faz o leitor de
             tela anunciar "navegação: trilha" e pular o bloco inteiro de uma vez.
 
-            OPCIONAL, E HOJE SÓ AS PÁGINAS DE SERVIÇO USAM. As outras onze rotas
-            que caem neste herói (a /team, a /books, o índice de serviços) são
-            de primeiro nível — uma trilha de "Home / Team" não diz nada que o
-            menu já não diga, e o template dela só mostra a trilha nas páginas
-            de dentro. */}
+            OPCIONAL, E É POR ROTA. Corrigido em 15-09: a primeira versão
+            desta caixa dizia que a trilha era só das páginas de DENTRO, porque
+            o único desenho conferido até ali era o de um serviço. Os outros
+            mockups do pacote desmentem — o de Team abre com "Home / Team" e o
+            de Clients & Impact com "Home / Clients & Impact", e as duas são
+            rotas de primeiro nível. Quem decide é a página, passando ou não a
+            `trail`. Hoje passam as dez de serviço e a /team. */}
         {trail && trail.length > 0 && (
           <nav aria-label="Breadcrumb" className="h-eyebrow mb-6">
             <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] leading-none text-white/60">

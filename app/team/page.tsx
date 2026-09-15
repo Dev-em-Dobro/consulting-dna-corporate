@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
+import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
@@ -85,10 +86,15 @@ export default function OurTeamPage() {
             valores viraram o PADRÃO do `SolutionHero` — o raciocínio inteiro
             (por que `none`, por que o `brightness` não é enfeite) mora agora nas
             props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
+        {/* A MIGALHA DE PÃO, do mockup — ele abre com "Home / Team" acima do
+            rótulo, igual ao template de serviço e ao de Clients & Impact. É a
+            prova de que, no desenho dela, a trilha não é só das páginas de
+            dentro: /team é de primeiro nível e tem trilha. */}
         <SolutionHero
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
           subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
+          trail={[{ label: "Home", href: "/" }, { label: "Team" }]}
         />
 
         {/* ── Leadership ────────────────────────────────────────────────── */}
@@ -617,7 +623,15 @@ export default function OurTeamPage() {
                 superfície, e um difuso de 30px com raio negativo, que projeta
                 sem borrar a borda. Alfas baixos (4% e 22%) e na cor `ink`, não
                 em preto puro: sombra preta sobre `paper` esverdeia o cinza. */}
-            <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
+            {/* ⚠️ QUATRO COLUNAS DESDE 15-09, e não três: a vertente "One DNA
+                TEAM" faltava — ver a caixa de `dnaStrands` em `lib/team.ts`.
+
+                `md:grid-cols-2 lg:grid-cols-4` e não `md:grid-cols-4` direto: a
+                1024 quatro cartões com o corpo longo das três vertentes antigas
+                dariam ~215px de caixa, e o texto da Inclusion & Diversity (252
+                caracteres) viraria uma tira de quinze linhas. Em duas colunas no
+                tablet cada cartão tem ~450px, que é a medida em que ele lê. */}
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4">
               {dnaStrands.map((s) => (
                 <article
                   key={s.title}
@@ -671,11 +685,44 @@ export default function OurTeamPage() {
             `#presence`. Quem chegar por um endereço velho com o fragmento cai
             no topo, que é o comportamento normal de âncora inexistente.
 
-            A PÁGINA PASSA A FECHAR NA DNA EXPERIENCE, que é `ink`. Não é
-            problema de ritmo: o `paper` daqui existia para separar duas massas
-            escuras, e a que vem depois agora é o rodapé, que é branco com o
-            filete vermelho do `footerTopBorder`. Escuro → filete → branco é a
-            mesma divisa que a /about já usa. */}
+            O QUE FECHA A PÁGINA agora é a faixa de convite logo abaixo, que
+            entrou em 15-09 e é `brand`. A DNA experience, que é `ink`, deixou de
+            ser a última seção — e a sequência escuro → vermelho → rodapé branco
+            é a mesma das dez páginas de serviço. */}
+
+        {/* ── Bloco 7 · Let's talk ──────────────────────────────────────── */}
+        {/* ⚠️ ESTA FAIXA FALTAVA, e a falta estava registrada desde 14-09: a
+            análise do mockup no doc de correções (§4.1) lista, entre o que o
+            desenho dela traz e a página não tem, "um CTA final ('LET'S TALK')".
+            Só agora foi construída.
+
+            ELA NÃO ESTÁ NO `CDNA_04_Team.docx`. O documento fecha a página em
+            seis blocos e o sexto é a DNA experience — não há bloco 7 ali. Quem
+            pede esta faixa é o MOCKUP, que termina exatamente assim: rótulo
+            "LET'S TALK", "Ready to make leadership real?", uma linha de apoio e
+            o botão "Get in touch" sobre um skyline.
+
+            A COPY É DELA, do mockup, palavra por palavra. Mesma procedência do
+            "Different perspectives. A shared purpose." do bloco 4 e da linha da
+            vertente "One DNA TEAM" — e a mesma ressalva: quem conferir o texto
+            desta página contra o Word não vai achar estas frases lá.
+
+            ⚠️ SEM O SKYLINE DE FUNDO que o mockup mostra. O `SolutionCta` é
+            `bg-brand` chapado, e é a faixa que as dez páginas de serviço usam.
+            Pôr fotografia só nesta criaria duas faixas de convite diferentes no
+            mesmo site por causa de um desenho — e o skyline que temos já é o
+            herói da /about e da /services, então ele apareceria uma terceira
+            vez. Se ela pedir a versão com foto, é prop nova no componente e vale
+            para todas.
+
+            É O MESMO COMPONENTE DAS PÁGINAS DE SERVIÇO, e o rótulo "Let's talk"
+            já é o padrão dele — não precisou de prop. O que muda são as três
+            partes escritas por ela. */}
+        <SolutionCta
+          strapline="Ready to make leadership real?"
+          line="We partner with organisations to unlock real people, cultures and performance."
+          ctaLabel="Get in touch"
+        />
       </SiteShell>
     </div>
   );

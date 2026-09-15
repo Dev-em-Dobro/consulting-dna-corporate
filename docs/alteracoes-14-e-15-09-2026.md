@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 4
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 6
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -77,7 +77,48 @@ abaixo disso. É a razão de `components/team/LeaderCard.tsx` ser client compone
 | **Como ficou** | `public/team/nitin-goil.jpg`, 1024x1280. Fecha os seis cards da liderança. |
 | **Recorte** | O arquivo dela é 1106x1422 (0,78:1), praticamente o 4:5 do quadro. O `cover` corta 39px, tirados de baixo (`position: top`) — a margem acima da cabeça já é a certa, o que sobra é ombro. |
 
-### 1.4 A foto do time na escada (item 4 + item 5 de 15-09)
+### 1.4 A DNA experience tinha **três** vertentes e o documento pede **quatro**
+
+| | |
+|---|---|
+| **Como era** | Três cartões: The DNA Experience, Trusted Relationships, Inclusion & Diversity. A quarta, **One DNA TEAM**, estava sendo consumida como a *frase de abertura* da seção (o `dnaLead`). |
+| **Como ficou** | Quatro cartões. O `dnaLead` continua como título da seção — ele apresenta o princípio, o cartão diz o que ele é. Grade `md:grid-cols-2 lg:grid-cols-4`. |
+| **Fonte** | `CDNA_04_Team.docx`, bloco 6, em letra: *"Type: **four strands**, moved here from the homepage: One DNA TEAM, The DNA Experience, Trusted Relationships, Inclusion & Diversity."* O mockup confirma: quatro colunas. |
+| **Como passou** | A copy veio da home, que também mostra três cartões com a mesma frase de abertura. Na migração para cá ninguém notou que aqui a primeira vertente também tem de ser cartão. |
+
+> ⚠️ **O corpo da primeira é curto e o das outras três é longo.** As três longas são a
+> copy da home; para a primeira não existe versão longa em lugar nenhum, e a linha usada
+> ("A community of curious, courageous and caring people.") é a do **mockup**.
+>
+> O documento aponta uma saída que não temos: *"FINAL Copy exists. See the About outline,
+> **Home block 8**, for the condensed version."* O `CDNA_About_Page_Dev_Outline.docx` que
+> veio no pacote de 15-09 cobre a navegação e a About, e **não tem esse bloco 8** — foi
+> procurado. Quando a versão condensada chegar, as quatro ficam do mesmo tamanho.
+
+### 1.5 Faltava a faixa de convite no fim da página
+
+| | |
+|---|---|
+| **Como era** | A página terminava na DNA experience e caía direto no rodapé. **Não havia CTA nenhum.** |
+| **Como ficou** | `<SolutionCta>` — rótulo "Let's talk", **"Ready to make leadership real?"**, "We partner with organisations to unlock real people, cultures and performance." e o botão **"Get in touch"**. |
+| **Fonte** | O mockup termina exatamente assim. A falta já estava registrada: a análise do mockup no doc de correções (§4.1) lista, entre o que o desenho traz e a página não tem, *"um CTA final ('LET'S TALK')"*. |
+| **Não está no Word** | O `CDNA_04_Team.docx` fecha a página em seis blocos e o sexto é a DNA experience. Quem pede esta faixa é o mockup, e a copy é dele. |
+
+> ⚠️ **Sem o skyline de fundo que o mockup mostra.** O `SolutionCta` é `bg-brand` chapado
+> e é a faixa que as dez páginas de serviço usam. Pôr fotografia só nesta criaria duas
+> faixas de convite diferentes no mesmo site — e o skyline que temos já é o herói da
+> /about e da /services, então apareceria uma terceira vez. Se ela pedir a versão com
+> foto, é prop nova e vale para todas.
+
+### 1.6 Migalha de pão no herói
+
+| | |
+|---|---|
+| **Como era** | O herói abria no rótulo "Our Team". |
+| **Como ficou** | "Home / Team" acima do rótulo, com a perna final em texto. |
+| **Correção de premissa** | Quando a trilha foi construída para as páginas de serviço, ficou escrito que ela era "só das páginas de dentro". **Os mockups desmentem:** o de Team abre com "Home / Team" e o de Clients & Impact com "Home / Clients & Impact" — as duas são rotas de primeiro nível. A nota no `SolutionHero` foi corrigida. |
+
+### 1.7 A foto do time na escada (item 4 + item 5 de 15-09)
 
 | | |
 |---|---|
@@ -430,7 +471,38 @@ antes do aval.
 - **A foto oficial do Guilherme** — o card dele continua com o recorte da foto antiga do
   site. É a única pendência de retrato que resta na liderança.
 
-### 8.5 (24) Respondido pelo pacote, sem trabalho
+### 8.5 O que o mockup da Team traz e **não** foi construído
+
+Da auditoria bloco a bloco de 15-09, três coisas do desenho ficaram de fora **de
+propósito**:
+
+- **"Meet the full team →"**, no canto superior direito da seção de liderança. Ele
+  implica uma página listando os 75 praticantes, que **não existe** — e o item 21 da
+  daily diz que o MVP vai ao ar só com os client directors, com os senior practitioners
+  entrando depois. Um call to action que não leva a lugar nenhum é pior que nenhum, que é
+  a mesma régua já aplicada às setas dos tiles de região.
+- **O ícone de busca** no menu. Não há busca no site.
+- **A frase manuscrita** sobre a foto do herói ("People / Real Change / A Brighter
+  Tomorrow"). É arte do mockup, não asset — e o herói desta página nem é a foto do
+  mockup, é a imagem padrão compartilhada.
+
+E dois pontos do documento que continuam em HOLD, como já estavam:
+
+- **Bloco 3 · Perspectives.** O documento pede frases NOVAS de cada pessoa, resposta a
+  *"what do you believe about leadership that most people in this industry get wrong?"*,
+  em até 200 caracteres. Ninguém conversou com o cliente sobre o que o bloco é; a
+  montagem inteira está no commit de 11-09.
+- **Slot 06 — a imagem por região** do bloco 5. As cinco no ar são pontos turísticos do
+  Wikimedia (marcadores de lugar, decisão do Ricardo em 12-09), e o documento pede *"a
+  representative selection or mosaic image per region"* — ou seja, a faculty ou o
+  trabalho acontecendo, não cartão-postal.
+
+**Uma pendência de conteúdo que a auditoria expôs:** o bloco 2 do documento pede
+"portrait grid, three across. Name, role, region, **short bio on click or hover**". O
+botão "+" é esse gesto, mas a **bio curta de cada pessoa não existe** — nem no
+`CDNA_04_Team.docx`, nem no CMS para estes seis. Hoje ele abre a própria quote.
+
+### 8.6 (24) Respondido pelo pacote, sem trabalho
 
 O item 24 pedia para "tirar related case studies e client voice", e o doc de correções
 mandava **perguntar o que eram**, porque nenhum dos dois existia no site. O pacote
@@ -439,7 +511,7 @@ de case study **dela**, que chegou agora
 (`5. Clients& Impact/efa52866-….png`). **Não havia nada a remover do nosso site** — é uma
 restrição para quando aquele template for construído.
 
-### 8.6 Duas frentes novas entregues em desenho, ainda não construídas
+### 8.7 Duas frentes novas entregues em desenho, ainda não construídas
 
 - **A página top-level de Clients & Impact** (item 25), em **dois desenhos alternativos**.
   Ela escreveu *"Content to follow"* — parte do texto ainda não existe.
