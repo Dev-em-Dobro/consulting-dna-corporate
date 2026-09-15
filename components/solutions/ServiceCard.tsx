@@ -68,8 +68,14 @@ export default function ServiceCard({
    * sabe em que grade está. Gravá-lo em `lib/services.ts` criaria dois lugares
    * para manter sincronizados no dia em que a ordem mudar — e a ordem já mudou
    * uma vez (Judgement in AI foi para a 8).
-   */
-  index: number;
+   *
+   * ⚠️ OMITIDO = SEM NÚMERO, e é assim que o "Related services" do pé de cada
+   * página de serviço usa este card. Ali são quatro dos dez, fora de ordem: uma
+   * numeração de 01 a 04 diria que aqueles são os quatro primeiros serviços, o
+   * que é falso. O template dela também não numera aqueles quatro. Renumerar
+   * pela posição real (03, 07, 09…) seria correto e ilegível — quatro números
+   * salteados só levantam a pergunta de onde estão os outros. */
+  index?: number;
   /**
    * Classes de POSIÇÃO NA GRADE, aplicadas ao próprio card.
    *
@@ -127,9 +133,11 @@ export default function ServiceCard({
       <div className="flex flex-1 flex-col p-8 md:p-10 xl:p-7">
         {/* O NÚMERO. `tabular-nums` porque são dez numa grade e a largura do
             "1" contra a do "0" deslocaria o título de card para card. */}
-        <span className="text-[13px] font-medium tabular-nums tracking-[1.3px] text-brand">
-          {String(index + 1).padStart(2, "0")}
-        </span>
+        {index !== undefined && (
+          <span className="text-[13px] font-medium tabular-nums tracking-[1.3px] text-brand">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        )}
         <h2 className="font-serif mt-3 text-[24px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[27px] xl:text-[21px]">
           {service.title}
         </h2>

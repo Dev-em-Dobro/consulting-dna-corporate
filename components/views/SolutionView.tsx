@@ -3,7 +3,13 @@ import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
-import { paragraphs, type Service, type ServiceTestimonial } from "@/lib/services";
+import ServiceCard from "@/components/solutions/ServiceCard";
+import {
+  paragraphs,
+  services,
+  type Service,
+  type ServiceTestimonial,
+} from "@/lib/services";
 
 
 /**
@@ -65,6 +71,13 @@ export default function SolutionView({ service }: { service: Service }) {
         eyebrow="Our Services"
         title={service.title}
         subtitle={service.banner}
+        /* A trilha é a do template dela: "Home / Services / <serviço>". A perna
+           final vai sem `href` de propósito — ver a caixa no `SolutionHero`. */
+        trail={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: service.title },
+        ]}
       />
 
       {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot
@@ -122,25 +135,56 @@ export default function SolutionView({ service }: { service: Service }) {
 
       {service.testimonial && <ClientPerspective testimonial={service.testimonial} />}
 
-      {/* ⚠️ NÃO PONHA UMA GRADE DE "MORE SERVICES" AQUI. Ela chegou a existir,
-          entre a citação e o CTA — as outras nove em `ServiceCard`, na ordem do
-          documento, com a atual filtrada pelo slug — e saiu em 11-09 pela mesma
-          régua que tirou o mural de clientes do índice: o §3.2 não pede. Ele
-          fecha a página em seis blocos, e o sexto é o convite.
+      {/* ✅ "RELATED SERVICES" VOLTOU EM 15-09, e voltou pelo caminho que a nota
+          anterior exigia: como PEDIDO do cliente, não como decisão nossa.
 
-          O ARGUMENTO A FAVOR CONTINUA DE PÉ, e é por isso que fica escrito: a
-          página termina no CTA, então quem não quiser falar com a gente naquele
-          instante não tem para onde ir além do menu ou do botão de voltar. São
-          dez serviços de públicos sobrepostos — quem lê Manager Development é
-          candidato a High Performing Teams — e nada aqui diz que os outros
-          existem.
+          A HISTÓRIA, porque ela é o argumento. Esta grade existiu, entre a
+          citação e o CTA, e saiu em 11-09 pela mesma régua que tirou o mural de
+          clientes do índice — o §3.2 do outline fecha a página em seis blocos e
+          o sexto é o convite, então estrutura extra era decisão do cliente e não
+          nossa. Ficou escrito aqui que, se voltasse, voltaria "reinstalando o
+          `ServiceCard` numa grade de três colunas". O template que ela mandou em
+          15-09 (`4. Services/ExCo Leadership Services Page.png`) fecha a página
+          exatamente com este bloco, sob o título "Related services".
 
-          Diferente do mural, este bloco não afirmaria nada: são as nossas dez
-          páginas com as banner statements que o próprio cliente escreveu. Mesmo
-          assim é estrutura que o documento não pede, e isso é decisão dele.
-          Se voltar, que volte como pedido — e aí é reinstalar o `ServiceCard`
-          numa grade de três colunas com `headingLevel="h3"`, para não quebrar a
-          escada de cabeçalhos sob o rótulo da seção. */}
+          O ARGUMENTO A FAVOR, que sempre esteve de pé: sem ele a página termina
+          no CTA, e quem não quiser falar com a gente naquele instante não tem
+          para onde ir além do menu ou do botão de voltar. São dez serviços de
+          públicos sobrepostos — quem lê Manager Development é candidato a High
+          Performing Teams.
+
+          QUATRO, E NÃO NOVE. O template dela mostra quatro cards. Nove seria a
+          lista inteira outra vez, no pé de cada uma das dez páginas, e isso não
+          é "related", é o índice repetido. `slice(0, 4)` sobre as outras nove na
+          ordem do documento.
+
+          ⚠️ AS QUATRO SÃO AS PRIMEIRAS DA LISTA, não uma escolha editorial de
+          afinidade. O documento não diz quais serviços se relacionam com quais,
+          e inventar esse mapa seria afirmar parentesco comercial que ninguém
+          definiu — no template dela, as quatro ao pé do ExCo são Culture
+          Transformation, Team Effectiveness, Organisational Transformation e
+          Executive Coaching, e duas dessas nem são serviços desta lista. Quando
+          o mapa vier, é trocar este `slice` por um campo `related` no dado.
+
+          `headingLevel` NÃO EXISTE MAIS no `ServiceCard`, então os títulos aqui
+          saem como `h2` — que é o mesmo nível dos outros blocos desta página e
+          não quebra a escada de cabeçalhos, porque o rótulo "Related services"
+          abaixo é um `<p>`, não um cabeçalho. */}
+      <section className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+          <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+            Related services
+          </p>
+          <Reveal className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {services
+              .filter((s) => s.slug !== service.slug)
+              .slice(0, 4)
+              .map((s) => (
+                <ServiceCard key={s.slug} service={s} />
+              ))}
+          </Reveal>
+        </div>
+      </section>
 
       <SolutionCta
         strapline={service.cta.strapline}
