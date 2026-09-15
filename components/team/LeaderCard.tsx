@@ -66,17 +66,21 @@ export default function LeaderCard({
   const [open, setOpen] = useState(false);
 
   return (
-    /* A VIRADA É EM 1440, e não num breakpoint do Tailwind, porque ela é de
-       MEDIDA e não de dispositivo: em três colunas de uma página de 1440 cada
-       card tem 432px, que partidos em retrato + quote dão ≈210 e ≈222 — o mínimo
-       em que a quote ainda tem ~30 caracteres por linha. A 1280 a mesma conta dá
-       ≈185px de caixa e a serifa passa a quebrar em 4 palavras por linha.
+    /* A VIRADA É EM `xl` (1280) — baixou de 1440 em 15-09, junto com a grade da
+       página, a pedido: em 1440 qualquer laptop de 1366 caía em duas colunas, e
+       o pedido foi três por linha.
 
-       Abaixo de 1440 o card volta a ser EMPILHADO (foto, nome, quote embaixo),
+       O QUE DECIDE O LIMIAR é a medida da quote, não o dispositivo. Em três
+       colunas de 1280, o cartão fica com 172px e a caixa de texto com 132 — ~16
+       caracteres por linha. Estreito, mas é onde a referência dela também anda
+       (~20 a 1440, com linhas do tipo "Leadership isn't" / "about having"). A
+       1024 a mesma conta dá 11 caracteres, e aí não dá.
+
+       Abaixo de `xl` o card volta a ser EMPILHADO (foto, nome, quote embaixo),
        que é o desenho que já estava no ar — só que a quote agora é o cartão
-       claro em vez do filete à esquerda. O mockup é uma tela de 1440; é ali que
-       ele se cumpre. */
-    <article className="grid grid-cols-1 min-[1440px]:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] min-[1440px]:gap-x-4">
+       claro em vez do filete à esquerda. A conta por largura está no comentário
+       da grade, em `app/team/page.tsx`. */
+    <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] xl:gap-x-4">
       <div className="flex flex-col">
         {/* ⚠️ A FOTO ESTICA ACIMA DE 1440, e não tem proporção fixa. Medido na
             referência: na primeira fileira ela sai 167x167 e na segunda 167x154
@@ -89,11 +93,25 @@ export default function LeaderCard({
             esquerda terminava antes e o cartão rosa ficava pendurado abaixo do
             nome — é o desalinhamento que se via na página.
 
-            `min-h` NÃO É ENFEITE: sem piso, uma quote curta encolheria a fileira
-            até a foto virar uma tira. 240px é a altura que a referência dá à
-            foto (~225) com uma folga. Abaixo de 1440 o card empilha e volta ao
-            4:5, que é onde a proporção fixa faz sentido. */}
-        <div className="relative aspect-[4/5] overflow-hidden bg-paper min-[1440px]:aspect-auto min-[1440px]:min-h-[240px] min-[1440px]:flex-1">
+            O PISO É UMA PROPORÇÃO, e não um `min-h` em pixels — 15-09, depois
+            de o retrato sair baixo demais. `aspect-[3/4]` CONTINUA VALENDO
+            acima de 1440 e vira a altura MÍNIMA da foto; o `grow` só a estica
+            além disso quando a quote ao lado pede mais.
+
+            É `grow` E NÃO `flex-1`, e a diferença é o que faz isto funcionar:
+            `flex-1` é `flex: 1 1 0%`, e a base zero descarta a altura vinda da
+            proporção — a foto passaria a ter só o que sobrasse da fileira, que
+            é como ela ficava baixa nas fileiras de quote curta. Com `grow` a
+            base continua sendo a da proporção e o crescimento é por cima dela.
+
+            SE A PROPORÇÃO PEDIR MAIS QUE A FILEIRA, quem cresce é a fileira: a
+            altura de uma linha de grade é o maior dos dois lados, então o
+            cartão de quote é que estica. Nunca há corte.
+
+            3:4 E NÃO 4:5, que era o valor anterior: a foto ganha ~7% de altura
+            na mesma largura. Vale nos dois regimes — empilhado abaixo de 1440 e
+            partido acima. */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-paper xl:grow">
           {person.portrait ? (
             <Image
               src={person.portrait}
@@ -176,7 +194,7 @@ export default function LeaderCard({
           tem de bater com o topo do retrato. A altura cheia vem do `stretch` que
           a grade já dá — é o que faz os três cartões da fileira terminarem na
           mesma linha, mesmo com quotes de tamanhos diferentes. */}
-      <div className="mt-6 bg-[#fcf2f0] px-5 py-6 min-[1440px]:mt-0">
+      <div className="mt-6 bg-[#fcf2f0] px-5 py-6 xl:mt-0">
         {/* AS ASPAS SÃO DECORAÇÃO, não pontuação — daí `aria-hidden`. Se elas
             fossem texto, o leitor de tela anunciaria uma abertura de citação que
             nunca fecha. O `blockquote` abaixo é quem diz que aquilo é uma

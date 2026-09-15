@@ -129,12 +129,24 @@ export default async function OurTeamPage() {
                 Eram 56px somados ao `mt-5` do título; a diferença de 4px não se
                 vê, e o que se ganha é o mesmo ritmo nas três seções.
 
-                ⚠️ O `lg:grid-cols-3` VIROU `min-[1440px]:`. Cada card agora se
-                parte em retrato + cartão de quote (item 16), e essa partição
-                precisa de ≈432px de coluna para a serifa não quebrar em quatro
-                palavras por linha. A 1024 a coluna tem 293px. Abaixo de 1440 a
-                página segue em duas colunas com o card empilhado, que é o
-                desenho anterior — a conta inteira está no `LeaderCard`.
+                ⚠️ TRÊS COLUNAS A PARTIR DE `xl` (1280), e a conta é o que
+                define o limiar. Cada card se parte em retrato + cartão de quote
+                (item 16), e o que tem de sobreviver é a medida da quote. Com
+                `gap-x-6` por fora e `gap-x-4` por dentro, a caixa de texto dela
+                fica em:
+
+                   1280 →  16 car/linha        1440 →  20 car/linha
+                   1366 →  18 car/linha        1920 →  29 car/linha
+
+                A REFERÊNCIA DELA ANDA EM ~20, e as linhas dali são mesmo curtas
+                ("Leadership isn't", "about having"). Ou seja 1280 é estreito mas
+                está dentro do desenho; 1024 não está — ali a coluna cai para 11
+                caracteres.
+
+                ⏸️ O LIMIAR ERA 1440 ATÉ 15-09, e isso deixava a página em DUAS
+                colunas em qualquer laptop de 1366 — que é onde ela foi revisada.
+                O pedido foi "duas linhas de três pessoas". Como são seis, três
+                por linha é o que entrega isso.
 
                 ⚠️ OS VÃOS SÃO OS DA REFERÊNCIA (`leadership.PNG`), medidos em
                 pixels nela e convertidos: ela tem 1009px de conteúdo contra os
@@ -151,7 +163,7 @@ export default async function OurTeamPage() {
                 deliberado na referência: 11px contra 19px. É ele que faz o
                 retrato e a quote lerem como UM card em vez de duas colunas
                 soltas. Mora no `LeaderCard`, que é quem desenha o par. */}
-            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 min-[1440px]:grid-cols-3">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 xl:grid-cols-3">
               {leaders.map((p) => (
                 <LeaderCard
                   key={p.name}
