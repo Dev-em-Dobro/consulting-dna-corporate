@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 20
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 20 (contando este)
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -170,6 +170,21 @@ mais alto da fileira estica os outros dois — que é o que o mockup mostra.
 > como HOLD é uma frase **nova** por pessoa, resposta a *"what do you believe about
 > leadership that most people in this industry get wrong?"*, em até 200 caracteres. São
 > conteúdos diferentes, e o segundo continua sem existir — ver §8.5.
+**E o pop-up abria um retrato diferente do card.** Corrigido depois, no mesmo dia: o
+`photoUrl` do CMS é a **leva antiga** — o do Guilherme está gravado como
+`whatsapp-image-2026-07-25`, o do Nitin como `...-07-27` — enquanto os oficiais que a
+Maliha mandou em 09-09 e 15-09 moram em `lib/team.ts`. O card usava os novos e o pop-up os
+velhos, então clicar num rosto abria outro.
+
+O pop-up passa a receber a foto do card (`{ ...profile, img: person.portrait }`). É a mesma
+reconciliação que a home fazia com `officialPortrait(p.name)`, e **sem** fallback para a
+foto do CMS pelo mesmo motivo dela: quem não tiver retrato oficial abre nas **iniciais** em
+vez de voltar a publicar a antiga. Hoje os seis têm.
+
+> ⏳ Quando o CMS for atualizado, a linha de sobrescrita sai e o `profile` volta a bastar
+> sozinho. Até lá a URL antiga ainda viaja no payload da página — não é usada para
+> renderizar, mas está lá.
+
 
 ### 1.9 A grade de liderança medida contra a referência
 
@@ -248,6 +263,35 @@ junto: piso por proporção é o que se sustenta quando a largura muda.
 > ⚠️ **Uma diferença que ficou de fora de propósito:** na referência o nome e a quote são
 > **sans-serif**; no site são serifa (Source Serif), que é a linguagem editorial adotada na
 > /about e aprovada pela Rhea. O pedido foi de espaçamento e corpo, não de família.
+
+### 1.10 O herói ganhou foto própria
+
+| | |
+|---|---|
+| **Como era** | Sem foto própria: caía na `service-hero-fallback.jpg`, a imagem padrão compartilhada por onze rotas. |
+| **Como ficou** | `public/team/team-hero.jpg` — uma fotografia real de sessão da CDNA, com o grupo em volta da tela. |
+
+**O enquadramento tem dois eixos, e cada um resolve um regime.** O arquivo é 4:3
+(1600x1200) e a dobra do herói é ~1,9:1:
+
+- **Eixo Y = 78%.** No desktop o `object-cover` escala pela largura e corta **30% da
+  altura**. Centrado, o corte tirava os pés da fileira da frente e mantinha o forro de
+  madeira, que é a parte morta do quadro. Em 78% entra o grupo inteiro, do topo das cabeças
+  ao chão.
+- **Eixo X = 78%.** No desktop **não faz nada** — ali o corte é só vertical. É para o
+  **telefone**: numa dobra de 0,46:1 o corte inverte e sobram 34% da largura, e centrado o
+  que restava na tela era justamente a **tela da sala**, com a chamada de vídeo no meio do
+  herói. Em 78% o recorte vai para o grupo da direita.
+
+> ⚠️ **A tela ao fundo mostra uma reunião de cliente** — participantes identificáveis e a
+> marca deles nos fundos virtuais. No desktop ela cai onde o escurecimento lateral do herói
+> mede 24–66% e o `brightness-[.68]` soma por cima, então sai bem apagada. Ainda assim,
+> publicar rosto e marca de terceiro é assunto de **consentimento**, não de desenho. Fica
+> registrado para a revisão com o cliente.
+
+> ⚠️ **A foto da escada não serve aqui**, e por isso não foi usada: ela já roda duas vezes
+> no site (bloco 4 da /team e a /about). Uma terceira aparição, na primeira dobra da mesma
+> página, é a repetição que o `CDNA_04_Team.docx` chama de "visible".
 
 ---
 
@@ -440,11 +484,48 @@ mesmo recurso das páginas de dentro desde 12-09.
 Comparada com o template que ela mandou em 15-09 (`4. Services/ExCo Leadership Services
 Page.png`), que é o item 14 da daily.
 
-### 4.1 ⛔ A migalha de pão saiu
+### 4.1 Os rótulos e a ordem dos blocos
+
+| | Antes | Depois |
+|---|---|---|
+| Bloco 2 | "The Outcome" | **Impact** |
+| Bloco 3 | "How Corporate DNA Helps" | **How we help** |
+
+Os dois seguem os cabeçalhos da planilha dela — "IMPACT OF THE WORK" e "WHAT CDNA DOES TO
+HELP" —, encurtados porque o rótulo é renderizado em **68px** dentro do painel de cor e o
+nome antigo ocupava duas linhas.
+
+**A ordem mudou:**
+
+```
+antes   hero · outcome · how we help · evidência · citação · related · convite
+agora   hero · Impact · How we help · CONVITE · evidência · citação · related
+```
+
+O convite deixa de ser o fim da página e passa a fechar o par de blocos de texto — *"o que
+muda / como fazemos / vamos conversar"*. O caso e a citação viram a prova que vem **depois**
+do convite, para quem não fechou ali.
+
+**Duas consequências de cor, e as duas são da reordenação, não de gosto:**
+
+- **Os painéis trocaram.** A regra registrada no `SolutionSection` é que dois painéis da
+  mesma cor não podem antecipar a faixa que vem depois. Com o CTA no fim, o `brand` podia
+  ficar no segundo painel; com ele agora **logo depois** do "How we help", manter o painel
+  vermelho ali encostaria vermelho em vermelho. O `ink` passa para o segundo e o `brand`
+  sobe para o Impact, onde fica separado da faixa por uma seção inteira.
+- **"Related services" virou branco**, era `paper`. Ele passou a vir logo depois da
+  citação, que também é `paper`, e duas faixas cinzas encostadas viram uma massa só. Nos
+  oito serviços sem citação o vizinho de cima é a evidência, que é `ink`, e o branco
+  continua sendo o degrau certo.
+
+Nos oito serviços sem caso nem citação os dois blocos não renderizam, e a sequência fica
+Impact → How we help → Let's talk → Related services.
+
+### 4.2 ⛔ A migalha de pão saiu
 
 Construída e removida no mesmo 15-09, a pedido. Ver §1.6, onde a história fica inteira.
 
-### 4.2 "Related services" voltou
+### 4.3 "Related services" voltou
 
 | | |
 |---|---|
@@ -460,7 +541,7 @@ Construída e removida no mesmo 15-09, a pedido. Ver §1.6, onde a história fic
 > Executive Coaching — e **duas dessas nem são serviços desta lista de dez**. Quando o
 > mapa vier, é trocar o `slice` por um campo `related` no dado.
 
-### 4.3 O que ficou travado
+### 4.4 O que ficou travado
 
 Detalhado em `docs/pedido-copy-services-drilldown-15-09-2026.md`. Em resumo:
 
@@ -474,7 +555,7 @@ Detalhado em `docs/pedido-copy-services-drilldown-15-09-2026.md`. Em resumo:
   xlsx de 15-09 confirma: nas linhas de GSK, Vodafone e adidas a célula TESTIMONIAL traz
   **instrução para nós**, não citação.
 
-### 4.4 O `WEBSITE SERVICE COPY.xlsx` não trouxe copy nova
+### 4.5 O `WEBSITE SERVICE COPY.xlsx` não trouxe copy nova
 
 Conferido linha a linha contra `lib/services.ts`: banner, impact, how we help e as três
 partes do CTA batem palavra por palavra nos dez. **Nada a migrar.**
@@ -489,6 +570,19 @@ Duas divergências dentro do próprio pacote, registradas para confirmar com ela
   *"Build a pipeline deep enough that your next leaders are ready before you need them"*;
   o documento e a planilha dizem *"Build the leadership pipeline before the business needs
   it"*, marcada FINAL. O site está com a do documento.
+**A planilha foi conferida uma segunda vez em 15-09**, quando ela voltou a ser apontada
+como a fonte dos testimonials. É **byte a byte a mesma** do pacote (md5 idêntico), e a
+coluna TESTIMONIAL tem:
+
+| | |
+|---|---|
+| Citação real | **1** — Executive Coaching (e a duplicata dela na linha do ExCo) |
+| Instrução para nós | **3** — GSK Mexico, Vodafone, adidas |
+| Vazia | **5** |
+
+Ou seja, **as quatro citações que faltam continuam faltando**. O bloco 6 segue renderizando
+só onde há texto publicável.
+
 
 ---
 
@@ -603,7 +697,8 @@ h-8  (32px) → logo de  80px → sobram 840. Folga: 74px.
 | `logos/harvard_business_impact.png` | Logo do parceiro | `Picture1.png` (raiz do pacote) |
 | `logos/imperial_college_london.png` | Logo do parceiro | `ImperialCollege.png` |
 | `team/nitin-goil.jpg` | Retrato, 1024x1280 | `2. Team/Nitin Goil.png` |
-| `team/team-stairs.jpg` | Foto do time, 2:3 (para a /team) | `1.About Page/About page.jpeg` |
+| `team/team-stairs.jpg` | Foto do time, 2:3 (para a /team) | `1.About Page/About page.jpeg` |
+| `team/team-hero.jpg` | Herói da /team — sessão da CDNA, 1600x1200 | Enviada pelo Ricardo em 15-09 |
 | `team-stairs-about.jpg` | Mesma foto, 4:5 (para a /about) | idem |
 | `skyline-dna.jpg` | Skyline sem a recompressão do WhatsApp | `1.About Page/ChatGPT Image Sep 8…png` |
 | `services/cards/*.jpg` (9) | Imagens dos cards do índice | Seis de `public/solutions-banners/` (site antigo); três geradas, escolhidas pelo Ricardo em 15-09 |
