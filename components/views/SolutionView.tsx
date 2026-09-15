@@ -43,13 +43,22 @@ function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial })
 /**
  * O template de página de serviço — "one template, ten instances".
  *
- * OS SEIS BLOCOS SÃO OS DO OUTLINE DE 09-09 (seção 3.2), nesta ordem:
- *   1. Hero               — nome, banner statement, imagem
- *   2. The Outcome        — o que muda no negócio
- *   3. How CDNA Helps     — a intervenção
- *   4. Evidence           — o caso-carro-chefe e seus números
- *   5. Testimonial        — condicional, existe em um dos dez
- *   6. Start a Conversation — por serviço, não a faixa compartilhada
+ * A ORDEM MUDOU EM 15-09, a pedido. Era a do outline de 09-09 (§3.2) — hero,
+ * outcome, how we help, evidência, citação, convite. Agora é:
+ *
+ *   1. Hero            — nome, banner statement, imagem
+ *   2. Impact          — o que muda no negócio      (era "The Outcome")
+ *   3. How we help     — a intervenção              (era "How CDNA Helps")
+ *   4. Let's talk      — o convite, POR SERVIÇO
+ *   5. Evidence        — o caso-carro-chefe e seus números
+ *   6. Testimonial     — condicional, existe em um dos dez
+ *   7. Related services — quatro cards, do template dela
+ *
+ * O QUE A TROCA FAZ COM A LEITURA: o convite deixa de ser o fim da página e
+ * passa a fechar o par de blocos de texto — "o que muda / como fazemos / vamos
+ * conversar". O caso e a citação viram a prova que vem DEPOIS do convite, para
+ * quem não fechou ali. Os dois rótulos encurtaram junto, seguindo os cabeçalhos
+ * da planilha dela ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP").
  *
  * O CONTEÚDO VEM DE `lib/services.ts`, não do CMS — o porquê está na caixa de
  * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos 4, 5 e 6
@@ -97,20 +106,46 @@ export default function SolutionView({ service }: { service: Service }) {
           conteúdo sem mudar de medida. Ver `docs/mensagem-grupo-fotos-servicos-
           11-09.ENVIAR.txt`, onde isso foi pedido ao cliente como sugestão de
           desenho e não como pendência de lançamento. */}
+      {/* ⚠️ OS RÓTULOS MUDARAM EM 15-09, a pedido: "The Outcome" virou
+          **Impact** e "How Corporate DNA Helps" virou **How we help**. Eles
+          seguem os cabeçalhos da planilha dela, que chama as duas colunas de
+          "IMPACT OF THE WORK" e "WHAT CDNA DOES TO HELP" — encurtados, porque
+          aqui o rótulo é renderizado em 68px dentro do painel de cor e o nome
+          antigo ocupava duas linhas.
+
+          ⚠️ OS PAINÉIS TROCARAM DE COR, e isso é consequência da nova ordem, não
+          gosto. A regra registrada no `SolutionSection` é que dois painéis da
+          mesma cor não podem antecipar a faixa que vem depois. Antes o CTA
+          (`bg-brand`) fechava a página, então o `brand` podia ficar no segundo
+          painel. Agora o CTA subiu e vem LOGO DEPOIS deste bloco: manter o
+          painel vermelho aqui encostaria vermelho em vermelho. O `ink` passa
+          para cá e o `brand` sobe para o Impact, onde fica separado da faixa
+          por uma seção inteira. */}
       <SolutionSection
-        label="The Outcome"
+        label="Impact"
         html={paragraphs(service.outcome)}
         side="left"
         tone="white"
-        panelTone="ink"
+        panelTone="brand"
       />
 
       <SolutionSection
-        label="How Corporate DNA Helps"
+        label="How we help"
         html={paragraphs(service.howWeHelp)}
         side="right"
         tone="paper"
-        panelTone="brand"
+        panelTone="ink"
+      />
+
+      {/* ⚠️ O CONVITE SUBIU, 15-09, a pedido: ele vinha por último e agora fecha
+          o par de blocos de texto, antes da evidência. A leitura passa a ser
+          "o que muda / como fazemos / vamos conversar", e o caso e a citação
+          ficam como a prova que vem DEPOIS do convite, para quem não fechou
+          ali. */}
+      <SolutionCta
+        strapline={service.cta.strapline}
+        line={service.cta.line}
+        ctaLabel={service.cta.label}
       />
 
       {service.evidence && (
@@ -163,7 +198,12 @@ export default function SolutionView({ service }: { service: Service }) {
           saem como `h2` — que é o mesmo nível dos outros blocos desta página e
           não quebra a escada de cabeçalhos, porque o rótulo "Related services"
           abaixo é um `<p>`, não um cabeçalho. */}
-      <section className="bg-paper">
+      {/* ⚠️ BRANCO DESDE 15-09, e era `paper`. Com a nova ordem este bloco passou
+          a vir logo depois da citação, que também é `paper` — duas faixas cinzas
+          encostadas viram uma massa só e o corte entre os assuntos some. Quando
+          o serviço não tem citação (oito dos dez), o vizinho de cima é a
+          evidência, que é `ink`, e o branco continua sendo o degrau certo. */}
+      <section className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
             Related services
@@ -179,11 +219,6 @@ export default function SolutionView({ service }: { service: Service }) {
         </div>
       </section>
 
-      <SolutionCta
-        strapline={service.cta.strapline}
-        line={service.cta.line}
-        ctaLabel={service.cta.label}
-      />
     </>
   );
 }
