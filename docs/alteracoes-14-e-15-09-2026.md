@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 6
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 7
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -58,16 +58,8 @@ serifa ainda faz ~30 caracteres por linha. A 1024 a mesma conta dá ≈185px e o
 quebra em quatro palavras por linha. Abaixo de 1440 o card volta a ser empilhado, que é
 o desenho anterior.
 
-**O botão "+"** abre e fecha a quote, que é cortada em 8 linhas. Ele não é enfeite: as
-quotes reais variam de 140 a 271 caracteres, e sem o corte a fileira inteira ficaria com
-a altura da mais longa. Ele **só aparece quando há texto cortado** — medido no tamanho
-real (`scrollHeight > clientHeight`), porque o mesmo cartão é estreito a 1440 e largo
-abaixo disso. É a razão de `components/team/LeaderCard.tsx` ser client component.
-
-> ⏳ **O que o "+" deveria abrir ainda não existe.** No mockup ele fica na coluna do
-> retrato, ao lado do cargo, que é onde mora um "saiba mais sobre esta pessoa" — e a bio
-> destes seis não está no `CDNA_04_Team.docx` nem no CMS. Enquanto não se conversa com
-> ela, ele abre o que temos. Se vier bio, o botão troca de alvo e o layout não muda.
+**O botão "+"** abre o perfil da pessoa em pop-up — ver §1.8, que é onde ele ganhou
+função de verdade.
 
 ### 1.3 O retrato do Nitin Goil (15-09)
 
@@ -135,6 +127,52 @@ abaixo disso. É a razão de `components/team/LeaderCard.tsx` ser client compone
 > a fotografia "is visible", e isso continua sendo verdade — foi decisão consciente de
 > preencher os dois slots agora. A segunda foto continua valendo a pena pedir.
 
+### 1.8 O botão "+" abre o perfil em pop-up
+
+| | |
+|---|---|
+| **Como era** | O "+" cortava a quote em 8 linhas e abria o resto. Só aparecia quando havia texto cortado, medido no tamanho real (`scrollHeight > clientHeight`). |
+| **Como ficou** | O "+" abre o **perfil da pessoa em pop-up** — foto, nome, cargo, bio e os campos estruturados (valores, forças, especialidades, histórico, clientes, idiomas, credenciais). A quote deixou de ser cortada. |
+| **Fonte** | `CDNA_04_Team.docx`, bloco 2, em letra: *"portrait grid, three across. Name, role, region, **short bio on click or hover**."* O botão que o mockup desenha sob a foto é esse gesto. |
+
+**A bio estava no CMS o tempo todo**, nos mesmos registros que a home lia — o que faltava
+era ligar as duas fontes. Os seis têm entrada, com bio de 1,1k a 3,8k caracteres:
+
+| slug no CMS | bio | campos |
+|---|---|---|
+| `rhea-leckie` | 3.824 car. | bio, name, role, linkedin, photo |
+| `mike-jackson` | 1.441 car. | + valores, forças |
+| `jon-paul-pritchard` | 1.329 car. | + valores, forças |
+| `nitin-goil` | 1.114 car. | + região |
+
+Três decisões dentro disso:
+
+- **O `PersonModal` saiu do `PeopleGrid`** e virou componente próprio. Ele era privado da
+  grade da home; copiá-lo para a /team criaria dois perfis de pessoa no mesmo site, que
+  divergem na primeira correção feita de um lado só. O `PeopleGrid` ficou só com a grade e
+  importa o resto — continua rodando na `/home-v1`, na `/home-v3` e na
+  `/services/leadership`.
+- **Casado por slug, não por nome.** O CMS grava `"Jon-Paul (JP) Pritchard"` contra o
+  nosso `"Jon Paul Pritchard"`, e `"Nitin Goil "` com espaço no fim. Normalizar e casar
+  por nome funcionaria hoje e quebraria sem aviso na primeira edição feita pelo admin.
+  Daí o campo `cmsSlug` no dado e o `slug` passando a sair do `PersonVM`.
+- **A /team voltou a tocar o CMS, e só por isto.** O texto da página continua todo em
+  `lib/team.ts` — nome, cargo, região e a quote do bloco 2 —, porque o CMS não tem campo
+  de citação em `person`. **Se o CMS não responder**, `getPeople()` devolve lista vazia, o
+  `find` devolve `undefined` e os cards saem sem o "+": nada do que se **lê** na página
+  depende dessa chamada.
+
+**Por que a quote deixou de ser cortada:** o corte em 8 linhas existia porque o "+" abria
+a própria quote — era o único trabalho honesto que havia para o botão enquanto a bio não
+estava localizada. Com o botão apontando para o perfil, um corte sem gesto para desfazê-lo
+esconderia conteúdo. O custo é que as quotes vão de 140 a 271 caracteres, então o cartão
+mais alto da fileira estica os outros dois — que é o que o mockup mostra.
+
+> ⚠️ **Não confundir com o bloco 3.** A bio do CMS é o **perfil**. O que o documento marca
+> como HOLD é uma frase **nova** por pessoa, resposta a *"what do you believe about
+> leadership that most people in this industry get wrong?"*, em até 200 caracteres. São
+> conteúdos diferentes, e o segundo continua sem existir — ver §8.5.
+
 ---
 
 ## 2. About
@@ -159,7 +197,29 @@ abaixo disso. É a razão de `components/team/LeaderCard.tsx` ser client compone
 >
 > **Os tiles de região voltaram ao que eram.** Nada mudou neles.
 
-### 2.2 (4) A lista de escritórios virou o carrossel de endereços, sem mapa
+### 2.2 (3) O mapa encolheu e o texto foi para o lado dele
+
+| | |
+|---|---|
+| **Como era** | Três irmãos empilhados em largura cheia: rótulo "WHERE WE WORK." + parágrafo, o `WorldCoverageMap` como seção própria (container de 1200px) e os escritórios. |
+| **Como ficou** | Rótulo continua no topo, e abaixo dele um grid de duas colunas: **parágrafo à esquerda (4fr), mapa à direita (8fr)**, dentro do container de 1440px da própria seção. O mapa passou de ~1120 para ~875px de largura numa tela de 1440. |
+| **Fonte** | *"Can we make the map just a tiny bit smaller and have the text on the left hand side? Where we work can remain at the top, but the body of the text, with headquarters in London, etc."* |
+| **O lado** | Era a decisão travada da §3 do doc de correções — a fala tinha "left hand side" e "we can have that on the right" em sequência. **Confirmado em 15-09: texto à esquerda, mapa à direita.** |
+
+Duas coisas que a troca exigiu:
+
+- **Prop `bare` no `WorldCoverageMap`.** Devolve só o conteúdo, sem a `<section>`, sem o
+  container de 1200px e sem padding. Sem ela o mapa abriria uma segunda faixa dentro da
+  coluna da direita e o SVG pararia de acompanhar a largura dela. Desligada por padrão —
+  as três homes renderizam o mapa como seção inteira e não mudaram. A âncora `#coverage`
+  sai do DOM da /about junto com a seção; nenhum link do site a cita (os overrides de
+  `[&_#coverage_h2]` do wrapper da home são da home).
+- **A quebra é `xl` (1280px), não `lg`.** Os rótulos das cidades são 8,5 unidades de um
+  viewBox de 880 e encolhem com a coluna: a 1024px cairiam a ~6px renderizados. A 1280px
+  ficam em ~7,4px e a 1440px em ~8,4px. Abaixo de 1280 o bloco empilha e o mapa volta à
+  largura cheia, que é o layout já aprovado.
+
+### 2.3 (4) A lista de escritórios virou o carrossel de endereços, sem mapa
 
 | | |
 |---|---|
@@ -183,7 +243,7 @@ Duas coisas que essa troca **não** custou, e que custariam se feita ingenuament
 exatamente a duplicação que ela apontou na home. Sem ele, o Leaflet nem entra no bundle
 desta página.
 
-### 2.3 A foto do time (item 5 de 15-09)
+### 2.4 A foto do time (item 5 de 15-09)
 
 | | |
 |---|---|
@@ -191,7 +251,7 @@ desta página.
 | **Como ficou** | A foto da escada em **4:5**. |
 | **Por que 4:5 e não 3:2** | O arquivo é 1066x1600 (2:3). Um 3:2 tirado dali sobra 711px de altura — o corte comeria as cabeças da fileira de cima e os pés da de baixo. 4:5 tira 267px, metade do forro e metade do piso, e não encosta em ninguém. |
 
-### 2.4 O skyline sem a recompressão do WhatsApp
+### 2.5 O skyline sem a recompressão do WhatsApp
 
 | | |
 |---|---|
@@ -455,8 +515,8 @@ antes do aval.
 
 ### 8.3 Decisões em aberto da §3 do doc de correções
 
-- **De que lado vai o texto no mapa da About** (item 3). Ela disse "the text on the
-  left-hand side" e, na frase seguinte, "we can have that on the right".
+- ~~**De que lado vai o texto no mapa da About** (item 3).~~ **Respondido em 15-09:**
+  texto à esquerda, mapa à direita. Construído — §2.2.
 - **Se "Making the learning real" sai ou fica** na 5H (item 40).
 - **Trocar `resourcefulness`** por uma palavra mais curta.
 
@@ -497,10 +557,24 @@ E dois pontos do documento que continuam em HOLD, como já estavam:
   representative selection or mosaic image per region"* — ou seja, a faculty ou o
   trabalho acontecendo, não cartão-postal.
 
-**Uma pendência de conteúdo que a auditoria expôs:** o bloco 2 do documento pede
-"portrait grid, three across. Name, role, region, **short bio on click or hover**". O
-botão "+" é esse gesto, mas a **bio curta de cada pessoa não existe** — nem no
-`CDNA_04_Team.docx`, nem no CMS para estes seis. Hoje ele abre a própria quote.
+> ✅ **O "short bio on click or hover" do bloco 2 deixou de ser pendência.** A auditoria
+> tinha registrado que a bio "não existe nem no Word nem no CMS". A primeira metade está
+> certa; a segunda estava **errada** — a bio estava no CMS o tempo todo, nos mesmos
+> registros que a home lia. Ver §1.8.
+
+**A busca pelas frases do bloco 3, para não se repetir.** Foram procuradas nos **cinco
+`.docx`** do pacote, no **xlsx** (aba única, colunas A–G) e nos mockups:
+
+| Onde | O que há |
+|---|---|
+| `2. Team/CDNA_04_Team.docx` | O único que cita o bloco 3 — e ali ele é **HOLD**, com a pergunta que cada pessoa precisa responder. |
+| `4. Services/WEBSITE SERVICE COPY.xlsx` | Coluna TESTIMONIAL, com quotes de **serviço**, não de pessoa: **uma** citação real (Executive Coaching, já no ar), **três** instruções para nós, **cinco** vazias. |
+| `4. Services/CDNA_03_Services.docx` | Diz o mesmo em prosa: *"A short quote from Dolf **exists but has not been chosen**"* e *"Nine of the ten have no publishable testimonial."* |
+| Os demais `.docx` e mockups | Nada. |
+
+São **duas pendências distintas**, e vale pedir as duas juntas: as **quatro citações de
+cliente** (adidas, GSK Mexico, Heineken, Vodafone) e as **seis frases de Perspectives** do
+time.
 
 ### 8.6 (24) Respondido pelo pacote, sem trabalho
 
