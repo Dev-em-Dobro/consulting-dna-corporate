@@ -136,10 +136,22 @@ export default async function OurTeamPage() {
                 página segue em duas colunas com o card empilhado, que é o
                 desenho anterior — a conta inteira está no `LeaderCard`.
 
-                O `gap-y` subiu de 56 para 72px porque o card ficou mais alto e
-                mais denso: com a ficha e o cartão claro, 56px deixavam a fileira
-                de baixo encostada na de cima. */}
-            <div className="grid grid-cols-1 gap-x-8 gap-y-[72px] sm:grid-cols-2 min-[1440px]:grid-cols-3">
+                ⚠️ OS VÃOS SÃO OS DA REFERÊNCIA (`leadership.PNG`), medidos em
+                pixels nela e convertidos: ela tem 1009px de conteúdo contra os
+                1360 desta página, então a escala é 1,348.
+
+                   vão entre pares    19px na ref  → 26  → `gap-x-6` (24)
+                   vão entre fileiras 27px na ref  → 36  → `gap-y-9`  (36)
+
+                O `gap-y` tinha subido para 72px quando o card ganhou a ficha e o
+                cartão claro — foi estimativa, e ficou o dobro do que a
+                referência usa. O `gap-x` era 32.
+
+                ⚠️ O VÃO DE DENTRO DO CARD É MENOR QUE O DE FORA, e isso é
+                deliberado na referência: 11px contra 19px. É ele que faz o
+                retrato e a quote lerem como UM card em vez de duas colunas
+                soltas. Mora no `LeaderCard`, que é quem desenha o par. */}
+            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 min-[1440px]:grid-cols-3">
               {leaders.map((p) => (
                 <LeaderCard
                   key={p.name}

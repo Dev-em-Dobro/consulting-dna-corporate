@@ -76,9 +76,24 @@ export default function LeaderCard({
        que é o desenho que já estava no ar — só que a quote agora é o cartão
        claro em vez do filete à esquerda. O mockup é uma tela de 1440; é ali que
        ele se cumpre. */
-    <article className="grid grid-cols-1 min-[1440px]:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
+    <article className="grid grid-cols-1 min-[1440px]:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] min-[1440px]:gap-x-4">
       <div className="flex flex-col">
-        <div className="relative aspect-[4/5] overflow-hidden bg-paper">
+        {/* ⚠️ A FOTO ESTICA ACIMA DE 1440, e não tem proporção fixa. Medido na
+            referência: na primeira fileira ela sai 167x167 e na segunda 167x154
+            — mesma largura, alturas diferentes. Quem manda na altura da fileira
+            é o CARTÃO DE QUOTE, e a foto cresce até encostar nele; nas duas
+            fileiras a diferença entre cartão e foto é constante (61 e 60px), que
+            é a altura do bloco do nome.
+
+            Com `aspect-[4/5]` fixo, que era o que estava aqui, a coluna da
+            esquerda terminava antes e o cartão rosa ficava pendurado abaixo do
+            nome — é o desalinhamento que se via na página.
+
+            `min-h` NÃO É ENFEITE: sem piso, uma quote curta encolheria a fileira
+            até a foto virar uma tira. 240px é a altura que a referência dá à
+            foto (~225) com uma folga. Abaixo de 1440 o card empilha e volta ao
+            4:5, que é onde a proporção fixa faz sentido. */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-paper min-[1440px]:aspect-auto min-[1440px]:min-h-[240px] min-[1440px]:flex-1">
           {person.portrait ? (
             <Image
               src={person.portrait}
@@ -118,10 +133,14 @@ export default function LeaderCard({
             nome. */}
         <div className="flex items-center justify-between gap-4 pt-5">
           <div className="min-w-0">
-            <h3 className="font-serif text-[20px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
+            {/* 18px e não 20: medido na referência, a altura de caixa alta do
+                nome é 1,33x a do cargo, o que com o cargo em 14px dá ~19px. Em
+                20px o nome ficava mais pesado que o da referência e o bloco
+                inteiro passava dos ~81px que ela reserva. */}
+            <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
               {person.name}
             </h3>
-            <p className="mt-1.5 text-[14px] leading-[1.45] text-muted">
+            <p className="mt-1 text-[14px] leading-[1.45] text-muted">
               {person.role}
             </p>
             <p className="text-[14px] leading-[1.45] text-muted">
@@ -157,7 +176,7 @@ export default function LeaderCard({
           tem de bater com o topo do retrato. A altura cheia vem do `stretch` que
           a grade já dá — é o que faz os três cartões da fileira terminarem na
           mesma linha, mesmo com quotes de tamanhos diferentes. */}
-      <div className="mt-6 bg-[#fcf2f0] px-6 py-7 min-[1440px]:mt-0 min-[1440px]:px-7">
+      <div className="mt-6 bg-[#fcf2f0] px-5 py-6 min-[1440px]:mt-0">
         {/* AS ASPAS SÃO DECORAÇÃO, não pontuação — daí `aria-hidden`. Se elas
             fossem texto, o leitor de tela anunciaria uma abertura de citação que
             nunca fecha. O `blockquote` abaixo é quem diz que aquilo é uma
@@ -178,7 +197,7 @@ export default function LeaderCard({
               271 caracteres, então o cartão mais alto da fileira estica os
               outros dois. É o que o mockup mostra — cartões de mesma altura com
               o texto no topo — e é o preço certo a pagar aqui. */}
-          <p className="font-serif text-[15px] leading-[1.6] text-ink">
+          <p className="font-serif text-[16px] leading-[1.6] text-ink">
             {person.quote}
           </p>
         </blockquote>
