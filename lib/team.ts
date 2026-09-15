@@ -20,11 +20,17 @@
  *    Assessments da CDNA e criador do DNA 360 Profiler — ou seja, pertence a
  *    esta grade. Não está no documento de Team nem tem retrato.
  *
- * 3. RETRATO SÓ PARA QUATRO. Chegaram em 09-09 os de Rhea, JP, Mike e Gen. O do
- *    Guilherme é o que já estava no site (`/guilherme.jpg`, anterior a este
- *    pacote); o do Nitin não existe, e o card dele cai nas iniciais. As "2
- *    additional photos" que a Maliha anunciou para 10-09 provavelmente são
- *    esses dois.
+ * 3. ✅ OS SEIS RETRATOS ESTÃO COMPLETOS DESDE 15-09. Chegaram em 09-09 os de
+ *    Rhea, JP, Mike e Gen; o do Nitin veio no pacote de 15-09 e era o último
+ *    card que caía nas iniciais. O do Guilherme continua sendo o antigo do site
+ *    (`/guilherme.jpg`), recortado — a foto oficial dele nunca chegou, e é a
+ *    única pendência de retrato que resta.
+ *
+ *    ⚠️ O ARQUIVO DA RHEA NÃO MELHOROU. O pacote de 15-09 traz `Rhea Leckie
+ *    .jpeg` de novo, e é o MESMO 1536x1024 paisagem de antes — 111KB, a
+ *    exportação comprimida. O pedido pelo original vertical continua de pé, e
+ *    até lá o card dela segue com a versão reenquadrada por IA que a caixa do
+ *    `portrait` dela explica.
  */
 
 export type Leader = {
@@ -149,6 +155,12 @@ export const leaders: Leader[] = [
     region: "Asia",
     quote:
       "I’ve seen brilliant strategies die in flat rooms. Part of the craft is knowing when to challenge, when to change the energy, and when to get out of the way.",
+    /* CHEGOU EM 15-09, no pacote do Drive (`2. Team/Nitin Goil.png`), e fecha o
+       último card que caía nas iniciais. O arquivo dela é 1106x1422 (0,78:1),
+       praticamente o 4:5 do quadro — o `cover` corta 39px de altura, tirados de
+       BAIXO (`position: top`) porque a margem acima da cabeça já é a certa e é
+       o ombro que sobra. Normalizado para 1024x1280 como os outros. */
+    portrait: "/team/nitin-goil.jpg",
   },
 ];
 

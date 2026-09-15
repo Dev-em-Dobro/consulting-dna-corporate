@@ -11,7 +11,7 @@ import { services } from "@/lib/services";
 /* O MESMO ARQUIVO DA /about, importado e não copiado: é literalmente "the same
    backdrop" que ela pediu, e um segundo arquivo com outro nome garantiria que
    as duas páginas divergissem no dia em que o original dela chegar. */
-import skylinePhoto from "@/public/about-hero.jpeg";
+import skylinePhoto from "@/public/skyline-dna.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -55,7 +55,7 @@ export default function SolutionsPage() {
               e é nela que estão as pessoas de olhos fechados.
             • item 9 — *"I'm thinking with the services, if we use the same
               backdrop as we did the skyline again."* "A outra página" é a
-              /about, e o arquivo é o `about-hero.jpeg` que ela mesma mandou em
+              /about, e o arquivo é o skyline que ela mesma mandou em
               08-09: Big Ben, Marina Bay, Burj Khalifa e Kingdom Centre com a
               hélice de DNA atravessando o céu.
 
@@ -63,14 +63,19 @@ export default function SolutionsPage() {
             dez rotas: ela reclamou desta página, e trocar o fallback mudaria a
             /team, a /books e as oito de serviço sem pedido nenhum.
 
-            ⚠️ O ARQUIVO É QUASE QUADRADO — 1373x1145 (1,2:1), 229 KB, e veio
-            pelo WhatsApp. Na /about isso é contornado com uma caixa de 72% presa
-            à direita; AQUI O HERÓI É DE SANGRIA TOTAL, então numa dobra de ~1,9:1
-            o `object-cover` escala pela largura e corta ~38% da altura. O que
-            sobra no quadro é a faixa do meio, que é onde moram o skyline e a
-            hélice — é o recorte que interessa —, mas o upscale num monitor de
-            1920 é 1,4x. Vale o mesmo pedido que já está anotado na /about:
-            perguntar à Maliha o ORIGINAL dela, e não a cópia do WhatsApp.
+            ✅ O ARQUIVO MELHOROU EM 15-09. A `about-hero.jpeg` era a cópia que
+            o WhatsApp gerou — 229 KB de JPEG já recomprimido, com o céu em
+            blocos e os pontos da hélice empastados. O pacote do Drive trouxe o
+            PNG de origem (`1.About Page/ChatGPT Image Sep 8...png`, 2,2 MB), que
+            virou `public/skyline-dna.jpg` com uma única compressão em q90.
+
+            ⚠️ O QUE ISSO NÃO RESOLVE: a RESOLUÇÃO. O PNG tem os mesmos
+            1373x1145 (1,2:1) do arquivo antigo — é a mesma imagem sem a segunda
+            compressão, não uma maior. Num herói de sangria total com dobra de
+            ~1,9:1 o `object-cover` escala pela largura e corta ~38% da altura
+            (o que sobra é a faixa do meio, onde moram o skyline e a hélice, que
+            é o recorte que interessa), mas num monitor de 1920 o upscale segue
+            em 1,4x. O pedido pelo arquivo em largura de dobra continua de pé.
 
             `object-[50%_38%]` SOBE O ENQUADRAMENTO. Centrado, o corte tira 19%
             de cima e 19% de baixo, e a ponta do Burj ficava rente à borda
@@ -119,12 +124,17 @@ export default function SolutionsPage() {
         </section>
 
         {/* PARCEIROS — §3.1 do outline, a faixa sob a grade.
-            ⚠️ SEM AS DUAS MARCAS. O documento pede "two partner marks left, copy
-            right", e não existe arquivo de logo da Harvard Business Impact nem
-            do Imperial College em `public/logos/`. Nome de instituição é marca
-            registrada com regra de uso própria, então não se improvisa com
-            imagem achada: a faixa sai só com a copy até os arquivos (e o aceite
-            de uso) chegarem, e o lugar das marcas já está reservado à esquerda.
+            ✅ AS DUAS MARCAS CHEGARAM EM 15-09, no pacote do Drive, e com isso o
+            §3.1 ("two partner marks left, copy right") fica cumprido — era o
+            item 15 da daily, e a faixa vinha desde 11-09 só com a copy,
+            guardando o lugar delas à esquerda.
+
+            A PROCEDÊNCIA IMPORTA MAIS QUE O ARQUIVO. Nome de instituição é
+            marca registrada com regra de uso própria, e a nota anterior aqui
+            dizia que não se improvisa com imagem achada na internet. Estes dois
+            vieram DA CLIENTE, na pasta que ela mesma montou — ou seja, o aceite
+            de uso é dela, que é exatamente o que faltava. Se alguém trocar por
+            um arquivo "melhor" achado fora, perde isso.
 
             O outline também pede que ela e a Home leiam "from one CMS partner
             collection so the two pages cannot drift" — isso depende do tipo
@@ -149,6 +159,36 @@ export default function SolutionsPage() {
               <h2 className="font-serif mt-5 max-w-[420px] text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[34px]">
                 The work is ours. The partners are chosen.
               </h2>
+              {/* AS DUAS MARCAS, sob o título e na coluna da esquerda, que é
+                  onde o outline as põe.
+
+                  ALTURA IGUAL, LARGURA LIVRE (`h-14 w-auto`) e não uma caixa
+                  quadrada para as duas: o brasão do Imperial é quase 1:1 e o
+                  escudo da Harvard é 0,9:1, então encaixotar as duas no mesmo
+                  quadro deixaria uma flutuando no meio de vazio. Altura comum é
+                  o que faz duas marcas de desenho diferente lerem como par.
+
+                  ⚠️ SEM `next/image`. São PNG com transparência, servidos no
+                  tamanho em que aparecem (14rem de altura contra 400px de
+                  arquivo, ou seja já há 3,5x de folga para telas densas), e o
+                  `/_next/image` não tem o que otimizar num logo de 54KB — só
+                  acrescentaria uma requisição de transformação. Mesmo critério
+                  do mural de clientes. */}
+              {/* eslint-disable @next/next/no-img-element */}
+              <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
+                <img
+                  src="/logos/harvard_business_impact.png"
+                  alt="Harvard Business Impact"
+                  className="h-14 w-auto"
+                />
+                <span aria-hidden className="h-10 w-px bg-line" />
+                <img
+                  src="/logos/imperial_college_london.png"
+                  alt="Imperial College London"
+                  className="h-14 w-auto"
+                />
+              </div>
+              {/* eslint-enable @next/next/no-img-element */}
             </div>
             <div className="max-w-[640px] space-y-5 font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
               <p>

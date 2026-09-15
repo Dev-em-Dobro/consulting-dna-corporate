@@ -222,11 +222,41 @@ export default function NavV2({
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
+          {/* ⚠️ O LOGO DE VERDADE ENTROU EM 15-09 — item 1 da lista que foi para
+              a Maliha, e o "placeholder at the top" que ela mandou substituir era
+              este: o `cdna-logo-light.svg` é só o LETREIRO ("corporate / DNA /
+              consulting"), sem o símbolo da hélice. O arquivo dela
+              (`Company Logo/CDNA LOGO WHITE.png`) é a marca completa, com o
+              círculo vermelho e a hélice à esquerda do letreiro.
+
+              PNG E NÃO SVG porque foi PNG que ela mandou; não existe vetor no
+              pacote. Vale pedir o `.ai`/`.svg` a ela — um logo de header é o
+              lugar onde vetor mais se paga. O arquivo aqui está em 1079x432,
+              que é 3x a altura de render (48px no `xl`), então em tela densa
+              ainda sobra resolução. Fundo transparente, letreiro branco: é a
+              versão para fundo escuro, que é o que esta barra é.
+
+              ⚠️ A ALTURA É MENOR ATÉ `xl`, E A CONTA IMPORTA. A marca completa
+              é 2,5:1 contra 1,39:1 do letreiro sozinho, ou seja ela ocupa mais
+              LARGURA na mesma altura — e esta barra tem orçamento apertado a
+              1024, que é onde o menu de desktop começa. Medido, com o
+              `md:px-10` desta faixa:
+                 1024 − 80 de padding      = 944 de container
+                 944 − logo − 24 de vão    = espaço livre para o menu
+              O menu mede 748px (ver a caixa de `linkType`), mais ~18px da seta
+              que o item Services ganha quando o CMS responde.
+                 • h-12 (48px) → logo de 120px → sobram 800. Folga: 34px.
+                 • h-10 (40px) → logo de 100px → sobram 820. Folga: 54px.
+              Os 34px do `h-12` cabem, mas é a folga inteira do layout apostada
+              num logo. De `xl` para cima há 256px a mais e ele pode crescer.
+
+              O `alt` MUDOU de "Corporate DNA" para o nome completo: é o que a
+              marca escreve agora que o letreiro inteiro está visível. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo-light.svg"
-            alt="Corporate DNA"
-            className="h-12 w-auto"
+            src="/cdna-logo-full-light.png"
+            alt="Corporate DNA Consulting"
+            className="h-10 w-auto xl:h-12"
           />
         </Link>
 

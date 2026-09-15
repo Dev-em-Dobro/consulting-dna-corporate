@@ -32,9 +32,26 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
     <footer className={`bg-white text-ink${topBorder ? " border-t-2 border-brand" : ""}`}>
       <div className="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] gap-6 px-6 py-16 sm:gap-20 md:px-10">
         <Link href="/" className="flex h-fit flex-none items-center">
+          {/* A MARCA COMPLETA desde 15-09 — mesma troca do header (item 1), aqui
+              na versão para fundo claro, que é o que o rodapé é.
+
+              ⚠️ ESTE ARQUIVO VEIO DE UM JPEG COM FUNDO BRANCO CHAPADO, não de
+              um PNG transparente como o do header — foi o que ela mandou. Ele
+              foi aparado e reescrito em PNG, e continua com o branco por trás:
+              não dá para simplesmente torná-lo transparente, porque o branco
+              também é a COR DA HÉLICE dentro do círculo vermelho, e um recorte
+              por cor abriria buracos no meio da marca. Sobre este rodapé, que é
+              branco, a diferença é invisível.
+
+              SE O RODAPÉ MUDAR DE COR, esta linha quebra e o conserto não é
+              aqui: é pedir o vetor à Maliha. Fica anotado.
+
+              `h-16` CONTINUA, e aqui não há a aperto de largura que o header
+              tem: a marca passa de 89px para 160px, e a coluna é `auto` numa
+              grade `[auto_1fr]` de 1200 com 80px de vão. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo.svg"
+            src="/cdna-logo-full.png"
             alt="Corporate DNA Consulting"
             className="h-16 w-auto"
           />

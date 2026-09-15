@@ -45,7 +45,7 @@ import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
-import heroPhoto from "@/public/about-hero.jpeg";
+import heroPhoto from "@/public/skyline-dna.jpg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito — ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
@@ -558,21 +558,32 @@ export default async function AboutV2Page() {
           linhas e não cabem em uma tela — aí o bloco cresce e rola, em vez de
           cortar conteúdo.
 
-          A ARTE é a que a Maliha mandou em 08-09 (`public/about-hero.jpeg`): o
+          A ARTE é a que a Maliha mandou em 08-09 (`public/skyline-dna.jpg`): o
           skyline montado — Big Ben, Marina Bay, Burj Khalifa, Kingdom Centre —
           com a hélice de DNA atravessando o céu. Ela é a imagem definitiva da
-          seção, não mais o placeholder da home V2. Duas ressalvas de arquivo
-          estão anotadas no <Image> logo abaixo. */}
+          seção, não mais o placeholder da home V2, e desde 14-09 é também o
+          herói da /services, a pedido dela. Uma ressalva de arquivo está
+          anotada no <Image> logo abaixo. */}
       <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-ink pt-[76px] text-white">
-        {/* ⚠️ O ARQUIVO É PEQUENO E QUASE QUADRADO: 1373x1145 (1,2:1), 229 KB,
-            e veio pelo WhatsApp, que recomprime. Duas consequências:
+        {/* ✅ A RECOMPRESSÃO DO WHATSAPP SAIU EM 15-09. O que estava aqui era
+            a `about-hero.jpeg`, 229 KB de JPEG que o WhatsApp já havia
+            recomprimido: céu em blocos e os pontos da hélice empastados. O
+            pacote do Drive daquele dia trouxe o PNG de origem (2,2 MB), que
+            virou `public/skyline-dna.jpg` com uma compressão só, em q90. O nome
+            mudou de propósito — trocar os bytes mantendo a URL não adianta
+            contra o cache longo do `/_next/image`. A `about-hero.jpeg` fica no
+            repositório ao lado, para comparar e para voltar atrás numa linha.
+
+            ⚠️ O ARQUIVO CONTINUA PEQUENO E QUASE QUADRADO: 1373x1145 (1,2:1). O
+            PNG novo é a mesma imagem sem a segunda compressão, não uma maior.
+            Duas consequências, e as duas seguem valendo:
 
             1. LARGURA. A dobra pede algo em torno de 1920px. Em telas de até
                1440 o upscale é 1,05x e não aparece; num monitor de 1920 é 1,4x e
                num 2560 é 1,86x, aí a imagem amolece. O escurecimento perdoa
                muito disso (é arte escura, monocromática e granulada), mas o
-               conserto de verdade é pedir o original à Maliha — o que veio é a
-               cópia que o WhatsApp gerou, não o arquivo dela.
+               conserto de verdade é o arquivo em largura de dobra, que continua
+               pendente com a Maliha.
 
             2. PROPORÇÃO. É 1,2:1, quase quadrada, contra uma dobra de ~1,9:1.
                Essa diferença é o motivo de a imagem NÃO ser de sangria total —
@@ -1901,77 +1912,94 @@ export default async function AboutV2Page() {
             </p>
           </div>
 
-          {/* LISTA EMPILHADA COM RÉGUA VERMELHA ENTRE CADA — 09-09.
-              É a SEGUNDA das duas formas que o outline do cliente oferece, em
-              letra: "Five cards, or a stacked list with a red rule between each.
-              Not a carousel: all five must be visible without interaction."
+          {/* ⏸️ O QUE ESTEVE AQUI ENTRE 09-09 E 14-09, porque a decisão vai e
+              volta e o histórico é o que impede a terceira rodada:
 
-              ⚠️ ISTO SUBSTITUI OS CARDS construídos horas antes nesta mesma
-              data, sobre a `card ref 4.png` — faixa rosa no topo, ícone dentro
-              dela, sombra suave. Aqueles cumpriam "cinco cards" e "todos
-              visíveis", mas não tinham a régua vermelha, e a régua está no texto
-              do cliente. Escolhida a lista em vez de encaixar a régua entre os
-              cards porque, para haver régua ENTRE eles, eles teriam de encostar
-              — e aí o vão e a sombra individual do card cairiam de qualquer
-              forma. Se a lista não convencer, os cards estão no commit 02cdc51.
+              Primeiro foram CINCO CARDS, construídos em 09-09 sobre a
+              `card ref 4.png` — faixa rosa no topo, ícone dentro dela, sombra
+              suave (commit 02cdc51). Saíram horas depois, no mesmo dia, por um
+              detalhe do outline: ele pede "a red rule BETWEEN each", e para
+              haver régua entre cards eles teriam de encostar, perdendo vão e
+              sombra.
 
-              QUATRO RÉGUAS PARA CINCO ITENS: nenhuma antes do primeiro,
-              nenhuma depois do último. É o que "between each" quer dizer.
+              Entrou então a LISTA EMPILHADA: cada valor uma fileira de largura
+              cheia, ícone e título na coluna da esquerda (5fr), corpo na da
+              direita (7fr), quatro réguas vermelhas entre os cinco. As colunas
+              não eram estética — 1360px de medida corrida dariam ~180
+              caracteres por linha, contra os 45–75 legíveis.
 
-              Feito com `border-t-2` em cada item mais `first:border-t-0`, e NÃO
-              com `divide-y-2`, que seria o idiomático. O `divide-*` da Tailwind
-              v4 emite `border-width: calc(2px * var(--tw-divide-y-reverse))`, e
-              aqui a variável não chegou inicializada na folha servida — o `calc`
-              resolvia para zero e as réguas simplesmente não existiam, com a COR
-              aplicada, que é o tipo de falha que passa despercebido numa revisão
-              rápida. Borda explícita não depende de variável nenhuma.
+              Duas notas de implementação que sobrevivem às duas versões e
+              custaram tempo:
+              • A régua é `border-t-2` explícito, e NÃO `divide-y-2`. O
+                `divide-*` da Tailwind v4 emite `border-width: calc(2px *
+                var(--tw-divide-y-reverse))`, e aqui a variável não chegou
+                inicializada na folha servida: o `calc` resolvia para zero e as
+                réguas sumiam, com a COR aplicada — falha que passa despercebida
+                numa revisão rápida.
+              • Se algum dia isto voltar a ser UMA coluna com texto largo, o
+                contêiner precisa de `grid-cols-[minmax(0,1fr)]` e não do `grid`
+                de uma coluna que vem por padrão: a trilha implícita é `auto`,
+                que se dimensiona pelo max-content, e isso faz um `max-w` de
+                parágrafo virar largura PREFERIDA em vez de teto. Medido num
+                telefone de 390px, o texto saía com 680px e transbordava. */}
+          {/* ⚠️ VOLTARAM A SER CINCO CAIXAS EM 14-09 — É O ITEM 2 DA DAILY, e a
+              lista horizontal descrita acima é exatamente o que ela estava
+              vendo:
+              *"can we make these like vertical by any chance, so you know
+              currently they're in horizontals — can we have, is it five, five
+              little boxes with the text underneath."*
 
-              ⚠️ A LINHA TEM DE SE DIVIDIR EM COLUNAS, e isso não é estética. A
-              faixa mede 1360px num container de 1440. Corpo de texto correndo a
-              largura toda daria ~180 caracteres por linha, contra os 45–75 que
-              se consegue ler sem perder a linha de volta. Por isso o título
-              ocupa a coluna da esquerda e o texto a da direita, e o texto ainda
-              leva um teto de 680px: a 17px isso dá ~85 caracteres, que é o
-              limite de cima do confortável.
+              ONDE O PEDIDO ESTAVA ANCORADO ERRADO. O doc de correções mandou
+              mexer nos tiles de REGIÃO (`lg:grid-cols-5`, bloco 6). Não é ali:
+              na fita ela diz "these" e, na frase seguinte, *"and then THIS ONE,
+              can we make the map a tiny bit smaller"* — logo "these" é o bloco
+              imediatamente ANTES do mapa, que é esta lista. Os tiles de região
+              vêm DEPOIS do mapa e já eram cinco em linha com o texto embaixo.
 
-              Empilhado abaixo de `md`, onde a largura já resolve a medida
-              sozinha e duas colunas só espremeriam as duas.
+              "HORIZONTAIS" ERA LITERAL: cada valor era uma FILEIRA de largura
+              cheia, com o ícone e o título na coluna da esquerda (5fr) e o corpo
+              na da direita (7fr), cinco delas empilhadas com régua vermelha
+              entre cada. Agora cada valor é uma COLUNA: ícone em cima, nome,
+              corpo embaixo — e as cinco correm lado a lado, como no mockup dela
+              de 08-09 e como nos cards que existiram nesta página até 09-09
+              (commit 02cdc51).
 
-              ⚠️ O `grid-cols-[minmax(0,1fr)]` NA BASE não é redundante com o
-              `grid` de uma coluna que viria por padrão. A trilha implícita é
-              `auto`, e trilha `auto` se dimensiona pelo max-content do conteúdo
-              — o que faz o `max-w-[680px]` do parágrafo virar largura
-              PREFERIDA em vez de teto. Medido num telefone de 390px: o texto
-              saía com 680px e transbordava a tela. `minmax(0,1fr)` põe o piso
-              da trilha em zero e devolve ao `max-w` o papel de teto.
+              O OUTLINE DO CLIENTE SEMPRE PERMITIU AS DUAS, em letra: "Five
+              cards, or a stacked list with a red rule between each. Not a
+              carousel: all five must be visible without interaction." A lista
+              foi escolhida em 09-09 porque a régua vermelha estava no texto e,
+              entre cards com vão, não há onde pôr régua "entre cada". Com o
+              pedido dela a escolha se inverte, e a régua vermelha sobrevive
+              como `border-t-2` NO TOPO DE CADA CAIXA — que é onde ela já estava
+              nos tiles de região, e o que dá as cinco marcas alinhadas num eixo
+              só. Os cinco continuam visíveis sem interação, que é a parte
+              inegociável do outline.
 
-              OS TÍTULOS CRESCERAM de 20px para 24/26px. Nos cards eles estavam
-              limitados pela coluna de ~250px — "Relationship Centricity" a 28px
-              pedia 300px e quebrava em três linhas. Aqui a coluna da esquerda
-              tem ~440px e o aperto some, então o tamanho volta ao que a grade
-              tipográfica pede para título de bloco. */}
-          <Reveal className="mt-12">
+              O TÍTULO VOLTA A 20px, de 24/26. Não é gosto: a coluna caiu de
+              ~440px para ~250px, que é a mesma medida dos cards de 09-09, e a
+              caixa daquele dia registra o motivo — "Relationship Centricity" a
+              26px pede ~300px e quebra em três linhas.
+
+              O ÍCONE VOLTA PARA CIMA pela razão espelhada da que o mandou para
+              o lado: numa fileira larga ele ficaria sozinho num canto, longe da
+              palavra que ilustra; numa coluna de 250px ele ABRE a caixa, que é o
+              que o mockup e a referência fazem.
+
+              `sm:grid-cols-2 lg:grid-cols-5`: cinco colunas a 1024 dariam 180px
+              por caixa e o corpo (até 160 caracteres) viraria uma tira de 20
+              linhas. Duas colunas no meio do caminho, cinco só de `lg` para
+              cima — a mesma escada dos tiles de região, que é a outra grade de
+              cinco desta página. */}
+          <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
             {VALUES.map((v) => (
-              <div
-                key={v.name}
-                className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-3 border-t-2 border-brand py-7 first:border-t-0 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:py-8"
-              >
-                {/* O ÍCONE VOLTA PARA O LADO DO TÍTULO. No card ele morava numa
-                    faixa própria acima do texto, que é o que a referência fazia;
-                    numa linha larga aquilo o deixaria sozinho num canto, longe
-                    da palavra que ele ilustra. `items-start` e não `items-center`
-                    porque "Relationship Centricity" quebra em duas linhas e o
-                    ícone tem de alinhar com a PRIMEIRA delas, não com o meio do
-                    bloco. */}
-                <div className="flex items-start gap-4">
-                  <span className="mt-0.5 flex-none text-brand">
-                    <ValueIcon name={v.icon} />
-                  </span>
-                  <h3 className="font-serif text-[24px] font-medium leading-[1.2] text-ink md:text-[26px]">
-                    {v.name}
-                  </h3>
-                </div>
-                <p className="max-w-[680px] text-[16px] leading-[1.65] text-muted md:text-[17px]">
+              <div key={v.name} className="border-t-2 border-brand pt-5">
+                <span className="block text-brand">
+                  <ValueIcon name={v.icon} />
+                </span>
+                <h3 className="font-serif mt-4 text-[20px] font-medium leading-[1.2] text-ink">
+                  {v.name}
+                </h3>
+                <p className="mt-3 text-[15px] leading-[1.6] text-muted">
                   {v.body}
                 </p>
               </div>
@@ -2071,32 +2099,22 @@ export default async function AboutV2Page() {
               topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
               sem a caixa. O `p-6` também sai, porque padding sem fundo só
               empurra o texto para longe do filete que o ancora. */}
-          {/* ⚠️ SAÍRAM DA LINHA EM 14-09, pedido da Maliha na daily (item 2):
-              "can we make these like vertical by any chance, so you know
-              currently they're in horizontals, five little boxes with the text
-              underneath". Cai o `lg:grid-cols-5` — os cinco passam a EMPILHAR,
-              um por fileira, com o filete vermelho por cima e o texto embaixo.
+          {/* ⚠️ ESTES TILES NÃO SÃO O ITEM 2, e chegaram a ser mexidos por
+              engano em 14-09. O doc de correções ancorou o pedido dela aqui
+              ("→ o `lg:grid-cols-5`"), e a fita mostra que não é: ela diz
+              *"can we make these vertical... and then THIS ONE, can we make the
+              map a tiny bit smaller"*, ou seja, "these" é o bloco IMEDIATAMENTE
+              ANTES do mapa — e estes tiles vêm DEPOIS dele. O que vem antes é a
+              lista de valores, que de fato corre em fileiras horizontais.
 
-              PRESOS EM 720px, e não correndo os 1360 da página. Um descritor
-              de 60 caracteres numa medida de 1360 dá uma linha só com dois
-              terços de vazio à direita, cinco vezes seguidas — o empilhamento
-              passaria a ler como cinco linhas soltas em vez de uma coluna. A
-              720 cada descritor ocupa a largura que tem, e as cinco réguas
-              vermelhas alinham num eixo só, que é o que segura a leitura de
-              lista. Mesma medida do parágrafo de abertura da faixa.
+              E o mockup dela de 08-09 (`1.About Page/WhatsApp Image 2026-09-08
+              at 18.28.29.jpeg`) desenha estas cinco regiões EM LINHA, com a
+              imagem em cima e o texto embaixo — que é o que já está aqui, menos
+              a imagem, que segue em HOLD (slot 06). Mexer nisto era desfazer o
+              que ela aprovou.
 
-              O `gap` SUBIU DE 20 PARA 40px. Numa linha, 20px era a distância
-              LATERAL entre colunas vizinhas e não confundia nada; empilhados,
-              20px põem o descritor de um a 20px do filete do próximo, e o olho
-              passa a ler o texto como legenda do tile de baixo. 40px separa os
-              grupos sem abrir buraco.
-
-              ⚠️ A FRASE DELA TEM DUAS LEITURAS e esta é a do doc de correções
-              ("em vez de cinco em linha"): "vertical" como ARRANJO. A outra é
-              "vertical" como FORMATO de cada caixa — cinco caixas em pé, ainda
-              lado a lado, com o texto sob cada uma. Se o retorno dela for esse,
-              o que muda é este contêiner e não o conteúdo. */}
-          <div className="grid max-w-[720px] grid-cols-1 gap-10">
+              O `lg:grid-cols-5` fica. O item 2 mora na seção `#values`. */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {REGIONS.map((r) => (
               <div key={r.name} className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo

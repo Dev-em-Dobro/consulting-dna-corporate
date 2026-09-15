@@ -46,11 +46,17 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
+          {/* A MARCA COMPLETA desde 15-09 — item 1. O raciocínio inteiro (por
+              que PNG, por que a altura é menor até `xl`, e a conta de largura a
+              1024) está na NavV2, que é a outra barra do site e tem o orçamento
+              mais apertado das duas. Aqui a conta é a mesma com folga maior: o
+              menu desta barra mede 773px, e a 1024 sobram 820 para ele com o
+              logo em `h-10`. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo-light.svg"
-            alt="Corporate DNA"
-            className="h-12 w-auto"
+            src="/cdna-logo-full-light.png"
+            alt="Corporate DNA Consulting"
+            className="h-10 w-auto xl:h-12"
           />
         </Link>
 
