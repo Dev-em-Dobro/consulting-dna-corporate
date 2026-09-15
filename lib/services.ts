@@ -110,19 +110,19 @@ export type Service = {
    * A imagem do card no índice `/services` — item 12 da daily de 14-09:
    * *"a bit of image, just to call out each of the [services]."*
    *
-   * ⏳ OITO DOS DEZ TÊM, e a ausência dos outros dois é deliberada em vez de um
+   * ⏳ NOVE DOS DEZ TÊM, e a ausência do décimo é deliberada em vez de um
    * arquivo qualquer. Os arquivos vêm de duas origens, e vale saber qual é qual:
    *
    *   • SEIS são as banners fotográficas do site ANTIGO
    *     (`public/solutions-banners/`), recortadas em 16:10: material da própria
    *     CDNA, já publicado, e não banco de imagem.
-   *   • DOIS chegaram em 15-09, escolhidos pelo Ricardo — Manager Development e
-   *     Judgement in AI. São imagens GERADAS, 1536x1024 recortadas para 16:10, e
-   *     o registro importa: o site velho não tinha esses dois serviços, então não
+   *   • TRÊS chegaram em 15-09, escolhidos pelo Ricardo — Manager Development,
+   *     Judgement in AI e Family Business Consulting. São imagens GERADAS, e o
+   *     registro importa: o site velho não tinha esses três serviços, então não
    *     existia foto deles em lugar nenhum.
    *
-   * Seguem sem arquivo HRLT Effectiveness e Family Business Consulting, pela
-   * mesma razão — serviços novos, sem acervo.
+   * Segue sem arquivo HRLT Effectiveness, pela mesma razão — serviço novo, sem
+   * acervo. O card dele cai no campo de cor.
    *
    * O CARD SEM FOTO NÃO FICA VAZIO: ele cai no campo de cor com o nome do
    * serviço, que é o mesmo recurso que as páginas de dentro usam desde 12-09 e
@@ -131,8 +131,8 @@ export type Service = {
    * medida; o que muda é o que preenche o quadro.
    *
    * ⚠️ ISTO É O "USE GENERIC FOR NOW" DELA, de 15-09, e não a escolha final. Ela
-   * ficou de mandar as imagens da grade; quando chegarem, é trocar oito caminhos
-   * e acrescentar dois. O layout não muda.
+   * ficou de mandar as imagens da grade; quando chegarem, é trocar nove caminhos
+   * e acrescentar um. O layout não muda.
    *
    * ⚠️ O ARQUIVO DO TOP 150 É `diversification.png` do acervo antigo — um
    * conselho ao redor da mesa com a cidade atrás. O NOME do arquivo fala de
@@ -376,6 +376,7 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
+    cardImage: "/services/cards/family-business-consulting.jpg",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
