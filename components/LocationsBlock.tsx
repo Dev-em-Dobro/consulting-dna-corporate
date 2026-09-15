@@ -93,9 +93,9 @@ export default function LocationsBlock({
    *
    * PROP E NÃO COMPONENTE NOVO porque o que ela quer é ESTE bloco menos uma
    * camada: a mesma lista de escritórios, o mesmo auto-avanço, o mesmo
-   * carrossel e o mesmo `min-h` que impede o endereço de sacudir a página ao
-   * trocar de cidade. Recortar isso para um arquivo à parte criaria dois
-   * lugares para consertar o dia em que um endereço mudar.
+   * carrossel e a mesma reserva de altura que impede o endereço de sacudir a
+   * página ao trocar de cidade. Recortar isso para um arquivo à parte criaria
+   * dois lugares para consertar o dia em que um endereço mudar.
    *
    * O QUE O `false` DESLIGA JUNTO, e é de graça: o `next/dynamic` do Leaflet
    * nunca é chamado, então a /about não baixa o mapa nem os tiles. O
@@ -138,6 +138,50 @@ export default function LocationsBlock({
   const sectionRef = useRef<HTMLElement>(null);
 
   const active = offices[activeIndex];
+
+  /**
+   * A ALTURA RESERVADA PARA O PAINEL DE ENDEREÇO, em pixels.
+   *
+   * ⚠️ ISTO É O CONSERTO DO "RODAPÉ QUE DANÇA", e já era o propósito do
+   * `min-h-[128px]` que estava aqui — ele só tinha virado um número velho. 128
+   * menos os 32 do `pt-8` deixam 96px de conteúdo, e quatro linhas a 15px com
+   * entrelinha 1,7 medem 102. Ou seja: as cidades de quatro linhas ESTOURAVAM a
+   * reserva e a caixa crescia, enquanto Miami — duas linhas de endereço, sem
+   * telefone — cabia dentro dela. Trocar de cidade mexia a página inteira, e na
+   * /about, onde este bloco fecha a seção, isso puxa o rodapé para cima.
+   *
+   * ⚠️ O NÚMERO NÃO PODE SER FIXO PORQUE A LISTA NÃO É. Este bloco roda com
+   * três conjuntos diferentes: a /about passa a lista do documento do cliente
+   * (Riade tem três linhas, Riade e Miami não têm telefone) e liga o e-mail; a
+   * /our-clients e a /home-v3 passam `lib/offices.ts` e não ligam. Um literal
+   * serve a um dos três e desalinha os outros dois — foi exatamente o que
+   * aconteceu com o 128.
+   *
+   * Então ele é MEDIDO A PARTIR DOS DADOS, pelo pior caso da lista recebida:
+   *   • cada linha de endereço: 25,5px (15px x 1,7)
+   *   • telefone, se ALGUMA cidade tiver: 4px de `mt-1` + 25,5
+   *   • e-mail, se `showEmail`: 4px de `mt-1` + 25,5
+   * O `+ 32` no fim é o `pt-8` do contêiner, que entra na conta porque o projeto
+   * roda `box-sizing: border-box`.
+   *
+   * O PIOR CASO É A COMBINAÇÃO, não a cidade mais alta: reserva-se o máximo de
+   * linhas de endereço MAIS telefone MAIS e-mail, ainda que nenhuma cidade tenha
+   * as três coisas ao mesmo tempo. É o que garante que acrescentar um telefone
+   * que falta — o de Dubai e o de Riade estão pendentes com o cliente — não
+   * volte a fazer a página pular.
+   *
+   * ⚠️ A CONTA PRESSUPÕE QUE NADA QUEBRA EM DUAS LINHAS. Conferido nos dados de
+   * hoje: a linha mais longa ("2888 King Fahd Road, Saudi Journalists") mede
+   * ~285px e o e-mail mais longo ~248px, contra 342px de coluna no telefone mais
+   * estreito. Um endereço novo bem mais longo que esses reabre o problema, e o
+   * lugar de perceber é aqui.
+   */
+  const addressMinHeight =
+    Math.ceil(
+      Math.max(...offices.map((o) => o.addressLines.length)) * 25.5 +
+        (offices.some((o) => o.tel) ? 29.5 : 0) +
+        (showEmail ? 29.5 : 0),
+    ) + 32;
 
   // A visitor-driven office change: take over from the auto-advance.
   const selectOffice = (i: number) => {
@@ -329,10 +373,17 @@ export default function LocationsBlock({
 
               {/* Divider above the address mirrors the one under the office
                   strip, so the active city name sits framed between two lines.
-                  Fixed min-height so switching offices (2–3 address lines ± tel)
-                  never shifts the surrounding page — the "dancing footer" fix. */}
+
+                  A ALTURA RESERVADA vem de `addressMinHeight`, medida a partir
+                  da lista recebida — a caixa dele, lá em cima, tem a conta e o
+                  histórico do número fixo que ela substitui.
+
+                  `style` E NÃO CLASSE porque o valor é calculado: a Tailwind gera
+                  folha estática e não tem como emitir uma classe por conjunto de
+                  escritórios. */}
               <div
-                className={`mt-8 min-h-[128px] border-t pt-8 text-center ${
+                style={{ minHeight: `${addressMinHeight}px` }}
+                className={`mt-8 border-t pt-8 text-center ${
                   dark ? "border-white/20" : "border-muted/30"
                 }`}
               >
