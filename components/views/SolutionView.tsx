@@ -71,13 +71,6 @@ export default function SolutionView({ service }: { service: Service }) {
         eyebrow="Our Services"
         title={service.title}
         subtitle={service.banner}
-        /* A trilha é a do template dela: "Home / Services / <serviço>". A perna
-           final vai sem `href` de propósito — ver a caixa no `SolutionHero`. */
-        trail={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: service.title },
-        ]}
       />
 
       {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot

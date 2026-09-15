@@ -105,15 +105,10 @@ export default async function OurTeamPage() {
             valores viraram o PADRÃO do `SolutionHero` — o raciocínio inteiro
             (por que `none`, por que o `brightness` não é enfeite) mora agora nas
             props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
-        {/* A MIGALHA DE PÃO, do mockup — ele abre com "Home / Team" acima do
-            rótulo, igual ao template de serviço e ao de Clients & Impact. É a
-            prova de que, no desenho dela, a trilha não é só das páginas de
-            dentro: /team é de primeiro nível e tem trilha. */}
         <SolutionHero
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
           subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
-          trail={[{ label: "Home", href: "/" }, { label: "Team" }]}
         />
 
         {/* ── Leadership ────────────────────────────────────────────────── */}

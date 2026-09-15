@@ -28,7 +28,6 @@
  *   • Largura de 1440 e `100svh` com `pt-[76px]`.
  */
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
 import fallbackPhoto from "@/public/solutions/service-hero-fallback.jpg";
 import HeroIntro from "@/components/HeroIntro";
 
@@ -42,7 +41,6 @@ export default function SolutionHero({
   imagePosition = "object-center",
   scrollCueHref,
   scrollCueLabel = "Scroll to see more",
-  trail,
 }: {
   eyebrow: string;
   title: string;
@@ -125,11 +123,6 @@ export default function SolutionHero({
   scrollCueHref?: string;
   /** O que o leitor de tela ouve. A seta em si é `aria-hidden`. */
   scrollCueLabel?: string;
-  /**
-   * A migalha de pão, da primeira perna até a última. Sem `href` = perna final,
-   * que sai como texto e não como link.
-   */
-  trail?: { label: string; href?: string }[];
 }) {
   const src = imageUrl ?? fallbackPhoto;
   return (
@@ -225,55 +218,21 @@ export default function SolutionHero({
           publica um herói invisível — ele tem prazo de segurança de 10s
           justamente para que nenhum caminho termine assim. */}
       <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10">
-        {/* A MIGALHA DE PÃO — 15-09, do template que a Maliha mandou
-            (`4. Services/ExCo Leadership Services Page.png`), que abre com
-            "Home / Services / ExCo / Top 150" acima do rótulo. Ela vem em todos
-            os desenhos do pacote dela, inclusive nos de Team e de Clients &
-            Impact.
+        {/* ⛔ A MIGALHA DE PÃO SAIU EM 15-09, a pedido — e a prop `trail` saiu
+            com ela, em vez de ficar aqui sem uso esperando.
 
-            SEM O ITEM ATUAL COMO LINK, e sem repetir o `h1`: a última perna é
-            texto simples, porque um link para a página em que já se está é ruído
-            para quem navega por teclado e por leitor de tela. Quem passa a
-            `trail` decide onde ela termina.
+            O QUE ERA: um `<nav aria-label="Breadcrumb">` acima do rótulo, com
+            as pernas separadas por "/", a última em texto simples (link para a
+            página em que já se está é ruído no teclado e no leitor de tela). Ele
+            rodava nas dez páginas de serviço e na /team. A montagem inteira está
+            no commit anterior a este — é copiar de volta.
 
-            `aria-label` NO <nav>, e não um cabeçalho: é o que faz o leitor de
-            tela anunciar "navegação: trilha" e pular o bloco inteiro de uma vez.
-
-            OPCIONAL, E É POR ROTA. Corrigido em 15-09: a primeira versão
-            desta caixa dizia que a trilha era só das páginas de DENTRO, porque
-            o único desenho conferido até ali era o de um serviço. Os outros
-            mockups do pacote desmentem — o de Team abre com "Home / Team" e o
-            de Clients & Impact com "Home / Clients & Impact", e as duas são
-            rotas de primeiro nível. Quem decide é a página, passando ou não a
-            `trail`. Hoje passam as dez de serviço e a /team. */}
-        {trail && trail.length > 0 && (
-          <nav aria-label="Breadcrumb" className="h-eyebrow mb-6">
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] leading-none text-white/60">
-              {trail.map((crumb, i) => (
-                <li key={crumb.label} className="flex items-center gap-x-2">
-                  {i > 0 && (
-                    <span aria-hidden className="text-white/30">
-                      /
-                    </span>
-                  )}
-                  {crumb.href ? (
-                    <Link
-                      href={crumb.href}
-                      className="transition-colors hover:text-white"
-                    >
-                      {crumb.label}
-                    </Link>
-                  ) : (
-                    <span aria-current="page" className="text-white/80">
-                      {crumb.label}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </nav>
-        )}
-
+            DE ONDE ELE TINHA VINDO: os mockups do pacote dela. O template de
+            serviço abre com "Home / Services / ExCo / Top 150", o de Team com
+            "Home / Team" e o de Clients & Impact com "Home / Clients & Impact".
+            Ou seja, ele não foi invenção nossa — mas também não é pedido escrito
+            em nenhum dos `.docx`, e a chamada aqui é de desenho. Se ela pedir de
+            volta ao revisar, volta. */}
         <div className="mb-5 flex items-center gap-3">
           <span className="h-bar inline-block h-0.5 w-9 bg-brand-light" />
           {/* `text-left` EXPLÍCITO. Sem ele o texto herda alinhamento do pai e se

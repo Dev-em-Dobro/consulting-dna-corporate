@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 7
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 9
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -102,13 +102,21 @@ função de verdade.
 > /about e da /services, então apareceria uma terceira vez. Se ela pedir a versão com
 > foto, é prop nova e vale para todas.
 
-### 1.6 Migalha de pão no herói
+### 1.6 ⛔ A migalha de pão foi construída e removida no mesmo dia
 
-| | |
-|---|---|
-| **Como era** | O herói abria no rótulo "Our Team". |
-| **Como ficou** | "Home / Team" acima do rótulo, com a perna final em texto. |
-| **Correção de premissa** | Quando a trilha foi construída para as páginas de serviço, ficou escrito que ela era "só das páginas de dentro". **Os mockups desmentem:** o de Team abre com "Home / Team" e o de Clients & Impact com "Home / Clients & Impact" — as duas são rotas de primeiro nível. A nota no `SolutionHero` foi corrigida. |
+Ela chegou a rodar na /team ("Home / Team") e nas dez páginas de serviço, tirada dos
+mockups do pacote — o template de serviço abre com "Home / Services / ExCo / Top 150", o
+de Team com "Home / Team" e o de Clients & Impact com "Home / Clients & Impact".
+
+**Saiu a pedido, no mesmo 15-09.** A prop `trail` do `SolutionHero` saiu junto, em vez de
+ficar sem uso esperando; a montagem inteira está no histórico e é copiar de volta. Ela não
+é pedido escrito em nenhum `.docx` — só aparece nos desenhos —, então se ela pedir ao
+revisar, volta.
+
+Fica registrada uma correção de premissa que a construção expôs, porque ela vale para
+qualquer trilha futura: a primeira versão assumiu que migalha era "só das páginas de
+dentro", e os mockups de Team e de Clients & Impact desmentem — as duas são rotas de
+primeiro nível e têm trilha no desenho dela.
 
 ### 1.7 A foto do time na escada (item 4 + item 5 de 15-09)
 
@@ -325,13 +333,9 @@ páginas de dentro desde 12-09.
 Comparada com o template que ela mandou em 15-09 (`4. Services/ExCo Leadership Services
 Page.png`), que é o item 14 da daily.
 
-### 4.1 Migalha de pão no herói
+### 4.1 ⛔ A migalha de pão saiu
 
-| | |
-|---|---|
-| **Como era** | Herói abria no rótulo "Our Services". |
-| **Como ficou** | "Home / Services / \<serviço\>" acima do rótulo, com a perna final em texto e não em link. |
-| **Escopo** | Prop opcional no `SolutionHero`. As outras onze rotas que caem neste herói são de primeiro nível — uma trilha de "Home / Team" não diz nada que o menu já não diga, e o template dela só mostra trilha nas páginas de dentro. |
+Construída e removida no mesmo 15-09, a pedido. Ver §1.6, onde a história fica inteira.
 
 ### 4.2 "Related services" voltou
 
