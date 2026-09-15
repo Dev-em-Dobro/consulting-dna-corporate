@@ -236,19 +236,30 @@ export default function NavV2({
               ainda sobra resolução. Fundo transparente, letreiro branco: é a
               versão para fundo escuro, que é o que esta barra é.
 
-              ⚠️ A ALTURA É MENOR ATÉ `xl`, E A CONTA IMPORTA. A marca completa
-              é 2,5:1 contra 1,39:1 do letreiro sozinho, ou seja ela ocupa mais
-              LARGURA na mesma altura — e esta barra tem orçamento apertado a
-              1024, que é onde o menu de desktop começa. Medido, com o
-              `md:px-10` desta faixa:
+              ⚠️ A ALTURA É MENOR QUE A DO LETREIRO ANTIGO, E A CONTA IMPORTA.
+              A marca completa é 2,5:1 contra 1,39:1 do letreiro sozinho, ou
+              seja ela ocupa mais LARGURA na mesma altura — e esta barra tem
+              orçamento apertado a 1024, que é onde o menu de desktop começa.
+              Medido, com o `md:px-10` desta faixa:
                  1024 − 80 de padding      = 944 de container
                  944 − logo − 24 de vão    = espaço livre para o menu
               O menu mede 748px (ver a caixa de `linkType`), mais ~18px da seta
               que o item Services ganha quando o CMS responde.
                  • h-12 (48px) → logo de 120px → sobram 800. Folga: 34px.
                  • h-10 (40px) → logo de 100px → sobram 820. Folga: 54px.
-              Os 34px do `h-12` cabem, mas é a folga inteira do layout apostada
-              num logo. De `xl` para cima há 256px a mais e ele pode crescer.
+                 • h-8  (32px) → logo de  80px → sobram 840. Folga: 74px.
+
+              ⚠️ BAIXOU PARA `h-8 xl:h-10` EM 15-09, a pedido: com a marca
+              completa o logo ficou grande demais na barra. O `h-8` põe a
+              pegada dele em 80px, que é 13px a mais que os 67px do letreiro
+              antigo em `h-12` — ou seja, o cabeçalho volta a ter praticamente
+              o mesmo peso de antes, agora com o símbolo.
+
+              O QUE ISSO CUSTA, e é o limite de quanto dá para encolher: a
+              altura do LETREIRO cai junto com a do símbolo, e "consulting" já
+              é a linha mais fina da marca. A 32px ela fica em ~3px de altura
+              de letra — legível como forma, não como palavra. Abaixo disso o
+              honesto é usar só o símbolo, não encolher a marca inteira.
 
               O `alt` MUDOU de "Corporate DNA" para o nome completo: é o que a
               marca escreve agora que o letreiro inteiro está visível. */}
@@ -256,7 +267,7 @@ export default function NavV2({
           <img
             src="/cdna-logo-full-light.png"
             alt="Corporate DNA Consulting"
-            className="h-10 w-auto xl:h-12"
+            className="h-8 w-auto xl:h-10"
           />
         </Link>
 

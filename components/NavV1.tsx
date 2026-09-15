@@ -50,13 +50,13 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               que PNG, por que a altura é menor até `xl`, e a conta de largura a
               1024) está na NavV2, que é a outra barra do site e tem o orçamento
               mais apertado das duas. Aqui a conta é a mesma com folga maior: o
-              menu desta barra mede 773px, e a 1024 sobram 820 para ele com o
-              logo em `h-10`. */}
+              menu desta barra mede 773px, e a 1024 sobram 840 para ele com o
+              logo em `h-8`. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-full-light.png"
             alt="Corporate DNA Consulting"
-            className="h-10 w-auto xl:h-12"
+            className="h-8 w-auto xl:h-10"
           />
         </Link>
 

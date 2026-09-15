@@ -46,14 +46,18 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
               SE O RODAPÉ MUDAR DE COR, esta linha quebra e o conserto não é
               aqui: é pedir o vetor à Maliha. Fica anotado.
 
-              `h-16` CONTINUA, e aqui não há a aperto de largura que o header
-              tem: a marca passa de 89px para 160px, e a coluna é `auto` numa
-              grade `[auto_1fr]` de 1200 com 80px de vão. */}
+              `h-16` VIROU `h-12` EM 15-09, junto com o header e pelo mesmo
+              motivo: com a marca completa o logo ficou grande demais. Aqui não
+              há aperto de largura — a coluna é `auto` numa grade `[auto_1fr]`
+              de 1200 com 80px de vão —, então o que manda é o peso visual.
+              A 48px de altura a marca ocupa 120px, contra os 89px do letreiro
+              antigo em `h-16`: continua maior, e é para continuar, porque
+              ganhou o símbolo. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-full.png"
             alt="Corporate DNA Consulting"
-            className="h-16 w-auto"
+            className="h-12 w-auto"
           />
         </Link>
 
