@@ -120,6 +120,17 @@ function resolveClientLogo(client: string): { url?: string; color?: string } {
 
 // ---- View models -----------------------------------------------------------
 export type PersonVM = {
+  /**
+   * O slug da entrada no CMS.
+   *
+   * ⚠️ EXISTE PORQUE O NOME NÃO SERVE PARA CASAR. A /team precisa ligar cada um
+   * dos seis da liderança (que vêm de `lib/team.ts`) ao perfil do CMS, e os
+   * nomes divergem: o CMS grava "Jon-Paul (JP) Pritchard" contra o nosso "Jon
+   * Paul Pritchard", e "Nitin Goil " com espaço no fim. Casar por nome
+   * normalizado funcionaria hoje e quebraria em silêncio na primeira edição
+   * feita pelo admin — o slug é estável e é a chave de verdade da entrada.
+   */
+  slug: string;
   name: string; role: string; img?: string; bio: string[]; bioHtml?: string;
   socials?: Social[]; values?: string; strengths?: string; specialties?: string[];
   trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
@@ -207,6 +218,7 @@ export async function getPeople(): Promise<PersonVM[]> {
     const parsed = S.personEntry.safeParse(details[i]);
     const d = parsed.success ? parsed.data.data : undefined;
     return {
+      slug: it.slug,
       name: plainText(d?.name) ?? plainText(it.title) ?? "",
       role: plainText(d?.role) ?? plainText(it.summary) ?? "",
       img: d?.photoUrl ?? d?.coverUrl ?? it.coverUrl,

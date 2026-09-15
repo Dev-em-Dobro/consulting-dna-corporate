@@ -53,6 +53,19 @@ export type Leader = {
   /** Ausente = card com as iniciais. */
   portrait?: string;
   /**
+   * A entrada correspondente no CMS, pelo slug — é ela que abastece o pop-up de
+   * perfil que o botão "+" do card abre.
+   *
+   * ⚠️ SLUG E NÃO NOME. Os nomes divergem entre as duas fontes: o CMS grava
+   * "Jon-Paul (JP) Pritchard" contra o "Jon Paul Pritchard" deste arquivo, e
+   * "Nitin Goil " com espaço no fim. Normalizar e casar por nome funcionaria
+   * hoje e quebraria sem aviso na primeira edição feita pelo admin.
+   *
+   * AUSENTE = CARD SEM "+", e isso é o comportamento certo: um botão que abre
+   * um pop-up vazio é pior que botão nenhum. Os seis têm entrada hoje.
+   */
+  cmsSlug?: string;
+  /**
    * Classe Tailwind de `object-position`, quando o recorte centrado não serve.
    *
    * POR QUE ISTO É DADO E NÃO ESTILO: o quadro é 4:5 para todo mundo, mas cada
@@ -69,6 +82,7 @@ export type Leader = {
 export const leaders: Leader[] = [
   {
     name: "Rhea Leckie",
+    cmsSlug: "rhea-leckie",
     role: "CEO, Founder, Author, Head of MENA",
     region: "UAE",
     quote:
@@ -98,6 +112,7 @@ export const leaders: Leader[] = [
   },
   {
     name: "Guilherme Mendes",
+    cmsSlug: "guilherme-mendes",
     role: "CEO Americas",
     // O documento escreve "America"; a região é "Americas" no resto do site
     // (a faixa de regiões da About, o bloco 5 aqui embaixo) e no próprio cargo.
@@ -112,6 +127,7 @@ export const leaders: Leader[] = [
   },
   {
     name: "Mike Jackson",
+    cmsSlug: "mike-jackson",
     role: "Head of UKEE",
     region: "UK",
     quote:
@@ -120,6 +136,7 @@ export const leaders: Leader[] = [
   },
   {
     name: "Genevieve James",
+    cmsSlug: "genevieve-james",
     role: "Head of Asia",
     // "Austrailia" no documento — erro de digitação, corrigido.
     region: "Australia",
@@ -143,6 +160,7 @@ export const leaders: Leader[] = [
   },
   {
     name: "Jon Paul Pritchard",
+    cmsSlug: "jon-paul-pritchard",
     role: "Head of Thought Leadership & Innovation",
     region: "Asia",
     quote:
@@ -151,6 +169,7 @@ export const leaders: Leader[] = [
   },
   {
     name: "Nitin Goil",
+    cmsSlug: "nitin-goil",
     role: "Senior Principal",
     region: "Asia",
     quote:

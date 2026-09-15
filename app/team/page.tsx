@@ -9,6 +9,7 @@ import LeaderCard from "@/components/team/LeaderCard";
 import teamStairs from "@/public/team/team-stairs.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
+import { getPeople } from "@/lib/cms/map";
 import { leaders, facultyRegions, dnaLead, dnaStrands } from "@/lib/team";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -66,7 +67,25 @@ export async function generateMetadata(): Promise<Metadata> {
  * por região atrás de cinco tiles que já existem e já leem bem em texto — pôr
  * cinco caixas tracejadas ali muda o desenho do bloco em vez de mostrá-lo.
  */
-export default function OurTeamPage() {
+export default async function OurTeamPage() {
+  /* ⚠️ A PÁGINA VOLTOU A TOCAR O CMS EM 15-09, e só por isto: o pop-up de perfil
+     que o botão "+" de cada card abre. O texto da página continua todo em
+     `lib/team.ts` — nome, cargo, região e a quote do bloco 2 —, porque o CMS não
+     tem campo de citação em `person`. O que vem de lá é a BIO e os campos
+     estruturados do perfil, que o Word não tem.
+
+     CASADO PELO `cmsSlug` E NÃO PELO NOME: o CMS grava "Jon-Paul (JP) Pritchard"
+     contra o nosso "Jon Paul Pritchard", e "Nitin Goil " com espaço no fim. A
+     caixa do campo em `lib/team.ts` tem o resto.
+
+     SE O CMS NÃO RESPONDER, `getPeople()` devolve lista vazia, o `find` devolve
+     `undefined`, e os seis cards saem sem o "+" — a página inteira continua de
+     pé, porque nada do que se lê nela depende desta chamada. É a diferença entre
+     enriquecer com o CMS e depender dele. */
+  const cmsPeople = await getPeople();
+  const profileFor = (slug?: string) =>
+    slug ? cmsPeople.find((p) => p.slug === slug) : undefined;
+
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
@@ -127,7 +146,11 @@ export default function OurTeamPage() {
                 de baixo encostada na de cima. */}
             <div className="grid grid-cols-1 gap-x-8 gap-y-[72px] sm:grid-cols-2 min-[1440px]:grid-cols-3">
               {leaders.map((p) => (
-                <LeaderCard key={p.name} person={p} />
+                <LeaderCard
+                  key={p.name}
+                  person={p}
+                  profile={profileFor(p.cmsSlug)}
+                />
               ))}
             </div>
           </div>

@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import PersonModal, { type Person } from "@/components/PersonModal";
 import type { Leader } from "@/lib/team";
 
 /**
@@ -20,61 +22,48 @@ import type { Leader } from "@/lib/team";
  * posição da quote, e só.
  *
  * ================================================================
- * POR QUE ISTO É CLIENT COMPONENT
+ * O "+" ABRE O PERFIL EM POP-UP — 15-09
  * ================================================================
- * Só por causa do "+". Ele não é enfeite do mockup: as quotes reais do bloco 2
- * do Word variam de 140 a 271 caracteres, e na coluna estreita do cartão isso é
- * a diferença entre 5 e 10 linhas — a fileira inteira passaria a ter a altura da
- * quote mais longa, com as outras duas vazias pela metade. Com o corte em 8
- * linhas os três cartões da fileira nascem do mesmo tamanho e o "+" abre o resto.
+ * É o que o `CDNA_04_Team.docx` pede para o bloco 2, em letra: *"portrait grid,
+ * three across. Name, role, region, **short bio on click or hover**."* O botão
+ * que o mockup desenha sob a foto é esse gesto, e o pop-up é o mesmo
+ * `PersonModal` que a home usava — extraído do `PeopleGrid` para os dois lerem
+ * o mesmo perfil.
  *
- * E ELE SÓ APARECE QUANDO HÁ RESTO, o que é a razão de haver medição em vez de
- * um `if` no comprimento do texto: o mesmo cartão é estreito a 1440 (≈222px de
- * caixa) e largo abaixo disso, quando a quote passa para debaixo da foto e ocupa
- * a coluna inteira. A mesma frase corta num caso e não corta no outro, e um
- * botão que não faz nada é pior que botão nenhum. `scrollHeight > clientHeight`
- * responde isso no tamanho real, em qualquer breakpoint.
+ * ⏸️ ELE ABRIU A QUOTE ENTRE 14-09 E 15-09, e o porquê fica registrado porque a
+ * pergunta volta: naquele momento a bio não estava localizada, e cortar a quote
+ * em 8 linhas era o único trabalho honesto que havia para o botão — as quotes
+ * vão de 140 a 271 caracteres e a fileira inteira ficava com a altura da mais
+ * longa. A bio estava no CMS o tempo todo, nos mesmos registros que a home lê;
+ * o que faltava era ligar as duas fontes, e é o que o `cmsSlug` faz.
  *
- * ⏳ O QUE O "+" DEVERIA ABRIR AINDA NÃO EXISTE. No mockup ele fica na coluna do
- * retrato, ao lado do cargo, que é onde mora um "saiba mais sobre esta pessoa" —
- * e a bio de cada um não está no `CDNA_04_Team.docx` nem no CMS para estes seis
- * (o `PersonModal` da home lê `person.bio`, que é outra fonte). Enquanto não se
- * conversa com ela sobre isso, ele abre o que temos, que é a própria quote. Se a
- * resposta vier com bio, o botão troca de alvo e o layout não muda.
+ * ⚠️ A BIO É DO CMS, NÃO DO WORD. São dois conteúdos diferentes e vale não
+ * confundi-los: o CMS traz o perfil (bio longa, valores, forças, especialidades,
+ * histórico), e o que o documento marca como HOLD é o **bloco 3, Perspectives** —
+ * uma frase NOVA por pessoa, resposta a "what do you believe about leadership
+ * that most people in this industry get wrong?". Essa continua sem existir, e
+ * foi procurada em todos os cinco `.docx` do pacote de 15-09.
+ *
+ * POR QUE ISTO É CLIENT COMPONENT: só pelo estado de aberto/fechado do pop-up.
  */
-export default function LeaderCard({ person }: { person: Leader }) {
-  const [expanded, setExpanded] = useState(false);
-  const [clipped, setClipped] = useState(false);
-  const quoteRef = useRef<HTMLParagraphElement>(null);
-  const quoteId = `quote-${person.name.toLowerCase().replace(/[^a-z]+/g, "-")}`;
-
-  /* Só mede FECHADO: aberto não há `line-clamp`, então `scrollHeight` e
-     `clientHeight` são iguais e a medição concluiria que não há corte —
-     apagando o botão que acabou de ser usado. */
-  const measure = useCallback(() => {
-    const el = quoteRef.current;
-    if (!el || expanded) return;
-    setClipped(el.scrollHeight - el.clientHeight > 1);
-  }, [expanded]);
-
-  useEffect(() => {
-    measure();
-    const el = quoteRef.current;
-    if (!el) return;
-
-    /* DUAS FONTES DE REMEDIÇÃO, e as duas são necessárias:
-       • O `ResizeObserver` pega a mudança de LARGURA — girar o telefone,
-         arrastar a janela, e principalmente a virada em 1440, onde o cartão
-         muda de coluna estreita para largura cheia.
-       • `document.fonts.ready` pega a troca de ALTURA sem mudar largura, que é
-         o que acontece quando a Source Serif substitui a fonte de sistema. O
-         observer não dispara nesse caso (a caixa continua do mesmo tamanho) e o
-         primeiro paint mediria a métrica errada. */
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    document.fonts?.ready.then(measure).catch(() => {});
-    return () => ro.disconnect();
-  }, [measure]);
+export default function LeaderCard({
+  person,
+  profile,
+}: {
+  person: Leader;
+  /**
+   * O perfil desta pessoa no CMS — nome, cargo, foto, bio em HTML e os campos
+   * estruturados (valores, forças, especialidades, histórico, clientes,
+   * idiomas, credenciais). É o que o pop-up mostra.
+   *
+   * AUSENTE = SEM BOTÃO "+". Acontece quando a pessoa não tem `cmsSlug`, quando
+   * o CMS não responde ou quando a entrada some do ar. O card continua inteiro;
+   * o que desaparece é o gesto — porque "+" abrindo um pop-up vazio é pior que
+   * "+" nenhum.
+   */
+  profile?: Person;
+}) {
+  const [open, setOpen] = useState(false);
 
   return (
     /* A VIRADA É EM 1440, e não num breakpoint do Tailwind, porque ela é de
@@ -140,24 +129,19 @@ export default function LeaderCard({ person }: { person: Leader }) {
             </p>
           </div>
 
-          {clipped && (
+          {profile && (
             <button
               type="button"
-              onClick={() => setExpanded((v) => !v)}
-              aria-expanded={expanded}
-              aria-controls={quoteId}
-              /* O rótulo acessível diz DE QUEM é a quote: numa página com seis
-                 botões idênticos, "Expand" seis vezes não navega. */
-              aria-label={
-                expanded
-                  ? `Collapse ${person.name}’s quote`
-                  : `Read ${person.name}’s full quote`
-              }
+              onClick={() => setOpen(true)}
+              aria-haspopup="dialog"
+              /* O rótulo acessível diz DE QUEM é o perfil: numa página com seis
+                 botões idênticos, "Open" seis vezes não navega. O glifo é
+                 `aria-hidden` porque "+" lido em voz alta não acrescenta nada a
+                 quem já recebeu este rótulo. */
+              aria-label={`View ${person.name}’s profile`}
               className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full border border-brand text-[18px] leading-none text-brand transition-colors hover:bg-brand hover:text-white"
             >
-              {/* `aria-hidden` no glifo: quem lê o botão já recebeu o
-                  `aria-label`, e "+" lido em voz alta não acrescenta nada. */}
-              <span aria-hidden>{expanded ? "−" : "+"}</span>
+              <span aria-hidden>+</span>
             </button>
           )}
         </div>
@@ -185,17 +169,34 @@ export default function LeaderCard({ person }: { person: Leader }) {
           &ldquo;
         </span>
         <blockquote className="mt-4">
-          <p
-            ref={quoteRef}
-            id={quoteId}
-            className={`font-serif text-[15px] leading-[1.6] text-ink ${
-              expanded ? "" : "line-clamp-[8]"
-            }`}
-          >
+          {/* ⚠️ SEM CORTE DE LINHAS desde 15-09. Até ali a quote era cortada em
+              8 linhas e o "+" abria o resto — era o único trabalho honesto que
+              havia para o botão enquanto não existia bio. Agora ele abre o
+              perfil, e um corte sem gesto para desfazê-lo esconderia conteúdo.
+
+              O QUE ISSO CUSTA, e é o que o corte evitava: as quotes vão de 140 a
+              271 caracteres, então o cartão mais alto da fileira estica os
+              outros dois. É o que o mockup mostra — cartões de mesma altura com
+              o texto no topo — e é o preço certo a pagar aqui. */}
+          <p className="font-serif text-[15px] leading-[1.6] text-ink">
             {person.quote}
           </p>
         </blockquote>
       </div>
+
+      {/* O POP-UP VIVE NO `document.body`, via portal. Este card é uma célula de
+          grade com `overflow-hidden` em ancestrais e contexto de empilhamento
+          próprio; um `fixed inset-0` renderizado aqui dentro seria recortado
+          pela célula em vez de cobrir a tela. Mesma montagem do `PeopleGrid`.
+
+          `createPortal` SÓ DEPOIS DE ABERTO, e nunca no servidor: `open` começa
+          `false`, então o primeiro render — que é o do servidor — não toca em
+          `document`. */}
+      {open &&
+        createPortal(
+          <PersonModal person={profile!} onClose={() => setOpen(false)} />,
+          document.body,
+        )}
     </article>
   );
 }
