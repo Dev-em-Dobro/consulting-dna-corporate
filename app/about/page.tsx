@@ -2020,31 +2020,33 @@ export default async function AboutV2Page() {
       </section>
 
       {/* ── Block 6 · Our Regions ─────────────────────────────────────
-          Cabeçalho e intro aqui; o mapa entra logo abaixo sem cabeçalho próprio
+          Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio
           (`eyebrow={null} title={null}`), senão a seção abriria dois títulos.
 
           O outline pede o mapa "region level only, with no per client pins" — o
           WorldCoverageMap pinta países e marca as cidades das regiões do CMS,
           nunca clientes, então já é esse nível.
 
-          ⚠️ FUNDO `paper` NOS TRÊS PEDAÇOS — 10-09. Esta seção são três irmãos
-          no DOM (este cabeçalho, o mapa, e os escritórios abaixo), e eles
-          estavam em `white`, `white` e `paper`. Duas consequências, ambas
-          erradas: o único corte de cor da região caía DENTRO da seção, partindo
-          o mapa das locations que ele ilustra; e a fronteira com o `#values`
-          logo acima, que é onde a página realmente muda de assunto, não tinha
-          corte nenhum — eram três faixas brancas seguidas.
+          ⚠️ FUNDO `paper` NOS DOIS PEDAÇOS — 10-09. A região eram três irmãos
+          no DOM (o cabeçalho, o mapa, e os escritórios abaixo — o mapa virou
+          filho do cabeçalho em 15-09, ver abaixo), e eles estavam em `white`,
+          `white` e `paper`. Duas consequências, ambas erradas: o único corte de
+          cor da região caía DENTRO da seção, partindo o mapa das locations que
+          ele ilustra; e a fronteira com o `#values` logo acima, que é onde a
+          página realmente muda de assunto, não tinha corte nenhum — eram três
+          faixas brancas seguidas.
 
-          A borda do `paper` sobe para cá. Os três pedaços passam a dividir um
-          chão só, "Where we work" lê como um bloco, e o degrau branco→paper
-          marca a passagem de "What we believe" para "Where we work".
+          A borda do `paper` sobe para cá. Os pedaços passam a dividir um chão
+          só, "Where we work" lê como um bloco, e o degrau branco→paper marca a
+          passagem de "What we believe" para "Where we work".
 
           O `#values` acima fica `white` e o `#people` abaixo fica `ink`, então
           a faixa não encosta em nenhum vizinho da mesma cor. */}
       <section id="regions" className="bg-paper">
-        {/* ⚠️ O VÃO ATÉ O MAPA É `pb-12` AQUI, e não `mb-12` no parágrafo.
-            Não é preferência de estilo: com a margem no parágrafo, a página
-            ganhava uma faixa BRANCA de 48px entre este bloco e o mapa.
+        {/* ⚠️ O ESPAÇO FINAL DA FAIXA É PADDING DAQUI (`pb-*`), nunca margem do
+            último filho. Não é preferência de estilo: quando o vão até o mapa
+            era `mb-12` no parágrafo, a página ganhava uma faixa BRANCA de 48px
+            no meio da região.
 
             O motivo é colapso de margem. Quem é flex item nesta página é o
             `<main className="flex-1">` (linha 555) — as `section` dentro dele
@@ -2058,20 +2060,52 @@ export default async function AboutV2Page() {
             Enquanto esta seção era branca ninguém via. Ao passar para `paper`
             (10-09) a margem fugida virou uma listra branca no meio da faixa.
 
-            Padding não colapsa. Trocar `mb-12` por `pb-12` mantém os mesmos
-            48px e prende o vão dentro do `paper`. Vale para qualquer seção
-            colorida desta página: o espaçamento final tem de ser padding do
-            container, nunca margem do último filho. */}
-        <Reveal className="mx-auto max-w-[1440px] px-6 pb-12 pt-10 md:px-10 md:pt-20">
+            Padding não colapsa. Vale para qualquer seção colorida desta página:
+            o espaçamento final tem de ser padding do container, nunca margem do
+            último filho. */}
+        <Reveal className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-20">
           <TypeLabel>Where we work.</TypeLabel>
-          <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
-            With headquarters in London, Singapore, Dubai, Riyadh and Miami, and
-            a faculty of over 75 senior practitioners, we deliver globally.
-          </p>
+
+          {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA — item 3 da call de 14-09.
+              Antes o parágrafo ficava sozinho numa linha e o mapa entrava
+              abaixo, como seção própria, em largura cheia. A Maliha pediu
+              *"the map just a tiny bit smaller and the text on the left hand
+              side"*, e o lado — a fala tinha "left" e "right" em sequência, e o
+              item ficou travado até 15-09 — foi confirmado como texto à
+              esquerda.
+
+              O rótulo "Where we work." FICA FORA DO GRID, em cima dos dois:
+              *"Where we work can remain at the top, but the body of the text
+              ... we can have that on the right"* — só o corpo desce para o lado
+              do mapa.
+
+              O mapa vem `bare`: sem a seção e o container de 1200px dele, senão
+              abriria uma segunda faixa dentro da coluna e o SVG pararia de
+              acompanhar a largura dela.
+
+              4fr/8fr, não 6/6: o mapa é um SVG de viewBox fixo, e os rótulos das
+              cidades (8,5 unidades de 880) encolhem junto com a coluna. Em
+              meia largura eles caem a ~7px renderizados; em dois terços ficam
+              em ~8,4px, que é o "tiny bit smaller" do pedido sem virar
+              ilegível. O parágrafo cabe em ~440px sem viuvez.
+
+              A quebra é `xl` (1280px) e não `lg`: a 1024px a coluna do mapa
+              daria 620px e os rótulos caíriam a ~6px, ilegíveis. Abaixo de
+              1280px o bloco empilha e o mapa volta à largura cheia, que é o
+              layout que já estava aprovado.
+
+              `items-center` alinha o texto ao meio da altura do mapa; empilhado
+              o texto volta para cima dele. */}
+          <div className="grid items-center gap-x-12 gap-y-6 xl:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+            <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
+              With headquarters in London, Singapore, Dubai, Riyadh and Miami,
+              and a faculty of over 75 senior practitioners, we deliver
+              globally.
+            </p>
+            <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
+          </div>
         </Reveal>
       </section>
-
-      <WorldCoverageMap eyebrow={null} title={null} tone="paper" />
 
       {/* Escritórios: cidade, endereço, telefone e e-mail, os quatro campos que
           o outline lista.

@@ -199,6 +199,7 @@ export default async function WorldCoverageMap({
   title = "Where we operate.",
   tone = "white",
   typeLabel = false,
+  bare = false,
 }: {
   /**
    * Pass `null` to both to render the map alone, with no header of its own.
@@ -240,6 +241,21 @@ export default async function WorldCoverageMap({
    * o rótulo de antes e não podem mudar. Mesmo padrão de `maxWidthClass`.
    */
   typeLabel?: boolean;
+  /**
+   * Devolve só o conteúdo (rótulo/título, se houver, e o SVG) — sem
+   * `<section>`, sem container centralizado e sem padding.
+   *
+   * Existe para a /about (item 3 da call de 14-09): lá o mapa deixou de ser uma
+   * faixa inteira e passou a dividir a linha com o texto de "Where we work", o
+   * texto à esquerda e o mapa à direita. Quem manda em largura, fundo e
+   * espaçamento passa a ser o grid do chamador; com o wrapper próprio o mapa
+   * abriria uma segunda faixa de 1200px DENTRO da coluna da direita, e a
+   * largura do SVG deixaria de acompanhar a coluna.
+   *
+   * Desligado por padrão: as três homes renderizam o mapa como seção inteira e
+   * não podem mudar. Mesmo padrão de `tone` e `typeLabel`.
+   */
+  bare?: boolean;
 }) {
   const regions = await getCoverageRegions();
 
@@ -331,6 +347,102 @@ export default async function WorldCoverageMap({
   const ground = tone === "paper" ? "#f3f3f3" : "#ffffff";
   const emptyFill = tone === "paper" ? "#e0dbd6" : "#e7e3df";
 
+  // O conteúdo em si. Vive numa variável porque `bare` decide se ele sai
+  // embrulhado na seção própria ou cru, para o grid do chamador posicionar.
+  const content = (
+    <>
+      {eyebrow !== null &&
+        (typeLabel ? (
+          <TypeLabel>{eyebrow}</TypeLabel>
+        ) : (
+          <div className="mb-2.5 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+              {eyebrow}
+            </span>
+          </div>
+        ))}
+      {title !== null && (
+        <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
+          {title}
+        </h2>
+      )}
+
+      <svg
+        viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
+        role="img"
+        aria-label="World map highlighting the countries and cities where the firm operates"
+        className="h-auto w-full"
+      >
+        {features.map((f, i) => {
+          const d = featurePath(f.geometry);
+          if (!d) return null;
+          const fill = covered.has(f.id)
+            ? (colorFor[f.id] ?? "#d84339")
+            : emptyFill;
+          // Key by index — some GeoJSON features share id "-99" (disputed
+          // territories), which would otherwise collide.
+          return (
+            <path key={i} d={d} fill={fill} stroke={ground} strokeWidth={0.4} />
+          );
+        })}
+        {/* Country names, centred on the country (no pin). */}
+        {countryNames.map((c, i) => (
+          <text
+            key={`c${i}`}
+            x={c.x}
+            y={c.y}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize={c.fs}
+            fontWeight={700}
+            letterSpacing="0.4"
+            fill="#ffffff"
+            opacity={0.92}
+            stroke="rgba(55,50,52,0.28)"
+            strokeWidth={c.fs * 0.08}
+            paintOrder="stroke"
+            style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+          >
+            {c.name}
+          </text>
+        ))}
+        {/* Pin markers (tip on the city). */}
+        {pins.map((p, i) => (
+          <g key={`m${i}`} transform={`translate(${p.x}, ${p.y}) scale(${PIN_SCALE})`}>
+            <path
+              d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
+              fill="#373234"
+              stroke={ground}
+              strokeWidth={0.6}
+            />
+            <circle cx="0" cy="-12.8" r="2.4" fill={ground} />
+          </g>
+        ))}
+        {/* City labels, placed to avoid overlapping each other and the pins. */}
+        {placed.map((p, i) => (
+          <text
+            key={`l${i}`}
+            x={p.lx}
+            y={p.ly}
+            textAnchor={p.anchor}
+            fontSize={FONT}
+            fontWeight={600}
+            fill="#373234"
+            stroke={ground}
+            strokeWidth={2}
+            paintOrder="stroke"
+            style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+          >
+            {p.label}
+          </text>
+        ))}
+      </svg>
+    </>
+  );
+
+  if (bare) return content;
+
   return (
     <section
       id="coverage"
@@ -341,93 +453,7 @@ export default async function WorldCoverageMap({
           headless ? "pt-0" : "pt-20 md:pt-24"
         }`}
       >
-        {eyebrow !== null &&
-          (typeLabel ? (
-            <TypeLabel>{eyebrow}</TypeLabel>
-          ) : (
-            <div className="mb-2.5 flex items-baseline gap-3">
-              <span className="inline-block h-0.5 w-9 bg-brand" />
-              <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-                {eyebrow}
-              </span>
-            </div>
-          ))}
-        {title !== null && (
-          <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
-            {title}
-          </h2>
-        )}
-
-        <svg
-          viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
-          role="img"
-          aria-label="World map highlighting the countries and cities where the firm operates"
-          className="h-auto w-full"
-        >
-          {features.map((f, i) => {
-            const d = featurePath(f.geometry);
-            if (!d) return null;
-            const fill = covered.has(f.id)
-              ? (colorFor[f.id] ?? "#d84339")
-              : emptyFill;
-            // Key by index — some GeoJSON features share id "-99" (disputed
-            // territories), which would otherwise collide.
-            return (
-              <path key={i} d={d} fill={fill} stroke={ground} strokeWidth={0.4} />
-            );
-          })}
-          {/* Country names, centred on the country (no pin). */}
-          {countryNames.map((c, i) => (
-            <text
-              key={`c${i}`}
-              x={c.x}
-              y={c.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize={c.fs}
-              fontWeight={700}
-              letterSpacing="0.4"
-              fill="#ffffff"
-              opacity={0.92}
-              stroke="rgba(55,50,52,0.28)"
-              strokeWidth={c.fs * 0.08}
-              paintOrder="stroke"
-              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
-            >
-              {c.name}
-            </text>
-          ))}
-          {/* Pin markers (tip on the city). */}
-          {pins.map((p, i) => (
-            <g key={`m${i}`} transform={`translate(${p.x}, ${p.y}) scale(${PIN_SCALE})`}>
-              <path
-                d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
-                fill="#373234"
-                stroke={ground}
-                strokeWidth={0.6}
-              />
-              <circle cx="0" cy="-12.8" r="2.4" fill={ground} />
-            </g>
-          ))}
-          {/* City labels, placed to avoid overlapping each other and the pins. */}
-          {placed.map((p, i) => (
-            <text
-              key={`l${i}`}
-              x={p.lx}
-              y={p.ly}
-              textAnchor={p.anchor}
-              fontSize={FONT}
-              fontWeight={600}
-              fill="#373234"
-              stroke={ground}
-              strokeWidth={2}
-              paintOrder="stroke"
-              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
-            >
-              {p.label}
-            </text>
-          ))}
-        </svg>
+        {content}
       </div>
     </section>
   );

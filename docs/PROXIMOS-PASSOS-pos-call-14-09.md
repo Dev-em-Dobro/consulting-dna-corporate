@@ -49,9 +49,9 @@ três. O `CDNA_04_Team.docx` ("portrait grid, three across") e o mockup concorda
 | 3 | **Mapa menor com o texto ao lado.** "Where we work" continua no topo; o corpo com "Headquarters in London" sai de baixo do mapa | `app/about/page.tsx:1969-1999` — `<section id="regions">` + `<WorldCoverageMap>` |
 | 4 | **Trazer o scroll de endereços da landing original**, só a faixa de baixo, **sem o mapa** | a faixa existe na home; é portar para a About |
 
-⚠️ O item 3 tem um conflito na fala: ela disse *"the text on the left-hand side"* e, na frase
-seguinte, *"we can have that on the right"*. **Não chute** — está na lista de perguntas que o
-Ricardo mandou para ela.
+✅ O item 3 tinha um conflito na fala — *"the text on the left-hand side"* e, na frase
+seguinte, *"we can have that on the right"*. **Respondido em 15-09: texto à esquerda, mapa à
+direita.** Feito.
 
 ### Services
 | # | O que | Onde |
