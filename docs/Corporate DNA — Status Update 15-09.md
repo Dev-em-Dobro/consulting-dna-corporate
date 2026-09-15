@@ -7,8 +7,6 @@ Numbers in brackets are the items from the 14-09 call, so you can map each line 
 | Label | Meaning |
 | :---- | :---- |
 | **CDNA** | Waiting on you — a file, a line of copy, or a confirmation. |
-| **Decision** | Two readings are possible and we would rather not guess. |
-| **Us** | Ours to do. No sign-off needed. |
 
 ---
 
@@ -24,7 +22,7 @@ Everything below is on the review site now.
 - **Nitin Goil's portrait** is in. All six leadership cards now have a photo.
 - **The DNA Experience now has four strands, not three.** The Word document lists four — One DNA TEAM, The DNA Experience, Trusted Relationships, Inclusion & Diversity — and the first one was missing.
 - **The page now closes with a "Let's talk" band** ("Ready to make leadership real?"), which your mockup has and the page did not.
-- **The team photograph on the stairs** is in place, and **the hero has its own photograph** instead of the shared default.
+- **The team photograph on the stairs** is in place, and **the hero has its own photograph** instead of the shared default. (maliha, please confirm if this is the right image)
 - The leadership grid was re-measured against the `leadership.PNG` you sent — spacing, type sizes and column proportions now follow it, and the grid shows **three per row from 1280px**, so it reads as two rows of three on a normal laptop.
 
 ## About
@@ -36,7 +34,7 @@ Everything below is on the review site now.
 
 ## Services
 
-- **[8] + [9]** The hero image with the closed eyes is gone; the page now uses **the same skyline backdrop** as the About page.
+- **[8] + [9]** The hero image for the listing page was changed; the page now uses **the same skyline backdrop** as the About page. For the intern pages we need to choose the images to go on the hero.
 - **[10] + [12]** The grid is **four across, with the last two sharing the bottom row**, each card with an image, a number and "Learn more". Nine of the ten cards have a photograph.
 - **[15]** **Harvard Business Impact and Imperial College** marks are on the partners band.
 - **On the service pages:** "The Outcome" is now **Impact**, "How Corporate DNA Helps" is now **How we help**, the invitation moved up to sit before the evidence, and a **Related services** row closes the page.
@@ -61,37 +59,13 @@ Everything below is on the review site now.
 3. **The five-step strip** under "How we help" in your template (*Immersive experiences · Executive coaching · Real business challenges · Peer learning · Mastery labs*). It exists only for ExCo; the other nine would need their own.
 4. **The "Americas" image**, which you marked "in progress" — and a decision on whether the India image changes too.
 5. **The six short bios for the Team page**, answering *"what do you believe about leadership that most people in this industry get wrong?"* This is Block 3 in the Team document and it is still marked HOLD. We searched all five documents and the spreadsheet in the folder; it is not there.
-6. **Guilherme's official photograph.** His card still carries the older picture — the only portrait still outstanding.
-7. **Rhea's original portrait.** The file in the folder is the same landscape export as before. Until a portrait-shaped original arrives, her card uses a re-framed version.
-8. **The logo as a vector** (`.ai` or `.svg`). What arrived is PNG, and the header is where a vector pays for itself.
-9. **The skyline at full width.** The new file removed the WhatsApp compression, which is a real improvement, but it is the same size as before — the opening screen wants something around 1920px wide.
-
----
-
-# Part C — Decisions — **Decision**
-
-1. **The Team list does not match itself.** The mockup and the Word document arrived in the same folder, on the same day, and name different people:
-
-   | Word document (`CDNA_04_Team.docx`) | Your mockup |
-   | :---- | :---- |
-   | Rhea Leckie · Guilherme Mendes · **Mike Jackson** · **Genevieve James** · Jon Paul Pritchard · **Nitin Goil** | Rhea Leckie · Guilherme Mendes · **Zahia Marjan** · JP Pritchard · **Jojo Kearney** · **Inan** |
-
-   The quotes differ too. The site follows the Word document. **We have not changed anyone, because the difference is days of work in either direction.** This is the single biggest risk in the project right now.
-
-2. **The team photograph on the hero shows a client meeting on the screen behind the group** — recognisable faces and their brand on the virtual backgrounds. It is dimmed by the page treatment, but publishing a third party's people and marks is a consent question, not a design one. Tell us if you would rather use a different photograph.
-
-3. **Two things in the folder disagree with each other**, both small:
-   - The copy sheet repeats the Executive Coaching case and quote on the **ExCo / Top 150** row. Your own template for ExCo shows HEINEKEN (150 senior leaders, 18 months), which is what the Word document says and what the site shows. It looks like a copy-paste in the sheet.
-   - The card text in your landing mockup is not the banner statement. The mockup writes *"Build a pipeline deep enough that your next leaders are ready before you need them"*; the document and the sheet both mark *"Build the leadership pipeline before the business needs it"* as FINAL. The site uses the document.
-
-4. **"Making the learning real"** — stays or goes in the 5H. The conversation ended at "it's up to you".
 
 ---
 
 # Part D — Not started, and why
 
-- **The 5H page.** Waiting on **Rhea's approval**, which you said you would get. It is a new page rather than an adjustment, so it is the most expensive thing to build ahead of a yes.
-- **The Clients & Impact top-level page.** Two designs arrived; you noted "content to follow".
+- **The 5H page.** Waiting on **Rhea's approval**. It is a new page rather than an adjustment, so it is the most expensive thing to build ahead of a yes.
+- **The Clients & Impact top-level page.** Two designs arrived; you noted "content to follow". Can we start development based on the layouts and content in the "5. clients and impact" Drive folder?
 - **The case study template.** The design arrived. We have 3 of the 23 case studies, and you were clear that two or three is not enough to launch.
 - **The service drill-down**, beyond the changes in Part A, is waiting on items B2 and B3.
 
