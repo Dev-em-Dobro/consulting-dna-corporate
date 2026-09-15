@@ -7,6 +7,7 @@ import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
 import teamStairs from "@/public/team/team-stairs.jpg";
+import teamHero from "@/public/team/team-hero.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
@@ -89,16 +90,30 @@ export default async function OurTeamPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        {/* ⚠️ HERÓI SEM FOTO PRÓPRIA: cai na mesma imagem padrão das páginas de
-            serviço. Dividir a padrão continua sendo melhor que um slot vazio na
-            primeira tela.
+        {/* ✅ HERÓI PRÓPRIO DESDE 15-09. A página deixou de dividir a foto
+            padrão das rotas de serviço — é uma fotografia real de sessão da
+            CDNA, com o grupo todo em volta da tela.
 
-            E NÃO, A FOTO DA ESCADA NÃO SERVE AQUI. Ela já roda duas vezes no
-            site desde 15-09 (bloco 4 abaixo e a /about); uma terceira aparição,
-            na primeira dobra desta mesma página, é a repetição que o
-            `CDNA_04_Team.docx` chama de "visible". O herói próprio continua na
-            lista de imagens pendente com a Maliha — ela avisou na call de 14-09
-            que cada página precisa de hero E de fundo. */}
+            ⚠️ O ARQUIVO É 4:3 (1600x1200) E A DOBRA É ~1,9:1, então o
+            `object-cover` escala pela largura e corta 30% da ALTURA. Centrado, o
+            corte tirava os pés da fileira da frente e mantinha teto, que é a
+            parte morta do quadro. `78%` no eixo Y joga o recorte para baixo: no
+            desktop entra o grupo inteiro, do topo das cabeças ao chão, e sai
+            quase todo o forro de madeira.
+
+            O 78% NO EIXO X NÃO FAZ NADA NO DESKTOP e é para o TELEFONE. Numa
+            dobra de 0,46:1 o corte inverte — passa a ser horizontal, e sobram
+            34% da largura. Centrado (`50%`), o que restava na tela era
+            justamente a TELA da sala, com a chamada de vídeo no meio do herói.
+            Em `78%` o recorte vai para o grupo da direita e a tela fica de fora.
+
+            ⚠️ A TELA AO FUNDO MOSTRA UMA REUNIÃO DE CLIENTE — participantes
+            identificáveis e a marca deles nos fundos virtuais. No desktop ela
+            cai na faixa onde o escurecimento lateral ainda mede 24–66% e o
+            `brightness-[.68]` do herói soma por cima, então ela sai bem apagada;
+            ainda assim, publicar rosto e marca de terceiro é assunto de
+            consentimento, não de desenho. Fica registrado para quem for revisar
+            com o cliente. */}
         {/* SEM O DUOTONE, a pedido em 11-09: cinza como na home. Esta página foi
             a primeira, e passava `tint="none"` com o filtro da home escrito aqui.
             As páginas de serviço pediram o mesmo no mesmo dia, e aí os dois
@@ -109,6 +124,8 @@ export default async function OurTeamPage() {
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
           subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
+          imageUrl={teamHero}
+          imagePosition="object-[78%_78%]"
         />
 
         {/* ── Leadership ────────────────────────────────────────────────── */}

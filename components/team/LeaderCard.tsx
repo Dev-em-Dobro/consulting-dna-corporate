@@ -231,7 +231,26 @@ export default function LeaderCard({
           `document`. */}
       {open &&
         createPortal(
-          <PersonModal person={profile!} onClose={() => setOpen(false)} />,
+          /* ⚠️ A FOTO DO POP-UP É A DO CARD, sobrescrevendo a do CMS — 15-09.
+             Sem isto a pessoa clica num retrato e abre outro: o `photoUrl` do
+             CMS é a LEVA ANTIGA (o do Guilherme está gravado como
+             `whatsapp-image-2026-07-25`, o do Nitin como `...-07-27`), e os
+             oficiais que a Maliha mandou em 09-09 e 15-09 moram em
+             `lib/team.ts`. Subir os novos pelo admin de produção não é possível
+             desta máquina, então quem concilia as duas fontes é esta linha.
+
+             É A MESMA CORREÇÃO QUE A HOME FAZIA com `officialPortrait(p.name)`,
+             e sem o `?? profile.img` pelo mesmo motivo dela: quem não tiver
+             retrato oficial abre o pop-up nas INICIAIS, em vez de voltar a
+             publicar a foto velha. Foi a instrução — "as que não tiver pode
+             deixar sem por enquanto". Hoje os seis têm.
+
+             ⏳ QUANDO O CMS FOR ATUALIZADO, esta linha sai e o `profile` volta a
+             bastar sozinho. */
+          <PersonModal
+            person={{ ...profile!, img: person.portrait }}
+            onClose={() => setOpen(false)}
+          />,
           document.body,
         )}
     </article>
