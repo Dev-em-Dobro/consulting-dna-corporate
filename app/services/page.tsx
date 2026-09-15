@@ -8,6 +8,10 @@ import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { services } from "@/lib/services";
+/* O MESMO ARQUIVO DA /about, importado e não copiado: é literalmente "the same
+   backdrop" que ela pediu, e um segundo arquivo com outro nome garantiria que
+   as duas páginas divergissem no dia em que o original dela chegar. */
+import skylinePhoto from "@/public/about-hero.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -32,18 +36,52 @@ export async function generateMetadata(): Promise<Metadata> {
  * A banner statement é justamente a frase que diz o que está em jogo; o outcome
  * é a página de dentro.
  *
- * DUAS COLUNAS, e não três: são dez cards, e em três a última fileira fica com
- * um sozinho. Em duas, cinco fileiras cheias — e a medida mais larga acomoda as
- * banner statements, que têm duas linhas em quase todas.
+ * ⚠️ ERAM DUAS COLUNAS ATÉ 14-09, e o raciocínio de então fica registrado
+ * porque ele não estava errado: em três colunas a última fileira dos dez cards
+ * ficaria com um card sozinho, e a medida mais larga de duas acomodava as banner
+ * statements, que têm duas linhas em quase todas. A cliente pediu QUATRO na
+ * daily, e quatro resolve o mesmo problema por outro caminho — 4 + 4 + 2 fecha
+ * a última fileira com um par, não com um órfão. O que se paga é a medida: ver
+ * a caixa na própria grade.
  */
 export default function SolutionsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
+        {/* ⚠️ O SKYLINE ENTROU EM 14-09 e resolve DOIS pedidos da mesma daily:
+            • item 8 — *"definitely need to change this image because some of the
+              girls have their eyes closed."* A foto que estava aqui é a
+              `service-hero-fallback.jpg`, a padrão compartilhada por onze rotas,
+              e é nela que estão as pessoas de olhos fechados.
+            • item 9 — *"I'm thinking with the services, if we use the same
+              backdrop as we did the skyline again."* "A outra página" é a
+              /about, e o arquivo é o `about-hero.jpeg` que ela mesma mandou em
+              08-09: Big Ben, Marina Bay, Burj Khalifa e Kingdom Centre com a
+              hélice de DNA atravessando o céu.
+
+            SÓ AQUI, e não no `SolutionHero`. A padrão continua servindo as outras
+            dez rotas: ela reclamou desta página, e trocar o fallback mudaria a
+            /team, a /books e as oito de serviço sem pedido nenhum.
+
+            ⚠️ O ARQUIVO É QUASE QUADRADO — 1373x1145 (1,2:1), 229 KB, e veio
+            pelo WhatsApp. Na /about isso é contornado com uma caixa de 72% presa
+            à direita; AQUI O HERÓI É DE SANGRIA TOTAL, então numa dobra de ~1,9:1
+            o `object-cover` escala pela largura e corta ~38% da altura. O que
+            sobra no quadro é a faixa do meio, que é onde moram o skyline e a
+            hélice — é o recorte que interessa —, mas o upscale num monitor de
+            1920 é 1,4x. Vale o mesmo pedido que já está anotado na /about:
+            perguntar à Maliha o ORIGINAL dela, e não a cópia do WhatsApp.
+
+            `object-[50%_38%]` SOBE O ENQUADRAMENTO. Centrado, o corte tira 19%
+            de cima e 19% de baixo, e a ponta do Burj ficava rente à borda
+            superior enquanto sobrava água no pé. Subir para 38% devolve céu
+            acima das torres — que é onde o `h1` mora, à esquerda. */}
         <SolutionHero
           eyebrow="Our Services"
           title="Real impact for individuals, leaders, teams and organisations."
           subtitle="Ten ways in. Everyone starts with what is at stake for the business."
+          imageUrl={skylinePhoto}
+          imagePosition="object-[50%_38%]"
         />
 
         <section id="what-we-do" className="bg-paper">
@@ -54,7 +92,25 @@ export default function SolutionsPage() {
                 componente existe. Numa grade de dez, a entrada em cascata é o
                 que diferencia uma lista longa de um paredão que aparece
                 inteiro. */}
-            <Reveal className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* ⚠️ QUATRO COLUNAS DESDE 14-09, pedido da Maliha na daily (item
+                10): *"we want to do four four four going across... and then the
+                last two at the bottom."* São dez cards, então `grid-cols-4`
+                entrega 4 + 4 + 2 sozinho — a "última fileira com dois" é
+                consequência da conta, não uma regra escrita à mão.
+
+                AS QUATRO SÓ VALEM DE `xl` PARA CIMA, e o `lg:grid-cols-2` que
+                já existia FICA. Em quatro colunas a 1024px cada card tem 214px,
+                e a banner statement (duas linhas em quase todas, a mais longa
+                com 78 caracteres) quebraria em quatro palavras por linha. A 1280
+                são 278px, que é a medida em que ela volta a ler. Até lá a página
+                segue exatamente como estava no ar: uma coluna no telefone e no
+                tablet, duas a partir de 1024.
+
+                ⏳ FALTA A IMAGEM DE CADA CARD (item 12: *"a bit of image, just
+                to call out each of the [services]"*). Os arquivos estão na lista
+                que foi para ela e ainda não chegaram; quando chegarem, entram no
+                `ServiceCard` e a grade não muda. */}
+            <Reveal className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4">
               {services.map((s) => (
                 <ServiceCard key={s.slug} service={s} />
               ))}

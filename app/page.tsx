@@ -39,22 +39,18 @@ import LogoMarquee from "@/components/LogoMarquee";
 import RealCycle from "@/components/RealCycle";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import Counter from "@/components/Counter";
-import PeopleGrid from "@/components/PeopleGrid";
 import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import BookCard from "@/components/books/BookCard";
 import { books } from "@/lib/books";
 import AwardsMentions from "@/components/AwardsMentions";
-import { getPeople, getTickerEntries } from "@/lib/cms/map";
+import { getTickerEntries } from "@/lib/cms/map";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
-import LocationsBlock from "@/components/LocationsBlock";
-import WorldCoverageMap from "@/components/WorldCoverageMap";
 import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
-import { officialPortrait } from "@/lib/team";
 
 // Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
 // título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
@@ -204,23 +200,24 @@ export default async function Home() {
   // A faixa de credenciais abaixo do herói NÃO usa isto: ela segue com o par
   // escrito à mão em HERO_CREDENTIALS. As duas fontes convivendo é redundância
   // conhecida e está anotada no ponto de uso, dentro do HeroV2.
-  const [cmsPeople, nav, stats, ticker] = await Promise.all([
-    getPeople(),
+  //
+  // ⛔ `getPeople()` SAIU DO `Promise.all` EM 14-09, junto com a grade de
+  // retratos que era a única consumidora dele (item 29 — ver a caixa na seção
+  // `#people`). Ficar chamando o CMS por uma coleção que nada renderiza é uma
+  // requisição por build para preencher uma variável morta.
+  //
+  // ⏳ O QUE VOLTA COM ELE, se ela pedir os retratos de volta: a chamada aqui, o
+  // `import PeopleGrid`, o `import { officialPortrait }` e a linha que casava os
+  // dois — `cmsPeople.map((p) => ({ ...p, img: officialPortrait(p.name) }))`. O
+  // porquê daquele `map` (o CMS guarda a leva ANTIGA de retratos; os oficiais de
+  // 09-09 moram em `lib/team.ts`, e quem não tem oficial fica nas iniciais em vez
+  // de republicar a foto velha) está no commit de 11-09 e continua valendo.
+  const [nav, stats, ticker] = await Promise.all([
     buildSiteNav(),
     getSiteStats(),
     getTickerEntries(),
   ]);
 
-  /* OS RETRATOS DEIXAM DE VIR DO CMS (11-09). O texto continua vindo — nome,
-     cargo, bio, o perfil do modal. Só a FOTO é substituída pelos arquivos que a
-     Maliha mandou em 09-09, porque o que está no CMS é a leva antiga: a da Rhea
-     é outra foto, e a do Guilherme está gravada como `whatsapp-image-2026-07-25`.
-     Subir os novos pelo admin de produção não é possível desta máquina.
-
-     `img: officialPortrait(...)` sem `??  p.img` de propósito: quem ainda não tem
-     retrato oficial fica SEM foto, nas iniciais, em vez de continuar publicando a
-     antiga. Foi a instrução — "as que não tiver pode deixar sem por enquanto". */
-  const people = cmsPeople.map((p) => ({ ...p, img: officialPortrait(p.name) }));
   return (
     // `geist.variable` e `serif.variable` publicam --font-geist-v3 e
     // --font-serif-v2 para tudo que está dentro. Ficam no wrapper, e não no
@@ -267,15 +264,22 @@ export default async function Home() {
       // únicos fora da escala — 52px onde toda seção usa 40, e 30px onde os
       // cards usam 28. Medido no navegador, não estimado. Compartilhado com o
       // resto do site, então nivelado aqui em vez de no componente.
+      //
+      // ⚠️ `#awards_h3` E `#coverage_h2` ESTÃO INERTES DESDE 14-09 e ficam de
+      // propósito. O primeiro mirava os cinco nomes de prêmio, que no banner
+      // deixaram de ser `h3`; o segundo, o mapa-múndi, que saiu da página (itens
+      // 33 e 34). São seletores sem alvo — custo zero — e apagá-los é o que faz
+      // os dois blocos voltarem fora de escala no dia em que alguém reverter.
       // TÍTULOS EM SERIFA — 10-09, adotando o padrão tipográfico da /about.
       // Medido nas duas páginas: na About h1, h2 e h3 são 100% serifa (1, 2 e 19
       // ocorrências) e o corpo é Geist (31 de 33 parágrafos). A home fazia o
       // contrário, com tudo em sans.
       //
       // Feito por variante no wrapper, e não classe a classe como na About,
-      // porque seis dos treze títulos desta página vêm de COMPARTILHADOS — o
-      // `WorldCoverageMap` ("Where we operate.") e o `AwardsMentions` (o título
-      // da faixa e os cinco nomes de prêmio). Editar os componentes arrastaria
+      // porque parte dos títulos desta página vem de COMPARTILHADOS — hoje o
+      // título do `AwardsMentions`; até 14-09 também o `WorldCoverageMap`
+      // ("Where we operate.") e os cinco nomes de prêmio, que saíram com os
+      // itens 33 e 34. Editar os componentes arrastaria
       // /home-v1, /home-v3 e /our-impact junto. A variante alcança os títulos de
       // dentro deles sem que o componente saiba, que é o mesmo truque que os
       // overrides de `#awards` logo abaixo já usam.
@@ -663,9 +667,31 @@ export default async function Home() {
       </section>
       )}
 
-      {/* PEOPLE — hidden until the CMS has published people */}
-      {people.length > 0 && (
-        <section id="people" className="bg-white">
+      {/* PEOPLE */}
+      {/* ⚠️ AS CARAS DO TIME SAÍRAM EM 14-09 — item 29 da daily: *"I'd probably
+          take off the team photos... I don't want to see the team faces on there
+          at the start."*
+
+          O QUE SAIU É SÓ O `<PeopleGrid>`, e é literal ao que ela disse na mesma
+          frase: *"a lot of the information you have on there would probably
+          remain."* Ficam o rótulo, o título, o parágrafo, a DNA experience, o
+          carrossel de bastidores e a faixa de parceiros — ela reclamou dos
+          RETRATOS, não da seção. Os retratos continuam existindo na /team, que é
+          a página que existe para isso.
+
+          O PORTÃO `people.length > 0` SAIU JUNTO, e não por descuido: ele
+          existia para a seção não aparecer vazia antes de o CMS ter gente
+          publicada. Sem a grade, nada aqui vem do CMS — o conteúdo restante é
+          todo escrito à mão neste arquivo —, então manter o portão faria uma
+          seção estática desaparecer por causa de uma coleção que ela não usa.
+
+          ⛔ `getPeople()` SAIU JUNTO, lá no topo do arquivo — a grade era a
+          única consumidora. A caixa do `Promise.all` lista o que precisa voltar
+          se ela mudar de ideia sobre os retratos.
+
+          A ÂNCORA `#people` FICA. Ela está no menu (`lib/nav.ts`) e a seção
+          continua existindo com todo o resto do conteúdo. */}
+      <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
           <TypeLabel>Our people</TypeLabel>
           <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
@@ -677,10 +703,12 @@ export default async function Home() {
           >
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
-          <PeopleGrid people={people} />
           {/* The DNA experience — copy on the left, life-at-DNA carousel on the
-              right. Stacks on mobile (text first, then the images). */}
-          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
+              right. Stacks on mobile (text first, then the images).
+
+              SEM `mt-14`: a grade de retratos que vinha antes é que abria este
+              vão. Agora o vizinho de cima é o parágrafo, que já traz `mb-12`. */}
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
             <div>
               <p className="text-lg font-medium leading-[1.55] text-ink">
                 With our “One DNA TEAM” principle, we execute as one
@@ -740,8 +768,7 @@ export default async function Home() {
             <span className="text-[19px] font-bold text-ink">Imperial College London</span>
           </div>
         </Reveal>
-        </section>
-      )}
+      </section>
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
@@ -762,14 +789,31 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003).
-          `tone="dark"` is Guli's 31-08 fix: this block and the book block above
-          were both light grey and touching. Homepage only — the same block runs
-          light on Our Clients and Our Team, which have different neighbours. */}
-      <LocationsBlock tone="dark" maxWidthClass="max-w-[1440px]" typeLabel />
+      {/* ⛔ DOIS BLOCOS SAÍRAM DAQUI EM 14-09, e é o mesmo trecho da fala dela:
+          *"the address is probably not, I don't really see it on a landing page;
+          the map looks like a duplicate."*
 
-      {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
-      <WorldCoverageMap typeLabel />
+          1. OS ESCRITÓRIOS (item 32). Era o `LocationsBlock` — mapa Leaflet,
+             régua de cidades, carrossel e endereço —, com `tone="dark"`, que é a
+             correção do Guli de 31-08 para ele não colar no bloco do livro,
+             também cinza. O bloco NÃO MORREU: ele é a faixa que a /about acaba
+             de ganhar (item 4), lá sem o mapa, e continua rodando na
+             /our-clients. Endereço de escritório passa a ser assunto de página
+             interna e de rodapé, que é onde ela espera encontrá-lo.
+
+          2. O MAPA-MÚNDI (item 33). Era o `WorldCoverageMap`, os 36 países
+             pintados. A "duplicata" que ela viu é real e era ESTRUTURAL: dois
+             mapas em sequência, a 400px um do outro, dizendo a mesma coisa por
+             desenhos diferentes — um com pinos de escritório, outro com países
+             atendidos. Tirado o primeiro, o segundo deixaria de duplicar
+             qualquer coisa; sai junto porque a fala dela cobre os dois e porque
+             a cobertura global já é dita em número no herói ("36 countries") e
+             tem página própria na /about, onde o mapa continua.
+
+          ⚠️ OS OVERRIDES DE `#coverage` CONTINUAM NO WRAPPER lá em cima
+          (`[&_#coverage_h2]:font-semibold!`). Ficam de propósito: são duas
+          classes inertes sem o componente na árvore, e apagá-las é o que faz o
+          mapa voltar torto no dia em que alguém reverter isto. */}
 
       {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
           A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`

@@ -4,7 +4,7 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
-import LocationsBlock from "@/components/LocationsBlock";
+import LeaderCard from "@/components/team/LeaderCard";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { leaders, facultyRegions, dnaLead, dnaStrands } from "@/lib/team";
@@ -27,8 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
  * pessoa — conteúdo que o CMS não tem onde guardar. Então ela passa a ler de
  * `lib/team.ts` e ganha a tipografia editorial da About e da Services.
  *
- * O QUE CONTINUA VINDO DE ANTES: as âncoras `#leadership`, `#faculty` e
- * `#presence`, que estão em redirects legados, e o mapa de escritórios.
+ * O QUE CONTINUA VINDO DE ANTES: as âncoras `#leadership` e `#faculty`.
+ * A terceira, `#presence`, e o mapa de escritórios que ela marcava saíram em
+ * 14-09 a pedido da cliente — a caixa no pé do arquivo tem o porquê e a
+ * conferência de quem apontava para lá.
  *
  * A ROTA MUDOU EM 11-09: `/our-team` → `/team`, a pedido. O endereço antigo
  * está no menu em produção e é destino de quatro redirects do WordPress, então
@@ -93,53 +95,26 @@ export default function OurTeamPage() {
             </h2>
 
             {/* TRÊS COLUNAS, como o documento pede ("portrait grid, three
-                across"). São seis pessoas: duas fileiras cheias.
+                across") e como o mockup de 14-09 confirma. São seis pessoas:
+                duas fileiras cheias.
 
                 Sem `mt`: o espaço até aqui é o `mb-[52px]` do h2, como na home.
                 Eram 56px somados ao `mt-5` do título; a diferença de 4px não se
-                vê, e o que se ganha é o mesmo ritmo nas três seções. */}
-            <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-              {leaders.map((p) => (
-                <article key={p.name}>
-                  <div className="relative aspect-[4/5] overflow-hidden bg-paper">
-                    {p.portrait ? (
-                      <Image
-                        src={p.portrait}
-                        alt={`${p.name}, ${p.role}`}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className={`object-cover ${p.portraitPosition ?? "object-center"}`}
-                      />
-                    ) : (
-                      /* Sem retrato — iniciais, e não um avatar genérico de
-                         silhueta: o card fica claramente à espera de uma foto
-                         em vez de fingir ter uma. */
-                      <div className="flex h-full w-full items-center justify-center">
-                        <span className="font-serif text-[44px] font-semibold text-line">
-                          {p.name
-                            .split(" ")
-                            .map((w) => w[0])
-                            .slice(0, 2)
-                            .join("")}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                vê, e o que se ganha é o mesmo ritmo nas três seções.
 
-                  <h3 className="font-serif mt-6 text-[22px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
-                    {p.name}
-                  </h3>
-                  <p className="mt-2 text-[13px] font-medium uppercase tracking-[1.3px] text-brand">
-                    {p.role} · {p.region}
-                  </p>
-                  {/* A frase de cada pessoa fica NO CARD. É o conteúdo que o
-                      documento marca como do bloco 2, e que o bloco 3 repete na
-                      descrição — enquanto o bloco 3 não for conversado com o
-                      cliente, ela sai uma vez só, aqui. */}
-                  <blockquote className="mt-4 border-l-2 border-line pl-5 font-serif text-[16px] leading-[1.6] text-muted">
-                    {p.quote}
-                  </blockquote>
-                </article>
+                ⚠️ O `lg:grid-cols-3` VIROU `min-[1440px]:`. Cada card agora se
+                parte em retrato + cartão de quote (item 16), e essa partição
+                precisa de ≈432px de coluna para a serifa não quebrar em quatro
+                palavras por linha. A 1024 a coluna tem 293px. Abaixo de 1440 a
+                página segue em duas colunas com o card empilhado, que é o
+                desenho anterior — a conta inteira está no `LeaderCard`.
+
+                O `gap-y` subiu de 56 para 72px porque o card ficou mais alto e
+                mais denso: com a ficha e o cartão claro, 56px deixavam a fileira
+                de baixo encostada na de cima. */}
+            <div className="grid grid-cols-1 gap-x-8 gap-y-[72px] sm:grid-cols-2 min-[1440px]:grid-cols-3">
+              {leaders.map((p) => (
+                <LeaderCard key={p.name} person={p} />
               ))}
             </div>
           </div>
@@ -630,53 +605,29 @@ export default function OurTeamPage() {
           </div>
         </section>
 
-        {/* ── Global presence ──────────────────────────────────────────── */}
-        {/* `max-w-[1440px]` PORQUE O BLOCO NASCEU EM 1200. Sem a prop, o
-            cabeçalho dele centra numa coluna de 1200 dentro de uma página de
-            1440 e abre 120px à direita de todas as outras seções — o rótulo
-            começava em 160px enquanto "Leadership", "Global faculty" e "The DNA
-            experience" começam em 40px. É a mesma correção que a home fez em
-            10-09; a prop existe para isto e está documentada no componente.
+        {/* ⛔ O GLOBAL PRESENCE SAIU EM 14-09, pedido da Maliha na daily (item
+            19 da transcrição): "remove the global presence from this page". Os
+            escritórios ficam só no rodapé.
 
-            `typeLabel` porque o rótulo local é 13px/600/2px e os outros quatro
-            desta página são o `TypeLabel` (14px/500/1,3px). De longe parecem o
-            mesmo objeto; lado a lado, na mesma rolagem, não são.
+            O QUE SAIU: o `<div id="presence">` e o `LocationsBlock` que ele
+            embrulhava (`tone="paper"`, `maxWidthClass="max-w-[1440px]"`,
+            `typeLabel`, `align="center"`). A montagem inteira, com o porquê de
+            cada prop e o histórico do `dark` → `paper` de 12-09, está no commit
+            anterior a este — é copiar de volta se ela mudar de ideia.
 
-            `tone="dark"` é a segunda seção escura da página, a pedido. Ele dá
-            `ink-2` e não `ink` — 8 pontos mais escuro — e isso é do componente,
-            não escolha daqui: a Global faculty logo acima é `ink`, e repetir o
-            mesmo tom com um bloco claro no meio faria as duas massas escuras
-            rimarem. O mesmo motivo que a home tem.
+            A ÂNCORA `#presence` MORRE JUNTO, e isso foi conferido antes de
+            apagar: os quatro redirects legados do WordPress que chegam nesta
+            página (`/our_team.html`, `/our_advisor.html`, `/our-advisors`,
+            `/our-way/our-team-and-network`) apontam para `/team` SEM
+            fragmento, e nem o `lib/nav.ts` nem nenhum link do site cita
+            `#presence`. Quem chegar por um endereço velho com o fragmento cai
+            no topo, que é o comportamento normal de âncora inexistente.
 
-            NÃO PRECISA DE FILETE. O bloco 6 acima é `paper`; claro contra
-            escuro já é a divisa.
-
-            `align="center"` A TESTE, 11-09. O corpo deste bloco sempre foi
-            centrado — mapa de 560px com `mx-auto`, régua de cidades, carrossel
-            e endereço todos na mesma coluna e com `text-center`. Só o cabeçalho
-            corria à esquerda na largura de 1440, e com o mapa pequeno a
-            distância entre os dois eixos é o que se via. O `maxWidthClass`
-            continua em 1440 porque é ele que centra a caixa na página inteira;
-            o que mudou é o conteúdo dentro dela. */}
-        <div id="presence">
-          {/* ⚠️ CLARO DESDE 12-09, e o `dark` que estava aqui era herança da
-              home, onde ele existe por um motivo que nesta página não vale: lá
-              esta faixa vinha logo abaixo do bloco do livro, também cinza, e as
-              duas viravam uma massa só — o `dark` foi a correção do Guli em
-              31-08 para aquele encontro específico.
-
-              Aqui o vizinho de cima é a DNA experience, que é escura e carrega
-              a imagem de fundo. Escuro contra escuro devolvia o mesmo problema
-              que o `dark` resolve lá, ao contrário. Com `paper`, a página fecha
-              claro e a única massa escura do miolo fica isolada entre dois
-              claros, que é o que dá ritmo à rolagem. */}
-          <LocationsBlock
-            tone="paper"
-            maxWidthClass="max-w-[1440px]"
-            typeLabel
-            align="center"
-          />
-        </div>
+            A PÁGINA PASSA A FECHAR NA DNA EXPERIENCE, que é `ink`. Não é
+            problema de ritmo: o `paper` daqui existia para separar duas massas
+            escuras, e a que vem depois agora é o rodapé, que é branco com o
+            filete vermelho do `footerTopBorder`. Escuro → filete → branco é a
+            mesma divisa que a /about já usa. */}
       </SiteShell>
     </div>
   );

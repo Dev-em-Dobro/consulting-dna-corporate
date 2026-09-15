@@ -23,6 +23,8 @@ export default function LocationsBlock({
   maxWidthClass = "max-w-[1200px]",
   typeLabel = false,
   align = "left",
+  showMap = true,
+  showEmail = false,
 }: {
   offices?: Office[];
   eyebrow?: string;
@@ -80,6 +82,48 @@ export default function LocationsBlock({
    * the darker of the two and reads as the "quase preto" he asked for.
    */
   tone?: "paper" | "dark";
+  /**
+   * O mapa Leaflet no topo do bloco. `false` deixa só a "faixa de baixo" — a
+   * régua de cidades, o carrossel e o endereço da cidade ativa.
+   *
+   * EXISTE PARA A /about, 14-09. Pedido da Maliha na daily (item 4): *"I did
+   * like on the original landing page that it was scrolling for the addresses
+   * — without the map, if we can have just the bottom bit."* Ela estava
+   * olhando a home, onde este bloco roda inteiro.
+   *
+   * PROP E NÃO COMPONENTE NOVO porque o que ela quer é ESTE bloco menos uma
+   * camada: a mesma lista de escritórios, o mesmo auto-avanço, o mesmo
+   * carrossel e o mesmo `min-h` que impede o endereço de sacudir a página ao
+   * trocar de cidade. Recortar isso para um arquivo à parte criaria dois
+   * lugares para consertar o dia em que um endereço mudar.
+   *
+   * O QUE O `false` DESLIGA JUNTO, e é de graça: o `next/dynamic` do Leaflet
+   * nunca é chamado, então a /about não baixa o mapa nem os tiles. O
+   * `IntersectionObserver` que existia só para adiar esse import continua
+   * rodando e não custa nada — e volta a servir no dia em que alguém ligar o
+   * mapa aqui.
+   *
+   * ⚠️ O SWIPE LATERAL MORA NO MAPA. Sem ele, no telefone a troca de cidade
+   * fica com os controles do próprio carrossel e com a régua de cidades, que
+   * são botões de verdade — não é regressão de acessibilidade, o swipe sempre
+   * foi o atalho e nunca o único caminho.
+   */
+  showMap?: boolean;
+  /**
+   * Acrescenta o e-mail da cidade ativa sob o endereço e o telefone.
+   *
+   * EXISTE PARA A /about, 14-09, e é o que impede uma PERDA DE CONTEÚDO ao
+   * trocar a lista estática de escritórios por este bloco (item 4): a lista de
+   * lá publicava cidade, endereço, telefone E e-mail, e o painel daqui sempre
+   * mostrou os três primeiros. O campo já existe no tipo `Office` desde sempre;
+   * o que faltava era alguém renderizar.
+   *
+   * `false` POR PADRÃO de propósito. A home, a /our-clients e a /home-v3
+   * rodam este bloco há semanas sem e-mail por cidade, e ligar isso para as
+   * três de uma vez seria mudar três páginas por causa de uma quarta — o mesmo
+   * critério de `maxWidthClass`, `typeLabel` e `align`.
+   */
+  showEmail?: boolean;
 }) {
   const dark = tone === "dark";
   const centered = align === "center";
@@ -199,34 +243,42 @@ export default function LocationsBlock({
                 desktop. Fixed height avoids layout shift when it lazily mounts.
                 Horizontal swipe changes office; `touch-pan-y` keeps the page
                 scrolling vertically. */}
-            <div
-              className={`relative h-[340px] w-full touch-pan-y overflow-hidden border-y bg-[#e9e6e3] md:mx-auto md:h-[360px] md:max-w-[560px] md:border ${
-                dark ? "border-white/15" : "border-line"
-              }`}
-              onTouchStart={(e) => {
-                touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-              }}
-              onTouchEnd={(e) => {
-                if (!touch.current) return;
-                const dx = e.changedTouches[0].clientX - touch.current.x;
-                const dy = e.changedTouches[0].clientY - touch.current.y;
-                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
-                  go(dx < 0 ? 1 : -1);
-                }
-                touch.current = null;
-              }}
-            >
-              {inView && (
-                <LocationsMap
-                  office={active}
-                  animate={!reduceMotion}
-                  onError={() => setMapFailed(true)}
-                  className="h-full w-full"
-                />
-              )}
-            </div>
+            {showMap && (
+              <div
+                className={`relative h-[340px] w-full touch-pan-y overflow-hidden border-y bg-[#e9e6e3] md:mx-auto md:h-[360px] md:max-w-[560px] md:border ${
+                  dark ? "border-white/15" : "border-line"
+                }`}
+                onTouchStart={(e) => {
+                  touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }}
+                onTouchEnd={(e) => {
+                  if (!touch.current) return;
+                  const dx = e.changedTouches[0].clientX - touch.current.x;
+                  const dy = e.changedTouches[0].clientY - touch.current.y;
+                  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+                    go(dx < 0 ? 1 : -1);
+                  }
+                  touch.current = null;
+                }}
+              >
+                {inView && (
+                  <LocationsMap
+                    office={active}
+                    animate={!reduceMotion}
+                    onError={() => setMapFailed(true)}
+                    className="h-full w-full"
+                  />
+                )}
+              </div>
+            )}
 
-            <div className="mx-auto mt-8 max-w-[560px] px-6">
+            {/* `mt-8` É O VÃO ATÉ O MAPA, e some junto com ele: sem mapa, a
+                régua de cidades é o primeiro elemento do corpo e quem dá a
+                distância até o cabeçalho é o `mb-12` lá de cima. Com os dois, o
+                bloco abria 32px a mais que qualquer outra seção. */}
+            <div
+              className={`mx-auto max-w-[560px] px-6 ${showMap ? "mt-8" : ""}`}
+            >
               {/* All-office index strip + divider — mirrors the legacy "our
                   offices" header so every city is visible at a glance, not just
                   the active one in the carousel. Each name selects its office. */}
@@ -303,6 +355,27 @@ export default function LocationsBlock({
                   >
                     Tel: {active.tel}
                   </p>
+                )}
+                {showEmail && (
+                  /* VERMELHO, como todo endereço de e-mail clicável do site — é
+                     a única linha deste painel que é ação, e não dado.
+
+                     O `<wbr>` depois do @ vem da lista da /about, de onde este
+                     campo migrou: a coluna aqui tem 560px e o domínio cabe
+                     inteiro, mas no telefone ela cai para a largura da tela
+                     menos 48px e é depois do @ que o navegador tem de quebrar.
+                     Sem a dica ele quebraria dentro de "corporatedna". */
+                  <a
+                    href={`mailto:${active.email}`}
+                    className={`mt-1 inline-block break-words text-[15px] leading-[1.7] transition-colors ${
+                      dark
+                        ? "text-brand-light hover:text-white"
+                        : "text-brand hover:text-brand-dark"
+                    }`}
+                  >
+                    {active.email.split("@")[0]}@<wbr />
+                    {active.email.split("@")[1]}
+                  </a>
                 )}
               </div>
             </div>

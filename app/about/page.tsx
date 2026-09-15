@@ -38,6 +38,8 @@ import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
+import LocationsBlock from "@/components/LocationsBlock";
+import { offices as siteOffices, type Office } from "@/lib/offices";
 import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
@@ -432,6 +434,40 @@ const OFFICES = [
     email: "miami@corporatednaconsulting.com",
   },
 ];
+
+/**
+ * O `OFFICES` acima no formato que o `LocationsBlock` lê — 14-09, item 4.
+ *
+ * POR QUE ADAPTAR EM VEZ DE PASSAR `lib/offices.ts`: é a caixa do `OFFICES`
+ * inteira. Aquela lista existe justamente porque três registros do documento do
+ * cliente divergem do que a home publica; o bloco lendo a fonte da home
+ * reverteria os três sem ninguém notar.
+ *
+ * `coords` E `zoom` VÊM DE `lib/offices.ts`, por cidade. Eles não são usados
+ * aqui — o bloco roda com `showMap={false}` —, mas o tipo `Office` os exige, e
+ * preenchê-los com zeros deixaria uma bomba armada para quem ligasse o mapa
+ * nesta página um dia: cinco pinos no Golfo da Guiné. A coordenada de um
+ * escritório é a mesma nos dois arquivos; o que diverge entre eles é o texto.
+ *
+ * ⚠️ O CASAMENTO É PELO NOME DA CIDADE, e as cinco batem hoje. Se alguém
+ * acrescentar um escritório só aqui, o `find` volta `undefined` e o `?? 0`
+ * abaixo entrega a coordenada nula — de novo, sem efeito enquanto o mapa estiver
+ * desligado. É o motivo de este aviso existir em vez de um `throw`: quebrar o
+ * build da About por um campo que nada renderiza seria pior que o defeito.
+ */
+const OFFICE_CARDS: Office[] = OFFICES.map((o) => {
+  const onMap = siteOffices.find((s) => s.city === o.city);
+  return {
+    slug: o.city.toLowerCase(),
+    city: o.city,
+    country: onMap?.country ?? "",
+    addressLines: o.address,
+    tel: o.tel,
+    email: o.email,
+    coords: onMap?.coords ?? { lng: 0, lat: 0 },
+    zoom: onMap?.zoom ?? 12,
+  };
+});
 
 /**
  * Block 6, as cinco regiões. Os NOMES são FINAL; os descritores são HOLD ("one
@@ -2035,7 +2071,32 @@ export default async function AboutV2Page() {
               topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
               sem a caixa. O `p-6` também sai, porque padding sem fundo só
               empurra o texto para longe do filete que o ancora. */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {/* ⚠️ SAÍRAM DA LINHA EM 14-09, pedido da Maliha na daily (item 2):
+              "can we make these like vertical by any chance, so you know
+              currently they're in horizontals, five little boxes with the text
+              underneath". Cai o `lg:grid-cols-5` — os cinco passam a EMPILHAR,
+              um por fileira, com o filete vermelho por cima e o texto embaixo.
+
+              PRESOS EM 720px, e não correndo os 1360 da página. Um descritor
+              de 60 caracteres numa medida de 1360 dá uma linha só com dois
+              terços de vazio à direita, cinco vezes seguidas — o empilhamento
+              passaria a ler como cinco linhas soltas em vez de uma coluna. A
+              720 cada descritor ocupa a largura que tem, e as cinco réguas
+              vermelhas alinham num eixo só, que é o que segura a leitura de
+              lista. Mesma medida do parágrafo de abertura da faixa.
+
+              O `gap` SUBIU DE 20 PARA 40px. Numa linha, 20px era a distância
+              LATERAL entre colunas vizinhas e não confundia nada; empilhados,
+              20px põem o descritor de um a 20px do filete do próximo, e o olho
+              passa a ler o texto como legenda do tile de baixo. 40px separa os
+              grupos sem abrir buraco.
+
+              ⚠️ A FRASE DELA TEM DUAS LEITURAS e esta é a do doc de correções
+              ("em vez de cinco em linha"): "vertical" como ARRANJO. A outra é
+              "vertical" como FORMATO de cada caixa — cinco caixas em pé, ainda
+              lado a lado, com o texto sob cada uma. Se o retorno dela for esse,
+              o que muda é este contêiner e não o conteúdo. */}
+          <div className="grid max-w-[720px] grid-cols-1 gap-10">
             {REGIONS.map((r) => (
               <div key={r.name} className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
@@ -2054,85 +2115,59 @@ export default async function AboutV2Page() {
               </div>
             ))}
           </div>
-
-          {/* LISTA, NÃO GRADE DE CARDS — 09-09.
-
-              O que estava aqui eram cinco cards brancos numa grade de três, mais
-              um tile vermelho na sexta vaga. O pedido foi "cara de coisa cara", e
-              card branco com borda não chega lá: é o vocabulário de painel de
-              controle, e a caixa é justamente o que faz um endereço parecer um
-              campo de formulário.
-
-              A troca é por lista. Cada escritório vira uma FILEIRA de largura
-              cheia, separada por filete, com três colunas dentro: cidade grande
-              em serifa, endereço, contato. Sem caixa, sem fundo, sem sombra —
-              o que desenha a estrutura é o alinhamento e o vazio entre as
-              colunas. É o desenho de papel timbrado e de página de relatório
-              impresso, e é onde mora a sensação de caro: espaço gasto com
-              confiança em vez de espaço preenchido.
-
-              É também MAIS contido que a versão anterior, não menos. Sai um
-              retângulo vermelho de área cheia — que a análise da referência
-              aponta como o defeito do nosso site inteiro ("o acento nunca vira
-              área, só marca") — e entra uma linha vermelha de texto no pé.
-
-              ⚠️ SEM NUMERAÇÃO. A referência numera os cards dela (`01 02 03`) e
-              a primeira versão desta lista ia fazer o mesmo. Não dá: são cinco
-              SEDES, e numerar sede é criar ranking. "01 London / 05 Miami" é uma
-              conversa que ninguém no cliente quer ter.
-
-              O TELEFONE QUE FALTA deixa de ser problema. Riade e Miami não têm
-              número no outline, e na grade isso abria um buraco visível porque os
-              cards tinham altura igual e conteúdo desigual. Numa fileira, a
-              coluna de contato simplesmente tem uma linha em vez de duas, e
-              ninguém percebe. A pendência continua — ver o doc do Guli —, mas
-              deixou de ser dívida visual.
-
-              `items-baseline` alinha a linha de base da cidade com a primeira
-              linha do endereço e do contato. É o que faz as três colunas
-              parecerem uma fileira só em vez de três blocos vizinhos, e é a
-              diferença entre lista e tabela. */}
-          <div className="mt-16 border-t border-line">
-            {OFFICES.map((o) => (
-              <div
-                key={o.city}
-                className="grid grid-cols-1 items-baseline gap-x-10 gap-y-3 border-b border-line py-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] md:py-10"
-              >
-                <h3 className="font-serif text-[30px] font-medium leading-[1.05] tracking-[-0.5px] text-ink md:text-[38px]">
-                  {o.city}
-                </h3>
-                <p className="text-[15px] leading-[1.7] text-muted">
-                  {o.address.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </p>
-                <div className="text-[15px] leading-[1.7]">
-                  {o.tel && (
-                    <a
-                      href={`tel:${o.tel.replace(/\s/g, "")}`}
-                      className="block text-muted transition-colors hover:text-brand"
-                    >
-                      {o.tel}
-                    </a>
-                  )}
-                  {/* O <wbr> depois do @ continua: com a coluna de contato em
-                      ~1fr de 1440, o domínio cabe inteiro, mas no tablet a
-                      fileira aperta e é ali que o navegador tem de quebrar. */}
-                  <a
-                    href={`mailto:${o.email}`}
-                    className="block break-words text-brand transition-colors hover:text-brand-dark"
-                  >
-                    {o.email.split("@")[0]}@<wbr />
-                    {o.email.split("@")[1]}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
         </Reveal>
       </section>
+
+      {/* ── Block 6c · Os escritórios, agora no carrossel ─────────────── */}
+      {/* ⚠️ A LISTA ESTÁTICA SAIU EM 14-09. O pedido da Maliha na daily (item 4)
+          foi trazer para cá a faixa de endereços da home: *"I did like on the
+          original landing page that it was scrolling for the addresses — if we
+          can have just the bottom bit, without the map."* A lista de cinco
+          fileiras que vivia aqui (cidade em serifa grande, endereço, contato,
+          separadas por filete) está no commit anterior, com o raciocínio inteiro
+          de por que ela deixou de ser grade de cards em 09-09.
+
+          `showMap={false}` É O "WITHOUT THE MAP". O mapa da /about é o
+          `WorldCoverageMap` logo acima — um segundo mapa, do Leaflet, a 400px de
+          distância, era exatamente a duplicação que ela apontou na home (item
+          33). Sem ele o Leaflet nem entra no bundle desta página.
+
+          ================================================================
+          OS DADOS CONTINUAM SENDO OS DO DOCUMENTO DO CLIENTE
+          ================================================================
+          Esta é a parte que não pode se perder na troca. O `OFFICES` acima NÃO
+          é `lib/offices.ts`, e a caixa dele explica por quê: três registros
+          divergem do que está no ar (o endereço e o telefone de Singapura, o
+          telefone de Dubai, o telefone de Miami), e ninguém confirmou qual
+          versão vale. Passar o bloco a ler a fonte da home reverteria os três em
+          silêncio — uma regressão de conteúdo que ninguém pediu e que só
+          apareceria quando o cliente relesse a página.
+
+          Por isso o `offices={...}`: o bloco recebe a lista DAQUI, adaptada ao
+          tipo `Office`. O que ele não tem é `coords`/`zoom`, que são do mapa —
+          e em vez de inventar zeros, que virariam armadilha no dia em que
+          alguém ligasse o mapa aqui, eles vêm da entrada de mesma cidade em
+          `lib/offices.ts`. Coordenada de escritório é a mesma nos dois arquivos;
+          o que diverge é o texto.
+
+          `showEmail` porque a lista que saiu publicava o e-mail de cada cidade e
+          o painel do carrossel mostrava só endereço e telefone. Sem a prop, a
+          troca custaria cinco endereços de contato. */}
+      <LocationsBlock
+        offices={OFFICE_CARDS}
+        eyebrow="Our offices"
+        /* SEM PARÁGRAFO DE CONTEXTO: o da home ("From our established hubs in
+           London, Singapore…") repetiria, quase palavra por palavra, o "With
+           headquarters in London, Singapore, Dubai, Riyadh and Miami" que abre
+           a faixa do mapa duas seções acima. String vazia é falsy e o bloco
+           simplesmente não renderiza o <p>. */
+        context=""
+        tone="paper"
+        maxWidthClass="max-w-[1440px]"
+        typeLabel
+        showMap={false}
+        showEmail
+      />
 
       {/* ── Block 6b · The people behind it ───────────────────────────
           Pedido pela Maliha em 09-09, apontando o bloco que já existe na

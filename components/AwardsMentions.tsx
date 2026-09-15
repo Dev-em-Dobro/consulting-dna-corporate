@@ -11,16 +11,46 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 /**
  * "Awards and Mentions" — the awards & credentials that until now lived only in
  * the sales presentation (spec 009). Logos are local assets under
- * /public/awards; the copy follows the client's `docs/Group 2.png` design.
+ * /public/awards; the copy followed the client's `docs/Group 2.png` design.
  *
- * Rows animate in from opposite sides (copy from the left, logo from the right)
- * as each scrolls into view. Motion is gated on `prefers-reduced-motion`, so
- * this component owns its animation instead of using the shared <Reveal>.
+ * ================================================================
+ * ⚠️ VIROU BANNER EM 14-09
+ * ================================================================
+ * Pedido da Maliha na daily (item 34): *"awards and mentions, I'm thinking maybe
+ * we just have it as a banner rather than calling out that we were the finalists
+ * or the semi-finalists — even though that's what we were."*
+ *
+ * O QUE ERA. Cinco FILEIRAS de largura cheia, cada uma com o nome do prêmio em
+ * 30px, a distinção em vermelho maiúsculo ("FINALIST 2008"), o logo à direita e
+ * um filete vermelho curto separando. Ocupava a altura de uma tela e meia, e a
+ * linha que ela mandou tirar era o segundo elemento mais visível de cada
+ * fileira.
+ *
+ * O QUE É AGORA. UMA faixa: o título e os cinco logos em régua, com nome e ano
+ * embaixo de cada um. Mesma altura de uma faixa de parceiros, que é o objeto que
+ * "banner" descreve.
+ *
+ * O `distinction` CONTINUA NO TIPO E NOS DADOS, e não é esquecimento. Dois dos
+ * cinco não são "finalista" coisa nenhuma — "Top 10 Indian women leader in the
+ * UK" e "Best international leadership consulting firm" são prêmios ganhos, e é
+ * plausível que ela queira esses de volta quando revisar a lista com a Ria
+ * (item 35: *"our awards are a bit outdated, it's 2008, I will speak to Ria"*).
+ * Apagar o campo agora obrigaria a redigitar cinco distinções depois. Ele
+ * simplesmente não é renderizado.
+ *
+ * Title and logos animate in as the band scrolls into view. Motion is gated on
+ * `prefers-reduced-motion`, so this component owns its animation instead of
+ * using the shared <Reveal>.
  */
 
 type Award = {
   name: string;
-  /** The distinction earned, e.g. "Finalist". Rendered uppercase. */
+  /**
+   * The distinction earned, e.g. "Finalist".
+   *
+   * ⏸️ NÃO RENDERIZADO DESDE 14-09 — é exatamente a linha que a cliente pediu
+   * para sair. Fica no dado; ver a caixa do componente.
+   */
   distinction: string;
   year: string;
   logo: string;
@@ -90,32 +120,25 @@ export default function AwardsMentions({
           scrollTrigger: { trigger: "[data-awards-band]", start: "top 85%", once: true },
         });
 
-        // Each row gets its own trigger, so the list reveals progressively
-        // instead of firing all at once when the section appears.
-        gsap.utils.toArray<HTMLElement>("[data-award-row]").forEach((row) => {
-          const tl = gsap.timeline({
-            scrollTrigger: { trigger: row, start: "top 88%", once: true },
-          });
+        /* ⚠️ UM GATILHO SÓ, e não um por prêmio — 14-09. Enquanto eram cinco
+           fileiras de largura cheia, cada uma entrava no viewport em momentos
+           diferentes e precisava do próprio `ScrollTrigger`; a varredura em
+           direções opostas (texto da esquerda, logo da direita) existia porque
+           havia uma fileira inteira para atravessar.
 
-          const rule = row.querySelector("[data-award-rule]");
-          if (rule) {
-            tl.from(rule, {
-              scaleX: 0,
-              transformOrigin: "left center",
-              duration: 0.55,
-              ease: "power2.out",
-            });
-          }
-
-          tl.from(
-            row.querySelector("[data-award-copy]"),
-            { autoAlpha: 0, x: -56, duration: 0.75, ease: "power3.out" },
-            rule ? "<0.1" : 0,
-          ).from(
-            row.querySelector("[data-award-logo]"),
-            { autoAlpha: 0, x: 56, duration: 0.75, ease: "power3.out" },
-            "<0.08",
-          );
+           No banner os cinco logos estão LADO A LADO na mesma linha e entram na
+           tela juntos. Cinco gatilhos disparariam no mesmo instante — cinco
+           observadores fazendo o trabalho de um — e a varredura lateral não tem
+           mais distância para correr. Vira um `stagger` da régua inteira, que é
+           o movimento que uma faixa de logos pede: eles sobem em sequência, da
+           esquerda para a direita. */
+        gsap.from("[data-award-row]", {
+          autoAlpha: 0,
+          y: 28,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: "[data-awards-band]", start: "top 80%", once: true },
         });
       });
 
@@ -129,13 +152,12 @@ export default function AwardsMentions({
           scrollTrigger: { trigger: "[data-awards-band]", start: "top 85%", once: true },
         });
 
-        gsap.utils.toArray<HTMLElement>("[data-award-row]").forEach((row) => {
-          gsap.from(row, {
-            autoAlpha: 0,
-            duration: 0.5,
-            ease: "power1.out",
-            scrollTrigger: { trigger: row, start: "top 88%", once: true },
-          });
+        gsap.from("[data-award-row]", {
+          autoAlpha: 0,
+          duration: 0.5,
+          ease: "power1.out",
+          stagger: 0.05,
+          scrollTrigger: { trigger: "[data-awards-band]", start: "top 80%", once: true },
         });
       });
 
@@ -149,6 +171,11 @@ export default function AwardsMentions({
       {/* Same box as the `#book` section: constrained on desktop, full-bleed on
           mobile (no horizontal padding below `md`). */}
       <div className={`mx-auto ${maxWidthClass} pb-14 md:px-10 md:py-24`}>
+        {/* TUDO DENTRO DA MESMA FAIXA desde 14-09. Antes o `data-awards-band`
+            era só a tarja do título e os prêmios corriam sobre o branco da
+            página, abaixo dela. Um banner é UM objeto: título e logos moram na
+            mesma caixa colorida, e é isso que faz a seção ler como faixa em vez
+            de cabeçalho seguido de lista. */}
         <div data-awards-band className="overflow-hidden bg-brand px-6 py-12 md:px-14 md:py-16">
           <h2
             data-awards-title
@@ -159,43 +186,43 @@ export default function AwardsMentions({
             Awards and{" "}
             <span className="block sm:inline">Mentions</span>
           </h2>
-        </div>
 
-        <div className="overflow-hidden px-6 pt-6 md:px-14 md:pt-8">
-          <ul>
-            {awards.map((a, i) => (
-              <li key={a.name} data-award-row>
-                {/* Short brand-red rule, left-aligned — the separator from the
-                    design, not a full-width hairline. */}
-                {i > 0 && (
-                  <span
-                    data-award-rule
-                    aria-hidden="true"
-                    className="block h-0.5 w-[10%] min-w-[56px] bg-brand"
+          {/* CINCO EM RÉGUA a partir de `lg`, duas colunas no telefone. Cinco
+              logos de 84px lado a lado precisam de ~620px; abaixo disso eles
+              viram selos ilegíveis em vez de banner. */}
+          <ul className="mt-10 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:mt-12 lg:grid-cols-5">
+            {awards.map((a) => (
+              <li
+                key={a.name}
+                data-award-row
+                className="flex flex-col items-center text-center"
+              >
+                <div className="relative h-[84px] w-[84px] flex-none sm:h-[96px] sm:w-[96px]">
+                  {/* `alt=""` — DECORATIVO DE PROPÓSITO. O nome do prêmio está
+                      escrito logo abaixo, em texto de verdade; com alt o leitor
+                      de tela anunciaria "Women of the Future Awards logo" e, na
+                      linha seguinte, "Women of the Future Awards". */}
+                  <Image
+                    src={a.logo}
+                    alt=""
+                    fill
+                    sizes="96px"
+                    className="object-contain"
                   />
-                )}
-                <div className="grid grid-cols-[1fr_auto] items-center gap-6 py-8 sm:gap-10 md:py-10">
-                  <div data-award-copy>
-                    <h3 className="text-[22px] font-bold leading-[1.15] tracking-[-0.6px] text-ink sm:text-[26px] md:text-[30px]">
-                      {a.name}
-                    </h3>
-                    <p className="mt-2.5 text-[13px] font-semibold uppercase leading-[1.5] tracking-[1.2px] text-brand">
-                      {a.distinction} <span className="text-muted">{a.year}</span>
-                    </p>
-                  </div>
-                  <div
-                    data-award-logo
-                    className="relative h-[84px] w-[84px] flex-none sm:h-[104px] sm:w-[104px]"
-                  >
-                    <Image
-                      src={a.logo}
-                      alt={`${a.name} logo`}
-                      fill
-                      sizes="104px"
-                      className="object-contain"
-                    />
-                  </div>
                 </div>
+                {/* BRANCO, e não `ink`: a faixa é `brand` por padrão e `ink` na
+                    home (o override `[&_[data-awards-band]]:bg-ink` no wrapper
+                    de lá). Branco é a única cor de texto que passa nos dois.
+
+                    ⚠️ SEM A LINHA DE DISTINÇÃO. É o pedido do item 34 — era
+                    aqui que se lia "FINALIST 2008". O ano fica: ele é fato
+                    datado, não alegação de colocação. */}
+                <p className="mt-4 text-[14px] font-semibold leading-[1.35] text-white">
+                  {a.name}
+                </p>
+                <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
+                  {a.year}
+                </p>
               </li>
             ))}
           </ul>
