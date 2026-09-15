@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 16
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 20
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -408,17 +408,17 @@ partir de 1024.
 padding 40→28px, título 27→21px, corpo 17→15px. E o "Learn more" ganhou `mt-auto`, para
 que os quatro da fileira caiam na mesma linha mesmo com títulos de uma e de três linhas.
 
-**As imagens dos cards.** Ela respondeu *"use generic for now"*. **Oito dos dez** têm
-arquivo, de duas origens:
-
-- **Seis** são as banners fotográficas do site **antigo** (`public/solutions-banners/`),
-  recortadas em 16:10 — material da própria CDNA, já publicado, não banco de imagem.
-- **Duas** chegaram em 15-09, escolhidas pelo Ricardo: Manager Development e Judgement in
-  AI. São imagens **geradas**, 1536x1024 recortadas para 16:10. O registro importa porque
-  o site velho não tinha esses dois serviços — não existia foto deles em lugar nenhum.
-
-Os dois restantes (**HRLT Effectiveness** e **Family Business Consulting**) caem no **campo
-de cor** com o nome do serviço, que é o mesmo recurso das páginas de dentro desde 12-09.
+**As imagens dos cards.** Ela respondeu *"use generic for now"*. **Nove dos dez** têm
+arquivo, de duas origens:
+
+- **Seis** são as banners fotográficas do site **antigo** (`public/solutions-banners/`),
+  recortadas em 16:10 — material da própria CDNA, já publicado, não banco de imagem.
+- **Três** chegaram em 15-09, escolhidas pelo Ricardo: Manager Development, Judgement in
+  AI e Family Business Consulting. São imagens **geradas**. O registro importa porque o
+  site velho não tinha esses três serviços — não existia foto deles em lugar nenhum.
+
+O restante (**HRLT Effectiveness**) cai no **campo de cor** com o nome do serviço, que é o
+mesmo recurso das páginas de dentro desde 12-09.
 
 > ⚠️ O arquivo do Top 150 é `diversification.png` do acervo antigo — um conselho ao redor
 > da mesa com a cidade atrás. O **nome** do arquivo fala de inclusão, o **conteúdo** serve
@@ -606,7 +606,7 @@ h-8  (32px) → logo de  80px → sobram 840. Folga: 74px.
 | `team/team-stairs.jpg` | Foto do time, 2:3 (para a /team) | `1.About Page/About page.jpeg` |
 | `team-stairs-about.jpg` | Mesma foto, 4:5 (para a /about) | idem |
 | `skyline-dna.jpg` | Skyline sem a recompressão do WhatsApp | `1.About Page/ChatGPT Image Sep 8…png` |
-| `services/cards/*.jpg` (8) | Imagens dos cards do índice | Seis de `public/solutions-banners/` (site antigo); duas geradas, escolhidas pelo Ricardo em 15-09 |
+| `services/cards/*.jpg` (9) | Imagens dos cards do índice | Seis de `public/solutions-banners/` (site antigo); três geradas, escolhidas pelo Ricardo em 15-09 |
 
 Nada foi apagado. A `about-hero.jpeg` continua no repositório, ao lado da nova.
 
