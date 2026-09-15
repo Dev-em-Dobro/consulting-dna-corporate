@@ -5,7 +5,7 @@
 pacote que ela subiu no Drive em 15-09 respondendo a lista de pendências
 (`docs/meetings/MALIHA-ATUALIZACA0-15-09` e `docs/meetings/drive-download-*`).
 
-**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 11
+**Base:** `e6abb5b` · **Branch:** `feat/correcoes-maliha-14-09` · **Commits:** 16
 **Estado:** build limpo, `tsc` sem erros, 23 rotas verificadas em 200. **Sem deploy.**
 
 Os números entre parênteses são os itens da transcrição.
@@ -45,21 +45,11 @@ Os números entre parênteses são os itens da transcrição.
 | **Fonte** | O mockup que ela subiu no Drive às 12:19, durante a call (`docs/mockup-team-maliha-14-09-2026.png`). |
 | **Continua 3 por linha** | O "um card por linha" foi **sugestão do Guli** na call, não pedido dela — ela respondeu apontando para o próprio mockup, que é 3 por linha, e o `CDNA_04_Team.docx` escreve "portrait grid, three across". |
 
-Mudanças de grade que isso obrigou:
-
-| | Antes | Depois |
-|---|---|---|
-| Colunas | `sm:grid-cols-2 lg:grid-cols-3` | `sm:grid-cols-2 min-[1440px]:grid-cols-3` |
-| Vão vertical | `gap-y-14` (56px) | `gap-y-[72px]` |
-
-**Por que a virada é em 1440 e não em `lg`:** em três colunas de uma página de 1440 cada
-card tem 432px, que partidos em retrato + quote dão ≈210 e ≈222 — o mínimo em que a
-serifa ainda faz ~30 caracteres por linha. A 1024 a mesma conta dá ≈185px e o texto
-quebra em quatro palavras por linha. Abaixo de 1440 o card volta a ser empilhado, que é
-o desenho anterior.
-
-**O botão "+"** abre o perfil da pessoa em pop-up — ver §1.8, que é onde ele ganhou
-função de verdade.
+**O botão "+"** abre o perfil da pessoa em pop-up — ver §1.8.
+
+**Os vãos, os corpos e a grade deste card foram refeitos em 15-09** contra a referência
+`leadership.PNG`, que ela mandou depois — ver §1.9. A primeira versão estimou todos os
+números; a referência dá cada um deles.
 
 ### 1.3 O retrato do Nitin Goil (15-09)
 
@@ -181,6 +171,84 @@ mais alto da fileira estica os outros dois — que é o que o mockup mostra.
 > leadership that most people in this industry get wrong?"*, em até 200 caracteres. São
 > conteúdos diferentes, e o segundo continua sem existir — ver §8.5.
 
+### 1.9 A grade de liderança medida contra a referência
+
+Ela mandou depois um recorte só da seção (`leadership.PNG`). Os vãos e os corpos da
+primeira versão tinham sido **estimados**; a referência dá todos. Medidos em pixels nela e
+convertidos — ela tem 1009px de conteúdo contra os 1360 da página, escala **1,348**:
+
+| | ref | → real | estava |
+|---|---|---|---|
+| Vão entre pares | 19 | 26 | **32** |
+| Vão foto ↔ cartão | 11 | 15 | **0** (encostado) |
+| Vão entre fileiras | 27 | 36 | **72** (o dobro) |
+| Largura da foto | 167 | 225 | 208 |
+| Largura do cartão | 146 | 197 | 219 |
+| Entrelinha da quote | 19 | 26 | 24 |
+
+**Dois dos consertos são de estrutura, não de número:**
+
+- **A foto estica; não tem proporção fixa.** Na referência ela sai 167x167 na primeira
+  fileira e 167x154 na segunda — mesma largura, alturas diferentes. Quem manda na altura é
+  o **cartão de quote**, e a foto cresce até encostar nele: nas duas fileiras a diferença
+  entre cartão e foto é constante (61 e 60px), que é o bloco do nome. Com `aspect-[4/5]`
+  fixo a coluna da esquerda terminava antes e **o cartão rosa ficava pendurado abaixo do
+  nome** — era o desalinhamento visível na página.
+- **A proporção das colunas estava invertida.** A referência dá **1,14:1 a favor da foto**;
+  o código tinha 0,95:1 a favor do cartão.
+
+E o **vão de dentro do card é deliberadamente menor que o de fora** (11 contra 19): é ele
+que faz retrato e quote lerem como **um** card em vez de duas colunas soltas. Estava em
+zero.
+
+Tipografia: quote **15 → 16px** (a entrelinha de 26 da referência sai de 16px a 1,6) e
+nome **20 → 18px** — medida a altura de caixa alta do nome contra a do cargo, a razão é
+1,33, o que com o cargo em 14px dá ~19.
+
+#### Três por linha, e o retrato mais alto
+
+Dois pedidos seguintes, e o segundo explicou o primeiro.
+
+| | Antes | Depois |
+|---|---|---|
+| Limiar de 3 colunas | `min-[1440px]` | **`xl`** (1280) |
+| Retrato | `aspect-[4/5]` + `aspect-auto` + `min-h-[240px]` + `flex-1` | **`aspect-[3/4]` + `grow`** |
+
+**Por que 1280.** Em 1440 qualquer laptop de 1366 — que é onde a página vinha sendo
+revisada — caía em **duas** colunas. Com seis pessoas, três por linha é o que dá as duas
+fileiras pedidas. O que decide o limiar é a medida da quote, não o dispositivo:
+
+| Viewport | Caixa de texto da quote |
+|---|---|
+| 1280 | ~16 car/linha |
+| 1366 | ~18 car/linha |
+| 1440 | ~20 car/linha |
+| 1920 | ~29 car/linha |
+
+A referência anda em ~20, e as linhas dali são mesmo curtas ("Leadership isn't" / "about
+having"). Ou seja **1280 é estreito mas está dentro do desenho**; 1024 não está — ali a
+coluna cai para 11 caracteres, e abaixo de `xl` o card volta a ser empilhado.
+
+**Por que o retrato saía baixo, e é um bug da rodada anterior.** `flex-1` é
+`flex: 1 1 0%`, e a **base zero descarta a altura vinda da proporção** — a foto passava a
+ter só o que sobrasse da fileira depois do cartão de quote, o que a achatava nas fileiras
+de quote curta. Com **`grow`** a proporção volta a ser a base e o crescimento vem por cima
+dela. E se a proporção pedir mais que a fileira, quem cresce é a fileira, porque a altura
+de uma linha de grade é o maior dos dois lados — nunca há corte. O `min-h` em pixels sai
+junto: piso por proporção é o que se sustenta quando a largura muda.
+
+3:4 no lugar de 4:5 dá ~7% de altura na mesma largura, e vale nos dois regimes.
+
+> ⚠️ **A altura do card não bate com a referência, e não é layout.** As quotes do mockup
+> têm ~120 caracteres; as do `CDNA_04_Team.docx` têm de 140 (Mike) a 271 (Rhea). Na coluna
+> de 157px isso é a diferença entre 8 e 15 linhas — a fileira da Rhea sai em ~460px contra
+> os 228 da referência. As proporções agora são as dela; o volume de texto é nosso. Para
+> chegar à compacidade do desenho seria preciso quote mais curta, que é pedido de copy.
+
+> ⚠️ **Uma diferença que ficou de fora de propósito:** na referência o nome e a quote são
+> **sans-serif**; no site são serifa (Source Serif), que é a linguagem editorial adotada na
+> /about e aprovada pela Rhea. O pedido foi de espaçamento e corpo, não de família.
+
 ---
 
 ## 2. About
@@ -250,6 +318,40 @@ Duas coisas que essa troca **não** custou, e que custariam se feita ingenuament
 `WorldCoverageMap` logo acima. Um segundo mapa, do Leaflet, a 400px de distância, seria
 exatamente a duplicação que ela apontou na home. Sem ele, o Leaflet nem entra no bundle
 desta página.
+**E a caixa do endereço encolhia, puxando o rodapé.** Trocar de cidade mexia a página
+inteira — e como este bloco fecha a seção, o rodapé subia junto.
+
+A causa não era falta da reserva de altura: era o número dela estar velho. O
+`min-h-[128px]` menos os 32 do `pt-8` deixa **96px** de conteúdo, e quatro linhas a 15px
+com entrelinha 1,7 medem **102**. Londres, Singapura, Dubai e Riade *estouravam* a reserva
+e a caixa crescia; Miami — duas linhas, sem telefone — cabia dentro dela.
+
+⚠️ **E o número não pode ser fixo**, que é por que 128 envelheceu: o bloco roda com três
+conjuntos diferentes. A /about passa a lista do documento do cliente (Riade com três
+linhas, Riade e Miami sem telefone) e liga o e-mail; a /our-clients e a /home-v3 passam
+`lib/offices.ts` e não ligam. Um literal serve a um dos três — e de fato **as outras duas
+também pulavam**, porque 3 linhas + telefone dão 106 contra os mesmos 96.
+
+Agora a altura é **medida a partir da lista recebida**, pelo pior caso dela: linhas de
+endereço x 25,5 + telefone (se alguma cidade tiver) + e-mail (se ligado), mais os 32 do
+padding.
+
+| | Reservado |
+|---|---|
+| `/about` | **168px** |
+| `/our-clients`, `/home-v3` | **138px** |
+| antes | 128px para as três |
+
+O pior caso é a **combinação**, não a cidade mais alta: reserva-se o máximo de linhas
+*mais* telefone *mais* e-mail, ainda que hoje nenhuma cidade tenha as três coisas. É o que
+garante que preencher os telefones que faltam — os de Dubai e Riade estão pendentes com o
+cliente — não volte a fazer a página pular.
+
+> ⚠️ A conta pressupõe que nada quebra em duas linhas. Conferido nos dados de hoje: a linha
+> mais longa mede ~285px e o e-mail mais longo ~248px, contra 342px de coluna no telefone
+> mais estreito. Um endereço novo bem mais longo que isso reabre o problema, e está anotado
+> no código.
+
 
 ### 2.4 A foto do time (item 5 de 15-09)
 
@@ -452,21 +554,35 @@ ganhar, e continua rodando na /our-clients.
 | **Como ficou** | A marca completa, com o círculo vermelho e a hélice à esquerda do letreiro. Branco transparente nas barras (`cdna-logo-full-light.png`), vermelho sobre branco no rodapé (`cdna-logo-full.png`). |
 | **Fonte** | *"Company logo — to replace the placeholder at the top."* O "placeholder" era o letreiro sozinho. |
 
-**A altura mudou nas barras: `h-12` → `h-10 xl:h-12`.** A marca completa é 2,5:1 contra
-1,39:1 do letreiro, ou seja ocupa mais **largura** na mesma altura, e a barra tem
-orçamento apertado a 1024, onde o menu de desktop começa. Com o `md:px-10` da faixa:
-
-```
-1024 − 80 de padding   = 944 de container
-944 − logo − 24 de vão = espaço livre para o menu
-menu da NavV2 = 748px (+ ~18px da seta do Services quando o CMS responde)
-
-h-12 (48px) → logo de 120px → sobram 800. Folga: 34px.
-h-10 (40px) → logo de 100px → sobram 820. Folga: 54px.
-```
-
-Os 34px do `h-12` cabem, mas é a folga inteira do layout apostada num logo. De `xl` para
-cima há 256px a mais e ele cresce.
+**A altura foi ajustada duas vezes.** A marca completa é 2,5:1 contra 1,39:1 do letreiro,
+ou seja ocupa mais **largura** na mesma altura — manter a altura de antes deixou o
+cabeçalho pesado, e ela baixou a pedido:
+
+| | Original | 1ª versão | Agora |
+|---|---|---|---|
+| Barras | `h-12` | `h-10 xl:h-12` | **`h-8 xl:h-10`** |
+| Rodapé | `h-16` | `h-16` | **`h-12`** |
+
+Em `h-8` a pegada do logo é de **80px**, 13px a mais que os 67px do letreiro antigo em
+`h-12` — o cabeçalho volta a ter praticamente o mesmo peso de antes, agora com o símbolo.
+No rodapé a marca cai de 160 para **120px**.
+
+E devolve folga ao menu. Com o `md:px-10` da faixa, a 1024 — onde o menu de desktop começa:
+
+```
+1024 − 80 de padding   = 944 de container
+944 − logo − 24 de vão = espaço livre para o menu
+menu da NavV2 = 748px (+ ~18px da seta do Services quando o CMS responde)
+
+h-12 (48px) → logo de 120px → sobram 800. Folga: 34px.
+h-10 (40px) → logo de 100px → sobram 820. Folga: 54px.
+h-8  (32px) → logo de  80px → sobram 840. Folga: 74px.
+```
+
+> ⚠️ **E este é o limite de quanto dá para encolher.** A altura do letreiro cai junto com a
+> do símbolo, e "consulting" já é a linha mais fina da marca: a 32px ela fica em ~3px de
+> altura de letra — legível como forma, não como palavra. Abaixo disso o honesto é usar só
+> o símbolo (o `CDNA LOGO SYMBOL` do pacote é 1:1), não encolher a marca inteira.
 
 > ⏳ **É PNG porque foi PNG que ela mandou** — não há vetor no pacote. Header é o lugar
 > onde vetor mais se paga; vale pedir o `.ai`/`.svg`.
