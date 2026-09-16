@@ -7,7 +7,7 @@ import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
 import teamStanding from "@/public/team/team-standing.jpg";
-import teamHero from "@/public/team/team-stairs-landscape.jpg";
+import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
@@ -121,9 +121,17 @@ export default async function OurTeamPage() {
             (por que `none`, por que o `brightness` não é enfeite) mora agora nas
             props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
         {/* ✅ HERÓI TROCADO EM 16-09 pela foto do time na escada EM LANDSCAPE
-            (`team-stairs-landscape.jpg`, 2400x1600) — a que o Guli ficou de
-            entregar na daily, e a primeira fotografia desta página com largura
-            de dobra de verdade.
+            (2400x1600) — a que o Guli ficou de entregar na daily, e a primeira
+            fotografia desta página com largura de dobra de verdade.
+
+            ⚠️ SEGUNDA VERSÃO NO MESMO DIA: `…-landscape-six.jpg`, o retoque com
+            a pessoa do canto superior direito removida. Ficam SEIS na escada.
+
+            O ARQUIVO GANHOU NOME NOVO EM VEZ DE SER SOBRESCRITO, mesma decisão
+            da foto da Heineken em 15-09: o `next/image` serve a imagem otimizada
+            por uma URL derivada do caminho, e o CDN guarda aquela URL. Trocar o
+            conteúdo mantendo o nome entrega a foto antiga por tempo indefinido —
+            e é o tipo de defeito que só aparece no celular de quem já visitou.
 
             O PNG DE ORIGEM TEM 4,1 MB e virou JPEG q90 de 540 KB numa única
             compressão (`sharp`, mozjpeg), mesmo caminho do `skyline-dna.jpg`.
