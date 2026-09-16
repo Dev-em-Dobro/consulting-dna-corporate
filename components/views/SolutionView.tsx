@@ -10,26 +10,39 @@ import { paragraphs, services, type Service } from "@/lib/services";
 /**
  * O template de página de serviço — "one template, ten instances".
  *
- * A ORDEM MUDOU EM 15-09, a pedido. Era a do outline de 09-09 (§3.2) — hero,
- * outcome, how we help, evidência, citação, convite. Agora é:
+ * A ORDEM É A DO TEMPLATE DELA, e hoje é esta:
  *
  *   1. Hero            — nome, banner statement, imagem
  *   2. Impact          — o que muda no negócio      (era "The Outcome")
  *   3. How we help     — a intervenção              (era "How CDNA Helps")
- *   4. Let's talk      — o convite, POR SERVIÇO
+ *   4. Pilares         — os termos da frase acima, com ícone
  *   5. Evidence        — o caso-carro-chefe, seus números e a citação
- *   6. Related services — quatro cards, do template dela
+ *   6. Let's talk      — o convite, POR SERVIÇO
+ *   7. Related services — quatro cards, do template dela
+ *
+ * ⚠️ O CONVITE VOLTOU PARA O FIM EM 16-09, E ISSO DESFAZ UM PEDIDO DELA DE
+ * 15-09 — leia isto antes de "corrigir" a ordem de volta. Em 15-09 ela pediu o
+ * convite ANTES da evidência, e a leitura virou "o que muda / como fazemos /
+ * vamos conversar", com o caso e a citação como prova para quem não fechou ali.
+ * O template que ela mesma mandou (`4. Services/ExCo Leadership Services
+ * Page.png`) fecha com evidência → CTA, e a decisão da call de 16-09 foi seguir
+ * o template. Ou seja: a ata de 15-09 continua dizendo o contrário desta ordem,
+ * de propósito — quem a ler daqui a um mês não está diante de uma regressão,
+ * está diante de uma decisão posterior. A NOSSA, de 16-09, contra o pedido dela
+ * de 15-09 e a favor do desenho dela de 15-09.
+ *
+ * O QUE A VOLTA FAZ COM A LEITURA: o convite é de novo o fim da página, e chega
+ * depois da prova em vez de antes dela — "o que muda / como fazemos / deu certo
+ * aqui / vamos conversar". A faixa vermelha volta a ser o clímax de cor, logo
+ * depois da faixa escura da evidência.
  *
  * ⚠️ O BLOCO 6 DO OUTLINE (Testimonial) DEIXOU DE SER SEÇÃO EM 16-09: a citação
  * virou a terceira coluna da faixa de evidência, ao lado da prova a que se
  * refere, como no template dela. O porquê está na caixa da prop `testimonial`
  * em `SolutionEvidence`.
  *
- * O QUE A TROCA FAZ COM A LEITURA: o convite deixa de ser o fim da página e
- * passa a fechar o par de blocos de texto — "o que muda / como fazemos / vamos
- * conversar". O caso e a citação viram a prova que vem DEPOIS do convite, para
- * quem não fechou ali. Os dois rótulos encurtaram junto, seguindo os cabeçalhos
- * da planilha dela ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP").
+ * Os dois rótulos encurtaram em 15-09, seguindo os cabeçalhos da planilha dela
+ * ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP").
  *
  * O CONTEÚDO VEM DE `lib/services.ts`, não do CMS — o porquê está na caixa de
  * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos 4, 5 e 6
@@ -90,14 +103,29 @@ export default function SolutionView({ service }: { service: Service }) {
           nome antigo continua ocupando duas linhas no painel, e o corpo menor só
           reduz a folga que teria para caber.
 
-          ⚠️ OS PAINÉIS TROCARAM DE COR, e isso é consequência da nova ordem, não
-          gosto. A regra registrada no `SolutionSection` é que dois painéis da
-          mesma cor não podem antecipar a faixa que vem depois. Antes o CTA
-          (`bg-brand`) fechava a página, então o `brand` podia ficar no segundo
-          painel. Agora o CTA subiu e vem LOGO DEPOIS deste bloco: manter o
-          painel vermelho aqui encostaria vermelho em vermelho. O `ink` passa
-          para cá e o `brand` sobe para o Impact, onde fica separado da faixa
-          por uma seção inteira. */}
+          ⚠️ OS PAINÉIS NÃO VOLTARAM AO QUE ERAM QUANDO O CTA FECHAVA A PÁGINA, e
+          a distribuição de hoje (`brand` no Impact, `ink` aqui) é agora uma
+          escolha própria, não mais a consequência mecânica da ordem de 15-09.
+          Isto foi REAVALIADO em 16-09, quando o CTA desceu de novo.
+
+          A SEQUÊNCIA DE FUNDOS COM A ORDEM DE HOJE: herói `ink` → branco
+          (Impact, painel `brand`) → paper (How we help, painel `ink`) → paper
+          (pilares) → `ink` (evidência) → `brand` (CTA) → branco (related).
+
+          A regra do `SolutionSection` é que painel nenhum pode antecipar a faixa
+          que vem depois. As duas distribuições possíveis violam alguma coisa, e
+          a pergunta é qual violação custa menos:
+
+            • Trocar (ink no Impact) põe painel escuro ENCOSTADO no herói, que é
+              `bg-ink` com foto escurecida. Escuro contra escuro, distância
+              zero, logo na primeira dobra.
+            • Manter (ink aqui) põe o painel escuro uma faixa acima da evidência
+              — separado pelos pilares, que são `paper`, e por uma troca de
+              seção. O painel ocupa 44% da largura; a evidência é faixa cheia.
+
+          Fica como está. O `brand` do Impact e o `brand` do CTA ficam a três
+          blocos um do outro, que é a maior distância que esta página permite, e
+          o par lê como pinça de abertura e fecho em vez de repetição. */}
       <SolutionSection
         label="Impact"
         html={paragraphs(service.outcome)}
@@ -115,17 +143,6 @@ export default function SolutionView({ service }: { service: Service }) {
       />
 
       <SolutionPillars items={service.pillars} />
-
-      {/* ⚠️ O CONVITE SUBIU, 15-09, a pedido: ele vinha por último e agora fecha
-          o par de blocos de texto, antes da evidência. A leitura passa a ser
-          "o que muda / como fazemos / vamos conversar", e o caso e a citação
-          ficam como a prova que vem DEPOIS do convite, para quem não fechou
-          ali. */}
-      <SolutionCta
-        strapline={service.cta.strapline}
-        line={service.cta.line}
-        ctaLabel={service.cta.label}
-      />
 
       {/* ⚠️ A CITAÇÃO AGORA DEPENDE DA EVIDÊNCIA. Ela é a terceira coluna desta
           faixa desde 16-09, então serviço com citação e sem evidência não
@@ -146,6 +163,19 @@ export default function SolutionView({ service }: { service: Service }) {
           imageUrl={service.evidence.image}
         />
       )}
+
+      {/* ⚠️ O CONVITE VOLTOU PARA CÁ EM 16-09, DESFAZENDO O PEDIDO DE 15-09 que
+          o tinha subido para antes da evidência — o porquê inteiro está na caixa
+          de abertura deste arquivo, e vale ler antes de mover isto de novo. Em
+          resumo: o pedido de 15-09 era dela, o template de 15-09 também é dela e
+          fecha com evidência → CTA, e a call de 16-09 escolheu o template. Nos
+          cinco serviços sem evidência o CTA continua vindo logo depois dos
+          pilares, como antes. */}
+      <SolutionCta
+        strapline={service.cta.strapline}
+        line={service.cta.line}
+        ctaLabel={service.cta.label}
+      />
 
       {/* ✅ "RELATED SERVICES" VOLTOU EM 15-09, e voltou pelo caminho que a nota
           anterior exigia: como PEDIDO do cliente, não como decisão nossa.
@@ -185,9 +215,10 @@ export default function SolutionView({ service }: { service: Service }) {
       {/* ⚠️ BRANCO DESDE 15-09, e era `paper`. Na ordem daquele dia este bloco
           vinha logo depois da faixa de citação, que também era `paper` — duas
           faixas cinzas encostadas viram uma massa só e o corte entre os assuntos
-          some. Desde 16-09 a citação não é mais faixa, então o vizinho de cima é
-          sempre a evidência (`ink`) ou o CTA vermelho, e o branco continua sendo
-          o degrau certo contra os dois. */}
+          some. Desde 16-09 a citação não é mais faixa e o CTA voltou a ser o
+          último bloco antes daqui, então o vizinho de cima é SEMPRE o vermelho —
+          nas dez páginas, com ou sem evidência. O branco continua sendo o degrau
+          certo contra ele. */}
       <section className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">

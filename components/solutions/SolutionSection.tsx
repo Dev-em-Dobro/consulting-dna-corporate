@@ -74,12 +74,19 @@ export default function SolutionSection({
   /**
    * A cor do painel quando NÃO há foto. Ignorado quando há.
    *
-   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço fecha em
-   * `bg-brand` (o `SolutionCta`) e tem a evidência em `bg-ink`. Dois painéis da
-   * mesma cor aqui ou anulam a diferença entre os blocos, ou antecipam uma
-   * faixa que vem depois. Por isso o Outcome vai de `ink` e o How We Help de
-   * `brand`: o escuro antes do vermelho constrói na direção do convite final,
-   * em vez de repeti-lo antes da hora.
+   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço abre no herói
+   * `bg-ink`, tem a evidência em `bg-ink` e fecha em `bg-brand` (o
+   * `SolutionCta`). Dois painéis da mesma cor aqui ou anulam a diferença entre
+   * os blocos, ou antecipam uma faixa que vem depois.
+   *
+   * ⚠️ A DISTRIBUIÇÃO DE HOJE É `brand` NO IMPACT E `ink` NO HOW WE HELP — o
+   * INVERSO do que esta caixa dizia até 16-09, e o inverso importa porque a
+   * frase antiga ("o Outcome vai de `ink` e o How We Help de `brand`") já estava
+   * falsa desde 15-09. O vermelho fica no primeiro painel porque o segundo
+   * encosta no herói escuro se for `ink`; o escuro fica no segundo porque de lá
+   * ele ainda tem os pilares (`paper`) entre si e a faixa escura da evidência. O
+   * raciocínio completo, com a sequência de fundos inteira e a alternativa
+   * descartada, está na caixa do bloco Impact em `SolutionView`.
    */
   panelTone?: "ink" | "brand";
 }) {
