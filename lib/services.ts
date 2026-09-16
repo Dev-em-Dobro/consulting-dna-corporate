@@ -240,6 +240,18 @@ export const services: Service[] = [
       image: "/services/evidence/heineken-top-150.PLACEHOLDER.jpg",
       caseSlug: "heineken",
     },
+    /* ⏳ PLACEHOLDER DA PRÓPRIA MOCKUP — NÃO PODE IR PARA PRODUÇÃO ASSIM.
+       Não existe citação do Top 150 em documento nenhum da cliente, e o template
+       que ela mandou assume isso: no lugar do depoimento, o mockup escreve, em
+       letra, "A quote from Dolf to be confirmed." com a atribuição "Name, Title
+       / HEINEKEN". É esse texto, literal — inventar uma frase de cliente para
+       preencher a coluna seria pôr palavra na boca da HEINEKEN, e usar o
+       placeholder que ela mesma desenhou é auto-evidente para quem revisar.
+       Quando a frase real do Dolf chegar, é trocar as duas linhas abaixo. */
+    testimonial: {
+      quote: "A quote from Dolf to be confirmed.",
+      attribution: "Name, Title — HEINEKEN",
+    },
   },
   {
     slug: "culture-transformation",

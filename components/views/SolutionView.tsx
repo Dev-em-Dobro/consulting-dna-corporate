@@ -146,9 +146,10 @@ export default function SolutionView({ service }: { service: Service }) {
 
       {/* ⚠️ A CITAÇÃO AGORA DEPENDE DA EVIDÊNCIA. Ela é a terceira coluna desta
           faixa desde 16-09, então serviço com citação e sem evidência não
-          mostraria a citação. Hoje não existe esse caso — o único com citação
-          (Executive Coaching) também tem evidência —, e o dia em que existir, a
-          decisão é dar a ele um bloco de evidência ou devolver a faixa própria. */}
+          mostraria a citação. Hoje não existe esse caso — os dois com citação
+          (Executive Coaching e Top 150) também têm evidência —, e o dia em que
+          existir, a decisão é dar a ele um bloco de evidência ou devolver a
+          faixa própria. */}
       {service.evidence && (
         <SolutionEvidence
           caseSlug={service.evidence.caseSlug}

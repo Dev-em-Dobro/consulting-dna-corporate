@@ -74,16 +74,18 @@ export default function SolutionEvidence({
   facts?: ServiceFact[];
   /**
    * A citação do cliente — TERCEIRA COLUNA desta faixa desde 16-09, e não mais
-   * seção própria. Ela existe em um dos dez serviços, e uma faixa inteira para
-   * um caso em dez é uma seção que nove páginas mostram vazia ou pulam. No
+   * seção própria. Ela existe em dois dos dez serviços, e uma faixa inteira para
+   * dois casos em dez é uma seção que oito páginas mostram vazia ou pulam. No
    * template dela a citação mora aqui, ao lado da prova a que se refere.
    *
-   * ⏳ NOVE DOS DEZ NÃO TÊM CITAÇÃO, e o outline diz por quê: "Nine of the ten
+   * ⏳ SÓ UMA DAS DUAS É PUBLICÁVEL. O outline diz por quê: "Nine of the ten
    * have no publishable testimonial. Four have one identified but not chosen:
    * adidas, GSK Mexico, Heineken and Vodafone. Only Executive Coaching has text
-   * that can ship." Escolher aquelas quatro frases é pendência de CONTEÚDO do
-   * cliente — o trabalho mais barato que mais muda estas páginas —, e esta é a
-   * única lista delas no componente.
+   * that can ship." A segunda citação, a do Top 150, é o PLACEHOLDER DO MOCKUP
+   * ("A quote from Dolf to be confirmed.") e está marcada como tal no dado —
+   * ver a caixa dela em `lib/services.ts`. Escolher as quatro frases que faltam
+   * é pendência de CONTEÚDO do cliente — o trabalho mais barato que mais muda
+   * estas páginas —, e esta é a única lista delas no componente.
    */
   testimonial?: ServiceTestimonial;
   /** A capa do caso, quando existe. Sem ela a faixa fica sem a coluna do meio. */
