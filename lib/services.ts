@@ -229,14 +229,20 @@ export const services: Service[] = [
         { value: "18", label: "months" },
         { value: "Enterprise wide", label: "self and peer to peer leadership" },
       ],
-      /* ⏳ RECORTE DO MOCKUP DELA, e provisório de propósito — o "PLACEHOLDER"
-         está no nome do arquivo para que ninguém o confunda com asset entregue.
-         A imagem foi cortada de `4. Services/ExCo Leadership Services Page.png`
-         (a placa da HEINEKEN na coluna do meio da faixa de evidência) e entrou
-         a pedido interno em 16-09, para a faixa de três colunas poder ser
-         avaliada com conteúdo em vez de com um buraco. SAI no dia em que a
-         cliente mandar a foto de verdade, pedida na daily de 16-09 — é trocar
-         este caminho e apagar esta caixa. */
+      /* ⏳ FOTO PROVISÓRIA, e o "PLACEHOLDER" está no nome do arquivo para que
+         ninguém a confunda com asset entregue pela cliente.
+
+         DUAS TROCAS NO MESMO DIA, e o registro importa porque a primeira versão
+         desta caixa descrevia a outra: entrou como recorte do mockup dela
+         (`4. Services/ExCo Leadership Services Page.png`), e algumas horas
+         depois foi substituída por uma fotografia da placa da HEINEKEN, vinda do
+         nosso lado. A segunda é 2:1 numa caixa 4:5, e é por isso que o
+         `object-right` existe em `SolutionEvidence` — ver a caixa de lá.
+
+         SAI no dia em que a cliente mandar a foto de verdade, pedida na daily de
+         16-09: é trocar este caminho e apagar esta caixa. ⚠️ TROCAR O NOME DO
+         ARQUIVO JUNTO — o otimizador do Next serve por URL e já entregou versão
+         velha uma vez hoje, por causa disso. */
       image: "/services/evidence/heineken-sign.PLACEHOLDER.jpg",
       caseSlug: "heineken",
     },
