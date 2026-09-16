@@ -35,6 +35,12 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
+  // "tests" fica fora do typecheck do build: o `include` acima é `**/*.ts`, e
+  // `tests/services.test.ts` importa com extensão explícita
+  // (`../lib/services.ts`) porque o Node exige e o TS só aceita essa sintaxe
+  // com `allowImportingTsExtensions` — sem este exclude, `next build` reprova.
+  // Efeito colateral real: os testes deixam de ser type-checked pelo `tsc`, e
+  // um erro de tipo neles só aparece em runtime, ao rodar `npm test`.
   "exclude": [
     "node_modules",
     "tests"

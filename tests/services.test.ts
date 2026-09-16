@@ -49,7 +49,31 @@ test("pillars: 4 a 6 termos por serviço, sem vazio e sem ponto final", () => {
     for (const p of pillars) {
       assert.ok(p.trim().length > 0, `${s.slug}: pilar vazio`);
       assert.ok(!p.endsWith("."), `${s.slug}: "${p}" termina em ponto`);
-      assert.equal(p[0], p[0].toUpperCase(), `${s.slug}: "${p}" não começa maiúsculo`);
+      assert.match(p, /^[A-Z]/, `${s.slug}: "${p}" não começa maiúsculo`);
     }
   }
+});
+
+test("nenhum asterisco vaza para o HTML dos vinte campos", () => {
+  for (const s of services) {
+    for (const [field, text] of [
+      ["outcome", s.outcome],
+      ["howWeHelp", s.howWeHelp],
+    ] as const) {
+      assert.ok(
+        !paragraphs(text).includes("*"),
+        `${s.slug}.${field}: asterisco vazou para o HTML`,
+      );
+    }
+  }
+});
+
+test("ênfase aninhada corrompe em silêncio (comportamento conhecido, não suportado)", () => {
+  // Número par de `**` (quatro), então o teste de paridade acima aprovaria — e
+  // mesmo assim o resultado sai errado: o regex não guloso casa do primeiro par
+  // de `**` ao segundo, sem noção de aninhamento.
+  assert.equal(
+    paragraphs("**a **b** c**"),
+    "<p><strong>a </strong>b<strong> c</strong></p>",
+  );
 });

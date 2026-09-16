@@ -113,13 +113,25 @@ export type Service = {
   title: string;
   /** A "banner statement" do outline: uma frase, no herói, sob o nome. */
   banner: string;
-  /** Bloco 2 — The Outcome. O que muda no negócio. */
+  /**
+   * Bloco 2 — The Outcome. O que muda no negócio.
+   *
+   * O `**…**` é o negrito que a cliente marcou na planilha (`WEBSITE SERVICE
+   * COPY.xlsx`) — na renderização vira `<strong>`, ver `paragraphs()`.
+   */
   outcome: string;
-  /** Bloco 3 — How CorporateDNA Helps. A intervenção. */
+  /**
+   * Bloco 3 — How CorporateDNA Helps. A intervenção.
+   *
+   * Mesma regra do `outcome`: `**…**` é o negrito da planilha da cliente e vira
+   * `<strong>` na renderização, ver `paragraphs()`.
+   */
   howWeHelp: string;
   /**
    * Os termos da frase de "what CDNA does to help", promovidos a rótulo — o que
-   * o template dela mostra como cinco cartões com ícone sob aquele bloco.
+   * o template dela mostra como cartões com ícone sob aquele bloco. CINCO é o
+   * que o mockup do ExCo mostra; o número real por serviço é o da própria frase
+   * (de quatro a seis, ver o teste de `pillars`), não uma contagem fixa.
    *
    * ⚠️ SÃO PALAVRAS DELA, e a regra é essa: cada item aparece literalmente na
    * frase logo acima, na mesma ordem em que ela os escreveu. O mockup põe uma
@@ -507,9 +519,21 @@ export function paragraphs(text: string): string {
         .replace(/>/g, "&gt;")
         /* A ÊNFASE ENTRA DEPOIS DO ESCAPE, e a ordem não é gosto: invertida, o
            `<strong>` que acabamos de inserir seria escapado e sairia como texto
-           na tela. O par `**…**` é a marcação da planilha dela — ver a caixa do
-           campo `outcome` — e asterisco sem par fica visível de propósito, para
-           aparecer na revisão em vez de sumir. */
+           na tela. O par `**…**` é a marcação da planilha dela — documentado no
+           JSDoc de `outcome` e `howWeHelp`, em `Service` — e asterisco sem par
+           fica visível de propósito, para aparecer na revisão em vez de sumir.
+
+           NÃO SUPORTA ANINHAMENTO: "**a **b** c**" tem número par de `**` (o
+           teste de paridade não pega isso) e ainda assim corrompe — o regex é
+           não guloso e casa do primeiro par ao segundo, produzindo
+           "<strong>a </strong>b<strong> c</strong>". Não existe hoje nos dez
+           serviços; quem protege contra isso no futuro é o teste "nenhum
+           asterisco vaza para o HTML", que roda o dado real por esta função.
+
+           `.` NÃO CASA `\n`: ênfase que atravesse uma quebra de linha simples
+           sai com os `**` crus na tela — falha visível, não silenciosa, e por
+           isso aceita. Relevante porque `serviceFromSolutionVM` converte
+           `<br>` em `\n` antes de chegar aqui. */
         .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"),
     )
     .map((p) => `<p>${p}</p>`)
