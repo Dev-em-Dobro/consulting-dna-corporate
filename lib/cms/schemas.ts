@@ -30,6 +30,17 @@ export const resourceRef = z
   })
   .passthrough();
 
+/**
+ * One figure of a case's evidence band: the number and what it measures, kept
+ * apart so the page can set them in different sizes and colours. `value` is
+ * optional because not every cell the client writes is a number — "Radical
+ * Candour: a new level of healthy challenge" is a finding, not a metric, and
+ * arrives with the label alone.
+ */
+export const figure = z
+  .object({ value: z.string().optional(), label: z.string().optional() })
+  .passthrough();
+
 /** Fields common to every list item. */
 const listItemBase = {
   id: z.string(),
@@ -105,6 +116,34 @@ export const caseData = z
     reach: z.string().optional(),
     intervention: z.string().optional(),
     impact: z.string().optional(),
+    // ---- The 16-09 story model -------------------------------------------
+    // The fields the client's own `CaseStudiesv1.xlsx` authors, one per column
+    // of the case layout she sent (the adidas page). They sit ALONGSIDE the
+    // header band above rather than replacing it: `impact`/`participants` stay
+    // the band's cells, while `impactFigures`/`scaleFigures` carry the same
+    // numbers split into value + label so the page can render the figure large
+    // and in brand red, which a single string cannot express.
+    /** The section titles — "01 The challenge" leads with this, not the body. */
+    challengeHeadline: z.string().optional(),
+    approachHeadline: z.string().optional(),
+    outcomeHeadline: z.string().optional(),
+    /** The line the story closes on, under "What changed". */
+    closingThought: z.string().optional(),
+    /** Eyebrow of the case hero: markets/geography · years of partnership. */
+    markets: z.string().optional(),
+    partnershipYears: z.string().optional(),
+    /** The service this case evidences — a `lib/services.ts` title. */
+    serviceLabel: z.string().optional(),
+    /** That service's banner statement, carried for the related-cases rail. */
+    bannerStatement: z.string().optional(),
+    /** Outcome figures, rendered red. `value` is blank when the cell is prose. */
+    impactFigures: z.array(figure).optional(),
+    /** Scale of the engagement, rendered charcoal. Plain strings. */
+    scaleFigures: z.array(z.string()).optional(),
+    /** The CorporateDNA services chipped under "What we did". */
+    services: z.array(z.string()).optional(),
+    /** Anything the client attached that has no slot of its own yet. */
+    additionalContent: z.string().optional(),
     // Autoplay-muted showcase video (YouTube link or direct file).
     mutedVideoUrl: z.string().url().optional(),
     // Legacy model (kept so older cases keep rendering).

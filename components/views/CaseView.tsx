@@ -2,7 +2,30 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
 import ResourceDownloads from "@/components/ResourceDownloads";
-import type { CaseArticle } from "@/lib/cms/map";
+import CaseStory from "@/components/cases/CaseStory";
+import type { CaseArticle, CaseListEntry } from "@/lib/cms/map";
+
+/**
+ * O case tem o modelo de conteúdo de 16-09?
+ *
+ * A pergunta não é "tem challenge?" — os cases antigos também têm, herdados do
+ * modelo legado. O que separa os dois é o que só a planilha da cliente escreve:
+ * manchete por seção, figuras separadas em impacto e escala, fecho. Basta UM
+ * desses para a página nova valer a pena, porque o layout dela degrada bem (cada
+ * bloco some sozinho quando não tem conteúdo) e o antigo não tem onde pôr nada
+ * disso.
+ */
+export function hasStoryModel(c: CaseArticle): boolean {
+  const s = c.story;
+  return Boolean(
+    s.challengeHeadline ||
+      s.approachHeadline ||
+      s.outcomeHeadline ||
+      s.closingThought ||
+      s.impactFigures.length ||
+      s.scaleFigures.length,
+  );
+}
 
 /** Extract the 11-char YouTube id from any common YouTube URL shape. */
 function youTubeId(url: string): string | null {
@@ -46,8 +69,26 @@ function MutedVideo({ url, title }: { url: string; title: string }) {
   );
 }
 
-/** Detail body for a case study. Shared by the live page and the preview route. */
-export default function CaseView({ c }: { c: CaseArticle }) {
+/**
+ * Detail body for a case study. Shared by the live page and the preview route.
+ *
+ * ⚠️ VIROU UM DESVIO EM 16-09. Os nove cases aprovados pela cliente naquele dia
+ * têm o modelo de conteúdo do template da adidas e são renderizados pela
+ * `CaseStory`. Os seis antigos continuam exatamente como estavam — corpo em
+ * rich text, faixa de fatos, citação escura. Os dois layouts convivem porque os
+ * dois conteúdos convivem no CMS; quando os antigos forem reescritos no modelo
+ * novo, este desvio e tudo abaixo dele saem juntos.
+ */
+export default function CaseView({
+  c,
+  related = [],
+}: {
+  c: CaseArticle;
+  /** Outros cases para o bloco 05 do layout novo. O preview não tem. */
+  related?: CaseListEntry[];
+}) {
+  if (hasStoryModel(c)) return <CaseStory c={c} related={related} />;
+
   // Legacy structured sections — only used when a case has no single `text` body.
   const legacyBody = [
     { label: "Challenge", value: c.body.challenge },

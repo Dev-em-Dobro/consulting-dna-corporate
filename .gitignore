@@ -83,3 +83,11 @@ docs/meetings/drive-download-*/
 # a regra docs/emails/ acima mantém fora do GitHub — só que num arquivo só.
 # Ler localmente.
 docs/emails-cdna-thread.md
+
+# O pacote do drive da Maliha de 16-09 — a mesma pasta de sempre, agora com o
+# nome que ela usa no Drive ("CDNA — Photographs for the new website"), mais o
+# .zip do download. São 51 MB de originais do cliente (HEIC, PNGs de 2 MB,
+# .docx), e valem a mesma regra do `docs/meetings/drive-download-*`: o que é
+# útil entra processado em `public/`, e a planilha vira JSON versionado por
+# `scripts/cases-xlsx-to-json.py`.
+docs/meetings/CDNA*Photographs*
