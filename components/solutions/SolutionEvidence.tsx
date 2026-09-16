@@ -5,8 +5,15 @@ import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
 
 /**
- * Bloco 4 do outline — Evidence. Uma faixa escura em até três colunas: o caso
+ * Bloco 4 do outline — Evidence. Uma faixa clara em até três colunas: o caso
  * com seus números, a foto e a citação do cliente.
+ *
+ * ⚠️ A FAIXA ERA ESCURA E FICOU BRANCA em 16-09, a pedido, e é assim que o
+ * template dela desenha. A troca não é só de `bg`: o vermelho do número passou
+ * de `brand-light` para `brand` cheio pela regra do `globals.css` (claro →
+ * `brand`, escuro → `brand-light`), e texto e réguas trocaram de `white/xx` para
+ * `ink`/`muted`. Se um dia ela voltar a ser escura, os dois lados têm de voltar
+ * juntos — meia volta deixa vermelho ilegível.
  *
  * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
  * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
@@ -131,14 +138,14 @@ export default function SolutionEvidence({
     :                      ["lg:col-span-12", "", ""];
 
   return (
-    <section className="bg-ink text-white">
+    <section className="bg-white text-ink">
       {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
           colunas — e a grade entra como UM bloco, não coluna a coluna: os
           números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
           um deles a primazia de chegar primeiro, que é a hierarquia que aquela
           decisão desfez. */}
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
+        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
           Evidence
         </p>
 
@@ -149,7 +156,7 @@ export default function SolutionEvidence({
                 ideia nova: os arquivos de `public/logos/` são as marcas em cores
                 originais para fundo claro, e sobre escuro exigiriam uma plaqueta
                 branca — um retângulo claro competindo com o resto da faixa. */}
-            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
+            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-ink md:text-[38px]">
               {caseTitle ?? "The flagship client story"}
             </h2>
 
@@ -157,7 +164,7 @@ export default function SolutionEvidence({
                 Nos cinco serviços com evidência ele existe; no caminho do CMS,
                 não, e aí o bloco vai direto do título para os números. */}
             {body && (
-              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-white/80 md:text-[18px]">
+              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]">
                 {body}
               </p>
             )}
@@ -167,28 +174,37 @@ export default function SolutionEvidence({
                 5/12 as caixas ficariam estreitas demais para o valor e o rótulo.
                 O template dela mostra os números em linha, separados por régua.
 
-                ⚠️ O VERMELHO É O `brand-light`, E A MEDIDA NÃO SE REPETE AQUI.
-                O fundo desta faixa é `ink` puro (#373234) desde que o cartão
-                deixou de existir, que é exatamente o caso já calculado na caixa
-                de `--color-brand-light` em `app/globals.css` — `brand` reprova
-                sobre `ink`, `brand-light` passa no AA. Os números moram lá, e
-                copiá-los para cá é o defeito que esta rodada veio consertar:
-                numeral duplicado fora da fonte envelhece em silêncio, e esta
-                caixa já carregava um par ANTIGO (medido sobre o preenchimento do
-                cartão, ~#3c3739) ao lado do par certo.
+                ⚠️ O VERMELHO É O `brand` CHEIO DESDE 16-09, e a troca veio junto
+                com o fundo. Esta faixa era `ink` e passou a ser BRANCA a pedido;
+                a regra que decide o token está na caixa de `--color-brand-light`
+                em `app/globals.css` e é de uma linha: **`brand` em fundo claro,
+                `brand-light` em fundo escuro**. Inverter isso aqui reprovaria —
+                `brand-light` sobre branco é o mesmo erro que `brand` sobre `ink`,
+                só espelhado. As medidas moram lá e não se repetem aqui: numeral
+                duplicado fora da fonte envelhece em silêncio, que é o defeito que
+                esta rodada já veio consertar uma vez.
+
+                ⚠️ O RÓTULO DE 14px FICA A 4,39:1, um fio abaixo dos 4,5 do AA
+                para texto normal — e 4,39 é o TETO desta cor, porque contra
+                branco puro ela não vai além disso (a conta está no `globals.css`).
+                Não é desvio local: é o mesmo caso de todos os rótulos vermelhos
+                do site sobre fundo claro, incluindo o "Related services" três
+                blocos abaixo. Se um dia isso for corrigido, corrige-se no token,
+                não aqui.
 
                 A RÉGUA DOS 24px É O QUE SUSTENTA ISSO, e é ela que só existe
                 aqui: o mínimo de contraste para texto GRANDE é mais frouxo que o
                 de texto normal, e a partir de 24px todo texto é grande para a
                 norma. O número ficou mais necessário de conferir depois que
                 encolheu de 38/48px para 32/38px nesta mesma reescrita — segue
-                acima dos 24px com folga nos dois breakpoints, e de todo modo o
-                `brand-light` passa até na régua mais dura, a do texto normal.
+                acima dos 24px com folga nos dois breakpoints, e é por essa régua
+                que ele passa: em 32px, o teto de 4,39:1 do `brand` está muito
+                acima do mínimo de 3,0 do texto grande.
 
                 MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
                 é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
                 porque "N-1 embedded" já derrubou uma versão dessa regra. A
-                palavra fica BRANCA e num corpo intermediário: pintar "Management
+                palavra fica em `ink` e num corpo intermediário: pintar "Management
                 activated" de vermelho em corpo de manchete transformaria um
                 passo de uma sequência em título, e a cascata da GSK são quatro
                 passos de igual peso. Ela também é a única que pode quebrar em
@@ -196,7 +212,7 @@ export default function SolutionEvidence({
                 (`leading-[1.25]`) e não de número (`leading-[1.02]` no
                 `Counter`). */}
             {shown.length > 0 && (
-              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-white/12 pt-8">
+              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-ink/12 pt-8">
                 {shown.map((f, i) => (
                   /* Pela posição, não pelo rótulo: o rótulo é opcional (a
                      "cascade line" da GSK não tem) e repetiria vazio. */
@@ -204,15 +220,15 @@ export default function SolutionEvidence({
                     {factIsMeasure(f) ? (
                       <Counter
                         value={f.value}
-                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[32px] md:text-[38px]"
+                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand text-[32px] md:text-[38px]"
                       />
                     ) : (
-                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[21px]">
+                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-ink md:text-[21px]">
                         {f.value}
                       </div>
                     )}
                     {f.label && (
-                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-white/75">
+                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-muted">
                         {f.label}
                       </div>
                     )}
@@ -224,7 +240,7 @@ export default function SolutionEvidence({
             {caseSlug && (
               <Link
                 href={`/cases/${caseSlug}`}
-                className="mt-10 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white"
+                className="mt-10 inline-flex items-center gap-2 border-b border-brand/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand transition-colors hover:border-brand hover:text-ink"
               >
                 Read the client story <span aria-hidden>→</span>
               </Link>
@@ -262,14 +278,14 @@ export default function SolutionEvidence({
           )}
 
           {testimonial && (
-            <figure className={`${quoteSpan} border-white/12 lg:border-l lg:pl-8`}>
-              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand-light">
+            <figure className={`${quoteSpan} border-ink/12 lg:border-l lg:pl-8`}>
+              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand">
                 Testimonial
               </p>
-              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-white md:text-[21px]">
+              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-ink md:text-[21px]">
                 “{testimonial.quote}”
               </blockquote>
-              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-white/60">
+              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-muted">
                 {testimonial.attribution}
               </figcaption>
             </figure>

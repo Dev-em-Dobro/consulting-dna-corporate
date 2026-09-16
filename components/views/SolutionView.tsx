@@ -33,8 +33,9 @@ import { paragraphs, services, type Service } from "@/lib/services";
  *
  * O QUE A VOLTA FAZ COM A LEITURA: o convite é de novo o fim da página, e chega
  * depois da prova em vez de antes dela — "o que muda / como fazemos / deu certo
- * aqui / vamos conversar". A faixa vermelha volta a ser o clímax de cor, logo
- * depois da faixa escura da evidência.
+ * aqui / vamos conversar". A faixa vermelha volta a ser o clímax de cor — e
+ * passou a ser o ÚNICO campo de cor cheia da página depois que a evidência
+ * ficou branca, em 16-09, o que só reforça o papel dela ali.
  *
  * ⚠️ O BLOCO 6 DO OUTLINE (Testimonial) DEIXOU DE SER SEÇÃO EM 16-09: a citação
  * virou a terceira coluna da faixa de evidência, ao lado da prova a que se
@@ -112,22 +113,28 @@ export default function SolutionView({ service }: { service: Service }) {
 
           A SEQUÊNCIA DE FUNDOS COM A ORDEM DE HOJE: herói `ink` → branco
           (Impact, painel `brand`) → paper (How we help, painel `ink`) → paper
-          (pilares) → `ink` (evidência) → `brand` (CTA) → branco (related).
+          (pilares) → branco (evidência, clara desde 16-09) → `brand` (CTA) →
+          branco (related).
 
           A regra do `SolutionSection` é que painel nenhum pode antecipar a faixa
-          que vem depois. As duas distribuições possíveis violam alguma coisa, e
-          a pergunta é qual violação custa menos:
+          que vem depois, e a distribuição de hoje não antecipa nenhuma:
 
-            • Trocar (ink no Impact) põe painel escuro ENCOSTADO no herói, que é
-              `bg-ink` com foto escurecida. Escuro contra escuro, distância
-              zero, logo na primeira dobra.
-            • Manter (ink aqui) põe o painel escuro uma faixa acima da evidência
-              — separado pelos pilares, que são `paper`, e por uma troca de
-              seção. O painel ocupa 44% da largura; a evidência é faixa cheia.
+            • Trocar (ink no Impact) poria painel escuro ENCOSTADO no herói, que
+              é `bg-ink` com foto escurecida. Escuro contra escuro, distância
+              zero, logo na primeira dobra. É a única violação em jogo, e é cara.
+            • Manter (ink aqui) deixa o painel escuro como o único respiro de
+              peso no meio da página, agora que a evidência clareou. Ele ocupa
+              44% da largura e não tem faixa escura nenhuma depois para antecipar.
 
-          Fica como está. O `brand` do Impact e o `brand` do CTA ficam a três
-          blocos um do outro, que é a maior distância que esta página permite, e
-          o par lê como pinça de abertura e fecho em vez de repetição. */}
+          ⚠️ ISTO MUDOU DE NATUREZA EM 16-09. Enquanto a evidência era `ink`, o
+          argumento a favor de manter era de DISTÂNCIA (o painel escuro ficava
+          uma faixa acima de uma faixa escura, separado pelos pilares). Com a
+          evidência branca, o conflito simplesmente não existe mais — e a decisão
+          continua a mesma por um motivo novo, não pelo antigo.
+
+          O `brand` do Impact e o `brand` do CTA ficam a três blocos um do outro,
+          que é a maior distância que esta página permite, e o par lê como pinça
+          de abertura e fecho em vez de repetição. */}
       <SolutionSection
         label="Impact"
         html={paragraphs(service.outcome)}
