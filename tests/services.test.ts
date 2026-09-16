@@ -38,3 +38,18 @@ test("toda ênfase está fechada", () => {
     }
   }
 });
+
+test("pillars: 4 a 6 termos por serviço, sem vazio e sem ponto final", () => {
+  for (const s of services) {
+    const pillars = s.pillars ?? [];
+    assert.ok(
+      pillars.length >= 4 && pillars.length <= 6,
+      `${s.slug}: ${pillars.length} pilares (esperado 4 a 6)`,
+    );
+    for (const p of pillars) {
+      assert.ok(p.trim().length > 0, `${s.slug}: pilar vazio`);
+      assert.ok(!p.endsWith("."), `${s.slug}: "${p}" termina em ponto`);
+      assert.equal(p[0], p[0].toUpperCase(), `${s.slug}: "${p}" não começa maiúsculo`);
+    }
+  }
+});
