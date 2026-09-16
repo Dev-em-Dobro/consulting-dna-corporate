@@ -87,10 +87,11 @@ export type ServiceEvidence = {
    * A foto da coluna do meio da faixa de evidência — o que o template dela
    * mostra ao lado dos números (a placa da HEINEKEN, no mockup do ExCo).
    *
-   * ⏳ NENHUM DOS DEZ TEM ARQUIVO HOJE. É asset do cliente, pedido na daily de
-   * 16-09 junto com as imagens da grade — ver `docs/correcoes-maliha-call-16-09-
-   * 2026.md`. Sem ele a faixa fica em duas colunas, que é um dos quatro estados
-   * que `SolutionEvidence` já monta.
+   * ⏳ UM DOS DEZ TEM ARQUIVO, E ELE É PROVISÓRIO: o Top 150 usa um recorte do
+   * mockup dela (ver a caixa no próprio dado). A foto de verdade é asset do
+   * cliente, pedida na daily de 16-09 junto com as imagens da grade — ver
+   * `docs/correcoes-maliha-call-16-09-2026.md`. Nos outros nove a faixa fica em
+   * duas colunas, que é um dos quatro estados que `SolutionEvidence` já monta.
    *
    * ⚠️ CAMINHO EM `public/`, E NÃO A CAPA DO CASO NO CMS. Esta rota deixou de
    * ler o CMS em 11-09 de propósito (ver o cabeçalho de `app/services/[slug]/
@@ -228,6 +229,15 @@ export const services: Service[] = [
         { value: "18", label: "months" },
         { value: "Enterprise wide", label: "self and peer to peer leadership" },
       ],
+      /* ⏳ RECORTE DO MOCKUP DELA, e provisório de propósito — o "PLACEHOLDER"
+         está no nome do arquivo para que ninguém o confunda com asset entregue.
+         A imagem foi cortada de `4. Services/ExCo Leadership Services Page.png`
+         (a placa da HEINEKEN na coluna do meio da faixa de evidência) e entrou
+         a pedido interno em 16-09, para a faixa de três colunas poder ser
+         avaliada com conteúdo em vez de com um buraco. SAI no dia em que a
+         cliente mandar a foto de verdade, pedida na daily de 16-09 — é trocar
+         este caminho e apagar esta caixa. */
+      image: "/services/evidence/heineken-top-150.PLACEHOLDER.jpg",
       caseSlug: "heineken",
     },
   },
