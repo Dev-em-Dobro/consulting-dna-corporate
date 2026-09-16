@@ -41,11 +41,12 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * quinto caía sempre, e o quinto é o único que prova. No Heineken isso
  * significava publicar "12 países, 450 líderes, global, 18 meses" e esconder
  * "45% higher promotion rate". A correção da ordem fica; o que mudou foi só o
- * peso visual.
+ * peso visual — e, em 16-09, o CORTE EM QUATRO deixou de existir (o porquê está
+ * no corpo do componente, onde `shown` é montado).
  *
- * DEGRADA VAZIO, porque nove dos dez serviços não têm caso ainda: sem
- * `caseSlug` a página não renderiza o bloco; sem fato nenhum, sai só o título e
- * o link; com menos de quatro, a grade encolhe sozinha.
+ * DEGRADA VAZIO, porque cinco dos dez serviços não têm evidência ainda: sem
+ * `caseSlug` o link some; sem fato nenhum, sai só o título e o texto; com menos
+ * fatos, a linha encolhe sozinha.
  *
  * ⚠️ A FAIXA VIROU TRÊS COLUNAS EM 16-09, e a citação do cliente entrou como a
  * terceira delas — os cards de largura inteira acima descrevem o desenho
@@ -91,18 +92,39 @@ export default function SolutionEvidence({
   /** A capa do caso, quando existe. Sem ela a faixa fica sem a coluna do meio. */
   imageUrl?: string;
 }) {
+  /* ⚠️ O CORTE EM QUATRO SAIU EM 16-09, e a ORDEM ficou. Ele existia porque a
+     grade tinha quatro células (`lg:grid-cols-4`) e o quinto fato não teria
+     onde entrar; desde a reescrita desta faixa a linha é `flex flex-wrap` e
+     absorve o quinto sem estourar nada. Manter o corte era manter um jeito
+     SILENCIOSO de perder um fato — que é exatamente o defeito narrado no
+     cabeçalho deste arquivo, quando o `.slice(0, 4)` sobre a lista terminada em
+     "Impact" escondia o único número que provava o caso. Sem o corte, o pior
+     que acontece com cinco é a linha quebrar.
+
+     O "IMPACT" PRIMEIRO CONTINUA, agora só como ordem de leitura: o fato que diz
+     se funcionou vem antes dos que dizem o tamanho. No dado de hoje nenhum
+     serviço tem rótulo "Impact" — isto serve ao caminho do CMS, onde
+     `caseFacts()` monta cinco na ordem fixa do brief e termina justamente nele. */
   const all = (facts ?? []).filter((f) => f.value?.trim());
   const impact = all.filter((f) => f.label === "Impact");
-  const shown = [...impact, ...all.filter((f) => f.label !== "Impact")].slice(0, 4);
+  const shown = [...impact, ...all.filter((f) => f.label !== "Impact")];
 
   /* AS TRÊS COLUNAS SE REAJUSTAM SOZINHAS, porque as quatro combinações existem
-     no ar: cinco serviços não têm evidência nenhuma, quatro têm evidência sem
-     caso ligado, um tem caso e um tem citação. */
+     no ar: cinco serviços não têm evidência nenhuma, três têm evidência sem foto
+     nem citação, um tem citação (Executive Coaching) e um tem os dois (Top 150).
+
+     ⚠️ O INVARIANTE É QUE CADA LINHA SOMA 12, e é por isso que os três valores
+     saem juntos de uma linha só em vez de três ternários independentes: mexer em
+     um deles é mexer nos outros dois, e escrito assim a conta fica visível de
+     imediato. String vazia = a coluna não é renderizada naquele arranjo. */
   const hasImage = Boolean(imageUrl);
   const hasQuote = Boolean(testimonial);
-  const caseSpan = hasImage || hasQuote ? "lg:col-span-5" : "lg:col-span-12";
-  const imageSpan = hasQuote ? "lg:col-span-4" : "lg:col-span-7";
-  const quoteSpan = hasImage ? "lg:col-span-3" : "lg:col-span-7";
+  // caso · foto · citação — cada linha soma 12
+  const [caseSpan, imageSpan, quoteSpan] =
+    hasImage && hasQuote ? ["lg:col-span-5", "lg:col-span-4", "lg:col-span-3"]
+    : hasImage           ? ["lg:col-span-5", "lg:col-span-7", ""]
+    : hasQuote           ? ["lg:col-span-5", "", "lg:col-span-7"]
+    :                      ["lg:col-span-12", "", ""];
 
   return (
     <section className="bg-ink text-white">
@@ -141,26 +163,23 @@ export default function SolutionEvidence({
                 5/12 as caixas ficariam estreitas demais para o valor e o rótulo.
                 O template dela mostra os números em linha, separados por régua.
 
-                ⚠️ O VERMELHO CONTINUA SENDO O `brand-light`, E A CONTA FOI
-                REFEITA porque o fundo mudou. Os números antigos (2,66:1 e
-                4,20:1) eram medidos sobre o preenchimento do CARTÃO — `ink` com
-                um gradiente de luz branca por cima, fundo efetivo ~#3c3739 —, e
-                o cartão deixou de existir. Sobre `ink` puro (#373234), que é o
-                fundo de hoje, valem as medidas já registradas na caixa de
-                `--color-brand-light` em `app/globals.css`:
+                ⚠️ O VERMELHO É O `brand-light`, E A MEDIDA NÃO SE REPETE AQUI.
+                O fundo desta faixa é `ink` puro (#373234) desde que o cartão
+                deixou de existir, que é exatamente o caso já calculado na caixa
+                de `--color-brand-light` em `app/globals.css` — `brand` reprova
+                sobre `ink`, `brand-light` passa no AA. Os números moram lá, e
+                copiá-los para cá é o defeito que esta rodada veio consertar:
+                numeral duplicado fora da fonte envelhece em silêncio, e esta
+                caixa já carregava um par ANTIGO (medido sobre o preenchimento do
+                cartão, ~#3c3739) ao lado do par certo.
 
-                  brand      #d84339   2,87:1   ✗
-                  brand-lt   #e47e77   4,53:1   ✓
-
-                A conclusão não muda — o tom claro é o que se usa —, mas o
-                vermelho cheio reprova aqui por 2,87, não por 2,66.
-
-                A RÉGUA DOS 24px É O QUE SUSTENTA ISSO, e ela ficou mais
-                necessária depois que o número encolheu de 38/48px para 32/38px
-                nesta mesma reescrita: o mínimo para texto GRANDE é 3,0, e a
-                partir de 24px todo texto é grande para a norma. O número segue
-                acima do corte com folga nos dois breakpoints, e o `brand-light`
-                passa até na régua de 4,5 do texto normal.
+                A RÉGUA DOS 24px É O QUE SUSTENTA ISSO, e é ela que só existe
+                aqui: o mínimo de contraste para texto GRANDE é mais frouxo que o
+                de texto normal, e a partir de 24px todo texto é grande para a
+                norma. O número ficou mais necessário de conferir depois que
+                encolheu de 38/48px para 32/38px nesta mesma reescrita — segue
+                acima dos 24px com folga nos dois breakpoints, e de todo modo o
+                `brand-light` passa até na régua mais dura, a do texto normal.
 
                 MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
                 é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
@@ -218,8 +237,14 @@ export default function SolutionEvidence({
                   fill
                   /* O `sizes` ACOMPANHA A LARGURA REAL DA COLUNA, que depende da
                      citação: com ela a foto é 4/12 (~33vw), sem ela é 7/12
-                     (~58vw) — e é esse o caso de nove dos dez serviços. Fixar
-                     33vw faria o Next servir, nessas nove, um arquivo dimensionado
+                     (~58vw).
+
+                     ⏳ HOJE SÓ O PRIMEIRO RAMO ACONTECE: cinco serviços chegam a
+                     renderizar esta faixa, um único tem foto (o Top 150, com o
+                     recorte provisório do mockup) e esse um também tem citação.
+                     O segundo ramo é para quando as fotos da cliente chegarem
+                     para os outros — oito dos dez não têm citação nenhuma, e
+                     fixar 33vw faria o Next servir neles um arquivo dimensionado
                      para um terço da tela numa caixa de quase dois terços. */
                   sizes={
                     hasQuote
