@@ -137,6 +137,7 @@ export default function SolutionView({ service }: { service: Service }) {
           body={service.evidence.body}
           facts={service.evidence.facts}
           testimonial={service.testimonial}
+          imageUrl={service.evidence.image}
         />
       )}
 

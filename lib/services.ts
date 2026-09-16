@@ -84,6 +84,21 @@ export type ServiceEvidence = {
   body: string;
   facts?: ServiceFact[];
   /**
+   * A foto da coluna do meio da faixa de evidência — o que o template dela
+   * mostra ao lado dos números (a placa da HEINEKEN, no mockup do ExCo).
+   *
+   * ⏳ NENHUM DOS DEZ TEM ARQUIVO HOJE. É asset do cliente, pedido na daily de
+   * 16-09 junto com as imagens da grade — ver `docs/correcoes-maliha-call-16-09-
+   * 2026.md`. Sem ele a faixa fica em duas colunas, que é um dos quatro estados
+   * que `SolutionEvidence` já monta.
+   *
+   * ⚠️ CAMINHO EM `public/`, E NÃO A CAPA DO CASO NO CMS. Esta rota deixou de
+   * ler o CMS em 11-09 de propósito (ver o cabeçalho de `app/services/[slug]/
+   * page.tsx`); buscar capa lá devolveria um fetch às dez páginas por causa de
+   * uma imagem que uma delas teria.
+   */
+  image?: string;
+  /**
    * Só quando existe página de caso para linkar. Vazio nos três clientes que o
    * outline cita e que não estão no acervo (Vodafone, adidas, GSK Mexico) e na
    * prática de coaching, que não é um caso de cliente.
