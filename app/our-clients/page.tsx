@@ -444,15 +444,25 @@ export default async function ClientsAndImpactPage() {
                   fato dito em dois registros — a tabela e o mapa —, e é o que o
                   desenho dela faz. Sai daqui quem não tem fonte: "leaders
                   reached" é do mockup e não está aprovado. */}
-              <dl className="flex flex-row flex-wrap gap-x-12 gap-y-6 lg:flex-col lg:gap-8">
+              {/* ⚠️ GRADE DE TRÊS NO TELEFONE, e não `flex-wrap` — 16-09. Com
+                  o wrap, os três entravam como 2 + 1: "36" e "27" dividiam a
+                  linha e "15" caía sozinho embaixo, porque o rótulo
+                  "PUBLISHED CASE STUDIES" é o dobro dos outros dois e estourava
+                  a medida. Grade de colunas iguais resolve na origem: a largura
+                  deixa de depender do comprimento do rótulo.
+
+                  A ESCALA CAI JUNTO no telefone (26px contra 40px) — em três
+                  colunas de ~106px, o corpo de desktop empurraria o número para
+                  fora da célula. */}
+              <dl className="grid grid-cols-3 gap-x-4 gap-y-6 lg:flex lg:flex-col lg:gap-8">
                 {footprint.map((f) => (
                   <div key={f.label}>
                     <dt className="sr-only">{f.label}</dt>
                     <dd>
-                      <span className="block text-[34px] font-semibold leading-none tracking-[-1px] text-ink sm:text-[40px]">
+                      <span className="block text-[26px] font-semibold leading-none tracking-[-1px] text-ink sm:text-[34px] lg:text-[40px]">
                         {f.value}
                       </span>
-                      <span className="mt-2 block text-[11.5px] font-semibold uppercase tracking-[1.2px] text-muted">
+                      <span className="mt-2 block text-[10.5px] font-semibold uppercase leading-[1.3] tracking-[1px] text-muted sm:text-[11.5px] sm:tracking-[1.2px]">
                         {f.label}
                       </span>
                     </dd>
