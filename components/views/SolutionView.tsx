@@ -5,41 +5,7 @@ import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/solutions/ServiceCard";
-import {
-  paragraphs,
-  services,
-  type Service,
-  type ServiceTestimonial,
-} from "@/lib/services";
-
-
-/**
- * Bloco 5 do outline — Testimonial. Uma citação de cliente sobre este serviço.
- *
- * Renderiza nada quando não há citação, que é o caso de nove dos dez hoje. O
- * outline conta o mesmo: "Nine of the ten have no publishable testimonial. Four
- * have one identified but not chosen: adidas, GSK Mexico, Heineken and Vodafone.
- * Only Executive Coaching has text that can ship."
- */
-function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial }) {
-  return (
-    <section className="bg-paper">
-      <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
-          Client Perspective
-        </p>
-        <figure className="mt-12 max-w-[900px]">
-          <blockquote className="font-serif text-[22px] font-medium leading-[1.4] tracking-[-0.2px] text-ink [text-wrap:balance] sm:text-[26px] md:text-[30px]">
-            “{testimonial.quote}”
-          </blockquote>
-          <figcaption className="mt-6 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-brand">
-            {testimonial.attribution}
-          </figcaption>
-        </figure>
-      </Reveal>
-    </section>
-  );
-}
+import { paragraphs, services, type Service } from "@/lib/services";
 
 /**
  * O template de página de serviço — "one template, ten instances".
@@ -51,9 +17,13 @@ function ClientPerspective({ testimonial }: { testimonial: ServiceTestimonial })
  *   2. Impact          — o que muda no negócio      (era "The Outcome")
  *   3. How we help     — a intervenção              (era "How CDNA Helps")
  *   4. Let's talk      — o convite, POR SERVIÇO
- *   5. Evidence        — o caso-carro-chefe e seus números
- *   6. Testimonial     — condicional, existe em um dos dez
- *   7. Related services — quatro cards, do template dela
+ *   5. Evidence        — o caso-carro-chefe, seus números e a citação
+ *   6. Related services — quatro cards, do template dela
+ *
+ * ⚠️ O BLOCO 6 DO OUTLINE (Testimonial) DEIXOU DE SER SEÇÃO EM 16-09: a citação
+ * virou a terceira coluna da faixa de evidência, ao lado da prova a que se
+ * refere, como no template dela. O porquê está na caixa da prop `testimonial`
+ * em `SolutionEvidence`.
  *
  * O QUE A TROCA FAZ COM A LEITURA: o convite deixa de ser o fim da página e
  * passa a fechar o par de blocos de texto — "o que muda / como fazemos / vamos
@@ -151,6 +121,11 @@ export default function SolutionView({ service }: { service: Service }) {
         ctaLabel={service.cta.label}
       />
 
+      {/* ⚠️ A CITAÇÃO AGORA DEPENDE DA EVIDÊNCIA. Ela é a terceira coluna desta
+          faixa desde 16-09, então serviço com citação e sem evidência não
+          mostraria a citação. Hoje não existe esse caso — o único com citação
+          (Executive Coaching) também tem evidência —, e o dia em que existir, a
+          decisão é dar a ele um bloco de evidência ou devolver a faixa própria. */}
       {service.evidence && (
         <SolutionEvidence
           caseSlug={service.evidence.caseSlug}
@@ -161,10 +136,9 @@ export default function SolutionView({ service }: { service: Service }) {
           }
           body={service.evidence.body}
           facts={service.evidence.facts}
+          testimonial={service.testimonial}
         />
       )}
-
-      {service.testimonial && <ClientPerspective testimonial={service.testimonial} />}
 
       {/* ✅ "RELATED SERVICES" VOLTOU EM 15-09, e voltou pelo caminho que a nota
           anterior exigia: como PEDIDO do cliente, não como decisão nossa.
@@ -201,11 +175,12 @@ export default function SolutionView({ service }: { service: Service }) {
           saem como `h2` — que é o mesmo nível dos outros blocos desta página e
           não quebra a escada de cabeçalhos, porque o rótulo "Related services"
           abaixo é um `<p>`, não um cabeçalho. */}
-      {/* ⚠️ BRANCO DESDE 15-09, e era `paper`. Com a nova ordem este bloco passou
-          a vir logo depois da citação, que também é `paper` — duas faixas cinzas
-          encostadas viram uma massa só e o corte entre os assuntos some. Quando
-          o serviço não tem citação (oito dos dez), o vizinho de cima é a
-          evidência, que é `ink`, e o branco continua sendo o degrau certo. */}
+      {/* ⚠️ BRANCO DESDE 15-09, e era `paper`. Na ordem daquele dia este bloco
+          vinha logo depois da faixa de citação, que também era `paper` — duas
+          faixas cinzas encostadas viram uma massa só e o corte entre os assuntos
+          some. Desde 16-09 a citação não é mais faixa, então o vizinho de cima é
+          sempre a evidência (`ink`) ou o CTA vermelho, e o branco continua sendo
+          o degrau certo contra os dois. */}
       <section className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">

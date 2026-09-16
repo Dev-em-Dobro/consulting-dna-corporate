@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
-import { factIsMeasure, type ServiceFact } from "@/lib/services";
+import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
 
 /**
  * Bloco 4 do outline — Evidence. Quatro cards de mesmo tamanho sobre faixa
@@ -41,12 +42,21 @@ import { factIsMeasure, type ServiceFact } from "@/lib/services";
  * DEGRADA VAZIO, porque nove dos dez serviços não têm caso ainda: sem
  * `caseSlug` a página não renderiza o bloco; sem fato nenhum, sai só o título e
  * o link; com menos de quatro, a grade encolhe sozinha.
+ *
+ * ⚠️ A FAIXA VIROU TRÊS COLUNAS EM 16-09, e a citação do cliente entrou como a
+ * terceira delas — os cards de largura inteira acima descrevem o desenho
+ * anterior, e a decisão de 10-09 que vale daqui para frente é a do PESO IGUAL
+ * entre os números, não a do cartão. Os números continuam com o mesmo peso
+ * entre si; o que saiu foi a moldura de cartão, que não cabe numa coluna de
+ * 5/12. Ver os comentários no corpo do componente.
  */
 export default function SolutionEvidence({
   caseSlug,
   caseTitle,
   body,
   facts,
+  testimonial,
+  imageUrl,
 }: {
   /**
    * Ausente quando a evidência não tem página de caso para abrir — os três
@@ -58,123 +68,141 @@ export default function SolutionEvidence({
   caseTitle?: string;
   body?: string;
   facts?: ServiceFact[];
+  /**
+   * A citação do cliente — TERCEIRA COLUNA desta faixa desde 16-09, e não mais
+   * seção própria. Ela existe em um dos dez serviços, e uma faixa inteira para
+   * um caso em dez é uma seção que nove páginas mostram vazia ou pulam. No
+   * template dela a citação mora aqui, ao lado da prova a que se refere.
+   */
+  testimonial?: ServiceTestimonial;
+  /** A capa do caso, quando existe. Sem ela a faixa fica sem a coluna do meio. */
+  imageUrl?: string;
 }) {
   const all = (facts ?? []).filter((f) => f.value?.trim());
   const impact = all.filter((f) => f.label === "Impact");
   const shown = [...impact, ...all.filter((f) => f.label !== "Impact")].slice(0, 4);
 
+  /* AS TRÊS COLUNAS SE REAJUSTAM SOZINHAS, porque as quatro combinações existem
+     no ar: cinco serviços não têm evidência nenhuma, quatro têm evidência sem
+     caso ligado, um tem caso e um tem citação. */
+  const hasImage = Boolean(imageUrl);
+  const hasQuote = Boolean(testimonial);
+  const caseSpan = hasImage || hasQuote ? "lg:col-span-5" : "lg:col-span-12";
+  const imageSpan = hasQuote ? "lg:col-span-4" : "lg:col-span-7";
+  const quoteSpan = hasImage ? "lg:col-span-3" : "lg:col-span-7";
+
   return (
     <section className="bg-ink text-white">
-      {/* Os filhos diretos deste `Reveal` são o rótulo, o título, o parágrafo,
-          a grade de cards e o link — e é nessa ordem que eles entram. A grade
-          entra como UM bloco, não card a card: os quatro têm o mesmo peso por
-          decisão de 10-09, e escaloná-los daria a um deles a primazia de chegar
-          primeiro, que é a hierarquia que aquela decisão desfez. */}
+      {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
+          colunas — e a grade entra como UM bloco, não coluna a coluna: os
+          números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
+          um deles a primazia de chegar primeiro, que é a hierarquia que aquela
+          decisão desfez. */}
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
           Evidence
         </p>
 
-        {/* O nome do cliente como TEXTO, não como logo. A plaquinha de logo foi
-            testada e descartada: os arquivos de `public/logos/` são as marcas em
-            cores originais para fundo claro, e sobre escuro exigiriam uma
-            plaqueta branca — um retângulo claro competindo com os cards. */}
-        <h2 className="font-serif mt-5 max-w-[820px] text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
-          {caseTitle ?? "The flagship client story"}
-        </h2>
+        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className={caseSpan}>
+            {/* O nome do cliente como TEXTO, não como logo: os arquivos de
+                `public/logos/` são as marcas em cores originais para fundo
+                claro, e sobre escuro exigiriam uma plaqueta branca. */}
+            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
+              {caseTitle ?? "The flagship client story"}
+            </h2>
 
-        {/* O parágrafo do outline — o que o trabalho foi, antes dos números.
-            Nos cinco serviços com evidência ele existe; no caminho do CMS, não,
-            e aí o bloco vai direto do título para os cards, como antes. */}
-        {body && (
-          <p className="mt-6 max-w-[820px] font-serif text-[17px] leading-[1.6] text-white/80 md:text-[18px]">
-            {body}
-          </p>
-        )}
+            {/* O parágrafo do outline — o que o trabalho foi, antes dos números.
+                Nos cinco serviços com evidência ele existe; no caminho do CMS,
+                não, e aí o bloco vai direto do título para os números. */}
+            {body && (
+              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-white/80 md:text-[18px]">
+                {body}
+              </p>
+            )}
 
-        {shown.length > 0 && (
-          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
-            {shown.map((f, i) => (
-              /* `min-h` + `mt-auto` NO NÚMERO, e os dois juntos é que fazem o
-                 trabalho. Os valores têm comprimentos muito diferentes — "12"
-                 contra "45% higher promotion rate", que quebra em duas linhas —
-                 e sem isso os cards sairiam de alturas diferentes, que é
-                 exatamente o que a hierarquia plana existe para evitar.
-                 Alinhados pela BASE, os rótulos dos quatro caem na mesma linha
-                 independentemente de o valor ter uma ou duas linhas.
+            {/* OS NÚMEROS PERDERAM O CARTÃO, 16-09. Eles eram quatro caixas com
+                borda e gradiente numa faixa de largura inteira; numa coluna de
+                5/12 as caixas ficariam estreitas demais para o valor e o rótulo.
+                O template dela mostra os números em linha, separados por régua.
 
-                 O preenchimento é um gradiente de LUZ, não de cor: branco a 7%
-                 no topo indo a 2% na base. Sobre `ink` isso dá volume ao card
-                 sem introduzir uma cor nova na página — foi a versão escolhida
-                 contra cinco com gradiente vermelho, vinho e carvão. */
-              <div
-                /* Pela posição, não pelo rótulo: o rótulo é opcional (a
-                   "cascade line" da GSK não tem) e repetiria vazio. */
-                key={i}
-                className="flex min-h-[150px] flex-col rounded-2xl border border-white/12 p-7 md:p-8"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02))",
-                }}
-              >
-                <div className="mt-auto">
-                  {/* MEDIDA E PALAVRA NÃO TÊM O MESMO TRATAMENTO, decidido em
-                      11-09 porque os números estavam pequenos demais para o que
-                      são: eles são a prova da seção, e saíam do mesmo tamanho de
-                      um subtítulo. Quem decide é `factIsMeasure` — e vale ler a
-                      caixa dele em `lib/services.ts`, porque "N-1 embedded" já
-                      derrubou uma versão dessa regra.
+                ⚠️ O VERMELHO CONTINUA SENDO O `brand-light` E A CONTA CONTINUA
+                VALENDO: sobre `ink`, o vermelho cheio dá 2,66:1 e reprova; o tom
+                claro dá 4,20:1. Sem o gradiente do cartão o fundo é `ink` puro,
+                o que só melhora a medida.
 
-                      ⚠️ O VERMELHO É O `brand-light`, NÃO O DA MARCA, e aqui a
-                      conta não é opcional. Medido sobre o preenchimento REAL do
-                      card (não sobre `ink` puro — há um gradiente de luz branca
-                      de 7% a 2% por cima dele, fundo efetivo ~#3c3739):
-
-                        brand      #d84339   2,66:1   ✗
-                        brand-lt   #e47e77   4,20:1   ✓
-                        branco     #ffffff  11,68:1   ✓
-
-                      O mínimo para texto GRANDE é 3,0, e a partir de 24px todo
-                      texto é grande para a norma — então o número passa, com
-                      folga, e o vermelho cheio reprovaria mesmo assim. É a
-                      mesma razão pela qual a régua do rótulo desta seção já usa
-                      o tom claro.
-
-                      A PALAVRA FICA BRANCA e num corpo intermediário. Pintar
-                      "Management activated" de vermelho a 48px transformaria um
-                      passo de uma sequência em manchete, e a cascata da GSK são
-                      quatro passos de igual peso. Ela também é a única que pode
-                      quebrar em duas linhas, e por isso mantém entrelinha de
-                      texto e não de número. */}
-                  {factIsMeasure(f) ? (
-                    <Counter
-                      value={f.value}
-                      className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[38px] md:text-[48px]"
-                    />
-                  ) : (
-                    <div className="text-[21px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[23px]">
-                      {f.value}
-                    </div>
-                  )}
-                  {f.label && (
-                    <div className="mt-3 font-serif text-[14px] leading-[1.45] text-white/75 md:text-[15px]">
-                      {f.label}
-                    </div>
-                  )}
-                </div>
+                MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
+                é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
+                porque "N-1 embedded" já derrubou uma versão dessa regra. A
+                palavra fica BRANCA e num corpo intermediário: pintar "Management
+                activated" de vermelho em corpo de manchete transformaria um
+                passo de uma sequência em título, e a cascata da GSK são quatro
+                passos de igual peso. */}
+            {shown.length > 0 && (
+              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-white/12 pt-8">
+                {shown.map((f, i) => (
+                  /* Pela posição, não pelo rótulo: o rótulo é opcional (a
+                     "cascade line" da GSK não tem) e repetiria vazio. */
+                  <div key={i} className="min-w-[120px]">
+                    {factIsMeasure(f) ? (
+                      <Counter
+                        value={f.value}
+                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[32px] md:text-[38px]"
+                      />
+                    ) : (
+                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[21px]">
+                        {f.value}
+                      </div>
+                    )}
+                    {f.label && (
+                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-white/75">
+                        {f.label}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            )}
 
-        {caseSlug && (
-          <Link
-            href={`/cases/${caseSlug}`}
-            className="mt-12 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white md:mt-14"
-          >
-            Read the client story <span aria-hidden>→</span>
-          </Link>
-        )}
+            {caseSlug && (
+              <Link
+                href={`/cases/${caseSlug}`}
+                className="mt-10 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white"
+              >
+                Read the client story <span aria-hidden>→</span>
+              </Link>
+            )}
+          </div>
+
+          {imageUrl && (
+            <div className={imageSpan}>
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src={imageUrl}
+                  alt=""
+                  aria-hidden
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+          {testimonial && (
+            <figure className={`${quoteSpan} border-white/12 lg:border-l lg:pl-8`}>
+              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand-light">
+                Testimonial
+              </p>
+              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-white md:text-[21px]">
+                “{testimonial.quote}”
+              </blockquote>
+              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-white/60">
+                {testimonial.attribution}
+              </figcaption>
+            </figure>
+          )}
+        </div>
       </Reveal>
     </section>
   );
