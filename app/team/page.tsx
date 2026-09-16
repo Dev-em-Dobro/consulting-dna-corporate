@@ -6,8 +6,8 @@ import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
-import teamStairs from "@/public/team/team-stairs.jpg";
-import teamHero from "@/public/team/team-hero.jpg";
+import teamStanding from "@/public/team/team-standing.jpg";
+import teamHero from "@/public/team/team-stairs-landscape.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
@@ -120,12 +120,38 @@ export default async function OurTeamPage() {
             valores viraram o PADRÃO do `SolutionHero` — o raciocínio inteiro
             (por que `none`, por que o `brightness` não é enfeite) mora agora nas
             props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
+        {/* ✅ HERÓI TROCADO EM 16-09 pela foto do time na escada EM LANDSCAPE
+            (`team-stairs-landscape.jpg`, 2400x1600) — a que o Guli ficou de
+            entregar na daily, e a primeira fotografia desta página com largura
+            de dobra de verdade.
+
+            O PNG DE ORIGEM TEM 4,1 MB e virou JPEG q90 de 540 KB numa única
+            compressão (`sharp`, mozjpeg), mesmo caminho do `skyline-dna.jpg`.
+            Recomprimir uma vez só importa: o arquivo do WhatsApp que serviu de
+            herói antes já era uma segunda geração, e é isso que empasta o céu.
+
+            ⚠️ ANCORADO NO TOPO (`object-top`), e não centrado. O
+            `object-[78%_78%]` existia para a foto anterior, cujo assunto estava
+            no canto inferior direito. Centrar aqui parecia certo — as oito
+            pessoas ocupam o meio do quadro — e não era: a fileira de cima está a
+            4% do topo da imagem, e o `object-cover` tira altura DOS DOIS LADOS.
+
+            A CONTA, que é o que decide: a imagem é 3:2 (1,50) e o herói é
+            `100svh`. Numa janela de 1440x950 a dobra dá 1,52 e sobra corte
+            nenhum — foi por isso que a captura inicial parecia boa. Num laptop
+            de 1440x800 a dobra vai a 1,80: o `cover` escala pela largura, a
+            altura renderizada passa de 800 para 960 e os 160px que sobram saem
+            60/60 do topo e do pé. Sessenta pixels de tela são 100 do original —
+            e a 4% de 1600 as cabeças estão a 64. Elas somem.
+
+            Ancorar no topo tira os 160px todos DO PÉ, que é degrau vazio e
+            piso tátil. Nada de gente se perde em nenhuma altura de janela. */}
         <SolutionHero
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
           subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
           imageUrl={teamHero}
-          imagePosition="object-[78%_78%]"
+          imagePosition="object-top"
         />
 
         {/* ── Leadership ────────────────────────────────────────────────── */}
@@ -193,7 +219,29 @@ export default async function OurTeamPage() {
         </section>
 
         {/* ── Bloco 4 · Group photograph ───────────────────────────────── */}
-        {/* ✅ A FOTO CHEGOU EM 15-09 — o time sentado na escada, que a própria
+        {/* ✅ TROCADA EM 16-09 PELA FOTO DO TIME EM PÉ (`team-standing.jpg`), a
+            que a Maliha ficou de mandar na daily — seis pessoas atrás da mesa,
+            no escritório, 1600x1066.
+
+            ⚠️ A TROCA VIROU A COMPOSIÇÃO DE VOLTA PARA A DO MOCKUP DELA. A
+            anterior era RETRATO (2:3) e por isso a foto morava na coluna
+            ESTREITA, com o texto ocupando a larga — o inverso do desenho. Esta é
+            PAISAGEM (3:2), então a imagem volta a ser o elemento largo
+            (1.35fr contra 1fr) e o texto o estreito, que é o que
+            `docs/mockup-team-maliha-14-09-2026.png` mostra.
+
+            A FOTO DA ESCADA CONTINUA NO REPOSITÓRIO (`team/team-stairs.jpg`),
+            sem uso nesta página. Ela não foi apagada porque o pedido do Guli na
+            daily era uma escada em LANDSCAPE, e se aquela chegar é ela que
+            disputa este slot — ou o da /about, que hoje usa uma cópia própria.
+
+            ⚠️ ISSO DESFAZ A REPETIÇÃO COM A /about, que era o efeito colateral
+            anotado abaixo: as duas páginas usavam a mesma fotografia em
+            recortes diferentes, e o documento avisa que repetir "is visible".
+            Agora cada uma tem a sua.
+
+            --- histórico, de quando a foto da escada entrou em 15-09 ---
+            ✅ A FOTO CHEGOU EM 15-09 — o time sentado na escada, que a própria
             Maliha procurava na call de 14-09. O slot esperava desde 11-09.
 
             ⚠️ O SLOT DE 16:9 NÃO SERVIA. Ele foi dimensionado para "uma foto de
@@ -224,13 +272,13 @@ export default async function OurTeamPage() {
             visible". Decisão consciente de 15-09 para não deixar os dois slots
             vazios; a segunda foto continua valendo a pena pedir. */}
         <section className="bg-ink text-white">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
-            <div className="relative aspect-[2/3] w-full">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
+            <div className="relative aspect-[3/2] w-full">
               <Image
-                src={teamStairs}
-                alt="The Corporate DNA team on the office stairs"
+                src={teamStanding}
+                alt="The Corporate DNA leadership team standing together in the London office"
                 fill
-                sizes="(min-width: 768px) 38vw, 100vw"
+                sizes="(min-width: 768px) 56vw, 100vw"
                 className="object-cover object-center"
               />
             </div>

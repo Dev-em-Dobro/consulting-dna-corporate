@@ -110,7 +110,7 @@ const LOGO_ALIASES: Record<string, string> = {
   levi_strauss_and_co: "levis",
 };
 
-function resolveClientLogo(client: string): { url?: string; color?: string } {
+export function resolveClientLogo(client: string): { url?: string; color?: string } {
   if (!client) return {};
   const slug = LOGO_ALIASES[logoSlug(client)] ?? logoSlug(client);
   if (!logoBasenames().has(slug)) return {};
@@ -149,6 +149,13 @@ export type CaseListEntry = {
   publishedAt: string;   // ISO — for date sort
   logoUrl?: string;      // /logos/<client>.png when a brand logo exists
   logoColor?: string;    // predominant logo colour (hex) for the band tint
+  /** The case's own outcome headline — what the card grid leads each tile with. */
+  headline?: string;
+  /** The `lib/services.ts` service this case evidences, for the breadth matrix. */
+  service?: string;
+  /** The client's own words, when the case carries them — feeds "What our clients say". */
+  quote?: string;
+  quoter?: string;
 };
 export type CaseArticle = {
   slug: string; tags: string[];
@@ -156,6 +163,8 @@ export type CaseArticle = {
   title: string;
   /** The case's own headline, when authored; the page falls back to `title`. */
   headline?: string;
+  /** /logos/<client>.png when the client has a brand mark in the repo. */
+  logoUrl?: string;
   intro?: string;            // introduction — rich text (HTML)
   quote?: string; quoter?: string;
   text?: string;             // main body — rich text (HTML)
@@ -166,7 +175,32 @@ export type CaseArticle = {
   facts: CaseFact[];
   // Legacy structured body, rendered only when a case has no single `text`.
   body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
+  /**
+   * The story as the client authors it in her spreadsheet — the numbered
+   * sections of the case layout she sent. `body` above holds the same prose;
+   * what lives here is everything that layout needs and the old model had no
+   * field for: the section titles, the closing line and the figures split into
+   * value + label.
+   */
+  story: {
+    challengeHeadline?: string;
+    approachHeadline?: string;
+    outcomeHeadline?: string;
+    closingThought?: string;
+    /** Hero eyebrow: sector · years · markets. */
+    markets?: string;
+    partnershipYears?: string;
+    service?: string;
+    /** Outcome figures (red) and engagement scale (charcoal). */
+    impactFigures: CaseFigure[];
+    scaleFigures: string[];
+    /** Service chips under "What we did". */
+    services: string[];
+    additionalContent?: string;
+  };
 };
+/** A figure from the case evidence band: the number, and what it measures. */
+export type CaseFigure = { value?: string; label: string };
 /** One cell of the case header band: a label from the brief and its value. */
 export type CaseFact = { label: string; value: string };
 export type SolutionCard = { slug: string; title: string };
@@ -317,13 +351,46 @@ function mapCase(raw: unknown): CaseArticle | null {
     coverUrl: d.coverUrl,
     resources: mapResources(d.resources),
     facts: caseFacts(d),
+    logoUrl: resolveClientLogo(plainText(d.title) ?? "").url,
     body: {
       challenge: plainText(d.challenge),
       approach: plainText(d.approach),
       outcome: plainText(d.outcome),
       measurableResult: plainText(d.measurableResult),
     },
+    story: {
+      challengeHeadline: plainText(d.challengeHeadline),
+      approachHeadline: plainText(d.approachHeadline),
+      outcomeHeadline: plainText(d.outcomeHeadline),
+      closingThought: plainText(d.closingThought),
+      markets: plainText(d.markets),
+      partnershipYears: plainText(d.partnershipYears),
+      service: plainText(d.serviceLabel),
+      impactFigures: caseFigures(d.impactFigures),
+      scaleFigures: (d.scaleFigures ?? [])
+        .map((f) => plainText(f))
+        .filter((f): f is string => !!f),
+      services: (d.services ?? [])
+        .map((f) => plainText(f))
+        .filter((f): f is string => !!f),
+      additionalContent: plainText(d.additionalContent),
+    },
   };
+}
+
+/**
+ * Normalise the authored figures, dropping any row with nothing to show. A
+ * figure with a label and no value is legitimate (the client writes findings in
+ * the same column as metrics); a figure with neither is an empty spreadsheet
+ * cell and must not render as a blank cell on the page.
+ */
+function caseFigures(raw?: { value?: string; label?: string }[]): CaseFigure[] {
+  return (raw ?? []).flatMap((f) => {
+    const label = plainText(f.label)?.trim();
+    if (!label) return [];
+    const value = plainText(f.value)?.trim();
+    return [{ value: value || undefined, label }];
+  });
 }
 
 export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseArticle | null> {
@@ -388,6 +455,14 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
         publishedAt: it.publishedAt,
         logoUrl: logo.url,
         logoColor: logo.color,
+        headline: art?.headline,
+        quote: art?.quote,
+        quoter: art?.quoter,
+        // The service the breadth matrix plots this client against. The facet
+        // is the fallback for cases authored before `serviceLabel` existed —
+        // and those carry the previous generation's vocabulary, which no longer
+        // matches `lib/services.ts`, so most of them simply will not plot.
+        service: art?.story.service ?? it.facets?.service?.[0],
       };
     }),
   );

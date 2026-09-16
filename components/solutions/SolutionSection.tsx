@@ -74,12 +74,19 @@ export default function SolutionSection({
   /**
    * A cor do painel quando NÃO há foto. Ignorado quando há.
    *
-   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço fecha em
-   * `bg-brand` (o `SolutionCta`) e tem a evidência em `bg-ink`. Dois painéis da
-   * mesma cor aqui ou anulam a diferença entre os blocos, ou antecipam uma
-   * faixa que vem depois. Por isso o Outcome vai de `ink` e o How We Help de
-   * `brand`: o escuro antes do vermelho constrói na direção do convite final,
-   * em vez de repeti-lo antes da hora.
+   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço abre no herói
+   * `bg-ink`, tem a evidência em `bg-ink` e fecha em `bg-brand` (o
+   * `SolutionCta`). Dois painéis da mesma cor aqui ou anulam a diferença entre
+   * os blocos, ou antecipam uma faixa que vem depois.
+   *
+   * ⚠️ A DISTRIBUIÇÃO DE HOJE É `brand` NO IMPACT E `ink` NO HOW WE HELP — o
+   * INVERSO do que esta caixa dizia até 16-09, e o inverso importa porque a
+   * frase antiga ("o Outcome vai de `ink` e o How We Help de `brand`") já estava
+   * falsa desde 15-09. O vermelho fica no primeiro painel porque o segundo
+   * encosta no herói escuro se for `ink`; o escuro fica no segundo porque de lá
+   * ele ainda tem os pilares (`paper`) entre si e a faixa escura da evidência. O
+   * raciocínio completo, com a sequência de fundos inteira e a alternativa
+   * descartada, está na caixa do bloco Impact em `SolutionView`.
    */
   panelTone?: "ink" | "brand";
 }) {
@@ -112,7 +119,12 @@ export default function SolutionSection({
      o outro começa, e a altura já diz isso sozinha.
 
      ⚠️ SÓ DE `lg` PARA CIMA. Empilhado no telefone, duas telas cheias viram
-     quatro, e o visitante rola quatro telas para ler dois parágrafos. */
+     quatro, e o visitante rola quatro telas para ler dois parágrafos.
+
+     ⚠️ 55svh DESDE 16-09, e era 78. O template de serviço que ela mandou mostra
+     a página inteira em pouco mais de uma tela e meia, e com 78svh cada um
+     destes dois blocos comia quase uma tela sozinho. O rótulo desceu junto (68
+     → 48px) porque em painel mais baixo ele encostava nas bordas. */
   return (
     <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
       {/* ⚠️ CONTIDO EM 1440, NÃO EM SANGRIA TOTAL — mudado em 10-09 a pedido.
@@ -131,7 +143,7 @@ export default function SolutionSection({
           texto, e a medida fica curta demais — três a quatro palavras por linha.
           Até `lg` os dois empilham, imagem em cima. */}
       <div
-        className={`mx-auto flex max-w-[1440px] flex-col lg:items-stretch ${image ? "lg:min-h-svh" : "lg:min-h-[78svh]"}  ${
+        className={`mx-auto flex max-w-[1440px] flex-col lg:items-stretch ${image ? "lg:min-h-svh" : "lg:min-h-[55svh]"}  ${
           imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"
         }`}
       >
@@ -170,7 +182,7 @@ export default function SolutionSection({
               className={`object-cover ${imagePosition}`}
             />
           ) : (
-            <p className="font-serif px-6 pb-12 pt-16 text-[38px] font-semibold leading-[1.02] tracking-[-1px] text-white md:px-10 md:text-[58px] lg:pb-16 lg:text-[68px]">
+            <p className="font-serif px-6 pb-12 pt-16 text-[38px] font-semibold leading-[1.02] tracking-[-1px] text-white md:px-10 md:text-[58px] lg:pb-16 lg:text-[48px]">
               {label}
             </p>
           )}

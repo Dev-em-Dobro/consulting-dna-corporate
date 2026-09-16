@@ -266,10 +266,22 @@ export type FacultyRegion = {
 };
 
 /**
- * ✅ OS CINCO NOMES SÃO OS DA ABOUT, à letra, como o documento manda ("five
- * tiles matching the About page regions"). Conferido contra o `REGIONS` de
- * `app/about/page.tsx` em 11-09 — os cinco batem, na mesma ordem. Se um dia
- * mudarem de um lado, mudam dos dois: é instrução do cliente, não coincidência.
+ * ⚠️ SÃO QUATRO DESDE 16-09, E ERAM CINCO. A Índia saiu a pedido dela na daily:
+ * *"can we get rid of India here? India will be covered under Asia, and she's
+ * just happy to have the four regions, Americas, Europe, GCC, Asia."*
+ *
+ * ✅ A ABOUT PERDEU A ÍNDIA NO MESMO DIA, minutos depois e por confirmação
+ * expressa — a dúvida existiu porque ela tinha APROVADO a About na mesma call,
+ * e página aprovada não se altera por dedução. As duas listas seguem batendo, e
+ * é instrução do documento de Team que batam ("five tiles matching the About
+ * page regions", hoje quatro). Se mudarem de um lado, mudam dos dois:
+ * `REGIONS` em `app/about/page.tsx`. A grade de lá foi de cinco para quatro
+ * colunas junto, senão sobrava uma coluna vazia.
+ *
+ * ⚠️ OS RÓTULOS CONTINUAM OS DO DOCUMENTO DELA ("UK & Europe", "GCC & Middle
+ * East") e não os da fala ("Europe", "GCC"). O pedido dito em voz era sobre
+ * QUANTAS regiões, não sobre como se chamam, e os nomes longos são os que o
+ * documento de Team escreve em letra.
  */
 export const facultyRegions: FacultyRegion[] = [
   /* ⚠️⚠️ AS CINCO IMAGENS ABAIXO SÃO PROVISÓRIAS E ESTÃO NO AR. ⚠️⚠️
@@ -296,7 +308,6 @@ export const facultyRegions: FacultyRegion[] = [
   { name: "UK & Europe", image: "/team/mock/london.jpg" },
   { name: "GCC & Middle East", image: "/team/mock/dubai.jpg" },
   { name: "Asia", image: "/team/mock/singapore.jpg" },
-  { name: "India", image: "/team/mock/jaipur.jpg" },
 ];
 
 /**

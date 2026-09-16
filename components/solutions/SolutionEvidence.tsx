@@ -1,11 +1,23 @@
+import Image from "next/image";
 import Link from "next/link";
 import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
-import { factIsMeasure, type ServiceFact } from "@/lib/services";
+import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
 
 /**
- * Bloco 4 do outline — Evidence. Quatro cards de mesmo tamanho sobre faixa
- * escura.
+ * Bloco 4 do outline — Evidence. Uma faixa clara em até três colunas: o caso
+ * com seus números, a foto e a citação do cliente.
+ *
+ * ⚠️ A FAIXA ERA ESCURA E FICOU BRANCA em 16-09, a pedido, e é assim que o
+ * template dela desenha. A troca não é só de `bg`: o vermelho do número passou
+ * de `brand-light` para `brand` cheio pela regra do `globals.css` (claro →
+ * `brand`, escuro → `brand-light`), e texto e réguas trocaram de `white/xx` para
+ * `ink`/`muted`. Se um dia ela voltar a ser escura, os dois lados têm de voltar
+ * juntos — meia volta deixa vermelho ilegível.
+ *
+ * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
+ * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
+ * de escolha. O que sobreviveu delas está marcado no fim desta caixa.
  *
  * ESCOLHIDO EM 10-09 depois de quatro rodadas em `/evidence-tests` (rota
  * descartável). O caminho importa porque duas decisões foram REVERTIDAS:
@@ -36,17 +48,27 @@ import { factIsMeasure, type ServiceFact } from "@/lib/services";
  * quinto caía sempre, e o quinto é o único que prova. No Heineken isso
  * significava publicar "12 países, 450 líderes, global, 18 meses" e esconder
  * "45% higher promotion rate". A correção da ordem fica; o que mudou foi só o
- * peso visual.
+ * peso visual — e, em 16-09, o CORTE EM QUATRO deixou de existir (o porquê está
+ * no corpo do componente, onde `shown` é montado).
  *
- * DEGRADA VAZIO, porque nove dos dez serviços não têm caso ainda: sem
- * `caseSlug` a página não renderiza o bloco; sem fato nenhum, sai só o título e
- * o link; com menos de quatro, a grade encolhe sozinha.
+ * DEGRADA VAZIO, porque cinco dos dez serviços não têm evidência ainda: sem
+ * `caseSlug` o link some; sem fato nenhum, sai só o título e o texto; com menos
+ * fatos, a linha encolhe sozinha.
+ *
+ * ⚠️ A FAIXA VIROU TRÊS COLUNAS EM 16-09, e a citação do cliente entrou como a
+ * terceira delas — os cards de largura inteira acima descrevem o desenho
+ * anterior, e a decisão de 10-09 que vale daqui para frente é a do PESO IGUAL
+ * entre os números, não a do cartão. Os números continuam com o mesmo peso
+ * entre si; o que saiu foi a moldura de cartão, que não cabe numa coluna de
+ * 5/12. Ver os comentários no corpo do componente.
  */
 export default function SolutionEvidence({
   caseSlug,
   caseTitle,
   body,
   facts,
+  testimonial,
+  imageUrl,
 }: {
   /**
    * Ausente quando a evidência não tem página de caso para abrir — os três
@@ -58,123 +80,226 @@ export default function SolutionEvidence({
   caseTitle?: string;
   body?: string;
   facts?: ServiceFact[];
+  /**
+   * A citação do cliente — TERCEIRA COLUNA desta faixa desde 16-09, e não mais
+   * seção própria. Ela existe em dois dos dez serviços, e uma faixa inteira para
+   * dois casos em dez é uma seção que oito páginas mostram vazia ou pulam. No
+   * template dela a citação mora aqui, ao lado da prova a que se refere.
+   *
+   * ⏳ SÓ UMA DAS DUAS É PUBLICÁVEL. O outline diz por quê: "Nine of the ten
+   * have no publishable testimonial. Four have one identified but not chosen:
+   * adidas, GSK Mexico, Heineken and Vodafone. Only Executive Coaching has text
+   * that can ship." A segunda citação, a do Top 150, é o PLACEHOLDER DO MOCKUP
+   * ("A quote from Dolf to be confirmed.") e está marcada como tal no dado —
+   * ver a caixa dela em `lib/services.ts`. Escolher as quatro frases que faltam
+   * é pendência de CONTEÚDO do cliente — o trabalho mais barato que mais muda
+   * estas páginas —, e esta é a única lista delas no componente.
+   */
+  testimonial?: ServiceTestimonial;
+  /**
+   * A foto do caso, quando existe — sem ela a faixa fica sem a coluna do meio.
+   * ⏳ Hoje só o Top 150 tem, e é um recorte provisório do mockup: a caixa do
+   * campo `image` em `lib/services.ts` conta de onde veio e quando sai.
+   */
+  imageUrl?: string;
 }) {
+  /* ⚠️ O CORTE EM QUATRO SAIU EM 16-09, e a ORDEM ficou. Ele existia porque a
+     grade tinha quatro células (`lg:grid-cols-4`) e o quinto fato não teria
+     onde entrar; desde a reescrita desta faixa a linha é `flex flex-wrap` e
+     absorve o quinto sem estourar nada. Manter o corte era manter um jeito
+     SILENCIOSO de perder um fato — que é exatamente o defeito narrado no
+     cabeçalho deste arquivo, quando o `.slice(0, 4)` sobre a lista terminada em
+     "Impact" escondia o único número que provava o caso. Sem o corte, o pior
+     que acontece com cinco é a linha quebrar.
+
+     O "IMPACT" PRIMEIRO CONTINUA, agora só como ordem de leitura: o fato que diz
+     se funcionou vem antes dos que dizem o tamanho. No dado de hoje nenhum
+     serviço tem rótulo "Impact" — isto serve ao caminho do CMS, onde
+     `caseFacts()` monta cinco na ordem fixa do brief e termina justamente nele. */
   const all = (facts ?? []).filter((f) => f.value?.trim());
   const impact = all.filter((f) => f.label === "Impact");
-  const shown = [...impact, ...all.filter((f) => f.label !== "Impact")].slice(0, 4);
+  const shown = [...impact, ...all.filter((f) => f.label !== "Impact")];
+
+  /* AS TRÊS COLUNAS SE REAJUSTAM SOZINHAS, porque as quatro combinações existem
+     no ar: cinco serviços não têm evidência nenhuma, três têm evidência sem foto
+     nem citação, um tem citação (Executive Coaching) e um tem os dois (Top 150).
+
+     ⚠️ O INVARIANTE É QUE CADA LINHA SOMA 12, e é por isso que os três valores
+     saem juntos de uma linha só em vez de três ternários independentes: mexer em
+     um deles é mexer nos outros dois, e escrito assim a conta fica visível de
+     imediato. String vazia = a coluna não é renderizada naquele arranjo. */
+  const hasImage = Boolean(imageUrl);
+  const hasQuote = Boolean(testimonial);
+  // caso · foto · citação — cada linha soma 12
+  const [caseSpan, imageSpan, quoteSpan] =
+    hasImage && hasQuote ? ["lg:col-span-5", "lg:col-span-4", "lg:col-span-3"]
+    : hasImage           ? ["lg:col-span-5", "lg:col-span-7", ""]
+    : hasQuote           ? ["lg:col-span-5", "", "lg:col-span-7"]
+    :                      ["lg:col-span-12", "", ""];
 
   return (
-    <section className="bg-ink text-white">
-      {/* Os filhos diretos deste `Reveal` são o rótulo, o título, o parágrafo,
-          a grade de cards e o link — e é nessa ordem que eles entram. A grade
-          entra como UM bloco, não card a card: os quatro têm o mesmo peso por
-          decisão de 10-09, e escaloná-los daria a um deles a primazia de chegar
-          primeiro, que é a hierarquia que aquela decisão desfez. */}
+    <section className="bg-white text-ink">
+      {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
+          colunas — e a grade entra como UM bloco, não coluna a coluna: os
+          números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
+          um deles a primazia de chegar primeiro, que é a hierarquia que aquela
+          decisão desfez. */}
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
+        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
           Evidence
         </p>
 
-        {/* O nome do cliente como TEXTO, não como logo. A plaquinha de logo foi
-            testada e descartada: os arquivos de `public/logos/` são as marcas em
-            cores originais para fundo claro, e sobre escuro exigiriam uma
-            plaqueta branca — um retângulo claro competindo com os cards. */}
-        <h2 className="font-serif mt-5 max-w-[820px] text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
-          {caseTitle ?? "The flagship client story"}
-        </h2>
+        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className={caseSpan}>
+            {/* O nome do cliente como TEXTO, não como logo. A plaquinha de logo
+                foi TESTADA E DESCARTADA, e o registro fica para não voltar como
+                ideia nova: os arquivos de `public/logos/` são as marcas em cores
+                originais para fundo claro, e sobre escuro exigiriam uma plaqueta
+                branca — um retângulo claro competindo com o resto da faixa. */}
+            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-ink md:text-[38px]">
+              {caseTitle ?? "The flagship client story"}
+            </h2>
 
-        {/* O parágrafo do outline — o que o trabalho foi, antes dos números.
-            Nos cinco serviços com evidência ele existe; no caminho do CMS, não,
-            e aí o bloco vai direto do título para os cards, como antes. */}
-        {body && (
-          <p className="mt-6 max-w-[820px] font-serif text-[17px] leading-[1.6] text-white/80 md:text-[18px]">
-            {body}
-          </p>
-        )}
+            {/* O parágrafo do outline — o que o trabalho foi, antes dos números.
+                Nos cinco serviços com evidência ele existe; no caminho do CMS,
+                não, e aí o bloco vai direto do título para os números. */}
+            {body && (
+              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]">
+                {body}
+              </p>
+            )}
 
-        {shown.length > 0 && (
-          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
-            {shown.map((f, i) => (
-              /* `min-h` + `mt-auto` NO NÚMERO, e os dois juntos é que fazem o
-                 trabalho. Os valores têm comprimentos muito diferentes — "12"
-                 contra "45% higher promotion rate", que quebra em duas linhas —
-                 e sem isso os cards sairiam de alturas diferentes, que é
-                 exatamente o que a hierarquia plana existe para evitar.
-                 Alinhados pela BASE, os rótulos dos quatro caem na mesma linha
-                 independentemente de o valor ter uma ou duas linhas.
+            {/* OS NÚMEROS PERDERAM O CARTÃO, 16-09. Eles eram quatro caixas com
+                borda e gradiente numa faixa de largura inteira; numa coluna de
+                5/12 as caixas ficariam estreitas demais para o valor e o rótulo.
+                O template dela mostra os números em linha, separados por régua.
 
-                 O preenchimento é um gradiente de LUZ, não de cor: branco a 7%
-                 no topo indo a 2% na base. Sobre `ink` isso dá volume ao card
-                 sem introduzir uma cor nova na página — foi a versão escolhida
-                 contra cinco com gradiente vermelho, vinho e carvão. */
-              <div
-                /* Pela posição, não pelo rótulo: o rótulo é opcional (a
-                   "cascade line" da GSK não tem) e repetiria vazio. */
-                key={i}
-                className="flex min-h-[150px] flex-col rounded-2xl border border-white/12 p-7 md:p-8"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02))",
-                }}
-              >
-                <div className="mt-auto">
-                  {/* MEDIDA E PALAVRA NÃO TÊM O MESMO TRATAMENTO, decidido em
-                      11-09 porque os números estavam pequenos demais para o que
-                      são: eles são a prova da seção, e saíam do mesmo tamanho de
-                      um subtítulo. Quem decide é `factIsMeasure` — e vale ler a
-                      caixa dele em `lib/services.ts`, porque "N-1 embedded" já
-                      derrubou uma versão dessa regra.
+                ⚠️ O VERMELHO É O `brand` CHEIO DESDE 16-09, e a troca veio junto
+                com o fundo. Esta faixa era `ink` e passou a ser BRANCA a pedido;
+                a regra que decide o token está na caixa de `--color-brand-light`
+                em `app/globals.css` e é de uma linha: **`brand` em fundo claro,
+                `brand-light` em fundo escuro**. Inverter isso aqui reprovaria —
+                `brand-light` sobre branco é o mesmo erro que `brand` sobre `ink`,
+                só espelhado. As medidas moram lá e não se repetem aqui: numeral
+                duplicado fora da fonte envelhece em silêncio, que é o defeito que
+                esta rodada já veio consertar uma vez.
 
-                      ⚠️ O VERMELHO É O `brand-light`, NÃO O DA MARCA, e aqui a
-                      conta não é opcional. Medido sobre o preenchimento REAL do
-                      card (não sobre `ink` puro — há um gradiente de luz branca
-                      de 7% a 2% por cima dele, fundo efetivo ~#3c3739):
+                ⚠️ O RÓTULO DE 14px FICA A 4,39:1, um fio abaixo dos 4,5 do AA
+                para texto normal — e 4,39 é o TETO desta cor, porque contra
+                branco puro ela não vai além disso (a conta está no `globals.css`).
+                Não é desvio local: é o mesmo caso de todos os rótulos vermelhos
+                do site sobre fundo claro, incluindo o "Related services" três
+                blocos abaixo. Se um dia isso for corrigido, corrige-se no token,
+                não aqui.
 
-                        brand      #d84339   2,66:1   ✗
-                        brand-lt   #e47e77   4,20:1   ✓
-                        branco     #ffffff  11,68:1   ✓
+                A RÉGUA DOS 24px É O QUE SUSTENTA ISSO, e é ela que só existe
+                aqui: o mínimo de contraste para texto GRANDE é mais frouxo que o
+                de texto normal, e a partir de 24px todo texto é grande para a
+                norma. O número ficou mais necessário de conferir depois que
+                encolheu de 38/48px para 32/38px nesta mesma reescrita — segue
+                acima dos 24px com folga nos dois breakpoints, e é por essa régua
+                que ele passa: em 32px, o teto de 4,39:1 do `brand` está muito
+                acima do mínimo de 3,0 do texto grande.
 
-                      O mínimo para texto GRANDE é 3,0, e a partir de 24px todo
-                      texto é grande para a norma — então o número passa, com
-                      folga, e o vermelho cheio reprovaria mesmo assim. É a
-                      mesma razão pela qual a régua do rótulo desta seção já usa
-                      o tom claro.
-
-                      A PALAVRA FICA BRANCA e num corpo intermediário. Pintar
-                      "Management activated" de vermelho a 48px transformaria um
-                      passo de uma sequência em manchete, e a cascata da GSK são
-                      quatro passos de igual peso. Ela também é a única que pode
-                      quebrar em duas linhas, e por isso mantém entrelinha de
-                      texto e não de número. */}
-                  {factIsMeasure(f) ? (
-                    <Counter
-                      value={f.value}
-                      className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[38px] md:text-[48px]"
-                    />
-                  ) : (
-                    <div className="text-[21px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[23px]">
-                      {f.value}
-                    </div>
-                  )}
-                  {f.label && (
-                    <div className="mt-3 font-serif text-[14px] leading-[1.45] text-white/75 md:text-[15px]">
-                      {f.label}
-                    </div>
-                  )}
-                </div>
+                MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
+                é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
+                porque "N-1 embedded" já derrubou uma versão dessa regra. A
+                palavra fica em `ink` e num corpo intermediário: pintar "Management
+                activated" de vermelho em corpo de manchete transformaria um
+                passo de uma sequência em título, e a cascata da GSK são quatro
+                passos de igual peso. Ela também é a única que pode quebrar em
+                duas linhas, e por isso mantém entrelinha de TEXTO
+                (`leading-[1.25]`) e não de número (`leading-[1.02]` no
+                `Counter`). */}
+            {shown.length > 0 && (
+              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-ink/12 pt-8">
+                {shown.map((f, i) => (
+                  /* Pela posição, não pelo rótulo: o rótulo é opcional (a
+                     "cascade line" da GSK não tem) e repetiria vazio. */
+                  <div key={i} className="min-w-[120px]">
+                    {factIsMeasure(f) ? (
+                      <Counter
+                        value={f.value}
+                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand text-[32px] md:text-[38px]"
+                      />
+                    ) : (
+                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-ink md:text-[21px]">
+                        {f.value}
+                      </div>
+                    )}
+                    {f.label && (
+                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-muted">
+                        {f.label}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            )}
 
-        {caseSlug && (
-          <Link
-            href={`/cases/${caseSlug}`}
-            className="mt-12 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white md:mt-14"
-          >
-            Read the client story <span aria-hidden>→</span>
-          </Link>
-        )}
+            {caseSlug && (
+              <Link
+                href={`/cases/${caseSlug}`}
+                className="mt-10 inline-flex items-center gap-2 border-b border-brand/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand transition-colors hover:border-brand hover:text-ink"
+              >
+                Read the client story <span aria-hidden>→</span>
+              </Link>
+            )}
+          </div>
+
+          {imageUrl && (
+            <div className={imageSpan}>
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src={imageUrl}
+                  alt=""
+                  aria-hidden
+                  fill
+                  /* O `sizes` ACOMPANHA A LARGURA REAL DA COLUNA, que depende da
+                     citação: com ela a foto é 4/12 (~33vw), sem ela é 7/12
+                     (~58vw).
+
+                     ⏳ HOJE SÓ O PRIMEIRO RAMO ACONTECE: cinco serviços chegam a
+                     renderizar esta faixa, um único tem foto (o Top 150, com o
+                     recorte provisório do mockup) e esse um também tem citação.
+                     O segundo ramo é para quando as fotos da cliente chegarem
+                     para os outros — oito dos dez não têm citação nenhuma, e
+                     fixar 33vw faria o Next servir neles um arquivo dimensionado
+                     para um terço da tela numa caixa de quase dois terços. */
+                  sizes={
+                    hasQuote
+                      ? "(min-width: 1024px) 33vw, 100vw"
+                      : "(min-width: 1024px) 58vw, 100vw"
+                  }
+                  /* ⚠️ RECORTE À DIREITA, a pedido em 16-09. A caixa é 4:5 e a
+                     foto de hoje é 2:1, então o `object-cover` mostra só 40% da
+                     largura dela — qual 40% é o que esta classe decide.
+
+                     ⏳ ESTA É UMA PROP DE ARQUIVO, NÃO DE COMPONENTE, e vale
+                     rever quando a foto definitiva chegar: `object-right` está
+                     certo para a imagem que está aqui agora e pode estar errado
+                     para a próxima. No dia em que houver foto por serviço, isto
+                     vira campo do dado ao lado de `evidence.image`. */
+                  className="object-cover object-right"
+                />
+              </div>
+            </div>
+          )}
+
+          {testimonial && (
+            <figure className={`${quoteSpan} border-ink/12 lg:border-l lg:pl-8`}>
+              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand">
+                Testimonial
+              </p>
+              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-ink md:text-[21px]">
+                “{testimonial.quote}”
+              </blockquote>
+              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-muted">
+                {testimonial.attribution}
+              </figcaption>
+            </figure>
+          )}
+        </div>
       </Reveal>
     </section>
   );
