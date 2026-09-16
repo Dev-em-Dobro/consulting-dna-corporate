@@ -45,9 +45,11 @@ import { paragraphs, services, type Service } from "@/lib/services";
  * ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP").
  *
  * O CONTEÚDO VEM DE `lib/services.ts`, não do CMS — o porquê está na caixa de
- * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos 4, 5 e 6
- * finalmente têm dado (a strapline e a linha do CTA não existiam no CMS, e esta
- * faixa vinha mostrando o texto padrão), e "The Challenge" some.
+ * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos de
+ * evidência e de convite finalmente têm dado (a strapline e a linha do CTA não
+ * existiam no CMS, e essa faixa vinha mostrando o texto padrão), e "The
+ * Challenge" some. (A numeração acima mudou com a ordem; por isso a referência
+ * aqui é pelo nome do bloco, não pelo número.)
  *
  * ⚠️ "THE CHALLENGE" SAIU. O template de cinco blocos do brief de 27-08 abria com
  * ele; o de 09-09 não tem esse bloco — o herói passou a carregar a "banner

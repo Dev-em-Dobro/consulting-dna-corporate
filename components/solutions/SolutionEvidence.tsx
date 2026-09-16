@@ -89,7 +89,11 @@ export default function SolutionEvidence({
    * estas páginas —, e esta é a única lista delas no componente.
    */
   testimonial?: ServiceTestimonial;
-  /** A capa do caso, quando existe. Sem ela a faixa fica sem a coluna do meio. */
+  /**
+   * A foto do caso, quando existe — sem ela a faixa fica sem a coluna do meio.
+   * ⏳ Hoje só o Top 150 tem, e é um recorte provisório do mockup: a caixa do
+   * campo `image` em `lib/services.ts` conta de onde veio e quando sai.
+   */
   imageUrl?: string;
 }) {
   /* ⚠️ O CORTE EM QUATRO SAIU EM 16-09, e a ORDEM ficou. Ele existia porque a
