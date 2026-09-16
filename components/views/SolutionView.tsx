@@ -1,5 +1,6 @@
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
+import SolutionPillars from "@/components/solutions/SolutionPillars";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
@@ -136,6 +137,8 @@ export default function SolutionView({ service }: { service: Service }) {
         tone="paper"
         panelTone="ink"
       />
+
+      <SolutionPillars items={service.pillars} />
 
       {/* ⚠️ O CONVITE SUBIU, 15-09, a pedido: ele vinha por último e agora fecha
           o par de blocos de texto, antes da evidência. A leitura passa a ser
