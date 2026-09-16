@@ -128,14 +128,20 @@ Substitui a antiga grade estática "Our offices" na homepage por um bloco
 
 ---
 
-## 6. ✅ Stack do mapa: Leaflet + CARTO (resolvido)
+## 6. ✅ Stack do mapa: Leaflet + Esri (a CARTO saiu em 30/08/2026)
+
+> **Trocamos o provedor de tiles em 30/08/2026.** A CARTO deixou de ser keyless e passou a
+> devolver os tiles **com "API KEY REQUIRED" carimbado dentro da imagem** — não era o nosso
+> ambiente, era o servidor deles, e ia para produção assim. Saímos para **Esri World Light Gray**,
+> que responde sem chave e sem carimbo. O histórico completo, com as evidências, está em §6.1.
+> A parte "Leaflet, não Mapbox" abaixo continua valendo e nunca esteve em questão.
 
 Historicamente a **spec/plan/tasks falavam em "Mapbox"** (com menção a MapLibre/OpenFreeMap
-numa etapa intermediária), mas a **implementação real usa Leaflet + tiles CARTO Voyager**,
-que são **keyless** (não precisam de token). Essa divergência **já foi sanada no código**:
+numa etapa intermediária), mas a **implementação real usa Leaflet + tiles raster**, que não
+precisam de token. Essa divergência **já foi sanada no código**:
 
 - **Sem bloqueio por token.** A antiga nota da task T009 ("blocked on a real
-  `NEXT_PUBLIC_MAPBOX_TOKEN`") está **obsoleta** — com Leaflet+CARTO o mapa renderiza
+  `NEXT_PUBLIC_MAPBOX_TOKEN`") está **obsoleta** — com Leaflet+Esri o mapa renderiza
   sem token nenhum.
 - **Comentários de código já limpos:** os componentes (`LocationsBlock.tsx`,
   `LocationsMap.tsx`, `LocationsCarousel.tsx`) e `lib/offices.ts` **não têm mais**
@@ -143,12 +149,134 @@ que são **keyless** (não precisam de token). Essa divergência **já foi sanad
 - **`package.json` confirma:** dependência é **`leaflet` ^1.9.4** + `@types/leaflet`;
   **não há** `mapbox-gl` nem `maplibre-gl` instalados.
 - **Pendência residual (só docs de spec):** `specs/003-.../tasks.md` (T001/T002/T004)
-  ainda cita `mapbox-gl`/`NEXT_PUBLIC_MAPBOX_TOKEN`. É documentação histórica; o código
-  é a fonte de verdade. Corrigir se/quando alguém revisitar a spec 003.
+  ainda cita `mapbox-gl`/`NEXT_PUBLIC_MAPBOX_TOKEN`, e T002 fala em "CARTO Voyager keyless".
+  É documentação histórica; o código é a fonte de verdade. Corrigir se/quando alguém
+  revisitar a spec 003.
+
+### 6.1 Por que a CARTO saiu — e o que aprendemos
+
+**O que era o problema.** O mapa não é uma imagem nossa: o Leaflet monta o fundo baixando
+quadradinhos de imagem (*tiles*) do servidor de outra empresa, um por pedaço do mundo, conforme
+você navega. A CARTO servia isso de graça e sem cadastro. **Ela mudou a política:** continuou
+entregando os quadradinhos, mas com **"API KEY REQUIRED — carto.com/basemaps/apikey" escrito por
+cima do mapa**, em diagonal, igual marca d'água de banco de imagem. Quem abrisse o site via a
+frase atravessada em cima dos países — na home, em `/our-team` e em `/our-clients`.
+
+**Não era o nosso ambiente, e isso foi verificado.** Baixando
+`https://a.basemaps.cartocdn.com/rastertiles/voyager/4/8/5.png` direto por HTTP, com e sem
+`Referer` do domínio do alpha, vinham **os mesmos 20.215 bytes**, já carimbados. Não havia
+liberação por domínio: o carimbo é gravado no PNG pelo servidor deles. Estava visível no alpha,
+que é o link que a CDNA e o Guli abrem.
+
+| Antes (CARTO) | Depois (Esri) |
+| :------------ | :------------ |
+| ![CARTO carimbado](map-tiles/carto-carimbado.png) | ![Esri limpo](map-tiles/esri-limpo.png) |
+
+E no site, depois da troca:
+
+![Bloco de escritórios no site, com tiles Esri](map-tiles/depois-no-site.png)
+
+**De quem era.** Nossa. Fomos nós que apontamos para a CARTO keyless. Por isso **não entrou** no
+PDF nem no e-mail de status de 30/08: virar "decisão da CDNA antes do lançamento" seria devolver
+ao cliente um problema que ele não criou e não tem como avaliar.
+
+**Duas armadilhas da troca, ambas já tratadas em `components/LocationsMap.tsx`:**
+
+1. **A ordem dos eixos da Esri é `{z}/{y}/{x}`**, invertida em relação à CARTO. Trocar errado
+   devolve um tile válido do lugar errado — mapa torto, nunca erro.
+2. **O cache da Esri para de valer no zoom 16**, embora o serviço anuncie níveis até 23. Acima
+   disso ele devolve **HTTP 200** com um tile cinza escrito *"Map data not yet available"* — ou
+   seja, o Leaflet não tem como detectar como falha, e o fallback de lista nunca dispararia.
+   Resolvido com `maxNativeZoom: 16`, que faz o Leaflet ampliar o tile de nível 16 em vez de
+   pedir um nível que voltaria em branco. Os escritórios estão todos em zoom 16 (`lib/offices.ts`),
+   então hoje isso é só guarda para o futuro.
+
+**Alternativas descartadas:** abrir conta na CARTO e usar chave (custa e amarra a conta a um
+provedor), e o tile server padrão do OSM (a política deles desencoraja uso comercial).
 
 ---
 
 ## 7. Pendências / próximos passos
+
+### 0. 🔴 O banco de conteúdo da CDNA está numa conta Supabase que ninguém identificou
+
+> **Respondido em 31/08/2026: é a conta "de ferramentas" da Dev em Dobro.** Não é a
+> `devemdobro@gmail.com` nem a `impulseaisolutions@gmail.com` — as duas foram verificadas e
+> descartadas. **Falta anotar aqui o endereço exato da conta e o ref do projeto**
+> (`https://<ref>.supabase.co`, em `NEXT_PUBLIC_SUPABASE_URL` no painel da Vercel).
+>
+> **O que isso resolve e o que não resolve.** Resolve saber onde está. **Não resolve a
+> titularidade:** a conta é nossa, não da CDNA. Todo o conteúdo autorado do cliente está num
+> Supabase de uma conta de ferramentas da agência, e isso precisa entrar na conversa de handover
+> junto com o domínio (§ Axon) e a Vercel. O §7.0.1 abaixo continua valendo inteiro — e agora com
+> dono conhecido, dá para atribuir o backup a alguém.
+>
+> O histórico da busca fica abaixo porque os caminhos que **não** funcionam economizam tempo na
+> próxima vez.
+
+**A pergunta, feita em 31/08/2026:** de quem é a conta Supabase que guarda o conteúdo da Corporate
+DNA? Todo o conteúdo autorado — os 8 cases, as Solutions, as pessoas, as parcerias — vive nesse
+banco, e o dono não estava registrado em lugar nenhum.
+
+**Onde procurei, e por que cada caminho falhou:**
+
+| Caminho | Resultado |
+| :------ | :-------- |
+| Os dois repositórios | Nenhuma URL `*.supabase.co`. O `.env.example` do CMS só tem o placeholder `https://<project-ref>.supabase.co`; o `.env.local` aponta para o stack local (`127.0.0.1:54321`) |
+| `docs/handover.md` do CMS | Descreve arquitetura, variáveis e o procedimento de `pg_dump` — **não diz de quem é a conta** |
+| `vercel env pull` (produção, `dobro66/corporate-dna-cms`) | As variáveis existem, criadas há 39 dias, mas voltam **vazias**: são sensíveis, a Vercel não devolve o valor. Não é erro de configuração — o CMS em produção funciona e serve o alpha |
+| Bundle do CMS publicado | A `NEXT_PUBLIC_SUPABASE_URL` só é usada no servidor (auth via `app/api/auth/*`), então o ref **não** é inlinado no JS do cliente. Varridos os 9 chunks do `/login`: nada |
+| Cookies do `/login` | Nenhum cookie `sb-<ref>-auth-token` antes do login |
+| CLI do Supabase | Não autenticado nesta máquina (`Access token not provided`) |
+
+**Candidato eliminado — `devemdobro@gmail.com` NÃO é a conta.** Verificado em 31/08/2026 com
+`npx supabase login` seguido de `orgs list` e `projects list`. A conta tem **uma única
+organização**, "Dev em Dobro" (`mvbgdwfhcbwpzahxixzy`), com 13 projetos, e **nenhum é da Corporate
+DNA**. Os únicos dois `ACTIVE_HEALTHY` são `ode-cms` e `ode-clube`, do outro cliente; o restante
+está `INACTIVE`. Isso derruba a suposição óbvia — o banco da CDNA está numa conta que **esta**
+não enxerga.
+
+**A Vercel não entrega o ref, e isso é definitivo.** Consultada a API em
+`GET /v9/projects/{proj}/env?decrypt=true` com o token do CLI: `DATABASE_URL`, `DIRECT_URL` e
+`NEXT_PUBLIC_SUPABASE_URL` voltam todas com **`type=sensitive`** e valor vazio. Variável marcada
+como *Sensitive* na Vercel **não pode ser lida por ninguém** — nem CLI, nem API, nem painel. Só
+sobrescrita. Portanto o `vercel env pull` vazio não era limitação do CLI, como este documento
+supunha antes: é a política de segurança da própria variável, e está correta.
+
+**Também não veio pela integração.** `vercel integration ls` no projeto responde *"No resources
+found"* — o Supabase não foi conectado pelo marketplace da Vercel, as variáveis foram digitadas
+à mão. Não há vínculo registrado do lado da Vercel para consultar.
+
+**Então o ref só vem do lado do Supabase:** entrar na conta de ferramentas e abrir o projeto. O
+ref aparece na URL do painel e em Settings → API.
+
+**Outras identidades que este projeto já usa**, e portanto candidatas a dona da conta:
+`impulseaisolutions@gmail.com` (dono do Resend, `corporate-dna-cms/docs/deploy-prod.md:12`, e a
+identidade exigida no autor do commit HEAD) e `gemeos@devemdobro.com` (que aceitou o convite do
+Cloudflare em 13/08). Uma conta da própria CDNA também não está descartada.
+
+**Anotar aqui o resultado quando souber:** o ref do projeto, o e-mail dono da conta, a organização,
+e se a conta é nossa ou da CDNA.
+
+### 0.1 🔴 E esse banco não tem backup automático
+
+Ligado ao item acima, e mais urgente que ele. Registrado em `corporate-dna-cms`,
+`specs/001-supabase-auth-migration/research.md`, risco **R2**, em 19/07/2026:
+
+> "the project **IS on the Free tier** — no automated backups, no PITR. […] the scheduled `pg_dump`
+> procedure in `docs/handover.md` is the only recovery path, and **someone must own running it from
+> the first day real content exists**. Decide on Pro + PITR before the CMS carries anything anyone
+> would miss."
+
+Em 19/07 isso era teórico. **Hoje não é:** o CMS já carrega o conteúdo real que o alpha serve. O
+plano gratuito da Supabase não faz backup nenhum, o `pg_dump` continua sem dono, e perder esse banco
+significa redigitar tudo — as pessoas dá para reconvidar, o conteúdo não.
+
+Duas decisões, e as duas são de negócio, não técnicas: **quem roda o dump e com que frequência**, e
+**se sobe para o plano Pro com PITR antes do lançamento**. Ver `corporate-dna-cms/docs/handover.md`,
+seção Backup & recovery, para o comando.
+
+### Demais pendências
 
 1. **Validar o mapa manualmente** (quickstart cenários 1–9): fly entre escritórios,
    pin, não-interatividade, swipe mobile, reduced-motion, fallback, responsivo (375px→desktop).

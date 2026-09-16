@@ -29,24 +29,58 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
 
   return (
     <header className="sticky top-0 z-50 bg-brand text-white">
-      <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-6 md:px-10">
+      {/* 1440px, e não os 1200px históricos, desde 08-09.
+          O conteúdo da /about-v2 subiu para 1440 e o logo ficava 120px à direita
+          da borda do título numa tela de 1600 — a barra e o conteúdo têm de
+          correr na mesma margem, senão parece defeito.
+
+          ⚠️ ESTA BARRA É DE TODAS AS PÁGINAS. As demais ainda têm conteúdo em
+          1200, então nelas a relação agora está INVERTIDA: a barra é mais larga
+          que o conteúdo. É a mesma quantidade de desalinhamento de antes, do
+          outro lado, e some quando o resto do site migrar para 1440.
+          O painel do menu no telefone (mais abaixo) segue em 1200 de propósito:
+          ele só aparece abaixo de `lg`, onde nem 1200 nem 1440 chegam a valer. */}
+      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="/"
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
+          {/* A MARCA COMPLETA desde 15-09 — item 1. O raciocínio inteiro (por
+              que PNG, por que a altura é menor até `xl`, e a conta de largura a
+              1024) está na NavV2, que é a outra barra do site e tem o orçamento
+              mais apertado das duas. Aqui a conta é a mesma com folga maior: o
+              menu desta barra mede 773px, e a 1024 sobram 840 para ele com o
+              logo em `h-8`. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo-light.svg"
-            alt="Corporate DNA"
-            className="h-12 w-auto"
+            src="/cdna-logo-full-light.png"
+            alt="Corporate DNA Consulting"
+            className="h-8 w-auto xl:h-10"
           />
         </Link>
 
-        {/* desktop nav */}
-        <nav className="hidden items-center justify-end gap-[30px] md:flex">
+        {/* desktop nav — `lg` (1024px) and not `md` (768px). Measured with the
+            08-09 menu: the row is 773px wide, and with the logo and its gap it
+            needs ~944px before it stops running past the right edge. On `md` the
+            overflow was clipped rather than scrolled, so the item that vanished
+            was the last one — the Contact button. A hamburger on a tablet beats
+            a CTA that is silently not there. */}
+        <nav className="hidden items-center justify-end gap-[30px] lg:flex">
           {items.map((item) =>
-            item.children ? (
+            item.cta ? (
+              // Outline and not a filled block: this bar is already solid brand
+              // in V1 and sits over the hero photo in V2/V3, so a white border
+              // is the one treatment that reads as a button on both without a
+              // per-header variant. Fills white on hover.
+              <Link
+                key={item.label}
+                href={item.href ?? "#"}
+                className="inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
+              >
+                {item.label}
+              </Link>
+            ) : item.children ? (
               <div key={item.label} className="group relative -top-[2px]">
                 <Link
                   href={item.href ?? "#"}
@@ -82,12 +116,6 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               </Link>
             ),
           )}
-          <Link
-            href="/#contact"
-            className="whitespace-nowrap rounded-full border-[1.5px] border-white/75 px-5 py-[9px] text-[11.5px] font-bold uppercase tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
-          >
-            Start a Conversation
-          </Link>
         </nav>
 
         {/* mobile toggle */}
@@ -97,7 +125,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           aria-expanded={open}
           aria-controls="v1-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white md:hidden"
+          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white lg:hidden"
         >
           <svg
             width="26"
@@ -129,11 +157,23 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
       {open && (
         <nav
           id="v1-mobile-nav"
-          className="border-t border-white/15 bg-brand md:hidden"
+          className="border-t border-white/15 bg-brand lg:hidden"
         >
           <div className="mx-auto flex max-w-[1200px] flex-col px-6 pb-5 pt-1">
             {items.map((item) =>
-              item.children ? (
+              item.cta ? (
+                // Filled here, unlike the desktop outline: the panel is a stack
+                // of bordered rows, and an outlined button inside it would just
+                // read as one more row.
+                <Link
+                  key={item.label}
+                  href={item.href ?? "#"}
+                  onClick={() => setOpen(false)}
+                  className="mt-5 flex items-center justify-center bg-white px-5 py-3.5 text-[15px] font-semibold uppercase tracking-[0.6px] text-brand"
+                >
+                  {item.label}
+                </Link>
+              ) : item.children ? (
                 <div key={item.label} className="border-b border-white/10">
                   <button
                     type="button"
@@ -177,13 +217,6 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
                 </Link>
               ),
             )}
-            <Link
-              href="/#contact"
-              onClick={() => setOpen(false)}
-              className="mt-5 rounded-full border-[1.5px] border-white/80 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.6px] text-white"
-            >
-              Start a Conversation
-            </Link>
           </div>
         </nav>
       )}

@@ -1,0 +1,146 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║  NÃO ENVIAR — SUBSTITUÍDO                                            ║
+║  Escrito antes da resposta do Amit (01/09), que mudou três pontos:   ║
+║  o contato do domínio agora exige carta timbrada, o backup virou     ║
+║  tarefa nossa (ou USD 300) e o rollback ficou condicionado a manter  ║
+║  a hospedagem ativa.                                                 ║
+║  → usar docs/resposta-axon-01-09.ENVIAR.txt                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+RESPOSTA À AXON — contatos administrativos + fechamento do cutover
+Fonte: docs/resposta-axon-contatos-31-08-2026.md. Corpo em texto puro.
+
+────────────────────────────────────────────────────────────────────────
+COMO MANDAR: **Responder a todos** no e-mail do Rico de 31/08 09:51.
+             Ele pediu "confirm in this thread" e agora estamos nela —
+             não abrir e-mail novo.
+
+ACRESCENTAR NA CÓPIA: nitin.goil@corporatednaconsulting.com
+             (não está na thread e está sendo indicado como contato do
+             domínio)
+
+ASSUNTO:     Re: corporatednaconsulting.com — domain, and how the cutover
+             will run   [manter o que o Reply All já preenche]
+
+ANTES DE MANDAR, PREENCHER 2 CAMPOS:
+             [role] do Guilherme
+             [role] do Nitin Goil
+             (Rhea e JP já estão preenchidos — conferir se batem)
+
+DECIDIR ANTES DE MANDAR:
+             Contato de registro: o rascunho pede a RHEA nesse campo
+             (só o e-mail dela muda). Se preferir o Guilherme, trocar o
+             nome no parágrafo do §1.
+
+FORA DESTE E-MAIL:
+             As travas do domínio (clientTransferProhibited /
+             clientUpdateProhibited), o auto-renew e a invalidação dos
+             EPP já emitidos NÃO entram aqui — vão numa conversa
+             separada. Lembrete: o domínio expira em 13/10 e hoje está
+             com status "active", sem trava nenhuma.
+────────────────────────────────────────────────────────────────────────
+
+
+Dear Rico,
+
+Thank you for the clear summary — your six points match our understanding
+exactly, and we are happy to work to the sequence you set out.
+
+1. ADMINISTRATIVE CONTACT
+
+Corporate DNA has nominated the following people. Allison Vickery has left
+the company; her mailbox should be removed from all domain correspondence.
+
+- Rhea Leckie — Founder & CEO — rhea.l@corporatednaconsulting.com
+- Guilherme Mendes — [role] — gm@corporatednaconsulting.com
+- Nitin Goil — [role] — nitin.goil@corporatednaconsulting.com
+- Jon-Paul Pritchard — Thought Leadership — jp.pritchard@corporatednaconsulting.com
+
+Please note Rhea's address. Earlier correspondence went to an older address
+of hers which is no longer in use; the correct one is
+rhea.l@corporatednaconsulting.com.
+
+If the registrar record allows only a single administrative contact, please
+use Rhea Leckie — she is already the registered contact, so only the email
+address changes — and add the other three to your notification list, so that
+all four receive renewal notices, contact-change confirmations and any auth
+code correspondence.
+
+The organisation's postal address is unchanged, so please keep the existing
+address on record. If the registrar also requires a direct telephone number
+for the record contact, please confirm and we will provide it — Corporate
+DNA's main office line, if that is acceptable to the registrar.
+
+2. THE CUTOVER
+
+Agreed on every point:
+
+- we will send you the exact target DNS record values, and the proposed
+  date, time and timezone, before making any change;
+- the change is limited to the A and CNAME records for the apex and www;
+- MX, SPF, DKIM and DMARC will not be touched — Microsoft 365 mail is
+  unaffected by this work;
+- we will validate the new site on the live domain after the update, and
+  then confirm in this thread.
+
+One clarification on Cloudflare's Under Attack mode. We will keep it enabled
+through the record change and validation, as agreed. It does, however, need
+to be switched off at go-live: it presents an interstitial challenge to every
+visitor and prevents search engines from crawling the site — at present
+/sitemap.xml returns 403 for exactly that reason. We will disable it once the
+new site is validated and your server is no longer in the path, and we will
+tell you when we do.
+
+3. THE ROLLBACK PERIOD
+
+We propose two weeks from the date we confirm the new site is live and
+validated. During that window, please keep the WordPress site running and
+reachable at its own IP or hostname, so that we can repoint to it quickly if
+anything needs reverting.
+
+4. THE WORDPRESS BACKUP
+
+Thank you for arranging this. Two points to settle:
+
+- please deliver a copy to Corporate DNA — a download link is fine — rather
+  than retaining it only on your side; and
+- please include both the site files (in particular /wp-content/uploads) and
+  a database dump.
+
+We would rather have it in hand before the cutover than at the point the
+server is retired.
+
+5. ONE QUESTION FROM OUR SIDE
+
+Could you confirm the exact renewal date of the website hosting? Our only
+reference is invoice #9143 from the previous cycle. You made the point
+yourself that this should not be left until the last minute, and knowing the
+date allows Corporate DNA to decide on renewal in good time.
+
+Best regards,
+Ricardo
+
+
+════════════════════════════════════════════════════════════════════════
+BÔNUS — resposta curta ao Guilherme, na thread dele (PT)
+════════════════════════════════════════════════════════════════════════
+
+Perfeito, Guilherme, obrigado. Já estou respondendo a eles com os quatro.
+
+Duas coisinhas para eu não chutar:
+
+1. Cargo seu e do Nitin — a Axon pede o cargo junto do nome. Da Rhea e do
+   JP eu tenho.
+2. Um telefone com DDI. O registrador normalmente exige um para o contato
+   do registro. Minha sugestão é usar a linha principal do escritório em vez
+   do celular de alguém — é o mesmo motivo de estarmos trocando o contato
+   agora: número de pessoa morre quando a pessoa sai.
+
+Uma observação sobre o cadastro: registrador costuma ter só um campo de
+contato administrativo, e os outros entram como cópia. Pedi para deixarem a
+Rhea nesse campo — ela já é a contato registrada, então só o e-mail dela muda
+(o antigo estava errado) — e vocês três recebendo tudo junto. Se preferir
+você nesse lugar, me avisa que eu troco.
+
+Abraço,
+Ricardo

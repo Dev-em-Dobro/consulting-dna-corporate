@@ -13,6 +13,23 @@ export type HFaculty = {
   /** Accent hex, matching the DNA wheel illustration. */
   color: string;
   description: string;
+  /**
+   * The five dimensions this faculty covers — 25 across the wheel.
+   *
+   * Transcribed from `docs/5H-wheel-25-dimensions.png`, which is the CDNA
+   * artwork, so the wording (including "Interpersonal savvy" in lower case) is
+   * theirs and is reproduced verbatim.
+   *
+   * ⚠️ Proprietary CDNA IP. The names are lifted from their own wheel, but this
+   * cycle's approval list has not come back — the 27-08 brief requires sign-off
+   * before anything reaches production.
+   *
+   * Order is ours, not the wheel's: each faculty is read along its arc in the
+   * direction its labels run. The wheel itself is a circle with no start, and
+   * Guli's mock does not fix an order. Reordering an array here is the whole
+   * change if CDNA wants a different sequence.
+   */
+  dimensions: string[];
   icon: (props: SVGProps<SVGSVGElement>) => ReactNode;
 };
 
@@ -100,6 +117,13 @@ export const FIVE_H: HFaculty[] = [
     color: "#97bf3f",
     description:
       "How leaders think, reason and interpret the world around them.",
+    dimensions: [
+      "Critical Thinking (Reasoning)",
+      "Decision Making",
+      "Growth Mindset & Learning Agility",
+      "Scenario Planning",
+      "Navigating Complexity",
+    ],
     icon: HeadIcon,
   },
   {
@@ -110,6 +134,13 @@ export const FIVE_H: HFaculty[] = [
     color: "#e0392c",
     description:
       "How leaders feel, relate and connect through emotion, authenticity and trust.",
+    dimensions: [
+      "Courage & Resilience",
+      "Empathy",
+      "Authentic Energy",
+      "Interpersonal savvy",
+      "Connection & Collaboration",
+    ],
     icon: HeartIcon,
   },
   {
@@ -120,6 +151,13 @@ export const FIVE_H: HFaculty[] = [
     color: "#35b5bf",
     description:
       "How leaders sense and tap into their intuition, or their gut brain.",
+    dimensions: [
+      "Judgement & Discernment",
+      "Curiosity",
+      "Sensing & Sense Making",
+      "Insightfulness",
+      "Accelerated Decisioning",
+    ],
     icon: HunchIcon,
   },
   {
@@ -130,6 +168,13 @@ export const FIVE_H: HFaculty[] = [
     color: "#55b34e",
     description:
       "How leaders take tangible action through choices and decisions.",
+    dimensions: [
+      "Resourcefulness",
+      "Role Modelling",
+      "Accountability",
+      "Stakeholder Centricity",
+      "Action Oriented",
+    ],
     icon: HandsIcon,
   },
   {
@@ -140,6 +185,13 @@ export const FIVE_H: HFaculty[] = [
     color: "#ef9d63",
     description:
       "How leaders create sustainable change through building new habits, repetitive rituals, and practices.",
+    dimensions: [
+      "Listening & Questioning",
+      "Leading with Why",
+      "Consistency",
+      "Ownership",
+      "Transparency",
+    ],
     icon: HabitsIcon,
   },
 ];

@@ -203,6 +203,7 @@ export default function HeroV1() {
                 return;
               }
               let last = -1;
+              let flipped = false;
               const draw = (i: number) => {
                 if (i === last) return;
                 // A failed frame draws the nearest earlier one — a 1/12s hold
@@ -213,15 +214,32 @@ export default function HeroV1() {
                 if (!img) return;
                 last = i;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                // Flip the hero from the poster <picture> to the <canvas>
+                // (see globals.css: [data-intro="canvas"]) — on the first frame
+                // actually painted, never before.
+                //
+                // This used to run unconditionally on the line after `draw(0)`.
+                // But `draw` returns early when the frame it wants has not
+                // downloaded yet, and on a phone opening the site cold that is
+                // the normal case: 239 requests do not all land before the
+                // tween starts. So the poster was hidden to reveal a canvas
+                // with nothing on it, and the hero rendered black until the
+                // first frame arrived. Reloading "fixed" it because the frames
+                // then came from cache and frame 0 was there immediately —
+                // which is exactly why it looked intermittent.
+                //
+                // Gating the flip on a real `drawImage` means the worst case is
+                // the poster holding a moment longer, which is what it is for.
+                if (!flipped) {
+                  flipped = true;
+                  section.setAttribute("data-intro", "canvas");
+                }
                 // Hint the browser to decode the next frames off the hot path,
                 // so drawImage never waits on a synchronous decode.
                 frames[i + 1]?.decode?.().catch(() => {});
                 frames[i + 2]?.decode?.().catch(() => {});
               };
               draw(0);
-              // Flip the hero from the poster <picture> to the <canvas>
-              // (see globals.css: [data-intro="canvas"]).
-              section.setAttribute("data-intro", "canvas");
               const state = { f: 0 };
               const tween = gsap.to(state, {
                 f: HERO_FRAME_COUNT - 1,
@@ -396,18 +414,35 @@ export default function HeroV1() {
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 pt-[110px] md:px-10">
         <div className="mx-auto max-w-[1000px] text-center">
+          {/* Branco, não brand. O eyebrow em #d84339 sobre esta foto media 1.29:1
+              — o vermelho da marca e o céu azul-acinzentado têm quase a mesma
+              luminância, e 13px uppercase com tracking de 2px é o pior caso para
+              contraste baixo. Em branco vai a 6.3:1.
+
+              Não é regra nova: a faixa de credibilidade (page.tsx) já usa
+              white/70 e o Client impact virou branco em 31-08 pelo mesmo motivo.
+              O brand aqui vive como preenchimento — o CTA "Results, Not
+              Promises." — e não como cor de texto sobre imagem. O traço acompanha
+              o texto; deixá-lo vermelho sozinho seria um borrão no mesmo 1.29:1. */}
           <div className="mb-[26px] flex items-center justify-center gap-3">
-            <span className="h-bar inline-block h-0.5 w-9 bg-brand" />
-            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+            <span className="h-bar inline-block h-0.5 w-9 bg-white" />
+            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-white">
               Global leadership advisory &amp; executive coaching
             </span>
           </div>
+          {/* 27-08 brief, item 1. Both lines are the client's own approved
+              working copy, quoted from the e-mail — not a rewrite. "When the
+              stakes are high…" is not gone, it has moved into the sub-line,
+              which is what the brief asks: it "pode continuar na narrativa, mas
+              não como primary headline". The sub also has to put CEOs, CHROs &
+              CLOs on the first screen, which it now does. */}
           <h1 className="h-title mb-7 text-[38px] sm:text-[48px] md:text-[64px] font-bold leading-[1.04] tracking-[-1.5px] text-white [text-wrap:balance]">
-            When the stakes are high, leadership must become&nbsp;real.
+            Keeping Leadership&nbsp;Real
           </h1>
-          <p className="h-sub mx-auto mb-8 max-w-[720px] text-xl font-normal leading-[1.55] text-white/85">
-            We help CEOs, CHROs and executive teams align leadership, accelerate
-            decisions and build the talent required to deliver transformation.
+          <p className="h-sub mx-auto mb-8 max-w-[760px] text-xl font-normal leading-[1.55] text-white/85">
+            We help CEOs, CHROs &amp; CLOs build real leadership when the stakes
+            are high — through real conversations, real choices and real
+            decisions that deliver in the moments that matter.
           </p>
           <p className="h-cta mb-9 text-[15px] font-semibold uppercase tracking-[3px] text-white/90">
             Making Leadership Real.{" "}

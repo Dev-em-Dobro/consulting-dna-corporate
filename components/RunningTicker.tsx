@@ -46,26 +46,29 @@ export default function RunningTicker({
 
   const sequence = [...entries, ...entries];
   const fade =
-    "linear-gradient(to right, transparent, #000 4%, #000 96%, transparent)";
+    "linear-gradient(to right, transparent, #000 3%, #000 97%, transparent)";
 
   return (
-    <section aria-label="Corporate DNA milestones" className="border-y border-line bg-paper">
+    <section
+      aria-label="Corporate DNA milestones"
+      className="w-full bg-ink-2 text-white"
+    >
       <div
-        className="w-full overflow-hidden py-4"
+        className="w-full overflow-hidden py-3"
         style={{ maskImage: fade, WebkitMaskImage: fade }}
       >
         <div ref={track} className="flex w-max items-center">
           {sequence.map((e, i) => {
             const duplicate = i >= entries.length;
+            // `category` and `date` are not rendered. Item 17 names Awards, new
+            // regions, offices, partnerships and milestones as the *content* the
+            // ticker should carry, not as labels to print: they drive the 2023
+            // cut and the ordering in `getTickerEntries`. The old CDNA strip this
+            // restores was plain text, underlined only where an item linked out.
             const body = (
-              <>
-                {e.category && (
-                  <span className="mr-3 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">
-                    {e.category}
-                  </span>
-                )}
-                <span className="text-[15px] font-medium text-ink">{e.text}</span>
-              </>
+              <span className="text-[14px] font-medium text-white/90">
+                {e.text}
+              </span>
             );
             return (
               <div
@@ -73,18 +76,17 @@ export default function RunningTicker({
                 // The second copy exists only to make the loop seamless, so keep
                 // it out of the accessibility tree and out of the tab order.
                 aria-hidden={duplicate}
-                className="flex shrink-0 items-center whitespace-nowrap px-7"
+                className="flex shrink-0 items-center whitespace-nowrap px-8"
               >
-                <span className="mr-7 inline-block h-1.5 w-1.5 rounded-full bg-brand" />
                 {e.linkUrl && !duplicate ? (
                   <Link
                     href={e.linkUrl}
-                    className="inline-flex items-center underline-offset-4 hover:underline"
+                    className="underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
                   >
                     {body}
                   </Link>
                 ) : (
-                  <span className="inline-flex items-center">{body}</span>
+                  body
                 )}
               </div>
             );

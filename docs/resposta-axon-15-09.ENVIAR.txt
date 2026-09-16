@@ -1,0 +1,170 @@
+RESPOSTA À AXON — 15/09/2026
+Responde ao segundo "gentle reminder" do Rico (hospedagem, Google, créditos de
+manutenção). Corpo em texto puro, em inglês.
+
+╔══════════════════════════════════════════════════════════════════════╗
+║  ⚠️ EM ESPERA, E O §3 ESTÁ VENCIDO — NÃO MANDAR COMO ESTÁ.           ║
+║                                                                      ║
+║  O Roberto escreveu ao Guilherme em 15/09                            ║
+║  (docs/mensagem-guilherme-15-09-2026-pendencias-axon.txt) fechando   ║
+║  posição diferente no backup: como a Axon não liberou os acessos da  ║
+║  hospedagem, o caminho passa a ser comprar 1 hora de crédito e       ║
+║  deixar a Axon fazer o backup dos arquivos e do banco.               ║
+║                                                                      ║
+║  O §3 abaixo faz o oposto — recusa o crédito e pede acesso           ║
+║  ("access, not work"). Reescrever antes de mandar: confirmar a       ║
+║  compra de 1 crédito e alinhar o escopo do backup (arquivos, banco   ║
+║  e mídias; formato de entrega; e onde eles depositam o arquivo).     ║
+║                                                                      ║
+║  E o e-mail só sai depois dos dois "oks" que o Roberto pediu à       ║
+║  CDNA: a extensão de S$ 150 e a hora de suporte.                     ║
+║                                                                      ║
+║  Os §1, §2 e §4 continuam valendo como estão.                        ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+────────────────────────────────────────────────────────────────────────
+COMO MANDAR: **Responder a todos** no e-mail do Rico de 15/09 que começa
+             com "Just a gentle reminder regarding the remaining items for
+             the corporatednaconsulting.com website transition". Vai para
+             Guilherme, Ricardo, Rhea, Nicole e quem mais o Reply All
+             trouxer — não tirar ninguém.
+
+⚠️ O ORIGINAL CHEGOU TRUNCADO. A partir de "Once we receive the Google-linked
+   address, we c..." o texto colado corrompe e emenda direto no parágrafo dos
+   créditos de manutenção. O §3 desta resposta assume que o trecho perdido é a
+   mesma oferta de assistência paga de 03/09 (backup, DNS, cutover checking),
+   porque é o que sobrou legível do parágrafo. **Abrir o e-mail no Gmail e
+   conferir esse trecho antes de mandar.** Se disser outra coisa — um prazo,
+   um valor, uma condição —, o §3 precisa de revisão.
+
+⚠️ O ITEM 2 DELE CONTRADIZ O NOSSO REGISTRO. O Rico escreve que ainda espera a
+   Nicole informar um endereço ligado a uma conta Google. Só que em 03/09, às
+   07:07, foi ele mesmo quem a adicionou como administradora do Analytics,
+   depois de ela criar a conta com o e-mail corporativo — está na thread e no
+   `docs/locked-in/1-axon-cutover-and-open-items.txt`. O §2 trata isso como
+   reconciliação de registro, sem acusar ninguém de nada, e devolve a pergunta:
+   falta no Analytics ou no Search Console, e o que exatamente. Se a Nicole
+   disser que nunca clicou no convite, o parágrafo muda — confirmar com ela
+   antes, se der.
+
+PREENCHER ANTES DE MANDAR:
+             nada no corpo. Mas o §4 pergunta se a autorização da Rhea para a
+             troca do contato administrativo já foi recebida. Se ela já mandou
+             o "responder a todos" e vocês souberem disso, trocar "please
+             confirm whether" por "please confirm that the change is recorded".
+
+CONFIRMADO ANTES DE ESCREVER (hoje, 15/09, consultado no 1.1.1.1):
+             • o TXT google-site-verification=qhJkWlL-... continua publicado na
+               zona — é a prova de que a propriedade do Search Console existe;
+             • o MX segue único, corporatednaconsulting-com.mail.protection.
+               outlook.com. Microsoft 365 puro, sem fallback. Por isso o §3
+               pode afirmar que o cutover não tem como afetar e-mail.
+
+O QUE ESTE E-MAIL COMPROMETE:
+             nenhuma data nova. Mantém o 20/09 que já prometemos em 03/09, para
+             as duas coisas: extensão da hospedagem e posição sobre o backup.
+
+POSTURA (15/09):
+             • a compra dos S$ 150 é da Corporate DNA, e o e-mail diz isso com
+               essas palavras — a Axon não fatura com a nossa palavra. Mas a
+               recomendação de comprar fica registrada na thread, com o motivo.
+             • crédito de manutenção recusado de novo, de leve, sem negociar
+               preço. A frase que faz o trabalho é "access, not work".
+             • pedir usuário FTP adicional + export do banco, e pedir
+               explicitamente para NÃO resetar credencial nenhuma. Reset não se
+               desfaz, e ainda não sabemos se alguém da CDNA publica no
+               WordPress antigo.
+             • trazer para dentro desta thread duas coisas que não estavam na
+               lista dele: o domínio, que expira 13/10 (mais perto que a
+               hospedagem), e as travas de registrar, que são de graça.
+
+FORA DESTE E-MAIL, de propósito:
+             o handover de quem fica dono do domínio, do Vercel, do Supabase e
+             do Resend; o LMS; e a fatura de S$ 22 além da pergunta de a que
+             ela se refere. Nada disso melhora com a Axon na cópia hoje.
+
+FORMATO:     cada parágrafo é uma linha só, sem quebra manual, para o Gmail
+             preencher a largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+
+Dear Rico,
+
+Thank you for the reminder. Taking your points in the same order, and adding two at the end that are not on your list but fall due earlier than 30 September.
+
+1. HOSTING EXTENSION
+
+Understood: no monthly option, one quarter minimum, 1 October to 31 December 2026, SGD 150.
+
+The purchase is Corporate DNA's to authorise, not ours, so the confirmation will come from Rhea or Guilherme by reply-all — by 20 September, as we committed in this thread on 3 September.
+
+For the record, Dev em Dobro's recommendation is to take the quarter. Content for the Team, Services and Approach pages was still being delivered to us on 15 September, and design work on those pages is in flight, so a cutover inside September would either be rushed or would leave no rollback window at all. SGD 150 is the cheapest line item in this project and the only one that buys back schedule freedom: it lets the launch date be chosen on the state of the work rather than on the end of a hosting term.
+
+Two things we need from you before that confirmation. Both were asked on 3 September and are still open:
+
+- the last date you can accept the instruction without the account lapsing, so that the decision does not end up having to be made earlier than 20 September by accident;
+
+- written confirmation that the extension is a single quarter ending 31 December 2026 and does not auto-renew into a further annual term. The panel shows Axon-P500 as cancelled and due 30 September, and it should remain cancelled when the extension ends.
+
+2. GOOGLE ANALYTICS AND SEARCH CONSOLE
+
+On Nicole, our record differs from yours, so it is worth reconciling before she is asked to repeat a step she has already taken. Nicole created a Google Account using her Corporate DNA address, and you added her as an administrator on the Analytics property on 3 September at 07:07. If something is still outstanding, please tell us which property it concerns — Analytics or Search Console — and exactly what is missing, and we will make sure it is done the same day.
+
+Two items from Guilherme's 1 September email have still not been actioned on the Analytics property:
+
+- singapore@corporatednaconsulting.com as Corporate DNA's institutional owner and administrator. This is the whole point of the exercise: the account should not depend on any single individual, internal or external.
+
+- nitin.goil@corporatednaconsulting.com as administrator.
+
+If either address is not yet linked to a Google Account, tell us which one and we will have it created the same way Nicole did, rather than have an invitation fail silently.
+
+Search Console is the one item that has not moved since we first raised it on 31 August. We queried the zone again today, 15 September, and the Google verification record is still published:
+
+google-site-verification=qhJkWlL-UVvC_XuGzji8FuWTGDFZiP2ynGRIAsxIoIU
+
+So a verified property exists, and somebody holds it. Please tell us which Google account that is and who currently has owner or full access, and grant access to singapore@corporatednaconsulting.com, nitin.goil@corporatednaconsulting.com and nicole.phoon@corporatednaconsulting.com. If the property is not under Axon's control, please say so plainly and we will pursue it from Corporate DNA's side. This is the item that carries the search history and the ownership verification, so it matters more than Analytics.
+
+3. MAINTENANCE CREDITS, THE BACKUP AND THE CUTOVER
+
+Thank you for the offer, and for being clear about the scope. We note it and we do not expect to need it.
+
+On the DNS work and the cutover there is nothing for Axon to do. We have had access to the Cloudflare zone since the invitation was accepted on 13 August; the change is limited to the apex A record and the www record; and MX, SPF, DKIM and DMARC will not be touched. We re-checked the zone today: the MX is still a single Microsoft 365 record, so Microsoft 365 mail cannot be affected by the change. As agreed, you will receive the exact record values with the date, time and timezone before anything is changed, and confirmation in this thread once it is validated.
+
+On the legacy site, Corporate DNA does want a complete archive — files, database and media — before the server is retired, and Dev em Dobro will take it rather than ask Axon to produce it. What would help is access, not work: an additional FTP user plus a database export, or cPanel access. Please do not reset any existing credentials in the meantime. We do not yet know whether anyone at Corporate DNA still publishes on the old WordPress site, and a reset is not something that can be undone.
+
+The timing of that request depends on item 1. With the extension, the archive can be taken calmly before 31 December. Without it, it has to be done before 30 September, and the access request becomes urgent the moment the decision is made. Either way, we will come back to you on this by 20 September, together with the hosting answer.
+
+4. TWO ITEMS NOT ON YOUR LIST
+
+Domain renewal. The domain expires on 13 October 2026, which is sooner than anything above, and it has not been discussed in this thread. Please confirm who renews it, whether auto-renewal is enabled on the domain, and whether the outstanding SGD 22 invoice relates to it. We would rather settle this now than discover it in October.
+
+Administrative contact, and registrar locks. This has dropped off your list, so please confirm whether Rhea's authorisation has been received and the administrative contact is now recorded as Rhea Leckie, rhea.l@corporatednaconsulting.com, with Allison Vickery's mailbox removed from all domain correspondence. While the record is being updated, please also enable clientTransferProhibited and clientUpdateProhibited on the domain. Both cost nothing and they close off an unauthorised transfer or contact change.
+
+Thank you, and we will be back with the two answers by 20 September.
+
+Best regards,
+Ricardo
+
+
+════════════════════════════════════════════════════════════════════════
+MENSAGEM PARA O GUILHERME E A RHEA (PT) — thread separada, não à Axon
+════════════════════════════════════════════════════════════════════════
+
+Fala, Guilherme, tudo certo?
+
+A Axon cobrou hoje as pendências. Já respondi a parte técnica; sobraram duas que só vocês podem resolver, e as duas são uma frase cada.
+
+1. Hospedagem: S$ 150 pelo trimestre de 01/10 a 31/12. Não existe extensão mensal, o mínimo é o trimestre. **Nossa recomendação é comprar**, e o motivo é de calendário, não de técnica: o conteúdo de Team, Services e Approach ainda estava chegando ontem e hoje, e a 5H que o Guli desenhou é construção, não ajuste. Lançar dentro de setembro seria ou correndo, ou sem nenhuma janela de rollback — em 30/09 o servidor antigo desliga e não existe volta atrás. Os S$ 150 compram o direito de escolher a data de lançamento pelo estado do trabalho, e não pelo fim de uma fatura de hospedagem. Quem autoriza a compra é a Corporate DNA, então precisa de um "responder a todos" de vocês na thread. Eu disse a eles que a resposta sai até 20/09, como tínhamos combinado.
+
+2. Rhea, falta o teu "responder a todos" autorizando a troca do contato administrativo do domínio para o teu e-mail e a saída da caixa da Allison. Não precisa mais de carta em papel timbrado nem de assinatura — o Amit dispensou. É a única coisa travando esse item, e não tem custo. Se já foi enviado e eu não vi, me diz que eu tiro a cobrança da thread.
+
+Duas coisas que eu levantei hoje porque ninguém tinha levantado:
+
+3. **O domínio expira em 13 de outubro**, o que é mais perto que a hospedagem. Pedi para a Axon confirmar quem renova, se a renovação automática está ligada e se a fatura de S$ 22 em aberto é disso. Também pedi as travas de registrar, que são de graça e evitam transferência não autorizada.
+
+4. O Search Console continua sem resposta desde 31/08 — é a quarta vez que peço. Confirmei hoje no DNS que o registro de verificação do Google continua publicado, então a propriedade existe e alguém tem. Vale a mesma pergunta aí dentro: alguém da CDNA já acessou isso, ou lembra quem cuidava de SEO na época?
+
+E uma pergunta que eu preciso antes de pedir o acesso para o backup do site antigo, sem pressa mas antes do dia 20: **alguém da CDNA ainda entra no WordPress antigo para publicar alguma coisa?** Se ninguém entra, o pedido de acesso fica simples e sem risco para ninguém.
+
+Abraço,
+Ricardo

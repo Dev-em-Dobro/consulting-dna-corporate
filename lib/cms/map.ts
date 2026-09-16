@@ -120,6 +120,17 @@ function resolveClientLogo(client: string): { url?: string; color?: string } {
 
 // ---- View models -----------------------------------------------------------
 export type PersonVM = {
+  /**
+   * O slug da entrada no CMS.
+   *
+   * ⚠️ EXISTE PORQUE O NOME NÃO SERVE PARA CASAR. A /team precisa ligar cada um
+   * dos seis da liderança (que vêm de `lib/team.ts`) ao perfil do CMS, e os
+   * nomes divergem: o CMS grava "Jon-Paul (JP) Pritchard" contra o nosso "Jon
+   * Paul Pritchard", e "Nitin Goil " com espaço no fim. Casar por nome
+   * normalizado funcionaria hoje e quebraria em silêncio na primeira edição
+   * feita pelo admin — o slug é estável e é a chave de verdade da entrada.
+   */
+  slug: string;
   name: string; role: string; img?: string; bio: string[]; bioHtml?: string;
   socials?: Social[]; values?: string; strengths?: string; specialties?: string[];
   trackRecord?: string[]; clients?: string; languages?: string; skills?: string[];
@@ -140,7 +151,11 @@ export type CaseListEntry = {
   logoColor?: string;    // predominant logo colour (hex) for the band tint
 };
 export type CaseArticle = {
-  slug: string; tags: string[]; title: string;
+  slug: string; tags: string[];
+  /** The client's name — also the key that resolves the logo and brand colour. */
+  title: string;
+  /** The case's own headline, when authored; the page falls back to `title`. */
+  headline?: string;
   intro?: string;            // introduction — rich text (HTML)
   quote?: string; quoter?: string;
   text?: string;             // main body — rich text (HTML)
@@ -164,6 +179,8 @@ export type SolutionVM = {
   // `flagshipCaseSlug` + `proofRefs`; the CTA closes the page.
   outcome?: string; howWeHelp?: string; flagshipCaseSlug?: string;
   cta?: { label?: string; href?: string }; coverUrl?: string; bannerUrl?: string;
+  // Bloco 6 do outline de 09-09, por serviço (campos novos no CMS em 11-09).
+  ctaStrapline?: string; ctaLine?: string; ctaLabel?: string;
   proofRefs?: ProofRef[];
   resources?: ResourceLink[];
 };
@@ -201,6 +218,7 @@ export async function getPeople(): Promise<PersonVM[]> {
     const parsed = S.personEntry.safeParse(details[i]);
     const d = parsed.success ? parsed.data.data : undefined;
     return {
+      slug: it.slug,
       name: plainText(d?.name) ?? plainText(it.title) ?? "",
       role: plainText(d?.role) ?? plainText(it.summary) ?? "",
       img: d?.photoUrl ?? d?.coverUrl ?? it.coverUrl,
@@ -288,6 +306,7 @@ function mapCase(raw: unknown): CaseArticle | null {
     slug: r.data.slug,
     tags,
     title: plainText(d.title) ?? "",
+    headline: plainText(d.headline)?.trim() || undefined,
     // introduction / text are rich text → keep HTML for <RichText>.
     intro: d.introduction ?? d.summary,
     quote: plainText(d.quote ?? d.clientQuote),
@@ -543,6 +562,11 @@ function mapSolution(raw: unknown): SolutionVM | null {
     flagshipCaseSlug: plainText(d.flagshipCaseSlug)?.trim() || undefined,
     body: d.body,
     cta: d.cta ? { label: plainText(d.cta.label), href: d.cta.href } : undefined,
+    // `plainText` porque os três são texto simples no editor, mas o campo de
+    // richtext ao lado ensina o hábito de colar com marcação.
+    ctaStrapline: plainText(d.ctaStrapline),
+    ctaLine: plainText(d.ctaLine),
+    ctaLabel: plainText(d.ctaLabel),
     coverUrl: d.coverUrl,
     bannerUrl: d.bannerUrl,
     proofRefs: mapProofRefs(d.proofRefs),

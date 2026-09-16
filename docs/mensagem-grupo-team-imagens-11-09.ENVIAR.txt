@@ -1,0 +1,103 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: SEM NEGRITO, como as de 10-09 e 11-09. Serve igual para WhatsApp e e-mail.
+STATUS: ⬜ NÃO ENVIADA
+QUANDO: depois da mensagem de fotos de Services, e não junto. As duas pedem fotografia, e no mesmo
+        dia viram "os desenvolvedores querendo arquivo" em vez de dois assuntos.
+
+⚠️ ANTES DE ENVIAR, DUAS CONFERÊNCIAS:
+    1. A mensagem NÃO leva link de propósito. ESTA CONFERÊNCIA JÁ FOI FEITA em
+       11-09: o deploy rodou (`vercel --prod --yes`, dpl_E8zUqZdwns…) e o que
+       está no ar É o que está no git. Se for mandar o endereço junto, o
+       endereço é /team — A ROTA MUDOU de /our-team para /team no mesmo dia.
+       Conferido no alpha depois do deploy:
+           /team                          200
+           /our-team                      308 → /team
+           /our-advisors                  308 → /team
+           /our_team.html                 308 → /team
+           /our-way/our-team-and-network  308 → /team
+           a entrada do herói roda (régua 702ms, título 1404ms, fim 2105ms)
+           o mapa da Global presence carrega as 12 tiles
+           zero erro de console
+       ⚠️ O DEPLOY CONTINUA MANUAL. Isto vale para o commit 41b8ec7; qualquer
+       coisa commitada depois dele volta a não estar no ar.
+    2. Se a decisão sobre quem aparece na página (último parágrafo, opcional) já
+       tiver sido tomada em outro canal, cortar o parágrafo inteiro.
+
+⚠️ O CORPO FOI CORRIGIDO EM 11-09, DEPOIS DO DEPLOY, e vale saber por quê: dois
+    parágrafos tinham deixado de ser verdade no mesmo dia em que foram escritos.
+    • Dizia "rather than leaving empty frames on the page". O slot da foto de
+      grupo PASSOU A SER VISÍVEL horas depois — decisão consciente, e o motivo
+      dela agora está no próprio parágrafo, que é melhor argumento do que a
+      frase que ele substituiu.
+    • Dizia "we are pausing that section instead of polishing it further" e
+      chamava a faculty de "the quietest". A seção ganhou o fundo que o próprio
+      cliente gerou. Mandar isso como estava seria descrever para ele uma página
+      diferente da que ele vai abrir — e a mensagem inteira depende de ele
+      confiar na descrição.
+
+POR QUE ESTA MENSAGEM EXISTE:
+    A seção "Global faculty" foi desenhada em cinco tratamentos em 11-09 e todos
+    esbarram na mesma parede: é a única seção da página que fala de 75 pessoas e
+    não mostra nenhuma. O documento de Team pede as imagens em letra — "A
+    representative selection or mosaic image per region. Slot 06." — e elas nunca
+    chegaram. Continuar refinando o layout sem elas é refinar o lugar onde a foto
+    vai entrar. A mensagem para o trabalho e explica por quê.
+
+O QUE ESTA MENSAGEM COMPROMETE:
+    Nada de prazo. É explícito que a página é publicável como está e que nada
+    disto segura o 15/09. O que ela pede é decisão, não entrega imediata.
+
+AS DUAS PERGUNTAS DO SLOT 06 SÃO REAIS, e não retórica para cobrar:
+    "A representative selection OR mosaic image per region" aceita as duas
+    leituras, e o resultado visual é diferente — cinco fotos ou cinco colagens.
+    E o documento não diz se é gente da faculty ou o trabalho acontecendo. Com
+    rosto, cinco fotos viram cinco retratos e o "Not 75 individual profiles" do
+    próprio outline começa a valer de novo. Perguntar agora é mais barato que
+    receber cinco arquivos que não servem.
+
+O SLOT 04 É PERGUNTA DELES, e está citada quase literal: "Decide whether one
+    image serves both pages, or commission a second. Using the same photograph
+    twice is visible." Devolver a pergunta com a palavra deles evita parecer que
+    é exigência nova nossa.
+
+O QUE FICOU DE FORA, E POR QUÊ:
+    • O NÚMERO DOS SLOTS SEM LISTA MESTRE. "Slot 04" e "Slot 06" são numeração da
+      Maliha; não temos a lista de onde saíram, e não sabemos o que são 01, 02,
+      03 e 05. A mensagem usa os números para eles se acharem no próprio
+      documento, e não pergunta pela lista — seria abrir um assunto de processo
+      no meio de um pedido de arquivo.
+    • AS CINCO VERSÕES DA SEÇÃO. Ficam em /team-tests, fora do menu. Mostrar
+      cinco opções de uma seção que vai mudar quando a foto chegar é pedir uma
+      decisão que terá de ser tomada de novo.
+    • O BLOCO 3 (Perspectives) marcado HOLD no documento. Na prática ele veio: as
+      frases estão no bloco 2 e já estão publicadas nos cards. Cobrar um HOLD que
+      já foi cumprido faria a lista parecer maior do que é.
+
+FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
+         preencher a largura inteira ao colar. Não reformatar.
+
+⚠️ A ROTA MUDOU EM 11-09: a página de Services era /solutions e hoje é /services
+   (as dez ficam em /services/<slug>). Os endereços antigos continuam abrindo por 308,
+   mas o endereço a MANDAR é /services. Conferir antes de colar qualquer link.
+
+────────────────────────────────────────────────────────────────────────
+
+An update on the Team page, and one decision we would like to park with you.
+
+The page is built with everything the outline marked as final: the hero, the leadership grid with each person's line in their own words, the faculty section, the DNA experience and the global presence map. It reads as a complete page today and nothing here holds up the 15 September launch.
+
+Two things from your own outline have not arrived, and both are photographs. Slot 04, the group photograph. Slot 06, a representative image per region for the faculty mosaic — Americas, UK & Europe, GCC & Middle East, Asia, India.
+
+The group photograph has a marked, sized slot on the page rather than being hidden. That is deliberate: you wrote the HOLD, so you should be able to see where the image lands and judge whether the layout around it works, which is the one thing a hidden block takes away from you.
+
+The five regional tiles currently carry placeholder photographs — landmarks from the cities where we work, standing in until yours arrive. They are markers, not a choice: what the section needs is the faculty or the work happening, and a landmark shows neither. It is still the one part of the page that talks about 75 practitioners and shows none of them.
+
+Beyond that we have stopped redesigning around the gap. Several layouts were tried this week and each ended in the same place — what is left is the photograph, not the design. When the images come they go into the five regional tiles, and the section was built to take them without a redesign.
+
+Two questions that would help whenever you get to it. For slot 06, is it one photograph per region, or a composite of several? And should they show the faculty themselves, or the work happening — a session, a room, people mid-conversation?
+
+For slot 04, the outline raises this one itself: the group photograph supplied with the Our Identity slide is currently earmarked for the About page. One image can serve both, but the same photograph in two places is visible. Worth deciding which way you want it.
+
+There are also two portraits still missing. Nitin Goil has none, so his card carries his initials rather than an older photograph, and the one we hold for Guilherme is the previous picture rather than the new one. We think these are the two additional photos Maliha mentioned.
+
+One last thing on the same page, unrelated to photographs. The Team outline lists six people; the current site has seven, with Phil Paul on the live site and not in the document. We have followed the document, so he is not in the new grid — please confirm that is what you want, since removing someone from the page is visible. Dr Nigel Guenole is not in the Team document either, though the Approach outline describes him as Head of Assessments and the creator of the DNA 360 Profiler. Should he be on this page?

@@ -1,172 +1,136 @@
 # Corporate DNA — Consolidated Implementation Status
 
-**In response to the consolidated brief of 27 Aug 2026 (final review with Rhea and the team; the eight core Solutions confirmed).** Prepared by: Beto & Cadu / Dev em Dobro. Date: 2026-08-27. Scope: the public website only (the content system is a separate project that the site feeds from).
+**In response to the consolidated brief of 27 Aug 2026 (final review with Rhea and the team; the eight core Solutions confirmed).** Prepared by: Dev em Dobro. Date: 2026-08-28. Scope: the public website only (the content system is a separate project that the site feeds from).
 
 > This update supersedes the 10-08 status for anything the 27-08 brief addresses. The brief is treated as the single source of truth: where it conflicts with earlier direction on content, architecture or design, the brief wins.
 
-**Target: 1 September 2026** — three working days from this update.
+**Target: 1 September 2026.** Parts A and B are what stands between here and that date.
 
 ---
 
 ## How to read this
 
-Every item is tagged with who owns the next move. *(CDNA = the Corporate DNA content owners; "content system" = the tool your team uses to edit page text.)*
+Part A is what has been built since the brief. **Parts B and C are the ones that matter for the date**: what we need from CDNA, and what we need from Guli. Everything after them is context — what is preserved, and what can follow later.
+
+*(CDNA = the Corporate DNA content owners; "content system" = the tool your team uses to edit page text.)*
 
 | Label | Meaning |
 | :---- | :---- |
-| **Done (live on beta)** | Built, deployed and validated on the current beta site. |
-| **Requires CDNA content or approval** | Waiting on CDNA — needs new text, a fact/number to be confirmed, or a sign-off before it can go live (e.g. any client name, logo, quote or figure). |
-| **Requires design** | Waiting on Guli's creative direction before it can be built. |
-| **Content-system edit (our team)** | A text edit our team makes directly in the content system — no new build, no CDNA sign-off unless the wording itself is CDNA's. |
-| **Recommended immediately after launch** | Safe to add right after a solid launch. |
-| **Impact on scope or timeline** | A note about scope or timing, not a task in itself. |
+| **CDNA** | Waiting on CDNA — new text, a fact to confirm, or a sign-off (any client name, logo, quote or figure). |
+| **Guli** | Waiting on creative direction before it can be built. |
+| **Us** | Ours to do — no new build or sign-off needed. |
+| **After launch** | Safe to add once the site is live. |
 
 ---
 
-## Part A — What this brief changes from the 05 Aug brief
+# Part A — Delivered (27–28 August)
 
-Recorded so the reversals are visible, since several were reviewed and approved in their earlier form. All five are being actioned.
+Built, type-checked and building clean.
 
-| Was (05-08, currently live) | Becomes (27-08) |
-| :---- | :---- |
-| Headline retained as "When the stakes are high, leadership must become real." | **"Keeping Leadership Real"** is the primary proposition; the earlier line moves into the narrative. |
-| Navigation of seven items | Navigation of nine items, with a materially different information architecture. |
-| Compiled testimonial reel retained, heading "What global leaders say about us" | Compiled reel **removed**; replaced by individual, per-client testimonial videos. |
-| Seven outcome-led Solutions (CEO & Top Team Transformation, Talent & Succession, CHRO / HRLT Effectiveness…) | **Eight confirmed Solutions** with different names (see Part E). |
-| `About` as a single area; `Client Impact` as a single area | `About` splits into **Our Identity** + **Our Team**; `Client Impact` splits into **Our Clients** + **Our Impact**. |
+We split the brief into **content structure**, which depends on no design decision, and **page layout**, which goes to Guli first. That way CDNA reviews a design rather than a live page.
 
----
-
-## Part B — Delivered (27–28 August)
-
-**Status: built, type-checked and building clean.**
-
-We have split the brief into **content structure**, which we build now because it depends on no design decision, and **page layout**, which goes to Guli first so he can propose it and agree it with you before it reaches the site. That way you review a design rather than a live page.
-
-**Content structure — done:**
-
-1. **Case header band is now editable** → every case can carry *Countries · Participants/Leaders · Reach/Scale · Intervention · Impact*, and the case page opens with them before the story, exactly in that order. Slots left blank simply do not appear. **Done — ready for your team to fill in.**
-2. **The five Solution blocks are now editable** → each Solution page is structured as *The Challenge → The Outcome → How Corporate DNA Helps → Evidence → Start a Conversation*, with a field to nominate the one flagship case per Solution. The old free-form body is retained but demoted to "further detail (optional)", with a note in the editor that the brief asks for radically shorter pages. **Done — ready for re-authoring.**
-3. **Three new content areas** → Partnerships (item 12), the running ticker (item 17) and individual client testimonial videos (item 13) are now manageable in the content system with the fields the brief specifies. Partnerships requires the "what this partnership enables for our clients" answer, because the brief is explicit that a logo or an announcement is not enough. **Done — ready for content.**
-4. **Team Climate Assessment removed** from "Proprietary frameworks and diagnostics we own" → it is no longer presented as proprietary IP. This also closes the "name & overview pending CDNA confirmation" flag it had carried since 06-08. **Done**.
-5. **Quote guidance built into the editor** → the quote fields on cases and Solutions now carry an on-screen note that they must be testimonials about Corporate DNA rather than generic client corporate quotes, and that they require CDNA approval before publishing. **Done**.
-6. **Navigation, first pass** → "Home" now appears as an explicit item alongside the clickable logo; "Solutions" is now "Our Solutions"; "Our Books" is promoted to top level and pluralised. The four areas that still need pages are deliberately held back rather than shipped as menu items that open empty pages. **Done**.
-
-**Homepage layout — with Guli, not yet on the site:**
-
-The homepage hierarchy the brief calls for — the "Keeping Leadership Real" headline, a short visual treatment of *real pressures, real politics, real choices, real judgement, real people, real consequences*, and proof moving ahead of explanation — is composition, not content. Guli will propose it and agree it with you before it is applied, so the published homepage is unchanged for now. The compiled testimonial video (item 13) therefore also stays up until that pass lands, since removing it changes the page's shape.
-
-One practical note for the design pass: the content structure above **fixes how many fields exist**. The case band has exactly five values and a Solution page has exactly five blocks, both in the order the brief sets. A design built around a different number of slots would have no content behind it.
+1. **The eight Solutions are registered** in the content system, in the brief's order, each with the five blocks and a flagship field. The four that did not exist — ExCo / Top 150, Talent Development, Manager Development, HRLT Effectiveness — were created as drafts, so nothing incomplete can reach the site.
+2. **The five Solution blocks are editable** → *The Challenge → The Outcome → How Corporate DNA Helps → Evidence → Start a Conversation*. The old free-form body is retained but demoted to "further detail (optional)", with an editor note that the brief asks for much shorter pages.
+3. **The case header band is editable** → *Countries · Participants/Leaders · Reach/Scale · Intervention · Impact*, rendering at the top of the case before the story, in that order. Blank slots simply do not appear.
+4. **Three new content areas** → Partnerships (item 12), the running ticker (item 17) and individual client testimonial videos (item 13), with the fields the brief specifies. Partnerships requires the "what this enables for our clients" answer.
+5. **Team Climate Assessment removed** from "Proprietary frameworks and diagnostics we own". This also closes the confirmation flag it had carried since 06-08.
+6. **Quote guidance built into the editor** → quote fields now carry an on-screen note that they must be testimonials about Corporate DNA, and that they need CDNA approval before publishing.
+7. **Navigation aligned to item 3** → "Home" appears explicitly alongside the clickable logo; "Solutions" becomes "Our Solutions"; "Our Books" is promoted to top level and pluralised. **Insights and the "Start a Conversation" button have been removed from the header**, since neither appears in the brief's list. Insights stays reachable from the footer — item 18 requires the Reports & Resources capability to be preserved, and a page nothing links to is preserved in name only. "Start a Conversation" continues as the closing block of every Solution page, as item 5 sets out. `Our Partnerships` and `Our Team` have their routes built but stay out of the menu until their content arrives: a menu item that opens an empty page is worse than one that arrives late.
 
 ---
 
-## Part C — Preserved, as the brief requires (item 18)
+# Part B — What we need from CDNA
+
+Ordered by what most holds the launch.
+
+| # | What | Why it blocks |
+| :---- | :---- | :---- |
+| 1 | **Copy for three Solutions**: ExCo / Top 150, Manager Development, HRLT Effectiveness | No content exists for these three. The other five are covered — see the note below. |
+| 2 | **Approval of every client name, logo, quote and metric** | The brief is explicit that none of these reach production without sign-off. |
+| 3 | **Testimonials about Corporate DNA**, in the John Murphy / Jorge Gardino mould | The existing quotes are generic corporate quotes; replacing them is content re-authoring, not editing. |
+| 4 | **Our Partnerships copy** — what each partnership enables for clients (Harvard, Imperial, Emeld AI, Explore Performance, TerraGrin) | The brief marks names and final text as not yet validated, and says a logo alone is not enough. |
+| 5 | **Team assets** — group photograph, black-and-white portraits, final list of who appears | Our Team cannot go live without them. |
+| 6 | **Flagship cases** — see the note below | Four of the eight Solutions currently have no usable flagship. |
+| 7 | **Ticker content**, 2023 onwards — awards, new regions, new offices, partnerships, milestones | The area is built and empty. |
+| 8 | **What remains of the 06-08 approval list** — the `©2021` footer on Our Approach, the client-specific home metrics (Heineken 45%, Coca-Cola 43 leaders, Shell 2,582 women leaders) and the awards (names, dates, descriptions) | Until these return, they stay on the site as they are. |
+
+**On the eight Solutions — and one question.** All eight now exist in the content system, in the brief's order, with the five blocks and the flagship field ready. Five of them already carry copy CDNA approved in the earlier cycle: Culture Transformation, Women in Leadership, High Performing Teams, Executive Coaching, and the Asian Talent Development material serving Talent Development. Since item 5 asks for radically shorter pages, the text largely exists — it is in the wrong format rather than missing.
+
+So there are two ways to handle those five, and we would rather CDNA chose than assume:
+
+- **We condense them**, working only from the copy CDNA already approved, and leave the result in the content system for CDNA to review and adjust. Faster, and it reduces the writing to the three Solutions in row 1. The caveat is that it means us editing wording Rhea signed off on — shortening is an editorial act, even when no new claim is introduced.
+- **CDNA sends the shortened text**, and we place it. Slower, but the wording stays entirely in CDNA's hands.
+
+Our recommendation is the first, with CDNA reviewing everything in the content system before anything is published. Either way, nothing goes live without sign-off.
+
+**On the flagship cases.** The brief maps one flagship per Solution (item 6). Four of the eight are resolved and already set in the content system: ExCo / Top 150 → Heineken, Culture Transformation → GSK, Women in Leadership → Shell, High Performing Teams → GSK. The remaining four are not:
+
+- **Manager Development** and **Executive Coaching** — marked TBC in the brief.
+- **Talent Development → Frasers Property** and **HRLT Effectiveness → adidas** — named in the brief, but **neither exists as a case study** in the content system. We have left the field empty rather than point at something that does not resolve.
+
+Also for confirmation: the brief maps **GSK against two Solutions**. It allows this where the interventions are clearly distinct — please confirm they are.
+
+---
+
+# Part C — What we need from Guli
+
+The six priorities the brief names. None of this will be invented in code ahead of the design.
+
+| # | What | Note |
+| :---- | :---- | :---- |
+| 1 | **Homepage visual hierarchy** | The Claim → Proof → Explanation ordering. The most cascading of the six. |
+| 2 | **Solutions visual system** | The old site's black boxes / coloured bars in a modern reading. Defines cards, detail pages, and probably carries into Our Clients and Our Impact. |
+| 3 | **Our Clients / Our Impact** | The logo wall for immediate credibility; a highly visual impact page — numbers, quotes, proof blocks. |
+| 4 | **Team treatment** | Group photograph, black-and-white portraits, natural expressions. Depends on CDNA assets (Part B, row 5). |
+| 5 | **5H visual language** | The wheel, Inner Game / Outer Game, the five Hs and the 25 dimensions reading as one system. Note that **the wheel and the 25 dimensions are not on the new site** — they live on the old `/our-approach` and would need rebuilding, so this is more work than a restyle. The most self-contained of the six, though: it can come last without blocking anything. |
+| 6 | **Reduction of text and scrolling**, recovery of visual energy | Applies across the site. |
+
+**One constraint worth flagging before he draws.** The content structure is already built, and it **fixes how many fields exist**: the case band has exactly five values, and a Solution page has exactly five blocks, both in the brief's order. A design built around a different number of slots would have no content behind it.
+
+**Working model agreed on 28-08:** Guli proposes in Figma and agrees it with CDNA; only then do we apply it to the site. That is why the published homepage is unchanged for now.
+
+---
+
+# Part D — Preserved, as item 18 requires
 
 No action needed; confirmed in place.
 
-Headless architecture · content system · security (lead-form time-trap and per-IP rate limiting) · Cloudflare/cutover · analytics and SEO (metadata, canonicals, sitemap, structured data, legacy redirects) · responsive foundation · **editable statistics** · **author approval controls** · **Reports & Resources capability** · proof components (the "Client Perspective" block on Solution pages) · multilingual readiness · reusable components · infrastructure ownership · the 5H Framework and its 25 dimensions under Our Approach · awards · the Paul Polman endorsement in the Book section.
+Headless architecture · content system · security (lead-form time-trap and per-IP rate limiting) · Cloudflare/cutover · analytics and SEO (metadata, canonicals, sitemap, structured data, legacy redirects) · responsive foundation · **editable statistics** · **author approval controls** · **Reports & Resources capability** · proof components · multilingual readiness · reusable components · infrastructure ownership · the 5H Framework under Our Approach · awards · the Paul Polman endorsement in the Book section.
+
+**One correction we should flag.** Item 10 asks us to keep the 5H wheel and its 25 dimensions. On checking, **the wheel is not on the new site** — it exists only on the old one, at `/our-approach`. What the new site carries is the DNA-helix diagram of the Inner Game / Outer Game and the five Hs; the segmented wheel with the 25 named dimensions (Critical Thinking, Decision Making, Empathy, Accountability, Transparency and so on, five per H, around a CORE of values, beliefs and drivers) was never rebuilt. So this is a build item, not a preservation one — it belongs with Guli's 5H work in Part C rather than here.
 
 ---
 
-## Part D — Requires design (Guli)
+# Part E — 1 September: production, or review?
 
-The six priorities named in the brief. Nothing here will be invented in code ahead of the design.
+This is the decision we most need, because it changes the plan.
 
-1. **Homepage visual hierarchy** — the Claim → Proof → Explanation ordering.
-2. **Solutions visual system** — recovering the force of the old site's black boxes / coloured bars in a modern interpretation.
-3. **5H visual language** — the 5H wheel, Inner Game / Outer Game, the five Hs and the 25 dimensions reading as one visual system. Today the unexplained highlighting of a single H and the DNA-strand imagery read as disconnected.
-4. **Our Clients / Our Impact** — the logo wall for immediate credibility, and a highly visual impact page (numbers, quotes, proof blocks).
-5. **Team treatment** — group photograph, black-and-white portraits, natural expressions.
-6. **Overall reduction of text and scrolling**, and recovery of visual energy.
+`corporatednaconsulting.com` still serves the previous site — what has been under review is a staging URL. So "launch" can mean two things.
 
-> **Impact on scope or timeline.** Design is the real critical path. If the direction lands after Friday 28 August, what goes live on 1 September is the new architecture and new copy running on the current visual system, with the visual expression following the week after.
+**If it means going live in production on the 1st**, the date is tight. Not because of the domain: pointing it at the new platform is two DNS records, a matter of minutes, and we have held the necessary Cloudflare access since 13 August. The pressure is that it leaves roughly one working day to apply whatever content and design arrive, run QA, and for CDNA to review a large set of changes.
 
----
+**Our suggestion is to treat Monday 31 August as a review release.** Everything goes up in a review environment; CDNA navigates it and sends adjustments. As the outstanding content arrives we apply it, CDNA does one further review round, and we publish on approval. Publishing itself is quick — it is releasing something already seen and signed off, rather than reviewing something already public.
 
-## Part E — Requires CDNA content, assets or approval
-
-Ordered by what blocks the launch.
-
-1. **Flagship case for Manager Development and for Executive Coaching** — both marked TBC in the brief. The other six are set: Heineken, GSK (×2), Frasers Property, Shell, adidas.
-2. **Approval of every client name, logo, quote and metric** before production, per the brief.
-3. **Testimonials about Corporate DNA** rather than generic corporate quotes — in the John Murphy / Jorge Gardino mould. Existing generic quotes need replacing, which is content re-authoring.
-4. **Our Partnerships copy** — for each partnership, what it enables for clients (Harvard, Imperial, Emeld AI, Explore Performance, TerraGrin). The brief notes names and final text are still to be validated.
-5. **Team assets** — group photograph, black-and-white portraits, and the final list of who appears.
-6. **Ticker content**, 2023 onwards — awards, new regions, new offices, new partnerships, milestones.
-7. **Re-authoring of the eight Solutions** in the content system, in the short five-block format: The Challenge / The Outcome / How Corporate DNA Helps / Evidence / Start a Conversation. The confirmed names are: ExCo / Top 150 · Culture Transformation · Talent Development · Manager Development · Women in Leadership · High Performing Teams · HRLT Effectiveness · Executive Coaching. Inclusion & Diversity and Asian Talent Development are retired as core Solutions, with any useful content absorbed into the eight.
-8. **Case discovery taxonomy** — with industry no longer the primary logic, cases need re-tagging against the new Solutions. **Content-system edit (our team)**, but it depends on point 7 landing first.
-9. **The approval list sent on 06 August is still outstanding** — the inconsistent figures (95% / 26 countries / ten years / ©2021 against the corporate 36 countries / 18 years). Until it returns, those figures stay as they are.
+If CDNA prefers to hold 1 September as a firm publication date, that works too. It depends on the content and the review arriving in time.
 
 ---
 
-## Part F — Recommended immediately after launch
+# Part F — Recommended immediately after launch
 
-Explicitly unblocked by the brief; none of it holds 1 September.
+Explicitly unblocked by the brief; none of it holds the date.
 
 - The three new testimonials (Dyson, adidas, one TBC).
-- The new contemporary Corporate DNA video built around *Keeping Leadership Real*, replacing the Heineken/founder video. The structure can be prepared now; production follows.
-- Remaining individual testimonial videos (Yolanda/Heineken, Andrew Morovski, Sonali, Fred/adidas) as they arrive through the content system.
-- Accessible captions (.vtt) for the video content.
-- Fine pruning of legacy redirects using the client's Google Search Console.
+- The new contemporary Corporate DNA video built around *Keeping Leadership Real*, replacing the Heineken/founder video. Structure can be prepared now; production follows.
+- Remaining individual testimonial videos (Yolanda/Heineken, Andrew Morovski, Sonali, Fred/adidas) as they arrive.
+- Accessible captions (.vtt) for video content.
+- Fine pruning of legacy redirects using Google Search Console.
 
 ---
 
-## Part G — Impact on 1 September: a two-wave proposal
-
-The calendar, because it drives everything below:
-
-| | |
-| :---- | :---- |
-| Thu 27 Aug | Brief received |
-| **Fri 28 Aug** | **Guli finalises the design questions and submits the screens for CDNA approval** |
-| Sat 29 – Sun 30 Aug | Weekend |
-| Mon 31 Aug | The only working day available for approval, implementation and QA |
-| Tue 1 Sep | **Launch** |
-
-Guli delivering on the Friday is the best case available, and it puts the visual work genuinely in play — which would not have been true had the screens arrived on the Monday. What decides 1 September now is no longer his speed. It is three things outside his control.
-
-**First, your approval turnaround.** The brief is explicit that nothing reaches production without CDNA sign-off, and Rhea holds final say on brand. Approving a full set of screens over a weekend is a real ask, and the list we sent on 06 August has been open for three weeks. If sign-off lands during Monday, we have part of one working day to implement, QA and deploy the visual pass. Some of it fits in that window; the whole redesign — homepage hierarchy, the Solutions visual system, the 5H as one visual language, Our Clients, Our Impact and the team treatment — does not.
-
-**Second, content blocks before design does.** Approved screens do not produce the Partnerships copy (which the brief itself marks as not yet validated), the team photography, the two TBC flagship cases, or the re-authored eight Solutions. Those pages cannot go live without their content whatever the design says.
-
-**Third, the domain cutover.** `corporatednaconsulting.com` still serves the previous site; what has been under review is a staging URL. If "launch" means pointing the live domain at the new platform, that is a DNS change plus verification of the legacy redirects against real traffic — and the DNS questions are still being worked through on our side. This has not appeared in any status document before now, and it belongs on the critical path.
-
-We therefore propose treating 1 September as an **architecture and content** release, with the visual redesign following as a second, closely-spaced milestone.
-
-**Wave 1 — 1 September**
-
-The new information architecture, the eight Solutions in the short five-block format, the case header fields (Countries → Participants → Reach → Intervention → Impact), the Team Climate Assessment removal, the running ticker and the Our Clients logo wall — plus whatever of Guli's design is approved in time and safe to apply. Running on the current visual system where it is not.
-
-Navigation live, with real content behind every item: `Home | Our Identity | Our Solutions | Our Approach | Our Clients | Our Impact | Our Books`.
-
-`Our Partnerships` and `Our Team` will have their routes built and held out of the menu, going live as soon as validated text and photography arrive — with no further architecture work. Publishing the full navigation on day one would mean menu items that open empty pages, which is the opposite of "Does this feel unmistakably CorporateDNA?"
-
-**Wave 2 — the week of 1 September**
-
-Whatever of the visual pass does not clear approval and implementation in time: the 5H as a single visual system, the Solutions black boxes / coloured bars, Our Impact and the team treatment. Everything structural is already built to receive it, so this is application rather than construction — which is why wave 2 sits days behind wave 1, not weeks.
-
-**To be clear on what wave 1 is not:** 1 September will not look identical to today. The ticker, the logo wall and the reduction of text and scrolling (item 16) are real visual gains, and any approved screens land on top of them.
-
-**What we need from you to hold the date:** sign-off on Guli's screens as early on Monday as possible, and a decision on whether 1 September includes the domain cutover or is a staging release with the domain following. If CDNA prefers to hold everything for a single complete release instead, that is equally workable — it is your call, and we would rather not take it unilaterally.
-
----
-
-## Part H — Materially outside the agreed scope
+# Part G — Materially outside the agreed scope
 
 Raised for a decision, not declined.
 
-- **Our Books supporting multiple authors** — the agreed scope covered one book. Multi-author support is a new content type plus a listing page. Suggestion: ship "Our Books" in the plural on 1 September pointing at Rhea's book, and build the listing when a second book exists.
-- **Dashboards on Our Impact** — if this means live data visualisation (filtering by region, industry or year), it is a new build. If it means a strong visual treatment of static numbers, it fits.
-- **CMS-managed running ticker** — small, but a new content type.
-- **Modular per-client video structure** — replaces a single embedded video with a managed collection; also a new content type.
-
----
-
-## Part I — Open questions
-
-1. **Insights is absent from the nine-item navigation.** It houses the editorial library and the Reports & Resources capability that item 18 asks us to preserve. Assumed to be an omission; kept live pending your confirmation.
-2. **"Start a Conversation" is also absent.** It is the lead-capture call to action, wired to the form and to regional routing. Kept as the header button pending confirmation.
-3. **Our News → Our Partnerships:** the new site has no "Our News" — the editorial area is Insights. Understood as Partnerships being a *new* area, with Insights continuing separately. Please confirm.
-4. **Talent Development (global)** — does this close the outstanding "Asian Talent Development" question? Assumed yes, with the regional material absorbed into the global page.
-5. **The 05-08 outcome-led taglines** — retired along with the old names, or retained underneath the eight confirmed names?
-6. **GSK appearing against two Solutions** — please confirm these are clearly distinct interventions, as the brief requires.
+- **Our Books supporting multiple authors** — the agreed scope covered one book. Suggestion: ship "Our Books" in the plural pointing at Rhea's book, and build the listing when a second book exists.
+- **Dashboards on Our Impact** — live data visualisation (filtering by region, industry, year) is a new build. A strong visual treatment of static numbers fits.
+- **CMS-managed running ticker** and **modular per-client video structure** — both small, but both new content types that were not in scope.

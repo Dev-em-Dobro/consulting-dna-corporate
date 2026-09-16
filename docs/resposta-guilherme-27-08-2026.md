@@ -1,199 +1,93 @@
 # Rascunho de resposta ao Guilherme — brief 27-08
 
-> Rascunho para revisão do Beto/Cadu antes de enviar. Em anexo vai o tracker atualizado em inglês
+> Rascunho para revisão antes de enviar. Em anexo vai o tracker atualizado em inglês
 > (`Corporate DNA — Consolidated Implementation Status Update - 27_08.md`), no mesmo formato do
 > 10-08, para o Guilherme encaminhar à CDNA.
+>
+> **Escopo do e-mail:** as tarefas item a item, com os labels que ele pediu no item 19, vão no
+> tracker. Aqui só o que precisa de decisão dele — principalmente o que "launch no dia 1º"
+> significa.
+>
+> **Formato:** o corpo abaixo é texto puro, para colar direto no Gmail sem markdown. As tabelas
+> ficam só no tracker, que vai em PDF.
 
 ---
 
-**Assunto:** Brief 27-08 — recebido como source of truth, tracker atualizado e o que precisamos de vocês até 01/09
+**Assunto:** Brief 27-08 — recebido, e uma pergunta sobre o dia 1º
 
 Fala, Guilherme, tudo certo?
 
-Recebido e assumido como single source of truth. Já começamos a executar — segue o retorno
-dividido exatamente nos buckets que você pediu, e o tracker atualizado em anexo para a CDNA.
+Dei uma analisada nos pedidos e já estamos executando. O tracker em anexo tem tudo item a item, nos buckets que você pediu. Aqui vou direto no que precisa de decisão.
 
-## 1. O que o brief reverte do 05-08 — vamos fazer
+Já vou responder sobre o outro e-mail que mandou aqui pra facilitar.
 
-Cinco decisões do brief anterior já estavam no ar e mudam com este. Registrando para não haver
-dúvida depois, e porque algumas foram vistas e aprovadas pelo time da CDNA no formato antigo:
+Sobre os ajustes que você mandou ontem: separamos o que é estrutura de conteúdo (não depende de tela, fizemos agora) do que é layout (fica com o Guli, para ele propor e aprovar com vocês antes de irmos ao site).
 
-1. **Headline.** O 05-08 pediu explicitamente para *reter* "When the stakes are high, leadership
-   must become real." Agora ela sai da posição principal e entra "Keeping Leadership Real".
-2. **Navegação.** A nav de 7 itens que implementamos passa a ter 9, com IA bem diferente.
-3. **Vídeo de depoimentos.** O compilado, que o 05-08 mandou manter (e cujo heading ajustamos para
-   "What global leaders say about us"), sai do site.
-4. **Solutions.** As 7 outcome-led do 05-08 (CEO & Top Team Transformation, Talent & Succession,
-   CHRO / HRLT Effectiveness…) dão lugar às 8 confirmadas agora.
-5. **About / Client Impact.** `About` se desdobra em `Our Identity` + `Our Team`, e `Client Impact`
-   se divide em `Our Clients` + `Our Impact`.
+A parte de estrutura já está andando: as oito Solutions já estão cadastradas no CMS com os cinco blocos e o campo de flagship case, prontas para receber o conteúdo. Isso sobe em homologação até amanhã, sem depender das telas do Guli. O que vier do design dele entra na mesma homologação até segunda, dia 31.
 
-Sem problema nenhum — só sinalizando que são reversões conscientes, não retrabalho por engano.
+A navegação também já está na lista de nove itens do item 3. Como Insights e o "Start a Conversation" não aparecem nela, os dois saíram do menu. O "Start a Conversation" segue como bloco de fechamento das Solutions, que é onde o item 5 coloca ele. Já o Insights nós mantivemos no rodapé: é lá que fica a biblioteca editorial e o Reports & Resources — os relatórios e white papers que o item 18 pede pra preservar, e que você mesmo pediu ao JP pra indicar. Sem nenhum link, a área existiria mas ninguém chegaria nela. Se for pra tirar do rodapé também, é só avisar.
 
-## 2. Já feito (27–28/08)
+Sobre o launch ficou a dúvida, seria finalizar tudo em homologação ou produção? Porque muda bastante o planejamento.
 
-Optamos por separar o que é **estrutura de conteúdo** (fazemos agora, não depende de tela) do que é
-**layout da home** (fica com o Guli, para ele propor e aprovar com vocês antes de irmos ao site).
+Hoje o corporatednaconsulting.com ainda serve o site antigo — o que vocês vêm revisando é uma URL de staging. Então "launch" pode significar duas coisas, e queríamos confirmar qual.
 
-**Estrutura de conteúdo — pronta e testada:**
+Se for ir para produção no dia 1º, fica apertado. Não pela troca de domínio, que é rápida: são dois registros de DNS, questão de minutos, e já temos o acesso necessário. O aperto é que sobra praticamente um dia útil para aplicar o que vier de conteúdo e design, testar tudo e vocês revisarem um conjunto grande de mudanças.
 
-- **Team Climate Assessment removido** do bloco "Proprietary frameworks and diagnostics we own".
-  Isso encerra uma pendência que estava marcada como "aguardando confirmação da CDNA" desde 06/08.
-- **Faixa dos cases** (item 7): os cinco campos — Countries, Participants/Leaders, Reach/Scale,
-  Intervention, Impact — já existem no CMS e já renderizam no topo do case, antes da história.
-- **Cinco blocos das Solutions** (item 5): The Challenge / The Outcome / How Corporate DNA Helps /
-  Evidence / Start a Conversation, mais o campo para indicar o flagship case de cada Solution.
-- **Três áreas novas no CMS**: Partnerships (item 12), Ticker (item 17) e vídeos de depoimento
-  individuais (item 13), com os campos que o brief pede.
-- **Navegação** — "Home" explícito além da logo, "Solutions" → "Our Solutions", "Our Books" no
-  primeiro nível e no plural.
+Nossa sugestão é tratar a segunda, dia 31, como a homologação completa — a não ser que o pessoal aí esteja disponível pra revisar no fim de semana, mas vou partir do pressuposto que não. Aí vocês navegam com tudo no lugar e mandam os ajustes. Conforme o conteúdo que falta for chegando, a gente vai aplicando; vocês fazem mais uma rodada de revisão; e quando estiver aprovado, liberamos. A publicação em si é rápida — é apertar o botão em algo que vocês já viram.
 
-**Layout da home — com o Guli:** a nova hierarquia (headline "Keeping Leadership Real", o bloco
-curto e visual dos "reals", a prova subindo antes da explicação) é composição, não conteúdo.
-Preferimos que ele proponha isso no Figma e aprove com vocês, em vez de a gente aplicar direto no
-site e vocês revisarem já implementado. A home publicada segue como está até lá.
 
-## 3. Proposta: dividir o 01/09 em duas ondas
+O QUE AINDA DEPENDE DE VOCÊS
 
-Antes da proposta, a conta do calendário — porque ela é o que motiva tudo abaixo:
+Está detalhado no tracker, mas os que mais seguram são:
 
-```
-qui 27  brief recebido
-sex 28  Guli fecha o design e manda pra aprovação de vocês  ← hoje
-sáb 29  ─ fim de semana
-dom 30  ─
-seg 31  único dia útil pra aprovar, implementar e testar
-ter  1  LANÇAMENTO
-```
+1) Conteúdo de três Solutions — ExCo / Top 150, Manager Development e HRLT Effectiveness. Dessas não temos nada, e o item 11 é claro em não inventar.
 
-O Guli entregar hoje é o melhor cenário possível e coloca a parte visual de fato em jogo — o que
-não seria verdade se as telas chegassem na segunda. Só que o que decide o dia 1º deixou de ser a
-velocidade dele. São três coisas fora do controle dele.
+Das outras cinco o texto já existe: Culture Transformation, Women in Leadership, High Performing Teams, Executive Coaching e o material da Asian Talent Development servindo a Talent Development, tudo copy que vocês já aprovaram no ciclo anterior. Como o item 5 pede encurtar radicalmente as páginas, o conteúdo está lá, só no formato errado. Aí queria perguntar como vocês preferem: a gente faz a versão curta a partir do que já está aprovado e deixa no CMS para vocês revisarem, ou vocês preferem mandar os textos encurtados e a gente só coloca? Fazemos dos dois jeitos. O primeiro é mais rápido e reduz o que vocês precisam escrever a três Solutions, mas significa a gente mexer em texto que a Rhea assinou — encurtar é decisão editorial, mesmo sem claim novo. Nada é publicado sem a revisão de vocês em qualquer um dos casos.
 
-**Primeiro, o tempo de aprovação de vocês.** O brief é explícito que nada vai para produção sem
-aprovação, e a Rhea tem palavra final em marca. Aprovar um conjunto completo de telas ao longo de
-um fim de semana é um pedido real, e a lista que enviamos em 06/08 está aberta há três semanas. Se
-o sign-off sair ao longo da segunda, sobra parte de um dia útil para implementar, testar e
-publicar. Parte da passada visual cabe nisso; o redesenho inteiro — hierarquia da home, sistema das
-Solutions, 5H como linguagem única, Our Clients, Our Impact e o tratamento do time — não cabe.
+2) Aprovação de nomes, logos, quotes e métricas de cliente, seguindo a regra do brief.
 
-**Segundo, conteúdo trava antes do design.** Tela aprovada não produz a copy das Partnerships (que
-o próprio brief classifica como não validada), as fotos do time, os dois flagship TBC nem a
-reautoria das oito Solutions. Essas páginas não sobem sem conteúdo, independente do que o design
-diga.
+3) Assets do time e o texto das Partnerships.
 
-**Terceiro, o cutover do domínio.** O `corporatednaconsulting.com` ainda serve o site anterior; o
-que vocês têm revisado é uma URL de staging. Se "lançar" significa apontar o domínio para a
-plataforma nova, isso é mudança de DNS mais verificação dos redirects legados contra tráfego real —
-e as questões de DNS ainda estão sendo analisadas do nosso lado. Isso não apareceu em nenhum status
-até agora e precisa entrar no caminho crítico.
+4) Flagship cases: além dos dois TBC do item 6, o Frasers Property e o adidas ainda não existem como case no CMS. Então hoje são quatro das oito Solutions sem flagship — vale saber se esses dois virão. Mas nada impede de deixar eles como estão e colocar depois.
 
-Por isso propomos tratar 01/09 como um release de **arquitetura e conteúdo**, e o redesenho visual
-como um segundo marco:
+Sobre os conteúdos, pode nos mandar conforme forem saindo. Cada item que chega a gente já coloca no CMS na hora.
 
-**Onda 1 — 01 de setembro**
+Sobre os outros e-mails da Axon. Olhei os dois e-mails. Resumo: quase nada precisa ser feito. O cutover não depende deles — o acesso ao Cloudflare já é nosso desde 13/08, e o próprio Amit escreveu "now that you have full control". O domínio fica onde está, e o EPP não é mais necessário.
 
-Nova arquitetura de informação, estrutura das oito Solutions no formato curto de cinco blocos,
-campos da faixa de case (Countries → Participants → Reach → Intervention → Impact), remoção do Team
-Climate Assessment do bloco de IP, ticker e logo wall de Our Clients — mais o que das telas do Guli
-for aprovado a tempo e seguro de aplicar. Onde não for, roda sobre o sistema visual atual.
+Deixei o e-mail em inglês pronto lá embaixo, endereçado ao Rico e ao Amit com a CDNA em cópia. É só mandar.
 
-Navegação no ar, com conteúdo real atrás de cada item:
-`Home | Our Identity | Our Solutions | Our Approach | Our Clients | Our Impact | Our Books`.
+A única coisa que peço a eles é a troca do contato administrativo do domínio. Ainda é a allison.vickery@, e a Carol já está redirecionando a caixa dela e trocando logins — então é entrar na mesma lista. Só a Axon consegue fazer a alteração no registrador, por isso pergunto a eles o que precisam para executar. Mas o nome de quem assume tem que sair de vocês.
 
-`Our Partnerships` e `Our Team` ficam com as rotas prontas e fora do menu, entrando assim que
-texto validado e fotos chegarem — sem novo trabalho de arquitetura. Publicar a nav completa no dia
-01 significaria entregar itens de menu que abrem página vazia, o oposto do "Does this feel
-unmistakably CorporateDNA?".
+O QUE PRECISO DE VOCÊS NESSA PARTE
 
-**Onda 2 — na mesma semana do dia 1º**
+- Quem assume o contato administrativo do domínio no lugar da Allison.
 
-O que da passada visual não passar pela aprovação e pela implementação a tempo: 5H como sistema
-visual único, black boxes / coloured bars de Solutions, Our Impact e o tratamento do time. Do nosso
-lado tudo que é estrutura já está construído para receber o design — por isso a onda 2 fica dias
-atrás da onda 1, não semanas.
-
-Uma ressalva para não passar pessimismo: o dia 01 não fica visualmente igual ao de hoje. O ticker,
-o logo wall e a redução de texto e scroll do item 16 são ganhos visuais reais, e o que for aprovado
-das telas entra por cima disso.
-
-**O que precisamos de vocês para segurar a data:** aprovação das telas do Guli o mais cedo possível
-na segunda, e uma definição sobre se 01/09 inclui o cutover do domínio ou é um lançamento em
-staging com o domínio vindo depois.
-
-Se preferirem segurar tudo para um lançamento único e completo, funciona igual — é decisão de
-vocês, só não queremos tomá-la por conta própria.
-
-## 4. O que trava do lado da CDNA
-
-Priorizado pelo que bloqueia o lançamento:
-
-1. **Flagship de Manager Development e de Executive Coaching** — os dois TBC do item 6.
-2. **Aprovação de nomes, logos, quotes e métricas** de cliente. Seguimos a regra do brief: nada vai
-   para produção sem aprovação.
-3. **Quotes que sejam testimonials sobre a CorporateDNA**, no padrão John Murphy / Jorge Gardino —
-   as genéricas precisam ser substituídas, e isso é reautoria de conteúdo.
-4. **Texto das Partnerships** respondendo "what does this partnership enable for our clients?".
-5. **Assets do time**: foto de grupo, retratos P&B e a lista final de quem aparece.
-6. **Conteúdo do ticker** (2023+): awards, regiões, escritórios, parcerias, milestones.
-7. **Reautoria das 8 Solutions no CMS** no formato curto de 5 blocos.
-8. **A lista de aprovação que enviamos em 06/08 segue sem retorno** — são os números
-   inconsistentes (95% / 26 countries / ten years / ©2021 contra os 36 countries / 18 years
-   corporativos). Enquanto não voltar, eles continuam no ar como estão.
-
-## 5. O que depende do Guli
-
-Os seis que você mesmo priorizou: hierarquia visual da home, sistema visual de Solutions,
-linguagem visual do 5H, Our Clients / Our Impact, tratamento do time e a redução geral de
-texto/scroll. Já avisamos o Guli para começar a olhar — esses seis formam a onda 2 do bloco 3.
-
-Uma sugestão de sequenciamento, caso ele precise entregar em partes: **hierarquia da home e
-sistema visual de Solutions primeiro**. São os que mais cascateiam — o sistema de Solutions define
-cards, páginas de detalhe e provavelmente se reaproveita em Our Clients e Our Impact. O 5H é o
-mais isolado dos seis e pode vir por último sem travar nada.
-
-E, do nosso lado, um compromisso: vamos adiantar toda a estrutura que não depende de tela — campos
-de CMS, rotas, modelo de dados da faixa de case. Quando o design chegar, é aplicação, não
-construção. Isso também significa que o Guli desenha sabendo exatamente quais campos existem, em
-vez de compor e depois descobrir que falta o dado.
-
-## 6. Dois pontos da nav que queremos confirmar antes de mexer
-
-Na lista de 9 itens, **`Insights` e `Start a Conversation` não aparecem**.
-
-- **Insights** é onde vivem a biblioteca editorial e a capability de Reports & Resources — que o
-  item 18 do seu email manda preservar. Assumimos que foi omissão e mantivemos no ar.
-- **Start a Conversation** é o CTA de captura de lead, ligado ao formulário e ao roteamento por
-  região. Também mantivemos, como botão no topo.
-
-Se a intenção era mesmo tirar os dois, é só dizer que ajustamos.
-
-Outras três, menores:
-
-- `Our News → Our Partnerships`: o site novo não tem "Our News" — a área editorial é Insights.
-  Entendemos Partnerships como área **nova**, com Insights seguindo separada. Confere?
-- **Talent Development global** encerra a pendência do "Asian Talent Development"? Assumimos que
-  sim, com o material regional virando conteúdo interno da página global.
-- As **taglines outcome-led do 05-08** morrem com os nomes novos, ou continuam valendo por baixo
-  deles?
-
-## 7. Fora do escopo acordado — para vocês decidirem
-
-Não é recusa, é sinalização de tamanho:
-
-- **Our Books no plural com múltiplos autores** é um tipo de conteúdo novo no CMS mais página de
-  listagem. Sugestão: entra em 01/09 já como "Our Books" apontando para o livro da Rhea, e o
-  multi-livro quando houver um segundo livro real.
-- **Dashboards em Our Impact**: se for visualização de dados viva (filtro por região, indústria,
-  ano), é build novo. Se for tratamento visual de números estáticos, cabe.
-- **Ticker administrável** e **estrutura modular de vídeos**: ambos pequenos, mas são tipos de
-  conteúdo novos no CMS que não estavam previstos.
-
----
-
-Resumindo: o que era claro e reversível já está feito, o tracker está atualizado em anexo, e o que
-segura 01/09 é conteúdo e design — não desenvolvimento. Manda os itens do bloco 4 conforme forem
-saindo que a gente vai encaixando.
+- Um backup do WordPress atual, que já pedi à Axon. Como nunca tivemos acesso ao provedor antigo, é bom garantir que alguém guarde isso. Não é para a gente usar — o site novo não aproveita nada de lá. É para a CDNA não perder o conteúdo e as mídias antigas quando o servidor for desligado.
 
 Abraço,
-Beto e Cadu
+Ricardo
+
+-----------------------------------------------
+
+E-mail pronto pra Axon, deixando claro que o domínio fica lá e só a hospedagem sai:
+
+Subject: corporatednaconsulting.com — domain, and how the cutover will run
+
+Dear Rico and Amit,
+
+Thank you for the reminder, and for arranging the Cloudflare access.
+
+To answer your question directly: of the three options you offered, it is the middle one — the domain stays registered with Axon, and only the website moves. There is no transfer to arrange and we do not need the EPP code, so please treat any auth code already issued as no longer required.
+
+One thing we would ask you to update: the domain's administrative contact. Amit referenced allison.vickery@corporatednaconsulting.com on 13 August; she has since left CDNA, so that mailbox is no longer monitored and should not be receiving domain correspondence. CDNA will confirm the replacement contact — could you let us know what you need in order to make the change?
+
+On the cutover, Amit, this follows the sequence you asked for: we change the A/CNAME records in Cloudflare, keeping "Under Attack" mode enabled until that is done; we validate the new site on the live domain; and then we write to you to confirm it is safe to disconnect. Please keep the WordPress site running for a week or two after the records change, as a rollback path.
+
+One request alongside that: a full backup of the current WordPress site. Not for the migration — the new site is built independently and takes nothing from it — but so CDNA keeps the old content and media once the server is eventually retired.
+
+On lead times, your point about planning ahead is well taken. In this case the usual risks do not apply: email runs on Microsoft 365 rather than the hosting server, so the A/CNAME change does not touch mail delivery; there is nothing to export, as the new site is already built on its own platform; and DNS is already under our control thanks to your access.
+
+We will let you know before making any change.
+
+Best regards,
+Ricardo

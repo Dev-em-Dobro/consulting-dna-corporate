@@ -1,0 +1,228 @@
+DOC 1 - AXON, THE WEBSITE CUTOVER, AND EVERY OPEN ITEM
+Corporate DNA Consulting - website migration - state as of 3 September 2026
+Source: email thread "corporatednaconsulting.com - domain, and how the cutover will run",
+13 messages between 31 August and 3 September 2026.
+
+======================================================================
+THE ONE-PARAGRAPH VERSION
+======================================================================
+
+Corporate DNA is moving its website off Axon's WordPress hosting onto a new Next.js
+site built by Dev em Dobro. The domain STAYS where it is - registered through Axon,
+no transfer, no EPP code. Only the website moves. Axon's hosting package is already
+cancelled and ends 30 September 2026. Axon has agreed to the cutover plan in writing
+and is not blocking anything. What remains is a short list of access items, one
+confirmation email from Rhea, and one decision about money.
+
+======================================================================
+WHO IS WHO
+======================================================================
+
+AXON 1PRO SOLUTIONS - the outgoing hosting and IT provider, Singapore/Philippines.
+
+  Rico M.    Support Engineer. Writes almost every reply. Precise, responsive,
+             cooperative.
+  Amit       Senior at Axon. Knows Rhea personally from Singapore. More
+             sales-oriented - he raised "you would lose all your analytics
+             history" and offers paid SEO work.
+  Spencer    On copy, has not written.
+
+CORPORATE DNA
+
+  Rhea Leckie          Founder & CEO. Needs to send one confirmation email.
+  Guilherme Mendes     CEO Corporate DNA Americas. Fronting the project day to day.
+                       Gave Dev em Dobro written authority on 1 September.
+  Nitin Goil           Regional Director. Named as administrator for Google accounts.
+  Jon-Paul Pritchard   Senior Facilitator. On the notification list.
+  Nicole Phoon         Now handling account access on the CDNA side. Added as Google
+                       Analytics administrator on 3 September.
+  Allison Vickery      Has LEFT the company. Her mailbox is still the domain contact -
+                       that is what is being fixed.
+  Tay Weida            Eztech Services, weidatay@eztech.com.sg. Says he has taken over
+                       IT. Likely the Microsoft 365 administrator - NOT confirmed in
+                       writing.
+
+DEV EM DOBRO - Ricardo and team. The appointed developer. Authorised in writing by
+Guilherme on 1 September; Axon acknowledged and recorded it.
+
+======================================================================
+WHAT IS AGREED AND IN WRITING
+======================================================================
+
+- The domain STAYS registered with Axon. No transfer, no EPP/auth code needed.
+- Only the website moves.
+- The DNS change is limited to the apex A record and the www record, in Cloudflare.
+- MX, SPF, DKIM and DMARC are NOT touched, so Microsoft 365 email is unaffected.
+- Dev em Dobro sends Axon the exact record values plus the date, time and timezone
+  before making any change, then confirms validation in the thread.
+- Cloudflare Under Attack mode stays on through the change and validation, and comes
+  off at go-live. Axon has been told, and will be told again when it is disabled.
+- Dev em Dobro makes the change itself. No assistance needed from Axon on DNS.
+- Axon confirmed there is NO CHARGE for the administrative contact change. They allow
+  three free updates.
+
+======================================================================
+HARD DATES
+======================================================================
+
+  20 September 2026   Corporate DNA answers two things: buy the hosting extension or
+                      not, and its position on the legacy backup. Committed in writing.
+
+  30 September 2026   Axon hosting (package Axon-P500) ends. The old WordPress site
+                      goes off.
+
+  13 October 2026     The DOMAIN expires. Separate from hosting. Not yet discussed
+                      with Axon.
+
+  31 December 2026    End of the optional extension quarter, if bought.
+
+THE ROLLBACK WINDOW SHRINKS AS LAUNCH SLIPS
+
+  Cutover on 16 Sep  ->  14 days of rollback - the full two weeks
+  Cutover on 23 Sep  ->  7 days
+  Cutover 30 Sep on  ->  none
+
+Buying the extension makes this table stop mattering.
+
+======================================================================
+THE FIVE OPEN ITEMS, WITH STATUS
+======================================================================
+
+1. DOMAIN ADMINISTRATIVE CONTACT - waiting on Rhea, nobody else.
+
+The contact is still Allison Vickery, who has left. It moves to Rhea Leckie at
+rhea.l@corporatednaconsulting.com, with Guilherme, Nitin and JP on the notification
+list. Axon originally wanted a signed letter on letterhead. THEY DROPPED THAT
+REQUIREMENT because Amit knows Rhea personally. All that is needed now is Rhea
+replying to the thread saying she authorises it. No cost. Nothing moves until she does.
+
+2. HOSTING EXTENSION - priced, decision pending.
+
+No monthly option. Minimum one quarter: 1 October to 31 December 2026, SGD 150.
+Corporate DNA answers by 20 September. Recommendation: take it. It is the cheapest
+line item in the whole project and the only one that buys back schedule freedom.
+
+3. GOOGLE ANALYTICS - mostly done.
+
+Nicole Phoon created a Google Account with her corporate address and Axon added her as
+administrator on 3 September at 07:07. SHE STILL HAS TO ACCEPT THE INVITATION.
+
+Two items from Guilherme's 1 September email were not done:
+  - singapore@corporatednaconsulting.com as institutional owner
+  - Nitin Goil as administrator
+Both have been re-requested.
+
+The legacy Universal Analytics property (UA-96902425-1) is discontinued by Google and
+cannot be converted. That is Google's doing, not Axon's, and nothing is lost by
+switching hosting. ANALYTICS HISTORY LIVES IN THE GOOGLE ACCOUNT, NOT ON AXON'S
+SERVER. Turning off the hosting deletes nothing.
+
+4. GOOGLE SEARCH CONSOLE - the only item genuinely blocked on Axon.
+
+Asked three times since 31 August. No answer yet on who owns the property or who has
+access. Verified today by DNS query that a verification record is still published:
+
+    google-site-verification=qhJkWlL-UVvC_XuGzji8FuWTGDFZiP2ynGRIAsxIoIU
+
+So a verified property exists and somebody holds it. This matters more than Analytics -
+it carries search history and ownership verification.
+
+5. LEGACY WORDPRESS BACKUP - deliberately parked until 20 September.
+
+Corporate DNA wants a complete archive (files, database, media) before the server is
+retired. Axon did NOT grant the cPanel access that was requested; instead they returned
+the question and offered to do the work as a paid service (a "maintenance credit",
+roughly one hour). Position taken on 3 September: tell them we are reviewing
+internally, ask them to change nothing, and answer by 20 September. The paid offer was
+politely declined without negotiating price.
+
+======================================================================
+MONEY
+======================================================================
+
+  Hosting extension, Q4 2026        SGD 150        Decision by 20 September
+  Administrative contact change     free           Axon allows three free updates
+  Maintenance credit (backup/DNS)   ~1 hour        DECLINED for now
+  Axon-P500 hosting, annual         S$ 550/yr      ALREADY CANCELLED, nobody renewing
+  Bitdefender endpoint licence      S$ 720/yr      Terminated since 1 Mar 2025
+  Outstanding domain invoice        S$ 22          Open, not yet discussed
+
+======================================================================
+FACTS VERIFIED BY DNS QUERY ON 3 SEPTEMBER
+======================================================================
+
+- MX is corporatednaconsulting-com.mail.protection.outlook.com. A single record, no
+  fallback. Email is 100% Microsoft 365 and does NOT pass through Axon's server.
+  Nothing Axon does to that server can affect anyone's mailbox.
+- No webmail, mail, ftp or cpanel hostnames are published on the domain.
+- The apex A records are Cloudflare-proxied: 172.67.151.187 and 104.21.1.11.
+- The Google verification TXT record is still published.
+- NO LMS SUBDOMAIN RESOLVES under any of 34 likely names, and there is no wildcard
+  record.
+
+======================================================================
+WHAT IS ALREADY PROTECTING CORPORATE DNA
+======================================================================
+
+- Authority is on the record - Guilherme's written authorisation, acknowledged by Axon.
+- The cutover cannot touch email, by design.
+- 52 redirects are mapped from the current site's URLs, so search rankings carry over.
+  Titles, meta descriptions, canonical tags, JSON-LD, sitemap.xml, robots.txt and
+  llms.txt all ship with the application.
+- The old environment's end date is known in writing, not a surprise.
+
+======================================================================
+THE ONE RISK THAT IS OURS, NOT AXON'S
+======================================================================
+
+The content database (Supabase) is on a FREE PLAN WITH NO AUTOMATIC BACKUP AND NO
+POINT-IN-TIME RECOVERY. If it is lost, every case study and Solutions page is retyped
+from scratch. This is unrelated to Axon and needs an owner and a schedule. It is the
+only item in the whole landscape with total-loss risk.
+
+======================================================================
+ADDENDUM - 11 SEPTEMBER 2026: ONE MORE DNS ITEM, TO RIDE WITH THE CUTOVER
+======================================================================
+
+6. SENDER DOMAIN FOR CONTACT-FORM NOTIFICATIONS - deliberately parked until cutover.
+
+The new site's contact form now emails the enquiry out (CMS: lib/leads/notify.ts,
+wired into POST /api/leads, shipped 11 September). Rhea's answer of 10 September:
+it goes to ceo-office@corporatednaconsulting.com and the PMO team forwards from there.
+
+The notification is SENT from a domain verified in Resend. corporatednaconsulting.com
+is not one, so until this item is done the mail leaves from a Dev em Dobro domain with
+the enquirer's address on Reply-To. That works and is live-able; it just means the
+client sees an agency sender on their own leads.
+
+DECIDED 11 SEPTEMBER: do not touch the zone now. Do it as part of the cutover, when
+we are in Cloudflare anyway.
+
+Why it is safe to do then, verified by DNS query on 11 September:
+  - The zone IS on Cloudflare (pam/mario.ns.cloudflare.com) and Dev em Dobro has had
+    access since the invitation was accepted on 13 August. Axon is not involved.
+  - resend._domainkey and send.corporatednaconsulting.com are both FREE - no TXT, no
+    MX. Nothing to overwrite.
+  - Resend puts its SPF on the `send` SUBDOMAIN, not the apex. THE ROOT SPF IS NOT
+    EDITED, which matters here: the apex TXT already carries five includes plus an ip4
+    block (SendGrid, Zoho, Outlook, Mailchimp, dnssmarthost) and is near SPF's ten
+    DNS-lookup ceiling. Adding to it could break mail that works today.
+  - The apex MX (Microsoft 365) is untouched. An MX on `send` does not compete with it.
+  - DMARC is v=DMARC1; p=none - no enforcement, so nothing can start bouncing. rua
+    reports go to Carol.Medcalf@corporatednaconsulting.com.
+
+What the change is, when the time comes:
+  a. Create corporatednaconsulting.com in the Resend account that owns the production
+     RESEND_API_KEY. THIS ACCOUNT IS NOT YET DECIDED - see below.
+  b. Add in Cloudflare, DNS-only (not proxied): TXT resend._domainkey (value from
+     Resend), MX send -> feedback-smtp.<region>.amazonses.com priority 10, TXT send ->
+     v=spf1 include:amazonses.com ~all. Skip the tracking CNAME.
+  c. Set LEAD_NOTIFY_FROM on the CMS project in Vercel to an address on the domain, and
+     LEAD_NOTIFY_TO to ceo-office@corporatednaconsulting.com. Redeploy the CMS.
+
+OPEN QUESTION, AND IT IS THE SUPABASE QUESTION AGAIN: which Resend account owns this?
+The CMS .env.example records a 19 July decision that the key comes from the Impulse
+account. The account we can operate day to day is a Dev em Dobro one. Either way the
+client's sending domain ends up inside an agency account - the same shape as the
+content database. It belongs in the handover conversation with the domain and Vercel,
+not in a DNS ticket.

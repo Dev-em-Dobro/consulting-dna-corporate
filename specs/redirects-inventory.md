@@ -63,14 +63,17 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 > (1:1 confirmado no CMS), não mais pra home. Os **índices** de clientes seguem na home,
 > porque não têm equivalente no site novo.
 >
-> ⚠️ **`shell → /cases/case-1d007617`** — o slug da Shell no CMS não é "shell". Vale
-> renomear no CMS e simplificar esse redirect.
+> ✅ **`shell`** — resolvido em 07-09. O slug foi renomeado no CMS e o redirect
+> ficou para trás apontando para o nome antigo. Medido no alpha: `/cases/shell`
+> dá 200 e `/cases/case-1d007617` dá 404, ou seja `/our-clients/shell` estava
+> mandando 308 para uma página morta. Agora a Shell segue a mesma regra de todos
+> os outros clientes, e a linha dela sai da tabela por não ser mais exceção.
+> O case antigo sobrevive no CMS como `shell-archived-0b3629b3`.
 
 | Antiga | Nova |
 |--------|------|
 | `/clients` · `/our_clients.html` | `/our-clients` |
-| `/our-clients/{aviva,coca-cola,gsk,heineken,levis,morgan-stanley,unilever}` | `/cases/{mesmo-slug}` |
-| `/our-clients/shell` | `/cases/case-1d007617` |
+| `/our-clients/{aviva,coca-cola,gsk,heineken,levis,morgan-stanley,shell,unilever}` | `/cases/{mesmo-slug}` |
 | `/what-our-client-says.html` · `/testimonials` | `/` |
 
 ### Cases / Portfolio → Cases
@@ -161,7 +164,12 @@ Sugestão: uma única fonte `lib/redirects.ts` exportando o mapa, consumida pelo
 export const REDIRECTS: Record<string, string> = {
   "/our-services": "/solutions",
   "/our-services/overview": "/solutions",
-  "/our-services/leadership-development": "/solutions/leadership",
+  // ⚠️ ERRADO, e nunca esteve ativo — `/solutions/leadership` é a página de
+  // *perfis dos consultores* ("The people behind the method"), não um serviço.
+  // Mandaria quem procura leadership development para uma lista de gente.
+  // O valor vivo está no next.config.mjs: aponta para `/solutions`. Ver a
+  // linha 51 desta tabela e o comentário lá. (Corrigido em 01-09.)
+  "/our-services/leadership-development": "/solutions",
   // … (extensionless)
   "/contact": "/#contact",
   "/contact-us": "/#contact",

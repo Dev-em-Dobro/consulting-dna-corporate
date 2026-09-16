@@ -4,6 +4,28 @@
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --color-brand: #d84339;
   --color-brand-dark: #b5342b;
+  /* O vermelho da marca para TEXTO SOBRE FUNDO ESCURO (09-09).
+     Não é cor nova: é o mesmo #d84339 com a mesma matiz (H 3,8°) e a mesma
+     saturação (67%), só com a luminosidade do HSL subindo de 53,5% para 68%.
+     O par claro/escuro de um mesmo tom é o jeito padrão de resolver isto num
+     sistema de cor, e é o que a própria Explore faz — o laranja de texto deles
+     no herói escuro é #EF8565, um coral claro, não o laranja cheio da marca.
+
+     POR QUE PRECISA EXISTIR: #d84339 tem luminância 0,187, e isso impõe um teto.
+     Contra BRANCO PURO ele dá 4,39:1 — o melhor que essa cor consegue em
+     qualquer lugar. Sobre o `ink` do herói ele cai para 2,87:1, que não passa
+     nem na régua de 3:1 de texto grande. Não existe ajuste de fundo que salve:
+     para levá-lo a 4,5:1 o fundo teria de ser mais claro que branco.
+
+     #e47e77 sobre `ink` dá 4,53:1 — passa no AA e, principalmente, iguala a
+     legibilidade que o vermelho já tem no claro. O rótulo passa a ler igual nos
+     dois fundos, que é a regra: `brand` em fundo claro, `brand-light` em fundo
+     escuro.
+
+     SÓ PARA TEXTO. Preenchimento continua sendo `brand` cheio (o botão Contact,
+     a faixa final): área pintada não tem mínimo de contraste contra o que está
+     atrás dela, e é ali que a cor da marca deve aparecer sem diluição. */
+  --color-brand-light: #e47e77;
   --color-ink: #373234;
   --color-ink-2: #2f2b2c;
   --color-paper: #f3f3f3;
@@ -27,9 +49,49 @@ html.js .h-eyebrow,
 html.js .h-title,
 html.js .h-sub,
 html.js .h-cta,
+html.js .h-cue,
 html.js [data-reveal="stagger"] > *,
 html.js [data-reveal="block"] {
   opacity: 0;
+}
+
+/* Scroll cue — a seta que fecha a primeira dobra dos heróis de altura cheia.
+   Entra por último na escada de `lib/hero-timeline.ts` (`.h-cue`), e só DEPOIS
+   começa a chamar atenção: o convite a rolar não pode competir com o título
+   enquanto ele ainda está chegando.
+
+   SÃO DOIS ELEMENTOS DE PROPÓSITO, o mesmo arranjo do pin do mapa acima: o
+   GSAP escreve `transform` no `.h-cue` para a entrada, e uma @keyframes também
+   escreveria `transform` se morasse no mesmo nó — e keyframe vence estilo
+   inline, então o balanço comeria a entrada. O `.cue-bob` é um filho, e cada
+   um fica com o seu transform.
+
+   O `bottom` MORA AQUI e não em utilitário do Tailwind porque precisa somar
+   `--consent-h` — a altura que o `CookieConsent` publica enquanto está na tela.
+   Sem isso a seta nasce debaixo do banner de cookies (z-9999, `fixed`), ou
+   seja, invisível exatamente na primeira visita, que é quando ela serve. */
+.h-cue {
+  bottom: calc(1.75rem + var(--consent-h, 0px));
+  transition: bottom 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (min-width: 768px) {
+  .h-cue {
+    bottom: calc(2.25rem + var(--consent-h, 0px));
+  }
+}
+.cue-bob {
+  animation: cue-bob 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes cue-bob {
+  0%, 72%, 100% { transform: translateY(0); }
+  36% { transform: translateY(7px); }
+}
+/* Sob "reduzir movimento" a seta FICA — ela é informação (há mais página
+   abaixo), não enfeite. O que sai é só o laço infinito, que é justamente a
+   classe de movimento que a preferência existe para desligar. */
+@media (prefers-reduced-motion: reduce) {
+  .cue-bob { animation: none; }
+  .h-cue { transition: none; }
 }
 
 /* Phone/tablet hero intro, gated on the `touch` class that the inline <head>
@@ -186,4 +248,188 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .fh-fade { animation: none; }
+}
+
+/* Typewriter caret for the "reals" line on the home (Guli, 01-09). A hard
+   blink, not a fade: `animate-pulse` eases opacity and reads as a glow rather
+   than a cursor. Sized in `em` so it tracks the heading's responsive font size
+   instead of needing a breakpoint of its own. */
+.tw-caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 0.82em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  background-color: var(--color-brand);
+  animation: tw-blink 1s steps(1, end) infinite;
+}
+@keyframes tw-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tw-caret { display: none; }
+}
+
+/* Solutions index — the old site's black boxes in a modern reading (27-08
+   brief, item 5; Guli's pass of 29-08, corrected by him on 31-08).
+
+   The row rests dark and the brand wipes across it from the right. The skewed
+   leading edge is the whole device, so the fill is a skewed panel rather than a
+   background, and the row clips it.
+
+   **What 31-08 corrected.** The first build read the diagonal as the shape the
+   row settles into: the panel stopped at 28% of the width and a dark wedge
+   survived for as long as the cursor stayed. That was measured faithfully off
+   docs/design-guli-29-08/solutions-black-boxes.png — 28% at mid-height, 37° off
+   vertical — but the mock was a frame of a moving thing, not its destination.
+   Guli: "uma animação desta aresta indo da direita pra esquerda muito rápido,
+   mas preenchendo o botão inteiro no final."
+
+   So the angle stays and the parking spot goes. The 37° is now only ever seen
+   in transit, and the row ends up solid brand with no wedge. Duration comes
+   down with it: 420ms was a slide, and he asked for "muito rápido".
+
+   **Timing is set by when the edge is actually on the row, not by duration.**
+   The panel starts wholly outside the row and ends wholly covering it, so the
+   diagonal is only visible across the middle of the journey — roughly 14% to
+   91% of the travel at desktop width, narrower still on a phone. Duration alone
+   is therefore a bad proxy for "can you see it": the original 420ms build with
+   easeOutQuint showed the angle for about 58ms, three frames, because that curve
+   spent half its travel in the first two frames and then decelerated over a
+   distance that was already off the row. Nobody has ever seen this diagonal.
+
+   Hence `linear` rather than an ease. A wipe wants constant speed while it
+   crosses, and linear's hard stop is free here: the last 9% of the travel
+   happens after full coverage, off the row, where there is nothing to see. At
+   450ms the angle is legible for about 350ms — the point of the whole device,
+   and what "animação mesmo" asks for. Guli's "muito rápido" is honoured by the
+   crossing reading as one quick gesture, not by a number that hid it.
+
+   The panel overhangs 8rem on BOTH sides now, not just the right. Skewing
+   displaces the top and bottom edges by 0.377 × row height in opposite
+   directions, so a panel flush to the left edge would leave a bare triangle in
+   one corner at full coverage. 8rem clears it for any row this list produces. */
+.sbox {
+  position: relative;
+  overflow: hidden;
+}
+.sbox__sweep {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8rem;
+  right: -8rem;
+  background-color: var(--color-brand);
+  transform: translateX(105%) skewX(-37deg);
+  transition: transform 450ms linear;
+}
+/* Pointer devices get the sweep on hover. Touch has no hover, so the press
+   state stands in — and focus-visible gives the keyboard the same affordance
+   rather than only the outline. */
+@media (hover: hover) {
+  .sbox:hover .sbox__sweep {
+    transform: translateX(0) skewX(-37deg);
+  }
+}
+.sbox:focus-visible .sbox__sweep,
+.sbox:active .sbox__sweep {
+  transform: translateX(0) skewX(-37deg);
+}
+
+/* Under "reduce motion" the fill still has to appear — it is the hover state,
+   not decoration — so it fades in at full coverage instead of travelling. The
+   diagonal is invisible here by definition: it only ever existed in transit. */
+@media (prefers-reduced-motion: reduce) {
+  .sbox__sweep {
+    transform: translateX(0) skewX(-37deg);
+    opacity: 0;
+    transition: opacity 160ms linear;
+  }
+  .sbox:focus-visible .sbox__sweep,
+  .sbox:active .sbox__sweep {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .sbox:hover .sbox__sweep {
+    opacity: 1;
+  }
+}
+
+/* Itens do menu da /about-v2 (09-09) — régua vermelha que cresce da esquerda
+   no hover.
+
+   ⚠️ A PRIMEIRA VERSÃO ERA OUTRA e foi rejeitada na hora: cada item ganhava uma
+   cápsula com contorno vermelho de repouso, e o hover preenchia a cápsula com o
+   mesmo painel inclinado das linhas da Solutions. Oito caixas vermelhas em fila
+   sobre a foto do herói leem como formulário, não como menu — a moldura, que
+   devia organizar, virou o elemento mais barulhento da primeira dobra.
+
+   O que sobra é o gesto sem a caixa. A régua é o traço que a página inteira já
+   usa: o risco do rótulo, a borda dos cinco valores, o filete sob cada cidade.
+   Aqui ela é o sublinhado do item, ausente em repouso e desenhando-se da
+   esquerda para a direita quando o ponteiro chega.
+
+   `scaleX` com origem à esquerda, e não `width`: transformação não recalcula
+   layout, então os oito itens nunca reflowam por causa de um hover. 240ms com
+   saída desacelerada — rápido o bastante para acompanhar o ponteiro, lento o
+   bastante para o traço ser visto sendo desenhado.
+
+   `bottom: -6px` põe a régua abaixo da linha de base sem que o item precise de
+   padding: é a mesma distância do `underline-offset-[6px]` que a variante
+   padrão usa no sublinhado nativo, para os dois menus terem o mesmo ritmo. */
+.navlink {
+  position: relative;
+}
+.navlink__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background-color: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (hover: hover) {
+  .navlink:hover .navlink__rule,
+  .group:hover .navlink__rule {
+    transform: scaleX(1);
+  }
+}
+.navlink:focus-visible .navlink__rule,
+.navlink:active .navlink__rule {
+  transform: scaleX(1);
+}
+/* Item da página em que se está: a mesma régua, travada aberta. Ela não é uma
+   segunda decoração — é o estado final do hover virando estado permanente, e é
+   por isso que o ativo e o hover não brigam: passar o mouse por cima do item
+   ativo não muda nada, porque ele já está no destino.
+
+   Vem sem `transition` de entrada porque nasce assim no primeiro quadro; animar
+   a régua do item ativo no carregamento da página seria movimento sem gesto que
+   o justifique. */
+.navlink--active .navlink__rule {
+  transform: scaleX(1);
+}
+/* Sob "reduzir movimento" a régua aparece inteira em vez de se desenhar: ela é
+   o estado de hover, não enfeite, então some o movimento e não o traço. */
+@media (prefers-reduced-motion: reduce) {
+  .navlink__rule {
+    transform: scaleX(1);
+    opacity: 0;
+    transition: opacity 140ms linear;
+  }
+  .navlink:focus-visible .navlink__rule,
+  .navlink:active .navlink__rule {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .navlink:hover .navlink__rule,
+  .group:hover .navlink__rule {
+    opacity: 1;
+  }
 }

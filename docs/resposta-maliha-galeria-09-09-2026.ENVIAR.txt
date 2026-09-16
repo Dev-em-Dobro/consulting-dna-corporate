@@ -1,0 +1,49 @@
+PARA: Maliha — resposta à pergunta de 09/09 (ligar a foto da About a uma galeria na /team)
+NOTA: negrito no WhatsApp é *asterisco simples*. Se for por e-mail, tirar os asteriscos.
+STATUS: PRONTA PARA ENVIAR
+
+CONTEXTO INTERNO (não enviar):
+  • "LATER TODAY" no último parágrafo: trocar se o prazo for outro. É a única promessa de data
+    na mensagem.
+  • O VÍDEO — nós ACHAMOS, e a mensagem cita o achado em vez de só dizer "não encontramos".
+    É a página antiga `/see_us_in_action.html` (arquivo do Wayback, © 2018): grade de seis itens,
+    três "Watch video" e três "View images". Os três vídeos estão vivos no YouTube, no canal
+    "Jamie Duncan (CorporateDNA)":
+      fWDnbTR2eto — A leadership participant reflects on the dark side profile
+      2wHSayC0vZs — CorporateDNA in Action
+      TKvlzahtjbA — CorporateDNA's Courageous Conversations
+    A pergunta fica fechada: ela responde "yes, that one" e a gente sabe o que substituir.
+    NÃO entrou na mensagem, para não abrir frente agora: os vídeos são de 2018, o canal está no
+    nome de uma pessoa que não está entre os seis da liderança do outline dela (quem controla
+    essa conta?), e as três galerias "View images" já eram quebradas no site antigo — duas com
+    href `.jpg` sem nome de arquivo.
+  • FICOU DE FORA, para a mensagem não inchar: o bloco 7 / `link_card` do outline dela, os 116
+    HEIC do lote de 11/06, a ressalva de galeria virar página social, e o erro do `.co.uk` no
+    documento (o domínio dá SERVFAIL, não serve nada, e o outline manda fazer 301 dele).
+    Tudo continua valendo e continua não dito.
+
+------------------------------------------------------------------------------------------
+
+Hi — good question, and sorry for the wait. We went and looked properly before answering rather
+than guessing, which is what took the time.
+
+On the video: we have been through the team page, the old site and your Team outline, and there
+is no video on any of them. The only videos we found anywhere are five on an old CorporateDNA
+YouTube channel, three of which used to be embedded on the "See us in Action" page, which no
+longer opens. Is that what you had in mind? Just want to be sure we are replacing the right
+thing.
+
+On the gallery itself: send us the photographs and we will come back with a way to show the team
+on the page. The right format depends on what the pictures are — portraits, candid shots from a
+programme, and one wide group photograph each want something different, and choosing the format
+before seeing the material usually means building it twice.
+
+On linking through to it: rather than making the team photograph itself the link,
+our suggestion would be a section at the foot of the About page with a button through to the
+team. Two reasons. A large image that quietly navigates somewhere is easy to miss, and the
+people who do notice cannot tell where it goes before they click. And keeping the route at the
+end means a reader finishes About before they leave it — anyone who wants the team sooner
+already has it in the menu.
+
+We are working on the About page right now, so it is still moving. We will share a version for
+you to review later today.

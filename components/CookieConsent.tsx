@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const STORAGE_KEY = "cdna-cookie-consent";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -14,6 +15,36 @@ export default function CookieConsent() {
       /* localStorage unavailable — don't block the page */
     }
   }, []);
+
+  /* ESTA BARRA COME OS ÚLTIMOS ~85px DE TODA PRIMEIRA VISITA, e ela é `fixed`
+     com z-9999, então nada que se ancore embaixo aparece por baixo dela. Quem
+     sofre primeiro é a seta de rolagem do herói (`.h-cue`): ela existe para o
+     visitante de primeira viagem, que é exatamente quem tem o banner na tela.
+
+     Em vez de cada elemento chutar uma altura, a barra PUBLICA a sua em
+     `--consent-h` e some com a variável ao sair. Medida e não fixa porque o
+     texto reflui: no telefone a barra empilha e passa dos 150px.
+
+     É `bottom`, e não `transform`, quem lê a variável do outro lado — a seta
+     tem a entrada do GSAP escrita no transform dela, e duas coisas disputando
+     a mesma propriedade foi o defeito que este arranjo evita. */
+  useEffect(() => {
+    const el = barRef.current;
+    const root = document.documentElement;
+    if (!el) {
+      root.style.removeProperty("--consent-h");
+      return;
+    }
+    const publish = () =>
+      root.style.setProperty("--consent-h", `${Math.round(el.offsetHeight)}px`);
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--consent-h");
+    };
+  }, [visible]);
 
   const decide = (value: "accepted" | "declined") => {
     try {
@@ -28,6 +59,7 @@ export default function CookieConsent() {
 
   return (
     <div
+      ref={barRef}
       role="dialog"
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-[9999] border-t border-white/10 bg-ink text-white"

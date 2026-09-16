@@ -1,0 +1,66 @@
+Fala, Guilherme, tudo certo?
+
+Montei o mapa do ambiente digital inteiro, do jeito que a Rhea pediu no grupo: cada
+camada, quem é o fornecedor, em nome de quem está a conta hoje e quem deveria ser o dono
+interno. Segue em anexo.
+
+Organizei tudo contra a regra que tu fixaste na segunda — singapore@ como titular, Nitin e
+Nicole como administradores. Cada linha responde a mesma pergunta: já está nesse padrão, ou
+ainda não? São 16 ativos, 5 ainda sem dono confirmado.
+
+Duas coisas dependem de vocês, e as duas têm data:
+
+1. A RHEA PRECISA MANDAR UM REPLY-ALL.
+
+A Axon está esperando só isso para trocar o contato administrativo do domínio, que hoje
+ainda é a caixa da Allison. Não é cobrado — eles permitem três trocas de graça — e como o
+Amit conhece a Rhea pessoalmente, a confirmação dela por e-mail basta. A carta em papel
+timbrado deixou de ser necessária por esse caminho, então aquilo que eu tinha te mandado
+para assinar não precisa mais.
+
+O Rico cobrou de novo hoje de manhã. Enquanto ela não responder, nada muda, e o domínio
+vence em 13 de outubro.
+
+2. OS SGD 150 DA HOSPEDAGEM PRECISAM DE UM SIM OU NÃO.
+
+Tu tinhas dito que avaliaríamos uma extensão curta se precisássemos passar de 30/09. A
+Axon respondeu com o preço: não dá para estender por mês, o mínimo é um trimestre —
+outubro a dezembro, SGD 150.
+
+Minha recomendação é pegar. Sem a extensão, a janela de rollback do site antigo vai
+encolhendo conforme a virada se aproxima: virando em 16/09 temos duas semanas cheias, em
+23/09 uma semana, e de 30/09 em diante o site antigo já era. Com a extensão, essa conta
+deixa de existir e a data de lançamento passa a ser escolhida pelo que faz sentido, não
+pelo vencimento de uma fatura. É a linha mais barata do documento e a única que compra
+folga de cronograma.
+
+O Rico também já cobrou isso duas vezes. Se não responderem, ele segue com a hospedagem
+encerrando em 30/09.
+
+---
+
+Duas coisas que já andaram sozinhas, para tu não te preocupares:
+
+- A Nicole resolveu o Google Analytics. Ela criou a Conta Google e a Axon já a adicionou
+  como administradora hoje de manhã. Falta só ela aceitar o convite. O Search Console ainda
+  está pendente do lado deles.
+
+- O acesso ao WordPress antigo destravou. A Axon reconheceu que uma hora de manutenção
+  basta para o backup, e que a assistência é opcional porque nós já temos o acesso
+  necessário. Aquela cobrança de USD 300 saiu da mesa.
+
+E uma coisa que eu quero deixar explícita, porque é fácil ler errado: o documento lista
+quatro contas que hoje estão em nome da Dev em Dobro — a Vercel do site e do CMS, o banco
+de conteúdo, o banco antigo e o e-mail transacional. Está tudo declarado, com o caminho de
+transferência ao lado, indo justamente para a conta institucional que tu definiste. É o
+contrário do que aconteceu com a Axon: prefiro que vocês saibam de tudo antes de precisarem
+perguntar.
+
+Sobre o domínio, para não gerar susto: ele não sai do lugar. Continua na WebNic, comprado
+através da Axon, igual está hoje. A única mudança é a do contato administrativo, mais as
+travas do registrador, que nunca foram ligadas e não custam nada.
+
+Qualquer dúvida me chama.
+
+Abraço,
+Ricardo

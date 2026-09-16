@@ -9,6 +9,7 @@ import {
   type FormEvent,
 } from "react";
 import { submitLead } from "@/app/actions/submit-lead";
+import HoverFillButton from "@/components/HoverFillButton";
 
 type FieldKey = "name" | "email" | "organisation" | "message";
 type Values = Record<FieldKey, string>;
@@ -33,7 +34,19 @@ const inputBase =
 const labelCls =
   "text-[12px] font-semibold uppercase tracking-[0.5px] text-muted";
 
-export default function ContactForm() {
+/**
+ * `submit` escolhe o botão de envio, no mesmo espírito do `tone` do
+ * `LocationsBlock`: o formulário é compartilhado pelas três homes e elas não têm
+ * o mesmo fundo, então quem sabe qual botão cabe é a página.
+ *
+ *  • `flat` (padrão) — o botão chapado de sempre. É o que a `/home-v1` usa.
+ *  • `hover-fill` — em teste desde 10-09, só na home. Ver `HoverFillSubmit`.
+ */
+export default function ContactForm({
+  submit = "flat",
+}: {
+  submit?: "flat" | "hover-fill";
+} = {}) {
   const [values, setValues] = useState<Values>({
     name: "",
     email: "",
@@ -212,13 +225,22 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={sending}
-        className="mt-1 cursor-pointer bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627] disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {sending ? "Sending…" : "Start a Conversation"}
-      </button>
+      {submit === "hover-fill" ? (
+        <HoverFillButton
+          label={sending ? "Sending…" : "Start a Conversation"}
+          disabled={sending}
+          fullWidth
+          className="mt-1"
+        />
+      ) : (
+        <button
+          type="submit"
+          disabled={sending}
+          className="mt-1 cursor-pointer bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {sending ? "Sending…" : "Start a Conversation"}
+        </button>
+      )}
 
       {submitted && (
         <p

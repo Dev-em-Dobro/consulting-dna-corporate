@@ -36,6 +36,50 @@ next-env.d.ts
 .claude/
 .env*
 
+# ...and the same files when the leading dot is missing. `.env*` does not match
+# `env.local`, so a file saved without the dot carries the service role key and
+# the admin password straight into `git add .` without a word of complaint.
+# Happened on 31-08; caught before any commit, hence these three lines.
+env*.local
+env.example
+env.demo
+
+# Client e-mail exports (.eml). These are correspondence with CDNA and Axon, not
+# project source, and they do not belong on GitHub even in a private repo. They
+# were committed once and stripped from the branch history on 31-08; this rule
+# is what stops them coming back. Read them locally — see the project memory.
+docs/emails/
+
 # temp artifacts (dev server log + prod vercel-link backup)
 .dev-server.log
 .vercel.prod-backup/
+.gstack/
+
+# O pacote de conteúdo bruto do cliente. São 2,96 GB — entrar no git aqui é o
+# tipo de coisa que só sai reescrevendo histórico, e o conteúdo útil dele já
+# chega ao repo processado (imagens em public/, texto nos docs). Guardar a cópia
+# local; o original vive no drive do cliente.
+docs/Content.zip
+
+# O drive de fotografias da Maliha (10-09), pelo mesmo motivo e por mais um.
+# São ~13 MB de originais, e o conteúdo útil já chega processado em
+# public/team/. O motivo a mais: uma das pastas dentro dele chama-se
+# "cDNA. Approach " COM ESPAÇO NO FIM, que o git aqui nem consegue abrir e que
+# quebra um checkout no Windows.
+#
+# ENTROU POR ACIDENTE EM 11-09, num `git add docs/` que varreu tudo, e foi
+# preciso desfazer o commit. É exatamente para isso que esta linha existe: a
+# exclusão era uma decisão que só vivia na cabeça de quem lembrava dela.
+# Para versionar as fotos um dia, renomear as pastas primeiro.
+docs/maliha-drive-10-09/
+
+# O download do drive da Maliha de 15-09 (docs/meetings/drive-download-*): 29 MB
+# de originais do cliente, mesma regra do docs/maliha-drive-10-09. O que é útil
+# já entra processado em public/. As notas de reunião em texto, ao lado dele,
+# essas sim ficam versionadas.
+docs/meetings/drive-download-*/
+
+# A thread consolidada de e-mails da CDNA/Axon, verbatim. É o mesmo conteúdo que
+# a regra docs/emails/ acima mantém fora do GitHub — só que num arquivo só.
+# Ler localmente.
+docs/emails-cdna-thread.md

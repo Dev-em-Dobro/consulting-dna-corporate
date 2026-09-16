@@ -1,0 +1,67 @@
+RESPOSTA À AXON — pronto para colar
+Fonte: docs/resposta-axon-dns-28-08-2026.md (versão EN). Corpo em texto puro.
+
+────────────────────────────────────────────────────────────────────────
+PARA:    rico.m@axon.com.sg, amit@axon.com.sg
+CÓPIA:   gm@corporatednaconsulting.com, jp.pritchard@corporatednaconsulting.com
+
+         A definir com o Guilherme antes de mandar: se entram também a Rhea
+         (rhea.leckie@) e o Finance (finance@). A Rhea é a contato registrada
+         do domínio e a mudança de contato administrativo mexe justamente
+         nisso, então provavelmente sim — mas quem decide quem lê é a CDNA,
+         não nós. A Maliha estava em cópia no original.
+
+         ATENÇÃO: o Rico escreveu para o endereço ANTIGO da Rhea. Se ela
+         entrar em cópia, confirmar o endereço atual antes.
+
+ASSUNTO: corporatednaconsulting.com — domain, and how the cutover will run
+         (re: your 19 August reminder)
+────────────────────────────────────────────────────────────────────────
+
+
+Dear Rico and Amit,
+
+I am Ricardo, from Dev em Dobro — the provider Guilherme Mendes confirmed to
+you on 12 August as the team building Corporate DNA's new website.
+
+Your reminder of 19 August was addressed to Rhea, and it reached us inside
+CDNA, forwarded on to Guilherme, who passed it to us to answer. Since I was
+not on the original thread I cannot reply within it, so this is a new message
+on the same subject — I have kept your subject line for reference and copied
+CDNA, who can confirm that we are answering on their behalf and that the
+decisions below are theirs.
+
+Thank you for the reminder, and for arranging the Cloudflare access.
+
+To answer your question directly: of the three options you offered, it is the
+middle one — the domain stays registered with Axon, and only the website
+moves. There is no transfer to arrange and we do not need the EPP code, so
+please treat any auth code already issued as no longer required.
+
+One thing we would ask you to update: the domain's administrative contact.
+Amit referenced allison.vickery@corporatednaconsulting.com on 13 August; she
+has since left CDNA, so that mailbox is no longer monitored and should not be
+receiving domain correspondence. CDNA will confirm the replacement contact —
+could you let us know what you need in order to make the change?
+
+On the cutover, Amit, this follows the sequence you asked for: we change the
+A/CNAME records in Cloudflare, keeping "Under Attack" mode enabled until that
+is done; we validate the new site on the live domain; and then we write to you
+to confirm it is safe to disconnect. Please keep the WordPress site running for
+a week or two after the records change, as a rollback path.
+
+One request alongside that: a full backup of the current WordPress site. Not
+for the migration — the new site is built independently and takes nothing from
+it — but so CDNA keeps the old content and media once the server is eventually
+retired.
+
+On lead times, your point about planning ahead is well taken. In this case the
+usual risks do not apply: email runs on Microsoft 365 rather than the hosting
+server, so the A/CNAME change does not touch mail delivery; there is nothing to
+export, as the new site is already built on its own platform; and DNS is
+already under our control thanks to your access.
+
+We will let you know before making any change.
+
+Best regards,
+Ricardo

@@ -3,6 +3,7 @@ import { COVERAGE_ISO3, countriesToIso3 } from "@/lib/coverage";
 import { getCoverageRegions } from "@/lib/cms/map";
 import { geocode } from "@/lib/geocode";
 import { CITY_COORDS } from "@/lib/city-coords";
+import TypeLabel from "@/components/TypeLabel";
 
 /**
  * World coverage map (008 FR-608–612). An async SERVER component rendering a
@@ -196,9 +197,65 @@ function countryLabelPos(
 export default async function WorldCoverageMap({
   eyebrow = "Global reach",
   title = "Where we operate.",
+  tone = "white",
+  typeLabel = false,
+  bare = false,
 }: {
-  eyebrow?: string;
-  title?: string;
+  /**
+   * Pass `null` to both to render the map alone, with no header of its own.
+   * /about-v2 needs that: its "Where we work." block opens with a heading and
+   * an intro paragraph the map has no slot for, and a second eyebrow directly
+   * under the first reads as two sections instead of one.
+   *
+   * Optional and off by default — the three homepages render this component
+   * with its header and must not change.
+   */
+  eyebrow?: string | null;
+  title?: string | null;
+  /**
+   * Ground the map sits on. `paper` exists for /about, where the whole "Where
+   * we work" block (this map + the offices below it) shares one band so the two
+   * halves read as one section — see the note at the call site.
+   *
+   * A prop rather than a change to the component, for the same reason
+   * LocationsBlock has one: the three homepages render this map on white and
+   * must not move.
+   *
+   * ⚠️ The map is DRAWN against its ground, so this is not only a CSS class.
+   * Country borders are stroked in the ground colour, which is what makes the
+   * landmasses read as shapes cut out of the page rather than outlined on top
+   * of it; and the un-covered countries need to stay as far from the ground as
+   * they were on white, or the empty world washes out. Both follow `tone`
+   * below. The palette of COVERED countries is saturated and doesn't care.
+   */
+  tone?: "white" | "paper";
+  /**
+   * Renderiza o rótulo pelo <TypeLabel> (14px/500/1,3px) em vez do span local
+   * de 13px/600/2px.
+   *
+   * Existe para a home, que em 10-09 adotou o TypeLabel em todos os rótulos de
+   * seção: sem isto o mapa era o único bloco daquela página abrindo numa
+   * métrica diferente das seções vizinhas.
+   *
+   * Desligado por padrão porque as três homes antigas renderizam este mapa com
+   * o rótulo de antes e não podem mudar. Mesmo padrão de `maxWidthClass`.
+   */
+  typeLabel?: boolean;
+  /**
+   * Devolve só o conteúdo (rótulo/título, se houver, e o SVG) — sem
+   * `<section>`, sem container centralizado e sem padding.
+   *
+   * Existe para a /about (item 3 da call de 14-09): lá o mapa deixou de ser uma
+   * faixa inteira e passou a dividir a linha com o texto de "Where we work", o
+   * texto à esquerda e o mapa à direita. Quem manda em largura, fundo e
+   * espaçamento passa a ser o grid do chamador; com o wrapper próprio o mapa
+   * abriria uma segunda faixa de 1200px DENTRO da coluna da direita, e a
+   * largura do SVG deixaria de acompanhar a coluna.
+   *
+   * Desligado por padrão: as três homes renderizam o mapa como seção inteira e
+   * não podem mudar. Mesmo padrão de `tone` e `typeLabel`.
+   */
+  bare?: boolean;
 }) {
   const regions = await getCoverageRegions();
 
@@ -277,89 +334,126 @@ export default async function WorldCoverageMap({
 
   const placed = placeLabels(pins, cnBoxes);
 
-  return (
-    <section id="coverage" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24">
-        <div className="mb-2.5 flex items-baseline gap-3">
-          <span className="inline-block h-0.5 w-9 bg-brand" />
-          <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
-            {eyebrow}
-          </span>
-        </div>
+  // Headerless mode also drops the top padding: the caller's own intro sits
+  // directly above, and stacking both paddings opens a gap the 27-08 brief
+  // (item 16, "excessive white space") asks us to close.
+  const headless = eyebrow === null && title === null;
+
+  // The two colours that are a function of the ground (see the `tone` doc).
+  // `ground` is every stroke that means "the page behind this": country
+  // borders, the pin keyline, the city-label halo. `emptyFill` is the
+  // un-covered world; it sits ~28 points below white, so on paper (#f3f3f3) it
+  // has to come down too or the difference halves and the map reads washed out.
+  const ground = tone === "paper" ? "#f3f3f3" : "#ffffff";
+  const emptyFill = tone === "paper" ? "#e0dbd6" : "#e7e3df";
+
+  // O conteúdo em si. Vive numa variável porque `bare` decide se ele sai
+  // embrulhado na seção própria ou cru, para o grid do chamador posicionar.
+  const content = (
+    <>
+      {eyebrow !== null &&
+        (typeLabel ? (
+          <TypeLabel>{eyebrow}</TypeLabel>
+        ) : (
+          <div className="mb-2.5 flex items-baseline gap-3">
+            <span className="inline-block h-0.5 w-9 bg-brand" />
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
+              {eyebrow}
+            </span>
+          </div>
+        ))}
+      {title !== null && (
         <h2 className="mb-10 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
           {title}
         </h2>
+      )}
 
-        <svg
-          viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
-          role="img"
-          aria-label="World map highlighting the countries and cities where the firm operates"
-          className="h-auto w-full"
-        >
-          {features.map((f, i) => {
-            const d = featurePath(f.geometry);
-            if (!d) return null;
-            const fill = covered.has(f.id)
-              ? (colorFor[f.id] ?? "#d84339")
-              : "#e7e3df";
-            // Key by index — some GeoJSON features share id "-99" (disputed
-            // territories), which would otherwise collide.
-            return (
-              <path key={i} d={d} fill={fill} stroke="#fff" strokeWidth={0.4} />
-            );
-          })}
-          {/* Country names, centred on the country (no pin). */}
-          {countryNames.map((c, i) => (
-            <text
-              key={`c${i}`}
-              x={c.x}
-              y={c.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize={c.fs}
-              fontWeight={700}
-              letterSpacing="0.4"
-              fill="#ffffff"
-              opacity={0.92}
-              stroke="rgba(55,50,52,0.28)"
-              strokeWidth={c.fs * 0.08}
-              paintOrder="stroke"
-              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
-            >
-              {c.name}
-            </text>
-          ))}
-          {/* Pin markers (tip on the city). */}
-          {pins.map((p, i) => (
-            <g key={`m${i}`} transform={`translate(${p.x}, ${p.y}) scale(${PIN_SCALE})`}>
-              <path
-                d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
-                fill="#373234"
-                stroke="#fff"
-                strokeWidth={0.6}
-              />
-              <circle cx="0" cy="-12.8" r="2.4" fill="#fff" />
-            </g>
-          ))}
-          {/* City labels, placed to avoid overlapping each other and the pins. */}
-          {placed.map((p, i) => (
-            <text
-              key={`l${i}`}
-              x={p.lx}
-              y={p.ly}
-              textAnchor={p.anchor}
-              fontSize={FONT}
-              fontWeight={600}
+      <svg
+        viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
+        role="img"
+        aria-label="World map highlighting the countries and cities where the firm operates"
+        className="h-auto w-full"
+      >
+        {features.map((f, i) => {
+          const d = featurePath(f.geometry);
+          if (!d) return null;
+          const fill = covered.has(f.id)
+            ? (colorFor[f.id] ?? "#d84339")
+            : emptyFill;
+          // Key by index — some GeoJSON features share id "-99" (disputed
+          // territories), which would otherwise collide.
+          return (
+            <path key={i} d={d} fill={fill} stroke={ground} strokeWidth={0.4} />
+          );
+        })}
+        {/* Country names, centred on the country (no pin). */}
+        {countryNames.map((c, i) => (
+          <text
+            key={`c${i}`}
+            x={c.x}
+            y={c.y}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize={c.fs}
+            fontWeight={700}
+            letterSpacing="0.4"
+            fill="#ffffff"
+            opacity={0.92}
+            stroke="rgba(55,50,52,0.28)"
+            strokeWidth={c.fs * 0.08}
+            paintOrder="stroke"
+            style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+          >
+            {c.name}
+          </text>
+        ))}
+        {/* Pin markers (tip on the city). */}
+        {pins.map((p, i) => (
+          <g key={`m${i}`} transform={`translate(${p.x}, ${p.y}) scale(${PIN_SCALE})`}>
+            <path
+              d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
               fill="#373234"
-              stroke="#fff"
-              strokeWidth={2}
-              paintOrder="stroke"
-              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
-            >
-              {p.label}
-            </text>
-          ))}
-        </svg>
+              stroke={ground}
+              strokeWidth={0.6}
+            />
+            <circle cx="0" cy="-12.8" r="2.4" fill={ground} />
+          </g>
+        ))}
+        {/* City labels, placed to avoid overlapping each other and the pins. */}
+        {placed.map((p, i) => (
+          <text
+            key={`l${i}`}
+            x={p.lx}
+            y={p.ly}
+            textAnchor={p.anchor}
+            fontSize={FONT}
+            fontWeight={600}
+            fill="#373234"
+            stroke={ground}
+            strokeWidth={2}
+            paintOrder="stroke"
+            style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+          >
+            {p.label}
+          </text>
+        ))}
+      </svg>
+    </>
+  );
+
+  if (bare) return content;
+
+  return (
+    <section
+      id="coverage"
+      className={tone === "paper" ? "bg-paper" : "bg-white"}
+    >
+      <div
+        className={`mx-auto max-w-[1200px] px-6 pb-20 md:px-10 md:pb-24 ${
+          headless ? "pt-0" : "pt-20 md:pt-24"
+        }`}
+      >
+        {content}
       </div>
     </section>
   );

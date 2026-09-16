@@ -1,0 +1,226 @@
+DOC 3 - FAQ: WHAT SHE IS LIKELY TO ASK, AND THE SHORT ANSWER
+
+Answers are written to be said out loud. Numbers are exact and verified.
+A Portuguese glossary of the terms likely to be spoken is at the end of this file.
+
+======================================================================
+ABOUT LEAVING AXON AND DEPENDING ON A PROVIDER
+======================================================================
+
+Q: "Are we still tied to Axon?"
+A: Only for the domain registration, and only because moving it is unnecessary risk
+   right now. The hosting is already cancelled and ends 30 September. Email never
+   touched Axon - it is Microsoft 365.
+
+Q: "Why keep the domain with them at all?"
+A: Because a domain transfer is a separate operation with its own risk, and it buys
+   nothing today. What matters is who controls the record, and that is what we are
+   fixing: the administrative contact moves from Allison Vickery, who has left, to
+   Rhea. It costs nothing.
+
+Q: "What happens if Axon stops cooperating tomorrow?"
+A: The website does not depend on them at all - it is already built and running
+   elsewhere. Two things would be harder: getting an archive of the old WordPress
+   site, and finding out who holds the Google Search Console property. Neither would
+   stop the launch.
+
+Q: "Can we host the site ourselves?"
+A: Yes. The new site is not WordPress, there is no server to administer, and the
+   account can be in Corporate DNA's name. That is what we are proposing.
+
+Q: "So the developer holds our accounts?"
+A: Today, three of them - Vercel, Supabase and Resend. We are declaring that openly and
+   there is a transfer plan for each: a Corporate DNA account under
+   singapore@corporatednaconsulting.com, with Nitin and Nicole as administrators.
+   Corporate DNA owns; partners manage. That is the rule Guilherme set on 1 September,
+   and we are executing it.
+
+Q: "How do we avoid ending up here again?"
+A: One institutional mailbox owns every account, at least two internal administrators
+   on each, and a written schematic of the landscape. The schematic exists - providers,
+   account holders and internal owners, per layer.
+
+======================================================================
+ABOUT THE LAUNCH AND THE SCHEDULE
+======================================================================
+
+Q: "When can we go live?"
+A: The technical side is ready to schedule. What is not ready is content - several
+   Solutions and case-study fields are still waiting on Corporate DNA. The date follows
+   the content, not the other way around.
+
+Q: "What is the deadline?"
+A: 30 September, but not for the reason people assume. The new site does not stop
+   working on that date. What ends is the ability to roll back to the old site if
+   something goes wrong. Launch on 16 September and there is a full two-week safety
+   net; launch on 23 September and it is one week; from 30 September there is none.
+
+Q: "Can we buy more time?"
+A: Yes, cheaply. Axon will extend the hosting for one quarter - 1 October to 31
+   December - for SGD 150. There is no monthly option. Corporate DNA answers by 20
+   September. The recommendation is to take it: it is the cheapest item in the project
+   and the only one that buys back schedule freedom.
+
+Q: "Will the site go down during the switch?"
+A: No. Two DNS records change and traffic moves to the new site. Email is not touched.
+
+Q: "Will we lose our Google ranking?"
+A: No, and this was designed for from the start. 52 redirects are mapped from every URL
+   that changes, so links and rankings carry over. Titles, meta descriptions, canonical
+   tags, structured data, sitemap and robots file all ship with the site.
+
+Q: "Will we lose our analytics history?"
+A: No. Axon raised this and it is not correct. Analytics data lives in the Google
+   account, not on their server. Turning the hosting off deletes nothing. Nicole now has
+   administrator access to that account. The one real limitation is Google's own: the
+   old Universal Analytics property is discontinued and cannot be converted - that is
+   true for every company in the world, not just Corporate DNA.
+
+======================================================================
+ABOUT THE OLD WEBSITE
+======================================================================
+
+Q: "Are we keeping a copy of the old site?"
+A: Yes, that is the intention. We are reviewing what is actually needed, and we will
+   confirm by 20 September along with the hosting decision. Axon has been asked to
+   change nothing in the meantime.
+
+Q: "Is anyone still updating the old WordPress site?"
+A: QUESTION TO ASK HER, NOT TO ANSWER. If anyone at Corporate DNA still publishes on
+   it, that changes how we take the archive.
+
+Q: "Does the old site have to stay up?"
+A: Only as a safety net during the rollback window. It stays reachable through the
+   cutover and validation.
+
+======================================================================
+ABOUT THE REFERENCE SITE SHE SENT
+======================================================================
+
+Q: "Did you look at Explore Performance?"
+A: Yes, in detail. They are strong, and the good news is the argument structure is
+   already the same as Corporate DNA's - eyebrow headings, big proof numbers,
+   per-client metrics, organised by client problem. The difference is visual finish,
+   not architecture. Nothing has to be thrown away.
+
+Q: "What exactly is different?"
+A: Four things. Their hero photo is darkened so the text reads; ours has a bright sky
+   and the white text disappears. They use one accent colour as a mark; we use red as
+   whole backgrounds. Their photography shows programmes happening; ours shows posed
+   portraits. They show awards as fixed badges; ours scroll past in a ticker that
+   cannot be read.
+
+Q: "Can we have what they have?"
+A: Most of it, yes. Hero contrast, the use of red and the award badges can be done
+   before the domain switch without moving the date. The photography is the one that is
+   not a code problem - it depends on whether Corporate DNA has images of programmes
+   actually running.
+
+Q: "Do we have those photos?"
+A: QUESTION TO ASK HER. This is the item that either unlocks or blocks the biggest
+   visual difference, and only Corporate DNA can answer it.
+
+Q: "Does this change the launch date?"
+A: It does not have to. The visual items are hours and days, not weeks, and they can
+   land before the switch. The content and photography work is separate and can
+   continue after.
+
+Q: "Should we rebuild it like theirs?"
+A: No - and it would cost more than it returns. Corporate DNA's client list is
+   stronger, the case metrics are stronger, and the structure is already right. What is
+   missing is finish.
+
+======================================================================
+ABOUT COST
+======================================================================
+
+Q: "Is any of this going to cost us?"
+A: One optional item: SGD 150 to extend the hosting a quarter. The administrative
+   contact change is free - Axon allows three free updates. Axon has offered paid
+   assistance for the backup and for SEO work; we have declined both, because the
+   access is what we need, not the labour.
+
+Q: "What are we already paying that we should not be?"
+A: Two things worth checking with finance: a Bitdefender licence at S$ 720/year that
+   has been terminated since March 2025, and a S$ 22 domain invoice still open. Also,
+   the S$ 550/year hosting is already cancelled - nobody is renewing it.
+
+======================================================================
+THE QUESTIONS TO PUT TO HER - ordered by how much they unblock
+======================================================================
+
+1. "When you say clarity - do you mean how the page looks, or that you can tell what
+   they do in ten seconds?"  These lead to completely different work.
+
+2. "Their photos are all of programmes happening. Do we have that library?"
+
+3. "Which did you open first, the home page or the About page?"  She sent the About
+   link. If it was the About page that impressed her, the subject is story and team,
+   not the homepage.
+
+4. "Is there one section you would point Nitin and JP at and say - I want that?"
+
+5. "Does this change the launch date, or is it an improvement after we switch the
+   domain?"  The one that must not stay implicit.
+
+6. "Is anyone still publishing on the old WordPress site?"
+
+7. "The LMS - which platform is it, who bought it, and is it live today?"
+
+
+######################################################################
+GLOSSARIO EN -> PT - TERMOS QUE VAO APARECER NA CALL
+######################################################################
+
+Cutover              A virada. O momento em que o dominio passa a apontar para o site
+                     novo.
+Go-live              O site no ar para o publico.
+Rollback             Voltar atras, reapontar para o site velho se algo der errado.
+Rollback window      O periodo em que ainda da para voltar atras.
+Domain registrar     Quem registra o dominio. Aqui: WebNic, revendido pela Axon.
+Registrar locks      Travas que impedem transferencia ou alteracao do dominio sem
+                     autorizacao. Hoje NAO estao ativas.
+EPP code / auth code A senha de transferencia de dominio. NAO e necessaria, porque o
+                     dominio nao vai sair da Axon.
+Administrative       O contato oficial do dominio. Hoje e a Allison, que saiu. Vai
+  contact            para a Rhea.
+Apex record          O registro do dominio sem "www". Um dos dois que mudam.
+DNS zone             O conjunto de registros do dominio.
+MX / SPF / DKIM /    Registros de e-mail. NENHUM sera tocado. MX diz para onde vai o
+  DMARC              e-mail; os outros tres autenticam quem pode enviar em nome do
+                     dominio.
+Under Attack mode    Modo do Cloudflare que desafia todo visitante. Esta ligado; sai
+                     no go-live.
+cPanel               O painel de administracao do servidor antigo. E o acesso que a
+                     Axon nao deu.
+Maintenance credit   O credito que a Axon quer vender, aprox. 1 hora de trabalho.
+Hosting extension    A extensao do prazo da hospedagem antiga, SGD 150 pelo trimestre.
+Decommission/retire  Desligar o servidor antigo.
+Legacy               O antigo. "Legacy site" = o WordPress velho.
+Staging / preview    Ambiente de teste, nao publico.
+Redirect / 301       Encaminhamento de uma URL antiga para a nova. Temos 52 mapeados.
+Search Console       Ferramenta do Google com historico de busca e verificacao de
+                     propriedade. E O ITEM TRAVADO.
+Property             No vocabulario do Google, a "propriedade" = a conta de um site
+                     dentro do Analytics ou do Search Console.
+Universal Analytics  A versao velha e a nova do Google Analytics. A velha foi
+  / GA4              descontinuada pelo Google.
+Tag                  O trecho de codigo do Analytics que vai no site.
+Point-in-time        Restaurar o banco de dados a um momento especifico. NAO TEMOS -
+  recovery           e o risco do Supabase.
+Institutional owner  Em nome de quem a conta esta.
+  / account holder
+Handover             A passagem de contas e acessos para a CDNA.
+Asset library        Acervo de fotos e materiais.
+Stock photo          Foto de banco de imagem. A referencia NAO usa; e tudo proprio.
+Serif / sans-serif   Com e sem serifa. A referencia usa serifa no corpo do texto; nos
+                     usamos sans em tudo.
+Eyebrow              A linha pequena em maiusculas acima de um titulo.
+Hero                 O primeiro bloco da pagina, com a imagem grande.
+Above the fold       O que aparece antes de rolar a pagina.
+Ticker               A faixa que rola. A nossa, dos premios, nao da para ler.
+Accent colour        A cor de destaque.
+Whitespace /         Espaco em branco.
+  breathing room
+LMS                  Learning Management System - plataforma de cursos online.
+                     NINGUEM SABE AINDA QUAL E.

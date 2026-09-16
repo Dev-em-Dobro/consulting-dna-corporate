@@ -1,0 +1,60 @@
+PARA: Guli — passar a /approach (5H) para desenho
+NOTA: negrito no WhatsApp é *asterisco simples*. Se for por e-mail, tirar os asteriscos.
+STATUS: PRONTA PARA ENVIAR
+FOCO: uma página, um problema nomeado, dois links. O detalhe fica no briefing.
+
+CONTEXTO INTERNO (não enviar):
+  • O ENQUADRAMENTO IMPORTA. Não é "toma a difícil" nem "a gente está te passando trabalho":
+    nós estamos fazendo praticamente tudo. O que esta página tem de diferente é que o desenho
+    precisa INVENTAR uma coisa (a roda), em vez de arranjar conteúdo em blocos. Por isso a
+    frase é "é a que mais pede cabeça criativa", e não "é a mais complexa".
+  • TAMBÉM FORA: qualquer comparação com Services e Team. Se ele perguntar o que estamos
+    fazendo, responde na hora; escrever isso na mensagem soa a justificativa.
+  • A RODA É O ÚNICO PROBLEMA NOMEADO na mensagem, de propósito. É o que decide se ele topa e
+    em quanto tempo. O resto (cores, ícones, linha de direitos, estados vazios) está no
+    briefing e não precisa caber aqui.
+  • O PRAZO ENTRA COMO PERGUNTA, não como data cravada. Se o 15/09 já tiver mudado, trocar a
+    última linha antes de enviar.
+  • AS REFERÊNCIAS SÃO DÍVIDA NOSSA, e por isso entraram na mensagem como primeira entrega.
+    No pedido de conteúdo de 03/09 está escrito em duas partes: "we owe you 2–3 interactive
+    references before we build anything, as you asked" e, na lista do que corria em paralelo,
+    "2–3 interactive references for the 5H wheel, sent to the group before we build anything".
+    A Rhea pediu, a gente prometeu, e são sete dias. O bloco 6 está parado por nossa causa.
+  • A MALIHA NÃO ESPECIFICOU A RODA de propósito — é o único bloco do documento sem instrução
+    de comportamento, justamente porque ela está esperando as nossas referências para opinar.
+    Isso é bom para o Guli (direção é dele) e é um risco (ela aprova antes de virar página).
+    Está no briefing; fora da mensagem para não pesar.
+  • O HERÓI DA ABOUT NO MOBILE mudou hoje e ainda não subiu no alpha. Se ele abrir o link no
+    telefone, vai ver a versão anterior. Ou sobe o deploy antes de enviar, ou manda as capturas
+    novas junto.
+
+------------------------------------------------------------------------------------------
+
+Guli, tenho uma página pra te passar: a *Approach*, a do 5H.
+
+O conteúdo já veio pronto do cliente — dez blocos na ordem, cada título e cada parágrafo
+escritos, com o que está fechado e o que ainda falta marcado um por um. Não tem copy pra
+escrever nem estrutura pra decidir. Falta o design.
+
+É a página que mais pede cabeça criativa, e o motivo é um só: *a roda do 5H*. Ela é um círculo
+com cinco lentes e vinte e cinco capacidades em volta, e hoje o texto das capacidades está
+girado acompanhando a curva — parte dele de cabeça pra baixo. Ilegível na tela, pior no
+telefone. O cliente quer o círculo, mas isso precisa virar outra coisa.
+
+Referência é a *About*, que já está no ar:
+https://consulting-dna-corporate-alpha.vercel.app/about
+Mesma tipografia, mesma linguagem. Se alguma decisão de lá não servir aqui, fala — ela é
+referência, não lei.
+
+O material do cliente (outline, a roda em PNG e a paleta):
+https://drive.google.com/drive/folders/1M39FzqwtDp9N5GgUBCa74b-4Oc7h5Yz3
+
+Uma coisa antes da página: a gente ficou de mandar pro cliente *2 ou 3 referências de
+interativo* pra essa roda antes de construir qualquer coisa, e ainda não mandou. Se der, começa
+por aí — são só as referências, pra eles dizerem se a direção agrada. Destrava o resto e evita
+você desenhar tudo antes de saber se o caminho é esse.
+
+Te mando o briefing bloco a bloco em seguida.
+
+Lançamento marcado pro dia 15. Dá uma olhada e me diz o que é realista — a gente ajusta o
+escopo em cima do teu prazo, não o contrário.

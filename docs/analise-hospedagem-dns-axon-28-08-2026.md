@@ -87,11 +87,26 @@ pediu para redirecionar a caixa da Allison e trocar logins.
 É bloqueador para qualquer transferência de domínio — e risco de médio prazo mesmo sem transferir
 (renovação, recuperação de conta).
 
+> **Correção (28/08, após ler a thread `docs/emails/`).** A Yvonne escreve *"I am not sure who
+> initiated the said request with Axon"*, e este doc tratava a origem do pedido como desconhecida.
+> **Ela é conhecida:** em 12/08 o Guilherme respondeu à Axon *"I answered yes, it will be Dev em
+> Dobro and we need the EPP code"*. Horas depois, no mesmo dia, o Beto recomendou o contrário —
+> manter o domínio onde está e não pedir o EPP — e essa recomendação **nunca chegou à Axon**.
+>
+> Isso reenquadra boa parte do §2.5: a Axon não está confusa, está operando sobre a última instrução
+> que recebeu. O e-mail do Rico ("if you decide to migrate… start the transfer five weeks before
+> expiry") e a menção do Amit ao EPP são consequência direta disso, não desorganização deles.
+> O primeiro movimento, portanto, é **fechar esse loop** — comunicar que o domínio fica.
+
 ### 2.5 Ninguém do lado deles é dono do assunto
 
 Rico aponta para Rhea → Finance aponta para Mike → Mike está "out of the loop" → JP repassa para
 Guilherme → e o Weida (Eztech) afirma que já tinha sido decidido manter o domínio na Axon.
 Três versões, nenhum decisor formal.
+
+> **Ressalva (28/08).** O Weida não está errado, e a "terceira versão" dele é na verdade a correta:
+> manter o domínio na Axon é exatamente o que o Beto recomendou em 12/08 (§2.4). O problema não é
+> divergência de opinião — é que a decisão certa nunca foi comunicada a quem precisava saber.
 
 ### 2.6 O site antigo foi comprometido
 
@@ -186,8 +201,16 @@ semanas para rollback. O Amit desconecta quando pedirmos — só pedir depois de
 4. **Autorização para não renovar a hospedagem** após o cutover.
 5. **Data-alvo do go-live** — o cutover exige o conteúdo publicado no CMS, então amarra com o
    brief de 27/08.
-6. **Backup e credenciais do WordPress atual** — o acesso admin mencionado no áudio de 29/07 nunca
-   chegou.
+6. **Backup do WordPress atual** — para a CDNA preservar conteúdo e mídias antigas quando o servidor
+   for desligado. Não precisamos de credenciais: o site novo não aproveita nada de lá.
+
+   > **Correção (28/08, após reler o áudio de 29/07).** Este item dizia antes "backup e credenciais
+   > — o acesso admin mencionado no áudio de 29/07 nunca chegou". **Isso está errado.** O áudio não
+   > registra promessa de acesso; registra o oposto — a pessoa que administra o site (via Dubai)
+   > *"tava um pouco relutante pra passar o password, porque é o password do admin que faz todo o
+   > nosso serviço"*, e o arranjo proposto foi que **ela** faria o upload quando o site novo
+   > estivesse pronto. Nunca foi combinado que receberíamos acesso, então não há o que cobrar. O
+   > arranjo em si também caducou: não vamos subir conteúdo no WordPress antigo.
 7. **Quais outros acessos estavam na conta da Allison** (Search Console, Analytics, redes sociais).
    Se ela era o contato do registrador, provavelmente é de mais coisas.
 

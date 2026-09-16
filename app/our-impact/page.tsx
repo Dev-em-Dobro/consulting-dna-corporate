@@ -6,6 +6,8 @@ import Eyebrow from "@/components/Eyebrow";
 import EmptyNotice from "@/components/EmptyNotice";
 import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
+import PhotoCarousel from "@/components/PhotoCarousel";
+import AwardsMentions from "@/components/AwardsMentions";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { getSiteStats } from "@/lib/stats";
 import { getCaseListEntries } from "@/lib/cms/map";
@@ -40,6 +42,11 @@ export const revalidate = 300;
  *    it means a strong visual treatment of static numbers, it is Guli's pass
  *    over what is already here.
  */
+/** Event photography for the Social Impact carousel, same source as elsewhere. */
+const SOCIAL_PHOTOS = Array.from({ length: 12 }, (_, i) => i + 13)
+  .filter((n) => n !== 14)
+  .map((n) => `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`);
+
 export default async function OurImpactPage() {
   const [stats, cases] = await Promise.all([
     getSiteStats(),
@@ -67,7 +74,7 @@ export default async function OurImpactPage() {
           <Reveal className="mt-12 grid max-w-[860px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
             {stats.map((s) => (
               <div key={s.label} className="flex items-start gap-5">
-                <span className="mt-[42px] h-[3px] w-8 flex-none bg-brand" />
+                <span className="mt-[38px] h-[3px] w-8 flex-none bg-brand md:mt-[50px]" />
                 <div>
                   <div className="text-[44px] font-bold leading-none tracking-[-1.5px] text-brand md:text-[56px]">
                     <Counter value={s.value} />
@@ -82,8 +89,50 @@ export default async function OurImpactPage() {
         </div>
       </section>
 
-      {/* ── Per-engagement results ────────────────────────────────────── */}
-      <section id="results" className="bg-white">
+      {/* ── Our clients say: held, not filled (see the file header) ────── */}
+      <section id="testimonials" className="bg-brand text-white">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
+          <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] sm:text-[34px]">
+            Our clients say
+          </h2>
+          <p className="mt-6 max-w-[62ch] text-[16px] leading-[1.7] text-white/85">
+            Awaiting testimonials about Corporate DNA — in the John Murphy /
+            Jorge Gardino mould — rather than generic corporate quotes, each
+            approved by CDNA before publishing.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Our Social Impact ─────────────────────────────────────────────
+          Pulled across from the old site, as in Guli's mock. He deliberately
+          did not bring the full copy: "nem vou pegar, porque eles estão falando
+          'evitar o scroll em excesso' — e é um textaço" (14:41). This is the
+          opening paragraph only, with the carousel treatment he gave the loose
+          stills (14:17).
+
+          ⚠️ Old-site copy, not re-approved in this cycle. */}
+      <section id="social-impact" className="bg-white">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
+          <Eyebrow>Our Social Impact</Eyebrow>
+          <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] text-ink sm:text-[34px]">
+            A force for good, beyond the boardroom.
+          </h2>
+          <p className="mt-6 max-w-[68ch] text-[17px] leading-[1.7] text-muted">
+            Corporate DNA is committed to being a force for good in the world.
+            Our mission is to make transformative impact through humanity,
+            honesty, and purpose. In acting on our deeply held values of social
+            awareness, sustainability, and boldness, we have partnered with
+            TERRAGRN, an organisation dedicated to sustainable community-led
+            agroforestry.
+          </p>
+          <div className="mt-10">
+            <PhotoCarousel images={SOCIAL_PHOTOS} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Per-engagement results — the mock's "impact stories" ───────── */}
+      <section id="results" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-20">
           <Eyebrow>Measured outcomes</Eyebrow>
           <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] text-ink sm:text-[34px]">
@@ -124,20 +173,13 @@ export default async function OurImpactPage() {
         </div>
       </section>
 
-      {/* ── Testimonials: held, not filled (see the file header) ──────── */}
-      <section id="testimonials" className="bg-paper">
-        <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
-          <Eyebrow>In their words</Eyebrow>
-          <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] text-ink sm:text-[34px]">
-            What clients say about working with us.
-          </h2>
-          <EmptyNotice className="mt-8">
-            Awaiting testimonials about Corporate DNA — in the John Murphy /
-            Jorge Gardino mould — rather than generic corporate quotes, each
-            approved by CDNA before publishing.
-          </EmptyNotice>
-        </div>
-      </section>
+      {/* ── Our Awards ────────────────────────────────────────────────────
+          Guli moved the awards band here from the homepage: "por último aqui no
+          site tem o awards, também puxei o awards pra cá, na mesma disposição
+          que a gente já tinha" (17:07). It still renders on the homepage too —
+          the brief wants proof early there (item 2), and he never showed a
+          homepage mock. Worth confirming whether they want it in both places. */}
+      <AwardsMentions />
     </SiteShell>
   );
 }

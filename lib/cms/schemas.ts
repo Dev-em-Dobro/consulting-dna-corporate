@@ -76,7 +76,20 @@ export const caseListItem = z
 
 export const caseData = z
   .object({
+    /**
+     * The client's name, and only that — "Shell", "Heineken". It is not just a
+     * label: `resolveClientLogo` slugifies it to find `/public/logos/<slug>.png`
+     * and the brand colour behind the band, so a title like "SHELL Discovery
+     * Journey registered 200 millions in savings" silently costs the case its
+     * logo and its colour on /our-clients, /cases and the homepage.
+     */
     title: z.string(),
+    /**
+     * The case's own headline — the outcome sentence Guli's mock leads with.
+     * Optional: without it the page falls back to the client name, which is the
+     * behaviour every existing case already has.
+     */
+    headline: z.string().optional(),
     // Current content model: free tags, an intro, a quote (+ attribution) and a
     // single rich-text body.
     tags: z.array(z.string()).optional(),
@@ -141,6 +154,12 @@ export const solutionData = z
     flagshipCaseSlug: z.string().optional(),
     body: z.string().optional(),
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
+    // Bloco 6 do outline de 09-09 — a faixa de CTA escrita para o serviço.
+    // Três campos novos no CMS (11-09); ausentes nas entradas antigas, e aí a
+    // página cai no convite compartilhado.
+    ctaStrapline: z.string().optional(),
+    ctaLine: z.string().optional(),
+    ctaLabel: z.string().optional(),
     proofRefs: z.array(proofRef).optional(),
     resources: z.array(resourceRef).optional(),
     coverUrl: z.string().url().optional(),

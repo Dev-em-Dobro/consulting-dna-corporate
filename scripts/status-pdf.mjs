@@ -1,11 +1,32 @@
 // Builds a DNA-branded HTML from the consolidated status markdown, ready for
 // Chrome headless --print-to-pdf. Brand tokens mirror app/globals.css:
 // brand #d84339, ink #373234, paper #f3f3f3, line #ece9e6, muted #6b6b6b,
-// typeface Poppins. Run: node scripts/status-pdf.mjs <in.md> <out.html>
+// typeface Poppins.
+//
+// Run: node scripts/status-pdf.mjs <in.md> <out.html> [meta-html] [footer-text]
+// The cover blurb and footer default to the 10-08 edition, so the original
+// invocation still reproduces that document byte for byte; later editions pass
+// their own. Both are interpolated raw — they are ours, not user input.
 import { readFileSync, writeFileSync } from "node:fs";
 import { marked } from "marked";
 
-const [, , inPath, outPath] = process.argv;
+const [, , inPath, outPath, metaArg, footerArg, eyebrowArg] = process.argv;
+
+const META =
+  metaArg ??
+  `<strong>Prepared by Beto &amp; Cadu / Dev em Dobro.</strong>
+      In response to the consolidated brief of 05 Aug 2026. First sent 2026-08-06 —
+      <strong>updated 2026-08-10, post-delivery.</strong> Scope: the public website only.`;
+
+const FOOTER =
+  footerArg ??
+  "Corporate DNA — Making Leadership Real · Dev em Dobro · Status update 10/08/2026";
+// Cover kicker. Defaults to the original wording so every earlier invocation
+// still reproduces its document byte for byte — same contract as META and
+// FOOTER above. Overridden for documents that are not status updates: the
+// 09-09 About approval sheet is a review form, not a status report, and the
+// kicker is the first thing the client reads.
+const EYEBROW = eyebrowArg ?? "Implementation Status";
 const md = readFileSync(inPath, "utf8");
 const logo = readFileSync("public/cdna-logo-horizontal.svg", "utf8");
 const logoData =
@@ -13,9 +34,13 @@ const logoData =
 
 // Strip the H1 (rendered in our own cover header) and the first two intro
 // paragraphs so they can be styled as a lede block.
-const lines = md.split("\n");
-const h1 = lines.find((l) => l.startsWith("# "))?.replace(/^#\s+/, "") ?? "";
-const body = md.replace(/^#\s+.*\n/, "");
+// `\r?` on both patterns: on a Windows checkout the source arrives CRLF, and
+// JavaScript's `.` does not match `\r`, so `/^#\s+.*\n/` silently fails to strip
+// the leading H1 — the title then renders twice, once on the cover and once at
+// the head of the body.
+const lines = md.split(/\r?\n/);
+const h1 = lines.find((l) => l.startsWith("# "))?.replace(/^#\s+/, "").trim() ?? "";
+const body = md.replace(/^#\s+.*\r?\n/, "");
 
 marked.setOptions({ gfm: true, breaks: false });
 let html = marked.parse(body);
@@ -166,19 +191,17 @@ const page = `<!doctype html>
 <body>
   <header class="cover">
     <img class="logo" src="${logoData}" alt="Corporate DNA" />
-    <p class="eyebrow">Implementation Status</p>
+    <p class="eyebrow">${EYEBROW}</p>
     <h1>${h1}</h1>
     <div class="brandbar"></div>
-    <p class="meta"><strong>Prepared by Beto &amp; Cadu / Dev em Dobro.</strong>
-      In response to the consolidated brief of 05 Aug 2026. First sent 2026-08-06 —
-      <strong>updated 2026-08-10, post-delivery.</strong> Scope: the public website only.</p>
+    <p class="meta">${META}</p>
   </header>
 
   <main>
     ${html}
   </main>
 
-  <p class="footer-note">Corporate DNA — Making Leadership Real · Dev em Dobro · Status update 10/08/2026</p>
+  <p class="footer-note">${FOOTER}</p>
 </body>
 </html>`;
 

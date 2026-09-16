@@ -14,6 +14,7 @@ export default function PageHero({
   title,
   subtitle,
   bgImageUrl,
+  compact = false,
   imageClassName = "object-cover",
   overlayClassName = "bg-ink/70",
 }: {
@@ -21,6 +22,15 @@ export default function PageHero({
   title: React.ReactNode;
   subtitle?: string;
   bgImageUrl?: string;
+  /**
+   * Shorter band and smaller title, for pages whose job is to get out of the
+   * way of what follows. Guli's Our Clients mock opens on a title and a single
+   * line — roughly a quarter of the height this band takes by default — and the
+   * 27-08 brief asks to cut "endless scrolling" and "excessive white space"
+   * (item 16). Opt-in rather than the new default: the pages that lead with a
+   * statement still want the full band.
+   */
+  compact?: boolean;
   /** Object-fit/position for the background image (defaults to centred cover). */
   imageClassName?: string;
   /** Overlay tint over the image; override for a stronger/directional darken. */
@@ -47,20 +57,34 @@ export default function PageHero({
           <div className={`absolute inset-0 -z-10 ${overlayClassName}`} />
         </>
       )}
-      <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-28">
+      <div
+        className={`mx-auto max-w-[1200px] px-6 md:px-10 ${
+          compact ? "py-11 md:py-14" : "py-20 md:py-28"
+        }`}
+      >
         {eyebrow && (
-          <div className="mb-5 flex items-center gap-3">
+          <div className={`flex items-center gap-3 ${compact ? "mb-3" : "mb-5"}`}>
             <span className="inline-block h-0.5 w-9 bg-brand" />
             <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
               {eyebrow}
             </span>
           </div>
         )}
-        <h1 className="max-w-[900px] text-[38px] sm:text-[48px] md:text-[60px] font-bold leading-[1.03] tracking-[-1.5px] text-white [text-wrap:balance]">
+        <h1
+          className={`max-w-[900px] font-bold leading-[1.05] tracking-[-1.2px] text-white [text-wrap:balance] ${
+            compact
+              ? "text-[28px] sm:text-[34px] md:text-[40px]"
+              : "text-[38px] sm:text-[48px] md:text-[60px] leading-[1.03] tracking-[-1.5px]"
+          }`}
+        >
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-5 max-w-[620px] text-lg leading-[1.5] text-white/75 md:text-xl">
+          <p
+            className={`max-w-[620px] leading-[1.5] text-white/75 ${
+              compact ? "mt-3 text-[16px] md:text-lg" : "mt-5 text-lg md:text-xl"
+            }`}
+          >
             {subtitle}
           </p>
         )}

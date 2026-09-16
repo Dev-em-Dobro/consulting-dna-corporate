@@ -1,0 +1,51 @@
+PARA: grupo WhatsApp (Rhea, Guilherme, Guli, Ricardo)
+NOTA: SEM NEGRITO, como as últimas de 10-09. Serve igual para WhatsApp e e-mail.
+STATUS: ⬜ NÃO ENVIADA
+QUANDO: logo depois da mensagem de status de 11-09 (`mensagem-grupo-status-team-services-11-09`), que é a entrega de Services. Sozinha, fora
+        de contexto, vira "os desenvolvedores querendo mais arquivo".
+
+POR QUE ESTA MENSAGEM EXISTE:
+    O outline de Services pede UMA imagem por serviço, no herói, e mais nada —
+    conferido no documento: a palavra "image" aparece uma vez em 196 linhas. As
+    duas fotos que as seções tinham eram nossas, de exemplo, iguais nas dez
+    páginas, e saíram por isso. O resultado é uma página correta e um pouco seca.
+    Isto aqui é a nossa opinião de desenho, oferecida como opção, não como
+    pendência que os trava.
+
+O QUE ESTA MENSAGEM COMPROMETE:
+    Nada de prazo. É explícito que o lançamento não depende disto.
+
+O QUE FICOU DE FORA, E POR QUÊ:
+    • O CAMPO NO CMS. Hoje o schema tem um campo de imagem por serviço
+      (`bannerMediaId`, o herói) e nenhum por bloco. Se eles toparem, é trabalho
+      nosso — migração de campo de mídia por bloco — e não custa nada a eles.
+      Dizer "precisamos criar um campo" transfere um problema nosso para o
+      cliente. O que a mensagem pede é a única coisa que só eles têm: a foto.
+    • A ARMADILHA DO ACERVO, em detalhe. Quase todo o lote de 11/06 tem marca de
+      terceiro à vista — Frasers Property e ShenMei nas paredes, IMD nos cordões
+      e no prédio, YPO chapado na imagem. A mensagem diz só a consequência ("não
+      podemos usar sala de cliente como ilustração genérica"), sem a auditoria.
+    • QUE AS DEZ DIVIDEM A MESMA FOTO DE HERÓI hoje. Está na mensagem como parte
+      do mesmo pedido, porque é o mesmo assunto: fotografia por serviço. Separar
+      em dois pedidos faria parecer dois problemas.
+
+FORMATO: cada parágrafo é uma linha só, sem quebra manual, para o WhatsApp
+         preencher a largura inteira ao colar. Não reformatar.
+
+⚠️ A ROTA MUDOU EM 11-09: a página de Services era /solutions e hoje é /services
+   (as dez ficam em /services/<slug>). Os endereços antigos continuam abrindo por 308,
+   mas o endereço a MANDAR é /services. Conferir antes de colar qualquer link.
+
+────────────────────────────────────────────────────────────────────────
+
+One suggestion on the service pages, and it is a suggestion rather than a request — nothing here holds up the launch.
+
+We built the ten pages exactly as the outline specifies: name, banner statement and hero image, then The Outcome, How CorporateDNA Helps, the evidence and the closing invitation. Reading them end to end, they are clear but they are also text from top to bottom, and ten of them in a row start to feel the same.
+
+Photography inside those two content blocks would fix that, and it would do something the words cannot: show the work. A room mid-session, a leadership team actually in the middle of it, a coach and a client talking. One or two images per service is enough, and they do not have to be new — anything from your own archive works if it shows the work rather than a stage.
+
+The reason we are asking rather than choosing something ourselves: almost everything we hold shows another client's branding on the wall or on the lanyards. Using one of those as a general illustration would suggest a relationship the photograph does not prove, and would put a client on your website without their say-so. That is not our call to make.
+
+Same point for the hero: right now all ten pages open with the same photograph. It works, and it reads as a family, but a distinct image per service is the single change that would make each one feel like its own page.
+
+If photographs come, they get loaded into the site's content system so you can change them yourselves later, the same as the text. If they do not, the pages stay as they are, which is a deliberate editorial look and perfectly publishable. Worth a decision after you have seen the ten.

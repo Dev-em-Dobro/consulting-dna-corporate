@@ -1,0 +1,136 @@
+RESPOSTA À AXON — 01/09/2026
+Fonte: docs/resposta-axon-01-09-2026.md. Corpo em texto puro.
+SUBSTITUI o resposta-axon-contatos.ENVIAR.txt, que ficou desatualizado.
+
+────────────────────────────────────────────────────────────────────────
+COMO MANDAR: **Responder a todos** na mensagem do AMIT (01/09 06:51 SGT).
+
+RECOLOCAR NA CÓPIA: rico.m@axon.com.sg
+                    (o Amit tinha removido ele, e o e-mail trata
+                    justamente de alinhar as duas respostas)
+                    Spencer fica de fora — decidido em 31/08.
+
+ACRESCENTAR:        nitin.goil@corporatednaconsulting.com
+                    (indicado como contato do domínio, ainda fora da
+                    thread)
+
+ASSUNTO:            Re: corporatednaconsulting.com — domain, and how the
+                    cutover will run   [o Reply All já preenche]
+
+PREENCHER ANTES DE MANDAR:
+                    nada. Os quatro cargos já estão no corpo.
+
+DECIDIR:            O e-mail pede a RHEA como contato de registro (só o
+                    e-mail dela muda). Se preferir o Guilherme, trocar o
+                    nome no §1 — e também na carta timbrada.
+                    Nota: o painel mostra a conta no nome da Rhea, o que
+                    reforça mantê-la.
+
+ANEXAR NA MENSAGEM AO GUILHERME (não no e-mail à Axon):
+                    docs/carta-axon-PARA-O-GUILHERME.txt
+                    Falta só o [PHONE] e o [date] nela.
+                    NÃO mandar o carta-axon-contato-dominio.ENVIAR.txt —
+                    aquele é arquivo de trabalho, tem anotação interna.
+
+FORA DESTE E-MAIL:  travas do domínio, auto-renew, invalidação dos EPP já
+                    emitidos, e a fatura de S$ 22 do domínio em aberto.
+                    Decisões de 31/08 — ver o .md.
+
+FORMATO:            o corpo abaixo está SEM quebra de linha manual — cada
+                    parágrafo é uma linha só, para o Gmail preencher a
+                    largura inteira ao colar. Não reformatar.
+────────────────────────────────────────────────────────────────────────
+
+
+Dear Amit and Rico,
+
+Thank you both. I have put Rico back on copy — your replies crossed, so this answers both.
+
+1. ADMINISTRATIVE CONTACT
+
+Understood on the letterhead request, and thank you for confirming there is no charge. Corporate DNA will send the signed letter. Three things first, so that we get it right the first time: do you have a template or required wording we should follow, which address should the letter go to, and is a scanned PDF sufficient or do you need an original? We would rather ask now than have it returned once it has been signed.
+
+The people to record:
+
+- Rhea Leckie — Founder & CEO — rhea.l@corporatednaconsulting.com
+- Guilherme Mendes — CEO Corporate DNA Americas — gm@corporatednaconsulting.com
+- Nitin Goil — Regional Director — nitin.goil@corporatednaconsulting.com
+- Jon-Paul Pritchard — Senior Facilitator — jp.pritchard@corporatednaconsulting.com
+
+Please use rhea.l@ — earlier correspondence went to an older address of hers. And Allison Vickery has left the company, so please remove her mailbox from all domain correspondence.
+
+If the record accepts only one administrative contact, use Rhea Leckie — she is already the registered contact, so only the email address changes — and add the other three to your notification list. The postal address is unchanged, and the telephone number will be in the letter.
+
+2. THE CUTOVER
+
+Agreed, and we will make the change ourselves, so no assistance is needed. We will still follow Rico's sequence: exact record values, date, time and timezone sent to you beforehand; only the apex A record and the www record touched; MX, SPF, DKIM and DMARC untouched, so Microsoft 365 mail is unaffected; validation on the live domain, then confirmation in this thread.
+
+One clarification on Under Attack mode: it stays on through the change and validation, but has to come off at go-live, as it challenges every visitor and blocks search engines. If you test the domain today you will see /sitemap.xml return 403 and a Cloudflare-managed robots.txt — both are Under Attack, not the new site. We will tell you when we disable it.
+
+3. THE HOSTING, AND THE ROLLBACK WINDOW
+
+Amit, you offered one to two weeks of rollback provided the current hosting account remains active. The renewal records Rico sent on 19 August were from the previous cycle, so we checked Corporate DNA's account at billing.axonserver.com for the current ones. It shows no active services: a Bitdefender licence and an Axon-P300 package, both Terminated, and a Corporate Web Hosting Package Axon-P500, next due 30 September 2026, marked Cancelled.
+
+So the rollback window is bounded by 30 September rather than counted from the cutover date. If the launch lands near or past that date, is a short extension possible instead of a full renewal term, and at what cost?
+
+4. ANALYTICS AND SEARCH CONSOLE
+
+Thank you for raising this. You are right that UA-96902425-1 cannot be converted and its history does not migrate. We have accepted the invitation and can see the property — corporatednaconsulting.com - GA4, under the same account — so we have what we need to install and validate the tag before launch. Two things still outstanding:
+
+- Google Search Console. There is a Google verification record in the DNS zone, so a property clearly exists somewhere. Could you grant access to it, and tell us who else currently holds access? It carries the search history and the ownership verification, and matters more than GA for the organic value you mention.
+- A separate invitation for Corporate DNA — we will confirm the address shortly.
+
+5. THE PRE-LAUNCH CHECKLIST
+
+Your point about protecting the existing organic visibility is how the site was built. Already in place: 301 redirects for every changing URL — 52 of them, mapped from the current site; titles, meta descriptions and heading structure; canonical and social metadata; JSON-LD; sitemap.xml and robots.txt served by the application; llms.txt; and image, speed and mobile optimisation. GA4 is the one item still to install, and we now have the access to do it.
+
+Thank you for the offer of SEO, AEO and GEO work — that is covered on our side, as are the DNS change and the Cloudflare settings. On the backup and the maintenance credit, we will come back to you separately.
+
+Best regards,
+Ricardo
+
+
+════════════════════════════════════════════════════════════════════════
+MENSAGEM PARA O GUILHERME (PT) — mandar junto com a carta em anexo
+════════════════════════════════════════════════════════════════════════
+
+Fala, Guilherme, tudo certo?
+
+Não sei se tu viu ali, mas a Axon respondeu duas vezes o mesmo e-mail — o Rico ontem, o Amit hoje de manhã — e as duas respostas não batem em três pontos.
+
+Ontem eu te respondi só sobre a mensagem do Rico, e não sobre a do Amit, porque precisei analisar bastante coisa aqui para mastigar melhor para vocês. Então vamos lá.
+
+Também já respondi aos dois pedindo que alinhem, e recoloquei o Rico na cópia, porque o Amit tinha tirado ele.
+
+O que muda para vocês:
+
+1. O contato do domínio agora exige carta em papel timbrado, assinada por você ou pela Rhea como representante autorizada. Não é cobrado. Segue a carta em anexo, pronta para colar no timbrado de vocês.
+
+Falta só um telefone com DDI. Pode me mandar? Sugiro a linha principal do escritório, não o celular de ninguém.
+
+Os cargos eu já preenchi, só confere se estão certos: Rhea como Founder & CEO, você como CEO Corporate DNA Americas, Nitin como Regional Director e JP como Senior Facilitator.
+
+Uma coisa: não corre para colher a assinatura ainda. Perguntei à Axon se eles têm um modelo próprio. Se tiverem, eu ajusto antes — melhor esperar dois dias do que fazer a Rhea assinar duas vezes.
+
+Sobre o cadastro: registrador normalmente tem só um campo de contato administrativo, e os outros entram como cópia. Pedi para deixarem a Rhea nesse campo.
+
+2. Sobre o acesso ao WordPress, fui atrás do histórico e já está resolvido do nosso lado. Anteriormente tu me mandaste o login do billing.axonserver.com, na conta do finance@ — mas aquilo é o portal de faturamento da Axon, não o WordPress. Na época o suporte deles avisou que o reset das senhas de cPanel e WordPress só sai se o cliente pedir por e-mail ao support@axon.com.sg. Ficou um texto pronto para você mandar e, pelo que consigo ver, ele nunca saiu. Me corrija se eu estiver errado. Já pedi agora, no e-mail para eles, com vocês em cópia — é a cópia que valida o pedido.
+
+3. Eles me deram acesso à conta de Google Analytics da CDNA, e já entrei. Existe uma propriedade GA4 do site com histórico rodando, então não precisamos criar nada: é só instalar a tag dela no site novo e a medição continua de onde parou, sem quebrar a comparação de antes e depois do lançamento.
+
+Uma coisa para não se assustar se o Amit insistir: ele escreveu que vocês "perderiam todo o histórico de analytics". Esse dado está na conta do Google, não no servidor dele. Desligar a hospedagem em 30/09 não apaga nada.
+
+Pedi também o Search Console, que é o que realmente guarda o histórico de busca e a verificação de propriedade. Só que Search Console normalmente não fica com a hospedagem — costuma ser de quem fez o site ou cuidava de SEO. Vale perguntar aí dentro: alguém da CDNA já acessou isso, ou sabe quem cuidava? Um bom palpite é a Allison, pelo mesmo motivo de ela ser o contato do domínio. Se alguém internamente já tiver, resolve na hora e nem precisamos esperar a Axon.
+
+Me diz também qual e-mail da CDNA deve receber esses acessos, que eu peço para eles mandarem.
+
+4. Entrei no painel da Axon e a hospedagem já está cancelada. O pacote Axon-P500, de S$ 550/ano, aparece com vencimento em 30/09/2026 e status "Cancelled" — a conta não tem nenhum serviço ativo. A boa notícia é que a recomendação de não renovar já está executada, e ninguém vai pagar S$ 550 por um servidor que não serve mais nada.
+
+O que muda: o Amit ofereceu 1-2 semanas de rollback "enquanto a hospedagem estiver ativa". Como ela vai até 30/09, a janela de segurança conta até lá — ainda dá bastante folga, só não dá para virar em cima da data. Se precisar, dá para pedir uma extensão curta da hospedagem em vez de renovar o ano inteiro; já perguntei o preço a eles.
+
+E vale registrar uma data: o backup do site antigo precisa sair antes de 30/09. Depois disso o servidor é desligado e o WordPress e as mídias vão junto. Já cobrei isso no e-mail para eles.
+
+Agora vamos aguardar as respostas deles.
+
+Abraço,
+Ricardo

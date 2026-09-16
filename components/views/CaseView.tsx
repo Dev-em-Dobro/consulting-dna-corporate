@@ -68,8 +68,14 @@ export default function CaseView({ c }: { c: CaseArticle }) {
               ))}
             </div>
           )}
+          {/* Guli's mock leads the case on its outcome — "SHELL Discovery
+              Journey registered 200 millions in savings for the company" —
+              rather than on the client's name. That is the `headline` field.
+              `title` stays the client name because it also resolves the logo and
+              the brand colour of the band (see lib/cms/map.ts), so a case with
+              no headline authored yet keeps the behaviour it has today. */}
           <h1 className="text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
-            {c.title}
+            {c.headline || c.title}
           </h1>
           {/* Header band — the 27-08 brief (item 7) asks every case to open with
               Countries → Participants/Leaders → Reach/Scale → Intervention →
