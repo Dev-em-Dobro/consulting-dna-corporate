@@ -1,0 +1,430 @@
+Daily CDNA <> Dobro - September 14
+VIEW RECORDING - 41 mins (No highlights): https://fathom.video/share/96iaWsR9TD_zjE-5AYMaM3fPycZxkD_i
+
+---
+
+0:00 - Paulo Petry
+  E aí, bom dia.
+
+0:01 - Dev em Dobro (devemdobro@gmail.com)
+  Tranquilo? Dev em triplo agora, né, porque eu vi ali era Dev em Dobro, Dev Fathom no Taker, Dev em Dobro de volta.  Começamos as dailies, então?
+
+0:17 - Paulo Petry
+  Hoje é a primeira que vocês estão fazendo? Primeira?
+
+0:21 - Dev em Dobro (devemdobro@gmail.com)
+  Mandei o link pra ela ali, acho que só a Maliha vai participar. Boa.
+
+0:30 - Paulo Petry
+  Deixa eu botar ela aqui na call.
+
+0:36 - Dev em Dobro (devemdobro@gmail.com)
+  Hello.
+
+0:48 - Paulo Petry
+  Hello. Hello. Morning. Morning.
+
+0:55 - Maliha Bathool (corporatednaconsulting.com)
+  How are we?
+
+0:57 - Dev em Dobro (devemdobro@gmail.com)
+  Fine. And you? Oh God, thank you.
+
+1:01 - Maliha Bathool (corporatednaconsulting.com)
+  Can I know everyone's names? I'm Michael.
+
+1:06 - Paulo Petry
+  I'm Ricardo.
+
+1:08 - Dev em Dobro (devemdobro@gmail.com)
+  I'm Roberto.
+
+1:10 - Maliha Bathool (corporatednaconsulting.com)
+  Roberto. And I am Guli.
+
+1:15 - Paulo Petry
+  Guli is my nickname, Paulo is my real name, but I was introduced as Guli. Okay. And your name is Maliha?
+
+1:26 - Dev em Dobro (devemdobro@gmail.com)
+  Maliha, yes.
+
+1:28 - Maliha Bathool (corporatednaconsulting.com)
+  Maliha. Maliha.
+
+1:29 - Paulo Petry
+  Nice to meet you. Nice to meet you guys. to meet you.
+
+1:33 - Maliha Bathool (corporatednaconsulting.com)
+  So, how do you want to do this daily?
+
+1:37 - Dev em Dobro (devemdobro@gmail.com)
+  Do you have anything in mind?
+
+1:41 - Maliha Bathool (corporatednaconsulting.com)
+  So, how would you guys prefer it? Do you want me to give you feedback on the pages you've already built, or do you want to use a different approach?  Yes.
+
+1:53 - Dev em Dobro (devemdobro@gmail.com)
+  Sure. Guli wanted to show you the 5H page. link page. Thank you. Yeah, but we can do that later, after you do this, your revision, Maliha, if it's fine by you, actually.
+
+2:09 - Paulo Petry
+  Let me bring up my screen.
+
+2:11 - Maliha Bathool (corporatednaconsulting.com)
+  How do I do this window and screen? Sorry, I don't use this. This one, I think?
+
+2:21 - Dev em Dobro (devemdobro@gmail.com)
+  It's the one that has a laptop on it. Yeah. I'm using two screens, I think I got confused.
+
+2:28 - Maliha Bathool (corporatednaconsulting.com)
+  You can see my screen?
+
+2:31 - Paulo Petry
+  Yes. The website, right?
+
+2:33 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah.
+
+2:36 - Paulo Petry
+  I'll record the meeting, is that okay?
+
+2:38 - Dev em Dobro (devemdobro@gmail.com)
+  Yeah, sure. Okay. So, I'll go through the about page first.
+
+2:50 - Maliha Bathool (corporatednaconsulting.com)
+  One of the things I haven't done yet, and I do need to do, is send you the logo. Let me just replace the actual company logo at the top.  It's minor changes, it's nothing significant. This bit perfect. I will get you a team photo. I'm wondering, do you guys already have one of the teams sitting on the stairs?
+
+3:23 - Dev em Dobro (devemdobro@gmail.com)
+  Guilherme sent us a content zip, I think, that we could go through that zip and see if we have it.  But in the, let me open the test page here, just one moment. Yeah, because he sent us a folder and there's a lot of images there.
+
+3:46 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. We are not sure if this one is there, but we can look up.
+
+3:53 - Dev em Dobro (devemdobro@gmail.com)
+  I can ask AI to go through it and see if there's any. Okay, what I'll do, I'm like.
+
+4:00 - Maliha Bathool (corporatednaconsulting.com)
+  get it quicker than you, so I will send it to you, and saw it on the previous button, but I'll dig it out and I'll send it across.  Love this bit. Question here, can we make these like vertical by any chance? So you know currently they're in horizontals, can we have like, is it five, two, three, four, five little boxes?  Sure. With the text underneath? Sure, yes. Thank you. And then this one, can we make the map just a tiny bit smaller and have the text on the left hand side?  Sure, yes. Where we work can remain at the top, but the body of the text, with the headers, with headquarters in London, etc.  We can have that on the right. Okay. Everything else on this page, I think is fine. I did like on the original landing page, the little scrolling for the addresses.  Ooh, good We've
+
+5:03 - Dev em Dobro (devemdobro@gmail.com)
+  Okay, you see this bit here?
+
+5:12 - Maliha Bathool (corporatednaconsulting.com)
+  Yes. If we can have just without the map, if we can have just the bottom bit, that would look really cool, I think.  I don't know if that's possible. You mean this part on that page?
+
+5:27 - Dev em Dobro (devemdobro@gmail.com)
+  Yes.
+
+5:29 - Maliha Bathool (corporatednaconsulting.com)
+  Without the map, though, it's possible. I guess it's fine. Thank you.
+
+5:38 - Dev em Dobro (devemdobro@gmail.com)
+  Okay, that was an easy one. Which one do you want to do next?
+
+5:46 - Maliha Bathool (corporatednaconsulting.com)
+  Services, I think. Services. Okay, go with me. Guli, if you have any appointment about design, please.
+
+5:57 - Dev em Dobro (devemdobro@gmail.com)
+  Okay. No, I'm lying.
+
+6:01 - Paulo Petry
+  Yeah, no, don't worry. I have the concern, but I know that you have the same concern right now, it's that some of these changes that Maliha asked, it's something that we can struggle in to make the mobile version, because like when you change the text to, but I know that you have this, and don't worry, Maliha, in my understanding, they are considering that we can have both different approaches, one for desktop, the other one for mobile.
+
+6:32 - Maliha Bathool (corporatednaconsulting.com)
+  When you change the lines to columns, the text, it gets really weird here.
+
+6:42 - Paulo Petry
+  But don't worry, it's a concern for mobile, and as I am understanding, you guys don't have this need for mobile, you strongly believe that everyone will reach your  Website from the desktop, yeah, but it's just like smaller concerns that are popping in my head, but those can always measure it because I think most of the users use the mobile version, but you can measure it with analytics, analytics later, we will check that.
+
+7:24 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah. Okay.
+
+7:26 - Paulo Petry
+  Perfect. But it's just for now, it's my concern. Go on, Maliha. It's working really great.
+
+7:34 - Maliha Bathool (corporatednaconsulting.com)
+  I think one of the things that as a business they do want to do, because we host a lot of events, they want to place a QR code and direct people to the website once we're ready, I'm conscious that we'll be mobile based.  Sure, yeah. One of their laptops with them at that point.
+
+7:57 - Paulo Petry
+  Yeah, makes sense. Okay, if there's anything we need to make any decisions on when it comes to the mobile version, just give me a shout, and we'll...  Okay, I don't think it's a concern because we can have different details like in the mobile version and in the desktop version, so it's okay, it's working.
+
+8:20 - Maliha Bathool (corporatednaconsulting.com)
+  Okay, so the next one, so with the services page, I realise I didn't actually give you a sample of what we kind of want it to look like, and I'm just going to flash it up on my screen now if I can very quickly.  I realise today, actually, I didn't send it to you. Let me download. I'm so sorry.
+
+8:49 - Paulo Petry
+  Download.
+
+8:51 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. So with these services page, definitely need to change this image because some of the girls have their eyes closed, but I'll provide you with Just for you to know, all those images, I just put anything there, so we had something to see, but we will ask you to...
+
+9:17 - Dev em Dobro (devemdobro@gmail.com)
+  I think I already asked in the group some of the images, but I can send another message there and tell you exactly what images...  Because every page has a hero section with an image, with a background image, so we'll need those too. Okay.  Okay, noted.
+
+9:41 - Maliha Bathool (corporatednaconsulting.com)
+  And I have just saved the wrong image, so sorry, give me one second. While I'm going on Rhea's chat, bear with me, so sorry guys.  This one, save that. Okay, so for the services page, we're on the right track, but we want it to look a little bit different, and I'm thinking with the services, if we use the same backdrop as we did the skyline again, I think we use the same backdrop again, and then what we want it to do is, for each of the services we have, so we're on the right track, but I think we want to do four, four, four going across, four going across, for little images, and then the last two at the bottom.  If you send us the images, we can, we can do it, sure. Yeah, okay, send those across to you, and then the partners, we can keep in, can we add in the company logos here, so Harvard Business Impressions.  We can do that? Is it possible?
+
+11:06 - Dev em Dobro (devemdobro@gmail.com)
+  Do you mean the logos like we have on the homepage that they are passing?
+
+11:14 - Maliha Bathool (corporatednaconsulting.com)
+  No, it's only two, I guess. No, it's just the two partner logos, so Harvard Impact and Imperial College, so just them two.  Is it possible? Yeah, do you have those logos? Let me make another difference. Okay.
+
+11:41 - Dev em Dobro (devemdobro@gmail.com)
+  But anything that you think that we can find ourselves, you can tell me and I will look up and send to you and you can see if that's the right logo or image or anything, okay?  Thank you.
+
+11:58 - Maliha Bathool (corporatednaconsulting.com)
+  What's that bit? And I think the rest of this is fine, I just want the tool going across, a bit of image, just to call out, I guess, each of the admin.  It will be better with an image there.
+
+12:17 - Dev em Dobro (devemdobro@gmail.com)
+  I've got a question for you.
+
+12:20 - Maliha Bathool (corporatednaconsulting.com)
+  When you guys built the previous iteration of the website, you could obviously drill down into... Okay, okay. I need to go into each of these services and just double check the text.  I haven't gone into the detail of the text itself yet, but I do think this might need to be changed a bit.  Did I not send...? Bear with me. Yes, I didn't send you the drill down version of each service. That's something I need to do.  Why didn't I like to do that? No, I will get you the drill down of the template of how we want this to look and feel, and I'll send it across to you as well.  Sure. Next one, our team. Our team is missing. Okay, so in the documents I sent you guys, there was quotes next to each of these people, a bit like this image.
+
+14:31 - Dev em Dobro (devemdobro@gmail.com)
+  Yeah, that part I didn't get, so we can talk now. Do you want those cards? Like they are now.  Do you want it, maybe just one person in each line, and then, because there's two texts for each person, right?
+
+14:55 - Maliha Bathool (corporatednaconsulting.com)
+  So if we keep it like this, where it's got the name, the role, So... And the region, which is on the Word document I sent you, along with their quote.  I think Rhea really liked this, and she wanted it to be a bit more like this. Sure. This text, the paragraph, that's not the right text?
+
+15:18 - Dev em Dobro (devemdobro@gmail.com)
+  Do you mean that? That should be a quote there? Yeah, it's on the Block 2 of the Word document I sent you.  So I've got their name, their role, the region, and their quote.
+
+15:30 - Maliha Bathool (corporatednaconsulting.com)
+  Sure. Okay, I'll look into that. Thank you. And then what we'll do in the future, not now, as an MVP, we'll go live with just the client directors.  But in the future, we'll add in some of our senior practitioners, and we'll add their profiles here. Okay. Did I send this snippet to you?  What do you mean by snippet?
+
+16:02 - Dev em Dobro (devemdobro@gmail.com)
+  This example of what we'd like it to look like?
+
+16:06 - Maliha Bathool (corporatednaconsulting.com)
+  The page? Yeah. No. No? I don't think so.
+
+16:11 - Dev em Dobro (devemdobro@gmail.com)
+  No. In the drive, there's a doc for four images in the team folder.
+
+16:26 - Maliha Bathool (corporatednaconsulting.com)
+  Double check that. On the side. Okay. Okay, yeah. Let me drag that in now. Should I just drop it in the same folder?  Yeah. Thank you. You're welcome. I love what you're doing with the website, by the way. please don't mind my feedback.  Yeah, it's okay.
+
+16:55 - Dev em Dobro (devemdobro@gmail.com)
+  Thank you. much.
+
+16:57 - Maliha Bathool (corporatednaconsulting.com)
+  And then we have... We'll get the group photo. That's all fine. That's all okay. I think we can remove the global presence from this page, right?  Yeah, sure.
+
+17:15 - Dev em Dobro (devemdobro@gmail.com)
+  And then that's it. That's all we've done so far, right?
+
+17:18 - Maliha Bathool (corporatednaconsulting.com)
+  And now I've sent you. We're currently working on what we want the client and impact to look like. I can give you an example of that if you want to see that now just to pay yourself or if you say no, just send it to us when it's ready.  Sure. can. Okay. Yeah. I have that, I think, I believe.
+
+17:44 - Dev em Dobro (devemdobro@gmail.com)
+  This page, eh, this page, I didn't do anything with it.
+
+17:51 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah, haven't done anything with it. was like, well, while I'm working on it, maybe, Okay. But, so, let me show you this one.  So this will ultimately be the inspiration behind the case studies, there'll be 23 I think coming across, and each of them will have a challenge, what we did, what changed, we can get rid of the related case studies, client voice and then just some metrics, that will happen when you dig into it to find out more, so this page will look like this page ideally.  Okay. And then the top level page, do I have that ready to show you, I don't think I do, sorry guys, it's not ready yet.  That's fine. No. Okay.
+
+18:59 - Dev em Dobro (devemdobro@gmail.com)
+  And that's. Can you just go back to the theme page please, scroll, scroll it please, more, more, more, more, more, more, more, more, do you like those photos in the, you have to send me some other photos if you, because I think that those ones will not be in there, unless you liked it, any of those.  I like the next session.
+
+19:35 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah, I like the UK, Europe, GCC, Asia, India, some of our clients are very sensitive. Sure.
+
+19:44 - Dev em Dobro (devemdobro@gmail.com)
+  We might have to change this one.
+
+19:46 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. And then Americas, what is something fundamentally America, I don't know. White House. White House, the Statue of Liberty.
+
+19:57 - Paulo Petry
+  Yeah, something along those lines, something that.
+
+20:00 - Maliha Bathool (corporatednaconsulting.com)
+  As soon as people see it, they'll be like, ah, yeah, America, Asia, I don't know what is, what is this?  Marina Bay Sands in Singapore. Nice. I know this one. America, but America's, when we say America's, we are talking about South America, Central America, yes, because I think if we put the, I know, USA photo, maybe.  What is on, let me just check what is on images that we use. The problem is America is so wide, man.  Yeah. It's going to be hard to find a photo of that. Yeah.
+
+20:52 - Paulo Petry
+  See this corner of the photo? I don't know what this is supposed to be, but apparently it represents Miami.
+
+21:01 - Maliha Bathool (corporatednaconsulting.com)
+  We are not seeing the photo that you are showing, guess, Maliha.
+
+21:07 - Paulo Petry
+  I'll send it to you. I will send it to you.
+
+21:14 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. But I'll send you an image on the Americas.
+
+21:19 - Paulo Petry
+  I'll ask Guli. Other Guli. Other Guli, Okay. I wanted to show you, Maliha, the proposition that we created for the 5-Age approach.  Because this is something that is slightly different from the other pages. Can I share my screen right now? Yeah, of course.  As I stop. Thank you. Maliha. E foi embora. Ela foi. Desligar a tela, né? Sim. Hello again, Maliha. I'm sorry.  Don't worry.
+
+22:05 - Dev em Dobro (devemdobro@gmail.com)
+  I do it all the time.
+
+22:11 - Paulo Petry
+  It happens. Tell me when you can see my screen, Maliha. I can see your screen. Okay. Is Maliha Bathool?
+
+22:22 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah. Okay.
+
+22:24 - Paulo Petry
+  I had a friend called Bathool.
+
+22:27 - Maliha Bathool (corporatednaconsulting.com)
+  It means virgin in Arabic. It means what? It means virgin in Arabic. Ah, okay. Good to know. I don't know why I told you that.
+
+22:42 - Paulo Petry
+  Yeah, no, but it's nice because she was a real good friend of me when I was a kid. And this is the place where we draw the websites, like the layouts that we need to draw specifically.  And this is the proposition that we have for five. I followed the text that you shared. don't know if it was you or Rhea or Guli, but anyway, the main proposition is this, but I draw everything considering mobile first, because this is the methodology that I'm actually used to.  So let's think in vertical right now. Luido, with the 5H, neuroscience, lab formula, ta-ta-ta. Here we have a hero image that someone said, I put a facilitation image.  And this is something that we need to also have. I like very leading with this. Okay. On the page, facilitation.
+
+23:50 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah. Thank you, Maliha.
+
+23:55 - Paulo Petry
+  And then we have a small introductory text. So. I the title and the text, and the only change that I made here is to put this on bold, because I think that is very important.  This transformation requires all the leaders' faculties, just not their brain, et cetera, et cetera. Two games, every leader is playing both.  Here, the suggestion was for me to create two columns, but I also added this circular arrows that is supposed to have a small movement, just because I understand that for Rhea, it's very important that everything is connected, and the circle is really important, because there's not a beginning and an end, and it's a loop.  So this is a small detail that I think that can go really good. And I also unify the colors of the graphic, we're gonna talk more about that in a minute, with the colors that the circular graphic.  We used to have small differences in the colors just because we changed the red and we need to change everything, considering it, but this is something for the user to keep memorizing how the head is the purple, the heart, of course, it's not like rationalized, it's subjective, but yeah, here you have the space for a video that we actually don't have right now, but it's somebody asking for, for this space.  And here we have five intelligence, one whole leader. Here is one of them.
+
+25:38 - Maliha Bathool (corporatednaconsulting.com)
+  What? Sorry? I said I love what you've done here. I like this. Thank you.
+
+25:43 - Paulo Petry
+  Thank you. I hope everyone likes. The proposition was for the desktop to make like five columns. And for desktop, it works like a charm because you have a plenty of space, but here we could not  Do like parallel, because we don't have space, yeah, so the other option was to make lines, and I know that Rhea wouldn't be comfortable with that, so I created a slider that has like a card system, and this rotates as well, so with automatic, I'm sorry, too early for my English, when the user enters for the first time, there is an automatic animation that starts to show that just to give the user this insight, that is something that we can do, but then we have like a carousel of information, and when the card changes, this also changes, and this creates this circular loop that I strongly believe Rhea wants to have.
+
+26:54 - Maliha Bathool (corporatednaconsulting.com)
+  I love this, and I will sell her on it very easily. Thank you. If we were to replicate this on the laptop version of the website, would it be possible?  Yes, yes. Easily done, or is it a lot of effort?
+
+27:12 - Paulo Petry
+  Easily done, I guess Ricardo and Guilherme, right? Guilherme, no. Ricardo and Roberto, sorry.
+
+27:21 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah, I think I like this version more than the boxes.
+
+27:25 - Paulo Petry
+  Okay. The other one is very good to have all the information in one page only. This is more modern and hype and static and everything.  I like it like this. All right, let's go to the other part, that is the graphic. Yay, I had to redraw this.  It's very good, very nice. A lot of information. I have the same constraints, no. Exceptions, like resourcefulness. Please, please change this word for something else.  Accountability. Those are the two words that I needed to make smaller text adjustments to fit. Everything else I made in a slightly different approach.  And the one that I think that is the most important is, I didn't make like very dark, medium dark, medium, very light and light brown.  I made this changing between dark and medium brown, because this creates the possibility for the user to read when we have like the white over the yellow.  So, I know that this must be a very sensitive drawing for Rhea and for your team. So I want to present to her to see what it's her thoughts regarding that.  But I. I believe that this is something that is slightly better without changing the core for everything.
+
+29:07 - Maliha Bathool (corporatednaconsulting.com)
+  And there is something else that is important.
+
+29:10 - Paulo Petry
+  Some of this text was updated from one version to another. I saw the other graphic that we have, and I saw the description that Rhea sends us for the website, and they were different.  So this is something to be aware.
+
+29:31 - Maliha Bathool (corporatednaconsulting.com)
+  There should be 25 elements into the five pages. One thing I would say is, I don't know, I can't see the yellow on white, I can't read that very well.  I don't know if we can play around with the colors and the background colors. Yes. So this one I can do.  The brown for the H's, for the heart, sorry, she'd probably go more for a red. I don't know if we can do it back to red.  We can, but I followed the colors that you already had.
+
+30:23 - Paulo Petry
+  The show was brown on yours.
+
+30:25 - Maliha Bathool (corporatednaconsulting.com)
+  Why is that?
+
+30:26 - Paulo Petry
+  Yeah, shouldn't be.
+
+30:28 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. Can I, if I screenshot this and send it in the WhatsApp group, are you guys all in the WhatsApp group?
+
+30:40 - Paulo Petry
+  Yes. Is there a team chat here?
+
+30:44 - Maliha Bathool (corporatednaconsulting.com)
+  Let me see if Guli is there soon.
+
+30:47 - Dev em Dobro (devemdobro@gmail.com)
+  I don't think he's there. I can send it in.
+
+30:52 - Maliha Bathool (corporatednaconsulting.com)
+  Where's my snippet tool? You can send in the group and I, and I share with you.
+
+30:57 - Paulo Petry
+  I can share it in the group.
+
+31:31 - Maliha Bathool (corporatednaconsulting.com)
+  So she'll be very particular about the red because it's close to a heart. Any of the other colors, we could have sold her, but the red is very, because it's part of the branding as well.
+
+31:46 - Paulo Petry
+  Perfect. Okay. The important part for us is that this color needs to match every single time that they are shown.  So here and everything. Are you seeing my screen again? Okay. Here, Rhea asked for the circular graphic in a whole because she understand that this is very important and this is the complete version.  Okay. And then we have self-assessment, 360 assessment, and situational assessment. She asked for, someone asked, I don't know if it was really she, but for three icons that represent this, and I am assuming this is the part of the methodology that you do to understand and do the diagnostics and everything.  Okay. This is the, I just don't think, and this is an English question, actually. I wanted to put like 360s, situational and self-separated from the assessment word.  I don't know how can I do that. But self-assessment, it's an entire word or has this division? Because auto-conhecimento in Portuguese, I have some similarities in Portuguese, that is only one word, it's weird for me, like self.  It is one word, but to fit it on two lines, we tend to use a little dash.
+
+33:12 - Maliha Bathool (corporatednaconsulting.com)
+  Okay. So you can put a dash in the...
+
+33:16 - Paulo Petry
+  I don't know, but it's like this. Yeah. Okay. 360 assessment is right, situational assessment is right. Yeah, it's three different types of five-page assessment you can do.  Perfect. And then here we have the five-age S, an assessment, and then we have this text, and then we have some metrics, like 125 plus organized scenarios and assessment, and then PhD-led.  It's something that is not numerical, it's the first time that we're using that, like in this disposition, but it's okay to work, doesn't require any changes.  And then we have the making the learning real, that is like a bold... you. I think we can take that bit out.  What do you think?
+
+34:05 - Maliha Bathool (corporatednaconsulting.com)
+  We can keep the FAQs in, but take out the making the learning real?
+
+34:10 - Paulo Petry
+  think that we can put like this, because then we have the like a strong call out, like make the learning real, ready to lead with 5H.  But I don't know. It's up to you, actually. But this is supposed to work as drop down menus. Drop down menus?  No, actually, it's you can open and close when you have like, okay, then you click the button and then you yeah, expand and collapse.  Perfect. And this is the main structure that I've drawn for the website. And the content is everything here, but the the icons that I know that that the or twin devs can make.
+
+35:00 - Maliha Bathool (corporatednaconsulting.com)
+  Validate that with you. Thanks a lot, Maliha. No, I really like it.
+
+35:06 - Paulo Petry
+  Thank you.
+
+35:06 - Maliha Bathool (corporatednaconsulting.com)
+  I can see a lot of thought and effort has gone into it, and you're really bringing the vision that Rhea had to life, so thank you.  Thank you, Maliha. I guess that's it, guys.
+
+35:20 - Paulo Petry
+  I'm gonna share the graphic in the group so Rhea and everyone can have a look. What do you believe, Maliha?  Is it better for me to send to you directly and then you're okay? Yeah.
+
+35:33 - Maliha Bathool (corporatednaconsulting.com)
+  Send to me because I know what Rhea likes and doesn't like, and if she sees it, she panics. Okay.  I'm panicking, Rhea. Thank you. Thank you. I'll send you like Nadine.
+
+35:48 - Paulo Petry
+  Thank you. Thanks, guys. Why is it so zoomed in on my face?
+
+35:54 - Maliha Bathool (corporatednaconsulting.com)
+  Yeah, it happens. It happens. Yes.
+
+35:57 - Dev em Dobro (devemdobro@gmail.com)
+  Yeah. That's it. That's it. Thanks, Maliha. Thank you.
+
+36:03 - Maliha Bathool (corporatednaconsulting.com)
+  What I'll do, guys, oh, I need to send you guys the services landing page, which is, so I've got most of it, but what we're doing on the services landing page, there'll be a few call-outs for case studies, and they're not ready yet, so I can't send you that part until the case studies are ready.  Case studies are a work in progress.
+
+36:28 - Dev em Dobro (devemdobro@gmail.com)
+  I've got maybe three at the moment out of 23, so it's happening, just not fast enough. Do you think that we need those to go live?  I mean, as long as we've got two or three on there, no. We need at least a handful.
+
+36:51 - Maliha Bathool (corporatednaconsulting.com)
+  So what I'll do, I need to go through what Rhea sent me today. She sent me quite a lot in the last 40 minutes.  comments, of questions, I Oh, we've been talking.
+
+37:01 - Paulo Petry
+  I just saw my emails going ping, ping, ping.
+
+37:04 - Maliha Bathool (corporatednaconsulting.com)
+  So I'll go through what she sent me, and I'll try and put it into a Word document for all of you, because all I get is emails.  Okay, sure. And I need to leave photos. Also, on the About page, and I'm so sorry, we may ask you to rework that at the end, because what she wants to do, she wants to do all the others first, and then direct to the landing page for anything key that she wants to call out, but she wants to work on the others first.  The landing page, that is not the About page. Ah, landing, the home page.
+
+37:39 - Dev em Dobro (devemdobro@gmail.com)
+  Yeah, the home page. I thought, I think, Guilherme told me that Rhea wanted to finish all the other pages, and then we go back to the home page later, so we, because we will have all the pages.  That was a part of that, and then I started, that might have been my fault, because I said to the...
+
+38:00 - Maliha Bathool (corporatednaconsulting.com)
+  If you want to work on the landing page first, give me all the content for the landing page, but bear in mind, we're going to do it here and here and here, would you rather do it here and then come back and pull out the keys?  That might be my fault.
+
+38:18 - Dev em Dobro (devemdobro@gmail.com)
+  I don't know. How do you think it's better? Land page first, I guess. There won't be many changes, I would say.
+
+38:32 - Maliha Bathool (corporatednaconsulting.com)
+  I'd probably take off the team photos.
+
+38:37 - Dev em Dobro (devemdobro@gmail.com)
+  A lot of the information you have on there would probably remain. It would just be, I don't want to see the team faces on there at the start.
+
+38:47 - Maliha Bathool (corporatednaconsulting.com)
+  The bottom half can stay, the book can stay, the addresses probably not. I don't really see it on a landing page, the map looks like a duplicate.  Awards and Mentions, I'm thinking maybe we just have it as a banner, rather than calling out that we were the finalists or the semi-finalists, even though that's what we were, but just...  There's some old ones here too, I don't know if you guys want to keep those.
+
+39:19 - Dev em Dobro (devemdobro@gmail.com)
+  The awards? Yeah, it's 2008.
+
+39:24 - Maliha Bathool (corporatednaconsulting.com)
+  I will speak to Rhea, because our awards are a bit outdated at the moment, even the Brandon is outdated as well.  Hello.
+
+39:43 - Paulo Petry
+  I'm sending you the graphic right away, Mali. Thank you guys.
+
+40:08 - Maliha Bathool (corporatednaconsulting.com)
+  Okay, anything else? No, it's my business day, it's your start of business day, so have a good day guys, and I'll catch you tomorrow.  Thank you.
+
+40:23 - Paulo Petry
+  Good morning companies. Nice to meet you.
+
+40:28 - Maliha Bathool (corporatednaconsulting.com)
+  Nice to meet you too. Speak tomorrow guys, take care.
+
+40:31 - Paulo Petry
+  Bye bye.

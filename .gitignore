@@ -72,3 +72,14 @@ docs/Content.zip
 # exclusão era uma decisão que só vivia na cabeça de quem lembrava dela.
 # Para versionar as fotos um dia, renomear as pastas primeiro.
 docs/maliha-drive-10-09/
+
+# O download do drive da Maliha de 15-09 (docs/meetings/drive-download-*): 29 MB
+# de originais do cliente, mesma regra do docs/maliha-drive-10-09. O que é útil
+# já entra processado em public/. As notas de reunião em texto, ao lado dele,
+# essas sim ficam versionadas.
+docs/meetings/drive-download-*/
+
+# A thread consolidada de e-mails da CDNA/Axon, verbatim. É o mesmo conteúdo que
+# a regra docs/emails/ acima mantém fora do GitHub — só que num arquivo só.
+# Ler localmente.
+docs/emails-cdna-thread.md
