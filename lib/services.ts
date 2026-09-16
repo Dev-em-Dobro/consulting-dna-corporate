@@ -406,10 +406,19 @@ export function paragraphs(text: string): string {
     .split(/\n{2,}/)
     .map((p) => p.trim())
     .filter(Boolean)
-    .map(
-      (p) =>
-        `<p>${p.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>`,
+    .map((p) =>
+      p
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        /* A ÊNFASE ENTRA DEPOIS DO ESCAPE, e a ordem não é gosto: invertida, o
+           `<strong>` que acabamos de inserir seria escapado e sairia como texto
+           na tela. O par `**…**` é a marcação da planilha dela — ver a caixa do
+           campo `outcome` — e asterisco sem par fica visível de propósito, para
+           aparecer na revisão em vez de sumir. */
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"),
     )
+    .map((p) => `<p>${p}</p>`)
     .join("");
 }
 
