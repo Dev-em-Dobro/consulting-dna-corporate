@@ -480,7 +480,6 @@ const REGIONS = [
   { name: "UK & Europe", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
   { name: "GCC & Middle East", descriptor: "Supporting transformation across the GCC and wider Middle East." },
   { name: "Asia", descriptor: "Developing leaders for a fast-changing Asia." },
-  { name: "India", descriptor: "Enabling people and organisations to realise their potential." },
 ];
 
 export default async function AboutV2Page() {
@@ -2158,8 +2157,20 @@ export default async function AboutV2Page() {
               a imagem, que segue em HOLD (slot 06). Mexer nisto era desfazer o
               que ela aprovou.
 
-              O `lg:grid-cols-5` fica. O item 2 mora na seção `#values`. */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+              O ARRANJO EM LINHA FICA. O item 2 mora na seção `#values`.
+
+              ⚠️ SÃO QUATRO COLUNAS DESDE 16-09, E ERAM CINCO — e a troca não
+              desfaz nada do parágrafo acima. A Índia saiu da LISTA a pedido dela
+              na daily ("India will be covered under Asia"), primeiro na /team e
+              aqui logo depois, quando ela confirmou que valia para as duas. O
+              que mudou foi a contagem, não o desenho: quatro tiles numa grade de
+              cinco deixariam uma coluna vazia e um vão do tamanho de um tile na
+              ponta direita.
+
+              As duas listas continuam tendo de bater — é instrução do documento
+              de Team ("tiles matching the About page regions"), e o `lib/team.ts`
+              tem a metade de lá. */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {REGIONS.map((r) => (
               <div key={r.name} className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo

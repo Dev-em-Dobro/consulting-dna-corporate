@@ -270,14 +270,13 @@ export type FacultyRegion = {
  * *"can we get rid of India here? India will be covered under Asia, and she's
  * just happy to have the four regions, Americas, Europe, GCC, Asia."*
  *
- * ⚠️ A ABOUT AINDA TEM CINCO, e isso é uma divergência CONHECIDA, não um
- * esquecimento. O documento de Team manda as duas listas baterem ("five tiles
- * matching the About page regions"), e até 11-09 batiam. O que trava a correção
- * do outro lado: ela aprovou a página About na MESMA call, minutos antes de
- * pedir a remoção aqui — mexer lá sem perguntar é alterar página aprovada. A
- * pergunta está registrada em `docs/correcoes-maliha-call-16-09-2026.md` (§3).
- * Quando a resposta vier, é apagar a linha da Índia em `app/about/page.tsx` e
- * esta caixa volta a ser a de antes: as listas batem, e mudam juntas.
+ * ✅ A ABOUT PERDEU A ÍNDIA NO MESMO DIA, minutos depois e por confirmação
+ * expressa — a dúvida existiu porque ela tinha APROVADO a About na mesma call,
+ * e página aprovada não se altera por dedução. As duas listas seguem batendo, e
+ * é instrução do documento de Team que batam ("five tiles matching the About
+ * page regions", hoje quatro). Se mudarem de um lado, mudam dos dois:
+ * `REGIONS` em `app/about/page.tsx`. A grade de lá foi de cinco para quatro
+ * colunas junto, senão sobrava uma coluna vazia.
  *
  * ⚠️ OS RÓTULOS CONTINUAM OS DO DOCUMENTO DELA ("UK & Europe", "GCC & Middle
  * East") e não os da fala ("Europe", "GCC"). O pedido dito em voz era sobre
