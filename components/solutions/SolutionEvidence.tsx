@@ -271,7 +271,16 @@ export default function SolutionEvidence({
                       ? "(min-width: 1024px) 33vw, 100vw"
                       : "(min-width: 1024px) 58vw, 100vw"
                   }
-                  className="object-cover"
+                  /* ⚠️ RECORTE À DIREITA, a pedido em 16-09. A caixa é 4:5 e a
+                     foto de hoje é 2:1, então o `object-cover` mostra só 40% da
+                     largura dela — qual 40% é o que esta classe decide.
+
+                     ⏳ ESTA É UMA PROP DE ARQUIVO, NÃO DE COMPONENTE, e vale
+                     rever quando a foto definitiva chegar: `object-right` está
+                     certo para a imagem que está aqui agora e pode estar errado
+                     para a próxima. No dia em que houver foto por serviço, isto
+                     vira campo do dado ao lado de `evidence.image`. */
+                  className="object-cover object-right"
                 />
               </div>
             </div>
