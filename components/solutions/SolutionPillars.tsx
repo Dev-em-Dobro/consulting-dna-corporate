@@ -164,8 +164,15 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
           coluna de texto do bloco acima, e somar os dois abriria um buraco. Na
           tela a conta não fechou: sem régua separando (ver abaixo) e com os itens
           centralizados, a lista subia e encostava no parágrafo, e as duas coisas
-          liam como um bloco de texto só. O respiro passou a ser o que separa. */}
-      <Reveal className="mx-auto max-w-[1440px] px-6 pb-20 pt-10 md:px-10 md:pb-24 md:pt-16">
+          liam como um bloco de texto só. O respiro passou a ser o que separa.
+
+          ⚠️ TOPO E PÉ IGUAIS, e foi a segunda correção do mesmo dia: o topo entrou
+          menor que o pé (10/16 contra 20/24) para "compensar" o padding do bloco
+          de cima, e na tela a faixa ficou visivelmente descentrada dentro da
+          própria banda. A simetria é o que faz a lista ler como um bloco
+          próprio, que é o que ela passou a ser quando perdeu a régua. `py-20
+          md:py-24` é a mesma medida das outras seções desta página. */}
+      <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         {/* ⚠️ `<ul>`/`<li>` E NÃO `<div>`, desde 16-09: os pilares são
             literalmente a enumeração da frase do bloco acima ("immersive
             experiences, coaching, real business challenges, peer learning and
