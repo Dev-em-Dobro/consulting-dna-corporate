@@ -81,8 +81,14 @@ export default function SolutionView({ service }: { service: Service }) {
           **Impact** e "How Corporate DNA Helps" virou **How we help**. Eles
           seguem os cabeçalhos da planilha dela, que chama as duas colunas de
           "IMPACT OF THE WORK" e "WHAT CDNA DOES TO HELP" — encurtados, porque
-          aqui o rótulo é renderizado em 68px dentro do painel de cor e o nome
-          antigo ocupava duas linhas.
+          aqui o rótulo é renderizado em corpo grande dentro do painel de cor e o
+          nome antigo ocupava duas linhas.
+
+          ⚠️ A MEDIDA CAIU PARA 48px NO DESKTOP EM 16-09 (`SolutionSection`, que
+          hoje é 38px / 58px no md / 48px no lg) — eram 68px quando os rótulos
+          foram encurtados. O motivo do encurtamento NÃO caiu junto: em 48px o
+          nome antigo continua ocupando duas linhas no painel, e o corpo menor só
+          reduz a folga que teria para caber.
 
           ⚠️ OS PAINÉIS TROCARAM DE COR, e isso é consequência da nova ordem, não
           gosto. A regra registrada no `SolutionSection` é que dois painéis da

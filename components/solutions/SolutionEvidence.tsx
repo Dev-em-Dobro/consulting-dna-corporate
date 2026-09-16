@@ -5,8 +5,12 @@ import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
 
 /**
- * Bloco 4 do outline — Evidence. Quatro cards de mesmo tamanho sobre faixa
- * escura.
+ * Bloco 4 do outline — Evidence. Uma faixa escura em até três colunas: o caso
+ * com seus números, a foto e a citação do cliente.
+ *
+ * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
+ * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
+ * de escolha. O que sobreviveu delas está marcado no fim desta caixa.
  *
  * ESCOLHIDO EM 10-09 depois de quatro rodadas em `/evidence-tests` (rota
  * descartável). O caminho importa porque duas decisões foram REVERTIDAS:
@@ -73,6 +77,13 @@ export default function SolutionEvidence({
    * seção própria. Ela existe em um dos dez serviços, e uma faixa inteira para
    * um caso em dez é uma seção que nove páginas mostram vazia ou pulam. No
    * template dela a citação mora aqui, ao lado da prova a que se refere.
+   *
+   * ⏳ NOVE DOS DEZ NÃO TÊM CITAÇÃO, e o outline diz por quê: "Nine of the ten
+   * have no publishable testimonial. Four have one identified but not chosen:
+   * adidas, GSK Mexico, Heineken and Vodafone. Only Executive Coaching has text
+   * that can ship." Escolher aquelas quatro frases é pendência de CONTEÚDO do
+   * cliente — o trabalho mais barato que mais muda estas páginas —, e esta é a
+   * única lista delas no componente.
    */
   testimonial?: ServiceTestimonial;
   /** A capa do caso, quando existe. Sem ela a faixa fica sem a coluna do meio. */
@@ -105,9 +116,11 @@ export default function SolutionEvidence({
 
         <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
           <div className={caseSpan}>
-            {/* O nome do cliente como TEXTO, não como logo: os arquivos de
-                `public/logos/` são as marcas em cores originais para fundo
-                claro, e sobre escuro exigiriam uma plaqueta branca. */}
+            {/* O nome do cliente como TEXTO, não como logo. A plaquinha de logo
+                foi TESTADA E DESCARTADA, e o registro fica para não voltar como
+                ideia nova: os arquivos de `public/logos/` são as marcas em cores
+                originais para fundo claro, e sobre escuro exigiriam uma plaqueta
+                branca — um retângulo claro competindo com o resto da faixa. */}
             <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
               {caseTitle ?? "The flagship client story"}
             </h2>
@@ -126,10 +139,26 @@ export default function SolutionEvidence({
                 5/12 as caixas ficariam estreitas demais para o valor e o rótulo.
                 O template dela mostra os números em linha, separados por régua.
 
-                ⚠️ O VERMELHO CONTINUA SENDO O `brand-light` E A CONTA CONTINUA
-                VALENDO: sobre `ink`, o vermelho cheio dá 2,66:1 e reprova; o tom
-                claro dá 4,20:1. Sem o gradiente do cartão o fundo é `ink` puro,
-                o que só melhora a medida.
+                ⚠️ O VERMELHO CONTINUA SENDO O `brand-light`, E A CONTA FOI
+                REFEITA porque o fundo mudou. Os números antigos (2,66:1 e
+                4,20:1) eram medidos sobre o preenchimento do CARTÃO — `ink` com
+                um gradiente de luz branca por cima, fundo efetivo ~#3c3739 —, e
+                o cartão deixou de existir. Sobre `ink` puro (#373234), que é o
+                fundo de hoje, valem as medidas já registradas na caixa de
+                `--color-brand-light` em `app/globals.css`:
+
+                  brand      #d84339   2,87:1   ✗
+                  brand-lt   #e47e77   4,53:1   ✓
+
+                A conclusão não muda — o tom claro é o que se usa —, mas o
+                vermelho cheio reprova aqui por 2,87, não por 2,66.
+
+                A RÉGUA DOS 24px É O QUE SUSTENTA ISSO, e ela ficou mais
+                necessária depois que o número encolheu de 38/48px para 32/38px
+                nesta mesma reescrita: o mínimo para texto GRANDE é 3,0, e a
+                partir de 24px todo texto é grande para a norma. O número segue
+                acima do corte com folga nos dois breakpoints, e o `brand-light`
+                passa até na régua de 4,5 do texto normal.
 
                 MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
                 é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
@@ -137,7 +166,10 @@ export default function SolutionEvidence({
                 palavra fica BRANCA e num corpo intermediário: pintar "Management
                 activated" de vermelho em corpo de manchete transformaria um
                 passo de uma sequência em título, e a cascata da GSK são quatro
-                passos de igual peso. */}
+                passos de igual peso. Ela também é a única que pode quebrar em
+                duas linhas, e por isso mantém entrelinha de TEXTO
+                (`leading-[1.25]`) e não de número (`leading-[1.02]` no
+                `Counter`). */}
             {shown.length > 0 && (
               <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-white/12 pt-8">
                 {shown.map((f, i) => (
@@ -182,7 +214,16 @@ export default function SolutionEvidence({
                   alt=""
                   aria-hidden
                   fill
-                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  /* O `sizes` ACOMPANHA A LARGURA REAL DA COLUNA, que depende da
+                     citação: com ela a foto é 4/12 (~33vw), sem ela é 7/12
+                     (~58vw) — e é esse o caso de nove dos dez serviços. Fixar
+                     33vw faria o Next servir, nessas nove, um arquivo dimensionado
+                     para um terço da tela numa caixa de quase dois terços. */
+                  sizes={
+                    hasQuote
+                      ? "(min-width: 1024px) 33vw, 100vw"
+                      : "(min-width: 1024px) 58vw, 100vw"
+                  }
                   className="object-cover"
                 />
               </div>
