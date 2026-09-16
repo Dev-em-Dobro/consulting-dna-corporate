@@ -109,7 +109,7 @@ Passa a receber a citação e a imagem:
   body?: string;
   facts?: ServiceFact[];
   testimonial?: ServiceTestimonial;   // NOVO
-  imageUrl?: string;                  // NOVO — capa do caso, quando houver
+  imageUrl?: string;                  // NOVO — foto do caso, quando houver
 }
 ```
 
@@ -201,19 +201,23 @@ página sem a faixa, que é o comportamento correto para conteúdo que ainda vem
 
 ## 7. Como saber que ficou certo
 
-O projeto não tem suíte de testes; a verificação é esta, na ordem:
+O projeto não tinha suíte de testes. O plano liga uma mínima, sem dependência nova — o runner
+do Node 22 (`node --test --experimental-strip-types`) rodando sobre `lib/services.ts`, que não
+importa nada e por isso se testa direto. Ela cobre as funções puras e a integridade do dado; o
+resto é olho. A verificação, na ordem:
 
-1. `npm run build` verde — as dez páginas são estáticas e qualquer dado malformado quebra ali.
-2. As **dez** páginas abertas no dev server, não uma. O que se olha em cada uma:
+1. `npm test` verde — a ênfase converte, nenhum `**` ficou aberto, os dez têm de 4 a 6 pilares.
+2. `npm run build` verde — as dez páginas são estáticas e qualquer dado malformado quebra ali.
+3. As **dez** páginas abertas no dev server, não uma. O que se olha em cada uma:
    - a faixa de pilares aparece com 4, 5 ou 6 itens e sem sobra na grade;
    - o trecho em negrito é o que está no XLS, e não outro;
    - a evidência degrada certo. Os dez cobrem todas as variações sozinhos: **cinco** não têm
      bloco de evidência nenhum, **quatro** têm evidência sem caso ligado, **um** (ExCo/
      Heineken) tem evidência com link, e **um** (Executive Coaching) tem citação. Não é
      preciso inventar dado de teste — é abrir as dez.
-3. Telefone (dobra ~0,46:1): os blocos encolhidos não podem espremer o painel de cor a ponto
+4. Telefone (dobra ~0,46:1): os blocos encolhidos não podem espremer o painel de cor a ponto
    de o rótulo quebrar em três linhas.
-4. Comparação lado a lado com `ExCo Leadership Services Page.png` na `/services/top-150-
+5. Comparação lado a lado com `ExCo Leadership Services Page.png` na `/services/top-150-
    leadership-development`, que é o serviço que o mockup desenha.
 
 ---
@@ -226,5 +230,7 @@ Nenhuma bloqueia a construção; todas cabem numa mensagem de WhatsApp hoje.
   mockup sem mudar o layout — é preencher um campo.
 - **O nome do serviço é "ExCo / Top 150" ou "Top 150 Leadership Development"?** O mockup usa o
   primeiro, o XLS dela também, e o site usa o segundo.
-- **A imagem da evidência** — hoje só existe capa para os casos publicados no CMS. As outras
-  quatro evidências citam clientes que não estão no acervo.
+- **A imagem da evidência** — a coluna do meio da faixa. O campo é um caminho em `public/` e
+  nasce vazio nos dez; **não** vem da capa do caso no CMS, porque esta rota deixou de ler o CMS
+  em 11-09 por decisão registrada no cabeçalho de `app/services/[slug]/page.tsx` (corrigido em
+  16-09, ao escrever o plano). É asset a pedir a ela, junto com as imagens da grade.
