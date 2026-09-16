@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+
+  :root {
+    --brand: #d84339;
+    --brand-dark: #b5342b;
+    --ink: #373234;
+    --ink-2: #2f2b2c;
+    --paper: #f3f3f3;
+    --line: #ece9e6;
+    --muted: #6b6b6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* --- Cover --------------------------------------------------------------- */
+  .cover {
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    padding: 40px 40px 36px;
+    margin: 0 0 30px;              /* contained within @page margins — no bleed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cover::after {                  /* red accent stripe down the left edge */
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--brand);
+  }
+  .cover .brandbar {
+    width: 60px; height: 4px; background: var(--brand);
+    border-radius: 2px; margin-bottom: 26px;
+  }
+  .cover img.logo {
+    height: 40px; width: auto; display: block;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1);   /* white lockup on dark cover */
+  }
+  .cover h1 {
+    font-size: 27pt; line-height: 1.12; font-weight: 700;
+    margin: 0 0 14px; letter-spacing: -0.01em; max-width: 30ch;
+    color: #fff;                        /* override the dark global h1 color */
+    border-bottom: none; padding: 0; page-break-before: avoid;
+  }
+  .cover .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--brand); font-weight: 600; margin: 0 0 10px;
+  }
+  .cover .meta {
+    font-size: 9pt; color: rgba(255,255,255,.72); max-width: 74ch;
+    line-height: 1.6; margin: 18px 0 0;
+  }
+  .cover .meta strong { color: #fff; font-weight: 600; }
+
+  /* --- Typography --------------------------------------------------------- */
+  h1, h2, h3 { font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; }
+
+  h1 {                                  /* "Part A / B ..." top-level */
+    font-size: 17pt; margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--brand);
+    page-break-before: always;
+  }
+  h1:first-of-type { page-break-before: avoid; }
+
+  h2 {
+    font-size: 13pt; margin: 26px 0 10px; color: var(--brand-dark);
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 20px 0 8px; color: var(--ink-2);
+    page-break-after: avoid;
+  }
+
+  p { margin: 0 0 10px; }
+
+  a { color: var(--brand-dark); text-decoration: none; }
+
+  strong { font-weight: 600; color: var(--ink-2); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; }
+  li::marker { color: var(--brand); }
+
+  hr {
+    border: none; border-top: 1px solid var(--line);
+    margin: 22px 0;
+  }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--paper); border-left: 4px solid var(--brand);
+    border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Tables ------------------------------------------------------------- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0 18px;
+    font-size: 9.5pt; page-break-inside: avoid;
+  }
+  thead th {
+    background: var(--ink); color: #fff; text-align: left;
+    font-weight: 600; padding: 8px 10px; font-size: 9pt;
+  }
+  tbody td {
+    padding: 7px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* Keep list items and headings from breaking awkwardly across pages */
+  li, blockquote { page-break-inside: avoid; }
+
+  .footer-note {
+    margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <header class="cover">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgaWQ9IkNhbWFkYV8yIiBkYXRhLW5hbWU9IkNhbWFkYSAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAuNTcgODUuMzIiPg0KICA8ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAuY2xzLTEgew0KICAgICAgICBmaWxsOiAjZDc0NDM4Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTIgew0KICAgICAgICBmaWxsOiAjNTc1NjU2Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTMgew0KICAgICAgICBpc29sYXRpb246IGlzb2xhdGU7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8ZyBpZD0iQ2FtYWRhXzEtMiIgZGF0YS1uYW1lPSJDYW1hZGEgMSI+DQogICAgPGcgaWQ9IkdydXBvXzQiIGRhdGEtbmFtZT0iR3J1cG8gNCI+DQogICAgICA8ZyBpZD0iRE5BIiBjbGFzcz0iY2xzLTMiPg0KICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUuMTgsMjAuNTNjMy40NS02LjQ3LDguMzUtMTEuNSwxNC43LTE1LjExQzI2LjIyLDEuOCwzMy41MiwwLDQxLjc3LDBjMTAuNDcsMCwxOS4yOCwyLjgsMjYuNDIsOC4zOSw3LjE0LDUuNTksMTEuNzQsMTMuMTksMTMuOCwyMi43OWgtMjUuMTFjLTEuNTEtMy4xNy0zLjU5LTUuNTktNi4yNS03LjI2LTIuNjYtMS42Ny01LjczLTIuNS05LjIyLTIuNS01LjQsMC05LjcsMS45Mi0xMi45MSw1Ljc3LTMuMjEsMy44NS00LjgyLDguOTgtNC44MiwxNS40MXMxLjYxLDExLjY4LDQuODIsMTUuNTNjMy4yMSwzLjg1LDcuNTIsNS43NywxMi45MSw1Ljc3LDMuNDksMCw2LjU2LS44Myw5LjIyLTIuNSwyLjY2LTEuNjcsNC43NC00LjA4LDYuMjUtNy4yNmgyNS4xMWMtMi4wNiw5LjYtNi42NiwxNy4yLTEzLjgsMjIuNzktNy4xNCw1LjU5LTE1Ljk1LDguMzktMjYuNDIsOC4zOS04LjI1LDAtMTUuNTUtMS44LTIxLjktNS40MS02LjM1LTMuNjEtMTEuMjUtOC42NS0xNC43LTE1LjExQzEuNzMsNTguMzMsMCw1MC45MywwLDQyLjZzMS43My0xNS42MSw1LjE4LTIyLjA3WiIvPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTE0OC4zMyw2LjEzYzYuNjIsMy41MywxMS43Miw4LjQ3LDE1LjI5LDE0LjgyLDMuNTcsNi4zNSw1LjM2LDEzLjYxLDUuMzYsMjEuNzhzLTEuODEsMTUuMzEtNS40MiwyMS42NmMtMy42MSw2LjM1LTguNzMsMTEuMzMtMTUuMzUsMTQuOTMtNi42MiwzLjYxLTE0LjMsNS40MS0yMy4wMyw1LjQxaC0zMy4yVi44M2gzMy4yYzguODEsMCwxNi41MiwxLjc3LDIzLjE1LDUuMjlaTTEzOS40Nyw1OC41NWMzLjg5LTMuNzMsNS44My05LDUuODMtMTUuODNzLTEuOTQtMTIuMjQtNS44My0xNi4wMWMtMy44OS0zLjc3LTkuMjQtNS42NS0xNi4wNi01LjY1aC04LjA5djQzLjA4aDguMDljNi44MiwwLDEyLjE4LTEuODYsMTYuMDYtNS41OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yNTYuMDksODQuNzNoLTIzLjMybC0zMS4wNi00Ni44OXY0Ni44OWgtMjMuMzJWLjgzaDIzLjMybDMxLjA2LDQ3LjQ4Vi44M2gyMy4zMnY4My44OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjEuNDIsNzEuMDRoLTI5Ljc1bC00LjUyLDEzLjY4aC0yNC41MUwyOTMuMjEuODNoMjYuODlsMzAuNDYsODMuODloLTI0LjYzbC00LjUyLTEzLjY4Wk0zMTUuNTksNTMuMTlsLTkuMDQtMjcuMTMtOC45MiwyNy4xM2gxNy45N1oiLz4NCiAgICAgICAgPC9nPg0KICAgICAgPC9nPg0KICAgIDwvZz4NCiAgPC9nPg0KPC9zdmc+" alt="Corporate DNA" />
+    <p class="eyebrow">Outstanding items</p>
+    <h1>What we still need from CDNA</h1>
+    <div class="brandbar"></div>
+    <p class="meta"><strong>Prepared by Dev em Dobro.</strong> Following the daily of 16 September 2026. Scope: the public website only — every item listed here sits with CDNA.</p>
+  </header>
+
+  <main>
+    <p>Following the daily of 16 September, this is the complete list of what is outstanding on your
+side. Every slot listed here is already built and working on the site — each one currently
+shows a colour panel, a marked placeholder or a stand-in image. Nothing is broken; it simply
+has no content yet.</p>
+<p>The case study spreadsheet you sent today unlocked a great deal, and this note exists so the
+remaining gaps sit in one place rather than arriving one at a time.</p>
+<h2>What went live on the preview today</h2>
+<ul>
+<li><strong>Clients &amp; Impact</strong> rebuilt to the template you sent, including the <em>Industries we work in</em>
+block from the second image.</li>
+<li><strong>Case study pages</strong> rebuilt to the adidas layout — the impact band, <em>01 The challenge</em>,
+<em>02 What we did</em> with the service chips, <em>03 What changed</em>, <em>04 Client voice</em> and
+<em>05 Related case studies</em>.</li>
+<li><strong>All nine signed-off case studies</strong> from the spreadsheet (column B = Yes) are loaded and
+published: BT, DP World, Dyson, Frasers Property (×2), GSK, Ma&#39;aden, Morgan Stanley and
+Vodafone.</li>
+<li><strong>Team page</strong>: the standing team photograph now leads the <em>One team</em> section, and the
+landscape stairs photograph is the page hero. India is out of both Team and About — four
+regions.</li>
+</ul>
+<h2>1. Images — 41 files, in nine places</h2>
+<h3>a) Case study covers — 15 images</h3>
+<p>The largest single gap. One image per case study, and each does double duty: it is the
+full-width hero of the case page <strong>and</strong> the thumbnail in the Clients &amp; Impact grid.</p>
+<p><em>Landscape, 3:2 or wider, at least 1600px on the long edge.</em></p>
+<p>Needed for: BT · DP World · Dyson · Frasers Property (×2) · GSK · Ma&#39;aden · Morgan Stanley ·
+Vodafone · Shell · Levi Strauss · Coca-Cola · Aviva · Unilever · HEINEKEN.</p>
+<p>If fifteen is too many at once, the nine signed-off cases matter most.</p>
+<h3>b) Industry tiles — 8 images</h3>
+<p>The <em>Industries we work in</em> band. They sit behind a dark veil, so mood matters more than
+detail. <em>Landscape; 1200×800 is plenty.</em></p>
+<p>Energy &amp; Natural Resources · Pharma &amp; Healthcare · Financial Services · Consumer Goods &amp;
+Beverages · Retail &amp; Luxury · Technology &amp; Digital · Industrial &amp; Manufacturing ·
+Professional Services.</p>
+<h3>c) Clients &amp; Impact hero — 1 image</h3>
+<p>The page currently borrows the skyline from About. <em>Full-bleed landscape, 2400px wide or more.</em></p>
+<h3>d) Client testimonial portraits — 3 images</h3>
+<p>The <em>What our clients say</em> band shows the person beside the quote, as in your template.
+<em>Portrait, 3:4, around 600px wide.</em> These follow whichever three quotes you confirm.</p>
+<h3>e) Team region tiles — 4 images</h3>
+<p><strong>These are placeholders that are live right now.</strong> The four faculty region cards currently
+show stock landmarks from Wikimedia — Vizcaya in Miami, Tower Bridge, the Burj Khalifa and
+Marina Bay Sands. They are free to use, but they are not yours, and they are the first thing an
+APAC or GCC client will notice.</p>
+<p>This is slot 06 in your Team document. <em>Portrait, 4:5.</em></p>
+<p>Americas · UK &amp; Europe · GCC &amp; Middle East · Asia.</p>
+<h3>f) Service evidence band — 5 images</h3>
+<p>The middle column of the evidence strip on the service pages, beside the metrics.
+<em>Portrait, 3:4.</em> The HEINEKEN one currently shows a stand-in photograph of a HEINEKEN sign.</p>
+<h3>g) Service card — 1 image</h3>
+<p>Nine of the ten service cards carry a photograph; <strong>HRLT Effectiveness</strong> is the one without.
+Same treatment as the other nine.</p>
+<h3>h) Team portraits — 3 images</h3>
+<p>Mike Jackson and Genevieve James, which Rhea did not approve, plus the updated Americas
+photograph that is with Guli.</p>
+<p>You also mentioned testing all of them in black and white for consistency — we are happy to
+apply that in one pass once you have decided.</p>
+<h3>i) About page photograph — 1 image</h3>
+<p>You flagged that some faces look distorted in the stretched crop. A wider original of the same
+photograph solves it without changing the layout.</p>
+<h2>2. Content</h2>
+<ul>
+<li><strong>Client quotes — seven of the nine case studies have none.</strong> Only DP World and Frasers
+Property (HRLT) arrived with one. On the other seven the page shows a marked <em>client quote —
+awaiting sign-off</em> slot, so the layout is ready the moment they land.
+Missing: BT · Dyson · Frasers Property (Top 150) · Ma&#39;aden · Vodafone, plus GSK and Morgan
+Stanley, which are currently showing older quotes carried over from the previous site.</li>
+<li><strong>The HEINEKEN testimonial on the Top 150 service page</strong> still reads <em>&quot;A quote from Dolf to
+be confirmed&quot;</em> — it is on the live preview.</li>
+<li><strong>LinkedIn URLs for the team.</strong> Only Rhea&#39;s is in the system. The pop-up already has the
+slot, so this is one line of data per person: Guilherme, Genevieve, Mike, Jon-Paul, Nitin and
+Phil.</li>
+<li><strong>Partner logos</strong> for the new partners Rhea is collecting.</li>
+<li><strong>Books.</strong> The material for Nitin&#39;s book, equivalent to Rhea&#39;s, plus your view of the page
+and a real photograph of the books — the current cover is AI-generated and the writing on it
+is not readable.</li>
+<li><strong>Insights.</strong> What the team wants the section to be. It stays <em>coming soon</em> until then.</li>
+<li><strong>Rhea&#39;s sign-off on the About page.</strong></li>
+</ul>
+<h2>3. Decisions</h2>
+<p>Short answers, and each one unblocks work that is already built.</p>
+<ul>
+<li><strong>Frasers Property: three years or four?</strong> The cell reads <em>&quot;[3 or 4]-year transformation
+partnership&quot;</em> and is published exactly as written.</li>
+<li><strong>Aviva and Shell</strong> are marked FINAL in the status column but <em>No</em> under Reviewed. We
+followed your instruction and filtered on column B, so they are not in. Should they be?</li>
+<li><strong>Morgan Stanley</strong> is <em>Yes</em> under Reviewed but HOLD under status. We published it — please
+confirm that is right.</li>
+<li><strong>DP World</strong> is missing five cells: the hero headline, the hero sub-head, the <em>what changed</em>
+headline, the closing thought and the CorporateDNA services. The page currently leads with
+the challenge headline instead.</li>
+<li><strong>GSK and Morgan Stanley</strong> already carried a long write-up from the previous site, which the
+new layout replaces. Nothing is lost — it is still stored — but tell us whether to delete it
+or bring it back as an additional section.</li>
+<li><strong>Where do the new partner logos go</strong> — the partnerships band, or the logo strip on the
+Services landing page?</li>
+<li><strong>The call to action on the service pages.</strong> Your template places the invitation <em>after</em> the
+evidence, and that is how it is built. On the 15th you had asked for it before the evidence.
+The template wins unless you say otherwise.</li>
+</ul>
+<h2>The fastest thing you could send</h2>
+<p>The nine case study covers. They are the one gap that shows on every page at once — the case
+pages, the Clients &amp; Impact grid and the home page all draw on the same image.</p>
+
+  </main>
+
+  <p class="footer-note">Corporate DNA — Making Leadership Real · Dev em Dobro · Outstanding with CDNA · 16/09/2026</p>
+</body>
+</html>
