@@ -156,9 +156,9 @@ export const services: Service[] = [
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
     outcome:
-      "A senior leadership community with greater strategic alignment, decision quality and execution speed. Leaders think enterprise first, operate horizontally and collectively own performance, transformation and the leadership pipeline.",
+      "A senior leadership community with greater **strategic alignment, decision quality and execution speed**. Leaders think enterprise first, operate horizontally and collectively own performance, transformation and the leadership pipeline.",
     howWeHelp:
-      "We work with the ExCo and top 100 to 150 leaders to build the Inner Game and Outer Game of enterprise leadership. Through immersive experiences, coaching, real business challenges, peer learning and mastery labs, we shift leaders from “my function, my market, my priorities” to “our enterprise, our performance, our future.”",
+      "We work with the ExCo and top 100 to 150 leaders to build the **Inner Game and Outer Game of enterprise leadership**. Through immersive experiences, coaching, real business challenges, peer learning and mastery labs, we shift leaders from **“my function, my market, my priorities” to “our enterprise, our performance, our future.”**",
     cta: {
       strapline: "Individual accountability. Collective enterprise performance.",
       line: "Build a senior leadership community that improves decision quality, alignment and execution speed across functions, markets and geographies.",
@@ -190,9 +190,9 @@ export const services: Service[] = [
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
     outcome:
-      "Greater transformation readiness, organisational adaptability and execution discipline. Culture becomes an accelerator of strategy rather than friction that slows it down.",
+      "Greater **transformation readiness, organisational adaptability and execution discipline**. Culture becomes an accelerator of strategy rather than friction that slows it down.",
     howWeHelp:
-      "We translate strategy and culture ambition into the specific leadership behaviours, choices and habits required to deliver it. We activate these through leaders, teams, organisational rituals and the flow of work, creating visible behavioural change that can be reinforced and scaled.",
+      "We translate strategy and culture ambition into the **specific leadership behaviours, choices and habits** required to deliver it. We activate these through leaders, teams, organisational rituals and the flow of work, creating visible behavioural change that can be reinforced and scaled.",
     cta: {
       strapline: "Strategy changes. Culture has to move with it.",
       line: "Turn strategic ambition into the behaviours, decisions and habits that increase organisational adaptability and make transformation happen.",
@@ -223,9 +223,9 @@ export const services: Service[] = [
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
     outcome:
-      "Greater bench strength, successor readiness and talent velocity, reducing dependency on external hiring and strengthening the organisation’s capacity to grow.",
+      "Greater **bench strength, successor readiness and talent velocity**, reducing dependency on external hiring and strengthening the organisation’s capacity to grow.",
     howWeHelp:
-      "We identify critical transitions and build targeted development journeys that accelerate high-potential talent towards bigger, more complex roles. Assessment, stretch experiences, coaching, business challenges and deliberate practice build readiness, not simply potential.",
+      "We identify critical transitions and build targeted development journeys that accelerate high-potential talent towards bigger, more complex roles. Assessment, stretch experiences, coaching, business challenges and deliberate practice build **readiness, not simply potential**.",
     cta: {
       strapline: "Global ambition. Local talent realities.",
       line: "Build a talent runway that identifies what your people need here and now, while preparing them for what the business will need next.",
@@ -253,9 +253,9 @@ export const services: Service[] = [
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     outcome:
-      "Stronger execution discipline, team performance and leadership capacity where employees experience leadership every day. Better managers create clarity, accountability and the conditions for people to perform.",
+      "Stronger **execution discipline, team performance and leadership capacity** where employees experience leadership every day. Better managers create clarity, accountability and the conditions for people to perform.",
     howWeHelp:
-      "We build the practical capabilities managers need in the flow of work: setting direction, making decisions, developing people, managing performance, navigating difficult conversations and leading through change. Development is applied to real managerial challenges, not separated from them.",
+      "We build the practical capabilities managers need in the flow of work: **setting direction, making decisions, developing people, managing performance, navigating difficult conversations and leading through change**. Development is applied to real managerial challenges, not separated from them.",
     cta: {
       strapline: "Big strategy. Everyday leadership.",
       line: "Build managers who translate business priorities into clarity, accountability and performance through the people they lead every day.",
@@ -269,9 +269,9 @@ export const services: Service[] = [
     banner:
       "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
     outcome:
-      "Increased representation, successor readiness and retention of critical female talent, creating a stronger and more diverse leadership pipeline.",
+      "Increased **representation, successor readiness and retention of critical female talent**, creating a stronger and more diverse leadership pipeline.",
     howWeHelp:
-      "We work at both the individual and organisational level. We strengthen leadership identity, enterprise influence, strategic networks and readiness for bigger roles, while addressing the systemic barriers, sponsorship gaps and organisational conditions that can restrict progression.",
+      "We work at both the **individual and organisational level**. We strengthen leadership identity, enterprise influence, strategic networks and readiness for bigger roles, while addressing the systemic barriers, sponsorship gaps and organisational conditions that can restrict progression.",
     cta: {
       strapline: "Talent is there. Progression isn’t always.",
       line: "Accelerate the readiness, visibility and progression of women while strengthening the leadership pipeline around them.",
@@ -285,9 +285,9 @@ export const services: Service[] = [
     banner:
       "Turn groups of strong individuals into leadership teams that perform collectively.",
     outcome:
-      "Better decision quality, execution speed, collective accountability and cross-functional effectiveness. Less organisational friction. More leadership capacity directed at the priorities that matter most.",
+      "Better **decision quality, execution speed, collective accountability and cross-functional effectiveness**. Less organisational friction. More leadership capacity directed at the priorities that matter most.",
     howWeHelp:
-      "We work with real teams on their real work, strengthening trust, constructive challenge, decision rights, accountability, alignment and execution. Rather than generic team building, we identify what is helping and hindering collective performance and embed new ways of working.",
+      "We work with real teams on their real work, strengthening **trust, constructive challenge, decision rights, accountability, alignment and execution**. Rather than generic team building, we identify what is helping and hindering collective performance and embed new ways of working.",
     cta: {
       strapline: "Strong individuals don’t automatically make a strong team.",
       line: "Reduce friction, strengthen decision-making and collective accountability, and increase the speed at which teams turn priorities into performance.",
@@ -313,9 +313,9 @@ export const services: Service[] = [
     banner:
       "Build an HR leadership team with the strategic influence and collective authority to shape the business, not simply support it.",
     outcome:
-      "Greater strategic influence, organisational connectivity and transformation readiness, with HR operating as an enterprise leadership function capable of accelerating business and people performance.",
+      "Greater **strategic influence, organisational connectivity and transformation readiness**, with HR operating as an enterprise leadership function capable of accelerating business and people performance.",
     howWeHelp:
-      "We help HRLTs move beyond functional excellence into collective enterprise leadership. We strengthen business judgement, strategic alignment, horizontal working, influence and execution, while clarifying how the HRLT needs to operate together to lead transformation across the organisation.",
+      "We help HRLTs move beyond functional excellence into **collective enterprise leadership**. We strengthen business judgement, strategic alignment, horizontal working, influence and execution, while clarifying how the HRLT needs to operate together to lead transformation across the organisation.",
     cta: {
       strapline: "A seat at the table isn’t the same as influence at the table.",
       line: "Build an HRLT with the commercial judgement, collective authority and transformation capability to shape the business, not simply support it.",
@@ -329,9 +329,9 @@ export const services: Service[] = [
     banner:
       "Build the human judgement required to make better decisions in an AI-augmented world.",
     outcome:
-      "Higher decision quality and decision velocity without surrendering accountability to technology. Leaders know when to trust AI, when to challenge it and where distinctly human judgement creates value.",
+      "Higher **decision quality and decision velocity** without surrendering accountability to technology. Leaders know when to trust AI, when to challenge it and where distinctly human judgement creates value.",
     howWeHelp:
-      "We build the capabilities leaders need to operate alongside AI: critical thinking, judgement, curiosity, sense-making, ethical reasoning and decision-making under uncertainty. Leaders practise on real business dilemmas and learn to combine human experience and intuition with AI-enabled insight.",
+      "We build the capabilities leaders need to operate alongside AI: **critical thinking, judgement, curiosity, sense-making, ethical reasoning and decision-making under uncertainty**. Leaders practise on real business dilemmas and learn to combine human experience and intuition with AI-enabled insight.",
     cta: {
       strapline: "More intelligence. Better decisions? Not necessarily.",
       line: "Strengthen the human judgement, critical thinking and decision quality leaders need to use AI without outsourcing accountability to it.",
@@ -344,9 +344,9 @@ export const services: Service[] = [
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     outcome:
-      "Greater leadership impact, decision quality, role readiness and performance under pressure at the moments where an executive’s behaviour has disproportionate organisational consequences.",
+      "Greater **leadership impact, decision quality, role readiness and performance under pressure** at the moments where an executive’s behaviour has disproportionate organisational consequences.",
     howWeHelp:
-      "Our coaches work with senior leaders on the real challenges of their role, combining deep personal insight with the realities of the business. We strengthen the Inner Game and Outer Game required to navigate complexity, transition, relationships, performance and increasing leadership scale.",
+      "Our coaches work with senior leaders on the real challenges of their role, combining deep personal insight with the realities of the business. We strengthen the **Inner Game and Outer Game** required to navigate complexity, transition, relationships, performance and increasing leadership scale.",
     cta: {
       strapline: "Bigger roles. Higher stakes. Fewer easy answers.",
       line: "Strengthen the judgement, impact and performance of executives navigating complexity, transition and increasing leadership scale.",
@@ -381,9 +381,9 @@ export const services: Service[] = [
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
     outcome:
-      "Greater succession readiness, governance clarity, decision quality and organisational continuity, enabling the business to evolve without losing what made it successful.",
+      "Greater **succession readiness, governance clarity, decision quality and organisational continuity**, enabling the business to evolve without losing what made it successful.",
     howWeHelp:
-      "We work across the family, ownership and business systems to clarify governance, decision rights, leadership transitions and succession. We help founders, next-generation leaders and professional executives navigate the human and organisational complexity of moving from founder-led success to an enduring institution.",
+      "We work across the **family, ownership and business systems** to clarify governance, decision rights, leadership transitions and succession. We help founders, next-generation leaders and professional executives navigate the human and organisational complexity of moving from founder-led success to an enduring institution.",
     cta: {
       strapline: "Protect what built the business. Prepare for what comes next.",
       line: "Strengthen governance, succession readiness and decision-making across family, ownership and business as leadership moves between generations.",
