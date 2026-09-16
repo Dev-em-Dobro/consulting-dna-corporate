@@ -237,7 +237,7 @@ export const services: Service[] = [
          avaliada com conteúdo em vez de com um buraco. SAI no dia em que a
          cliente mandar a foto de verdade, pedida na daily de 16-09 — é trocar
          este caminho e apagar esta caixa. */
-      image: "/services/evidence/heineken-top-150.PLACEHOLDER.jpg",
+      image: "/services/evidence/heineken-sign.PLACEHOLDER.jpg",
       caseSlug: "heineken",
     },
     /* ⏳ PLACEHOLDER DA PRÓPRIA MOCKUP — NÃO PODE IR PARA PRODUÇÃO ASSIM.
