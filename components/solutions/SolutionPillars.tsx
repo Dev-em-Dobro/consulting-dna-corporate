@@ -59,8 +59,10 @@ import Reveal from "@/components/Reveal";
  *
  * ⚠️ `bg-paper` PARA CONTINUAR O BLOCO DE CIMA, que é o "How we help" e também é
  * paper. Aqui as duas faixas encostadas são o efeito desejado: a lista pertence
- * àquele bloco, não é uma seção nova. O corte vem depois, na faixa escura da
- * evidência.
+ * àquele bloco, não é uma seção nova. O que separa as duas é o respiro do topo,
+ * e não uma troca de fundo nem uma régua — as duas foram tentadas e saíram em
+ * 16-09. O corte de verdade vem depois, na faixa vermelha do CTA (a evidência
+ * ficou branca no mesmo dia).
  *
  * Lista vazia (ou ausente) não renderiza nada — sem slot tracejado e sem título
  * órfão, pela mesma régua do resto das páginas de serviço.
@@ -157,10 +159,13 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
 
   return (
     <section className="bg-paper">
-      {/* Sem padding no topo: o respiro já vem do `py-16 lg:py-28` da coluna de
-          texto do bloco acima. Somar os dois abriria um buraco entre a frase e a
-          lista que ela desdobra. */}
-      <Reveal className="mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24">
+      {/* ⚠️ GANHOU PADDING NO TOPO EM 16-09, a pedido, e antes não tinha nenhum.
+          O raciocínio de então era que o respiro já vinha do `py-16 lg:py-28` da
+          coluna de texto do bloco acima, e somar os dois abriria um buraco. Na
+          tela a conta não fechou: sem régua separando (ver abaixo) e com os itens
+          centralizados, a lista subia e encostava no parágrafo, e as duas coisas
+          liam como um bloco de texto só. O respiro passou a ser o que separa. */}
+      <Reveal className="mx-auto max-w-[1440px] px-6 pb-20 pt-10 md:px-10 md:pb-24 md:pt-16">
         {/* ⚠️ `<ul>`/`<li>` E NÃO `<div>`, desde 16-09: os pilares são
             literalmente a enumeração da frase do bloco acima ("immersive
             experiences, coaching, real business challenges, peer learning and
@@ -171,8 +176,20 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
         <ul className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
           {pillars.map((p) => {
             const Icon = PILLAR_ICONS[p] ?? FALLBACK_ICON;
+            /* ⚠️ CENTRALIZADO E SEM A RÉGUA, desde 16-09, a pedido. Cada item
+               tinha um `border-t` e alinhava à esquerda, como no template dela.
+               As duas coisas saíram juntas porque são a mesma decisão: a régua
+               existia para dar um topo comum aos itens quando o rótulo quebrava
+               em número diferente de linhas, e centralizado o alinhamento passa
+               a ser o eixo vertical de cada célula da grade — o ícone marca o
+               topo e o rótulo pendura embaixo dele.
+
+               O QUE SE PERDEU, para quem for reverter sabendo: com rótulos de
+               alturas diferentes ("Trust" contra "Decision-making under
+               uncertainty"), o pé da fileira fica irregular. Com a régua isso
+               não aparecia, porque o olho lia o topo alinhado. */
             return (
-              <li key={p} className="border-t border-ink/12 pt-5">
+              <li key={p} className="text-center">
                 {/* ⚠️ DECORATIVO: o rótulo logo abaixo diz a mesma coisa, então
                     anunciar o ícone seria repetir o item duas vezes por pilar.
                     28px com traço 1.5 é a medida do mockup — traço fino o
@@ -181,7 +198,7 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
                   aria-hidden
                   size={28}
                   strokeWidth={1.5}
-                  className="block text-brand"
+                  className="mx-auto block text-brand"
                 />
                 <p className="mt-3 font-serif text-[19px] leading-[1.25] tracking-[-0.2px] text-ink md:text-[21px]">
                   {p}
