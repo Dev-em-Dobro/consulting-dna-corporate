@@ -9,7 +9,8 @@ placeholder or the client's own wording from your mockups. The pages are complet
 waiting on words and files that only you can supply.
 
 The fastest wins sit in **section 1**: sixty-eight short lines of copy that would finish the
-ten service pages.
+ten service pages. After that, the Europe / UK & Europe decision in section 5 — one answer
+settles eighteen of the twenty-three faculty entries.
 
 ## What went live on the preview today
 
@@ -19,7 +20,12 @@ ten service pages.
 - *Where we work*: GCC & Middle East is now **Middle East & North Africa**.
 - The world map has been rebuilt in the style you sent: one flat landmass tone, red pins, no
   painted countries.
-- The *Keeping Leadership Real* photograph is now the retouched six-person version.
+- The *Keeping Leadership Real* photograph is now the retouched six-person version — **but the
+  quality of that image is already poor.** It is a generated retouch rather than a camera file:
+  at full size the hands on the counter show the generator's artefacts, and the About page uses
+  a crop of it, which magnifies them. It holds up at the size the page serves it, and it is the
+  right people. It is not a photograph we would leave on the site permanently. **A real
+  photograph of the six would replace it on both Team and About.**
 
 **Team**
 
@@ -141,20 +147,20 @@ a third party's mark normally comes from its owner.
 
 **Worth requesting the official white / reversed files from each of the three.**
 
-## 4. Two numbers that now disagree with themselves
+## 4. One label to keep an eye on
 
-The About page says **19 years** and **five regions**; the Team and About pages say a faculty of
-**60+**. Those are today's corrections.
+The CMS was updated today and the homepage and Our Impact now read **19 years, 5 and 60+**,
+matching the About page. Thank you — that closed the gap.
 
-The **homepage and Our Impact still say 18 years, 36 countries and 75 faculty.** Those four
-figures come from the CMS (the `home` record), not from the code — so they did not change with
-the rest, and we cannot change them from our side without overwriting published content.
+One knock-on, which we have already fixed: the figure comes from the CMS but its **label** is
+site copy, and it still read *"Countries of global delivery"*. With the value at 5, both pages
+briefly published *"5 Countries of global delivery"*. It now reads **Regions of global
+delivery**.
 
-**This needs updating in the CMS**, or the same firm states two different sizes one click apart.
-
-The Team page also still reads *"across 36 countries"* beside the new *60+*, because the daily
-only mentioned the faculty number. **Worth deciding whether the site counts countries or
-regions**, and using one of the two everywhere.
+The one remaining inconsistency is **/approach**, which still carries `26 countries`, `95%` and
+`ten years` — different figures for the same things, from the approval list of 06 August that
+never came back. **Worth settling whether the site counts countries or regions, and using one
+of the two everywhere.**
 
 ## 5. Team page details
 
@@ -228,14 +234,3 @@ We can normalise these ourselves — trim the transparency and re-pad them evenl
 files are used by the client wall, the animated bar and the case library, so it changes logo
 sizing everywhere at once. **Say the word and we will.** Higher-resolution originals would be
 better still.
-
-## The fastest things you could send
-
-1. **The 18 block headlines.** Two lines per service, nine services. They are the most visible
-   empty slot on the site.
-2. **The Europe / UK & Europe decision.** One answer, eighteen entries.
-3. **The CMS figures** — 19 years, five regions, 60+ faculty — so the homepage stops
-   contradicting the About page.
-4. **The Partners paragraph** and the sixth logo.
-
-Everything else can follow at your pace.
