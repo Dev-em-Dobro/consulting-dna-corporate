@@ -11,6 +11,27 @@ type LogoMarqueeProps = {
   duration?: number;
   /** Scroll right-to-left by default; set true to reverse. */
   reverse?: boolean;
+  /**
+   * A esteira sobre fundo CLARO — entrou em 17-09, quando a Clients & Impact
+   * trocou o paredão parado por esta esteira (*"na seção 'Trusted by global
+   * organisations' trocar os clientes pela barra animada de clientes da home"*).
+   *
+   * ⚠️ O QUE MUDA É SÓ A CAIXA DO LOGO, e a razão é de leitura: na home a
+   * esteira corre sobre `bg-ink`, e é o `bg-white` de cada célula que desenha o
+   * cartão. Sobre uma seção branca esse mesmo branco não desenha nada — vira um
+   * retângulo invisível com um respiro de 190px que ninguém vê. Aqui a célula
+   * fica transparente e quem separa os logos é o próprio vão.
+   *
+   * ⚠️ A MÁSCARA DE ESMAECIMENTO NÃO MUDA e não precisa mudar: ela é uma
+   * `mask-image`, que corta o ALFA da esteira inteira. Funciona igual sobre
+   * qualquer fundo, e é por isso que ela não aparece nesta prop.
+   *
+   * ⏳ SE ELA QUISER A FAIXA ESCURA IGUAL À DA HOME, é tirar este `onLight` e
+   * pôr `bg-ink` na seção — uma palavra de cada lado. O que segura o claro hoje
+   * é o ritmo da página: a faixa nasce colada no herói, que já é escuro, e duas
+   * massas escuras encostadas não têm divisa entre si.
+   */
+  onLight?: boolean;
 };
 
 const label = (file: string) =>
@@ -20,6 +41,7 @@ export default function LogoMarquee({
   logos,
   duration = 42,
   reverse = false,
+  onLight = false,
 }: LogoMarqueeProps) {
   const track = useRef<HTMLDivElement>(null);
   const tween = useRef<gsap.core.Tween | null>(null);
@@ -58,7 +80,9 @@ export default function LogoMarquee({
           <div
             key={i}
             aria-hidden={i >= logos.length}
-            className="mx-3 flex h-[84px] w-[190px] shrink-0 items-center justify-center rounded-xl bg-white px-6"
+            className={`mx-3 flex h-[84px] w-[190px] shrink-0 items-center justify-center px-6 ${
+              onLight ? "" : "rounded-xl bg-white"
+            }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -146,6 +146,29 @@ export type CaseListEntry = {
   challenge?: string;    // plain text
   metricValue?: string;  // e.g. "90%"
   metricLabel?: string;  // remainder of measurableResult
+  /**
+   * TODAS as figuras de impacto do case, as mesmas que a página dele publica na
+   * faixa vermelha. Entrou em 17-09, quando a listagem da Clients & Impact
+   * passou a mostrá-las: *"dentro da pagina do vodafone tem a informação 700+ /
+   * high-potential leaders developed / 60 to 70% / promoted / 91 / Net Promoter
+   * Score, essa mesma informação precisa aparecer na listagem"*.
+   *
+   * ⚠️ NÃO É O MESMO QUE `metricValue`/`metricLabel`, e é por isso que os três
+   * campos convivem. Aqueles DOIS são uma derivação: `splitMetric` pega a célula
+   * "Impact" (ou o `measurableResult` antigo) e quebra a string num número em
+   * destaque mais o resto. É UMA figura, e escolhida por heurística. Estas são
+   * as figuras que a cliente AUTOROU, uma a uma, em `story.impactFigures` — no
+   * Vodafone são três, e a listagem mostrava só a primeira.
+   *
+   * SAI DE GRAÇA: `getCaseListEntries` já busca o artigo inteiro de cada case
+   * (o N+1 documentado abaixo), então o campo estava carregado na memória e
+   * sendo descartado. Não há uma requisição a mais.
+   *
+   * ⏳ OS DOIS DERIVADOS FICAM porque nem todo case tem `impactFigures`: os
+   * autorados no modelo antigo têm só `measurableResult`. Quem consome decide —
+   * `CaseLine` usa as figuras quando existem e cai nos derivados quando não.
+   */
+  impactFigures?: CaseFigure[];
   publishedAt: string;   // ISO — for date sort
   logoUrl?: string;      // /logos/<client>.png when a brand logo exists
   logoColor?: string;    // predominant logo colour (hex) for the band tint
@@ -452,6 +475,7 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
         challenge: art?.body.challenge ?? challengeExcerpt(art?.text),
         metricValue: metric.value,
         metricLabel: metric.label,
+        impactFigures: art?.story.impactFigures,
         publishedAt: it.publishedAt,
         logoUrl: logo.url,
         logoColor: logo.color,

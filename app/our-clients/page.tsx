@@ -6,15 +6,13 @@ import ImagePlaceholder from "@/components/ImagePlaceholder";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import SectionHead from "@/components/clients/SectionHead";
-import LogoWall from "@/components/clients/LogoWall";
-import IndustriesGrid from "@/components/clients/IndustriesGrid";
-import CaseTile from "@/components/clients/CaseTile";
+import LogoMarquee from "@/components/LogoMarquee";
+import CaseLine from "@/components/clients/CaseLine";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { clientLogos } from "@/lib/logos";
-import { industries } from "@/lib/industries";
+import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
 /* O MESMO skyline da /about e da /services, importado e não copiado — ver a
@@ -48,24 +46,29 @@ const VOICE_COUNT = 3;
  * de OUTRA página: *"the team have showed you clients and impact. I've sent you
  * the templates (…) so this will be the kind of layout we want"*.
  *
- * A ORDEM DAS SEÇÕES É A DA IMAGEM 1 do drive (`5. Clients& Impact/…01_33_16
- * PM.png`), com UM bloco trazido da imagem 2 — "Industries we work in" —, que é
- * exatamente o que ela pediu na call: *"the first image should be the landing
- * page (…) but include that middle bit"*.
+ * A ORDEM DAS SEÇÕES SAIU DA IMAGEM 1 do drive (`5. Clients& Impact/…01_33_16
+ * PM.png`). Ela encolheu na daily de 17-09, que tirou dois blocos:
  *
- *   herói → paredão de logos → by the numbers → industries → case studies →
+ *   herói → esteira de logos → by the numbers → case studies →
  *   what our clients say → a force for good → global footprint → CTA
+ *
+ * ⚠️ TRÊS MUDANÇAS DE 17-09, e as três vieram com a razão junto (cada seção tem
+ * a sua caixa no corpo, aqui fica só o mapa):
+ *   • O PAREDÃO PARADO VIROU A ESTEIRA DA HOME.
+ *   • "INDUSTRIES WE WORK IN" SAIU — era justamente o bloco importado da
+ *     imagem 2 em 16-09, e voltou atrás um dia depois.
+ *   • "REAL OUTCOMES" SAIU da faixa de números, e com ele a faixa voltou a ter
+ *     um andar só.
  *
  * ⚠️ "BREADTH BY SERVICE" SAIU EM 16-09, a pedido — a caixa no lugar onde ela
  * entrava explica o porquê e como devolvê-la.
  *
- * OS FUNDOS: branco → paper → branco → branco → paper → ink → branco. A única
- * repetição é `industries`/`case studies`, e ela é de propósito: os cartões de
- * depoimento são BRANCOS (pedido de 16-09, e é o que a referência desenha), o
- * que obriga a faixa deles a ser `paper` para os cartões existirem contra o
- * fundo — e daí para trás a alternância se resolve sozinha. O corte entre
- * industries e case studies não se perde porque a primeira termina numa fileira
- * de blocos escuros, que já faz a borda.
+ * OS FUNDOS: branco → paper → branco → paper → ink → branco. A repetição que
+ * existia (`industries`/`case studies`, duas brancas coladas) deixou de existir
+ * junto com a seção de industries, e a alternância agora fecha sozinha. Os
+ * cartões de depoimento são BRANCOS (pedido de 16-09, e é o que a referência
+ * desenha), o que obriga a faixa deles a ser `paper` para os cartões existirem
+ * contra o fundo — é essa a âncora de onde a alternância se conta para trás.
  *
  * O QUE NÃO VEIO DO MOCKUP, e por quê:
  *
@@ -128,15 +131,21 @@ export default async function ClientsAndImpactPage() {
     .sort((a, b) => (a.quote?.length ?? 0) - (b.quote?.length ?? 0))
     .slice(0, VOICE_COUNT);
 
-  /* "REAL OUTCOMES" SAI DOS CASES, não de uma lista à parte. A imagem 2 desenha
-     uma segunda fileira de números — "70%+ of Aviva delegates promoted", "88%
-     NPS for Shell" — e é exatamente a forma da métrica que cada case já carrega
-     desde 16-09. Só entram as que têm NÚMERO: uma evidência qualitativa é
-     verdadeira, mas não se lê como número grande numa fileira de quatro. */
-  const outcomes = cases
-    .filter((c) => c.metricValue && c.metricLabel)
-    .slice(0, 3);
+  /* ⚠️ "REAL OUTCOMES" FOI RETIRADA EM 17-09 — *"tirar real outcomes"* —, um
+     dia depois de entrar. Era a segunda fileira da faixa de números: as três
+     métricas de case com número ("70%+ of Aviva delegates promoted", "88% NPS
+     for Shell"), rotulada, alinhada à de cima.
 
+     O CÁLCULO SAIU JUNTO e não ficou órfão aqui: era um `filter` + `slice` sobre
+     `cases`, e deixá-lo sem quem o consumisse seria trabalho morto no servidor a
+     cada revalidação.
+
+     ⚠️ O DADO NÃO SE PERDEU, e é por isso que a remoção é barata: `metricValue`
+     e `metricLabel` são exatamente o que a coluna de impacto de cada `CaseLine`
+     mostra agora, uma seção abaixo. Os números que esta fileira publicava em
+     três continuam publicados — ao lado do desafio que cada um responde, que é
+     onde eles provam alguma coisa em vez de flutuarem soltos. Se ela pedir a
+     fileira de volta, é ressuscitar estas quatro linhas. */
   /* Os três números ao lado do mapa. Países vem do CMS (a mesma fonte da faixa
      acima); clientes é a contagem do paredão, que é a lista aprovada; cases é o
      que está publicado AGORA e sobe sozinho a cada case novo. */
@@ -157,14 +166,45 @@ export default async function ClientsAndImpactPage() {
           imagePosition="object-[50%_38%]"
         />
 
-        {/* ── Paredão de logos ──────────────────────────────────────────── */}
+        {/* ── Esteira de logos ──────────────────────────────────────────────
+            ⚠️ ERA O PAREDÃO PARADO ATÉ 17-09 — *"na seção 'Trusted by global
+            organisations' trocar os clientes pela barra animada de clientes da
+            home"*. A decisão de 16-09 era a oposta, e o argumento dela está
+            inteiro no cabeçalho de `components/clients/LogoWall.tsx`: a grade
+            alinhada deixa o visitante PROCURAR o próprio setor e encontrá-lo; a
+            esteira diz "muitos, passando" e não deixa ler nenhum.
+
+            O PEDIDO VENCE, e o `LogoWall` FICA NO REPOSITÓRIO, sem uso: ele é
+            uma peça pronta e comentada, e apagá-lo custaria a reescrita inteira
+            se ela voltar atrás — é a segunda inversão nesta página em dois dias.
+
+            AS DUAS ESTEIRAS CORREM EM SENTIDOS OPOSTOS, como na home: é o
+            `reverse` da de baixo. Duas fileiras no mesmo sentido leem como uma
+            faixa só rolando, e o cruzamento é o que dá a sensação de volume que
+            a esteira existe para dar.
+
+            ⚠️ `onLight` PORQUE A SEÇÃO É BRANCA — na home a mesma esteira corre
+            sobre `bg-ink`. A caixa da prop, no componente, explica o que muda e
+            como virar a faixa para escuro se for isso que ela quiser. */}
         <section id="clients" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             <SectionHead
               label="Trusted by global organisations"
               kicker={`${clientLogos.length} clients across industries`}
             />
-            <LogoWall logos={clientLogos} />
+            <div className="flex flex-col gap-4">
+              <LogoMarquee
+                logos={clientLogoRows[0]}
+                duration={logoRowDuration(clientLogoRows[0])}
+                onLight
+              />
+              <LogoMarquee
+                logos={clientLogoRows[1]}
+                duration={logoRowDuration(clientLogoRows[1])}
+                reverse
+                onLight
+              />
+            </div>
           </div>
         </section>
 
@@ -173,12 +213,17 @@ export default async function ClientsAndImpactPage() {
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             <SectionHead label="By the numbers" kicker="Real change, a broader reach." />
 
-            {/* ⚠️ DUAS FILEIRAS ROTULADAS — 16-09, pedido dela apontando a
-                imagem 2 do drive. Sem os rótulos as duas fileiras eram só
-                "sete números", e o leitor tinha de descobrir sozinho que a de
-                cima fala do TAMANHO da firma e a de baixo do RESULTADO em
-                cliente nomeado. São afirmações de naturezas diferentes, e é o
-                rótulo que faz essa diferença aparecer.
+            {/* ⚠️ SOBROU UMA FILEIRA. Eram DUAS, rotuladas — "Our scale" em
+                cima e "Real outcomes" embaixo —, e a de baixo saiu em 17-09
+                (*"tirar real outcomes"*); a caixa no lugar do cálculo, no topo
+                deste arquivo, conta o que ela era e para onde os números foram.
+
+                O RÓTULO FICOU, e sozinho ele é mais fraco do que era: ele
+                existia para DISTINGUIR duas afirmações de naturezas diferentes
+                (tamanho da firma × resultado em cliente nomeado), e sem a
+                segunda não há o que distinguir. Fica porque tirá-lo não foi
+                pedido e porque ele ainda diz o que os quatro números são — mas
+                é candidato natural a sair na próxima passada.
 
                 O RÓTULO FICA À ESQUERDA DA FILEIRA, que é onde a imagem 2 o
                 desenha. (O pedido dito em voz dizia "lado direito"; a mesma
@@ -207,54 +252,29 @@ export default async function ClientsAndImpactPage() {
               </Reveal>
             </div>
 
-            {outcomes.length > 0 && (
-              <>
-                <div className="my-10 h-px w-full bg-line md:my-12" />
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-[150px_1fr] lg:gap-10">
-                  <RowLabel>Real outcomes</RowLabel>
-                  {/* ⚠️ MESMA GRADE DA FILEIRA DE CIMA (quatro colunas, células
-                      centradas, divisórias), e não três colunas como era — 16-09.
-                      As duas fileiras são lidas como uma tabela de dois andares,
-                      e com grades diferentes o primeiro número de baixo (`700+`)
-                      caía no meio do caminho entre o primeiro e o segundo de
-                      cima. Alinhados, os dois primeiros números dividem o mesmo
-                      eixo vertical.
-
-                      SÃO TRÊS ITENS NUMA GRADE DE QUATRO, de propósito: a quarta
-                      célula fica vazia. Espremer três em três colunas realinharia
-                      tudo de novo e desfaria o efeito. Se um dia houver um quarto
-                      resultado, ele entra sem mudar nada aqui. */}
-                  <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-line">
-                    {outcomes.map((c) => (
-                      <div key={c.slug} className="px-2 text-center sm:px-5">
-                        <p className="text-[30px] font-semibold leading-none tracking-[-1px] text-brand sm:text-[34px]">
-                          {c.metricValue}
-                        </p>
-                        <p className="mx-auto mt-2.5 max-w-[22ch] text-[14px] leading-[1.45] text-ink">
-                          {c.metricLabel}
-                        </p>
-                        <p className="mt-1 text-[12px] uppercase tracking-[1px] text-muted">
-                          {c.client}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
           </div>
         </section>
 
-        {/* ── Industries ───────────────────────────────────────────────── */}
-        <section id="industries" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead
-              label="Industries we work in"
-              kicker="Where the stakes are highest."
-            />
-            <IndustriesGrid items={industries} />
-          </div>
-        </section>
+        {/* ── Industries — FORA DO AR DESDE 17-09 ──────────────────────────
+            *"tirar a secao Industries we work in."* Eram oito blocos escuros com
+            o nome de cada setor, e o bloco tinha UM DIA de vida: foi ele o
+            "middle bit" que a imagem 2 do drive trouxe em 16-09, a pedido dela
+            na call (*"the first image should be the landing page (…) but include
+            that middle bit"*).
+
+            COMO VOLTAR, se ela voltar atrás: `<IndustriesGrid items={industries} />`
+            dentro de uma <section id="industries" className="bg-white"> com o
+            `SectionHead`, entre a faixa de números e os case studies. O
+            componente segue em `components/clients/IndustriesGrid.tsx` e a lista
+            em `lib/industries.ts`, as duas intactas — é a segunda seção desta
+            página a sair por este caminho (ver "Breadth by service", abaixo), e
+            as duas saíram inteiras de propósito.
+
+            ⚠️ A ALTERNÂNCIA DE FUNDO AGRADECEU. Esta seção era branca e a de
+            case studies também: eram as duas únicas coladas na página, e o
+            cabeçalho registrava a emenda como aceitável só porque a fileira de
+            blocos escuros no fim desta fazia a borda no lugar do fundo. Sem ela,
+            `paper` → branco volta a separar sozinho. */}
 
         {/* ── Breadth by service — FORA DO AR DESDE 16-09 ──────────────────
             A matriz cliente x servico foi construida e retirada no mesmo dia, a
@@ -278,25 +298,56 @@ export default async function ClientsAndImpactPage() {
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             <SectionHead label="Case studies" kicker="Real stories. Lasting change." />
 
+            {/* ⚠️ ERA UMA GRADE DE CARTÕES COM FOTO até 17-09 — *"mudar o
+                estilo da seção 'case studies' deixar cada case em uma linha com
+                logo texto The challenge, e os numeros de impactoo"*. O desenho
+                de cada linha e o porquê da troca estão no cabeçalho do
+                `CaseLine`; o que importa AQUI é o que a lista ganhou com ela.
+
+                A CAPA DE CASE ERA O PROBLEMA MAIOR: `coverMediaId` está vazio
+                nos quinze cases do CMS, então os doze cartões desta grade
+                mostravam doze placeholders de imagem. Uma grade de placeholders
+                numa página cujo trabalho é provar impacto era o defeito mais
+                visível da página, e a linha não tem slot de foto para ficar
+                vazio — ela mostra logo, desafio e número, que são os três campos
+                que o CMS realmente preenche.
+
+                ⚠️ O `CaseTile` FICA NO REPOSITÓRIO, sem uso, pelo mesmo motivo
+                que o `LogoWall` duas seções acima: esta página inverteu duas
+                decisões em dois dias, e a peça pronta é mais barata de devolver
+                que de reescrever. Quando as capas chegarem, a conversa sobre
+                cartão × linha volta com dado melhor do que tem hoje. */}
             {tiles.length === 0 ? (
               <EmptyNotice>No case studies published yet.</EmptyNotice>
             ) : (
-              <Reveal className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              /* ⚠️ O `-mx` SAIU EM 17-09, junto com o realce de `hover` da
+                 linha. Ele existia para a tarja transbordar a margem do conteúdo
+                 sem mover o conteúdo; sem tarja, ele só deslocava a lista para
+                 fora do eixo do `SectionHead` acima. Ver a caixa no `CaseLine`. */
+              <Reveal className="mt-2 flex flex-col">
                 {tiles.map((entry) => (
-                  <CaseTile key={entry.slug} entry={entry} />
+                  <CaseLine key={entry.slug} entry={entry} />
                 ))}
               </Reveal>
             )}
 
-            {cases.length > tiles.length && (
-              <Link
-                href="/cases"
-                className="mt-10 inline-flex items-center gap-2 border border-ink px-7 py-3.5 text-[14px] font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
-              >
-                Explore all case studies
-                <span aria-hidden>→</span>
-              </Link>
-            )}
+            {/* ⚠️ O "EXPLORE ALL CASE STUDIES" SAIU EM 17-09, a pedido. Ele era
+                um botão de borda no pé da lista, condicionado a
+                `cases.length > tiles.length` — só aparecia quando o CMS tinha
+                mais cases publicados do que os `TILE_COUNT` que esta seção
+                mostra.
+
+                ⚠️ O CORTE EM 12 CONTINUA EXISTINDO. Ele não saiu junto, e é bom
+                saber: se um dia houver mais de doze cases publicados, os
+                excedentes deixam de ter QUALQUER caminho a partir desta seção —
+                antes o botão era esse caminho. A biblioteca segue viva em
+                `/cases` e alcançável pelo menu; o que se perdeu foi o atalho
+                daqui. Hoje são nove cases contra um teto de doze, então a
+                condição nem chegava a ser verdadeira e o botão não aparecia.
+
+                COMO VOLTAR: é o `<Link href="/cases">` com a mesma linguagem de
+                botão do "Read the full story" de cada linha, dentro do mesmo
+                `cases.length > tiles.length`. Está no git. */}
           </div>
         </section>
 
