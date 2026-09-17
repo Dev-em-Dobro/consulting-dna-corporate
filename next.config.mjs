@@ -100,19 +100,29 @@ const legacyExtensionlessRedirects = [
   // na frente da rota (redirects são avaliados antes do filesystem). O índice
   // genérico `/clients` passou a apontar para ela.
   ["/clients", "/our-clients"],
-  ["/our-clients/aviva", "/cases/aviva"],
-  ["/our-clients/coca-cola", "/cases/coca-cola"],
+  // ⚠️ SEIS DESTES APONTAM PARA A BIBLIOTECA, NÃO PARA O CASE. Em 17-09 os seis
+  // cases herdados do site antigo — aviva, coca-cola, heineken, levis, shell,
+  // unilever — foram despublicados no CMS: nenhum tem `Reviewed = Yes` na
+  // planilha dela, e a instrução da daily de 16-09 foi "filter column B under
+  // yes". Um 308 para `/cases/heineken` viraria 308 para um 404, que é pior que
+  // não ter redirect nenhum (foi exatamente o erro medido no Shell em 07-09,
+  // nota abaixo). Mandando para `/cases`, o link herdado cai na biblioteca dos
+  // nove aprovados. Quando um case voltar a ser publicado, o destino dele volta
+  // a ser `/cases/<slug>` — é uma linha por case.
+  ["/our-clients/aviva", "/cases"],
+  ["/our-clients/coca-cola", "/cases"],
   ["/our-clients/gsk", "/cases/gsk"],
-  ["/our-clients/heineken", "/cases/heineken"],
-  ["/our-clients/levis", "/cases/levis"],
+  ["/our-clients/heineken", "/cases"],
+  ["/our-clients/levis", "/cases"],
   ["/our-clients/morgan-stanley", "/cases/morgan-stanley"],
   // O slug FOI renomeado no CMS, e este redirect ficou para trás. Medido no
   // alpha em 07-09: `/cases/shell` responde 200, `/cases/case-1d007617` responde
   // 404, e portanto `/our-clients/shell` estava mandando o visitante para uma
   // página morta — 308 para um 404, que é pior que não ter redirect nenhum.
-  // O case antigo continua no CMS como `shell-archived-0b3629b3`; o vivo é este.
-  ["/our-clients/shell", "/cases/shell"],
-  ["/our-clients/unilever", "/cases/unilever"],
+  // O case antigo continua no CMS como `shell-archived-0b3629b3`; em 17-09 o
+  // vivo (`shell`, e a variante `pt-BR`) foi despublicado com os outros cinco.
+  ["/our-clients/shell", "/cases"],
+  ["/our-clients/unilever", "/cases"],
   ["/testimonials", "/"],
   // Cases / Portfolio → Cases
   ["/case-studies", "/cases"],

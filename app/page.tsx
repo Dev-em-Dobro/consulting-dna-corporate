@@ -179,16 +179,27 @@ const differentiators = [
 
 // `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
 // Cards without a slug fall back to the flagship-cases listing (/cases).
+//
+// ⚠️ OS TRÊS ESTÃO SEM SLUG DESDE 17-09, e por isso os três caem na biblioteca.
+// Heineken, Coca-Cola e Shell foram despublicados no CMS — nenhum tem
+// `Reviewed = Yes` na planilha da daily de 16-09 —, então `/cases/heineken`,
+// `/cases/coca-cola` e `/cases/shell` respondem 404. Manter o deep link seria
+// mandar o visitante da home para uma página morta.
+//
+// ⏳ OS NÚMEROS DESTA FAIXA CONTINUAM NO AR, e são os mesmos três que a lista de
+// aprovação de 06-08 nunca fechou (45%, 43, 6.300). Despublicar o case não os
+// tira daqui: isto é dado do código, não do CMS. Se a cliente quiser a faixa
+// fora enquanto os cases estão fora, é apagar as três entradas abaixo.
 const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string;
 }[] = [
-  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants", caseSlug: "heineken" },
-  { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
+  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
+  { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
   // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
   // número tem que ser trocado nos dois lugares até a V2 ser decidida.
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
+  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
 ];
 
 export default async function Home() {
