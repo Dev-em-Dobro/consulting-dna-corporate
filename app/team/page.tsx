@@ -4,14 +4,20 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
 import LeaderCard from "@/components/team/LeaderCard";
-import teamStanding from "@/public/team/team-standing.jpg";
+import teamStanding from "@/public/team/team-standing-six.jpg";
 import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
-import { leaders, facultyRegions, dnaLead, dnaStrands } from "@/lib/team";
+/* ⚠️ `facultyRegions` SAIU DESTA LISTA EM 17-09, junto com os cartões de
+   região que a Global faculty perdeu para a lista de pessoas. O export
+   continua em `lib/team.ts` (a /team-tests o usa, e é o caminho de volta se
+   ela quiser os cartões), mas esta página não o consome mais. O
+   `ImagePlaceholder` saiu pelo mesmo motivo: ele só existia para o slot 06
+   vazio de cada cartão. */
+import { leaders, programmeManagers, facultyMembers, dnaLead, dnaStrands } from "@/lib/team";
+import PeopleRoster from "@/components/team/PeopleRoster";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -157,7 +163,12 @@ export default async function OurTeamPage() {
         <SolutionHero
           eyebrow="Our Team"
           title="The people who sit where our clients sit."
-          subtitle="A senior leadership team, backed by a global faculty of 75 practitioners delivering across 36 countries."
+          /* ⚠️ O `60+` ACOMPANHA A SEÇÃO GLOBAL FACULTY, embora o pedido de
+             17-09 só cite a seção: o subtítulo do herói e o h2 de lá fazem a
+             MESMA afirmação, a duas telas de distância. Deixar 75 aqui e 60+ lá
+             não seria fidelidade ao pedido, seria a mesma página se
+             contradizendo sobre o tamanho da própria faculty. */
+          subtitle="A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries."
           imageUrl={teamHero}
           imagePosition="object-top"
         />
@@ -223,11 +234,68 @@ export default async function OurTeamPage() {
                 />
               ))}
             </div>
+
+            {/* ── Senior programme managers · 17-09 ──────────────────────────
+                *"embaixo da seção 'Leadership' criar uma nova parte que vai ser
+                'supported by our senior programme managers' e vai ter uma lista
+                de pessoas com fotos e nomes."* O texto exato veio depois, por
+                escrito, e é o que está no h3 abaixo.
+
+                ⚠️ DENTRO DA MESMA <section>, e não numa nova. Ela pediu uma
+                "parte", não uma seção, e a diferença tem consequência: a página
+                alterna fundos (branco → ink na "One team" → paper na faculty), e
+                uma seção nova aqui obrigaria a inventar um quarto degrau entre
+                dois brancos. Como sub-bloco, ela herda o branco da liderança e a
+                régua acima é quem faz a divisa — que é o que a hierarquia diz de
+                qualquer jeito: é apoio à liderança, não um terceiro time.
+
+                ⚠️ "PROGRAM" E NÃO "PROGRAMME", porque é o texto dela à letra. O
+                resto do site é inglês britânico ("programmes delivered, across
+                five regions" na /about, "Manager Development"), então esta é a
+                única grafia americana da página. Não corrigimos texto de cliente
+                por conta própria — mas é uma pergunta de uma linha na próxima
+                daily, e a resposta muda uma palavra.
+
+                O h3 É `h3` E NÃO `h2`: o h2 desta seção é "The team behind the
+                work." e este bloco está DENTRO dele. Dois h2 na mesma seção
+                quebrariam a árvore de cabeçalhos para quem navega por leitor de
+                tela. */}
+            <div className="mt-20 border-t border-line pt-14 md:mt-24">
+              <h3 className="font-serif mb-10 max-w-[720px] text-[22px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink sm:text-[26px] md:text-[30px]">
+                Supported by a team of senior program managers.
+              </h3>
+              <PeopleRoster people={programmeManagers} size="lg" />
+            </div>
           </div>
         </section>
 
         {/* ── Bloco 4 · Group photograph ───────────────────────────────── */}
-        {/* ✅ TROCADA EM 16-09 PELA FOTO DO TIME EM PÉ (`team-standing.jpg`), a
+        {/* ✅ TROCADA EM 17-09 PELO RETOQUE DAS SEIS NA BANCADA
+            (`team-standing-six.jpg`), 1644x957 — a pedido, no lugar da foto do
+            time em pé que entrou em 16-09. Mesma composição, mesma seção; o que
+            muda é o arquivo.
+
+            ⚠️ É RETOQUE GERADO, não arquivo de câmera: chegou como
+            `ChatGPT Image 17 de set. de 2026, 11_06_58.png` e foi convertido numa
+            única compressão (PNG de 1,6 MB → JPEG q90 de 223 KB). A 100% de zoom
+            as MÃOS sobre a bancada mostram o artefato do gerador — o punho se
+            funde à manga sem costura e a palma fica larga demais. No tamanho em
+            que a seção serve a foto (~790px de largura num laptop) aquela faixa
+            tem uns 20px de altura e não se lê; fica anotado porque a cliente já
+            reprovou fotografia por distorção ("some of their faces look a bit
+            distorted"), e é isso que ela vê se abrir o arquivo inteiro.
+
+            O RECORTE CABE. A fonte é 1,72 e o slot é 3:2, então `object-cover`
+            come 6,3% de cada lado — 104px. A pessoa mais à esquerda começa depois
+            disso: ninguém é cortado. Verificado recortando o 3:2 na mão.
+
+            ⚠️ A ANTERIOR FICOU SEM USO NENHUM (`team/team-standing.jpg`). Foi
+            mantida no repositório pelo mesmo motivo da escada em retrato, logo
+            abaixo — se a troca for desfeita, é ela que volta. A /about NÃO a usa:
+            lá é `team-stairs-about-six.jpg`, cópia própria.
+
+            --- histórico, da troca de 16-09 ---
+            ✅ TROCADA EM 16-09 PELA FOTO DO TIME EM PÉ (`team-standing.jpg`), a
             que a Maliha ficou de mandar na daily — seis pessoas atrás da mesa,
             no escritório, 1600x1066.
 
@@ -284,7 +352,7 @@ export default async function OurTeamPage() {
             <div className="relative aspect-[3/2] w-full">
               <Image
                 src={teamStanding}
-                alt="The Corporate DNA leadership team standing together in the London office"
+                alt="Six members of the Corporate DNA team standing behind a counter in the London office"
                 fill
                 sizes="(min-width: 768px) 56vw, 100vw"
                 className="object-cover object-center"
@@ -380,8 +448,16 @@ export default async function OurTeamPage() {
                 existe para abrir o título dos cartões; entre título e texto
                 corrido ele viraria um buraco. O respiro fica no `mt-6` do
                 parágrafo, que já estava certo. */}
+            {/* ⚠️ ERAM 75 ATÉ 17-09 — *"na seção 'Global faculty' trocar 75
+                por 60+ - a faculty of 60+."* O número encolheu e GANHOU UM "+",
+                que é a parte que importa: 75 era uma contagem exata de um
+                documento sem data, e `60+` é um piso que não envelhece a cada
+                entrada e saída de facilitador. O `36 countries` fica — ela não
+                o mencionou aqui, e trocá-lo por conta própria colidiria com a
+                faixa da About, que desde hoje conta por REGIÃO e não por país.
+                ⏳ Alinhar as duas unidades é pergunta para a próxima daily. */}
             <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
-              A faculty of 75 senior practitioners across 36 countries.
+              A faculty of 60+ senior practitioners across 36 countries.
             </h2>
             <p className="mt-6 max-w-[720px] font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
               Our facilitators and coaches come from the behavioural sciences,
@@ -390,201 +466,44 @@ export default async function OurTeamPage() {
               to have sat where our clients sit.
             </p>
 
-            {/* As cinco regiões da About. O mosaico de imagens é HOLD: sem
-                fotografia, os nomes sozinhos, bem compostos, dizem a mesma coisa
-                sem anunciar o que falta.
+            {/* ── A LISTA DE PESSOAS · 17-09 ────────────────────────────
+                *"nessa mesma seção remove the countries cards and change for
+                the people list"*, e a lista chegou no mesmo dia: a tabela do
+                `2. Team/Facilitators for website.docx`, 23 nomes com foto e
+                região. Ela está em `facultyMembers`, em `lib/team.ts`, com a
+                procedência e as três pendências de conteúdo que sobraram.
 
-                NO ESCURO A GRADE INVERTE: os quadros passam a ser do tom do
-                fundo e quem desenha a grade são os vãos de 1px, agora em
-                `white/15`. Manter os quadros brancos sobre `ink` faria cinco
-                blocos de contraste máximo, que puxariam mais atenção que o
-                título da seção — e eles são um índice de regiões, não a
-                mensagem. */}
-            {/* ⚠️ O ÚLTIMO QUADRO ATRAVESSA AS DUAS COLUNAS NO TELEFONE, e isto
-                é correção de um defeito que só o fundo escuro revelou. São
-                CINCO regiões numa grade de DUAS colunas: a quinta deixa meia
-                célula vazia. Enquanto o fundo era claro ninguém via — o vão
-                mostrava `bg-line`, quase da cor dos quadros brancos. No escuro
-                ele mostra `white/15` sobre `ink`, e vira um retângulo cinza
-                claro pendurado ao lado de "India", que lê como quadro que
-                faltou carregar. */}
-            {/* ── O MOSAICO ──────────────────────────────────────────────
-                CARTÕES, E NÃO MAIS UMA GRADE DE FILETES. Refeito em 11-09 sobre
-                uma referência que o Ricardo trouxe (cartões de destino: foto
-                sangrando, cantos arredondados, nome sobre um escurecimento na
-                base). O que ela resolve aqui é real: a versão anterior tinha a
-                imagem em cima e o nome numa barra separada embaixo, dois
-                retângulos por região. Com o nome DENTRO da foto, cada região
-                vira uma peça só — que é o que "mosaic" quer dizer.
+                ⚠️ O QUE SAIU DAQUI ERAM CINCO CARTÕES DE REGIÃO — Americas, UK
+                & Europe, GCC & Middle East, Asia, India —, cada um com a foto
+                de uma cidade, dois escurecimentos medidos e um véu `brand` em
+                `soft-light`. Foram refeitos em 11-09 sobre uma referência de
+                cartão de destino e ajustados de novo em 12-09, quando a seção
+                passou de escura para clara. Nada disso se perdeu: os cinco
+                seguem em `facultyRegions` e o bloco inteiro está no git.
 
-                O QUE DA REFERÊNCIA NÃO VEIO, e nenhum dos três é de gosto:
-                  • O DEGRADÊ COLORIDO POR CARTÃO (verde num, roxo no outro).
-                    É uma cor tirada de cada foto. Aqui o acento é um vermelho
-                    só, e existe decisão de 10-09 de que ele nunca vira área, só
-                    marca. Cinco tons novos desfariam isso de uma vez.
-                  • A LINHA DE NÚMEROS ("1.345 Hotels · 24 Packages"). Não há
-                    dado por região em lugar nenhum: o documento dá 75 e 36 no
-                    total, e reparti-los seria número inventado numa página de
-                    prova.
-                  • O "EXPLORE NOW →". Não há para onde ir. As cinco regiões da
-                    faculty não têm página; as de `/services/regions` são outra
-                    taxonomia (cidades de escritório). Um call to action que não
-                    leva a lugar nenhum é pior que nenhum.
+                E ELES ERAM UM PLACEHOLDER O TEMPO TODO — é o que torna a troca
+                barata em vez de destrutiva. O slot 06 do `CDNA_04_Team.docx`
+                pede, em letra, *"a representative selection or mosaic image per
+                region… HOLD"*, e as cinco fotos que estavam ali vinham de
+                `public/team/mock/`: Miami, Londres, Dubai, Singapura e Jaipur,
+                imagens de CIDADE no lugar de imagens de GENTE. Numa seção
+                chamada Global faculty, cinco fotos de skyline diziam onde a
+                firma tem endereço, não quem entrega o trabalho. A lista de
+                pessoas é o conteúdo que o slot esperava desde o começo.
 
-                SEM `col-span` NO ÚLTIMO, e isso some junto com os filetes. Ele
-                existia porque a quinta região deixava meia célula vazia e o
-                `bg-white/15` do pai aparecia ali como um retângulo pendurado.
-                Com cartões separados por vão, não há fundo de grade para vazar:
-                a célula que sobra simplesmente não existe. */}
-            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
-              {facultyRegions.map((region) => (
-                <div
-                  key={region.name}
-                  className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white"
-                >
-                  {/* ── SLOT 06 ────────────────────────────────────────────
-                      O documento pede, em letra: *"Type: regional mosaic
-                      beneath, five tiles matching the About page regions… HOLD
-                      A representative selection or mosaic image per region.
-                      Slot 06."* HOLD é "content still needed" na convenção dele.
+                ⚠️ A REGIÃO NÃO SE PERDEU NA TROCA, e isso importa porque era o
+                argumento inteiro dos cartões: ela virou a segunda linha de cada
+                pessoa. Em vez de cinco quadros dizendo "atuamos na Ásia", são 23
+                rostos dos quais quatro dizem "Asia Pacific" — a mesma afirmação,
+                com nome e cara por trás.
 
-                      4:5 AGORA, E NÃO 4:3. Com o nome dentro do cartão, a foto
-                      precisa de altura para ter onde o nome cair sem cobrir o
-                      assunto — é a proporção da referência, e a mesma dos
-                      retratos da liderança logo acima, o que faz as duas grades
-                      da página rimarem. */}
-                  {region.image ? (
-                    <Image
-                      src={region.image}
-                      alt={`Corporate DNA faculty — ${region.name}`}
-                      fill
-                      sizes="(min-width: 768px) 20vw, 50vw"
-                      className="object-cover object-center"
-                    />
-                  ) : (
-                    <ImagePlaceholder
-                      /* `light` desde 12-09, junto com a seção: o slot vazio
-                         agora mora sobre `paper`, e o tom escuro do placeholder
-                         foi calibrado para viver sobre `ink`. */
-                      tone="light"
-                      label="Faculty image"
-                      className="absolute inset-0 h-full w-full rounded-2xl"
-                    />
-                  )}
-
-                  {/* ⚠️ OS DOIS ESCURECIMENTOS SÓ EXISTEM COM FOTO, desde
-                      12-09. Eles corriam sempre, e enquanto a seção era escura
-                      ninguém via o efeito no estado vazio. Com ela clara ficou
-                      evidente: sem imagem por baixo, o preto e o vermelho não
-                      tinham o que escurecer e simplesmente sujavam o
-                      placeholder — cada cartão desbotava de cinza-claro no topo
-                      para um marrom no pé, e o rótulo "Faculty image" ficava no
-                      meio da lama. Um slot tem de ler como slot.
-
-                      É o mesmo princípio do botão de compra em `BookCard`: o que
-                      existe para servir a um conteúdo ausente não fica
-                      desenhado à espera dele. */}
-                  {region.image && (
-                    <>
-                      {/* VÉU LEVE SOBRE O CARTÃO INTEIRO, pedido de 12-09 e
-                          também da referência: lá a cor cobre a foto toda, não
-                          só o pé, e é isso que faz os cartões lerem como um
-                          conjunto em vez de cinco fotografias cruas lado a lado.
-
-                          PLANO, e não mais um degradê: os dois que já existem
-                          aqui têm direção (o preto sobe do pé, o vermelho
-                          atravessa); um terceiro com direção brigaria com eles.
-                          O que faltava era exatamente o que não tem direção —
-                          uma camada uniforme que baixa a foto inteira um degrau.
-
-                          22% É LEVE DE PROPÓSITO. O trabalho pesado de
-                          legibilidade é do preto embaixo, que está medido; este
-                          véu é de composição, não de contraste. Passar de ~30%
-                          começa a apagar o assunto das fotos, que é o que os
-                          cinco cartões existem para mostrar. */}
-                      <div aria-hidden className="absolute inset-0 bg-ink/[0.22]" />
-                  {/* O ESCURECIMENTO É NEUTRO E SEMPRE EXISTE, inclusive por
-                          cima do placeholder. Duas razões: o nome precisa de fundo
-                          medido, e a foto que vai entrar é desconhecida — clara ou
-                          escura, o degradê é o que garante que o nome continue
-                          legível sem ter de ajustar cinco vezes quando as imagens
-                          chegarem. `to-transparent` no topo deixa dois terços da
-                          foto respirarem. */}
-                      {/* ALONGADO PARA 3/5 COM RAMPA MAIS SUAVE, 11-09, depois de
-                          ver a grade preenchida. A 1/2 com `via-ink/70` o
-                          escurecimento subia rápido demais e nas fotos claras — céu
-                          de Singapura, fachada rosa de Jaipur — a passagem lia como
-                          uma faixa colada por cima da imagem, e não como sombra.
-                          Mais longo e mais leve no meio, o mesmo preto chega ao
-                          mesmo lugar sem anunciar onde começou. */}
-                      <div
-                        aria-hidden
-                        className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-ink via-ink/55 to-transparent"
-                      />
-                      {/* A COR DA REFERÊNCIA, por cima do neutro e não no lugar
-                          dele. Na referência cada cartão tem um degradê colorido no
-                          pé, e é ele que faz a grade parecer desenhada em vez de
-                          cinco fotos escurecidas iguais.
-
-                          A ORDEM DAS DUAS CAMADAS É O PONTO. O preto embaixo é
-                          quem entrega o contraste do nome, e está medido; a cor vem
-                          depois, fraca, só tingindo. Se fosse a cor a segurar a
-                          legibilidade, o nome passaria a depender de quanto tom tem
-                          naquele pedaço da foto, e cada imagem nova exigiria medir
-                          de novo.
-
-                          `mix-blend-soft-light` E NÃO CAMADA CHAPADA: chapado sobre
-                          foto escura vira véu leitoso e apaga o assunto; soft light
-                          mantém a luminância da imagem e desloca só o matiz. É o
-                          mesmo raciocínio do `multiply` do herói, um degrau mais
-                          suave porque aqui a área é pequena e repetida cinco vezes.
-
-                          ⏳ UMA COR SÓ HOJE (`brand`), e não cinco. O site tem um
-                          acento, e existe decisão de 10-09 de que ele não vira área.
-                          Cinco cores tiradas das fotos é o que a referência faz e é
-                          possível numa linha — o campo `tint` já está em
-                          `FacultyRegion` para isso. Mas isso é decisão de paleta,
-                          não de implementação, e é do cliente. */}
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 mix-blend-soft-light"
-                        style={{
-                          backgroundImage:
-                            region.tint ??
-                            /* A IMAGEM INTEIRA, e não só o pé — pedido de 11-09, e é
-                               o que a referência faz: o tom atravessa o cartão e vai
-                               sumindo para cima, em vez de terminar numa faixa.
-
-                               E MAIS FRACO: a primeira versão usava o `brand` cheio
-                               e o pé dos cinco cartões ficava vermelho de verdade,
-                               que é a área que a decisão de 10-09 evita. Aqui ele
-                               entra a 52% embaixo, cai para 20% no meio e chega a
-                               zero no topo — tinge sem tomar conta.
-
-                               Os três pontos são do MESMO vermelho (#d84339, o
-                               `brand`) em alfas diferentes, e não três cores: o que
-                               varia é quanto dele há, não qual é. */
-                            "linear-gradient(to top, rgba(216,67,57,.52) 0%, rgba(216,67,57,.20) 45%, rgba(216,67,57,0) 100%)",
-                        }}
-                      />
-                    </>
-                  )}
-
-                  {/* ⚠️ O NOME TROCA DE COR COM O ESTADO, e isto é o conserto
-                      de um defeito que só apareceu quando a seção ficou clara em
-                      12-09. Branco é a cor certa SOBRE A FOTO, com os dois
-                      escurecimentos por baixo. Sem foto, os escurecimentos não
-                      existem (ver acima) e branco cairia sobre um placeholder
-                      claro — invisível. */}
-                  <span
-                    className={`absolute inset-x-0 bottom-0 p-5 font-serif text-[18px] font-semibold leading-[1.2] ${
-                      region.image ? "text-white" : "text-ink"
-                    }`}
-                  >
-                    {region.name}
-                  </span>
-                </div>
-              ))}
+                ⏳ GCC E ÍNDIA SUMIRAM DO MAPA DA SEÇÃO, e é consequência do
+                dado, não do desenho: a tabela dela não traz ninguém na Índia, e
+                o Oriente Médio aparece como "Middle East" em duas pessoas. Se a
+                faculty da Índia existe e ficou de fora da planilha, é pergunta
+                para a próxima daily. */}
+            <div className="mt-12">
+              <PeopleRoster people={facultyMembers} />
             </div>
           </div>
         </section>

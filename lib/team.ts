@@ -79,6 +79,30 @@ export type Leader = {
   portraitPosition?: string;
 };
 
+/**
+ * OS SEIS RETRATOS DA LIDERANÇA, EM PRETO E BRANCO DESDE 17-09 — os arquivos
+ * `-bw.jpg`. Isto fecha o *"deixar todas as fotos com greyscale"* da daily: a
+ * faculty e as duas programme managers já estavam dessaturadas (ver a caixa da
+ * `facultyMembers`), e a liderança era a única grade colorida da página.
+ *
+ * ⚠️ A CONVERSÃO É NO ARQUIVO, NÃO EM CSS `filter`, pelo mesmo motivo da
+ * faculty: `filter: grayscale()` custa pintura a cada rolagem e ainda faz a rede
+ * entregar o arquivo COLORIDO para pintá-lo de cinza no cliente. É luminância
+ * simples, mesmas dimensões, sem recorte novo.
+ *
+ * ⚠️ NOME NOVO, E NÃO SOBRESCRITA: o `next/image` serve por URL e já entregou
+ * versão velha neste projeto por causa disso. Os coloridos continuam em
+ * `public/team/` — se ela pedir a cor de volta, é tirar o sufixo aqui.
+ *
+ * ⏳ TRÊS ERAM PNG DE ~2 MB (Mike, Genevieve, Jon-Paul) e viraram JPEG q90 na
+ * mesma passada: 6,8 MB de retratos caíram para 1,1 MB. Nenhum tinha
+ * transparência — conferido antes, e é o que torna a troca de formato segura.
+ *
+ * ⏳ ELES AINDA SÃO PROVISÓRIOS. A cliente ficou de REFAZER os retratos da
+ * liderança (a Rhea reprovou os do Mike e da Jen), e a Maliha falou em testar
+ * preto e branco "em todas, para consistência". Quando os novos chegarem, já
+ * chegam assim e estes seis arquivos saem.
+ */
 export const leaders: Leader[] = [
   {
     name: "Rhea Leckie",
@@ -108,7 +132,7 @@ export const leaders: Leader[] = [
        adianta: o `/_next/image` responde com cache longo e a URL é a mesma, então
        navegador (e o cache do dev server) continuam servindo os bytes velhos.
        Nome novo = URL nova = fim do problema. Vale para a próxima troca de foto. */
-    portrait: "/team/rhea-leckie-4x5.jpg",
+    portrait: "/team/rhea-leckie-4x5-bw.jpg",
   },
   {
     name: "Guilherme Mendes",
@@ -123,7 +147,7 @@ export const leaders: Leader[] = [
        e num quadro 4:5 ele saía encostado na borda. O corte é 870×1088 a partir
        de x=0, que põe o rosto no meio. Continua sendo a foto ANTIGA: a oficial
        dele é uma das duas que a Maliha anunciou para 10-09 e ainda não chegaram. */
-    portrait: "/team/guilherme-mendes.jpg",
+    portrait: "/team/guilherme-mendes-bw.jpg",
   },
   {
     name: "Mike Jackson",
@@ -132,7 +156,7 @@ export const leaders: Leader[] = [
     region: "UK",
     quote:
       "After years in senior rooms, I’ve learned to listen as closely to what isn’t being said as to what is. That’s often where the real work is.",
-    portrait: "/team/mike-jackson.png",
+    portrait: "/team/mike-jackson-bw.jpg",
   },
   {
     name: "Genevieve James",
@@ -142,7 +166,7 @@ export const leaders: Leader[] = [
     region: "Australia",
     quote:
       "Some of the most important moments in my work have started with a room going quiet and tension rising. If you can hold that moment and give it language, rather than rescue it, something more honest usually emerges.",
-    portrait: "/team/genevieve-james.png",
+    portrait: "/team/genevieve-james-bw.jpg",
     /* DESCE 27px NO QUADRO, medido em 11-09 e não estimado. O arquivo dela é
        1024×1536 (2:3), o mais alto dos cinco, contra um quadro 4:5 — então o
        `object-cover` escala pela largura e sobram ~108px de altura para cortar.
@@ -165,7 +189,7 @@ export const leaders: Leader[] = [
     region: "Asia",
     quote:
       "When smart people keep repeating a pattern they say they want to change, I look for the commitment underneath it. Surface that, and resistance starts to make sense.",
-    portrait: "/team/jon-paul-pritchard.png",
+    portrait: "/team/jon-paul-pritchard-bw.jpg",
   },
   {
     name: "Nitin Goil",
@@ -179,7 +203,7 @@ export const leaders: Leader[] = [
        praticamente o 4:5 do quadro — o `cover` corta 39px de altura, tirados de
        BAIXO (`position: top`) porque a margem acima da cabeça já é a certa e é
        o ombro que sobra. Normalizado para 1024x1280 como os outros. */
-    portrait: "/team/nitin-goil.jpg",
+    portrait: "/team/nitin-goil-bw.jpg",
   },
 ];
 
@@ -384,4 +408,122 @@ export const dnaStrands = [
     title: "Inclusion & Diversity",
     body: "Our best-in-class people are full of great character and personality, representing a range of backgrounds in the behavioural sciences and business; coming from different markets around the world, and representing a wide range of social identities.",
   },
+];
+
+/* ============================================================================
+ * BLOCO NOVO · 17-09 — as pessoas que faltavam na página
+ * ============================================================================
+ *
+ * Dois pedidos da daily, e os dois são a MESMA forma: uma grade de retrato +
+ * nome. Vivem juntos aqui porque o componente que os desenha é um só
+ * (`components/team/PeopleRoster.tsx`) e porque as duas listas vieram no mesmo
+ * pacote da cliente.
+ *
+ *   1. *"embaixo da seção 'Leadership' criar uma nova parte que vai ser
+ *      'supported by our senior programme managers' e vai ter uma lista de
+ *      pessoas com fotos e nomes"* — duas pessoas, retratos entregues soltos.
+ *   2. *"na seção 'Global faculty' remove the countries cards and change for
+ *      the people list"* — 23 pessoas, vindas de uma TABELA dentro do
+ *      `2. Team/Facilitators for website.docx`.
+ *
+ * ⚠️ OS RETRATOS FORAM EXTRAÍDOS DO .DOCX, um por linha da tabela, e passaram
+ * por três tratamentos antes de virar arquivo em `public/team/faculty/`:
+ *
+ *   • DESSATURADOS. Vinte dos 23 já chegaram em preto e branco; três não
+ *     (Michele Perry, Amy Scialdone, Lisa Kaplin). Numa grade de 23 rostos, três
+ *     coloridos no meio não leem como variedade, leem como erro. A conversão é
+ *     no ARQUIVO e não em CSS `filter`: filtro custa pintura a cada scroll e
+ *     ainda entrega o arquivo colorido pela rede. Isto adiantou metade do
+ *     *"deixar todas as fotos com greyscale"* da mesma daily; a outra metade —
+ *     os seis retratos da liderança — foi feita em 17-09, pelo mesmo caminho.
+ *     Ver a caixa da `leaders`.
+ *   • RECORTADOS EM 3:4 pelo detector de saliência do `sharp`, que mira
+ *     contraste. ⚠️ DUAS ELE ERROU, e erra pelo mesmo motivo nas duas: o
+ *     contraste da foto está no CARTAZ atrás da pessoa. Sunanda Banerjee posa
+ *     diante de um banner de evento e Wouter van den Berg fala num palco com o
+ *     letreiro da Harvard Business Review atrás — as duas levaram recorte à mão,
+ *     anotado no script. Se os arquivos forem reprocessados, são essas duas a
+ *     conferir primeiro.
+ *   • TOM CROSS VEIO DEITADO 90° no documento, com a cabeça apontando para a
+ *     margem esquerda. Rodado em sentido horário.
+ *
+ * ⏳ TRÊS RETRATOS SÃO PEQUENOS DEMAIS e não há o que fazer daqui: Sandro da
+ * Silva (190x190 no original), Amy Scialdone (239x201) e Lisa Kaplin (199x196).
+ * Saem em ~150px de largura, contra os 520 dos bons, e num monitor retina eles
+ * amaciam. Não foram ampliados de propósito — ampliar assa o borrão no arquivo.
+ * É pedido de original para a cliente, e é barato.
+ */
+
+export type RosterPerson = {
+  name: string;
+  /** A linha de baixo: cargo nos programme managers, região na faculty. */
+  meta?: string;
+  portrait: string;
+};
+
+/**
+ * ⚠️ O CARGO NÃO VEIO ESCRITO. A cliente mandou os dois retratos e a frase da
+ * seção, e nada mais — não há documento dizendo o título de cada uma. O `meta`
+ * fica vazio de propósito: inventar "Senior Programme Manager" para as duas
+ * seria escrever cargo de pessoa real por dedução, e a frase da seção já diz o
+ * que elas são. Quando o cargo chegar, é uma linha por pessoa.
+ */
+export const programmeManagers: RosterPerson[] = [
+  { name: "Maliha Bathool", portrait: "/team/programme-managers/maliha-bathool.jpg" },
+  { name: "Carol Medcalf", portrait: "/team/programme-managers/carol-medcalf.jpg" },
+];
+
+/**
+ * Os 23 da tabela do `Facilitators for website.docx`, na ordem em que ela os
+ * escreveu — não alfabética, não por região. Ordem de documento é a única que
+ * não exige uma decisão nossa sobre quem vem primeiro.
+ *
+ * ⚠️ AS REGIÕES FORAM TRADUZIDAS DOS CÓDIGOS INTERNOS dela: AMS → Americas,
+ * EUR → Europe, UKEE → UK & Europe, ME → Middle East, APAC → Asia Pacific,
+ * "APAC - Aust" → Australia, AFRICA → Africa. O site não fala em sigla de
+ * organograma, e "AMS" numa página pública não diz nada a ninguém de fora.
+ *
+ * ⏳ TRÊS COISAS DA TABELA PRECISAM DELA, e nenhuma é impeditiva para publicar:
+ *
+ *   1. "TONY" NÃO TEM SOBRENOME. A célula diz só "Tony" e o link de bio é
+ *      `CDNA Profile - Australia_Tony.pptx`. Sai como está porque inventar
+ *      sobrenome é pior — mas um nome solto no meio de 22 nomes completos lê
+ *      como campo que ficou por preencher.
+ *   2. A CÉLULA DO TOM CROSS TEM UM COMENTÁRIO DENTRO, não uma região:
+ *      "UKEE is there a reason we are not using EUR for Europe? UKEE is not
+ *      commonly used here?" É alguém do lado dela questionando a nomenclatura.
+ *      Lido como UKEE, que é o código que a própria CDNA usa (o Mike Jackson é
+ *      "Head of UKEE"), e portanto UK & Europe.
+ *   3. O BRET FREEMAN ESTÁ EM DÚVIDA NA PRÓPRIA TABELA: "UK (though was listed
+ *      as ME?)". Fica UK & Europe, que é a afirmação; o "?" é a pergunta dela.
+ *
+ * ⚠️ UKEE E EUR CONVIVEM AQUI, e é o documento que os separa — dezesseis pessoas
+ * estão em "EUR" e duas em "UKEE"/"UK". Traduzidos, viram "Europe" e "UK &
+ * Europe" lado a lado na mesma grade, que é exatamente a inconsistência que o
+ * comentário da célula do Tom Cross levanta. Unificar os dois é decisão DELA.
+ */
+export const facultyMembers: RosterPerson[] = [
+  { name: "Tom Cross", meta: "UK & Europe", portrait: "/team/faculty/tom-cross.jpg" },
+  { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty/justin-bridge.jpg" },
+  { name: "Daniela Rusu", meta: "Europe", portrait: "/team/faculty/daniela-rusu.jpg" },
+  { name: "Jojo O’Driscoll-Kearney", meta: "Middle East", portrait: "/team/faculty/jojo-odriscoll-kearney.jpg" },
+  { name: "Rachel Monteverdi", meta: "Americas", portrait: "/team/faculty/rachel-monteverdi.jpg" },
+  { name: "Michele Perry", meta: "Americas", portrait: "/team/faculty/michele-perry.jpg" },
+  { name: "Seow Swang Chua", meta: "Asia Pacific", portrait: "/team/faculty/seow-swang-chua.jpg" },
+  { name: "Marisa Chuawiwat", meta: "Asia Pacific", portrait: "/team/faculty/marisa-chuawiwat.jpg" },
+  { name: "Akua Nyame-Mensah", meta: "Africa", portrait: "/team/faculty/akua-nyame-mensah.jpg" },
+  { name: "Angela Gachui", meta: "Africa", portrait: "/team/faculty/angela-gachui.jpg" },
+  { name: "Sharon Lim", meta: "Asia Pacific", portrait: "/team/faculty/sharon-lim.jpg" },
+  { name: "Sunanda Banerjee", meta: "Asia Pacific", portrait: "/team/faculty/sunanda-banerjee.jpg" },
+  { name: "Tony", meta: "Australia", portrait: "/team/faculty/tony.jpg" },
+  { name: "Sandro da Silva", meta: "Europe", portrait: "/team/faculty/sandro-da-silva.jpg" },
+  { name: "Wouter van den Berg", meta: "Europe", portrait: "/team/faculty/wouter-van-den-berg.jpg" },
+  { name: "Manuela Damant", meta: "Europe", portrait: "/team/faculty/manuela-damant.jpg" },
+  { name: "Rob Grundel", meta: "Australia", portrait: "/team/faculty/rob-grundel.jpg" },
+  { name: "Amy Scialdone", meta: "Americas", portrait: "/team/faculty/amy-scialdone.jpg" },
+  { name: "Lisa Kaplin", meta: "Americas", portrait: "/team/faculty/lisa-kaplin.jpg" },
+  { name: "Gemma McFall", meta: "Middle East", portrait: "/team/faculty/gemma-mcfall.jpg" },
+  { name: "Bret Freeman", meta: "UK & Europe", portrait: "/team/faculty/bret-freeman.jpg" },
+  { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
+  { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
 ];
