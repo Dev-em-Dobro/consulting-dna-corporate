@@ -1,218 +1,145 @@
-import Image, { type StaticImageData } from "next/image";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
 
 /**
- * Um bloco de conteúdo do template de serviço: rótulo, título e texto de um
- * lado, imagem do outro — e a imagem SANGRA para fora da tela.
+ * Os dois primeiros blocos do template de serviço — Impact e How we help.
+ * Rótulo em cima; embaixo, MANCHETE À ESQUERDA, fio vertical, CORPO À DIREITA.
  *
- * DE ONDE VEM O TRATAMENTO. Da Explore Performance
- * (`/what-we-do/charting-your-future/`), que a Rhea aprovou como referência e o
- * cliente usa como régua. Lá a página inteira é feita de blocos assim,
- * alternando o lado da imagem a cada seção. Três coisas fazem o trabalho:
+ * ============================================================================
+ * ⚠️ REESCRITO EM 17-09. O QUE ESTAVA AQUI ERA OUTRO OBJETO
+ * ============================================================================
  *
- *   1. A IMAGEM NUNCA É UM RETÂNGULO CONTIDO. Ela é cortada pela borda da
- *      janela, não por um container. É o que dá o ritmo — sem isso a página
- *      vira uma pilha de cards.
- *   2. O LADO ALTERNA. Imagem à esquerda num bloco, à direita no seguinte.
- *   3. O TEXTO OCUPA MEIA TELA, com medida curta. Não é coluna centrada.
+ * Pedido: *"só modifique a primeira parte que tem o 'impact' e 'How we help',
+ * essas seções precisam ficar exatamente igual como está no layout"*, contra
+ * `4. Services/ExCo Leadership Services Page.png`.
  *
- * ⚠️ O OUTLINE DE SERVICES NÃO DEU DIREÇÃO VISUAL. A seção 3.2 fixa os seis
- * blocos e a ordem deles, e é só isso: das três pastas que a Maliha mandou em
- * 09-09, Services é a única sem uma imagem sequer — Approach veio com mockup de
- * página inteira, Team veio com retratos. Então a ordem é dela e o desenho é
- * nosso, o que também quer dizer que isto aqui ainda não foi visto por ela.
+ * O QUE SAIU, e vale saber porque foi construído com cuidado e defendido três
+ * vezes: cada bloco era uma faixa de meia tela dividida em 44% / 56%. Nos 44%
+ * ficava um CAMPO DE COR cheio (`brand` no Impact, `ink` no How we help) com o
+ * rótulo em serifa de 48px ancorado no pé; nos 56%, o parágrafo em serifa de
+ * 25px. O arranjo vinha da Explore Performance, que a Rhea aprovou como
+ * referência, e o campo de cor era a resposta a uma armadilha que voltou três
+ * vezes: foto de cliente insinua relação que não se prova, foto genérica
+ * repetida nas dez lê como falta de material, e ilustração gerada data. Campo de
+ * cor com tipografia não tinha nenhum dos três.
  *
- * ⚠️ HOJE O PAINEL NÃO TEM FOTO NENHUMA, e isso é decisão de 12-09: ele é um
- * campo de cor com o nome do bloco em corpo grande. Não existe fotografia por
- * serviço, e o material que existe (`docs/Content.zip`, lote de 11/06) é quase
- * todo em sede de cliente com a marca deles na parede — usar aquilo como
- * ilustração genérica insinuaria uma relação que a foto não prova, além de
- * expor cliente sem consentimento. O herói usa a única foto do lote sem marca
- * visível. Passar `image` é a única edição quando material próprio chegar.
+ * ⚠️ O TEMPLATE DELA NÃO TEM NADA DISSO. Os dois blocos são faixas claras, sem
+ * painel, sem imagem e sem slot para uma. Toda a decisão de cor acima — qual
+ * painel é `brand`, qual é `ink`, e a regra de que painel nenhum pode antecipar
+ * a faixa seguinte — deixou de existir junto com os painéis. Está no git.
+ *
+ * ⚠️ A PROP `image` FOI EMBORA COM ELES, e não foi esquecimento. Ela existia
+ * para o dia em que houvesse fotografia POR SERVIÇO, e o painel trocaria de
+ * conteúdo sem mudar de medida. No arranjo novo não há onde uma imagem entrar —
+ * manter a prop seria prometer um slot que o componente não tem. As props
+ * `side`, `panelTone`, `imageAlt` e `imagePosition` saíram pelo mesmo motivo:
+ * todas descreviam o painel.
+ *
+ * ============================================================================
+ * DUAS COISAS DO TEMPLATE QUE NÃO FORAM COPIADAS, E POR QUÊ
+ * ============================================================================
+ *
+ * O pedido foi "exatamente igual", e o arranjo é exatamente igual. Duas
+ * propriedades de SUPERFÍCIE não foram, e as duas pelo mesmo motivo — o template
+ * é do desenho ANTERIOR do site, e copiá-las deixaria estes dois blocos falando
+ * uma língua que nenhum outro bloco da mesma página fala:
+ *
+ *   • A TIPOGRAFIA. O template inteiro é grotesca (a Poppins do desenho antigo),
+ *     manchete e corpo. O site adotou a grade editorial em 09-09 — grotesca só
+ *     em rótulo, serifa em manchete e texto —, e é nela que estão o h2 da
+ *     evidência, o da /about e o da /team. Copiar a grotesca aqui poria duas
+ *     famílias na mesma rolagem.
+ *   • A COR DO RÓTULO. No template os rótulos de seção são cinza neutro. No site
+ *     eles são vermelhos, e na PRÓPRIA página de serviço os de "Evidence",
+ *     "Testimonial" e "Related services" já são. Cinza aqui e vermelho três
+ *     blocos abaixo seria incoerência dentro de uma tela.
+ *
+ * As duas são de uma linha cada, se ela preferir o template à letra.
  */
 export default function SolutionSection({
   label,
+  headline,
   html,
-  side,
   tone = "white",
-  image,
-  imageAlt = "",
-  imagePosition = "object-center",
-  panelTone = "ink",
 }: {
+  /** "Impact" / "How we help" — o rótulo pequeno no alto da faixa. */
   label: string;
+  /**
+   * A frase grande da coluna esquerda. Vem sempre resolvida por `headlineOr`,
+   * em `lib/services.ts`, que põe o placeholder quando a cliente ainda não
+   * escreveu a frase daquele serviço — hoje, nove dos dez.
+   */
+  headline: string;
+  /** O corpo, em HTML já processado (o `**negrito**` da planilha dela). */
   html: string;
-  /** Lado da IMAGEM. O texto vai para o lado oposto. */
-  side: "left" | "right";
+  /**
+   * ⚠️ OS DOIS TONS FICARAM COMO ESTAVAM: `white` no Impact, `paper` no How we
+   * help. Não é inércia — é o que o template mostra. Lá o Impact é uma faixa um
+   * degrau mais escura que o herói e o How we help divide a MESMA faixa com os
+   * cinco pilares logo abaixo, sem emenda entre os dois. Como os pilares já são
+   * `paper` e o pedido foi para não tocar neles, `paper` aqui é o que mantém a
+   * emenda invisível. Trocar para branco abriria uma divisa onde o template não
+   * tem nenhuma.
+   */
   tone?: "white" | "paper";
-  /**
-   * A foto do bloco. Sem ela, cai no slot tracejado.
-   *
-   * ⚠️ AS QUE ESTÃO EM USO SÃO DE EXEMPLO, não escolha editorial: saíram do
-   * acervo `public/dna-time/`, que é material próprio da CDNA já publicado no
-   * site (o PhotoCarousel usa o mesmo lote). Vale registrar o que foi
-   * DESCARTADO e por quê, porque a mesma armadilha vai reaparecer quando
-   * alguém for trocar estas: quase todo o acervo tem marca de terceiro à vista
-   * — Frasers Property e ShenMei nas paredes do lote de 11/06, IMD nos cordões
-   * e no prédio, YPO chapado como faixa na própria imagem. Usar aquilo como
-   * ilustração genérica insinua uma relação que a foto não prova.
-   */
-  image?: StaticImageData;
-  /** Vazio quando a foto é decorativa — o texto ao lado já diz o que ela mostra. */
-  imageAlt?: string;
-  /**
-   * `object-position` do painel, em classe do Tailwind.
-   *
-   * EXISTE PORQUE O PAINEL É ALTO E ESTREITO: 44% de largura por uma tela de
-   * altura é um retrato, e `object-cover` sobre um arquivo apaisado joga fora
-   * as laterais. Onde a imagem é recortada deixa de ser detalhe — com o padrão
-   * `object-center`, uma foto cujo assunto está em cima ou embaixo simplesmente
-   * some. Cada bloco escolhe o seu.
-   */
-  imagePosition?: string;
-  /**
-   * A cor do painel quando NÃO há foto. Ignorado quando há.
-   *
-   * ⚠️ NÃO É ESCOLHA LIVRE, é ritmo de página. A página de serviço abre no herói
-   * `bg-ink`, tem a evidência em `bg-ink` e fecha em `bg-brand` (o
-   * `SolutionCta`). Dois painéis da mesma cor aqui ou anulam a diferença entre
-   * os blocos, ou antecipam uma faixa que vem depois.
-   *
-   * ⚠️ A DISTRIBUIÇÃO DE HOJE É `brand` NO IMPACT E `ink` NO HOW WE HELP — o
-   * INVERSO do que esta caixa dizia até 16-09, e o inverso importa porque a
-   * frase antiga ("o Outcome vai de `ink` e o How We Help de `brand`") já estava
-   * falsa desde 15-09. O vermelho fica no primeiro painel porque o segundo
-   * encosta no herói escuro se for `ink`; o escuro fica no segundo porque de lá
-   * ele ainda tem os pilares (`paper`) entre si e a faixa escura da evidência. O
-   * raciocínio completo, com a sequência de fundos inteira e a alternativa
-   * descartada, está na caixa do bloco Impact em `SolutionView`.
-   */
-  panelTone?: "ink" | "brand";
 }) {
-  const imageLeft = side === "left";
-
-  /* ⚠️ O ARRANJO COM FOTO MUDOU EM 12-09 — é a variação 10 de `/service-tests`,
-     escolhida depois de dez tratamentos postos lado a lado. O que ela tem, e
-     por que cada peça está aqui:
-
-     UMA TELA CHEIA POR BLOCO (`lg:min-h-svh`). Antes eram 440px de altura
-     mínima e os dois blocos cabiam quase juntos numa rolagem, o que os fazia
-     ler como uma pilha. Com uma tela cada, a troca de bloco é a própria
-     rolagem. `svh` e não `vh` pela mesma razão do herói: no telefone `100vh`
-     conta a tela COM a barra de endereço retraída e a base fica escondida.
-
-     A ALTURA VAI NO CONTAINER INTERNO, não na `<section>`. É ele que carrega o
-     `items-stretch`, então é dele que o painel de imagem herda "ocupe a altura
-     toda"; posta na seção, a foto ficaria com a altura do parágrafo.
-
-     56/44 E NÃO 50/50. Meia tela para um parágrafo de quatro linhas deixava a
-     coluna curta e a foto larga demais; com 56% o texto respira e a imagem
-     continua sendo metade da composição.
-
-     O QUE FOI TESTADO E DESCARTADO, para ninguém refazer: um corte DIAGONAL na
-     borda interna do painel (variação 9). O ângulo não era o problema — o
-     problema é que em cima e embaixo o corte seguia reto, então entre um bloco
-     e outro passava uma linha horizontal que fatiava as duas diagonais pela
-     metade. Movê-la para a emenda entre as seções resolvia, mas com tela cheia
-     ela deixou de ter função: o que a diagonal dizia era onde um bloco acaba e
-     o outro começa, e a altura já diz isso sozinha.
-
-     ⚠️ SÓ DE `lg` PARA CIMA. Empilhado no telefone, duas telas cheias viram
-     quatro, e o visitante rola quatro telas para ler dois parágrafos.
-
-     ⚠️ 55svh DESDE 16-09, e era 78. O template de serviço que ela mandou mostra
-     a página inteira em pouco mais de uma tela e meia, e com 78svh cada um
-     destes dois blocos comia quase uma tela sozinho. O rótulo desceu junto (68
-     → 48px) porque em painel mais baixo ele encostava nas bordas. */
   return (
     <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
-      {/* ⚠️ CONTIDO EM 1440, NÃO EM SANGRIA TOTAL — mudado em 10-09 a pedido.
-          A Explore, que é a referência de arranjo, deixa a foto ser cortada pela
-          borda da JANELA. Aqui ela para no mesmo `max-w-[1440px]` de todos os
-          outros blocos do site, e é a decisão certa por consistência: a /about
-          fez exatamente esta troca em 09-09, quando o cliente pediu o contrário
-          da Explore ("a foto fica CONTIDA no mesmo max-w-[1440px], inclusive em
-          telas maiores que isso"). Duas páginas com regra oposta de sangria
-          seriam dois sites.
+      {/* A FAIXA ENCOLHEU. Cada bloco era `lg:min-h-[55svh]` porque o campo de
+          cor precisava de altura para o rótulo de 48px respirar. Sem painel, a
+          altura passa a ser a do conteúdo mais o respiro padrão de seção
+          (`py-20 / md:py-24`), que é o de todas as outras faixas do site — e é
+          o que aproxima a página da proporção do template, onde os dois blocos
+          juntos ocupam cerca de um quinto da altura total. */}
+      <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+        {/* O rótulo vermelho de 14px, o mesmo objeto de "Evidence" três blocos
+            abaixo — ver a caixa no topo do arquivo sobre o cinza do template. */}
+        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+          {label}
+        </p>
 
-          `lg:flex` e não `grid`: as duas colunas precisam ter a mesma altura e
-          encostar uma na outra, e é mais simples com duas caixas.
+        {/* ⚠️ AS PROPORÇÕES SÃO AS DO TEMPLATE, MEDIDAS NELE e convertidas, não
+            estimadas. No arquivo de 1024px de largura a coluna da manchete ocupa
+            372px e a do corpo 464px, com o fio vertical entre elas — ou seja
+            44,5% contra 55,5% do conteúdo. `[1fr_1.25fr]` dá 44,4% / 55,6%.
 
-          `lg` e não `md`: em tablet retrato (768) meia largura dá 384px para o
-          texto, e a medida fica curta demais — três a quatro palavras por linha.
-          Até `lg` os dois empilham, imagem em cima. */}
-      <div
-        className={`mx-auto flex max-w-[1440px] flex-col lg:items-stretch ${image ? "lg:min-h-svh" : "lg:min-h-[55svh]"}  ${
-          imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"
-        }`}
-      >
-        {/* O PAINEL — foto quando existe uma, CAMPO DE COR quando não existe.
-            É o mesmo lugar e a mesma medida nos dois casos, e é isso que faz o
-            dia da troca ser uma linha.
+            OS DOIS RESPIROS AO REDOR DO FIO SÃO DESIGUAIS NO TEMPLATE — 29px
+            antes, 52px depois, o que a 1440 vira ~41 e ~73. Daí `lg:pr-10` (40)
+            de um lado e `lg:pl-16` (64) do outro em vez de um `gap` simétrico: a
+            assimetria é o que puxa o corpo para longe do fio e deixa a manchete
+            quase encostada nele, que é o que se vê no desenho.
 
-            ⚠️ SEM FOTO NÃO É SLOT VAZIO NEM PLACEHOLDER TRACEJADO. A página é
-            de venda e vai ao ar assim; caixa tracejada anuncia obra inacabada
-            para quem nunca vai saber o que deveria estar ali. O campo cheio com
-            o nome do bloco em corpo grande é uma composição ACABADA que por
-            acaso não tem foto — e continua sendo, se foto nenhuma chegar.
+            ⚠️ O FIO É `border-l` NA COLUNA DA DIREITA, e não um elemento próprio.
+            Um `<div>` de 1px precisaria de altura — e a altura certa é a da
+            coluna mais alta, que muda com o texto. Como borda, ele acompanha
+            sozinho, e some junto com o `lg:` quando as colunas empilham.
 
-            POR QUE O RÓTULO MUDA DE LADO. Ele era uma linha de 14px no alto da
-            coluna de texto. Aqui vira o assunto do painel, em serifa grande, e
-            SAI da coluna de texto — dizer duas vezes, uma pequena e outra
-            grande, seria a mesma palavra competindo consigo. O parágrafo fica
-            sozinho do outro lado, que é o que ele precisa.
+            EMPILHA ABAIXO DE `lg` porque a manchete é longa: a 768px, metade da
+            largura dá ~330px e a frase do Top 150 quebraria em seis linhas. */}
+        <div className="mt-8 grid gap-y-6 md:mt-10 lg:grid-cols-[1fr_1.25fr] lg:gap-y-0">
+          {/* `h2` E NÃO `p`: esta é a manchete do bloco, e é ela que estrutura a
+              página para quem navega por cabeçalhos. O rótulo acima é rótulo, não
+              título — por isso ficou como `<p>`. */}
+          <h2 className="font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[34px] lg:pr-10 lg:text-[38px]">
+            {headline}
+          </h2>
 
-            NO PÉ E NÃO CENTRADO: o campo é alto, e texto no meio de um retângulo
-            colorido lê como placa. Ancorado embaixo, o vazio acima vira margem
-            deliberada — é a composição da referência do Prisma, onde o tipo
-            grande mora no rodapé da imagem. */}
-        <div
-          className={`relative flex min-h-[280px] items-end lg:min-h-0 lg:w-[44%] ${
-            image ? "" : panelTone === "brand" ? "bg-brand" : "bg-ink"
-          }`}
-        >
-          {image ? (
-            <Image
-              src={image}
-              alt={imageAlt}
-              aria-hidden={imageAlt ? undefined : true}
-              fill
-              sizes="(min-width: 1024px) 44vw, 100vw"
-              className={`object-cover ${imagePosition}`}
-            />
-          ) : (
-            <p className="font-serif px-6 pb-12 pt-16 text-[38px] font-semibold leading-[1.02] tracking-[-1px] text-white md:px-10 md:text-[58px] lg:pb-16 lg:text-[48px]">
-              {label}
-            </p>
-          )}
-        </div>
+          <div className="lg:border-l lg:border-line lg:pl-16">
+            {/* O CORPO ENCOLHEU DE 21/25px PARA 17/18px, e é o que o template
+                pede: lá a manchete é o dobro do corpo, e no arranjo antigo o
+                parágrafo era quase do tamanho de um título porque não havia
+                manchete nenhuma para hierarquizar contra. Agora há.
 
-        {/* O PADDING ASSIMÉTRICO alinha o texto com o resto da página: o lado
-            que encosta na borda externa leva os mesmos `px-6/md:px-10` do herói
-            e do rodapé, e o lado que encosta na imagem leva um respiro maior,
-            para o texto não colar na foto. */}
-        <div
-          className={`flex items-center px-6 py-16 md:px-10 lg:w-[56%] lg:py-28 ${
-            imageLeft ? "lg:pl-16 xl:pl-24" : "lg:pr-16 xl:pr-24"
-          }`}
-        >
-          <div className="max-w-[560px]">
-            {/* A RÉGUA DE 36×2 ABRE A COLUNA agora que o rótulo saiu daqui. Ela
-                é a mesma do rótulo do herói, e sem ela o parágrafo começaria no
-                nada: num bloco de uma tela, um texto solto no meio do branco não
-                tem onde encostar. Dois traços iguais na mesma tela — este e o do
-                herói — é o que faz os blocos lerem como uma família. */}
-            <span className="block h-0.5 w-9 bg-brand" />
-            {/* `font-serif` no corpo — é o par da grade editorial: grotesca no
-                rótulo, serifa no texto. Ver `lib/fonts.ts`. */}
+                Esta é a mesma medida do corpo de texto do resto do site — o
+                parágrafo da evidência, os da /about —, então a página inteira
+                passa a ler no mesmo corpo. */}
             <RichText
               html={html}
-              className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]"
+              className="font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]"
             />
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

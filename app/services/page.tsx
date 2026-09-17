@@ -44,6 +44,23 @@ export async function generateMetadata(): Promise<Metadata> {
  * a última fileira com um par, não com um órfão. O que se paga é a medida: ver
  * a caixa na própria grade.
  */
+/**
+ * As cinco marcas parceiras, na faixa escura do bloco de Partners. Os arquivos
+ * em `public/logos/partners/` são DERIVADOS dos que a cliente mandou na pasta
+ * `4. Services` do Drive — o que foi feito em cada um está na caixa do bloco.
+ *
+ * A ALTURA É POR MARCA e vive aqui, junto do arquivo a que se refere, em vez de
+ * solta no JSX: são cinco pares arquivo+altura, e separá-los é como um deles
+ * passa a apontar para a altura do vizinho na primeira reordenação.
+ */
+const PARTNER_LOGOS = [
+  { src: "/logos/partners/clo100.png", alt: "CLO100", className: "h-[34px] md:h-[40px]" },
+  { src: "/logos/partners/ypo.png", alt: "YPO", className: "h-[34px] md:h-[40px]" },
+  { src: "/logos/partners/explore-performance.png", alt: "Explore Performance", className: "h-[26px] md:h-[30px]" },
+  { src: "/logos/partners/imperial-college-london.png", alt: "Imperial College London", className: "h-[50px] md:h-[58px]" },
+  { src: "/logos/partners/harvard-business-impact.png", alt: "Harvard Business Impact", className: "h-[50px] md:h-[58px]" },
+];
+
 export default function SolutionsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -176,56 +193,147 @@ export default function SolutionsPage() {
             aprovação da CDNA, não mudança de código. Se voltar, que volte pelo
             mesmo caminho por onde entrou na home. */}
         <section className="bg-white">
-          <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-20 md:grid-cols-[1fr_1.4fr] md:gap-16 md:px-10 md:py-24">
+          {/* ⚠️ ESTE BLOCO MUDOU DE ARRANJO DUAS VEZES EM 17-09, e o registro das
+              duas fica porque a segunda só se entende contra a primeira:
+
+                1. Nasceu em DUAS COLUNAS com o título e as marcas à ESQUERDA e o
+                   texto à direita (`md:grid-cols-[1fr_1.4fr]`), que é o que o
+                   outline desenhava.
+                2. Foi para EMPILHADO a pedido — *"vamos colocar o titulo, texto
+                   e logos um embaixo do outro"*.
+                3. E voltou a duas colunas, MAS ESPELHADO: *"tenta colocar os
+                   logos na direita, e o texto na esquerda"*. É o arranjo de hoje.
+
+              O que o passo 2 deixou de herança, e por isso não foi trabalho
+              perdido: o TÍTULO FICOU COM O TEXTO. No arranjo original ele morava
+              com as marcas, do outro lado da página do parágrafo que ele
+              introduz. Agora rótulo, título e texto são uma coluna só, e as
+              marcas são a outra — que é a divisão que o conteúdo pede.
+
+              ⚠️ A MEDIDA DO TEXTO É A COLUNA, e não um `max-w` escrito à mão. A
+              versão empilhada precisava de `max-w-[720px]` porque a linha inteira
+              tinha 1360px; aqui o grid já entrega ~694px. Um `max-w` além disso
+              seria um número que não faz nada hoje e mente amanhã, quando a
+              proporção das colunas mudar.
+
+              `items-center` ALINHA O PAINEL AO MEIO DO TEXTO. Os dois blocos têm
+              alturas parecidas (~300px o texto, ~270px o painel), então centrado
+              eles leem como um par; encostados no topo, a diferença viraria um
+              degrau visível no pé da direita. */}
+          <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-16 md:px-10 md:py-24">
             <div>
               <TypeLabel>Partners</TypeLabel>
-              <h2 className="font-serif mt-5 max-w-[420px] text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[34px]">
+              <h2 className="font-serif mt-5 text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[34px]">
                 The work is ours. The partners are chosen.
               </h2>
-              {/* AS DUAS MARCAS, sob o título e na coluna da esquerda, que é
-                  onde o outline as põe.
 
-                  ALTURA IGUAL, LARGURA LIVRE (`h-14 w-auto`) e não uma caixa
-                  quadrada para as duas: o brasão do Imperial é quase 1:1 e o
-                  escudo da Harvard é 0,9:1, então encaixotar as duas no mesmo
-                  quadro deixaria uma flutuando no meio de vazio. Altura comum é
-                  o que faz duas marcas de desenho diferente lerem como par.
-
-                  ⚠️ SEM `next/image`. São PNG com transparência, servidos no
-                  tamanho em que aparecem (14rem de altura contra 400px de
-                  arquivo, ou seja já há 3,5x de folga para telas densas), e o
-                  `/_next/image` não tem o que otimizar num logo de 54KB — só
-                  acrescentaria uma requisição de transformação. Mesmo critério
-                  do mural de clientes. */}
-              {/* eslint-disable @next/next/no-img-element */}
-              <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
-                <img
-                  src="/logos/harvard_business_impact.png"
-                  alt="Harvard Business Impact"
-                  className="h-14 w-auto"
-                />
-                <span aria-hidden className="h-10 w-px bg-line" />
-                <img
-                  src="/logos/imperial_college_london.png"
-                  alt="Imperial College London"
-                  className="h-14 w-auto"
-                />
+              {/* ⏳ O TEXTO É O ANTIGO, E NOMEIA SÓ DOIS DOS CINCO. Ele fala de
+                  Harvard Business Impact e Imperial College London, que eram as
+                  duas marcas da versão anterior; o painel ao lado mostra cinco.
+                  Ficou assim a pedido (*"pode deixar o texto como esta (…) o
+                  texto eu peço pra ela depois"*), e é pendência de CONTEÚDO da
+                  cliente — escrever a frase de CLO100, YPO e Explore Performance
+                  por conta própria seria inventar a natureza de três parcerias
+                  reais. */}
+              <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
+                <p>
+                  Most work is designed and delivered by our own faculty. Where a bespoke
+                  programme calls for more, we bring partners in by design rather than by
+                  default.
+                </p>
+                <p>
+                  Harvard Business Impact for faculty research and a digital delivery spine
+                  that scales. Imperial College London for applied innovation and customised
+                  executive education. Each joins where the programme needs what they bring,
+                  and not otherwise.
+                </p>
               </div>
-              {/* eslint-enable @next/next/no-img-element */}
             </div>
-            <div className="max-w-[640px] space-y-5 font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
-              <p>
-                Most work is designed and delivered by our own faculty. Where a bespoke
-                programme calls for more, we bring partners in by design rather than by
-                default.
-              </p>
-              <p>
-                Harvard Business Impact for faculty research and a digital delivery spine
-                that scales. Imperial College London for applied innovation and customised
-                executive education. Each joins where the programme needs what they bring,
-                and not otherwise.
-              </p>
+
+            {/* ── O PAINEL ESCURO DAS MARCAS · 17-09 ───────────────────────
+                *"quanto aos logos claros, pode deixar eles claros e colocar o
+                fundo da parte dos logos escuro pra dar visibilidade nos logos."*
+                Duas das cinco marcas que ela mandou (CLO100 e YPO) só existem em
+                versão BRANCA, e branco sobre a seção branca é marca invisível.
+
+                ⚠️ PAINEL CONTIDO, E NÃO FAIXA DE SANGRIA — decisão que sobrevive
+                aos três arranjos acima. Escuro de margem a margem leria como uma
+                seção nova, e a seção seguinte é o convite (`SolutionCta`), que
+                também é escura: as duas se encostariam sem divisa. Contido, o
+                escuro lê como o objeto que é.
+
+                ⚠️ TRÊS DAS CINCO PRECISARAM SER TRATADAS para viver no escuro, e
+                isso está anotado porque é alteração de marca de terceiro:
+                  • HARVARD BUSINESS IMPACT veio SEM canal alfa — PNG de fundo
+                    branco com o escudo em traço preto. Sobre escuro seria um
+                    retângulo branco. O branco virou transparência e o traço preto
+                    virou branco: é a versão reversa da marca monocromática.
+                  • EXPLORE PERFORMANCE tem alfa, mas a tinta é cinza-escuro
+                    (luminância 56 de 255) e some no escuro. Foi para branco
+                    inteiro — PERDE O AZUL do símbolo, que é o custo real desta
+                    escolha.
+                  • IMPERIAL COLLEGE tinha um fundo branco chapado por baixo do
+                    brasão. Só a chave de branco foi tirada; o brasão continua
+                    COLORIDO, porque brasão heráldico não tem versão reversa que
+                    preste — e colorido ele lê bem sobre escuro.
+
+                ⏳ O IDEAL É PEDIR OS ARQUIVOS OFICIAIS EM VERSÃO REVERSA a cada
+                marca. O que está aqui é derivado por nós dos arquivos que ela
+                mandou, e versão reversa de marca de terceiro normalmente passa
+                pelo dono dela.
+
+                ⏳ SÃO CINCO E ELA FALOU EM SEIS. A pasta do Drive tem estes
+                cinco; o sexto não chegou.
+
+                ⚠️ CENTRADO E EM DUAS FILEIRAS, 3 + 2, e isso é consequência de
+                ter virado coluna. Enquanto o painel era a linha inteira, as cinco
+                marcas cabiam numa fileira só, alinhadas à esquerda. Na coluna
+                sobram ~504px úteis e elas quebram — conferido montando o painel
+                na largura real, não estimado. Das quebras possíveis, 3 + 2 é a
+                que junta os dois BRASÕES na segunda fileira; com as marcas um
+                degrau menores caberiam 4 + 1, e o Harvard ficava sozinho embaixo.
+
+                ⚠️ NÃO É `bg-ink`. Era, e clareou um degrau a pedido em 17-09.
+                `#4a4446` é o `ink` (#373234) subido ~18% em luminância, mantendo
+                o mesmo matiz quente — não é um cinza neutro novo, é o mesmo tom
+                da marca um passo mais claro.
+
+                POR QUE É HEX SOLTO E NÃO TOKEN: o `globals.css` tem `ink` e
+                `ink-2`, e `ink-2` anda para o lado ESCURO (#2f2b2c); não existe
+                degrau claro de `ink` no sistema. Criar `--color-ink-3` para um
+                único painel inflaria a paleta do site inteiro. Se aparecer um
+                segundo uso deste tom, aí ele vira token — e este comentário é o
+                aviso de que é isso que deve acontecer, em vez de o hex ser
+                copiado para o segundo lugar.
+
+                O CONTRASTE NÃO É PROBLEMA NESTE DEGRAU: branco sobre `#4a4446`
+                dá 9,7:1, e os três logos brancos são branco puro. Clarear MUITO
+                mais é que começaria a apagá-los — daí "um pouco".
+
+                ALTURA PRÓPRIA POR MARCA, e não uma altura comum como no mural de
+                clientes. Lá são 27 logotipos-palavra de proporção parecida, e
+                altura igual é o que os faz pesar igual. Aqui convivem
+                logotipo-palavra muito largo (Explore Performance, 5,5:1) e BRASÃO
+                quase quadrado (Imperial, 0,9:1): na mesma altura, o primeiro fica
+                seis vezes mais largo que o segundo e o brasão some. Os valores
+                estão em `PARTNER_LOGOS`. */}
+            {/* eslint-disable @next/next/no-img-element */}
+            <div className="bg-[#4a4446] px-8 py-10 md:px-12 md:py-12">
+              <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8">
+                {PARTNER_LOGOS.map((l) => (
+                  <li key={l.src}>
+                    {/* SEM `next/image`, mesmo critério do mural de clientes e da
+                        versão anterior deste bloco: são PNG com transparência
+                        servidos a 180px de altura de arquivo contra 26–58px de
+                        exibição, ou seja já há 3x de folga para tela densa. O
+                        `/_next/image` não tem o que otimizar num logo de 20KB —
+                        só acrescentaria uma requisição de transformação. */}
+                    <img src={l.src} alt={l.alt} className={`w-auto ${l.className}`} />
+                  </li>
+                ))}
+              </ul>
             </div>
+            {/* eslint-enable @next/next/no-img-element */}
           </div>
         </section>
 

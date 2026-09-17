@@ -5,7 +5,7 @@ import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/solutions/ServiceCard";
-import { paragraphs, services, type Service } from "@/lib/services";
+import { headlineOr, paragraphs, services, type Service } from "@/lib/services";
 
 /**
  * O template de página de serviço — "one template, ten instances".
@@ -67,6 +67,32 @@ export default function SolutionView({ service }: { service: Service }) {
         eyebrow="Our Services"
         title={service.title}
         subtitle={service.banner}
+        /* A MESMA FOTO DO CARD DA LISTAGEM, pedida em 17-09. Até aqui as dez
+           páginas de dentro dividiam a `service-hero-fallback.jpg` — uma foto
+           só, repetida —, e a listagem já mostrava a imagem própria de cada
+           serviço (as dela, desde 17-09). Eram duas identidades visuais para a
+           mesma coisa: o leitor clicava num card e chegava a um herói que não
+           tinha relação com o que ele acabou de ver. Agora o card é a miniatura
+           do herói, e a transição entre as duas telas é contínua.
+
+           ⚠️ O FALLBACK CONTINUA VIVO, e não por acaso: `cardImage` é opcional
+           e quem não tem cai na foto padrão, exatamente como o card cai no campo
+           de cor. Hoje os dez têm arquivo.
+
+           ⏳ AS DELA SÃO 1400×875, e isso aparece num herói de sangria total:
+           num laptop de 1440 com tela retina o navegador estica a fonte para uns
+           2880px e a foto fica macia — o `service-hero-fallback.jpg` tinha 3672px
+           de largura e era por isso que aguentava. Sai no dia em que ela mandar
+           os originais: é trocar os arquivos em `public/services/cards/`, o
+           caminho não muda. ⚠️ TROCAR O NOME JUNTO — o otimizador do Next serve
+           por URL e já entregou versão velha por causa disso.
+
+           ⚠️ O RECORTE FOI FEITO PARA 16:10, e o herói é `84svh` de largura
+           cheia: no telefone, que é retrato, o `object-center` come as laterais
+           da foto. Se um serviço específico pedir outra âncora, `imagePosition`
+           existe no `SolutionHero` para isso — é uma prop por página, não uma
+           mudança no componente. */
+        imageUrl={service.cardImage}
       />
 
       {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot
@@ -93,62 +119,53 @@ export default function SolutionView({ service }: { service: Service }) {
           conteúdo sem mudar de medida. Ver `docs/mensagem-grupo-fotos-servicos-
           11-09.ENVIAR.txt`, onde isso foi pedido ao cliente como sugestão de
           desenho e não como pendência de lançamento. */}
-      {/* ⚠️ OS RÓTULOS MUDARAM EM 15-09, a pedido: "The Outcome" virou
-          **Impact** e "How Corporate DNA Helps" virou **How we help**. Eles
-          seguem os cabeçalhos da planilha dela, que chama as duas colunas de
-          "IMPACT OF THE WORK" e "WHAT CDNA DOES TO HELP" — encurtados, porque
-          aqui o rótulo é renderizado em corpo grande dentro do painel de cor e o
-          nome antigo ocupava duas linhas.
+      {/* ── Blocos 1 e 2 · Impact e How we help ────────────────────────
+          ⚠️ REFEITOS EM 17-09 no arranjo do template dela (`4. Services/ExCo
+          Leadership Services Page.png`): rótulo em cima, MANCHETE à esquerda,
+          fio vertical, CORPO à direita. O desenho e o que foi deixado de fora
+          estão no cabeçalho do `SolutionSection`; aqui fica só o que é decisão
+          DESTA página.
 
-          ⚠️ A MEDIDA CAIU PARA 48px NO DESKTOP EM 16-09 (`SolutionSection`, que
-          hoje é 38px / 58px no md / 48px no lg) — eram 68px quando os rótulos
-          foram encurtados. O motivo do encurtamento NÃO caiu junto: em 48px o
-          nome antigo continua ocupando duas linhas no painel, e o corpo menor só
-          reduz a folga que teria para caber.
+          ⚠️ OS RÓTULOS CONTINUAM "IMPACT" E "HOW WE HELP", e o template diz
+          "THE OUTCOME" e "HOW CORPORATEDNA HELPS". Não é descuido: os nomes
+          curtos são pedido DELA, de 15-09, e seguem os cabeçalhos da planilha
+          ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP"). O template é de
+          15-09 também, e portanto empatado em data — mas um é instrução direta
+          e o outro é um desenho, e instrução ganha de desenho. Se ela quiser os
+          longos de volta, são duas strings.
 
-          ⚠️ OS PAINÉIS NÃO VOLTARAM AO QUE ERAM QUANDO O CTA FECHAVA A PÁGINA, e
-          a distribuição de hoje (`brand` no Impact, `ink` aqui) é agora uma
-          escolha própria, não mais a consequência mecânica da ordem de 15-09.
-          Isto foi REAVALIADO em 16-09, quando o CTA desceu de novo.
+          ⏳ A MANCHETE NÃO EXISTIA NO NOSSO DADO. O documento de Services dá o
+          CORPO dos dois blocos (`outcome`, `howWeHelp`) e nada mais; a frase
+          grande da esquerda é um campo novo. Só o Top 150 tem as duas de
+          verdade, porque o template desenha justamente ele e as escreve em
+          letra. Nos outros nove entra o placeholder — `headlineOr` e a caixa do
+          `HEADLINE_PLACEHOLDER`, em `lib/services.ts`, contam quantas faltam.
 
-          A SEQUÊNCIA DE FUNDOS COM A ORDEM DE HOJE: herói `ink` → branco
-          (Impact, painel `brand`) → paper (How we help, painel `ink`) → paper
-          (pilares) → branco (evidência, clara desde 16-09) → `brand` (CTA) →
-          branco (related).
+          O QUE SUMIU COM A REESCRITA, e por que não se procura mais por isso
+          neste arquivo: os dois blocos eram faixas de meia tela com um CAMPO DE
+          COR de 44% (`brand` no Impact, `ink` no How we help), e havia uma regra
+          inteira sobre qual painel podia ser qual — nenhum podia antecipar a cor
+          da faixa seguinte, e a distribuição foi reavaliada duas vezes (15-09 e
+          16-09) conforme o CTA subia e descia na página. Sem painéis, a regra
+          não tem sobre o que decidir. Está tudo no git.
 
-          A regra do `SolutionSection` é que painel nenhum pode antecipar a faixa
-          que vem depois, e a distribuição de hoje não antecipa nenhuma:
-
-            • Trocar (ink no Impact) poria painel escuro ENCOSTADO no herói, que
-              é `bg-ink` com foto escurecida. Escuro contra escuro, distância
-              zero, logo na primeira dobra. É a única violação em jogo, e é cara.
-            • Manter (ink aqui) deixa o painel escuro como o único respiro de
-              peso no meio da página, agora que a evidência clareou. Ele ocupa
-              44% da largura e não tem faixa escura nenhuma depois para antecipar.
-
-          ⚠️ ISTO MUDOU DE NATUREZA EM 16-09. Enquanto a evidência era `ink`, o
-          argumento a favor de manter era de DISTÂNCIA (o painel escuro ficava
-          uma faixa acima de uma faixa escura, separado pelos pilares). Com a
-          evidência branca, o conflito simplesmente não existe mais — e a decisão
-          continua a mesma por um motivo novo, não pelo antigo.
-
-          O `brand` do Impact e o `brand` do CTA ficam a três blocos um do outro,
-          que é a maior distância que esta página permite, e o par lê como pinça
-          de abertura e fecho em vez de repetição. */}
+          A SEQUÊNCIA DE FUNDOS DE HOJE: herói `ink` → branco (Impact) → paper
+          (How we help) → paper (pilares) → branco (evidência) → `brand` (CTA) →
+          branco (related). O How we help e os pilares dividem a MESMA faixa
+          `paper`, sem emenda entre eles, que é exatamente o que o template
+          mostra. */}
       <SolutionSection
         label="Impact"
+        headline={headlineOr(service.outcomeHeadline)}
         html={paragraphs(service.outcome)}
-        side="left"
         tone="white"
-        panelTone="brand"
       />
 
       <SolutionSection
         label="How we help"
+        headline={headlineOr(service.howWeHelpHeadline)}
         html={paragraphs(service.howWeHelp)}
-        side="right"
         tone="paper"
-        panelTone="ink"
       />
 
       <SolutionPillars items={service.pillars} />

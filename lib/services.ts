@@ -87,11 +87,16 @@ export type ServiceEvidence = {
    * A foto da coluna do meio da faixa de evidência — o que o template dela
    * mostra ao lado dos números (a placa da HEINEKEN, no mockup do ExCo).
    *
-   * ⏳ UM DOS DEZ TEM ARQUIVO, E ELE É PROVISÓRIO: o Top 150 usa um recorte do
-   * mockup dela (ver a caixa no próprio dado). A foto de verdade é asset do
-   * cliente, pedida na daily de 16-09 junto com as imagens da grade — ver
-   * `docs/correcoes-maliha-call-16-09-2026.md`. Nos outros nove a faixa fica em
-   * duas colunas, que é um dos quatro estados que `SolutionEvidence` já monta.
+   * ⏳ NENHUM DOS ARQUIVOS DE HOJE É DEFINITIVO. O Top 150 usa um recorte do
+   * mockup dela (ver a caixa no próprio dado) e os outros quatro serviços com
+   * evidência apontam para `EVIDENCE_IMAGE_PLACEHOLDER`, a chapa cinza escrita
+   * "PLACEHOLDER" que entrou a pedido em 17-09 — ver a caixa da constante. A
+   * foto de verdade é asset do cliente, pedida na daily de 16-09 junto com as
+   * imagens da grade — ver `docs/correcoes-maliha-call-16-09-2026.md`.
+   *
+   * ⚠️ A FAIXA AINDA SABE FICAR SEM FOTO. `SolutionEvidence` monta quatro
+   * arranjos de coluna e o de duas colunas continua vivo no código de
+   * propósito: o placeholder é o estado de hoje, não a remoção do estado.
    *
    * ⚠️ CAMINHO EM `public/`, E NÃO A CAPA DO CASO NO CMS. Esta rota deixou de
    * ler o CMS em 11-09 de propósito (ver o cabeçalho de `app/services/[slug]/
@@ -109,6 +114,71 @@ export type ServiceEvidence = {
 
 export type ServiceTestimonial = { quote: string; attribution: string };
 
+/**
+ * A CHAPA CINZA DA COLUNA DO MEIO, pedida em 17-09: *"the section Evidence
+ * doesn't have the image and the quote, all pages in services should have it,
+ * put a image and quote placeholder for now."* Até 16-09 a faixa de evidência
+ * só mostrava foto no Top 150 e citação em dois dos dez, e nas outras páginas
+ * ela fechava em uma ou duas colunas — o que estava certo pelo dado e errado
+ * pelo desenho que a cliente quer ver de pé.
+ *
+ * ⏳ ELE É AUTO-EVIDENTE DE PROPÓSITO, e o nome do arquivo repete isso: a
+ * imagem é uma chapa `#e7e4e1` 4:5 com as diagonais e a palavra "PLACEHOLDER"
+ * em cima. Não é foto de banco, não é foto de outro cliente e não é a capa do
+ * caso — qualquer uma das três passaria por asset entregue numa revisão rápida,
+ * e esta não passa. Gerada por script com `sharp`, 900×1125, para casar com a
+ * caixa 4:5 da faixa sem recorte (o `object-right` de `SolutionEvidence` existe
+ * pela foto 2:1 da HEINEKEN e não morde esta).
+ *
+ * SAI SERVIÇO A SERVIÇO, à medida que as fotos da cliente chegarem: é trocar o
+ * caminho no `evidence.image` daquele serviço. Quando o último sair, esta
+ * constante some junto. ⚠️ TROCAR O NOME DO ARQUIVO JUNTO — o otimizador do
+ * Next serve por URL e já entregou versão velha uma vez por causa disso.
+ */
+/**
+ * A MANCHETE DE ESPERA dos blocos Impact e How we help, em nove dos dez
+ * serviços. Pedida em 17-09, na mesma frase que mandou refazer os dois blocos:
+ * *"essas seções precisam ficar exatamente igual como está no layout, se faltar
+ * algum texto pode colocar um placeholder."*
+ *
+ * ⚠️ É AUTO-EVIDENTE DE PROPÓSITO, e segue o padrão que a própria cliente usa no
+ * mockup dela para o depoimento que falta ("A quote from Dolf to be confirmed."):
+ * quem revisar a página vê na hora que ali falta copy, em vez de ler uma frase
+ * plausível e aprová-la sem perceber que fomos nós que a escrevemos.
+ *
+ * ⚠️ NÃO SUBSTITUIR POR FRASE DERIVADA DO CORPO. A tentação óbvia é resumir o
+ * `outcome` de cada serviço numa manchete — e isso é escrever a promessa de
+ * venda da CDNA por dedução, em dez páginas. As duas frases do Top 150 existem
+ * porque ELA as escreveu no template; as outras dezoito são trabalho de copy
+ * dela, e este placeholder é a lista de quantas faltam.
+ *
+ * ⏳ SAI UMA A UMA: cada serviço que receber as duas frases perde o placeholder
+ * sozinho, porque o campo é opcional e o componente só cai aqui quando está
+ * vazio. Quando o último sair, esta constante some junto.
+ */
+const HEADLINE_PLACEHOLDER = "Headline to be confirmed.";
+
+const EVIDENCE_IMAGE_PLACEHOLDER = "/services/evidence/evidence.PLACEHOLDER.jpg";
+
+/**
+ * A CITAÇÃO DE ESPERA, do mesmo pedido de 17-09. O texto NÃO é invenção nossa:
+ * é o mesmo padrão que o mockup da cliente usa no Top 150 — "A quote from Dolf
+ * to be confirmed." com a atribuição "Name, Title / HEINEKEN" —, generalizado
+ * para os outros clientes.
+ *
+ * ⚠️ NÃO SUBSTITUIR POR FRASE PLAUSÍVEL. Escrever um depoimento que soe real
+ * para preencher a coluna é pôr palavra na boca da GSK, da adidas e da Vodafone;
+ * o placeholder existe justamente para que ninguém confunda as duas coisas. O
+ * outline é explícito sobre o tamanho da pendência: *"Nine of the ten have no
+ * publishable testimonial. Four have one identified but not chosen: adidas, GSK
+ * Mexico, Heineken and Vodafone. Only Executive Coaching has text that can
+ * ship."* Escolher as quatro frases é trabalho de CONTEÚDO da cliente.
+ */
+const evidenceQuotePlaceholder = (client: string): ServiceTestimonial => ({
+  quote: `A quote from ${client} to be confirmed.`,
+  attribution: `Name, Title — ${client}`,
+});
+
 export type Service = {
   slug: string;
   title: string;
@@ -120,6 +190,21 @@ export type Service = {
    * O `**…**` é o negrito que a cliente marcou na planilha (`WEBSITE SERVICE
    * COPY.xlsx`) — na renderização vira `<strong>`, ver `paragraphs()`.
    */
+  /**
+   * A MANCHETE DO BLOCO IMPACT — a frase grande da COLUNA ESQUERDA, ao lado do
+   * parágrafo de `outcome`. Entrou em 17-09, quando os dois primeiros blocos
+   * foram refeitos no arranjo do template dela (`4. Services/ExCo Leadership
+   * Services Page.png`): lá cada um é manchete à esquerda, fio vertical, corpo à
+   * direita — e a manchete é um texto que NÃO EXISTIA em lugar nenhum do nosso
+   * dado. O documento de Services dá `outcome` e `howWeHelp`, que são os corpos.
+   *
+   * ⏳ UM DOS DEZ TEM A FRASE DE VERDADE. O template dela desenha o Top 150, e
+   * as duas manchetes estão escritas lá em letra: *"A stronger, more connected
+   * senior leadership community."* e *"From ambition to enterprise leadership in
+   * practice."* São dela, não nossas, e por isso entram. Nos outros nove cai o
+   * `HEADLINE_PLACEHOLDER` — ver a caixa dele.
+   */
+  outcomeHeadline?: string;
   outcome: string;
   /**
    * Bloco 3 — How CorporateDNA Helps. A intervenção.
@@ -127,6 +212,8 @@ export type Service = {
    * Mesma regra do `outcome`: `**…**` é o negrito da planilha da cliente e vira
    * `<strong>` na renderização, ver `paragraphs()`.
    */
+  /** A manchete do bloco How we help. Mesma história do `outcomeHeadline`. */
+  howWeHelpHeadline?: string;
   howWeHelp: string;
   /**
    * Os termos da frase de "what CDNA does to help", promovidos a rótulo — o que
@@ -152,34 +239,39 @@ export type Service = {
    * A imagem do card no índice `/services` — item 12 da daily de 14-09:
    * *"a bit of image, just to call out each of the [services]."*
    *
-   * ⏳ NOVE DOS DEZ TÊM, e a ausência do décimo é deliberada em vez de um
-   * arquivo qualquer. Os arquivos vêm de duas origens, e vale saber qual é qual:
+   * ✅ OS DEZ TÊM, E SÃO AS DELA, desde 17-09 — *"trocar as imagens pelas do
+   * drive"*. Vieram na pasta `4. Services` como um PNG por serviço, com o nome
+   * do serviço no arquivo, então o casamento slug ↔ arquivo não teve adivinhação.
    *
-   *   • SEIS são as banners fotográficas do site ANTIGO
-   *     (`public/solutions-banners/`), recortadas em 16:10: material da própria
-   *     CDNA, já publicado, e não banco de imagem.
-   *   • TRÊS chegaram em 15-09, escolhidos pelo Ricardo — Manager Development,
-   *     Judgement in AI e Family Business Consulting. São imagens GERADAS, e o
-   *     registro importa: o site velho não tinha esses três serviços, então não
-   *     existia foto deles em lugar nenhum.
+   * ⚠️ O SUFIXO `-client` NO NOME NÃO É ENFEITE. Os arquivos anteriores tinham
+   * exatamente estes slugs, e `cardImage` é um CAMINHO DE TEXTO, não um import —
+   * o otimizador do Next guarda por URL, e reaproveitar o mesmo endereço com
+   * conteúdo novo é como se serve versão velha em produção. Já aconteceu neste
+   * projeto. O sufixo também diz a origem, que é o que distingue este jogo do
+   * anterior: aqueles eram escolha NOSSA, estes são material DELA.
    *
-   * Segue sem arquivo HRLT Effectiveness, pela mesma razão — serviço novo, sem
-   * acervo. O card dele cai no campo de cor.
+   * O QUE SAIU DE CIRCULAÇÃO, e por que o registro fica: eram nove arquivos de
+   * duas origens — seis banners do site ANTIGO recortadas em 16:10, e três
+   * imagens GERADAS que o Ricardo escolheu em 15-09 (Manager Development,
+   * Judgement in AI e Family Business Consulting), porque o site velho não tinha
+   * esses serviços e não existia foto deles em lugar nenhum. Era o "use generic
+   * for now" dela, e o texto anterior desta caixa dizia que quando as definitivas
+   * chegassem seria "trocar nove caminhos e acrescentar um". Foi isso, à letra.
+   * Os nove seguem em `public/services/cards/` sem o sufixo, sem uso — dá para
+   * apagá-los a qualquer momento, o git os tem.
    *
-   * O CARD SEM FOTO NÃO FICA VAZIO: ele cai no campo de cor com o nome do
-   * serviço, que é o mesmo recurso que as páginas de dentro usam desde 12-09 e
-   * pelo mesmo motivo — não fica brega, não depende de arquivo que não existe, e
-   * é diferente em cada card de graça. A grade continua com dez objetos da mesma
-   * medida; o que muda é o que preenche o quadro.
+   * ⏳ O DÉCIMO É NOVO: HRLT Effectiveness nunca teve arquivo (serviço novo, sem
+   * acervo) e caía no campo de cor. O campo de cor CONTINUA no `ServiceCard`, e
+   * continua sendo o comportamento certo para `cardImage` vazio — hoje nenhum
+   * dos dez o exercita, e é de propósito que ele não foi removido junto.
    *
-   * ⚠️ ISTO É O "USE GENERIC FOR NOW" DELA, de 15-09, e não a escolha final. Ela
-   * ficou de mandar as imagens da grade; quando chegarem, é trocar nove caminhos
-   * e acrescentar um. O layout não muda.
-   *
-   * ⚠️ O ARQUIVO DO TOP 150 É `diversification.png` do acervo antigo — um
-   * conselho ao redor da mesa com a cidade atrás. O NOME do arquivo fala de
-   * inclusão, o CONTEÚDO serve a uma jornada de ExCo. Fica escrito para ninguém
-   * concluir mais tarde que houve troca de imagem entre serviços.
+   * ⚠️ DUAS DELAS SÃO PANORÂMICAS (Family Business Consulting e Judgement in AI,
+   * 2159x728 ≈ 3:1) e o slot do card é 16:10. O recorte perde 46% da largura, e
+   * por isso as duas NÃO saíram de recorte centrado como as outras oito: a
+   * oliveira da Family Business mora no terço direito do quadro e um corte ao
+   * centro a partia ao meio. O recorte dela começa em `left: 994`, encostado na
+   * margem direita, o que mantém a árvore inteira e a põe a 44% da largura do
+   * card. Se o arquivo for trocado, esta conta é para refazer, não para herdar.
    */
   cardImage?: string;
 };
@@ -193,12 +285,17 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "top-150-leadership-development",
-    cardImage: "/services/cards/top-150-leadership-development.jpg",
+    cardImage: "/services/cards/top-150-leadership-development-client.jpg",
     title: "Top 150 Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
+    /* ✅ AS DUAS ÚNICAS MANCHETES ESCRITAS PELA CLIENTE. Estão em letra no
+       template `4. Services/ExCo Leadership Services Page.png`, que desenha
+       justamente esta página. Copiadas à letra, sem reescrita. */
+    outcomeHeadline: "A stronger, more connected senior leadership community.",
     outcome:
       "A senior leadership community with greater **strategic alignment, decision quality and execution speed**. Leaders think enterprise first, operate horizontally and collectively own performance, transformation and the leadership pipeline.",
+    howWeHelpHeadline: "From ambition to enterprise leadership in practice.",
     howWeHelp:
       "We work with the ExCo and top 100 to 150 leaders to build the **Inner Game and Outer Game of enterprise leadership**. Through immersive experiences, coaching, real business challenges, peer learning and mastery labs, we shift leaders from **“my function, my market, my priorities” to “our enterprise, our performance, our future.”**",
     pillars: [
@@ -213,10 +310,17 @@ export const services: Service[] = [
       line: "Build a senior leadership community that improves decision quality, alignment and execution speed across functions, markets and geographies.",
       label: "Talk to us about your enterprise leaders",
     },
-    /* ⚠️ O caso publicado da Heineken conta OUTRO trabalho — 70+ sucessores HiPo
-       na APAC, parceria de 6 anos — e não esta jornada de 18 meses com os 150.
-       Mesmo cliente, engajamento diferente. O link fica porque o outline manda o
-       bloco 4 puxar o caso do serviço, mas é pergunta a fazer ao cliente. */
+    /* ⚠️ SEM `caseSlug` DESDE 17-09, e a pergunta que estava aqui morreu com
+       isso: o caso da Heineken foi despublicado no CMS junto com os outros cinco
+       legados (nenhum tem `Reviewed = Yes` na planilha dela), e `/cases/heineken`
+       responde 404. O link some porque `SolutionEvidence` esconde o "read the
+       full story" quando o campo falta — é um dos estados que ele já monta.
+
+       A observação de conteúdo fica registrada para quando o caso voltar: o
+       publicado contava OUTRO trabalho — 70+ sucessores HiPo na APAC, parceria
+       de 6 anos — e não esta jornada de 18 meses com os 150. Mesmo cliente,
+       engajamento diferente. Religar o link é devolver uma linha, e continua
+       sendo pergunta a fazer à cliente antes. */
     evidence: {
       client: "HEINEKEN",
       title: "Top 150 leaders",
@@ -244,7 +348,6 @@ export const services: Service[] = [
          ARQUIVO JUNTO — o otimizador do Next serve por URL e já entregou versão
          velha uma vez hoje, por causa disso. */
       image: "/services/evidence/heineken-sign.PLACEHOLDER.jpg",
-      caseSlug: "heineken",
     },
     /* ⏳ PLACEHOLDER DA PRÓPRIA MOCKUP — NÃO PODE IR PARA PRODUÇÃO ASSIM.
        Não existe citação do Top 150 em documento nenhum da cliente, e o template
@@ -261,7 +364,7 @@ export const services: Service[] = [
   },
   {
     slug: "culture-transformation",
-    cardImage: "/services/cards/culture-transformation.jpg",
+    cardImage: "/services/cards/culture-transformation-client.jpg",
     title: "Culture Transformation",
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
@@ -292,11 +395,17 @@ export const services: Service[] = [
         { value: "Management activated" },
         { value: "N-1 embedded" },
       ],
+      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
+      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
+    /* ⏳ Placeholder de 17-09 — ver a caixa de `evidenceQuotePlaceholder`. A
+       citação real da GSK Mexico é uma das quatro que o outline dá como
+       identificadas e não escolhidas. */
+    testimonial: evidenceQuotePlaceholder("GSK MEXICO"),
   },
   {
     slug: "talent-development",
-    cardImage: "/services/cards/talent-development.jpg",
+    cardImage: "/services/cards/talent-development-client.jpg",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
     outcome:
@@ -329,11 +438,17 @@ export const services: Service[] = [
         { value: "7 years", label: "partnership" },
         { value: "Multi market", label: "development" },
       ],
+      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
+      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
+    /* ⏳ Placeholder de 17-09 — ver a caixa de `evidenceQuotePlaceholder`. Foi
+       ESTA PÁGINA que motivou o pedido: era a faixa de evidência mais vazia dos
+       cinco serviços que a renderizam, em uma coluna só. */
+    testimonial: evidenceQuotePlaceholder("VODAFONE"),
   },
   {
     slug: "manager-development",
-    cardImage: "/services/cards/manager-development.jpg",
+    cardImage: "/services/cards/manager-development-client.jpg",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     outcome:
@@ -356,7 +471,7 @@ export const services: Service[] = [
   },
   {
     slug: "women-in-leadership",
-    cardImage: "/services/cards/women-in-leadership.jpg",
+    cardImage: "/services/cards/women-in-leadership-client.jpg",
     title: "Women in Leadership",
     banner:
       "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
@@ -378,7 +493,7 @@ export const services: Service[] = [
   },
   {
     slug: "high-performing-teams",
-    cardImage: "/services/cards/high-performing-teams.jpg",
+    cardImage: "/services/cards/high-performing-teams-client.jpg",
     title: "High Performing Teams",
     banner:
       "Turn groups of strong individuals into leadership teams that perform collectively.",
@@ -411,10 +526,15 @@ export const services: Service[] = [
         { value: "93%", label: "immersion impact" },
         { value: "150+", label: "senior executives" },
       ],
+      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
+      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
+    /* ⏳ Placeholder de 17-09 — ver a caixa de `evidenceQuotePlaceholder`. */
+    testimonial: evidenceQuotePlaceholder("ADIDAS"),
   },
   {
     slug: "hrlt-effectiveness",
+    cardImage: "/services/cards/hrlt-effectiveness-client.jpg",
     title: "HRLT Effectiveness",
     banner:
       "Build an HR leadership team with the strategic influence and collective authority to shape the business, not simply support it.",
@@ -437,7 +557,7 @@ export const services: Service[] = [
   },
   {
     slug: "judgement-in-ai",
-    cardImage: "/services/cards/judgement-in-ai.jpg",
+    cardImage: "/services/cards/judgement-in-ai-client.jpg",
     title: "Judgement in AI",
     banner:
       "Build the human judgement required to make better decisions in an AI-augmented world.",
@@ -461,7 +581,7 @@ export const services: Service[] = [
   },
   {
     slug: "executive-coaching",
-    cardImage: "/services/cards/executive-coaching.jpg",
+    cardImage: "/services/cards/executive-coaching-client.jpg",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     outcome:
@@ -492,6 +612,10 @@ export const services: Service[] = [
         { value: "20+", label: "countries" },
         { value: "6 to 12", label: "session journeys" },
       ],
+      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`.
+         ⚠️ SÓ A FOTO É PLACEHOLDER AQUI: a citação abaixo é real e é a única
+         publicável dos dez. Não trocar por `evidenceQuotePlaceholder`. */
+      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
     /* A única citação publicável dos dez. O outline explica por que ela serve de
        molde: *"anonymised to a role and a client tier, which needs no individual
@@ -504,7 +628,7 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
-    cardImage: "/services/cards/family-business-consulting.jpg",
+    cardImage: "/services/cards/family-business-consulting-client.jpg",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
@@ -525,6 +649,18 @@ export const services: Service[] = [
     },
   },
 ];
+
+/**
+ * A manchete de um bloco, com o placeholder no lugar do vazio.
+ *
+ * ⚠️ VIVE AQUI E NÃO NO COMPONENTE porque o placeholder é uma decisão de
+ * CONTEÚDO, não de apresentação: quem decide o que fazer quando falta copy é o
+ * mesmo arquivo que guarda a copy. No componente, ele viraria um valor padrão de
+ * prop — e valor padrão de prop é o tipo de coisa que ninguém procura quando vai
+ * perguntar "quantas frases ainda faltam pedir para a cliente?".
+ */
+export const headlineOr = (headline?: string) =>
+  headline?.trim() ? headline : HEADLINE_PLACEHOLDER;
 
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
