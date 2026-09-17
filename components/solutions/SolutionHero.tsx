@@ -141,8 +141,25 @@ export default function SolutionHero({
        descia para o fluxo, abaixo do texto, com uma costura escondendo o corte.
        Agora ela está atrás de tudo nas duas telas, e o que muda entre elas é só
        a DIREÇÃO do escurecimento. Menos código e uma classe inteira de defeito
-       de sobreposição que deixa de existir. */
-    <section className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
+       de sobreposição que deixa de existir.
+
+    ⚠️ A DOBRA DEIXOU DE SER CHEIA EM 17-09 — 84svh no lugar de 100svh, a
+       pedido: *"fazer o hero de todas as páginas menos da home terem uma altura
+       um pouco menor para a seção de baixo aparecer na tela."* Não é ajuste de
+       gosto, é o que resolve o defeito clássico da dobra cheia: uma primeira
+       tela que não mostra NADA do que vem depois não diz ao leitor que há
+       "depois", e boa parte deles não rola. Os 16% que sobram são o suficiente
+       para a próxima seção assomar na base e pedir a rolagem.
+
+       A HOME FICA COM 100vh, e de propósito: lá a dobra é o argumento inteiro
+       (`HeroV2`, com o intro animado), e ela é a única página onde o leitor já
+       chegou sabendo que tem de rolar. Este componente serve as OUTRAS doze
+       rotas, onde a dobra é só um cabeçalho ilustrado.
+
+       ⚠️ `min-h` CONTINUA SENDO `min-h`: o bloco cresce quando o conteúdo pede
+       (título de três linhas no telefone), e 84svh é o PISO, não o teto.
+       */
+    <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
       <Image
         src={src}
         alt=""

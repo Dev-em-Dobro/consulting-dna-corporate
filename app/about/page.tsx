@@ -45,7 +45,7 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 import heroPhoto from "@/public/skyline-dna.jpg";
-import teamStairs from "@/public/team-stairs-about.jpg";
+import teamStairs from "@/public/team-stairs-about-six.jpg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito — ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
@@ -146,18 +146,29 @@ export const revalidate = 300;
 
 /**
  * Block 1, faixa de estatísticas. FINAL no documento, com uma ressalva: o `36`
- * aparece como `[36] countries`, entre colchetes — número pendente de
- * confirmação, junto com o "over 75 senior practitioners" do bloco de regiões.
+ * aparecia como `[36] countries`, entre colchetes — número pendente de
+ * confirmação, junto com o "over 75 senior practitioners" do bloco de regiões
+ * (que virou "60+" em 17-09 — ver a caixa lá).
  *
- * Não vem de `getSiteStats()`: aquelas quatro são outras (90% sponsored, 18
- * years, 36 countries, 75 faculty) e alimentam a home e a Our Impact. O
- * documento diz que estas "pull from the global fields in section 0" — uma
- * seção que não veio no anexo. Até ela chegar, ficam aqui.
+ * ✅ OS TRÊS PRIMEIROS FORAM CONFIRMADOS NA DAILY DE 17-09, e é essa a origem
+ * dos números de hoje: *"trocar todas as menções de 18 years para 19 years /
+ * trocar 36 países para 5 regions / trocar 1,000 leaders para 10 000+."* O
+ * `[36]` entre colchetes deixou de existir porque a resposta não foi um número
+ * de países — foi trocar a UNIDADE: a firma conta alcance por REGIÃO, que é a
+ * mesma unidade do bloco 6 desta página (`REGIONS`, logo abaixo) e não colide
+ * mais com "across five regions" no rótulo, que por isso saiu.
+ *
+ * ⚠️ A HOME E A OUR IMPACT AINDA DIZEM 18/36/75. Não vem de `getSiteStats()`:
+ * aquelas quatro são outras (90% sponsored, 18 years, 36 countries, 75 faculty),
+ * vêm do CMS (`page_home`) e alimentam a home e a Our Impact. Mudar os fallbacks
+ * de `lib/stats.ts` daqui não resolveria — o valor publicado no CMS ganha deles.
+ * Enquanto os dois lados não forem alinhados, a mesma firma diz 18 anos numa
+ * página e 19 na outra, e a correção é no CMS.
  */
 const STATS = [
-  { value: "18 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
-  { value: "36 countries", label: "programmes delivered, across five regions", icon: "globe" },
-  { value: "1,000+", label: "leaders coached and teams developed", icon: "people" },
+  { value: "19 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
+  { value: "5 regions", label: "of global programme delivery", icon: "globe" },
+  { value: "10,000+", label: "leaders coached and teams developed", icon: "people" },
   { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients", icon: "chart" },
 ];
 
@@ -478,7 +489,12 @@ const OFFICE_CARDS: Office[] = OFFICES.map((o) => {
 const REGIONS = [
   { name: "Americas", descriptor: "Driving leadership impact across North and South America." },
   { name: "UK & Europe", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
-  { name: "GCC & Middle East", descriptor: "Supporting transformation across the GCC and wider Middle East." },
+  /* ⚠️ ERA "GCC & Middle East" ATÉ 17-09 — *"na seção 'Where we work.' trocar
+     GCC & Middle East para Middle East and North Africa."* Não é sinônimo: a
+     região deixou de ser o Golfo com o Oriente Médio em volta e passou a ser
+     MENA, que estende para o norte da África. O descritor acompanha, senão a
+     linha de baixo continuaria dizendo "GCC". */
+  { name: "Middle East & North Africa", descriptor: "Supporting transformation across the Middle East and North Africa." },
   { name: "Asia", descriptor: "Developing leaders for a fast-changing Asia." },
 ];
 
@@ -541,7 +557,7 @@ export default async function AboutV2Page() {
           três e o espaço livre distribuído entre eles — breadcrumb no topo, o
           título no meio, os números na base.
 
-          ALTURA: `min-h-svh` (100svh CHEIOS) com `pt-[76px]`.
+          ALTURA: `min-h-[84svh]` com `pt-[76px]` — eram 100svh cheios até 17-09.
             • Era `calc(100svh-76px)` enquanto o menu era a NavV1 `sticky`, que
               OCUPA lugar no fluxo: descontar a barra era o que impedia a faixa
               dos números de cair abaixo da dobra. Com a NavV2, que é `absolute`
@@ -557,13 +573,21 @@ export default async function AboutV2Page() {
           linhas e não cabem em uma tela — aí o bloco cresce e rola, em vez de
           cortar conteúdo.
 
+          ⚠️ OS 100svh VIRARAM 84svh EM 17-09, mesmo pedido que encolheu o
+          `SolutionHero` das outras rotas — ver a caixa de lá, que é onde o
+          porquê está escrito por inteiro. O caso desta página é o mais forte
+          dos treze: aqui a dobra cheia termina justamente na faixa de números,
+          que é um FIM visual convincente (régua, quatro blocos, base da foto), e
+          quem para nela não descobre que existe a página inteira abaixo. Com
+          84svh, a foto do time assoma na base e desmente esse fim.
+
           A ARTE é a que a Maliha mandou em 08-09 (`public/skyline-dna.jpg`): o
           skyline montado — Big Ben, Marina Bay, Burj Khalifa, Kingdom Centre —
           com a hélice de DNA atravessando o céu. Ela é a imagem definitiva da
           seção, não mais o placeholder da home V2, e desde 14-09 é também o
           herói da /services, a pedido dela. Uma ressalva de arquivo está
           anotada no <Image> logo abaixo. */}
-      <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-ink pt-[76px] text-white">
+      <section className="relative isolate flex min-h-[84svh] flex-col overflow-hidden bg-ink pt-[76px] text-white">
         {/* ✅ A RECOMPRESSÃO DO WHATSAPP SAIU EM 15-09. O que estava aqui era
             a `about-hero.jpeg`, 229 KB de JPEG que o WhatsApp já havia
             recomprimido: céu em blocos e os pontos da hélice empastados. O
@@ -1300,19 +1324,37 @@ export default async function AboutV2Page() {
                 veio na pasta `1.About Page` do Drive e com o nome
                 `About page.jpeg`, ou seja endereçada a ESTA página.
 
-                O placeholder que estava aqui esperava a foto do "approved Our
-                Identity slide", pedida em 09-09 e que nunca chegou. É outra
-                imagem; esta a substitui.
+                ⚠️ É O RETOQUE COM SEIS DESDE 17-09, e não mais a foto original.
+                Na daily ela apontou esta imagem como "muito distorcida" e pediu
+                para deixá-la "do tamanho real".
 
-                ⚠️ O QUADRO VIROU RETRATO, e não foi escolha: o arquivo dela é
-                1066x1600 (2:3) e o slot era paisagem 3:2. Um 3:2 tirado de um
-                2:3 sobra 711px de altura — o corte comeria as cabeças da fileira
-                de cima e os pés da de baixo. 4:5 tira 267px, metade do forro e
-                metade do piso, e não encosta em ninguém. O bloco fica mais alto;
-                o card de citação ao lado continua centrado nele.
+                MEDIDO ANTES DE MEXER, porque a queixa não se sustentava como
+                estava escrita: o arquivo antigo era 1066x1333, a caixa é 4:5 e
+                `object-cover` não deforma nada — a comparação contra o original
+                2:3 bateu com um recorte centrado (diferença média de 1,85 num
+                canal de 255, ou seja, o mesmo arquivo). Não havia distorção
+                geométrica em lugar nenhum. O QUE HAVIA era uma foto DESATUALIZADA:
+                a /team já rodava o retoque com seis pessoas desde 16-09 (as duas
+                da fileira da frente foram trocadas por dois homens de terno) e
+                esta página tinha ficado para trás com a versão anterior. É a
+                diferença que ela viu.
 
-                ⚠️ A MESMA FOTO RODA NA /team, num recorte diferente (lá ela vai
-                inteira, em 2:3). O `CDNA_04_Team.docx` avisa que usar a mesma
+                O RECORTE É NOSSO E ESTÁ ANOTADO para quem for refazê-lo: o
+                retoque nasce PAISAGEM (`team/team-stairs-landscape-six.jpg`,
+                2400x1600, 3:2) e o slot é retrato 4:5, então saem 1280x1600
+                a partir de `left: 608` — a janela mais larga que cabe na altura
+                cheia, centrada no grupo. Ninguém é cortado: sobram ~110px de
+                margem na mulher de blazer creme, à esquerda, e ~90px no homem de
+                camisa azul, à direita. Mexer no `left` sem refazer essa conta
+                come alguém numa das duas pontas.
+
+                ⚠️ O NOME DO ARQUIVO MUDOU JUNTO (`team-stairs-about-six.jpg`),
+                e isso não é cosmético: o otimizador do Next serve por URL e já
+                entregou versão velha neste projeto por causa de troca de imagem
+                com nome mantido.
+
+                ⚠️ A MESMA FOTO RODA NA /team, em recorte diferente (lá ela vai
+                paisagem, inteira). O `CDNA_04_Team.docx` avisa que usar a mesma
                 fotografia nas duas páginas "is visible", e isso continua sendo
                 verdade — foi decisão consciente de preencher os dois slots
                 agora, com recortes que não leem como o mesmo arquivo repetido.
@@ -2096,10 +2138,19 @@ export default async function AboutV2Page() {
               `items-center` alinha o texto ao meio da altura do mapa; empilhado
               o texto volta para cima dele. */}
           <div className="grid items-center gap-x-12 gap-y-6 xl:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+            {/* ⚠️ ERA "over 75 senior practitioners" ATÉ 17-09. O pedido da
+                daily citava a seção Global faculty da /team (*"trocar 75 por 60+
+                - a faculty of 60+"*), e esta linha é a MESMA afirmação em outra
+                página — deixá-la em 75 faria a firma publicar dois tamanhos de
+                faculty a um clique de distância.
+
+                O "over" SAIU JUNTO, e não por estilo: o `+` já diz "mais de", e
+                "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
+                60+ é, aliás, de número EXATO para PISO — ver a caixa do h2 na
+                /team, que é onde isso está explicado. */}
             <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
               With headquarters in London, Singapore, Dubai, Riyadh and Miami,
-              and a faculty of over 75 senior practitioners, we deliver
-              globally.
+              and a faculty of 60+ senior practitioners, we deliver globally.
             </p>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
