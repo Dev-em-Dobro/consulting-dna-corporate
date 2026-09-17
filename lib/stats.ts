@@ -11,9 +11,20 @@ import { getPage } from "@/lib/cms/client";
  * never renders empty.
  *
  * NOTE: these numbers are part of the approval list sent on 06-08 that is still
- * outstanding — the site carries `36 countries` here while /approach carries
- * `26 countries`, `95%` and `ten years`. Reconciling them is a CDNA decision,
- * not ours; both stay as they are until that list comes back.
+ * ⚠️ O CMS FOI ATUALIZADO EM 17-09 e passou a publicar 19 / 5 / 60+, seguindo
+ * as correções da daily. Isso EXPÔS UM DEFEITO que só existia em potencial: o
+ * VALOR vem do CMS e o RÓTULO vem daqui, e o rótulo de `countries` continuava
+ * dizendo "Countries of global delivery". Com o valor em 5, a home e a Our
+ * Impact publicaram "5 Countries of global delivery" — a firma dizendo que
+ * entrega em cinco PAÍSES.
+ *
+ * A troca foi de UNIDADE, não de número: a About passou a contar por REGIÃO no
+ * mesmo dia ("5 regions"), e o rótulo daqui tinha de acompanhar. Fica o aviso
+ * para a próxima vez que um destes quatro mudar: valor e rótulo moram em lugares
+ * diferentes, e mexer num sem olhar o outro publica uma frase errada.
+ *
+ * ⏳ A /approach ainda carrega `26 countries`, `95%` e `ten years`, que são
+ * outros números para as mesmas coisas. Reconciliar é decisão da CDNA.
  */
 export type SiteStat = { value: string; label: string };
 
@@ -23,11 +34,15 @@ export type SiteStat = { value: string; label: string };
  * para nosso público." Guli's Our Impact mock puts 18 first, which is the one
  * place his layout and the e-mail disagree; the e-mail wins.
  */
+/* ⚠️ OS FALLBACKS ACOMPANHARAM O CMS em 17-09 (eram 18 / 36 / 75). Eles só
+   entram em cena quando o CMS está fora do ar ou o campo vem vazio — e era
+   exatamente aí que o defeito ficava armado: com o CMS inacessível, a home
+   voltaria a publicar os números velhos que a daily acabou de corrigir. */
 const STAT_FALLBACK: (SiteStat & { cmsKey: string })[] = [
   { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
-  { cmsKey: "years", value: "18", label: "Years advising senior leaders" },
-  { cmsKey: "countries", value: "36", label: "Countries of global delivery" },
-  { cmsKey: "faculty", value: "75", label: "Faculty of senior practitioners" },
+  { cmsKey: "years", value: "19", label: "Years advising senior leaders" },
+  { cmsKey: "countries", value: "5", label: "Regions of global delivery" },
+  { cmsKey: "faculty", value: "60+", label: "Faculty of senior practitioners" },
 ];
 
 /**
