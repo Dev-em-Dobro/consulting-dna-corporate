@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+
+  :root {
+    --brand: #d84339;
+    --brand-dark: #b5342b;
+    --ink: #373234;
+    --ink-2: #2f2b2c;
+    --paper: #f3f3f3;
+    --line: #ece9e6;
+    --muted: #6b6b6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* --- Cover --------------------------------------------------------------- */
+  .cover {
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    padding: 40px 40px 36px;
+    margin: 0 0 30px;              /* contained within @page margins — no bleed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cover::after {                  /* red accent stripe down the left edge */
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--brand);
+  }
+  .cover .brandbar {
+    width: 60px; height: 4px; background: var(--brand);
+    border-radius: 2px; margin-bottom: 26px;
+  }
+  .cover img.logo {
+    height: 40px; width: auto; display: block;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1);   /* white lockup on dark cover */
+  }
+  .cover h1 {
+    font-size: 27pt; line-height: 1.12; font-weight: 700;
+    margin: 0 0 14px; letter-spacing: -0.01em; max-width: 30ch;
+    color: #fff;                        /* override the dark global h1 color */
+    border-bottom: none; padding: 0; page-break-before: avoid;
+  }
+  .cover .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--brand); font-weight: 600; margin: 0 0 10px;
+  }
+  .cover .meta {
+    font-size: 9pt; color: rgba(255,255,255,.72); max-width: 74ch;
+    line-height: 1.6; margin: 18px 0 0;
+  }
+  .cover .meta strong { color: #fff; font-weight: 600; }
+
+  /* --- Typography --------------------------------------------------------- */
+  h1, h2, h3 { font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; }
+
+  h1 {                                  /* "Part A / B ..." top-level */
+    font-size: 17pt; margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--brand);
+    page-break-before: always;
+  }
+  h1:first-of-type { page-break-before: avoid; }
+
+  h2 {
+    font-size: 13pt; margin: 26px 0 10px; color: var(--brand-dark);
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 20px 0 8px; color: var(--ink-2);
+    page-break-after: avoid;
+  }
+
+  p { margin: 0 0 10px; }
+
+  a { color: var(--brand-dark); text-decoration: none; }
+
+  strong { font-weight: 600; color: var(--ink-2); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; }
+  li::marker { color: var(--brand); }
+
+  hr {
+    border: none; border-top: 1px solid var(--line);
+    margin: 22px 0;
+  }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--paper); border-left: 4px solid var(--brand);
+    border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Tables ------------------------------------------------------------- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0 18px;
+    font-size: 9.5pt; page-break-inside: avoid;
+  }
+  thead th {
+    background: var(--ink); color: #fff; text-align: left;
+    font-weight: 600; padding: 8px 10px; font-size: 9pt;
+  }
+  tbody td {
+    padding: 7px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* Keep list items and headings from breaking awkwardly across pages */
+  li, blockquote { page-break-inside: avoid; }
+
+  .footer-note {
+    margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <header class="cover">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgaWQ9IkNhbWFkYV8yIiBkYXRhLW5hbWU9IkNhbWFkYSAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAuNTcgODUuMzIiPg0KICA8ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAuY2xzLTEgew0KICAgICAgICBmaWxsOiAjZDc0NDM4Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTIgew0KICAgICAgICBmaWxsOiAjNTc1NjU2Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTMgew0KICAgICAgICBpc29sYXRpb246IGlzb2xhdGU7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8ZyBpZD0iQ2FtYWRhXzEtMiIgZGF0YS1uYW1lPSJDYW1hZGEgMSI+DQogICAgPGcgaWQ9IkdydXBvXzQiIGRhdGEtbmFtZT0iR3J1cG8gNCI+DQogICAgICA8ZyBpZD0iRE5BIiBjbGFzcz0iY2xzLTMiPg0KICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUuMTgsMjAuNTNjMy40NS02LjQ3LDguMzUtMTEuNSwxNC43LTE1LjExQzI2LjIyLDEuOCwzMy41MiwwLDQxLjc3LDBjMTAuNDcsMCwxOS4yOCwyLjgsMjYuNDIsOC4zOSw3LjE0LDUuNTksMTEuNzQsMTMuMTksMTMuOCwyMi43OWgtMjUuMTFjLTEuNTEtMy4xNy0zLjU5LTUuNTktNi4yNS03LjI2LTIuNjYtMS42Ny01LjczLTIuNS05LjIyLTIuNS01LjQsMC05LjcsMS45Mi0xMi45MSw1Ljc3LTMuMjEsMy44NS00LjgyLDguOTgtNC44MiwxNS40MXMxLjYxLDExLjY4LDQuODIsMTUuNTNjMy4yMSwzLjg1LDcuNTIsNS43NywxMi45MSw1Ljc3LDMuNDksMCw2LjU2LS44Myw5LjIyLTIuNSwyLjY2LTEuNjcsNC43NC00LjA4LDYuMjUtNy4yNmgyNS4xMWMtMi4wNiw5LjYtNi42NiwxNy4yLTEzLjgsMjIuNzktNy4xNCw1LjU5LTE1Ljk1LDguMzktMjYuNDIsOC4zOS04LjI1LDAtMTUuNTUtMS44LTIxLjktNS40MS02LjM1LTMuNjEtMTEuMjUtOC42NS0xNC43LTE1LjExQzEuNzMsNTguMzMsMCw1MC45MywwLDQyLjZzMS43My0xNS42MSw1LjE4LTIyLjA3WiIvPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTE0OC4zMyw2LjEzYzYuNjIsMy41MywxMS43Miw4LjQ3LDE1LjI5LDE0LjgyLDMuNTcsNi4zNSw1LjM2LDEzLjYxLDUuMzYsMjEuNzhzLTEuODEsMTUuMzEtNS40MiwyMS42NmMtMy42MSw2LjM1LTguNzMsMTEuMzMtMTUuMzUsMTQuOTMtNi42MiwzLjYxLTE0LjMsNS40MS0yMy4wMyw1LjQxaC0zMy4yVi44M2gzMy4yYzguODEsMCwxNi41MiwxLjc3LDIzLjE1LDUuMjlaTTEzOS40Nyw1OC41NWMzLjg5LTMuNzMsNS44My05LDUuODMtMTUuODNzLTEuOTQtMTIuMjQtNS44My0xNi4wMWMtMy44OS0zLjc3LTkuMjQtNS42NS0xNi4wNi01LjY1aC04LjA5djQzLjA4aDguMDljNi44MiwwLDEyLjE4LTEuODYsMTYuMDYtNS41OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yNTYuMDksODQuNzNoLTIzLjMybC0zMS4wNi00Ni44OXY0Ni44OWgtMjMuMzJWLjgzaDIzLjMybDMxLjA2LDQ3LjQ4Vi44M2gyMy4zMnY4My44OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjEuNDIsNzEuMDRoLTI5Ljc1bC00LjUyLDEzLjY4aC0yNC41MUwyOTMuMjEuODNoMjYuODlsMzAuNDYsODMuODloLTI0LjYzbC00LjUyLTEzLjY4Wk0zMTUuNTksNTMuMTlsLTkuMDQtMjcuMTMtOC45MiwyNy4xM2gxNy45N1oiLz4NCiAgICAgICAgPC9nPg0KICAgICAgPC9nPg0KICAgIDwvZz4NCiAgPC9nPg0KPC9zdmc+" alt="Corporate DNA" />
+    <p class="eyebrow">Outstanding with CDNA</p>
+    <h1>What we still need from CDNA</h1>
+    <div class="brandbar"></div>
+    <p class="meta"><strong>Prepared by Beto &amp; Cadu / Dev em Dobro.</strong> Following the daily of 17 Sep 2026. Everything from that call is built and live on the preview; this is what remains on your side.</p>
+  </header>
+
+  <main>
+    <p>Everything from the daily of 17 September is built and live on the preview. This note is the
+complete list of what is outstanding on your side, in one place rather than arriving one at a
+time.</p>
+<p>Nothing here blocks launch. Every slot listed is already working — it shows either a marked
+placeholder or the client&#39;s own wording from your mockups. The pages are complete; they are
+waiting on words and files that only you can supply.</p>
+<p>The fastest wins sit in <strong>section 1</strong>: sixty-eight short lines of copy that would finish the
+ten service pages.</p>
+<h2>What went live on the preview today</h2>
+<p><strong>About</strong></p>
+<ul>
+<li>Nineteen years, five regions, 10,000+ leaders — the three figures from the daily.</li>
+<li><em>Where we work</em>: GCC &amp; Middle East is now <strong>Middle East &amp; North Africa</strong>.</li>
+<li>The world map has been rebuilt in the style you sent: one flat landmass tone, red pins, no
+painted countries.</li>
+<li>The <em>Keeping Leadership Real</em> photograph is now the retouched six-person version.</li>
+</ul>
+<p><strong>Team</strong></p>
+<ul>
+<li><strong>Supported by a team of senior program managers</strong> — a new block under <em>Leadership</em>, with
+Maliha Bathool and Carol Medcalf.</li>
+<li><strong>Global faculty</strong> now lists all 23 facilitators from <em>Facilitators for website.docx</em>, each
+with their portrait and region. The five region tiles are gone.</li>
+<li>The faculty is now described as <strong>60+ senior practitioners</strong>, on both the Team and About
+pages.</li>
+<li><strong>Every photograph on the page is now black and white</strong> — the six leadership portraits and all
+twenty-five new faculty and programme manager portraits.</li>
+<li>The <em>One team</em> photograph has been replaced with the retouched version, without the chairs.</li>
+</ul>
+<p><strong>Services</strong></p>
+<ul>
+<li>All ten cards on the index now use your images from the Drive.</li>
+<li>Each service page hero now carries its own image rather than one shared photograph.</li>
+<li><em>Impact</em> and <em>How we help</em> have been rebuilt to your ExCo template: headline left, rule,
+body right.</li>
+<li><strong>Partners</strong> is restacked with the five logos from the Drive on a dark panel.</li>
+</ul>
+<p><strong>Clients &amp; Impact</strong></p>
+<ul>
+<li>The logo wall is now the animated bar from the homepage.</li>
+<li><em>Industries we work in</em> and the <em>Real outcomes</em> row have been removed.</li>
+<li><strong>Case studies</strong> is now one case per row — client name, the challenge, the full set of impact
+figures, and a button through to the story.</li>
+</ul>
+<p><strong>Every page except the homepage</strong> now has a shorter first screen, so the section below is
+visible without scrolling.</p>
+<h2>1. Service page copy — 68 short lines</h2>
+<p>This is the largest single gap, and the cheapest to close. All of it is short copy.</p>
+<h3>a) Block headlines — 18 lines</h3>
+<p>Your ExCo template gives each of the first two blocks a <strong>headline</strong> on the left, beside the
+paragraph. The headline promises; the paragraph explains. We have the paragraphs — they come
+from the Services document. The headlines do not exist anywhere in what you have sent, except
+for Top 150, which your template writes out in full:</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Headline (left)</th>
+<th>Body (right) — we already have this</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Impact</td>
+<td><em>A stronger, more connected senior leadership community.</em></td>
+<td>A senior leadership community with greater strategic alignment, decision quality and execution speed…</td>
+</tr>
+<tr>
+<td>How we help</td>
+<td><em>From ambition to enterprise leadership in practice.</em></td>
+<td>We work with the ExCo and top 100 to 150 leaders to build the Inner Game and Outer Game…</td>
+</tr>
+</tbody></table>
+<p>Nine services still need both. Each currently reads <em>&quot;Headline to be confirmed.&quot;</em></p>
+<p><strong>Needed for:</strong> Culture Transformation · Talent Development · Manager Development · Women in
+Leadership · High Performing Teams · HRLT Effectiveness · Judgement in AI · Executive
+Coaching · Family Business Consulting.</p>
+<p><em>Two lines each. Use the Top 150 pair above as the tone.</em></p>
+<h3>b) Pillar descriptions — 50 lines</h3>
+<p>Your template puts a one-line description under each of the five pillars — <em>&quot;Shared learning
+that builds perspective and collective mindset&quot;</em> under <strong>Immersive experiences</strong>, and so on.</p>
+<p>We have the pillar names for all ten services. We have none of the descriptions, including for
+Top 150. Across the ten services there are <strong>50 pillars</strong>.</p>
+<p>The pillars currently render as icon and name only. They look finished; they are simply
+carrying less than your template intends.</p>
+<p><em>One line each, under fifteen words.</em></p>
+<h2>2. Service evidence</h2>
+<p>Five of the ten services have an evidence band. Five have no client story at all, so the band
+does not render — that is the correct behaviour, not a fault.</p>
+<h3>a) Four client quotes</h3>
+<p>Your outline is explicit: <em>&quot;Nine of the ten have no publishable testimonial. Four have one
+identified but not chosen: adidas, GSK Mexico, Heineken and Vodafone. Only Executive Coaching
+has text that can ship.&quot;</em></p>
+<p>Those four now show a placeholder in your own mockup&#39;s wording — <em>&quot;A quote from [client] to be
+confirmed.&quot;</em> We have deliberately not written anything that sounds real: a plausible invented
+sentence is the one thing a reviewer approves without noticing.</p>
+<h3>b) Evidence photographs — 5 images</h3>
+<p>Each evidence band has a portrait slot beside the figures. All five currently show a grey plate
+marked PLACEHOLDER, except Top 150, which uses a photograph of a HEINEKEN sign from our side —
+also provisional.</p>
+<p><em>Portrait or square, at least 1000px on the short edge.</em></p>
+<h2>3. Partners</h2>
+<h3>a) The section text</h3>
+<p>The copy is the previous version and names only two of the five partners — Harvard Business
+Impact and Imperial College London. The panel now shows five.</p>
+<p><strong>Needed: a paragraph that covers CLO100, YPO and Explore Performance as well.</strong></p>
+<h3>b) The sixth logo</h3>
+<p>You mentioned six; the Drive folder has five. <strong>Which one is missing?</strong></p>
+<h3>c) Reversed logo files</h3>
+<p>The logos sit on a dark panel, because two of them (CLO100 and YPO) only exist as white
+artwork. Three of the five did not work on dark and we adapted them ourselves:</p>
+<ul>
+<li><strong>Harvard Business Impact</strong> arrived with no transparency — a white rectangle with a black
+crest. We removed the white and reversed the crest to white.</li>
+<li><strong>Explore Performance</strong> is dark grey artwork. We took it to solid white, which <strong>loses the
+blue</strong> in the symbol.</li>
+<li><strong>Imperial College</strong> had a white box behind the crest. We removed only the box; the crest is
+still in colour.</li>
+</ul>
+<p>All three read correctly. But these are derived by us from your files, and a reversed version of
+a third party&#39;s mark normally comes from its owner.</p>
+<p><strong>Worth requesting the official white / reversed files from each of the three.</strong></p>
+<h2>4. Two numbers that now disagree with themselves</h2>
+<p>The About page says <strong>19 years</strong> and <strong>five regions</strong>; the Team and About pages say a faculty of
+<strong>60+</strong>. Those are today&#39;s corrections.</p>
+<p>The <strong>homepage and Our Impact still say 18 years, 36 countries and 75 faculty.</strong> Those four
+figures come from the CMS (the <code>home</code> record), not from the code — so they did not change with
+the rest, and we cannot change them from our side without overwriting published content.</p>
+<p><strong>This needs updating in the CMS</strong>, or the same firm states two different sizes one click apart.</p>
+<p>The Team page also still reads <em>&quot;across 36 countries&quot;</em> beside the new <em>60+</em>, because the daily
+only mentioned the faculty number. <strong>Worth deciding whether the site counts countries or
+regions</strong>, and using one of the two everywhere.</p>
+<h2>5. Team page details</h2>
+<h3>a) &quot;Tony&quot; has no surname</h3>
+<p>The facilitator table gives only <em>&quot;Tony&quot;</em>, with the bio link <code>CDNA Profile - Australia_Tony.pptx</code>.
+Published as written rather than guessed — but a single first name among twenty-two full names
+reads like an unfinished field.</p>
+<h3>b) The two programme managers have no job title</h3>
+<p>You sent the portraits and the heading, nothing else. The line under each name is deliberately
+empty; inventing <em>&quot;Senior Programme Manager&quot;</em> would mean writing a real person&#39;s job title by
+inference.</p>
+<h3>c) Regions</h3>
+<p>Each facilitator now carries their region under their name — that is what replaced the five
+region tiles. Three things in the table need you:</p>
+<ul>
+<li><strong>Tom Cross&#39;s region cell contains a question, not a region:</strong> <em>&quot;UKEE is there a reason we are
+not using EUR for Europe? UKEE is not commonly used here?&quot;</em> Read as UKEE, since that is the
+code CDNA uses elsewhere — Mike Jackson is <em>Head of UKEE</em>.</li>
+<li><strong>Bret Freeman&#39;s cell is unresolved in the table itself:</strong> <em>&quot;UK (though was listed as ME?)&quot;</em>.
+Used UK &amp; Europe, which is the statement; the question mark is yours.</li>
+<li><strong>&quot;Europe&quot; and &quot;UK &amp; Europe&quot; now sit side by side.</strong> Sixteen people are filed under EUR and
+two under UKEE / UK — which is exactly the inconsistency the comment in Tom Cross&#39;s cell
+raises. <strong>One decision settles eighteen of the twenty-three entries.</strong></li>
+<li><strong>Nobody is listed in India, and only two in the Middle East.</strong> India had its own tile in the
+old layout and now does not appear at all, because no facilitator in the table is filed there.</li>
+</ul>
+<h3>d) Three portraits are too small</h3>
+<table>
+<thead>
+<tr>
+<th>Person</th>
+<th>Size supplied</th>
+<th>Needed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sandro da Silva</td>
+<td>190 × 190 px</td>
+<td>any original, 800 px or more on the short edge</td>
+</tr>
+<tr>
+<td>Amy Scialdone</td>
+<td>239 × 201 px</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Lisa Kaplin</td>
+<td>199 × 196 px</td>
+<td>same</td>
+</tr>
+</tbody></table>
+<p>The rest range up to 2048 px. These three have <strong>not</strong> been enlarged — enlarging bakes the blur
+permanently into the file. On a normal screen they pass; on a high-resolution laptop they
+visibly soften next to their neighbours.</p>
+<h3>e) Two are event photographs rather than portraits</h3>
+<p><strong>Sunanda Banerjee</strong> stands in front of a <em>LeadHERs</em> event banner; <strong>Wouter van den Berg</strong> is
+speaking on stage with a Harvard Business Review backdrop. Both have been cropped by hand to
+head-and-shoulders and both work. They simply read as snapshots among studio portraits.
+<em>Nice-to-have, not a blocker.</em></p>
+<h3>f) One wording question</h3>
+<p>The heading is published exactly as written: <em>&quot;Supported by a team of senior <strong>program</strong>
+managers.&quot;</em> The rest of the site is British English — <em>programmes delivered</em>, <em>Manager
+Development</em>. <strong>Keep <em>program</em>, or change it to <em>programme</em>?</strong></p>
+<h2>6. Client logo files</h2>
+<p>The logos in the Case studies list and the client wall are low resolution, and carry very
+different amounts of built-in transparent padding — which is why some appear much smaller than
+others at the same setting:</p>
+<table>
+<thead>
+<tr>
+<th>Logo</th>
+<th>File</th>
+<th>Actual mark</th>
+<th>Share of the height used</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Morgan Stanley</td>
+<td>165 × 49</td>
+<td>137 × 21</td>
+<td>43%</td>
+</tr>
+<tr>
+<td>MAADEN</td>
+<td>180 × 60</td>
+<td>149 × 32</td>
+<td>53%</td>
+</tr>
+<tr>
+<td>Dyson</td>
+<td>132 × 68</td>
+<td>104 × 40</td>
+<td>59%</td>
+</tr>
+<tr>
+<td>Vodafone</td>
+<td>123 × 97</td>
+<td>95 × 69</td>
+<td>71%</td>
+</tr>
+</tbody></table>
+<p>We can normalise these ourselves — trim the transparency and re-pad them evenly — but the same
+files are used by the client wall, the animated bar and the case library, so it changes logo
+sizing everywhere at once. <strong>Say the word and we will.</strong> Higher-resolution originals would be
+better still.</p>
+<h2>The fastest things you could send</h2>
+<ol>
+<li><strong>The 18 block headlines.</strong> Two lines per service, nine services. They are the most visible
+empty slot on the site.</li>
+<li><strong>The Europe / UK &amp; Europe decision.</strong> One answer, eighteen entries.</li>
+<li><strong>The CMS figures</strong> — 19 years, five regions, 60+ faculty — so the homepage stops
+contradicting the About page.</li>
+<li><strong>The Partners paragraph</strong> and the sixth logo.</li>
+</ol>
+<p>Everything else can follow at your pace.</p>
+
+  </main>
+
+  <p class="footer-note">Corporate DNA — Making Leadership Real · Dev em Dobro · Outstanding with CDNA 17/09/2026</p>
+</body>
+</html>

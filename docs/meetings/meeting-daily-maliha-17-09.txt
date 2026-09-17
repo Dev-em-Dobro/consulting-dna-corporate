@@ -1,0 +1,36 @@
+about page
+trocar todas as menções de 18 years para 19 years
+trocar 36 paises para 5 regions 
+trocar 1,000 leaders para 10 000+ 
+
+fazer o hero de todas as páginas menos da home terem uma altura um pouco menor para a seção de baixo aparça na tela 
+trocar o estilo do mapa pelo que ela mando na pasta do drive (esse deixa por ultimo que eu vou te mandar a imagem)
+
+na seção "Keeping Leadership Real" a iagem ficou muito distrocida, deixa ela do tamanho real
+
+na seção "Where we work." trocar  GCC & Midlle para midddle east and north africa
+
+team 
+
+embaixo da seção "Leadership" criar uma nova parte que vai ser "supoorted by our senior programar managers" e vai ter uma lista de pessoas com fotos e nomes (esse pode deixar por ultimoo que eu vou te mandar as fotos e os nomes)
+
+deixar todas as fotos com greyscale (isso eu vou ter que fazer na ia)
+
+na seção "One team" cortar a foto embaixo para tirar as cadeiras (isso eu vou fazer na ia depois)
+
+na seção "Global faculty" trocar 75 poor 60+ - a faculty of 60+
+nessa mesma seção remove the countries cards and change for the people list (esse deixa por ultimo que eu vou mandar a lista)
+
+services page listing
+trocar as imagens pelas do drive (deixa por ultimo que eu vou mandar as imagens)
+na seção parteners 
+trocar pelo texto que a maliha vai mandar e depois os 6 logos com os novos que ela colocou no drive (deixar por ultimo que eu vou mandar os logos)
+
+a tela interna dos serviçõs tem que deixar a tela mais parecida com o layout do drive (pode deixar por ultimo que eu vou mandar o layout de novo)
+
+client and imapcts page
+na seção "Trusted by global organisations" trocar os clientes pela barra animada de clientes da home
+tirar a secao Industries we work in
+tirar real outcomes
+
+mudar o estilo da seção "case studies" deixar cada case em uma linha com logo texto The challenge, e os numeros de impactoo
