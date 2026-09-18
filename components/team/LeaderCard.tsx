@@ -147,8 +147,18 @@ export default function LeaderCard({
             quando a quote é longa. A grade em `app/team/page.tsx` ganhou
             `sm:auto-rows-fr` para as duas fileiras terem a mesma altura, então
             esse excedente é o MESMO nos seis cards — silhueta idêntica, e não
-            seis variações. É o preço de "mesma altura", e foi o pedido. */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-paper">
+            seis variações. É o preço de "mesma altura", e foi o pedido.
+
+            ⚠️ E DE 3:4 PASSOU A 7:10 na revisão do mesmo 18-09 (*"ficou bom,
+            mas pode aumentar levemente a altura das imagens"*): ~7% mais alto,
+            uns 20px em 1440. Os três motivos do 3:4 acima ficam assim: (a) a
+            liderança deixa de ter a MESMA proporção do `PeopleRoster` (3:4),
+            mas continua sendo o retrato maior da página nas duas dimensões, que
+            era o invariante que importava; (b) os seis arquivos (4:5, 0,83 e
+            3:4) são todos MAIS LARGOS que 7:10, então o corte segue lateral —
+            nunca vertical, nunca cabeça; (c) o cartão rosa ganha 20px de folga
+            para a quote antes de passar abaixo do bloco do nome. */}
+        <div className="relative aspect-[7/10] overflow-hidden bg-paper">
           {person.portrait ? (
             <Image
               src={person.portrait}
