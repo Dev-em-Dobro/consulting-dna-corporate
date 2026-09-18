@@ -43,8 +43,15 @@ export default function SolutionCta({
   /**
    * ⚠️ A FAIXA ENCOLHE SÓ NA PÁGINA INTERNA DE SERVIÇO, 18-09, a pedido na
    * daily. O padrão continua `py-20 md:py-24` (80/96px); com `compact` passa a
-   * `py-8 md:py-10` (32/40px — nasceu 48/56 e encolheu de novo na revisão do
-   * mesmo dia, *"pode diminuir mais ainda"*). É prop, e não a troca do padrão, porque este
+   * `py-6 md:py-8` (24/32px). Nasceu 48/56 e encolheu duas vezes na revisão
+   * do mesmo dia (*"pode diminuir mais ainda"*, *"diminui mais a altura"*); na
+   * terceira rodada o padding já era pouco e o que sobrava de altura era o AR
+   * INTERNO, então `compact` também aperta o miolo — e na quarta rodada
+   * (*"diminuir o tamanho da fonte tbm"*) a tipografia inteira desce um
+   * degrau: rótulo 12px em vez de 14, título 22/26px em vez de 30/38, linha
+   * 15/16 em vez de 18/19, botão `text-xs` com `px-6 py-3` em vez de `text-sm`
+   * com `px-7 py-3.5`, e os `mt` caem de 5/5/10 para 2/2/5.
+   * É prop, e não a troca do padrão, porque este
    * componente é compartilhado — Services index, Our clients, Team e
    * `CaseStory` também o renderizam — e o pedido foi só para a interna de
    * serviço (`SolutionView`), que é a única que passa `compact`. O conteúdo é
@@ -56,7 +63,7 @@ export default function SolutionCta({
     <section className="bg-brand text-white">
       <div
         className={`mx-auto max-w-[1440px] px-6 md:px-10 ${
-          compact ? "py-8 md:py-10" : "py-20 md:py-24"
+          compact ? "py-6 md:py-8" : "py-20 md:py-24"
         }`}
       >
         {/* O `Reveal` fica na caixa INTERNA, e não na de 1440: os filhos diretos
@@ -64,14 +71,22 @@ export default function SolutionCta({
             de fora, o único filho seria esta `div` e a faixa inteira entraria
             de uma vez, que é o que ela já fazia. */}
         <Reveal className="max-w-[720px]">
-          <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-white/70">
+          <p className={`font-medium uppercase tracking-[1.3px] text-white/70 ${compact ? "text-[12px]" : "text-[14px]"}`}>
             Let’s talk
           </p>
-          <h2 className="font-serif mt-5 text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] md:text-[38px]">
+          <h2
+            className={`font-serif font-semibold leading-[1.15] tracking-[-0.2px] ${
+              compact ? "mt-2 text-[22px] md:text-[26px]" : "mt-5 text-[30px] md:text-[38px]"
+            }`}
+          >
             {strapline ?? "Ready to start the conversation?"}
           </h2>
           {line && (
-            <p className="mt-5 max-w-[620px] font-serif text-[18px] leading-[1.55] text-white/85 md:text-[19px]">
+            <p
+              className={`max-w-[620px] font-serif leading-[1.55] text-white/85 ${
+                compact ? "mt-2 text-[15px] md:text-[16px]" : "mt-5 text-[18px] md:text-[19px]"
+              }`}
+            >
               {line}
             </p>
           )}
@@ -81,7 +96,9 @@ export default function SolutionCta({
               de área — lê como desabilitado. */}
           <Link
             href={ctaHref ?? "/#contact"}
-            className="mt-10 inline-block bg-white px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white"
+            className={`inline-block bg-white font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white ${
+              compact ? "mt-5 px-6 py-3 text-xs" : "mt-10 px-7 py-3.5 text-sm"
+            }`}
           >
             {ctaLabel ?? "Start a Conversation"}
           </Link>
