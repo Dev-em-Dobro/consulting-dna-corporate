@@ -324,26 +324,19 @@ export default function SolutionsPage() {
                 o mesmo matiz quente — não é um cinza neutro novo, é o mesmo tom
                 da marca um passo mais claro.
 
-                E EM 18-09 O DEGRAU PASSOU A SER VISÍVEL COMO DEGRAU: com a seção
-                em `bg-ink`, o painel em `#4a4446` fica um passo mais claro que o
-                fundo ao redor (1,35:1 entre os dois — sutil, mas lê). Foi
-                considerado tirar o painel e pôr as marcas direto no `ink`; ficou
-                por dois motivos: o tom de 17-09 é o que ela escolheu para os
-                logos, e sem o painel a coluna perde a âncora (parágrafo do
-                "painel contido", acima). Se a cliente preferir tudo num tom só,
-                a troca é apagar `bg-[#4a4446]` e o padding desta `div`.
+                ⚠️ E EM 18-09 O PAINEL SAIU. Primeiro a seção inteira virou
+                `bg-ink` (pedido da daily), e o `#4a4446` ficou como um degrau
+                um passo mais claro que o fundo ao redor (1,35:1 — sutil). Na
+                revisão do mesmo dia o pedido foi *"tirar a cor de fundo dos
+                logos"*: a `div` perdeu o fundo e o padding, e as cinco marcas
+                ficam direto sobre o `ink` da seção, num tom só. O hex `#4a4446`
+                deixa de existir no site; se um degrau claro de `ink` voltar a
+                ser preciso, vira token (`--color-ink-3`), e não hex solto. A
+                `ul` continua centralizada, agora dentro da coluna e não de um
+                painel.
 
-                POR QUE É HEX SOLTO E NÃO TOKEN: o `globals.css` tem `ink` e
-                `ink-2`, e `ink-2` anda para o lado ESCURO (#2f2b2c); não existe
-                degrau claro de `ink` no sistema. Criar `--color-ink-3` para um
-                único painel inflaria a paleta do site inteiro. Se aparecer um
-                segundo uso deste tom, aí ele vira token — e este comentário é o
-                aviso de que é isso que deve acontecer, em vez de o hex ser
-                copiado para o segundo lugar.
-
-                O CONTRASTE NÃO É PROBLEMA NESTE DEGRAU: branco sobre `#4a4446`
-                dá 9,7:1, e os três logos brancos são branco puro. Clarear MUITO
-                mais é que começaria a apagá-los — daí "um pouco".
+                O CONTRASTE NÃO MUDA COM ISSO: branco sobre `ink` (#373234) dá
+                12,6:1, e os três logos brancos são branco puro.
 
                 ALTURA PRÓPRIA POR MARCA, e não uma altura comum como no mural de
                 clientes. Lá são 27 logotipos-palavra de proporção parecida, e
@@ -353,7 +346,7 @@ export default function SolutionsPage() {
                 seis vezes mais largo que o segundo e o brasão some. Os valores
                 estão em `PARTNER_LOGOS`. */}
             {/* eslint-disable @next/next/no-img-element */}
-            <div className="bg-[#4a4446] px-8 py-10 md:px-12 md:py-12">
+            <div>
               <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8">
                 {PARTNER_LOGOS.map((l) => (
                   <li key={l.src}>
