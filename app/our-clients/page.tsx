@@ -273,7 +273,21 @@ export default async function ClientsAndImpactPage() {
               <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-line">
                 {FIRM_STATS.map((s) => (
                   <div key={s.label} className="px-2 text-center sm:px-5">
-                    <p className="text-[34px] font-semibold leading-none tracking-[-1.5px] text-ink sm:text-[42px]">
+                    {/* "5 of the top 10" é uma FRASE onde os outros três são
+                        um número curto, e no mesmo corpo ela quebrava em duas
+                        linhas e pesava mais que os vizinhos. Na revisão de
+                        18-09 (*"diminuir um pouco o tamanho de font do texto
+                        5 of the top 10"*) o valor longo (>10 caracteres) desce
+                        um degrau: 28/34px contra 34/42. O limiar é por
+                        comprimento e não por índice para não depender da
+                        ordem em `FIRM_STATS`; "5 regions" (9) e "19 years" (8)
+                        ficam no corpo cheio. Só aqui — a About tem a própria
+                        composição, com ícones, e não foi pedida. */}
+                    <p
+                      className={`font-semibold leading-none tracking-[-1.5px] text-ink ${
+                        s.value.length > 10 ? "text-[28px] sm:text-[34px]" : "text-[34px] sm:text-[42px]"
+                      }`}
+                    >
                       {s.value}
                     </p>
                     <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.4] tracking-[1.2px] text-muted">
