@@ -150,10 +150,19 @@ export default function SolutionView({ service }: { service: Service }) {
           não tem sobre o que decidir. Está tudo no git.
 
           A SEQUÊNCIA DE FUNDOS DE HOJE: herói `ink` → branco (Impact) → paper
-          (How we help) → paper (pilares) → branco (evidência) → `brand` (CTA) →
+          (How we help) → paper (pilares) → paper (evidência) → `brand` (CTA) →
           branco (related). O How we help e os pilares dividem a MESMA faixa
           `paper`, sem emenda entre eles, que é exatamente o que o template
-          mostra. */}
+          mostra.
+
+          ⚠️ A EVIDÊNCIA PASSOU DE BRANCO A `paper` EM 18-09, a pedido na daily,
+          e com isso são TRÊS faixas `paper` seguidas (How we help → pilares →
+          evidência), sem um branco entre os pilares e a evidência para marcar a
+          troca de assunto. Os pilares NÃO foram mexidos de propósito: o pedido
+          foi só sobre a evidência, e cabe a ela decidir se quer os pilares em
+          branco para devolver a alternância. A altura do CTA também encolheu
+          nessa data, e SÓ nesta página: é a prop `compact` do `SolutionCta`,
+          passada logo abaixo. */}
       <SolutionSection
         label="Impact"
         headline={headlineOr(service.outcomeHeadline)}
@@ -202,6 +211,9 @@ export default function SolutionView({ service }: { service: Service }) {
         strapline={service.cta.strapline}
         line={service.cta.line}
         ctaLabel={service.cta.label}
+        /* Faixa mais baixa SÓ aqui, 18-09 — a prop existe para as outras
+           páginas que usam o `SolutionCta` não mudarem; ver a caixa dela. */
+        compact
       />
 
       {/* ✅ "RELATED SERVICES" VOLTOU EM 15-09, e voltou pelo caminho que a nota

@@ -15,6 +15,18 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * `ink`/`muted`. Se um dia ela voltar a ser escura, os dois lados têm de voltar
  * juntos — meia volta deixa vermelho ilegível.
  *
+ * ⚠️ E DE BRANCA PASSOU A `paper` EM 18-09, a pedido na daily. `paper` ainda é
+ * fundo CLARO, então a regra acima não muda de lado: o vermelho segue `brand`
+ * cheio, e texto e réguas seguem `ink`/`muted`. O que muda é a margem de
+ * contraste — sobre #f3f3f3 o `brand` cai de 4,39:1 para ~3,99:1. Para os
+ * números (≥32px, texto grande, mínimo 3,0) continua passando com folga; o
+ * rótulo de 14px já estava abaixo do AA sobre branco e fica um pouco mais
+ * abaixo aqui — é o mesmo caso dos outros rótulos vermelhos do site em fundo
+ * `paper`, e se for corrigido é no token. Nenhum bloco interno usava `bg-paper`
+ * ou `border-line`, então nada ficou invisível com a troca (as réguas são
+ * `border-ink/12`). Com isso os pilares (paper) e esta faixa (paper) ficam
+ * COLADOS, sem emenda visível — ver o ritmo de fundos em `SolutionView.tsx`.
+ *
  * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
  * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
  * de escolha. O que sobreviveu delas está marcado no fim desta caixa.
@@ -137,8 +149,9 @@ export default function SolutionEvidence({
     : hasQuote           ? ["lg:col-span-5", "", "lg:col-span-7"]
     :                      ["lg:col-span-12", "", ""];
 
+  // `paper` desde 18-09 (era `bg-white`); o porquê está no cabeçalho.
   return (
-    <section className="bg-white text-ink">
+    <section className="bg-paper text-ink">
       {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
           colunas — e a grade entra como UM bloco, não coluna a coluna: os
           números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a

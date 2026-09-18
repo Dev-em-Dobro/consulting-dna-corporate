@@ -34,15 +34,30 @@ export default function SolutionCta({
   line,
   ctaLabel,
   ctaHref,
+  compact = false,
 }: {
   strapline?: string;
   line?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /**
+   * ⚠️ A FAIXA ENCOLHE SÓ NA PÁGINA INTERNA DE SERVIÇO, 18-09, a pedido na
+   * daily. O padrão continua `py-20 md:py-24` (80/96px); com `compact` passa a
+   * `py-12 md:py-14` (48/56px). É prop, e não a troca do padrão, porque este
+   * componente é compartilhado — Services index, Our clients, Team e
+   * `CaseStory` também o renderizam — e o pedido foi só para a interna de
+   * serviço (`SolutionView`), que é a única que passa `compact`. O conteúdo é
+   * o mesmo nos dois casos; só o ar acima e abaixo muda.
+   */
+  compact?: boolean;
 }) {
   return (
     <section className="bg-brand text-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+      <div
+        className={`mx-auto max-w-[1440px] px-6 md:px-10 ${
+          compact ? "py-12 md:py-14" : "py-20 md:py-24"
+        }`}
+      >
         {/* O `Reveal` fica na caixa INTERNA, e não na de 1440: os filhos diretos
             dele têm de ser o rótulo, o título, a linha e o botão. Posto na caixa
             de fora, o único filho seria esta `div` e a faixa inteira entraria
