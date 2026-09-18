@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+
+  :root {
+    --brand: #d84339;
+    --brand-dark: #b5342b;
+    --ink: #373234;
+    --ink-2: #2f2b2c;
+    --paper: #f3f3f3;
+    --line: #ece9e6;
+    --muted: #6b6b6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* --- Cover --------------------------------------------------------------- */
+  .cover {
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    padding: 40px 40px 36px;
+    margin: 0 0 30px;              /* contained within @page margins — no bleed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cover::after {                  /* red accent stripe down the left edge */
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--brand);
+  }
+  .cover .brandbar {
+    width: 60px; height: 4px; background: var(--brand);
+    border-radius: 2px; margin-bottom: 26px;
+  }
+  .cover img.logo {
+    height: 40px; width: auto; display: block;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1);   /* white lockup on dark cover */
+  }
+  .cover h1 {
+    font-size: 27pt; line-height: 1.12; font-weight: 700;
+    margin: 0 0 14px; letter-spacing: -0.01em; max-width: 30ch;
+    color: #fff;                        /* override the dark global h1 color */
+    border-bottom: none; padding: 0; page-break-before: avoid;
+  }
+  .cover .eyebrow {
+    font-size: 8.5pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--brand); font-weight: 600; margin: 0 0 10px;
+  }
+  .cover .meta {
+    font-size: 9pt; color: rgba(255,255,255,.72); max-width: 74ch;
+    line-height: 1.6; margin: 18px 0 0;
+  }
+  .cover .meta strong { color: #fff; font-weight: 600; }
+
+  /* --- Typography --------------------------------------------------------- */
+  h1, h2, h3 { font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; }
+
+  h1 {                                  /* "Part A / B ..." top-level */
+    font-size: 17pt; margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--brand);
+    page-break-before: always;
+  }
+  h1:first-of-type { page-break-before: avoid; }
+
+  h2 {
+    font-size: 13pt; margin: 26px 0 10px; color: var(--brand-dark);
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 20px 0 8px; color: var(--ink-2);
+    page-break-after: avoid;
+  }
+
+  p { margin: 0 0 10px; }
+
+  a { color: var(--brand-dark); text-decoration: none; }
+
+  strong { font-weight: 600; color: var(--ink-2); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; }
+  li::marker { color: var(--brand); }
+
+  hr {
+    border: none; border-top: 1px solid var(--line);
+    margin: 22px 0;
+  }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--paper); border-left: 4px solid var(--brand);
+    border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Tables ------------------------------------------------------------- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0 18px;
+    font-size: 9.5pt; page-break-inside: avoid;
+  }
+  thead th {
+    background: var(--ink); color: #fff; text-align: left;
+    font-weight: 600; padding: 8px 10px; font-size: 9pt;
+  }
+  tbody td {
+    padding: 7px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* Keep list items and headings from breaking awkwardly across pages */
+  li, blockquote { page-break-inside: avoid; }
+
+  .footer-note {
+    margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <header class="cover">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgaWQ9IkNhbWFkYV8yIiBkYXRhLW5hbWU9IkNhbWFkYSAyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAuNTcgODUuMzIiPg0KICA8ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAuY2xzLTEgew0KICAgICAgICBmaWxsOiAjZDc0NDM4Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTIgew0KICAgICAgICBmaWxsOiAjNTc1NjU2Ow0KICAgICAgfQ0KDQogICAgICAuY2xzLTMgew0KICAgICAgICBpc29sYXRpb246IGlzb2xhdGU7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8ZyBpZD0iQ2FtYWRhXzEtMiIgZGF0YS1uYW1lPSJDYW1hZGEgMSI+DQogICAgPGcgaWQ9IkdydXBvXzQiIGRhdGEtbmFtZT0iR3J1cG8gNCI+DQogICAgICA8ZyBpZD0iRE5BIiBjbGFzcz0iY2xzLTMiPg0KICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUuMTgsMjAuNTNjMy40NS02LjQ3LDguMzUtMTEuNSwxNC43LTE1LjExQzI2LjIyLDEuOCwzMy41MiwwLDQxLjc3LDBjMTAuNDcsMCwxOS4yOCwyLjgsMjYuNDIsOC4zOSw3LjE0LDUuNTksMTEuNzQsMTMuMTksMTMuOCwyMi43OWgtMjUuMTFjLTEuNTEtMy4xNy0zLjU5LTUuNTktNi4yNS03LjI2LTIuNjYtMS42Ny01LjczLTIuNS05LjIyLTIuNS01LjQsMC05LjcsMS45Mi0xMi45MSw1Ljc3LTMuMjEsMy44NS00LjgyLDguOTgtNC44MiwxNS40MXMxLjYxLDExLjY4LDQuODIsMTUuNTNjMy4yMSwzLjg1LDcuNTIsNS43NywxMi45MSw1Ljc3LDMuNDksMCw2LjU2LS44Myw5LjIyLTIuNSwyLjY2LTEuNjcsNC43NC00LjA4LDYuMjUtNy4yNmgyNS4xMWMtMi4wNiw5LjYtNi42NiwxNy4yLTEzLjgsMjIuNzktNy4xNCw1LjU5LTE1Ljk1LDguMzktMjYuNDIsOC4zOS04LjI1LDAtMTUuNTUtMS44LTIxLjktNS40MS02LjM1LTMuNjEtMTEuMjUtOC42NS0xNC43LTE1LjExQzEuNzMsNTguMzMsMCw1MC45MywwLDQyLjZzMS43My0xNS42MSw1LjE4LTIyLjA3WiIvPg0KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTE0OC4zMyw2LjEzYzYuNjIsMy41MywxMS43Miw4LjQ3LDE1LjI5LDE0LjgyLDMuNTcsNi4zNSw1LjM2LDEzLjYxLDUuMzYsMjEuNzhzLTEuODEsMTUuMzEtNS40MiwyMS42NmMtMy42MSw2LjM1LTguNzMsMTEuMzMtMTUuMzUsMTQuOTMtNi42MiwzLjYxLTE0LjMsNS40MS0yMy4wMyw1LjQxaC0zMy4yVi44M2gzMy4yYzguODEsMCwxNi41MiwxLjc3LDIzLjE1LDUuMjlaTTEzOS40Nyw1OC41NWMzLjg5LTMuNzMsNS44My05LDUuODMtMTUuODNzLTEuOTQtMTIuMjQtNS44My0xNi4wMWMtMy44OS0zLjc3LTkuMjQtNS42NS0xNi4wNi01LjY1aC04LjA5djQzLjA4aDguMDljNi44MiwwLDEyLjE4LTEuODYsMTYuMDYtNS41OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yNTYuMDksODQuNzNoLTIzLjMybC0zMS4wNi00Ni44OXY0Ni44OWgtMjMuMzJWLjgzaDIzLjMybDMxLjA2LDQ3LjQ4Vi44M2gyMy4zMnY4My44OVoiLz4NCiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjEuNDIsNzEuMDRoLTI5Ljc1bC00LjUyLDEzLjY4aC0yNC41MUwyOTMuMjEuODNoMjYuODlsMzAuNDYsODMuODloLTI0LjYzbC00LjUyLTEzLjY4Wk0zMTUuNTksNTMuMTlsLTkuMDQtMjcuMTMtOC45MiwyNy4xM2gxNy45N1oiLz4NCiAgICAgICAgPC9nPg0KICAgICAgPC9nPg0KICAgIDwvZz4NCiAgPC9nPg0KPC9zdmc+" alt="Corporate DNA" />
+    <p class="eyebrow">Changes delivered</p>
+    <h1>What we changed today</h1>
+    <div class="brandbar"></div>
+    <p class="meta"><strong>Prepared by Beto &amp; Cadu / Dev em Dobro.</strong> Record of the daily of 18 Sep 2026 — every change below is built and live. Scope: the public website and the case records in the CMS.</p>
+  </header>
+
+  <main>
+    <p>Everything from the daily of 18 September is built and live. This note is the record of what
+moved, why it looks the way it does, and the short list of what is still waiting on your side.</p>
+<p>Two of your notes turned out to be one-line asks with long answers, and both are worth two
+minutes of your reading: the photograph quality, in section 6, and the case covers, in
+section 5. Neither is finished by us alone.</p>
+<h2>1. Services — the Partners block</h2>
+<p>You said you did not like the grey background and did not like the box, and asked to try the
+whole block in that darker tone instead, with the marks reading against it.</p>
+<p>That is what it does now. The section is dark end to end, the wording is white, and the five
+partner marks sit <strong>directly on the background</strong> — the panel that used to hold them is gone,
+so there is no box at all. The logos are white files, which is why the dark background is what
+makes them readable in the first place.</p>
+<p>If it still does not sit right, your own fallback from the call stands: send colour versions of
+the five marks and the block can go light again.</p>
+<h2>2. Service pages — the closing band and the evidence</h2>
+<p><strong>The closing band is smaller.</strong> You asked whether it could be reduced; it came down twice, and
+it is now a little over a third of its old height. The wording and the button are unchanged.</p>
+<p>The band is shared with four other pages. It was made shorter <strong>only on the service pages</strong>, so
+Clients &amp; Impact, Team and the case pages keep the original proportion.</p>
+<p><strong>The evidence block is now dark with white text</strong>, which is the &quot;bolder&quot; you described. It had
+been dark until 16 September, so this is a return rather than an experiment: the red figures and
+the white wording are the pairing that block was designed around.</p>
+<h2>3. Team</h2>
+<ul>
+<li><strong>The six leadership portraits are the same height.</strong> They were not before, and the cause was
+not the photographs — the frames were stretching to match whichever quote in the row ran
+longest. The frame is now fixed, so all six match, and it was then made slightly taller.</li>
+<li><strong>Mike Jackson and Genevieve James</strong> now use the pictures you sent on 17 September.</li>
+<li><strong>Nicole Phoon</strong> is in the senior programme managers, with the photograph from your folder.</li>
+<li><strong>The role and the region sit together</strong> on each card. There was a gap between them — &quot;CEO
+Americas&quot;, then space, then &quot;Americas&quot; — which made one person read as three separate lines.</li>
+</ul>
+<h2>4. Clients &amp; Impact</h2>
+<ul>
+<li><strong>&quot;27 clients across industries&quot; is gone</strong>, as asked.</li>
+<li><strong>The case studies read as a list again.</strong> Each case sits on its own band, alternating white
+and soft grey, which is the &quot;so people can tell these are different ones&quot; you were after. The
+client logos are about 40% larger.</li>
+<li><strong>By the numbers now carries the four figures from About</strong> — nineteen years, five regions,
+10,000+ leaders, five of the top ten — <strong>on a dark band</strong>, which is the &quot;similar to this one&quot;
+from the call. The two pages now read from one source, so changing a figure changes both.</li>
+<li><strong>One error corrected along the way.</strong> The footprint beside the map was publishing &quot;36
+Countries&quot; while the figure itself had been changed to regions on 17 September. It now reads
+five regions.</li>
+</ul>
+<h2>5. Case pages — the first covers</h2>
+<p><strong>The nine published cases had never had a cover photograph.</strong> The hero was a solid dark panel
+on every one of them. The images you renamed in the Drive have now been attached, so four cases
+carry a photograph for the first time: <strong>GSK, Ma&#39;aden, and both Frasers cases.</strong></p>
+<p>Two things follow from that, and both need you.</p>
+<p><strong>The other four images have nowhere to go yet.</strong> You sent adidas twice and Heineken once. There
+is no published case for either: adidas is not marked as reviewed in the spreadsheet, and
+Heineken was unpublished on 17 September along with the five other legacy cases. If you want
+those two back, say so and they can be written and published.</p>
+<p><strong>Putting the covers in exposed a fault we could not see before.</strong> On the case page, the
+photograph beside &quot;What changed&quot; was being downloaded at 300 pixels wide and then stretched to
+three times that height. It looked soft and small. It has been fixed, and the column it sits in
+is wider. The fault had existed since 16 September and had been invisible, because until today
+no case had a photograph in that slot.</p>
+<p><strong>That slot wants its own photograph.</strong> It is currently showing the same image as the hero, in a
+different crop, because the system has one image field per case. A second picture per case —
+even one — would fix it properly. For Frasers there are already two unused photographs in your
+Drive folder that would do.</p>
+<h2>6. The photographs themselves</h2>
+<p>You raised the stairs picture on About: the quality is low, and we agreed to try improving it
+with AI. We did, and the result needs a word of explanation rather than a yes.</p>
+<p><strong>What was done.</strong> The stairs picture on About and the team picture on Team are both sharper and
+roughly twice the resolution. The four new case covers were given the same treatment before
+being uploaded.</p>
+<p><strong>What we deliberately did not do.</strong> The strongest AI setting produces a visibly crisper picture,
+but it does not enlarge a photograph so much as rebuild it — and on the Ma&#39;aden picture it
+rebuilt the <strong>faces</strong>. The people in that room came out with features that are not theirs. That
+is not something to publish in a client&#39;s case study, so every image here uses a conservative
+setting: half the AI result blended with a conventional enlargement. It is a real improvement,
+and the faces stay the faces.</p>
+<p><strong>None of this invents detail that the camera never captured.</strong> The Ma&#39;aden photograph is a wide
+crop at low resolution, and it remains the weakest image on the site. <strong>If the original file
+exists on someone&#39;s phone, it would beat anything we can do to the copy we have.</strong></p>
+<h2>7. One warning about the CMS</h2>
+<p>The four cases that now have covers should <strong>not be opened and saved in the CMS panel</strong> until we
+have extended it.</p>
+<p>The reason is that the case form in the panel knows only a handful of the fields those cases
+actually carry. Saving from the panel rewrites the record with what the form knows, and
+everything else — the cover, the challenge, the approach, the outcome, the figures — is dropped.
+This is not new and it is not caused by the covers; the covers have simply joined the list of
+things at risk. Editing any other content type is unaffected.</p>
+<p>We will extend the form. Until then, tell us what needs changing on those four and we will do it
+directly.</p>
+<h2>What is still with you</h2>
+<ol>
+<li><strong>Job titles for the three senior programme managers</strong> — Nicole, Carol and Maliha are all
+published without one.</li>
+<li><strong>adidas and Heineken</strong> — photographs arrived, but neither has a case to put them on.</li>
+<li><strong>A better original of the Ma&#39;aden photograph</strong>, if one exists.</li>
+<li><strong>Shunkhlai and Prudential</strong> — both were written into version 2 of the spreadsheet, and
+neither is marked as reviewed. Shunkhlai is marked &quot;JP&quot;. Both are also missing the
+partnership period, the impact figures and the client quote, which the case template needs.</li>
+<li><strong>A second photograph per case</strong>, for the slot beside &quot;What changed&quot;.</li>
+<li><strong>Cover images for the remaining five published cases</strong> — BT, DP World, Dyson, Morgan Stanley
+and Vodafone.</li>
+</ol>
+<p>Nothing on this list blocks anything. Every page is complete and working; these are words and
+files that only you can supply.</p>
+
+  </main>
+
+  <p class="footer-note">Corporate DNA — Making Leadership Real · Dev em Dobro · Changes of 18/09/2026</p>
+</body>
+</html>
