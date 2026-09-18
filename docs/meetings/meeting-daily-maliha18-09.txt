@@ -1,0 +1,19 @@
+na pagina de servicos, na seção "Partners", trocar todo o fundo para um background cinza escuro seguindo o padrao das cores do site
+on internal page fromm services, change make the cta section smaller in heigth and chnage the bakground on section "Evidence" to a grey background
+team page, the images on section "Leadership" sould be the same heigth
+ainda nessa seção, trocar a imagens da genevieve e do Mike Jackson
+na seção "Supported by a team of senior program managers." inserir a imagem da Nicole Phoon.jpeg que faltou
+na pagina /our-clients, tirar a frase "27 clients across industries"
+ainda nessa pagina na seção "case studies" colocar cada linha com uma cor alternando entre branco e cinza suage, aumentar o tamanho dos logos 
+ainda nessa paginam, na seção "By the numbers" colcar em um backgrund cinza e usar os numoers da pagina de about
+19 years
+of senior leadership advisory, since London, 2007
+5 regions
+of global programme delivery
+10,000+
+leaders coached and teams developed
+5 of the top 10
+FTSE 100 companies are long standing clients
+
+
+
