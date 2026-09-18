@@ -192,7 +192,28 @@ export default function SolutionsPage() {
             clientes REAIS, e `lib/logos.ts` registra que cada nome ali é
             aprovação da CDNA, não mudança de código. Se voltar, que volte pelo
             mesmo caminho por onde entrou na home. */}
-        <section className="bg-white">
+        {/* ── A SEÇÃO INTEIRA É ESCURA · 18-09 ─────────────────────────────
+            *"trocar todo o fundo para um background cinza escuro seguindo o
+            padrão das cores do site."* Era `bg-white` com só o painel das marcas
+            escuro (o pedido de 17-09, registrado no painel abaixo); agora a faixa
+            inteira vai de margem a margem em `bg-ink`, que é o escuro quente que
+            as outras faixas escuras do site já usam (home §approach e §contact,
+            /about §purpose e §people) — "padrão das cores do site" é isto, e não
+            um cinza neutro novo.
+
+            O QUE MUDA JUNTO COM O FUNDO, e por quê:
+              • `text-white` na seção e no `h2` (era `text-ink`).
+              • Parágrafos em `text-white/80`, que é como a home escreve texto
+                corrido sobre `ink`. O `text-muted` (#6b6b6b) que estava aqui
+                dá ~2,9:1 sobre `ink` e não passa no AA; `white/80` dá ~9:1.
+              • `TypeLabel onDark`, que troca `brand` por `brand-light` na régua
+                e na palavra — a regra do `globals.css`: `brand` em fundo claro
+                não é legível como texto sobre `ink` (2,87:1).
+
+            A VIZINHANÇA CONTINUA COM DIVISA: acima é o `bg-paper` da grade de
+            serviços, abaixo é o `SolutionCta` em `bg-brand` (vermelho), então o
+            `ink` não encosta em outra faixa do mesmo tom. */}
+        <section className="bg-ink text-white">
           {/* ⚠️ ESTE BLOCO MUDOU DE ARRANJO DUAS VEZES EM 17-09, e o registro das
               duas fica porque a segunda só se entende contra a primeira:
 
@@ -222,8 +243,8 @@ export default function SolutionsPage() {
               degrau visível no pé da direita. */}
           <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-16 md:px-10 md:py-24">
             <div>
-              <TypeLabel>Partners</TypeLabel>
-              <h2 className="font-serif mt-5 text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[34px]">
+              <TypeLabel onDark>Partners</TypeLabel>
+              <h2 className="font-serif mt-5 text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-white md:text-[34px]">
                 The work is ours. The partners are chosen.
               </h2>
 
@@ -235,7 +256,7 @@ export default function SolutionsPage() {
                   cliente — escrever a frase de CLO100, YPO e Explore Performance
                   por conta própria seria inventar a natureza de três parcerias
                   reais. */}
-              <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
+              <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.7] text-white/80 md:text-[18px]">
                 <p>
                   Most work is designed and delivered by our own faculty. Where a bespoke
                   programme calls for more, we bring partners in by design rather than by
@@ -256,11 +277,16 @@ export default function SolutionsPage() {
                 Duas das cinco marcas que ela mandou (CLO100 e YPO) só existem em
                 versão BRANCA, e branco sobre a seção branca é marca invisível.
 
-                ⚠️ PAINEL CONTIDO, E NÃO FAIXA DE SANGRIA — decisão que sobrevive
-                aos três arranjos acima. Escuro de margem a margem leria como uma
-                seção nova, e a seção seguinte é o convite (`SolutionCta`), que
-                também é escura: as duas se encostariam sem divisa. Contido, o
-                escuro lê como o objeto que é.
+                ⚠️ PAINEL CONTIDO, E NÃO FAIXA DE SANGRIA — decisão que sobreviveu
+                aos três arranjos acima ENQUANTO A SEÇÃO ERA BRANCA: escuro de
+                margem a margem leria como uma seção nova, e contido o escuro lia
+                como o objeto que é. Em 18-09 a seção inteira virou `bg-ink` a
+                pedido (ver o comentário na abertura da `<section>`), e o painel
+                CONTINUA CONTIDO por outro motivo: sobre o `ink` ele é o degrau
+                que ancora as cinco marcas na coluna. Sem ele, os logos ficariam
+                soltos ao lado de um bloco de texto, sem nada que dissesse onde a
+                coluna começa e termina — e é a mesma leitura de figura levemente
+                elevada sobre escuro que a /approach usa (`bg-white/[0.04]`).
 
                 ⚠️ TRÊS DAS CINCO PRECISARAM SER TRATADAS para viver no escuro, e
                 isso está anotado porque é alteração de marca de terceiro:
@@ -298,17 +324,19 @@ export default function SolutionsPage() {
                 o mesmo matiz quente — não é um cinza neutro novo, é o mesmo tom
                 da marca um passo mais claro.
 
-                POR QUE É HEX SOLTO E NÃO TOKEN: o `globals.css` tem `ink` e
-                `ink-2`, e `ink-2` anda para o lado ESCURO (#2f2b2c); não existe
-                degrau claro de `ink` no sistema. Criar `--color-ink-3` para um
-                único painel inflaria a paleta do site inteiro. Se aparecer um
-                segundo uso deste tom, aí ele vira token — e este comentário é o
-                aviso de que é isso que deve acontecer, em vez de o hex ser
-                copiado para o segundo lugar.
+                ⚠️ E EM 18-09 O PAINEL SAIU. Primeiro a seção inteira virou
+                `bg-ink` (pedido da daily), e o `#4a4446` ficou como um degrau
+                um passo mais claro que o fundo ao redor (1,35:1 — sutil). Na
+                revisão do mesmo dia o pedido foi *"tirar a cor de fundo dos
+                logos"*: a `div` perdeu o fundo e o padding, e as cinco marcas
+                ficam direto sobre o `ink` da seção, num tom só. O hex `#4a4446`
+                deixa de existir no site; se um degrau claro de `ink` voltar a
+                ser preciso, vira token (`--color-ink-3`), e não hex solto. A
+                `ul` continua centralizada, agora dentro da coluna e não de um
+                painel.
 
-                O CONTRASTE NÃO É PROBLEMA NESTE DEGRAU: branco sobre `#4a4446`
-                dá 9,7:1, e os três logos brancos são branco puro. Clarear MUITO
-                mais é que começaria a apagá-los — daí "um pouco".
+                O CONTRASTE NÃO MUDA COM ISSO: branco sobre `ink` (#373234) dá
+                12,6:1, e os três logos brancos são branco puro.
 
                 ALTURA PRÓPRIA POR MARCA, e não uma altura comum como no mural de
                 clientes. Lá são 27 logotipos-palavra de proporção parecida, e
@@ -318,7 +346,7 @@ export default function SolutionsPage() {
                 seis vezes mais largo que o segundo e o brasão some. Os valores
                 estão em `PARTNER_LOGOS`. */}
             {/* eslint-disable @next/next/no-img-element */}
-            <div className="bg-[#4a4446] px-8 py-10 md:px-12 md:py-12">
+            <div>
               <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8">
                 {PARTNER_LOGOS.map((l) => (
                   <li key={l.src}>

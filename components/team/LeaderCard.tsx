@@ -110,8 +110,55 @@ export default function LeaderCard({
 
             3:4 E NÃO 4:5, que era o valor anterior: a foto ganha ~7% de altura
             na mesma largura. Vale nos dois regimes — empilhado abaixo de 1440 e
-            partido acima. */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-paper xl:grow">
+            partido acima.
+
+            ================================================================
+            ⚠️ O `grow` SAIU EM 18-09 — pedido da daily: *"the images on
+            section 'Leadership' should be the same height"*.
+            ================================================================
+            Era ele que fazia as seis fotos saírem com alturas diferentes. Duas
+            causas, e nenhuma delas é a proporção dos ARQUIVOS (o `object-cover`
+            no quadro ignora isso):
+
+              1. ENTRE FILEIRAS: a fileira tem a altura da quote mais longa dela
+                 (140 a 271 caracteres), e a foto crescia até encostar no cartão.
+                 Quotes diferentes → fileiras diferentes → fotos diferentes.
+              2. NA MESMA FILEIRA: a foto é o que sobra depois do bloco do nome,
+                 e o cargo ocupa 1 ou 2 linhas ("Head of UKEE" contra "CEO,
+                 Founder, Author, Head of MENA") — 20px de diferença que iam
+                 direto para a altura da foto do vizinho.
+
+            E o custo escondido: em 1280 a foto chegava a 196×424 (0,46:1), uma
+            tira vertical em que um retrato quadrado — que é como os novos de
+            18-09 chegaram — mostraria só a faixa do nariz.
+
+            AGORA A PROPORÇÃO É FIXA, 3:4, em todos os regimes. 3:4 e não 4:5
+            por três motivos: é a mesma proporção do `PeopleRoster` logo abaixo
+            e do `PersonModal` (uma só proporção de retrato na página); mantém
+            o invariante de 17-09 de o retrato de apoio nunca ser maior que o
+            da liderança nas DUAS dimensões (em 4:5 a Nicole/Carol/Maliha
+            sairiam 4px mais altas que a liderança em 1440); e nenhum dos seis
+            arquivos perde cabeça — quatro são 4:5 e cedem 6% nas laterais, o
+            JP (0,83) cede 10%, e os dois novos, quadrados, cedem 25% de largura
+            já recortada no arquivo. Nunca há corte vertical.
+
+            O QUE VOLTA COM ISSO é o que a caixa acima descreveu em 14-09: o
+            cartão rosa, esticado pela grade, passa abaixo do bloco do nome
+            quando a quote é longa. A grade em `app/team/page.tsx` ganhou
+            `sm:auto-rows-fr` para as duas fileiras terem a mesma altura, então
+            esse excedente é o MESMO nos seis cards — silhueta idêntica, e não
+            seis variações. É o preço de "mesma altura", e foi o pedido.
+
+            ⚠️ E DE 3:4 PASSOU A 7:10 na revisão do mesmo 18-09 (*"ficou bom,
+            mas pode aumentar levemente a altura das imagens"*): ~7% mais alto,
+            uns 20px em 1440. Os três motivos do 3:4 acima ficam assim: (a) a
+            liderança deixa de ter a MESMA proporção do `PeopleRoster` (3:4),
+            mas continua sendo o retrato maior da página nas duas dimensões, que
+            era o invariante que importava; (b) os seis arquivos (4:5, 0,83 e
+            3:4) são todos MAIS LARGOS que 7:10, então o corte segue lateral —
+            nunca vertical, nunca cabeça; (c) o cartão rosa ganha 20px de folga
+            para a quote antes de passar abaixo do bloco do nome. */}
+        <div className="relative aspect-[7/10] overflow-hidden bg-paper">
           {person.portrait ? (
             <Image
               src={person.portrait}
@@ -158,12 +205,29 @@ export default function LeaderCard({
             <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
               {person.name}
             </h3>
-            <p className="mt-1 text-[14px] leading-[1.45] text-muted">
-              {person.role}
-            </p>
-            <p className="text-[14px] leading-[1.45] text-muted">
-              {person.region}
-            </p>
+            {/* A RESERVA DE ALTURA É DO PAR CARGO+REGIÃO, e não do cargo.
+                Desde 18-09 o bloco reserva linhas para o "+" e o pé da ficha
+                saírem na mesma altura nos seis cards: dos seis cargos, dois
+                quebram em duas linhas nas colunas de 1280–1440 ("CEO, Founder,
+                Author, Head of MENA" e "Head of Thought Leadership &
+                Innovation"), e sem reserva o bloco dos outros quatro terminava
+                20px antes — o mesmo desalinhamento que a foto tinha, em
+                miniatura. `lh` é a altura da própria linha, então a reserva
+                acompanha o `leading`.
+
+                ⚠️ A RESERVA ERA NO CARGO (`min-h-[2lh]` no `<p>` dele) e
+                saiu de lá na revisão do mesmo dia: nos quatro cargos de uma
+                linha a linha vazia ficava ENTRE o cargo e a região ("CEO
+                Americas" / vão / "Americas"), e a ficha lia como três coisas
+                soltas. Agora cargo e região são vizinhos imediatos e a reserva
+                é do contêiner dos dois — `min-h-[3lh]` = cargo em até duas
+                linhas + região —, então a linha vazia, quando existe, fica
+                DEPOIS da região, onde não separa nada. Altura total do bloco é
+                a mesma de antes; só o vão mudou de lugar. */}
+            <div className="mt-1 min-h-[3lh] text-[14px] leading-[1.45] text-muted">
+              <p>{person.role}</p>
+              <p>{person.region}</p>
+            </div>
           </div>
 
           {profile && (

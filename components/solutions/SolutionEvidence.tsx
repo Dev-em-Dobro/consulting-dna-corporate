@@ -15,6 +15,44 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * `ink`/`muted`. Se um dia ela voltar a ser escura, os dois lados têm de voltar
  * juntos — meia volta deixa vermelho ilegível.
  *
+ * ⚠️ E DE BRANCA PASSOU A `paper` EM 18-09, a pedido na daily. `paper` ainda é
+ * fundo CLARO, então a regra acima não muda de lado: o vermelho segue `brand`
+ * cheio, e texto e réguas seguem `ink`/`muted`. O que muda é a margem de
+ * contraste — sobre #f3f3f3 o `brand` cai de 4,39:1 para ~3,99:1. Para os
+ * números (≥32px, texto grande, mínimo 3,0) continua passando com folga; o
+ * rótulo de 14px já estava abaixo do AA sobre branco e fica um pouco mais
+ * abaixo aqui — é o mesmo caso dos outros rótulos vermelhos do site em fundo
+ * `paper`, e se for corrigido é no token. Nenhum bloco interno usava `bg-paper`
+ * ou `border-line`, então nada ficou invisível com a troca (as réguas são
+ * `border-white/12`).
+ *
+ * ⚠️ E NO MESMO 18-09 O `paper` NÃO BASTOU: os pilares logo acima já são
+ * `paper`, e as duas faixas se fundiam numa só — no localhost a mudança
+ * "não pegava". O pedido foi *"um cinza mais escuro na seção"*, e ficou
+ * `#e3dfdd`: cinza QUENTE, no mesmo matiz do `ink` e do `line` (#ece9e6),
+ * um degrau abaixo do `line` (luminância 0,74 contra 0,82 do `line` e 0,90
+ * do `paper`). É hex solto e não token pela mesma regra do painel de
+ * partners: um só uso não justifica `--color-paper-2`; no segundo uso, vira.
+ *
+ * O QUE MUDOU JUNTO, e tem de andar junto: os três textos em `muted`
+ * (#6b6b6b) caíam para 4,0:1 sobre este cinza — abaixo do AA de 4,5 para
+ * texto corrido — e viraram `ink/75`, que dá ~4,9:1. O `brand` dos números
+ * fica em 3,3:1, acima do mínimo 3,0 de texto grande (≥32px). Escurecer mais
+ * do que isto derruba o vermelho; se a cliente quiser mais escuro ainda, a
+ * faixa tem de virar ESCURA de vez (`ink`) e voltar a `brand-light` +
+ * `white/xx`, como era antes de 16-09.
+ *
+ * ⚠️ E FOI O QUE ACONTECEU, ainda em 18-09. Na gravação da daily o pedido
+ * para esta faixa é *"bolder — maybe another dark background with white
+ * text"*, e o cinza médio era a leitura conservadora do resumo escrito. A
+ * faixa volta a `ink` com os DOIS LADOS juntos, como a caixa de 16-09
+ * avisa: rótulos, número em destaque e link em `brand-light`; título, nome
+ * do fato e citação em `white`; texto corrido em `white/80`, legendas em
+ * `white/70`; fios em `white/12`. A composição (grade assimétrica, foto,
+ * citação) é a de 16-09, não a dos quatro cards de 10-09. Vizinhas: pilares
+ * em `paper` acima, CTA em `brand` abaixo — claro → escuro → vermelho, sem
+ * duas faixas escuras coladas.
+ *
  * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
  * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
  * de escolha. O que sobreviveu delas está marcado no fim desta caixa.
@@ -137,15 +175,17 @@ export default function SolutionEvidence({
     : hasQuote           ? ["lg:col-span-5", "", "lg:col-span-7"]
     :                      ["lg:col-span-12", "", ""];
 
+  // `ink` desde 18-09 (era `bg-white`; passou por `paper` e `#e3dfdd` no mesmo
+  // dia); o porquê e a regra de cores estão no cabeçalho.
   return (
-    <section className="bg-white text-ink">
+    <section className="bg-ink text-white">
       {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
           colunas — e a grade entra como UM bloco, não coluna a coluna: os
           números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
           um deles a primazia de chegar primeiro, que é a hierarquia que aquela
           decisão desfez. */}
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+        <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
           Evidence
         </p>
 
@@ -156,7 +196,7 @@ export default function SolutionEvidence({
                 ideia nova: os arquivos de `public/logos/` são as marcas em cores
                 originais para fundo claro, e sobre escuro exigiriam uma plaqueta
                 branca — um retângulo claro competindo com o resto da faixa. */}
-            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-ink md:text-[38px]">
+            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
               {caseTitle ?? "The flagship client story"}
             </h2>
 
@@ -164,7 +204,7 @@ export default function SolutionEvidence({
                 Nos cinco serviços com evidência ele existe; no caminho do CMS,
                 não, e aí o bloco vai direto do título para os números. */}
             {body && (
-              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]">
+              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-white/80 md:text-[18px]">
                 {body}
               </p>
             )}
@@ -212,7 +252,7 @@ export default function SolutionEvidence({
                 (`leading-[1.25]`) e não de número (`leading-[1.02]` no
                 `Counter`). */}
             {shown.length > 0 && (
-              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-ink/12 pt-8">
+              <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t border-white/12 pt-8">
                 {shown.map((f, i) => (
                   /* Pela posição, não pelo rótulo: o rótulo é opcional (a
                      "cascade line" da GSK não tem) e repetiria vazio. */
@@ -220,15 +260,15 @@ export default function SolutionEvidence({
                     {factIsMeasure(f) ? (
                       <Counter
                         value={f.value}
-                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand text-[32px] md:text-[38px]"
+                        className="block font-semibold leading-[1.02] tracking-[-1.5px] text-brand-light text-[32px] md:text-[38px]"
                       />
                     ) : (
-                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-ink md:text-[21px]">
+                      <div className="text-[19px] font-semibold leading-[1.25] tracking-[-0.3px] text-white md:text-[21px]">
                         {f.value}
                       </div>
                     )}
                     {f.label && (
-                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-muted">
+                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-white/70">
                         {f.label}
                       </div>
                     )}
@@ -240,7 +280,7 @@ export default function SolutionEvidence({
             {caseSlug && (
               <Link
                 href={`/cases/${caseSlug}`}
-                className="mt-10 inline-flex items-center gap-2 border-b border-brand/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand transition-colors hover:border-brand hover:text-ink"
+                className="mt-10 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white"
               >
                 Read the client story <span aria-hidden>→</span>
               </Link>
@@ -287,14 +327,14 @@ export default function SolutionEvidence({
           )}
 
           {testimonial && (
-            <figure className={`${quoteSpan} border-ink/12 lg:border-l lg:pl-8`}>
-              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand">
+            <figure className={`${quoteSpan} border-white/12 lg:border-l lg:pl-8`}>
+              <p className="text-[13px] font-medium uppercase tracking-[1.3px] text-brand-light">
                 Testimonial
               </p>
-              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-ink md:text-[21px]">
+              <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-white md:text-[21px]">
                 “{testimonial.quote}”
               </blockquote>
-              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-muted">
+              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-white/70">
                 {testimonial.attribution}
               </figcaption>
             </figure>

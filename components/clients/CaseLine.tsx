@@ -37,6 +37,30 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  * realce, a linha é branca sempre e a placa seria um retângulo branco invisível
  * sobre fundo branco.
  *
+ * ⚠️ ZEBRADA DESDE 18-09, e isso desfaz DUAS das linhas acima. Pedido da daily:
+ * *cada linha alternando branco e cinza suave*. A linha deixou de ser "branca
+ * sempre" — `odd:bg-white even:bg-paper`, a primeira branca porque a seção e o
+ * `SectionHead` logo acima também são, e uma faixa cinza colada na régua do
+ * cabeçalho competiria com ela.
+ *
+ *   • O PAR `px`/`-mx` VOLTOU. A faixa é uma tarja de novo, e sem o par ela
+ *     começaria no pixel do nome e terminaria no do número — o mesmo *"logo
+ *     grudado na borda"* de 17-09. `-mx-6 px-6 md:-mx-10 md:px-10` é a MESMA
+ *     medida do `px` do contêiner da seção, de propósito: a faixa vai até a
+ *     borda do contêiner (viewport inteiro no telefone, 1440px no desktop) e o
+ *     conteúdo continua no eixo do `SectionHead`, porque o `px` devolve
+ *     exatamente o que o `-mx` tirou. É o motivo de o `-mx` ter saído em 17-09
+ *     lido ao contrário: ele só deslocava a lista quando não havia tarja.
+ *   • A PLACA BRANCA DO LOGO NÃO VOLTA. As marcas de `public/logos/` são PNG
+ *     com fundo transparente — as mesmas que correm sobre `bg-ink` na esteira
+ *     da home —, então sobre `paper` elas simplesmente aparecem. A placa era
+ *     para um logo com fundo branco, e nenhum tem.
+ *
+ * OS FIOS `border-t`/`border-b` SAÍRAM JUNTO. Eles separavam linhas da mesma
+ * cor; com as faixas alternadas a própria mudança de fundo separa, e um fio
+ * `line` (#ece9e6) sobre `paper` (#f3f3f3) é quase invisível — apareceria em
+ * metade das emendas e sumiria na outra metade.
+ *
  * ⚠️ NÃO É O `CaseRow` de `/cases`. Aquele também é "um por linha", mas empilha
  * VERTICALMENTE dentro do card — faixa de marca em cima, corpo embaixo — e mede
  * uns 400px de altura cada. Este é horizontal: as duas colunas dividem a linha.
@@ -65,7 +89,7 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
       : [];
 
   return (
-    <article className="grid grid-cols-1 gap-8 border-t border-line py-10 last:border-b md:grid-cols-[1fr_340px] md:gap-12 md:py-12">
+    <article className="-mx-6 grid grid-cols-1 gap-8 px-6 py-10 odd:bg-white even:bg-paper md:-mx-10 md:grid-cols-[1fr_340px] md:gap-12 md:px-10 md:py-12">
       {/* ── ESQUERDA · nome, desafio, botão ──────────────────────────────── */}
       <div>
         {/* ⚠️ `h3` E NÃO `h2`: o `SectionHead` da seção já é o h2 ("Case
@@ -143,13 +167,23 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
              nítida é METADE da do arquivo: 23px no Careem, 24px no Morgan
              Stanley. Os 48px daqui já ampliam a maioria delas. É pedido de
              originais para a cliente, e é barato. Não vale "consertar"
-             encolhendo: a 24px o logo some ao lado dos números. */
+             encolhendo: a 24px o logo some ao lado dos números.
+
+             ⚠️ SUBIU PARA 68px EM 18-09 — pedido da daily: *aumentar os logos
+             na linha*. De `max-h-12` (48px) para `max-h-[68px]`, +42%, e o teto
+             de largura de 180 para 260px na mesma proporção, para as marcas
+             largas (Morgan Stanley, 3,4:1) crescerem junto em vez de baterem na
+             largura antes de chegar à altura. Cabe nos 340px da coluna com
+             folga. O aviso acima sobre os ARQUIVOS PEQUENOS fica mais urgente,
+             não menos: a 68px um PNG de 47px de altura é ampliado 1,4x já numa
+             tela comum, e quase 3x numa retina. O pedido de originais continua
+             de pé — o tamanho é da cliente, a nitidez depende dela. */
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={entry.logoUrl}
             alt={`${entry.client} logo`}
             loading="lazy"
-            className="max-h-12 w-auto max-w-[180px]"
+            className="max-h-[68px] w-auto max-w-[260px]"
           />
         )}
 

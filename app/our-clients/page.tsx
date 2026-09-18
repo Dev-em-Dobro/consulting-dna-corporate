@@ -13,7 +13,7 @@ import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
-import { getSiteStats } from "@/lib/stats";
+import { getSiteStats, FIRM_STATS } from "@/lib/stats";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
 /* O MESMO skyline da /about e da /services, importado e não copiado — ver a
    caixa em `app/services/page.tsx`. Ela ainda não mandou fotografia própria
@@ -82,7 +82,9 @@ const VOICE_COUNT = 3;
  *     clients", "90% recommend us", "10+ years"; nenhum desses passou por
  *     aprovação e três contradizem o que o site publica hoje (`lib/stats.ts`, e
  *     a nota lá sobre a lista de aprovação de 06-08 que segue aberta). A faixa
- *     usa os números do CMS. Trocar por outros é decisão da CDNA, não nossa.
+ *     usava os números do CMS; DESDE 18-09 usa os quatro da About
+ *     (`FIRM_STATS`, em `lib/stats.ts`), a pedido da daily — a caixa da seção
+ *     conta. Trocar por outros continua sendo decisão da CDNA, não nossa.
  *
  *   • OS DEPOIMENTOS SÃO DOS CASES, com nome e cargo reais. Os três do mockup
  *     ("VP, Retail Banking, UK") são genéricos e sem fonte. Ela ficou de mandar
@@ -146,11 +148,23 @@ export default async function ClientsAndImpactPage() {
      três continuam publicados — ao lado do desafio que cada um responde, que é
      onde eles provam alguma coisa em vez de flutuarem soltos. Se ela pedir a
      fileira de volta, é ressuscitar estas quatro linhas. */
-  /* Os três números ao lado do mapa. Países vem do CMS (a mesma fonte da faixa
-     acima); clientes é a contagem do paredão, que é a lista aprovada; cases é o
-     que está publicado AGORA e sobe sozinho a cada case novo. */
+  /* Os três números ao lado do mapa. Regiões vem do CMS (`getSiteStats()`, o
+     campo `countries` do `page_home`, que desde 17-09 publica 5 e é contado por
+     REGIÃO); clientes é a contagem do paredão, que é a lista aprovada; cases é
+     o que está publicado AGORA e sobe sozinho a cada case novo.
+
+     ⚠️ ERA "COUNTRIES", E ESTAVA QUEBRADO DESDE 17-09: o `find` procurava
+     "Countries" no rótulo, e o rótulo de `lib/stats.ts` virou "Regions of global
+     delivery" naquele dia (commit 31a66ab). Sem match, caía no `?? "36"` e o
+     mapa publicava "36 Countries" — o número velho, na unidade velha, ao lado
+     de uma faixa que dizia "5 regions". Apareceu em 18-09 ao trocar os números
+     da faixa acima; consertado junto: procura "Regions", rotula "Regions", e o
+     fallback é o mesmo 5 dos fallbacks de lá.
+
+     ⚠️ ESTA É A ÚNICA RAZÃO DE `getSiteStats()` AINDA SER CHAMADO NESTA PÁGINA:
+     a faixa "By the numbers" passou a usar `FIRM_STATS` em 18-09. */
   const footprint = [
-    { value: stats.find((s) => s.label.includes("Countries"))?.value ?? "36", label: "Countries" },
+    { value: stats.find((s) => s.label.includes("Regions"))?.value ?? "5", label: "Regions" },
     { value: `${clientLogos.length}`, label: "Clients" },
     { value: `${cases.length}`, label: "Published case studies" },
   ];
@@ -188,10 +202,12 @@ export default async function ClientsAndImpactPage() {
             como virar a faixa para escuro se for isso que ela quiser. */}
         <section id="clients" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead
-              label="Trusted by global organisations"
-              kicker={`${clientLogos.length} clients across industries`}
-            />
+            {/* ⚠️ SEM `kicker` DESDE 18-09 — *"tirar a frase '27 clients across
+                industries'"*. Era `${clientLogos.length} clients across
+                industries`, a contagem do paredão à direita do rótulo. O
+                `clientLogos` continua importado porque o `footprint`, no topo
+                deste arquivo, ainda conta os clientes por ele. */}
+            <SectionHead label="Trusted by global organisations" />
             <div className="flex flex-col gap-4">
               <LogoMarquee
                 logos={clientLogoRows[0]}
@@ -209,11 +225,39 @@ export default async function ClientsAndImpactPage() {
         </section>
 
         {/* ── By the numbers ───────────────────────────────────────────── */}
-        <section id="numbers" className="bg-paper">
+        {/* ⚠️ A FAIXA É ESCURA DESDE 18-09. Na daily, olhando os quatro números
+            da About — que ali ficam dentro do herói, sobre `ink` com texto
+            branco —, ela pediu os números "and maybe put it on a darker
+            background as well, similar to this one, just to make it pop". Era
+            `paper`, e o resumo escrito da call dizia só "cinza"; a gravação é
+            que diz "darker, similar to this one", e "this one" é o `ink` da
+            About. Sobre `ink` a regra do `globals.css` manda: régua e rótulo
+            em `brand-light` (o `brand` cheio cai a 2,87:1), texto corrido em
+            `white/xx`, fios em `white/15` — é o que `SectionHead onDark` e
+            `RowLabel onDark` fazem. Vizinhas: a esteira acima e os cases
+            abaixo são brancos, então a faixa escura fica isolada entre dois
+            claros, como o herói. */}
+        <section id="numbers" className="bg-ink text-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label="By the numbers" kicker="Real change, a broader reach." />
+            <SectionHead onDark label="By the numbers" kicker="Real change, a broader reach." />
 
-            {/* ⚠️ SOBROU UMA FILEIRA. Eram DUAS, rotuladas — "Our scale" em
+            {/* ⚠️ OS NÚMEROS SÃO OS DA ABOUT DESDE 18-09 — pedido da daily: a
+                fileira passa a publicar os quatro da faixa da About (19 years /
+                5 regions / 10,000+ / 5 of the top 10) no lugar dos quatro do
+                CMS (`getSiteStats()`: 90% sponsored / 19 / 5 / 60+). A lista é
+                `FIRM_STATS`, em `lib/stats.ts`, importada pelas duas páginas —
+                a caixa de lá conta por que ela saiu de dentro da About. O
+                `getSiteStats()` continua sendo chamado aqui, mas só para o
+                `footprint` ao lado do mapa. O ícone que a About desenha ao lado
+                de cada número NÃO entra: esta fileira nunca teve ícone, e o
+                pedido foi de números, não de composição.
+
+                A nota "OS NÚMEROS SÃO OS NOSSOS" no cabeçalho deste arquivo
+                continua verdadeira no que importa — os do mockup ("6,300+",
+                "27 clients", "90% recommend") seguem fora —, mas a fonte deixou
+                de ser o CMS.
+
+                ⚠️ SOBROU UMA FILEIRA. Eram DUAS, rotuladas — "Our scale" em
                 cima e "Real outcomes" embaixo —, e a de baixo saiu em 17-09
                 (*"tirar real outcomes"*); a caixa no lugar do cálculo, no topo
                 deste arquivo, conta o que ela era e para onde os números foram.
@@ -234,17 +278,31 @@ export default async function ClientsAndImpactPage() {
                 `TypeLabel` — régua e palavra —, só que empilhado em vez de lado
                 a lado, porque aqui ele rotula uma FILEIRA e não uma seção. */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[150px_1fr] lg:gap-10">
-              <RowLabel>Our scale</RowLabel>
+              <RowLabel onDark>Our scale</RowLabel>
               {/* `divide-x` com borda só entre as células é o que o desenho faz
                   — as barras verticais separando os números sem caixa ao redor
                   de cada um. */}
-              <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-line">
-                {stats.map((s) => (
+              <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-white/15">
+                {FIRM_STATS.map((s) => (
                   <div key={s.label} className="px-2 text-center sm:px-5">
-                    <p className="text-[34px] font-semibold leading-none tracking-[-1.5px] text-ink sm:text-[42px]">
+                    {/* "5 of the top 10" é uma FRASE onde os outros três são
+                        um número curto, e no mesmo corpo ela quebrava em duas
+                        linhas e pesava mais que os vizinhos. Na revisão de
+                        18-09 (*"diminuir um pouco o tamanho de font do texto
+                        5 of the top 10"*) o valor longo (>10 caracteres) desce
+                        um degrau: 28/34px contra 34/42. O limiar é por
+                        comprimento e não por índice para não depender da
+                        ordem em `FIRM_STATS`; "5 regions" (9) e "19 years" (8)
+                        ficam no corpo cheio. Só aqui — a About tem a própria
+                        composição, com ícones, e não foi pedida. */}
+                    <p
+                      className={`font-semibold leading-none tracking-[-1.5px] text-white ${
+                        s.value.length > 10 ? "text-[28px] sm:text-[34px]" : "text-[34px] sm:text-[42px]"
+                      }`}
+                    >
                       {s.value}
                     </p>
-                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.4] tracking-[1.2px] text-muted">
+                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.4] tracking-[1.2px] text-white/60">
                       {s.label}
                     </p>
                   </div>
@@ -323,7 +381,15 @@ export default async function ClientsAndImpactPage() {
               /* ⚠️ O `-mx` SAIU EM 17-09, junto com o realce de `hover` da
                  linha. Ele existia para a tarja transbordar a margem do conteúdo
                  sem mover o conteúdo; sem tarja, ele só deslocava a lista para
-                 fora do eixo do `SectionHead` acima. Ver a caixa no `CaseLine`. */
+                 fora do eixo do `SectionHead` acima. Ver a caixa no `CaseLine`.
+
+                 ⚠️ E O PAR `-mx`/`px` VOLTOU EM 18-09 — dentro do `CaseLine`, não
+                 aqui. A cliente pediu as linhas alternando branco e cinza, e uma
+                 faixa de fundo é exatamente a "tarja" para a qual o par existia:
+                 o `-mx` estica a faixa até a borda do contêiner e o `px` do
+                 mesmo tamanho devolve o conteúdo ao eixo do `SectionHead`. Sem o
+                 par, ou a faixa começaria no pixel do texto, ou o texto
+                 entraria 24px para dentro. A conta está na caixa do `CaseLine`. */
               <Reveal className="mt-2 flex flex-col">
                 {tiles.map((entry) => (
                   <CaseLine key={entry.slug} entry={entry} />
@@ -546,13 +612,19 @@ export default async function ClientsAndImpactPage() {
  * o número tem `leading-none`, então a caixa dele começa alguns pixels acima da
  * letra. Sem o empurrão, o rótulo parece subir.
  */
-function RowLabel({ children }: { children: React.ReactNode }) {
+function RowLabel({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
+  /* `onDark` desde 18-09, quando a faixa dos números virou `ink`: mesma troca
+     que o `TypeLabel` faz — palavra em `white/45`, régua em `brand-light`. */
   return (
     <div className="lg:pt-2">
-      <p className="text-[11.5px] font-semibold uppercase leading-none tracking-[1.5px] text-muted">
+      <p
+        className={`text-[11.5px] font-semibold uppercase leading-none tracking-[1.5px] ${
+          onDark ? "text-white/45" : "text-muted"
+        }`}
+      >
         {children}
       </p>
-      <span className="mt-2.5 block h-0.5 w-6 bg-brand" />
+      <span className={`mt-2.5 block h-0.5 w-6 ${onDark ? "bg-brand-light" : "bg-brand"}`} />
     </div>
   );
 }

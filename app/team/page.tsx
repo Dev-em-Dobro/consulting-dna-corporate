@@ -224,8 +224,20 @@ export default async function OurTeamPage() {
                 ⚠️ O VÃO DE DENTRO DO CARD É MENOR QUE O DE FORA, e isso é
                 deliberado na referência: 11px contra 19px. É ele que faz o
                 retrato e a quote lerem como UM card em vez de duas colunas
-                soltas. Mora no `LeaderCard`, que é quem desenha o par. */}
-            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 xl:grid-cols-3">
+                soltas. Mora no `LeaderCard`, que é quem desenha o par.
+
+                ⚠️ `sm:auto-rows-fr` DESDE 18-09, junto com a proporção fixa do
+                retrato no `LeaderCard` — pedido da daily: *"the images on
+                section 'Leadership' should be the same height"*. Com o retrato
+                em 3:4 fixo, as fotos já saem iguais; o que ainda variava era o
+                CARTÃO DE QUOTE, esticado até a fileira, e cada fileira tinha a
+                altura da quote mais longa dela. `auto-rows-fr` faz as duas
+                fileiras terem a altura da mais alta, então os seis cards ficam
+                com a mesma silhueta (foto, ficha e cartão rosa nas mesmas
+                medidas). A partir de `sm` e não sempre: em uma coluna, no
+                celular, isso esticaria cada card até a quote mais longa das
+                seis, e rosa vazio no celular é só rolagem. */}
+            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:grid-cols-3">
               {leaders.map((p) => (
                 <LeaderCard
                   key={p.name}

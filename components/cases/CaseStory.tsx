@@ -261,7 +261,7 @@ export default function CaseStory({
           corrida do texto e da citação. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_300px_1fr] lg:gap-14">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_380px_1fr] lg:gap-14">
             <div>
               <NumberedLabel number="03" label="What changed" />
               <SectionTitle>{story.outcomeHeadline}</SectionTitle>
@@ -293,17 +293,52 @@ export default function CaseStory({
 
             <div className="hidden lg:block">
               {c.coverUrl ? (
-                <div className="relative aspect-[3/4] w-full overflow-hidden">
+                /* ⚠️ ESTE SLOT FICOU IRRECONHECÍVEL QUANDO OS CASES GANHARAM
+                   CAPA, em 18-09. Até ali os quinze cases estavam sem
+                   `coverUrl` e o que aparecia aqui era sempre o slot
+                   tracejado — o defeito existia desde 16-09 e nunca tinha
+                   sido visto.
+
+                   ERAM DOIS DEFEITOS SOMADOS:
+
+                     1. `sizes="300px"` DESCREVIA A CAIXA, NÃO A IMAGEM. Com
+                        `fill` + `object-cover`, o `sizes` manda o navegador
+                        baixar uma versão de 300px de LARGURA da foto inteira.
+                        A capa do Ma'aden é 2560x1139 (2,25:1), então 300px de
+                        largura são 133px de ALTURA — e a caixa 3:4 pede 400px
+                        de altura. O navegador esticava 133 para 400, três
+                        vezes, e o resultado era uma foto lavada.
+
+                        A CONTA CERTA: numa caixa de proporção `p` preenchida
+                        por `cover` a partir de uma foto de proporção `P`, com
+                        P > p, a largura útil da foto é `larguraDaCaixa × P/p`.
+                        Aqui: 380 × (2,25 / 0,8) ≈ 1069. Daí `sizes="1100px"`,
+                        que cobre as capas panorâmicas e continua barato — o
+                        arquivo inteiro tem 140KB.
+
+                     2. A CAIXA ERA ESTREITA E MUITO ALTA para foto de grupo.
+                        300px de largura em 4:3 de recorte sobre uma panorâmica
+                        deixavam uma tira vertical de uma sala com dez pessoas:
+                        ilegível. A coluna foi para 380px e a caixa para 4:5,
+                        que é menos alta — o recorte perde bem menos das
+                        laterais e a foto volta a ser uma fotografia.
+
+                   ⚠️ O QUE ISTO NÃO RESOLVE: esta é a MESMA foto do herói.
+                   O desenho quer uma segunda fotografia aqui, e o CMS não tem
+                   campo para ela — `coverMediaId` é o único. Enquanto não
+                   existir, a página mostra a mesma imagem duas vezes, em
+                   recortes diferentes. Pendência registrada com a cliente. */
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={c.coverUrl}
                     alt=""
                     fill
-                    sizes="300px"
+                    sizes="1100px"
                     className="object-cover"
                   />
                 </div>
               ) : (
-                <ImagePlaceholder label="Photo" className="aspect-[3/4] w-full" />
+                <ImagePlaceholder label="Photo" className="aspect-[4/5] w-full" />
               )}
             </div>
 
@@ -397,7 +432,13 @@ export default function CaseStory({
                         src={r.coverUrl}
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 25vw, 40vw"
+                        /* Mesma correção de 18-09 do slot de "What changed":
+                           a caixa é estreita (38% da linha) e alta, e a capa é
+                           panorâmica, então o `cover` corta as laterais e o que
+                           limita a nitidez é a ALTURA. As larguras antigas
+                           (25vw/40vw) descreviam a caixa e entregavam metade da
+                           resolução necessária. */
+                        sizes="(min-width: 768px) 40vw, 70vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                       />
                     ) : (
