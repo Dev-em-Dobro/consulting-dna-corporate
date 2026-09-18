@@ -39,6 +39,7 @@ import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import LocationsBlock from "@/components/LocationsBlock";
 import { offices as siteOffices, type Office } from "@/lib/offices";
+import { FIRM_STATS } from "@/lib/stats";
 import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
@@ -164,13 +165,17 @@ export const revalidate = 300;
  * de `lib/stats.ts` daqui não resolveria — o valor publicado no CMS ganha deles.
  * Enquanto os dois lados não forem alinhados, a mesma firma diz 18 anos numa
  * página e 19 na outra, e a correção é no CMS.
+ *
+ * ⚠️ A LISTA MUDOU DE CASA EM 18-09. Ela era um `const STATS` aqui dentro — e
+ * a caixa acima ("estes arrays vivem na página, e não em `lib/`, de propósito")
+ * ainda vale para os OUTROS blocos. Esta é a exceção: na daily de 18-09 a
+ * cliente pediu os mesmos quatro números na "By the numbers" da Clients &
+ * Impact, e uma lista copiada em duas páginas é o que gera a próxima
+ * divergência. Os valores são os mesmos de antes, só que em `lib/stats.ts`
+ * (`FIRM_STATS`); o `StatIcon` abaixo continua aqui, porque só esta página
+ * desenha ícone.
  */
-const STATS = [
-  { value: "19 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
-  { value: "5 regions", label: "of global programme delivery", icon: "globe" },
-  { value: "10,000+", label: "leaders coached and teams developed", icon: "people" },
-  { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients", icon: "chart" },
-];
+const STATS = FIRM_STATS;
 
 /**
  * Os quatro ícones da faixa de números, desenhados aqui dentro.
