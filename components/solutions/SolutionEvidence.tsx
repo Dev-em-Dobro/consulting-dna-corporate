@@ -24,8 +24,23 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * abaixo aqui — é o mesmo caso dos outros rótulos vermelhos do site em fundo
  * `paper`, e se for corrigido é no token. Nenhum bloco interno usava `bg-paper`
  * ou `border-line`, então nada ficou invisível com a troca (as réguas são
- * `border-ink/12`). Com isso os pilares (paper) e esta faixa (paper) ficam
- * COLADOS, sem emenda visível — ver o ritmo de fundos em `SolutionView.tsx`.
+ * `border-ink/12`).
+ *
+ * ⚠️ E NO MESMO 18-09 O `paper` NÃO BASTOU: os pilares logo acima já são
+ * `paper`, e as duas faixas se fundiam numa só — no localhost a mudança
+ * "não pegava". O pedido foi *"um cinza mais escuro na seção"*, e ficou
+ * `#e3dfdd`: cinza QUENTE, no mesmo matiz do `ink` e do `line` (#ece9e6),
+ * um degrau abaixo do `line` (luminância 0,74 contra 0,82 do `line` e 0,90
+ * do `paper`). É hex solto e não token pela mesma regra do painel de
+ * partners: um só uso não justifica `--color-paper-2`; no segundo uso, vira.
+ *
+ * O QUE MUDOU JUNTO, e tem de andar junto: os três textos em `muted`
+ * (#6b6b6b) caíam para 4,0:1 sobre este cinza — abaixo do AA de 4,5 para
+ * texto corrido — e viraram `ink/75`, que dá ~4,9:1. O `brand` dos números
+ * fica em 3,3:1, acima do mínimo 3,0 de texto grande (≥32px). Escurecer mais
+ * do que isto derruba o vermelho; se a cliente quiser mais escuro ainda, a
+ * faixa tem de virar ESCURA de vez (`ink`) e voltar a `brand-light` +
+ * `white/xx`, como era antes de 16-09.
  *
  * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
  * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
@@ -149,9 +164,10 @@ export default function SolutionEvidence({
     : hasQuote           ? ["lg:col-span-5", "", "lg:col-span-7"]
     :                      ["lg:col-span-12", "", ""];
 
-  // `paper` desde 18-09 (era `bg-white`); o porquê está no cabeçalho.
+  // `#e3dfdd` desde 18-09 (era `bg-white`, e por umas horas `paper`); o porquê
+  // e as contas de contraste estão no cabeçalho.
   return (
-    <section className="bg-paper text-ink">
+    <section className="bg-[#e3dfdd] text-ink">
       {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
           colunas — e a grade entra como UM bloco, não coluna a coluna: os
           números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
@@ -177,7 +193,7 @@ export default function SolutionEvidence({
                 Nos cinco serviços com evidência ele existe; no caminho do CMS,
                 não, e aí o bloco vai direto do título para os números. */}
             {body && (
-              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]">
+              <p className="mt-6 font-serif text-[17px] leading-[1.6] text-ink/75 md:text-[18px]">
                 {body}
               </p>
             )}
@@ -241,7 +257,7 @@ export default function SolutionEvidence({
                       </div>
                     )}
                     {f.label && (
-                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-muted">
+                      <div className="mt-2 max-w-[200px] font-serif text-[14px] leading-[1.45] text-ink/75">
                         {f.label}
                       </div>
                     )}
@@ -307,7 +323,7 @@ export default function SolutionEvidence({
               <blockquote className="mt-6 font-serif text-[19px] leading-[1.5] text-ink md:text-[21px]">
                 “{testimonial.quote}”
               </blockquote>
-              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-muted">
+              <figcaption className="mt-5 text-[13px] font-medium uppercase not-italic tracking-[1.3px] text-ink/75">
                 {testimonial.attribution}
               </figcaption>
             </figure>
