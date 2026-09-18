@@ -25,7 +25,9 @@ export default function PeopleRoster({
 }: {
   people: RosterPerson[];
   /**
-   * `lg` são os dois programme managers; `sm` são os 23 da faculty.
+   * `lg` são os programme managers (dois em 17-09; três desde 18-09, com a
+   * Nicole Phoon — na grade de seis colunas eles ocupam a metade esquerda, e
+   * a conta da caixa abaixo não muda); `sm` são os 23 da faculty.
    *
    * ⚠️ O QUE MUDA É A DENSIDADE DA GRADE, e não o desenho do card — um card
    * diferente por tamanho faria a página ter dois objetos "retrato + nome"

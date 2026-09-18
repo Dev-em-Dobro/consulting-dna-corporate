@@ -102,6 +102,24 @@ export type Leader = {
  * liderança (a Rhea reprovou os do Mike e da Jen), e a Maliha falou em testar
  * preto e branco "em todas, para consistência". Quando os novos chegarem, já
  * chegam assim e estes seis arquivos saem.
+ *
+ * ✅ DOIS CHEGARAM EM 18-09 — Mike e Gen, os dois que a Rhea tinha reprovado
+ * (`2. Team/Mike Jackson.png` e `2. Team/Gen James.png` no pacote do Drive).
+ * Pedido da daily: *"trocar as imagens da genevieve e do Mike Jackson"*. São os
+ * arquivos `-2-bw.jpg`, e o que foi feito com eles:
+ *
+ *   • VIERAM QUADRADOS (1254×1254) e JÁ EM PRETO E BRANCO — os três canais são
+ *     idênticos no arquivo. Por isso NÃO existe `mike-jackson-2.png` colorido
+ *     ao lado: não há cor a guardar, e 1,7 MB de PNG cinza só pesaria o repo.
+ *   • RECORTADOS EM 3:4 NO ARQUIVO (940×1254, centrados: 157px fora de cada
+ *     lado), que é a proporção fixa do quadro desde 18-09 — mesma regra do
+ *     Nitin e da Rhea, "normalizado para o quadro". Os dois rostos estão no
+ *     centro do quadrado e sobra ~5% acima da cabeça; o que sai é ombro.
+ *   • 1 canal, JPEG q90, mesma receita dos `-bw` de 17-09, via `sharp`
+ *     (`toColourspace("b-w")` — o `grayscale()` sozinho devolvia 3 canais).
+ *   • NOME NOVO com `-2`, pelo motivo da caixa acima: o `/_next/image` cacheia
+ *     por URL. Os `mike-jackson-bw.jpg` e `genevieve-james-bw.jpg` antigos
+ *     ficam no lugar, e voltar é trocar o caminho.
  */
 export const leaders: Leader[] = [
   {
@@ -156,7 +174,10 @@ export const leaders: Leader[] = [
     region: "UK",
     quote:
       "After years in senior rooms, I’ve learned to listen as closely to what isn’t being said as to what is. That’s often where the real work is.",
-    portrait: "/team/mike-jackson-bw.jpg",
+    /* TROCADO EM 18-09 pelo retrato novo da cliente — ver a caixa da `leaders`.
+       O anterior (`/team/mike-jackson-bw.jpg`, 1377×1142 PAISAGEM) era o que a
+       Rhea tinha reprovado, e num quadro 3:4 cedia metade da largura. */
+    portrait: "/team/mike-jackson-2-bw.jpg",
   },
   {
     name: "Genevieve James",
@@ -166,8 +187,17 @@ export const leaders: Leader[] = [
     region: "Australia",
     quote:
       "Some of the most important moments in my work have started with a room going quiet and tension rising. If you can hold that moment and give it language, rather than rescue it, something more honest usually emerges.",
-    portrait: "/team/genevieve-james-bw.jpg",
-    /* DESCE 27px NO QUADRO, medido em 11-09 e não estimado. O arquivo dela é
+    /* TROCADO EM 18-09 pelo retrato novo da cliente — ver a caixa da `leaders`.
+       O anterior (`/team/genevieve-james-bw.jpg`, 1024×1536) era o que a Rhea
+       tinha reprovado. */
+    portrait: "/team/genevieve-james-2-bw.jpg",
+    /* ⏸️ O `portraitPosition` SAIU EM 18-09 junto com a troca do arquivo — a
+       própria nota abaixo avisava: "se o arquivo trocar, este número não vale
+       mais". O novo já vem recortado em 3:4 no arquivo, então o `object-cover`
+       não tem o que cortar e a posição é indiferente. A nota fica como
+       histórico de por que o 25% existiu.
+
+       DESCE 27px NO QUADRO, medido em 11-09 e não estimado. O arquivo dela é
        1024×1536 (2:3), o mais alto dos cinco, contra um quadro 4:5 — então o
        `object-cover` escala pela largura e sobram ~108px de altura para cortar.
        Centrado, o corte tira 54px de cima e a cabeça dela encostava a 8px da
@@ -179,8 +209,7 @@ export const leaders: Leader[] = [
        O que sai é ombro, embaixo, onde não faz falta.
 
        SE O ARQUIVO TROCAR, este número não vale mais — ele é do recorte deste
-       JPEG, não da pessoa. */
-    portraitPosition: "object-[50%_25%]",
+       JPEG, não da pessoa. (Era `portraitPosition: "object-[50%_25%]"`.) */
   },
   {
     name: "Jon Paul Pritchard",
@@ -467,10 +496,27 @@ export type RosterPerson = {
  * fica vazio de propósito: inventar "Senior Programme Manager" para as duas
  * seria escrever cargo de pessoa real por dedução, e a frase da seção já diz o
  * que elas são. Quando o cargo chegar, é uma linha por pessoa.
+ *
+ * ✅ NICOLE PHOON ENTROU EM 18-09 — pedido da daily: *"na seção 'Supported by
+ * a team of senior program managers.' inserir a imagem da Nicole Phoon.jpeg
+ * que faltou"*. O arquivo (`2. Team/Nicole Phoon.jpeg`) estava no pacote de
+ * 17-09 desde o início e ficou de fora do bloco; a entrada inteira faltava,
+ * não só a foto. Ela é a mesma Nicole que administra o Google Analytics e o
+ * Search Console pela CDNA (ver `docs/emails-cdna-thread.md`).
+ *
+ * MESMO TRATAMENTO DAS OUTRAS DUAS, replicado do que os arquivos revelam (não
+ * há script no repo): `cover` para 600×800 (3:4 — a Carol veio 1024×1536 e a
+ * Maliha 1145×1374, e as duas saíram 600×800), cinza em sRGB de 3 canais, JPEG
+ * q90. O original dela já era 955×1280 (3:4 exato) e já em P&B, então o
+ * `cover` tira 4px e nada mais. Entra por último, na ordem de chegada.
+ *
+ * ⚠️ SEM CARGO, como as outras: não está no `CDNA_04_Team.docx` nem no
+ * `Facilitators for website.docx`. Vale a mesma regra da caixa acima.
  */
 export const programmeManagers: RosterPerson[] = [
   { name: "Maliha Bathool", portrait: "/team/programme-managers/maliha-bathool.jpg" },
   { name: "Carol Medcalf", portrait: "/team/programme-managers/carol-medcalf.jpg" },
+  { name: "Nicole Phoon", portrait: "/team/programme-managers/nicole-phoon.jpg" },
 ];
 
 /**
