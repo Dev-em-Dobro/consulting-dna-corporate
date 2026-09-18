@@ -205,20 +205,29 @@ export default function LeaderCard({
             <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
               {person.name}
             </h3>
-            {/* `min-h-[2lh]` DESDE 18-09: o cargo reserva DUAS linhas mesmo
-                quando ocupa uma. Dos seis, dois quebram em duas linhas nas
-                colunas de 1280–1440 ("CEO, Founder, Author, Head of MENA" e
-                "Head of Thought Leadership & Innovation"); sem a reserva, o
-                bloco do nome dos outros quatro terminava 20px antes e o "+" e
-                a região saíam em alturas diferentes de card para card — o mesmo
-                desalinhamento que a foto tinha, em miniatura. `lh` é a altura
-                da própria linha, então a reserva acompanha o `leading`. */}
-            <p className="mt-1 min-h-[2lh] text-[14px] leading-[1.45] text-muted">
-              {person.role}
-            </p>
-            <p className="text-[14px] leading-[1.45] text-muted">
-              {person.region}
-            </p>
+            {/* A RESERVA DE ALTURA É DO PAR CARGO+REGIÃO, e não do cargo.
+                Desde 18-09 o bloco reserva linhas para o "+" e o pé da ficha
+                saírem na mesma altura nos seis cards: dos seis cargos, dois
+                quebram em duas linhas nas colunas de 1280–1440 ("CEO, Founder,
+                Author, Head of MENA" e "Head of Thought Leadership &
+                Innovation"), e sem reserva o bloco dos outros quatro terminava
+                20px antes — o mesmo desalinhamento que a foto tinha, em
+                miniatura. `lh` é a altura da própria linha, então a reserva
+                acompanha o `leading`.
+
+                ⚠️ A RESERVA ERA NO CARGO (`min-h-[2lh]` no `<p>` dele) e
+                saiu de lá na revisão do mesmo dia: nos quatro cargos de uma
+                linha a linha vazia ficava ENTRE o cargo e a região ("CEO
+                Americas" / vão / "Americas"), e a ficha lia como três coisas
+                soltas. Agora cargo e região são vizinhos imediatos e a reserva
+                é do contêiner dos dois — `min-h-[3lh]` = cargo em até duas
+                linhas + região —, então a linha vazia, quando existe, fica
+                DEPOIS da região, onde não separa nada. Altura total do bloco é
+                a mesma de antes; só o vão mudou de lugar. */}
+            <div className="mt-1 min-h-[3lh] text-[14px] leading-[1.45] text-muted">
+              <p>{person.role}</p>
+              <p>{person.region}</p>
+            </div>
           </div>
 
           {profile && (
