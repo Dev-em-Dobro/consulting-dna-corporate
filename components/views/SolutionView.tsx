@@ -150,7 +150,7 @@ export default function SolutionView({ service }: { service: Service }) {
           não tem sobre o que decidir. Está tudo no git.
 
           A SEQUÊNCIA DE FUNDOS DE HOJE: herói `ink` → branco (Impact) → paper
-          (How we help) → paper (pilares) → paper (evidência) → `brand` (CTA) →
+          (How we help) → paper (pilares) → ink (evidência) → `brand` (CTA) →
           branco (related). O How we help e os pilares dividem a MESMA faixa
           `paper`, sem emenda entre eles, que é exatamente o que o template
           mostra.
