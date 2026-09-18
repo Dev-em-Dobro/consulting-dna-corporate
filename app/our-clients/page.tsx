@@ -225,9 +225,21 @@ export default async function ClientsAndImpactPage() {
         </section>
 
         {/* ── By the numbers ───────────────────────────────────────────── */}
-        <section id="numbers" className="bg-paper">
+        {/* ⚠️ A FAIXA É ESCURA DESDE 18-09. Na daily, olhando os quatro números
+            da About — que ali ficam dentro do herói, sobre `ink` com texto
+            branco —, ela pediu os números "and maybe put it on a darker
+            background as well, similar to this one, just to make it pop". Era
+            `paper`, e o resumo escrito da call dizia só "cinza"; a gravação é
+            que diz "darker, similar to this one", e "this one" é o `ink` da
+            About. Sobre `ink` a regra do `globals.css` manda: régua e rótulo
+            em `brand-light` (o `brand` cheio cai a 2,87:1), texto corrido em
+            `white/xx`, fios em `white/15` — é o que `SectionHead onDark` e
+            `RowLabel onDark` fazem. Vizinhas: a esteira acima e os cases
+            abaixo são brancos, então a faixa escura fica isolada entre dois
+            claros, como o herói. */}
+        <section id="numbers" className="bg-ink text-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label="By the numbers" kicker="Real change, a broader reach." />
+            <SectionHead onDark label="By the numbers" kicker="Real change, a broader reach." />
 
             {/* ⚠️ OS NÚMEROS SÃO OS DA ABOUT DESDE 18-09 — pedido da daily: a
                 fileira passa a publicar os quatro da faixa da About (19 years /
@@ -266,11 +278,11 @@ export default async function ClientsAndImpactPage() {
                 `TypeLabel` — régua e palavra —, só que empilhado em vez de lado
                 a lado, porque aqui ele rotula uma FILEIRA e não uma seção. */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[150px_1fr] lg:gap-10">
-              <RowLabel>Our scale</RowLabel>
+              <RowLabel onDark>Our scale</RowLabel>
               {/* `divide-x` com borda só entre as células é o que o desenho faz
                   — as barras verticais separando os números sem caixa ao redor
                   de cada um. */}
-              <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-line">
+              <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-white/15">
                 {FIRM_STATS.map((s) => (
                   <div key={s.label} className="px-2 text-center sm:px-5">
                     {/* "5 of the top 10" é uma FRASE onde os outros três são
@@ -284,13 +296,13 @@ export default async function ClientsAndImpactPage() {
                         ficam no corpo cheio. Só aqui — a About tem a própria
                         composição, com ícones, e não foi pedida. */}
                     <p
-                      className={`font-semibold leading-none tracking-[-1.5px] text-ink ${
+                      className={`font-semibold leading-none tracking-[-1.5px] text-white ${
                         s.value.length > 10 ? "text-[28px] sm:text-[34px]" : "text-[34px] sm:text-[42px]"
                       }`}
                     >
                       {s.value}
                     </p>
-                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.4] tracking-[1.2px] text-muted">
+                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.4] tracking-[1.2px] text-white/60">
                       {s.label}
                     </p>
                   </div>
@@ -600,13 +612,19 @@ export default async function ClientsAndImpactPage() {
  * o número tem `leading-none`, então a caixa dele começa alguns pixels acima da
  * letra. Sem o empurrão, o rótulo parece subir.
  */
-function RowLabel({ children }: { children: React.ReactNode }) {
+function RowLabel({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
+  /* `onDark` desde 18-09, quando a faixa dos números virou `ink`: mesma troca
+     que o `TypeLabel` faz — palavra em `white/45`, régua em `brand-light`. */
   return (
     <div className="lg:pt-2">
-      <p className="text-[11.5px] font-semibold uppercase leading-none tracking-[1.5px] text-muted">
+      <p
+        className={`text-[11.5px] font-semibold uppercase leading-none tracking-[1.5px] ${
+          onDark ? "text-white/45" : "text-muted"
+        }`}
+      >
         {children}
       </p>
-      <span className="mt-2.5 block h-0.5 w-6 bg-brand" />
+      <span className={`mt-2.5 block h-0.5 w-6 ${onDark ? "bg-brand-light" : "bg-brand"}`} />
     </div>
   );
 }
