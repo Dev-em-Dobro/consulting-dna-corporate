@@ -4,6 +4,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import ServiceCard from "@/components/solutions/ServiceCard";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
+import PartnersStrip from "@/components/PartnersStrip";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
@@ -44,23 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
  * a última fileira com um par, não com um órfão. O que se paga é a medida: ver
  * a caixa na própria grade.
  */
-/**
- * As cinco marcas parceiras, na faixa escura do bloco de Partners. Os arquivos
- * em `public/logos/partners/` são DERIVADOS dos que a cliente mandou na pasta
- * `4. Services` do Drive — o que foi feito em cada um está na caixa do bloco.
- *
- * A ALTURA É POR MARCA e vive aqui, junto do arquivo a que se refere, em vez de
- * solta no JSX: são cinco pares arquivo+altura, e separá-los é como um deles
- * passa a apontar para a altura do vizinho na primeira reordenação.
- */
-const PARTNER_LOGOS = [
-  { src: "/logos/partners/clo100.png", alt: "CLO100", className: "h-[34px] md:h-[40px]" },
-  { src: "/logos/partners/ypo.png", alt: "YPO", className: "h-[34px] md:h-[40px]" },
-  { src: "/logos/partners/explore-performance.png", alt: "Explore Performance", className: "h-[26px] md:h-[30px]" },
-  { src: "/logos/partners/imperial-college-london.png", alt: "Imperial College London", className: "h-[50px] md:h-[58px]" },
-  { src: "/logos/partners/harvard-business-impact.png", alt: "Harvard Business Impact", className: "h-[50px] md:h-[58px]" },
-];
-
 export default function SolutionsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -195,7 +179,8 @@ export default function SolutionsPage() {
         {/* ── A SEÇÃO INTEIRA É ESCURA · 18-09 ─────────────────────────────
             *"trocar todo o fundo para um background cinza escuro seguindo o
             padrão das cores do site."* Era `bg-white` com só o painel das marcas
-            escuro (o pedido de 17-09, registrado no painel abaixo); agora a faixa
+            escuro (o pedido de 17-09, hoje registrado na prop `tone` do
+            `PartnersStrip`, que é o que a home ainda precisa); agora a faixa
             inteira vai de margem a margem em `bg-ink`, que é o escuro quente que
             as outras faixas escuras do site já usam (home §approach e §contact,
             /about §purpose e §people) — "padrão das cores do site" é isto, e não
@@ -271,97 +256,29 @@ export default function SolutionsPage() {
               </div>
             </div>
 
-            {/* ── O PAINEL ESCURO DAS MARCAS · 17-09 ───────────────────────
-                *"quanto aos logos claros, pode deixar eles claros e colocar o
-                fundo da parte dos logos escuro pra dar visibilidade nos logos."*
-                Duas das cinco marcas que ela mandou (CLO100 e YPO) só existem em
-                versão BRANCA, e branco sobre a seção branca é marca invisível.
+            {/* ── AS MARCAS · HOJE É O `PartnersStrip` ─────────────────────
+                A coluna da direita deixou de montar os logos à mão em 21-09: a
+                cliente pediu que a home mostrasse este mesmo bloco (*"Have
+                similar layout to in partnership with as services page"*), e a
+                lista, as alturas por marca e o arranjo das fileiras foram para
+                `components/PartnersStrip.tsx`, que é o que as duas telas usam. O
+                raciocínio de cada decisão viajou junto e está lá — inclusive o
+                tratamento que três das cinco marcas precisaram para viver no
+                escuro, que é alteração de marca de terceiro e não pode se perder.
 
-                ⚠️ PAINEL CONTIDO, E NÃO FAIXA DE SANGRIA — decisão que sobreviveu
-                aos três arranjos acima ENQUANTO A SEÇÃO ERA BRANCA: escuro de
-                margem a margem leria como uma seção nova, e contido o escuro lia
-                como o objeto que é. Em 18-09 a seção inteira virou `bg-ink` a
-                pedido (ver o comentário na abertura da `<section>`), e o painel
-                CONTINUA CONTIDO por outro motivo: sobre o `ink` ele é o degrau
-                que ancora as cinco marcas na coluna. Sem ele, os logos ficariam
-                soltos ao lado de um bloco de texto, sem nada que dissesse onde a
-                coluna começa e termina — e é a mesma leitura de figura levemente
-                elevada sobre escuro que a /approach usa (`bg-white/[0.04]`).
+                ⚠️ AS FILEIRAS AGORA SÃO 2 + 3, E POR PEDIDO. Eram 3 + 2 por
+                acidente da largura: as cinco viviam num `flex-wrap` só e quebravam
+                onde a coluna mandava. Em 21-09 ela nomeou quem fica em cima —
+                *"Partners - HBI and Imperial college on row 1"* —, então a quebra
+                virou estrutura dentro do componente.
 
-                ⚠️ TRÊS DAS CINCO PRECISARAM SER TRATADAS para viver no escuro, e
-                isso está anotado porque é alteração de marca de terceiro:
-                  • HARVARD BUSINESS IMPACT veio SEM canal alfa — PNG de fundo
-                    branco com o escudo em traço preto. Sobre escuro seria um
-                    retângulo branco. O branco virou transparência e o traço preto
-                    virou branco: é a versão reversa da marca monocromática.
-                  • EXPLORE PERFORMANCE tem alfa, mas a tinta é cinza-escuro
-                    (luminância 56 de 255) e some no escuro. Foi para branco
-                    inteiro — PERDE O AZUL do símbolo, que é o custo real desta
-                    escolha.
-                  • IMPERIAL COLLEGE tinha um fundo branco chapado por baixo do
-                    brasão. Só a chave de branco foi tirada; o brasão continua
-                    COLORIDO, porque brasão heráldico não tem versão reversa que
-                    preste — e colorido ele lê bem sobre escuro.
-
-                ⏳ O IDEAL É PEDIR OS ARQUIVOS OFICIAIS EM VERSÃO REVERSA a cada
-                marca. O que está aqui é derivado por nós dos arquivos que ela
-                mandou, e versão reversa de marca de terceiro normalmente passa
-                pelo dono dela.
-
-                ⏳ SÃO CINCO E ELA FALOU EM SEIS. A pasta do Drive tem estes
-                cinco; o sexto não chegou.
-
-                ⚠️ CENTRADO E EM DUAS FILEIRAS, 3 + 2, e isso é consequência de
-                ter virado coluna. Enquanto o painel era a linha inteira, as cinco
-                marcas cabiam numa fileira só, alinhadas à esquerda. Na coluna
-                sobram ~504px úteis e elas quebram — conferido montando o painel
-                na largura real, não estimado. Das quebras possíveis, 3 + 2 é a
-                que junta os dois BRASÕES na segunda fileira; com as marcas um
-                degrau menores caberiam 4 + 1, e o Harvard ficava sozinho embaixo.
-
-                ⚠️ NÃO É `bg-ink`. Era, e clareou um degrau a pedido em 17-09.
-                `#4a4446` é o `ink` (#373234) subido ~18% em luminância, mantendo
-                o mesmo matiz quente — não é um cinza neutro novo, é o mesmo tom
-                da marca um passo mais claro.
-
-                ⚠️ E EM 18-09 O PAINEL SAIU. Primeiro a seção inteira virou
-                `bg-ink` (pedido da daily), e o `#4a4446` ficou como um degrau
-                um passo mais claro que o fundo ao redor (1,35:1 — sutil). Na
-                revisão do mesmo dia o pedido foi *"tirar a cor de fundo dos
-                logos"*: a `div` perdeu o fundo e o padding, e as cinco marcas
-                ficam direto sobre o `ink` da seção, num tom só. O hex `#4a4446`
-                deixa de existir no site; se um degrau claro de `ink` voltar a
-                ser preciso, vira token (`--color-ink-3`), e não hex solto. A
-                `ul` continua centralizada, agora dentro da coluna e não de um
-                painel.
-
-                O CONTRASTE NÃO MUDA COM ISSO: branco sobre `ink` (#373234) dá
-                12,6:1, e os três logos brancos são branco puro.
-
-                ALTURA PRÓPRIA POR MARCA, e não uma altura comum como no mural de
-                clientes. Lá são 27 logotipos-palavra de proporção parecida, e
-                altura igual é o que os faz pesar igual. Aqui convivem
-                logotipo-palavra muito largo (Explore Performance, 5,5:1) e BRASÃO
-                quase quadrado (Imperial, 0,9:1): na mesma altura, o primeiro fica
-                seis vezes mais largo que o segundo e o brasão some. Os valores
-                estão em `PARTNER_LOGOS`. */}
-            {/* eslint-disable @next/next/no-img-element */}
-            <div>
-              <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8">
-                {PARTNER_LOGOS.map((l) => (
-                  <li key={l.src}>
-                    {/* SEM `next/image`, mesmo critério do mural de clientes e da
-                        versão anterior deste bloco: são PNG com transparência
-                        servidos a 180px de altura de arquivo contra 26–58px de
-                        exibição, ou seja já há 3x de folga para tela densa. O
-                        `/_next/image` não tem o que otimizar num logo de 20KB —
-                        só acrescentaria uma requisição de transformação. */}
-                    <img src={l.src} alt={l.alt} className={`w-auto ${l.className}`} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* eslint-enable @next/next/no-img-element */}
+                `tone="dark"` E SEM `label`: a seção inteira já é `bg-ink` (ver a
+                caixa na abertura da `<section>`), então os logos ficam direto
+                sobre ela, num tom só, que foi o pedido de 18-09 — *"tirar a cor
+                de fundo dos logos"*. E o rótulo desta coluna seria um terceiro
+                cabeçalho: o `TypeLabel` e o `h2` ao lado já apresentam o bloco.
+                Na home é o contrário, e é para isso que as duas props existem. */}
+            <PartnersStrip />
           </div>
         </section>
 
