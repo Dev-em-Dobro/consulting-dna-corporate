@@ -78,10 +78,10 @@ say so and we will do it properly, with a redirect from the old one.
 
 ## 5. Service pages — the new internal layout
 
-The internal service page is rebuilt on the two drawings you sent. Five pieces, top to bottom:
-the hero, "What we do" in two columns, the three audience cards, the strip of practices, and the
-line that leads into the case study. The first drawing gave us the first three; the second one,
-covered further down, replaced everything after them.
+The internal service page is rebuilt on the two drawings you sent. Six pieces, top to bottom:
+the hero, "What we do" in two columns, the three audience cards, "How we work" in two columns,
+the strip of practices, and the line that leads into the case study. The first drawing gave us
+all six; the second one, covered further down, replaced the last two.
 
 **Only Senior Leadership Development has the new copy** — it is the one your mockup draws. The
 other nine service pages now use the new layout with the text they already had, and the two
@@ -98,11 +98,15 @@ is copy from you, not code from us.
 - The three cards have the same background. Your mockup looks as though the first is white, but
   sampled pixel by pixel all three measure the same tone.
 
-**The second image was found, and How we work is built from it.** Your note mentions two
-drawings, and the second one was in the folder all along under a different name. The section
-called "How we work" is now what that drawing shows: the two-column block and the eight icons
-are gone, replaced by the short strip of practices and the "Featured case study" line that leads
-into the case.
+**The second image was found, and it changes the row under How we work.** Your note mentions two
+drawings, and the second one was in the folder all along under a different name. It frames the
+page from the cards down, so it shows the practices and the case study line but not the "How we
+work" block above them.
+
+That block stays. Its headline and paragraph are the ones from your first drawing, unchanged.
+What the second drawing replaces is the **row beneath it**: the eight icons are now the short
+strip, "A common outcome" beside habits, identity and the moments that matter, followed by the
+line that leads into the case study.
 
 **We changed only that section.** The same drawing also redraws the block above it, with a
 different label, headline and card copy, and with a label and a three-word credential sitting on
