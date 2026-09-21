@@ -44,6 +44,15 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 
 ### Serviços → Solutions
 > ✅ **Slugs confirmados no CMS (2026-07-27)** — as 7 solutions existem e batem 1:1. Sem fallback necessário.
+>
+> 🔄 **Atualizado (2026-09-21):** o serviço "Top 150 Leadership Development" virou **Senior
+> Leadership Development**, primeiro no nome e depois na rota. A rota antiga
+> `/services/top-150-leadership-development` responde **308** para
+> `/services/senior-leadership-development`.
+>
+> Os três legados que desembocavam na rota antiga — `/solutions/exco-top-150`,
+> `/solutions/ceo-top-team-transformation` e `/solutions/leadership-development` — foram
+> **repontados direto** para o endereço novo, para ninguém saltar duas vezes.
 
 | Antiga | Nova |
 |--------|------|

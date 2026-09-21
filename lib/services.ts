@@ -215,12 +215,25 @@ export type ServiceAudience = {
   /**
    * A foto do topo do cartão, em ~2:1.
    *
-   * ⏳ NINGUÉM TEM ARQUIVO. O mockup mostra três fotografias de reunião e elas
-   * não vieram no pacote do Drive; sem `image` o cartão cai no CAMPO DE COR,
-   * exatamente como o `ServiceCard` do índice faz desde 12-09 — ver a caixa
-   * dele. É o estado de hoje, não a remoção do estado: quando as fotos
-   * chegarem é preencher este campo. ⚠️ Nome de arquivo NOVO a cada troca, que
-   * o otimizador do Next serve por URL e já entregou versão velha por isso.
+   * ⏳ AS TRÊS FOTOS EXISTEM E ESTÃO FORA DO REPOSITÓRIO. Em 21-09 elas
+   * apareceram — são as mesmas três cenas do mockup (a sala de reunião ao
+   * pôr do sol, a mulher falando na mesa, a plateia no auditório) —, mas
+   * chegaram coladas numa conversa, não como arquivo. Sem `image` o cartão cai
+   * no CAMPO DE COR, exatamente como o `ServiceCard` do índice faz desde 12-09.
+   *
+   * PARA LIGAR, quando os arquivos entrarem no disco, são três linhas nos
+   * `audiences` do Senior Leadership Development, nesta ordem:
+   *
+   *   Executive Teams        → /services/audiences/sld-executive-teams.jpg
+   *   SLT / ET-1             → /services/audiences/sld-slt-et1.jpg
+   *   Top 100 – 150 leaders  → /services/audiences/sld-top-100-150.jpg
+   *
+   * ⚠️ NÃO APONTAR PARA ARQUIVO QUE AINDA NÃO EXISTE. O `next/image` não falha
+   * no build por isso — falha em produção, com o cartão exibindo imagem
+   * quebrada. O campo de cor é um estado bom; o 404 não é.
+   *
+   * ⚠️ Nome de arquivo NOVO a cada troca, que o otimizador do Next serve por
+   * URL e já entregou versão velha por isso.
    */
   image?: string;
 };
@@ -452,19 +465,34 @@ export type Service = {
  */
 export const services: Service[] = [
   {
-    slug: "top-150-leadership-development",
+    slug: "senior-leadership-development",
+    /* ⚠️ O NOME DO ARQUIVO CONTINUA "top-150", e não é esquecimento. Ele é o
+       caminho de um JPEG em `public/services/cards/`, não parte da URL da
+       página; renomeá-lo obrigaria a mexer no disco para que nada mude na tela,
+       e o otimizador do Next serve imagem POR URL — nome novo é cache novo,
+       gerado à toa. */
     cardImage: "/services/cards/top-150-leadership-development-client.jpg",
     /* ✅ O NOME MUDOU EM 21-09, por email: *"Change top 150 leadership
        development to Senior Leadership Development"*. É o que aparece no card
        do índice, no submenu de Services, na migalha e no `h1` da página — o
        `title` alimenta os quatro.
 
-       ⚠️ O SLUG NÃO MUDA, de propósito. `/services/top-150-leadership-development`
-       já está no ar, no sitemap e nos links que a cliente mandou por email; o
-       pedido foi de NOME, e trocar a rota para persegui-lo quebraria tudo isso
-       em troca de uma URL mais bonita. É a mesma regra que `lib/nav.ts`
-       registra para os labels do menu: rota é endereço, título é copy.
-       Se um dia a URL precisar mudar, o caminho é rota nova + 301 da antiga. */
+       ✅ E O SLUG MUDOU DEPOIS, no mesmo dia, a pedido explícito. A primeira
+       decisão foi manter `top-150-leadership-development`, porque a rota já
+       estava no ar, no sitemap e nos links que a cliente mandou por email, e
+       porque rota é endereço e título é copy — a regra que `lib/nav.ts` registra
+       na caixa de abertura. Essa caixa dizia também qual seria o caminho certo
+       se a URL precisasse mudar: rota nova mais 301 da antiga. É exatamente o
+       que foi feito.
+
+       ⚠️ O 308 DA ANTIGA NÃO É OPCIONAL e vive em `next.config.mjs`, junto com
+       os outros endereços nossos que mudaram de casa. Sem ele,
+       `/services/top-150-leadership-development` passa a dar 404 no dia do
+       deploy — e esse endereço não é só teórico: TRÊS redirects do WordPress
+       antigo desembocavam nele (`/solutions/exco-top-150`,
+       `/solutions/ceo-top-team-transformation`, `/solutions/leadership-development`),
+       e os três foram repontados direto para cá para não virarem 308 em cima de
+       308. */
     title: "Senior Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",

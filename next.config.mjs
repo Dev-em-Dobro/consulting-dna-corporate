@@ -81,12 +81,12 @@ const legacyExtensionlessRedirects = [
   // Vale como lembrete de método: o backup do repositório é uma FOTOGRAFIA de
   // uma data, e conteúdo muda no painel sem passar por aqui. Para saber o que
   // está publicado, abrir o site.
-  ["/solutions/exco-top-150", "/services/top-150-leadership-development"],
-  ["/solutions/ceo-top-team-transformation", "/services/top-150-leadership-development"],
+  ["/solutions/exco-top-150", "/services/senior-leadership-development"],
+  ["/solutions/ceo-top-team-transformation", "/services/senior-leadership-development"],
   // O outline é explícito sobre onde Leadership Development foi parar: o caso da
   // Heineken "arrived labelled Leadership Development, which is not a service on
   // this site. Mapped to ExCo / Top 150." Herdeira clara — sai o índice.
-  ["/solutions/leadership-development", "/services/top-150-leadership-development"],
+  ["/solutions/leadership-development", "/services/senior-leadership-development"],
   ["/solutions/chro-hrlt-effectiveness", "/services/hrlt-effectiveness"],
   ["/solutions/asian-talent-development", "/services/talent-development"],
   // Succession é o que Talent Development entrega ("successor readiness",
@@ -238,6 +238,23 @@ const splitAreaRedirects = [
   // /our-way/our-team-and-network — todos já repontados direto para /team).
   // Sem esta linha, a rota que hoje responde 200 passa a dar 404 no deploy.
   { source: "/our-team", destination: "/team", permanent: true },
+  // 21-09: o serviço mudou de NOME e depois de ENDEREÇO. "Top 150 Leadership
+  // Development" virou "Senior Leadership Development" por email, e o slug foi
+  // mantido no mesmo dia justamente por esta regra — rota é endereço, título é
+  // copy. A cliente pediu a rota depois, então vale a outra metade da regra:
+  // rota nova mais 308 da antiga.
+  //
+  // ⚠️ ESTE É O MAIS EXPOSTO DOS CINCO DESTE BLOCO. `/services/top-150-…` está
+  // no ar, no sitemap entregue aos buscadores, nos links que ela mandou por
+  // email, e é o DESTINO DE TRÊS redirects do WordPress antigo. Os três foram
+  // repontados para o endereço novo lá em cima (procure por `exco-top-150`), de
+  // modo que nenhum visitante do site velho salte duas vezes; esta linha cobre
+  // quem já tem a URL nova-antiga guardada.
+  {
+    source: "/services/top-150-leadership-development",
+    destination: "/services/senior-leadership-development",
+    permanent: true,
+  },
   // 21-09: `/books` É O MOVIMENTO CONTRÁRIO ao dos quatro acima — não é uma área
   // partida em duas nem uma rota renomeada, é uma tela ABSORVIDA por outra.
   // *"insights and books e a seção de book vai pra tela de insights"* (anotação
