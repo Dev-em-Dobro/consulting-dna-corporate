@@ -108,13 +108,22 @@ EN é servido **sem prefixo** (`localePrefix: as-needed`). Rotas públicas:
 | `/our-way/head-heart-hunch-hands` · `/our-way-head.html` | `/solutions/5h-framework` |
 | `/10-dna-ingredients` · `/ten-ingredients.html` | `/solutions/5h-framework` |
 
-### Livro → home #book
-> **Decisão (2026-07-29):** a rota `/book` foi **removida**. O livro vive só na seção
+### Livro → Insights #books
+> **Decisão (2026-07-29):** a rota `/book` foi **removida**. O livro vivia só na seção
 > `#book` da home; os redirects legados passaram a apontar pra lá.
+>
+> 🔄 **Atualizado (2026-09-21):** os livros deixaram de ter página própria e viraram a
+> seção `#books` da `/insights`. Os três legados foram **repontados direto** para o
+> destino novo, em vez de encadearem em cima do 308 de `/books` — dois saltos gastam
+> orçamento de rastreio e diluem o sinal por nada.
+>
+> A seção `#book` da home **continua existindo**: o pedido de 21-09 moveu os *awards*
+> para cima dela, o que é evidência de que ela fica.
 
 | Antiga | Nova |
 |--------|------|
-| `/our-book` · `/book-endorsements` · `/book-endorsement.html` | `/#book` |
+| `/our-book` · `/book-endorsements` · `/book-endorsement.html` | `/insights#books` |
+| `/books` | `/insights#books` |
 
 ### Impacto / Alcance global
 > 🔄 **Atualizado (2026-08-28, brief 27-08):** `/our-impact` deixou de ser redirect — virou

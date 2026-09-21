@@ -3,15 +3,40 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import EmptyNotice from "@/components/EmptyNotice";
 import InsightsLibrary from "@/components/insights/InsightsLibrary";
+import BookCard from "@/components/books/BookCard";
+import BookEndorsements from "@/components/BookEndorsements";
+import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Reveal from "@/components/Reveal";
+import TypeLabel from "@/components/TypeLabel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getInsightListEntries } from "@/lib/cms/map";
+import { books } from "@/lib/books";
 
+/**
+ * ⚠️ O TÍTULO E A DESCRIÇÃO GANHARAM OS LIVROS EM 21-09, junto com o conteúdo:
+ * *"insights and books e a seção de book vai pra tela de insights"* (anotação da
+ * reunião de 21-09). A `/books` era uma URL indexada, está no sitemap entregue
+ * aos buscadores e agora responde 308 para cá — deixar a palavra "books" fora
+ * dos metadados jogaria fora o único sinal que essa URL acumulou. É a razão de
+ * o título ser "Insights & Books" e não só "Insights".
+ *
+ * ⏳ "& Books" É PALAVRA MINHA, como o "The books behind the method." lá
+ * embaixo. Está nos metadados, não na tela, mas metadado é o texto que aparece
+ * no resultado de busca — vale aceite do cliente como o resto da copy.
+ *
+ * SEM `robots` CONDICIONAL, e a ausência agora é definitiva. O padrão existe no
+ * site (ver `app/our-partnerships/page.tsx`: `noindex` enquanto o CMS não tem
+ * nada publicado, porque página vazia não se indexa) e esta página nunca o teve.
+ * Depois de 21-09 ele também não faria sentido: com os livros aqui dentro, a
+ * página tem conteúdo mesmo com a biblioteca editorial vazia — o `EmptyNotice`
+ * cobre metade da tela, não a tela.
+ */
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Insights — Corporate DNA",
+    title: "Insights & Books — Corporate DNA",
     description:
-      "Perspectives on leadership, executive-team alignment, succession and enterprise transformation from Corporate DNA's senior advisory faculty.",
+      "Perspectives on leadership, executive-team alignment, succession and enterprise transformation from Corporate DNA's senior advisory faculty — and the books behind the method.",
     alternates: localeAlternates("/insights"),
   };
 }
@@ -74,6 +99,98 @@ export default async function InsightsPage() {
             ) : (
               <InsightsLibrary insights={insights} />
             )}
+          </div>
+        </section>
+
+        {/* ── OS LIVROS · 21-09 ─────────────────────────────────────────────
+            VIERAM DA `/books`, que deixou de existir como tela: *"insights and
+            books e a seção de book vai pra tela de insights"* (anotação da
+            reunião de 21-09; o e-mail da cliente não toca no assunto, então a
+            leitura é a das anotações). A página de livros durou dez dias — foi
+            feita em 11-09, quando o cliente confirmou que são dois livros, e a
+            condição para ela existir está contada em `lib/books.ts`.
+
+            A ROTA NÃO MORREU: `/books` 308a para `#books` desta seção, em
+            next.config, junto com `/our-book` e `/book-endorsements`, que
+            apontavam para lá. É por isso que o `id` desta seção é exatamente
+            `books` — ele é o destino de três redirects, não um nome escolhido.
+
+            `bg-paper` CONTRA O `bg-white` DA BIBLIOTECA, e é a separação fazendo
+            trabalho antes do título: a página passou a ter dois assuntos, e dois
+            blocos de fundo igual leriam como um só, com os livros parecendo o
+            rodapé da listagem editorial. A alternância é a mesma da home e a que
+            a `/books` usava.
+
+            A HIERARQUIA MUDOU DE NÍVEL NA MUDANÇA DE CASA. Na `/books` cada
+            livro era uma seção da página e o cartão era `h2`; aqui a seção é
+            "os livros" e tem o seu próprio `h2`, então o cartão volta ao `h3` —
+            que é o padrão do componente e o que ele já faz na home, pela mesma
+            razão. Nível de cabeçalho é estrutura do documento, não estilo. */}
+        <section id="books" className="bg-paper">
+          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+            <TypeLabel>Our Books</TypeLabel>
+            {/* ⚠️ ESTE TÍTULO CONTINUA SENDO A ÚNICA COPY NÃO LITERAL DOS
+                LIVROS, e a ressalva veio inteira da `/books`: a home chama o
+                bloco de "The book behind the method" — singular, aprovado. Aqui
+                ele está no plural, e isso é uma palavra minha, não do cliente.
+                Pior: afirma que os DOIS livros estão por trás do método, e do
+                segundo não se sabe nada. Se ele não servir, o substituto é uma
+                linha deles.
+
+                Escala de h2 da /team e da Client impact da home — as três seções
+                com cabeçalho nas páginas editoriais usam a mesma. */}
+            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+              The books behind the method.
+            </h2>
+
+            {/* `-mx-6 md:mx-0` — O CARTÃO É FAIXA SANGRADA NO TELEFONE, e sem
+                esta linha ele deixaria de ser. Na `/books` e na home o
+                contêiner dos livros não tem `px-6`, só `md:px-10`: o cartão
+                escuro encosta nas duas bordas do telefone e traz o próprio
+                respiro por dentro (`px-6 pb-10 pt-12` no BookCard, que também
+                dispensa a borda abaixo de `md`). Aqui o contêiner é o da
+                biblioteca editorial, que TEM `px-6` porque uma grade de cards
+                claros precisa de margem — então o recuo é devolvido só nesta
+                faixa. Sem isso o bloco escuro ficaria flutuando com 24px de
+                branco dos lados, sem borda, e 48px de recuo interno: lê como
+                erro de alinhamento, não como decisão. */}
+            <div className="-mx-6 space-y-14 md:mx-0">
+              {books.map((book) => (
+                <Reveal key={book.name}>
+                  {/* Os endossos entram DENTRO do cartão, como na home, para o
+                      conjunto ler como um bloco só. Eles são do livro da Rhea —
+                      recuperados da antiga /book-endorsements —, então acompanham
+                      o primeiro livro e não a seção. */}
+                  <BookCard book={book} headingLevel="h3">
+                    <BookEndorsements />
+                  </BookCard>
+                </Reveal>
+              ))}
+            </div>
+
+            {/* ── O SEGUNDO LIVRO ───────────────────────────────────────────
+                SLOT, E NÃO UM "EM BREVE". A diferença importa: um aviso de
+                pendência informa o visitante de uma coisa que não é problema
+                dele, enquanto um slot dimensionado mostra ao cliente onde a peça
+                cai. E não há uma palavra inventada aqui — nem título provisório,
+                nem descrição de exemplo —, porque a página inteira é copy do
+                cliente e um parágrafo nosso no meio seria o único que ele não
+                escreveu.
+
+                4:3 É A PROPORÇÃO DA CAPA no cartão acima, não um número
+                escolhido: o slot tem de compor como vai compor com a imagem
+                dentro.
+
+                Era uma `<section>` própria na `/books`; aqui é um sub-bloco, e o
+                rótulo segue `TypeLabel` e não cabeçalho de propósito — ele
+                anuncia um vazio, e um `h3` no sumário do documento prometeria
+                conteúdo que não existe. */}
+            <div className="mt-16">
+              <TypeLabel>The second book</TypeLabel>
+              <div className="mt-8 md:w-[400px]">
+                <ImagePlaceholder label="Second book — cover" className="aspect-[4/3] w-full" />
+              </div>
+            </div>
           </div>
         </section>
       </SiteShell>
