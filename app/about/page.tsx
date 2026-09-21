@@ -1141,16 +1141,26 @@ export default async function AboutV2Page() {
             título, lê a linha de apoio, vê os números e não tem para onde ir a
             não ser rolar. Isso não é ajuste de tamanho, é conteúdo — anotado
             para a conversa com o cliente, não resolvido aqui. */}
-        {/* ⚠️ O `md:pb-12` VIROU `md:pb-6` EM 21-09. Não é ajuste de respiro: a
-            faixa de números deixou de ser a última coisa da dobra. A lista de
-            escritórios entrou logo abaixo dela (ver a caixa a seguir) e os 48px
-            que fechavam o bloco passariam a separar os números dos escritórios
-            em vez de fechar a seção. Os 24px daqui são o vão ENTRE os dois; o
-            fecho da dobra passou a ser o `pb-12` da lista.
+        {/* ⚠️ O `md:pb-12` VIROU `md:pb-9` EM 21-09, em dois passos. Não é
+            ajuste de respiro: a faixa de números deixou de ser a última coisa da
+            dobra. A lista de escritórios entrou logo abaixo dela (ver a caixa a
+            seguir), e os 48px que fechavam o bloco passariam a separar os
+            números dos escritórios em vez de fechar a seção.
+
+            ✅ OS DOIS VÃOS SÃO IGUAIS DESDE A REVISÃO DA MESMA DATA. A primeira
+            versão deixou 24px acima da lista e 48px abaixo, e a linha ficava
+            encostada nos números e boiando sobre a borda. Agora são 36px dos dois
+            lados — o de cima é este `md:pb-9`, o de baixo é o `pb-9` da lista.
+
+            A SOMA É A MESMA DE ANTES, e isso é o ponto: 24 + 48 e 36 + 36 fecham
+            os mesmos 72px, então a dobra não cresceu um pixel. O pedido foi
+            explicitamente por paddings iguais SEM aumentar a altura do herói, e
+            redistribuir é a única forma de atender aos dois. Quem mexer num dos
+            dois números tem de mexer no outro na direção contrária.
 
             No telefone o `pb-10` continua igual, porque lá a lista não aparece e
             a faixa de números segue sendo o fim da dobra. */}
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-6">
+        <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-9">
           {/* DUAS COLUNAS JÁ NO TELEFONE (pedido de 09-09: "duas linhas com 2
               quadrados menores, ao invés de cada quadrado ocupar a largura toda
               da tela"). Em 390px cada célula fica com 161px úteis — o `gap-x`
@@ -1244,11 +1254,22 @@ export default async function AboutV2Page() {
             ABAIXO deles. Não houve escolha entre as duas leituras — a
             composição da página já as fazia coincidir.
 
-            ALINHADO À DIREITA (`justify-end`) e não à largura toda: é o "bottom
-            right" literal, e é também onde a fotografia está — a imagem vive
-            numa caixa de 72% presa à direita, então a lista cai sobre o skyline
-            e não sobre os 28% de `ink` chapado da esquerda, onde ela seria só
-            texto solto num campo vazio.
+            ✅ CENTRALIZADA (`justify-center`) DESDE A REVISÃO DE 21-09. Nasceu
+            em `justify-end`, que era o *"bottom right"* do e-mail lido à letra,
+            e a revisão pediu o centro.
+
+            O ARGUMENTO QUE SUSTENTAVA A DIREITA NÃO SE PERDE NA TROCA, e é por
+            isso que ele fica escrito: a lógica era cair sobre o skyline, que
+            vive numa caixa de 72% presa à direita, e não sobre os 28% de `ink`
+            chapado da esquerda. Centrada, a linha mede ~510px num campo útil de
+            1360px, ou seja começa por volta dos 425px — já depois dos 403px em
+            que a foto começa numa tela de 1440. Ela continua inteira sobre a
+            fotografia; o que mudou foi a margem, não o assento.
+
+            E mesmo que uma tela estreita empurrasse a ponta esquerda para fora
+            da foto, o fecho da base é de LARGURA TOTAL (`inset-x-0`, alguns
+            blocos acima) — ou seja, o contraste da linha não depende de ela
+            estar de um lado ou do outro.
 
             O CONTRASTE É O QUE A DOBRA JÁ TEM. O fecho da base (o gradiente
             `to top` de meia altura, algumas linhas acima) chega OPACO na borda
@@ -1279,8 +1300,8 @@ export default async function AboutV2Page() {
             as duas listas batem, mas ler a outra fonte abriria a porta para as
             duas divergirem dentro da mesma página. A caixa do `OFFICES`, no topo
             do arquivo, tem as três divergências conhecidas. */}
-        <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-12 md:block md:px-10">
-          <div className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-[13px] font-semibold uppercase tracking-[2px] text-white/70">
+        <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-9 md:block md:px-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px] font-semibold uppercase tracking-[2px] text-white/70">
             {OFFICES.map((o, i) => (
               <span key={o.city} className="flex items-center gap-x-3">
                 {i > 0 && (
