@@ -5,7 +5,11 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import LeaderCard from "@/components/team/LeaderCard";
-import teamStanding from "@/public/team/team-standing-six.jpg";
+/* ⛔ `teamStanding` SAIU DO IMPORT EM 21-09, quando o carrossel tomou o lugar
+   da fotografia na seção "One team". O ARQUIVO FICA em
+   `public/team/team-standing-six.jpg` — é o retoque das seis na bancada, e a
+   caixa da seção guarda a história dele por inteiro. Para desfazer a troca,
+   este import volta junto com as três linhas de `<Image>`. */
 import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
@@ -25,6 +29,7 @@ import PeopleRoster from "@/components/team/PeopleRoster";
 /* O CARROSSEL DA HOME, trazido em 21-09 — ver a caixa dele na DNA experience.
    O componente é o mesmo arquivo que a home usa, sem uma linha de diferença. */
 import PhotoCarousel from "@/components/PhotoCarousel";
+import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -403,13 +408,39 @@ export default async function OurTeamPage() {
             vazios; a segunda foto continua valendo a pena pedir. */}
         <section className="bg-ink text-white">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
-            <div className="relative aspect-[3/2] w-full">
-              <Image
-                src={teamStanding}
-                alt="Six members of the Corporate DNA team standing behind a counter in the London office"
-                fill
-                sizes="(min-width: 768px) 56vw, 100vw"
-                className="object-cover object-center"
+            {/* ✅ O CARROSSEL DA HOME NO LUGAR DA FOTOGRAFIA ÚNICA — 21-09:
+                *"na seção One team da página /team tem que trocar a imagem pelo
+                carrossel de imagens da home"*.
+
+                É A MESMA PEÇA DA HOME, NÃO UMA CÓPIA: o componente é o
+                `PhotoCarousel` da `#people`, e a lista e o enquadramento vêm de
+                `lib/life-at-dna.ts`, que nasceu neste mesmo dia justamente para
+                as duas telas não manterem duas listas. O que a home consertou
+                em 21-09 — a foto duplicada que saiu e os seis enquadramentos que
+                salvam rostos cortados — vale aqui de graça.
+
+                ⚠️ A FOTO QUE SAIU CONTINUA NO REPOSITÓRIO
+                (`team/team-standing-six.jpg`), e a caixa acima é a história
+                inteira dela: as duas trocas de 16-09 e 17-09, o artefato do
+                gerador nas mãos e a conta do recorte 3:2. Nada disso foi apagado
+                porque a foto é o caminho de volta se o carrossel não convencer —
+                são três linhas de JSX.
+
+                A MOLDURA MUDA DE PROPORÇÃO, e é consequência, não escolha: o slot
+                era 3:2 fixo e o carrossel traz a própria caixa (16:10 no
+                telefone, 16:9 do `sm` para cima), com teto de 640px e
+                centragem próprios. O `aspect` daqui sai junto com a `<Image>`;
+                deixá-lo seria impor uma altura a um componente que já decide a
+                dele.
+
+                SOBRE ESCURO SEM AJUSTE: o quadro do carrossel tem `bg-ink`
+                próprio, então nesta seção `bg-ink` a moldura some e ficam as
+                fotos. Na home ele está sobre branco, onde a mesma moldura
+                recorta. */}
+            <div className="w-full">
+              <PhotoCarousel
+                images={LIFE_AT_DNA}
+                positions={LIFE_AT_DNA_FRAMING}
               />
             </div>
             <div>
@@ -791,48 +822,22 @@ export default async function OurTeamPage() {
               ))}
             </div>
 
-            {/* ── O CARROSSEL DA HOME · 21-09 ─────────────────────────────
-                *"put the carousel da home na pagina"*. É o mesmo
-                `components/PhotoCarousel` que roda na `#people` da home, com a
-                MESMA lista de imagens — 25 fotos de `/dna-time/`, os números 05,
-                08 e 14 pulados porque aqueles arquivos não existem (conferido
-                na pasta, são 25 JPEGs de 28 números). A lista é montada aqui do
-                mesmo jeito que lá, e não copiada nome por nome: uma lista
-                literal de 25 caminhos envelhece na primeira foto que entrar.
+            {/* ⚠️ O CARROSSEL ESTEVE AQUI POR ALGUMAS HORAS EM 21-09, e subiu
+                para a seção "One team" no mesmo dia, a pedido. O argumento que o
+                trouxe para esta seção continua válido e fica registrado, porque
+                é ele que explica por que estes quatro cartões existem aqui: na
+                home o carrossel é a metade direita da seção cujo texto é
+                EXATAMENTE o deles (One DNA TEAM, The DNA Experience, Trusted
+                Relationships, Inclusion & Diversity). O `CDNA_04_Team.docx`
+                mandou o texto para cá ("moved here from the homepage") e deixou
+                o carrossel para trás — a pergunta anotada no topo desta seção
+                desde 11-09.
 
-                ⚠️ POR QUE NESTA SEÇÃO, E NÃO EM OUTRA. Na home o carrossel não
-                é um bloco solto: ele é a metade direita da seção cujo texto é
-                EXATAMENTE o destes quatro cartões (One DNA TEAM, The DNA
-                Experience, Trusted Relationships, Inclusion & Diversity). O
-                `CDNA_04_Team.docx` mandou esse texto para cá ("moved here from
-                the homepage") e deixou o carrossel para trás — a pergunta que
-                estava anotada no topo desta seção desde 11-09. Trazê-lo para
-                junto dos mesmos quatro cartões é reconstituir a seção inteira,
-                em vez de achar um vão novo para ele na página.
-
-                ABAIXO DOS CARTÕES E NÃO AO LADO: lá o texto é uma coluna só e
-                sobra a metade direita; aqui ele são quatro cartões lado a lado,
-                e espremê-los em três colunas para abrir espaço desfaria o
-                desenho de 15-09 (a conta das quatro colunas está na caixa da
-                grade). O componente já se limita a 640px e se centraliza, então
-                ele fecha a seção centrado, como um rodapé de imagens.
-
-                FUNCIONA SOBRE ESCURO SEM AJUSTE: o quadro do carrossel tem
-                `bg-ink` próprio e cantos arredondados, e as fotos trazem a
-                própria luz. Na home ele está sobre branco, onde a moldura
-                escura recorta; aqui cai sobre a hélice já escurecida e a
-                moldura some, o que é o certo para um bloco que fecha a seção —
-                ficam as fotos, sem caixa em volta. */}
-            <div className="mt-14 md:mt-16">
-              <PhotoCarousel
-                images={Array.from({ length: 28 }, (_, i) => i + 1)
-                  .filter((n) => n !== 5 && n !== 8 && n !== 14)
-                  .map(
-                    (n) =>
-                      `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`
-                  )}
-              />
-            </div>
+                ELE NÃO VOLTA AQUI ENQUANTO ESTIVER LÁ EM CIMA. São as mesmas 25
+                fotos: duas passagens do mesmo acervo na mesma página é o
+                defeito que a própria cliente apontou no acervo ("photo quality
+                is not great" nasceu de uma foto repetida). Se um dia ele sair da
+                "One team", este é o lugar de volta. */}
           </div>
         </section>
 
