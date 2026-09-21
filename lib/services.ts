@@ -179,6 +179,133 @@ const evidenceQuotePlaceholder = (client: string): ServiceTestimonial => ({
   attribution: `Name, Title — ${client}`,
 });
 
+/**
+ * UM DOS TRÊS CARTÕES DE PÚBLICO da faixa entre "What we do" e "How we work" —
+ * o bloco novo do mockup de 21-09 (`docs/meetings/nova-pagina-interna-
+ * servicoes.jpg`), pedido por email: *"Services internal — Re-layout the
+ * internal with the image nova-pagina-interna-servicoes.jpg inside meetings
+ * folder"*.
+ *
+ * O desenho mostra três cartões lado a lado dizendo A QUEM o serviço se
+ * destina: foto no topo, ícone de linha vermelho, rótulo em caixa alta com
+ * traço embaixo, título curto em serifa e um parágrafo. No Senior Leadership
+ * Development são "EXECUTIVE TEAMS", "SLT / ET-1" e "TOP 100 – 150 LEADERS".
+ *
+ * ⏳ ISTO NÃO EXISTE EM DOCUMENTO NENHUM DA CLIENTE além do próprio mockup. O
+ * `CDNA_03_Services.docx` e o `WEBSITE SERVICE COPY.xlsx` fecham a copy de cada
+ * serviço em banner, impact, how we help e as três partes do CTA — público
+ * alvo recortado em três não está lá. As três frases abaixo entram porque estão
+ * ESCRITAS EM LETRA no desenho dela, pela mesma régua que já valeu para as duas
+ * manchetes do Top 150 (ver `outcomeHeadline`): transcrição, não autoria.
+ *
+ * ⏳ OS OUTROS NOVE NÃO TÊM, e a faixa simplesmente não renderiza neles — a
+ * mesma guarda de `pillars` e de `evidence`. Não há placeholder aqui de
+ * propósito: inventar "a quem se destina" o Culture Transformation seria
+ * escrever segmentação comercial da CDNA por dedução, em nove páginas. Quando
+ * ela mandar os textos, é acrescentar o campo em cada serviço; o layout não
+ * muda.
+ */
+export type ServiceAudience = {
+  /** O rótulo vermelho em caixa alta, com o traço embaixo. */
+  label: string;
+  /** O título curto em serifa ("Align. Decide. Deliver."). */
+  title: string;
+  /** O parágrafo do cartão. Texto puro — este bloco não usa `**…**`. */
+  body: string;
+  /**
+   * A foto do topo do cartão, em ~2:1.
+   *
+   * ✅ O SENIOR LEADERSHIP DEVELOPMENT TEM AS TRÊS, desde 21-09, em
+   * `public/services/audiences/`. Os outros nove não têm `audiences` nenhum, então
+   * a pergunta nem se coloca para eles hoje.
+   *
+   * Sem `image` o cartão cai no CAMPO DE COR, como o `ServiceCard` do índice faz
+   * desde 12-09. É um estado BOM, e é o que torna a regra abaixo barata de
+   * cumprir.
+   *
+   * ⚠️ NÃO APONTAR PARA ARQUIVO QUE AINDA NÃO EXISTE. O `next/image` não falha
+   * no build por isso — falha em produção, com o cartão exibindo imagem
+   * quebrada. Deixar o campo vazio até o arquivo estar no disco custa nada.
+   *
+   * ⚠️ Nome de arquivo NOVO a cada troca, que o otimizador do Next serve por
+   * URL e já entregou versão velha por isso.
+   */
+  image?: string;
+  /**
+   * AS TRÊS PALAVRAS SOBRE A FOTO, no canto inferior direito — 21-09.
+   *
+   * O rótulo (`label`) vai no canto SUPERIOR ESQUERDO da mesma foto e sai
+   * daquele campo, não daqui: ele já existe, e duplicá-lo seria criar a chance
+   * de o cartão dizer um nome em cima da foto e outro embaixo dela.
+   *
+   * É UM ARRAY PORQUE AS QUEBRAS SÃO DO DESENHO, não do acaso da largura:
+   * "BIGGER / PERSPECTIVE / BOLDER LEADERSHIP" tem três linhas, e as duas
+   * primeiras cabem folgadas numa linha só. Uma string única com `text-balance`
+   * entregaria "BIGGER PERSPECTIVE / BOLDER LEADERSHIP" e perderia o ritmo de
+   * três tempos que as três fotos repetem.
+   *
+   * ⏳ SÓ O SENIOR LEADERSHIP DEVELOPMENT TEM. Ausente = a foto fica sem a
+   * sobreposição de baixo, e só com o rótulo em cima.
+   */
+  credential?: string[];
+};
+
+/**
+ * O FECHO CENTRADO do mockup de 21-09 — duas linhas em serifa, com um filete
+ * vermelho de cada lado, centradas na altura do par: a primeira em tinta
+ * escura, a segunda em vermelho.
+ *
+ * No Senior Leadership Development: *"Different organisations. Different
+ * transformations."* / *"Leadership that makes it happen."*
+ *
+ * ⚠️ NÃO É O CTA, e a diferença importa para quem for "consolidar os dois". O
+ * `SolutionCta` é a faixa vermelha com botão, e o mockup NÃO a desenha — o
+ * desenho acaba aqui, nesta frase. Este bloco é uma assinatura editorial: não
+ * tem botão, não tem link e não pede nada. Os dois convivem na página de hoje
+ * porque o mockup só cobre até aqui e o resto (evidência, convite, related)
+ * ficou sem referência visual — ver a caixa de abertura de `SolutionView`.
+ *
+ * ⏳ SÓ O PRIMEIRO SERVIÇO TEM. Ausente = o bloco não renderiza.
+ */
+export type ServiceClosing = {
+  /** A primeira linha, em tinta escura. */
+  lead: string;
+  /** A segunda linha, em vermelho. */
+  accent: string;
+};
+
+/**
+ * A FAIXA CURTA QUE SUBSTITUIU O "HOW WE WORK" EM 21-09 (segunda revisão).
+ *
+ * A imagem `docs/meetings/secao-atualizada-our-work.jpg` é a SEGUNDA referência
+ * que a anotação da call menciona — ela estava na pasta desde o começo, mas as
+ * notas só nomeavam a primeira, então o re-layout foi construído sem ela. Nesta
+ * versão o bloco de duas colunas "How we work" e a fileira de oito ícones dão
+ * lugar a uma tira só: três práticas com ícone.
+ *
+ * ⛔ O RÓTULO "A COMMON OUTCOME" ESTEVE AQUI, num campo `lead`, e saiu no
+ * mesmo dia a pedido — *"pode tirar essa frase e deixar só os ícones"*. Ele era
+ * uma célula vermelha sem ícone à esquerda, e nomeava o que os itens à direita
+ * tinham em comum. O campo saiu junto em vez de virar opcional nunca
+ * preenchido.
+ *
+ * ⛔ O COMPONENTE PRÓPRIO TAMBÉM SAIU. Esta lista teve, por algumas horas, um
+ * `SolutionPractices` com ícone à ESQUERDA do rótulo, que era o arranjo da
+ * segunda imagem. Com o pedido seguinte — pôr nesta seção os oito ícones do
+ * primeiro desenho — os dois desenhos convergiram para o mesmo arranjo, o de
+ * ícone ACIMA do rótulo, e o componente virou cópia do `SolutionPillars`. Hoje
+ * a fileira é uma só para os dez serviços; o que muda é a lista.
+ *
+ * ⏳ SÓ O PRIMEIRO SERVIÇO TEM. Ausente = o serviço continua exatamente como
+ * estava, com o bloco "How we work" e os `pillars`. É a mesma guarda de
+ * `audiences` e `closing`, e é o que impede esta segunda revisão de esvaziar as
+ * outras nove páginas, que nunca receberam a copy nova.
+ */
+export type ServicePractices = {
+  /** As práticas, com ícone. O mapa rótulo→ícone vive no componente. */
+  items: string[];
+};
+
 export type Service = {
   slug: string;
   title: string;
@@ -207,6 +334,36 @@ export type Service = {
   outcomeHeadline?: string;
   outcome: string;
   /**
+   * ============================================================================
+   * "WHAT WE DO" — A MESMA CAIXA DE DUAS COLUNAS, COPY NOVA, 21-09
+   * ============================================================================
+   *
+   * O mockup de 21-09 renomeia o primeiro bloco de duas colunas de "IMPACT"
+   * para "WHAT WE DO" e escreve, em letra, uma manchete e DOIS parágrafos que
+   * não são o `outcome` — o `outcome` fala do que MUDA no negócio ("greater
+   * strategic alignment, decision quality and execution speed"), e o texto novo
+   * fala de com quem a CDNA trabalha e como a jornada é desenhada.
+   *
+   * ⚠️ O `outcome` NÃO FOI APAGADO, e é isso que segura os outros nove de pé:
+   * sem `whatWeDo`, o bloco cai no `outcome` e naquelas páginas o que muda é só
+   * o rótulo em cima. Ou seja, a copy do `CDNA_03_Services.docx` continua
+   * inteira e publicada — ela apenas deixou de ser a única fonte deste bloco.
+   *
+   * ⚠️ O RÓTULO CONTRADIZ O TEXTO NOS NOVE, e é preciso dizer em voz alta em vez
+   * de descobrir na revisão: "WHAT WE DO" em cima de um parágrafo de RESULTADO
+   * lê torto. A alternativa era manter dois rótulos diferentes conforme o
+   * serviço tivesse ou não a copy nova — o que daria dez páginas de estruturas
+   * diferentes, que é exatamente o que "one template, ten instances" existe para
+   * impedir. O conserto é de CONTEÚDO: os nove precisam do texto de "what we do"
+   * que a cliente escreveu para o primeiro.
+   *
+   * ⏳ FALTAM NOVE. Só o Senior Leadership Development tem — é o serviço que o
+   * mockup desenha.
+   */
+  whatWeDoHeadline?: string;
+  /** O corpo de "What we do". Mesma marcação `**…**` do `outcome`. */
+  whatWeDo?: string;
+  /**
    * Bloco 3 — How CorporateDNA Helps. A intervenção.
    *
    * Mesma regra do `outcome`: `**…**` é o negrito da planilha da cliente e vira
@@ -215,6 +372,20 @@ export type Service = {
   /** A manchete do bloco How we help. Mesma história do `outcomeHeadline`. */
   howWeHelpHeadline?: string;
   howWeHelp: string;
+  /**
+   * "HOW WE WORK" — o segundo bloco de duas colunas do mockup de 21-09, com a
+   * mesma história de `whatWeDo`: rótulo novo, copy nova onde ela existe,
+   * `howWeHelpHeadline`/`howWeHelp` como base nos outros nove.
+   *
+   * Aqui a torção de rótulo é MENOR que no bloco de cima — "how we help" e "how
+   * we work" descrevem a mesma coisa vista de dois lados —, então os nove
+   * continuam lendo direito sob o rótulo novo.
+   *
+   * ⏳ FALTAM NOVE.
+   */
+  howWeWorkHeadline?: string;
+  /** O corpo de "How we work". Mesma marcação `**…**` do `howWeHelp`. */
+  howWeWork?: string;
   /**
    * Os termos da frase de "what CDNA does to help", promovidos a rótulo — o que
    * o template dela mostra como cartões com ícone sob aquele bloco. CINCO é o
@@ -231,6 +402,33 @@ export type Service = {
    * Ausente ou vazio = a faixa não renderiza. Ver `SolutionPillars`.
    */
   pillars?: string[];
+  /**
+   * Os três cartões de público do mockup de 21-09 — ver a caixa de
+   * `ServiceAudience`. Ausente ou vazio = a faixa não renderiza.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  audiences?: ServiceAudience[];
+  /**
+   * O fecho centrado de duas linhas do mockup de 21-09 — ver a caixa de
+   * `ServiceClosing`. Ausente = o bloco não renderiza.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  closing?: ServiceClosing;
+  /**
+   * A tira de práticas da segunda revisão de 21-09 — ver a caixa de
+   * `ServicePractices`.
+   *
+   * ⚠️ A PRESENÇA DESTE CAMPO É O INTERRUPTOR DO LAYOUT NOVO, e não só a fonte
+   * de uma lista: quem o tem perde o bloco de duas colunas "How we work" e a
+   * fileira de `pillars`, e ganha esta tira seguida do divisor "Featured case
+   * study". Quem não o tem segue na versão anterior, inteira. A conta está em
+   * `SolutionView`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  practices?: ServicePractices;
   /** Bloco 6 — as três partes que o outline chama de "all thirty parts". */
   cta: { strapline: string; line: string; label: string };
   evidence?: ServiceEvidence;
@@ -284,9 +482,35 @@ export type Service = {
  */
 export const services: Service[] = [
   {
-    slug: "top-150-leadership-development",
+    slug: "senior-leadership-development",
+    /* ⚠️ O NOME DO ARQUIVO CONTINUA "top-150", e não é esquecimento. Ele é o
+       caminho de um JPEG em `public/services/cards/`, não parte da URL da
+       página; renomeá-lo obrigaria a mexer no disco para que nada mude na tela,
+       e o otimizador do Next serve imagem POR URL — nome novo é cache novo,
+       gerado à toa. */
     cardImage: "/services/cards/top-150-leadership-development-client.jpg",
-    title: "Top 150 Leadership Development",
+    /* ✅ O NOME MUDOU EM 21-09, por email: *"Change top 150 leadership
+       development to Senior Leadership Development"*. É o que aparece no card
+       do índice, no submenu de Services, na migalha e no `h1` da página — o
+       `title` alimenta os quatro.
+
+       ✅ E O SLUG MUDOU DEPOIS, no mesmo dia, a pedido explícito. A primeira
+       decisão foi manter `top-150-leadership-development`, porque a rota já
+       estava no ar, no sitemap e nos links que a cliente mandou por email, e
+       porque rota é endereço e título é copy — a regra que `lib/nav.ts` registra
+       na caixa de abertura. Essa caixa dizia também qual seria o caminho certo
+       se a URL precisasse mudar: rota nova mais 301 da antiga. É exatamente o
+       que foi feito.
+
+       ⚠️ O 308 DA ANTIGA NÃO É OPCIONAL e vive em `next.config.mjs`, junto com
+       os outros endereços nossos que mudaram de casa. Sem ele,
+       `/services/top-150-leadership-development` passa a dar 404 no dia do
+       deploy — e esse endereço não é só teórico: TRÊS redirects do WordPress
+       antigo desembocavam nele (`/solutions/exco-top-150`,
+       `/solutions/ceo-top-team-transformation`, `/solutions/leadership-development`),
+       e os três foram repontados direto para cá para não virarem 308 em cima de
+       308. */
+    title: "Senior Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
     /* ✅ AS DUAS ÚNICAS MANCHETES ESCRITAS PELA CLIENTE. Estão em letra no
@@ -295,9 +519,28 @@ export const services: Service[] = [
     outcomeHeadline: "A stronger, more connected senior leadership community.",
     outcome:
       "A senior leadership community with greater **strategic alignment, decision quality and execution speed**. Leaders think enterprise first, operate horizontally and collectively own performance, transformation and the leadership pipeline.",
+    /* ✅ A COPY DE "WHAT WE DO", TRANSCRITA DO MOCKUP DE 21-09. Está escrita em
+       letra em `docs/meetings/nova-pagina-interna-servicoes.jpg`, coluna da
+       direita do primeiro bloco, e os negritos abaixo são os que o desenho
+       marca — "Executive Teams, SLT/ET-1 leaders", "Top 100–150 leadership
+       populations" e "business transformation". Nada foi reescrito.
+
+       ⚠️ NÃO SUBSTITUI O `outcome` LOGO ACIMA, convive com ele. O `outcome` é a
+       frase do `CDNA_03_Services.docx` e continua sendo o corpo deste bloco nos
+       outros nove serviços — ver a caixa de `whatWeDo` no tipo `Service`. */
+    whatWeDoHeadline:
+      "We develop leaders at the levels where transformation gets real.",
+    whatWeDo:
+      "We work with **Executive Teams, SLT/ET-1 leaders** and **Top 100–150 leadership populations** to build the leadership capability their organisation needs for what comes next.\n\nEvery journey starts with your **business transformation**, not a standard curriculum. Whether you are scaling, integrating, reshaping culture, accelerating performance or navigating disruption, we identify the leadership shifts required and design a tailored journey to meet them.",
     howWeHelpHeadline: "From ambition to enterprise leadership in practice.",
     howWeHelp:
       "We work with the ExCo and top 100 to 150 leaders to build the **Inner Game and Outer Game of enterprise leadership**. Through immersive experiences, coaching, real business challenges, peer learning and mastery labs, we shift leaders from **“my function, my market, my priorities” to “our enterprise, our performance, our future.”**",
+    /* ✅ A COPY DE "HOW WE WORK", do mesmo mockup — coluna da direita do segundo
+       bloco. Os dois negritos são os dele: "Inner Game and Outer Game" e a frase
+       de fecho "It changes how they lead every day." */
+    howWeWorkHeadline: "Real development.\nIn the flow of work.",
+    howWeWork:
+      "We develop the **Inner Game and Outer Game** of leadership — how leaders think, judge and show up, and how they translate that into the way they lead people, make decisions, collaborate and deliver performance. Real business challenges, everyday decisions, critical conversations and leadership habits become the practice ground — so development is not something leaders attend. **It changes how they lead every day.**",
     pillars: [
       "Immersive experiences",
       "Coaching",
@@ -305,6 +548,111 @@ export const services: Service[] = [
       "Peer learning",
       "Mastery labs",
     ],
+    /* ✅ OS OITO DO PRIMEIRO MOCKUP, transcritos de
+       `docs/meetings/nova-pagina-interna-servicoes.jpg`, a pedido de 21-09.
+       A fileira de oito VOLTOU — e este campo já passou por três estados no
+       mesmo dia, o que vale registrar porque explica por que ele existe:
+
+         1º  cinco `pillars`, do primeiro mockup, com a dívida anotada de que
+             ele desenhava OITO e nós tínhamos cinco;
+         2º  quatro células da segunda imagem ("A common outcome" mais hábitos,
+             identidade e os momentos que importam), que encurtaram a fileira;
+         3º  os oito de novo, agora aqui, com os rótulos e os ícones do desenho.
+
+       ⚠️ É POR ISTO QUE OS OITO NÃO VÃO PARA `pillars`. Aquele campo tem uma
+       regra própria — os itens são PALAVRAS LITERAIS da frase de `howWeHelp` —
+       e três destes oito ("Leadership experiments", "Everyday habits",
+       "Measurement") não estão em frase nenhuma da cliente. Pô-los lá quebraria
+       a regra em silêncio e também o teste, que fixa de quatro a seis pilares
+       por serviço. Os `pillars` ficam intactos, como caminho de volta; quem
+       manda na tela é este campo.
+
+       A DÍVIDA ANOTADA NA CAIXA ABAIXO MORRE AQUI, e de outro jeito que o
+       previsto: ela dizia que o conserto dependia de a cliente reescrever a
+       frase de `howWeHelp` para os três termos novos aparecerem. Não dependia —
+       bastava parar de derivar a fileira daquela frase. */
+    practices: {
+      items: [
+        "Immersions",
+        "Live business challenges",
+        "Mastery Labs",
+        "Coaching",
+        "Peer learning",
+        "Leadership experiments",
+        "Everyday habits",
+        "Measurement",
+      ],
+    },
+    /* ⚠️ A FILEIRA DE ÍCONES DO MOCKUP DE 21-09 TEM OITO ITENS E ESTA TEM CINCO,
+       e a diferença é deliberada. O desenho lista "Immersions · Live business
+       challenges · Mastery Labs · Coaching · Peer learning · Leadership
+       experiments · Everyday habits · Measurement"; cinco desses são os cinco
+       acima com outro nome, e três são NOVOS (leadership experiments, everyday
+       habits, measurement).
+
+       POR QUE NÃO FORAM ACRESCENTADOS: os `pillars` são, por regra deste
+       arquivo, as PALAVRAS DA PRÓPRIA FRASE de `howWeHelp` — cada item aparece
+       literalmente lá, na mesma ordem. Os três novos não estão na frase de
+       nenhum dos dez serviços, e `tests/services.test.ts` fixa a faixa em
+       quatro a seis itens por serviço justamente para guardar essa regra. Pôr
+       oito aqui quebra o teste e desfaz o vínculo com o texto.
+
+       ⏳ O CAMINHO, se a cliente quiser os oito: ela reescreve a frase de
+       `howWeHelp` incluindo os três termos, e aí os oito entram por direito —
+       com a faixa do teste alargada de 4–6 para 4–8 no mesmo commit. É pedido
+       de copy, não conserto de código. */
+    /* ✅ OS TRÊS CARTÕES DE PÚBLICO, transcritos do mockup de 21-09 — ver a
+       caixa de `ServiceAudience`. Sem `image` de propósito: as três fotografias
+       do desenho não vieram no pacote do Drive e o cartão cai no campo de cor
+       até virem. */
+    /* ✅ AS TRÊS FOTOS CHEGARAM EM 21-09 e são as do mockup — a sala de reunião
+       ao pôr do sol, a mulher falando na mesa e a plateia no auditório. Vieram
+       como PNG de ~1,6 MB e viraram JPEG q90 numa ÚNICA compressão (189, 144 e
+       179 KB), que é o tratamento padrão deste repo. Os três cartões saíram do
+       campo de cor.
+
+       ⚠️ SEM ENQUADRAMENTO, e isso foi conferido, não presumido. Os arquivos são
+       1672x941 (1,78:1) e o slot é 2:1, então o `object-cover` escala pela
+       largura e come 11% da ALTURA — 5,6% em cima e 5,6% embaixo, centrado. Nas
+       três, o topo da cabeça mais alta fica abaixo de 9% (a plateia é o caso
+       mais apertado), ou seja ninguém é cortado. Se um arquivo NOVO entrar aqui
+       com composição diferente, refazer essa conta antes de confiar no centro —
+       é exatamente o defeito que o carrossel da home tinha. */
+    audiences: [
+      {
+        label: "Executive teams",
+        title: "Align. Decide. Deliver.",
+        body: "We help Executive Teams build collective leadership, stronger decision quality and the capability to lead transformation together.",
+        image: "/services/audiences/sld-executive-teams.jpg",
+        credential: ["Collective", "clarity", "Greater impact"],
+      },
+      {
+        label: "SLT / ET-1",
+        title: "From functional to enterprise leadership.",
+        body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership — leading across boundaries, influencing horizontally and translating strategy into execution.",
+        image: "/services/audiences/sld-slt-et1.jpg",
+        credential: ["Bigger", "perspective", "Bolder leadership"],
+      },
+      {
+        label: "Top 100 – 150 leaders",
+        title: "A stronger leadership community.",
+        body: "We build leadership communities with a shared language, stronger judgement and the habits required to lead consistently at scale.",
+        image: "/services/audiences/sld-top-100-150.jpg",
+        /* "JUDGEMENT" COM E, e a escolha é deliberada: o recorte que ela mandou
+           em 21-09 escreve assim, e o PARÁGRAFO deste mesmo cartão já dizia
+           "stronger judgement". O mockup anterior trazia "JUDGMENT" sem o e — a
+           grafia americana —, e seguir aquele deixaria a mesma palavra escrita
+           de dois jeitos dentro de um cartão de três linhas. */
+        credential: ["Greater", "judgement", "Lasting impact"],
+      },
+    ],
+    /* ✅ O FECHO CENTRADO, transcrito do mockup de 21-09. É a última coisa que o
+       desenho mostra — o que a página tem depois dele (evidência, convite,
+       related services) não está desenhado em lugar nenhum. */
+    closing: {
+      lead: "Different organisations. Different transformations.",
+      accent: "Leadership that makes it happen.",
+    },
     cta: {
       strapline: "Individual accountability. Collective enterprise performance.",
       line: "Build a senior leadership community that improves decision quality, alignment and execution speed across functions, markets and geographies.",

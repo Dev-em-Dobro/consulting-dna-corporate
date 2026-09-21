@@ -7,8 +7,6 @@ import Image from "next/image";
 import { applyEnvClasses, isTouchDevice } from "@/lib/hero-intro";
 import { buildHeroIntro } from "@/lib/hero-timeline";
 import heroPhoto from "@/public/dna-time/dna-time-06.jpeg";
-import CyclingCredential from "@/components/CyclingCredential";
-import type { TickerEntry } from "@/lib/cms/map";
 
 /**
  * Hero da HOME (`/`) desde 10-09 — e também da `/home-v3`, que só troca o herói
@@ -243,39 +241,42 @@ const HERO_TINT = {
 };
 
 /**
- * AS CREDENCIAIS SAÍRAM DAQUI em 07-09, e o que ficou é o registro do porquê.
+ * O HERÓI NÃO MOSTRA MAIS CREDENCIAL NENHUMA — 21-09, a pedido da Maliha:
+ * *"Remove Brandon hall pop up on hero image add this to awards"*.
  *
- * O que existia: uma lista escrita à mão com os dois GOLD da Brandon Hall (2023
- * e 2024), desenhada como uma faixa logo ABAIXO do herói. Ela nasceu presa na
- * base da <section> e saiu de lá no mesmo dia por ser "coisa demais na primeira
- * tela"; agora saiu por inteiro.
+ * Esta é a TERCEIRA e última etapa de uma história que vale inteira, porque
+ * cada etapa tirou uma peça diferente e quem ler só a última vai achar que
+ * alguém esqueceu de pôr credencial na primeira dobra.
  *
- * O MOTIVO É O CARTÃO DA QUINA. O `CyclingCredential` mostra os mesmos prêmios,
- * um de cada vez, e vem do segmento `ticker` do CMS. Manter as duas peças era
- * dizer a mesma credencial duas vezes na mesma tela — e a versão à mão era a
- * pior das duas, porque era uma cópia do CMS que ninguém ia lembrar de
- * atualizar. A dívida que estava anotada aqui ("se a CDNA ganhar outro prêmio,
- * alguém tem de editar este arquivo") deixou de existir sozinha.
+ * 1ª (07-09) Saiu a FAIXA escrita à mão com os dois GOLD da Brandon Hall (2023
+ *    e 2024), que ficava logo abaixo do herói. Motivo: dizia a mesma coisa que
+ *    o cartão da quina, e era uma cópia do CMS que ninguém ia lembrar de
+ *    atualizar.
+ * 2ª (07-09) O cartão da quina desceu para a base direita, no formato da V3.
+ * 3ª (21-09) Saiu o CARTÃO. Era o `CyclingCredential`, alimentado pelo segmento
+ *    `ticker` do CMS — o "pop up" do e-mail dela. Com ele foi a `prop ticker`
+ *    deste componente e a chamada `getTickerEntries()` da home, que existia só
+ *    para abastecê-lo.
  *
- * O QUE SE PERDE, e é bom estar escrito: o cartão da quina não aparece no
- * telefone (ver o comentário dele, com a medição), então a V2 agora fica sem
- * credencial nenhuma no herói em telas pequenas. É a soma de duas decisões
- * separadas, não um descuido. O conserto barato, se incomodar, é deixar o cartão
- * visível no telefone empilhado abaixo dos botões — ao custo dos 40px de altura
- * que já foram medidos e recusados uma vez.
+ * ONDE A BRANDON HALL FOI PARAR, porque ela não foi apagada, foi MUDADA DE
+ * LUGAR: os dois GOLD agora abrem a régua do `AwardsMentions` (ver a caixa
+ * `BRANDON_HALL` lá). Isto encerra, e no sentido que a cliente pediu, a dívida
+ * que este comentário registrava desde 07-09: o `AwardsMentions` tinha CINCO
+ * prêmios cravados no código, três de 2008–2009 com distinção "Finalist" e
+ * "Semi finalist", e era por isso que ele não servia de credencial para o
+ * herói. Os dois GOLD importam em particular porque a Explore Performance, a
+ * referência que a Rhea mandou, ganhou o MESMO prêmio: é o único terreno de
+ * comparação direta, e nele estávamos mostrando 2009 contra o 2025 deles.
+ * Agora a comparação acontece na faixa de prêmios, que é onde ela pediu.
  *
- * O ARGUMENTO ORIGINAL CONTINUA VALENDO e é por isso que este texto fica: o
- * `AwardsMentions.tsx`, compartilhado com o site inteiro, tem cinco prêmios
- * cravados no código e três são de 2008–2009, com distinção "Finalist" e "Semi
- * finalist". Pôr "semifinalista, 2009" ao lado dos logos da Coca-Cola e da Shell
- * enfraquece o herói em vez de sustentá-lo. Os dois GOLD importam em particular
- * porque a Explore Performance, a referência que a Rhea mandou, ganhou o MESMO
- * prêmio: é o único terreno de comparação direta, e nele estávamos mostrando
- * 2009 contra o 2025 deles. Quem for promover a V2 precisa saber disso antes de
- * mexer no que o herói mostra.
+ * ⏳ O QUE VOLTA COM O CARTÃO, se ela mudar de ideia: a `prop ticker` aqui, o
+ * `import CyclingCredential`, o bloco absoluto da quina (que era o último filho
+ * da <section>, com `hidden md:block` e `h-cta`) e o `getTickerEntries()` no
+ * `Promise.all` da home. O componente CONTINUA VIVO — a `/home-v3` ainda o usa
+ * pela HeroV3 —, então nada disso precisa ser reescrito, só religado.
  */
 
-export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
+export default function HeroV2() {
   const scope = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -655,24 +656,24 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
             {/* Segundo CTA, como na referência ("Explore Our Work" ao lado do
                 principal).
 
-                DESTINO: /approach, decidido em 07-09. Antes apontava para
-                /cases, pela leitura de que o trabalho a mostrar primeiro eram
-                os casos.
+                DESTINO: /our-clients, decidido pela cliente em 21-09 — *"'See
+                the work' should link to Clients & Impact"*. Ela fechou uma
+                pendência que estava anotada aqui desde 07-09.
 
-                O RÓTULO FICOU DESALINHADO COM O DESTINO, e isso é de propósito
-                — não é esquecimento. "See the work" promete trabalho feito, ou
-                seja, casos; a página de destino agora explica o método (o 5H®,
-                o inner/outer game, os diagnósticos). Quem clicar esperando
-                cases vai cair noutro lugar.
+                O HISTÓRICO, porque ele explica por que havia pendência. O botão
+                apontou para /cases, depois foi para /approach, e aí rótulo e
+                destino passaram a discordar: "See the work" promete trabalho
+                feito, e a /approach explica o método. Ficou assim de propósito,
+                porque rótulo é copy e copy é da CDNA — a saída registrada era
+                trocar o rótulo para algo como "Our approach", OU trocar o
+                destino. Ela escolheu o destino, e agora os dois dizem a mesma
+                coisa: "Clients & Impact" é a página do trabalho entregue.
 
-                Não troquei o texto porque rótulo é copy, e copy é da CDNA — é a
-                mesma regra que já vale para o botão principal aqui do lado
-                ("Discuss a leadership challenge", quatro palavras onde a
-                referência usa duas). Se o destino é para ficar, o rótulo natural
-                é algo como "Our approach" ou "How we work", e isso se pede junto
-                com o resto do conteúdo que está com a Rhea. */}
+                A rota é `/our-clients` e não `/clients-and-impact`: o item de
+                menu chama "Clients & Impact" mas cobre duas páginas, e a de
+                entrada é esta (ver a caixa em `lib/nav.ts`). */}
             <a
-              href="/approach"
+              href="/our-clients"
               className="h-cta border border-white/40 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
             >
               See the work
@@ -699,66 +700,10 @@ export default function HeroV2({ ticker = [] }: { ticker?: TickerEntry[] }) {
         </div>
       </div>
 
-      {/* O CARTÃO DE CREDENCIAL — EMBAIXO E À DIREITA, como o da V3.
-
-          Ele já esteve ao lado do texto, centrado na vertical, e estava no lugar
-          errado: o pedido era a quina, igual à V3. A diferença não é de gosto —
-          ao lado do texto ele lê como parte do argumento, na quina lê como
-          credencial de rodapé, que é o que ele é.
-
-          POR QUE ABSOLUTO, e não mais uma coluna na linha do texto. O texto
-          desta versão é centrado na vertical pela própria <section>
-          (`justify-center`), então o container dele tem a altura do conteúdo e
-          não a do herói. Dentro dele, "embaixo" seria a base do texto, não a
-          base da tela. Ancorar na <section> é o que faz "embaixo" significar
-          embaixo. A V3 não precisa disso porque lá a coluna já ocupa a altura
-          toda e o bloco da quina é o último filho dela.
-
-          VAI ATÉ A BORDA DA TELA, e isto foi uma correção de 07-09. A primeira
-          versão prendeu o cartão à grade de 1200px, com o argumento de que tudo
-          nesta versão mora nela e o cartão não devia ser o único a furá-la. O
-          argumento estava certo e perdeu assim mesmo: medido, ele parava a 160px
-          da borda da tela contra 40px do cartão da V3, e a 160px a peça não lê
-          como quina — lê como um bloco solto flutuando dentro da grade. Quina é
-          uma relação com a BORDA DA TELA, não com o container.
-
-          Então aqui o invólucro é de largura cheia com `px-6 md:px-10`, que é
-          exatamente o que a V3 usa (`components/HeroV3.tsx`, o container do
-          herói). Os 40px de folga lateral passam a ser os mesmos nas duas, que é
-          o que faz as duas quinas rimarem.
-
-          `pb-10` são 40px até a base — o mesmo valor da folga lateral, e o mesmo
-          `md:pb-10` que a V3 declara. Na V3 a folga medida sai menor (22px)
-          porque lá o conteúdo da coluna transborda um pouco o padding; não vale
-          copiar o número medido, vale copiar o valor declarado.
-
-          `pointer-events-none` no invólucro porque ele atravessa a largura toda
-          e não pode virar uma placa invisível sobre o herói; o cartão devolve o
-          `auto` para si.
-
-          SÓ NO DESKTOP (`hidden md:block`), e isto não é preguiça de responsivo.
-          O pedido é uma quina, e no telefone não existe quina: o cartão viraria
-          mais um bloco empilhado. Medido a 375x812 quando ele estava no fluxo,
-          isso levava o herói a 852px — 40px além da tela — e devolvia exatamente
-          o problema que a decisão de 07-09 resolveu ao tirar as credenciais da
-          primeira dobra ("coisa demais na primeira tela: eyebrow, título,
-          subtítulo, dois botões e mais duas credenciais").
-
-          `h-cta` para entrar junto com os botões na timeline. Sem a classe, o
-          cartão apareceria de cara enquanto o resto do herói ainda estivesse
-          surgindo, e uma peça que já está lá antes de todas as outras lê como se
-          não pertencesse à composição. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden md:block">
-        <div className="w-full px-6 pb-10 md:px-10">
-          <div className="flex justify-end">
-            <CyclingCredential
-              entries={ticker}
-              className="h-cta pointer-events-auto w-[340px]"
-            />
-          </div>
-        </div>
-      </div>
-
+      {/* A QUINA DE BAIXO À DIREITA ESTÁ VAZIA DESDE 21-09, e é assim que ela
+          tem de ficar: o cartão que morava aqui era o "pop up" que a cliente
+          mandou tirar. A caixa no topo do arquivo lista o que religar se ela
+          voltar atrás — e diz para onde os dois GOLD da Brandon Hall foram. */}
     </section>
   );
 }

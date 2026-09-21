@@ -1141,7 +1141,26 @@ export default async function AboutV2Page() {
             título, lê a linha de apoio, vê os números e não tem para onde ir a
             não ser rolar. Isso não é ajuste de tamanho, é conteúdo — anotado
             para a conversa com o cliente, não resolvido aqui. */}
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-12">
+        {/* ⚠️ O `md:pb-12` VIROU `md:pb-9` EM 21-09, em dois passos. Não é
+            ajuste de respiro: a faixa de números deixou de ser a última coisa da
+            dobra. A lista de escritórios entrou logo abaixo dela (ver a caixa a
+            seguir), e os 48px que fechavam o bloco passariam a separar os
+            números dos escritórios em vez de fechar a seção.
+
+            ✅ OS DOIS VÃOS SÃO IGUAIS DESDE A REVISÃO DA MESMA DATA. A primeira
+            versão deixou 24px acima da lista e 48px abaixo, e a linha ficava
+            encostada nos números e boiando sobre a borda. Agora são 36px dos dois
+            lados — o de cima é este `md:pb-9`, o de baixo é o `pb-9` da lista.
+
+            A SOMA É A MESMA DE ANTES, e isso é o ponto: 24 + 48 e 36 + 36 fecham
+            os mesmos 72px, então a dobra não cresceu um pixel. O pedido foi
+            explicitamente por paddings iguais SEM aumentar a altura do herói, e
+            redistribuir é a única forma de atender aos dois. Quem mexer num dos
+            dois números tem de mexer no outro na direção contrária.
+
+            No telefone o `pb-10` continua igual, porque lá a lista não aparece e
+            a faixa de números segue sendo o fim da dobra. */}
+        <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-9">
           {/* DUAS COLUNAS JÁ NO TELEFONE (pedido de 09-09: "duas linhas com 2
               quadrados menores, ao invés de cada quadrado ocupar a largura toda
               da tela"). Em 390px cada célula fica com 161px úteis — o `gap-x`
@@ -1223,11 +1242,473 @@ export default async function AboutV2Page() {
             ))}
           </Reveal>
         </div>
+
+        {/* ── Os escritórios no canto inferior direito do herói — 21-09.
+
+            AS DUAS FORMULAÇÕES SÃO A MESMA COISA, e vale registrar porque de
+            início não parecem: o e-mail diz *"Add offices to bottom right of
+            hero image"* e a anotação do Roberto diz *"colocar os escritorios
+            embaixo dos numeros"*. O e-mail é o autoritativo, e nesta dobra ele
+            entrega a anotação de brinde: os números já ocupam a base do herói,
+            então qualquer coisa colada no canto inferior direito nasce LOGO
+            ABAIXO deles. Não houve escolha entre as duas leituras — a
+            composição da página já as fazia coincidir.
+
+            ✅ CENTRALIZADA (`justify-center`) DESDE A REVISÃO DE 21-09. Nasceu
+            em `justify-end`, que era o *"bottom right"* do e-mail lido à letra,
+            e a revisão pediu o centro.
+
+            O ARGUMENTO QUE SUSTENTAVA A DIREITA NÃO SE PERDE NA TROCA, e é por
+            isso que ele fica escrito: a lógica era cair sobre o skyline, que
+            vive numa caixa de 72% presa à direita, e não sobre os 28% de `ink`
+            chapado da esquerda. Centrada, a linha mede ~510px num campo útil de
+            1360px, ou seja começa por volta dos 425px — já depois dos 403px em
+            que a foto começa numa tela de 1440. Ela continua inteira sobre a
+            fotografia; o que mudou foi a margem, não o assento.
+
+            E mesmo que uma tela estreita empurrasse a ponta esquerda para fora
+            da foto, o fecho da base é de LARGURA TOTAL (`inset-x-0`, alguns
+            blocos acima) — ou seja, o contraste da linha não depende de ela
+            estar de um lado ou do outro.
+
+            O CONTRASTE É O QUE A DOBRA JÁ TEM. O fecho da base (o gradiente
+            `to top` de meia altura, algumas linhas acima) chega OPACO na borda
+            inferior justamente para os números poderem atravessar a parte clara
+            da foto. A lista fica ainda mais embaixo que eles, ou seja no trecho
+            mais fechado do gradiente — sobre `ink` praticamente sólido, o mesmo
+            assento que a linha "1,000+" já usa e que foi medido em 6,76:1.
+            Nenhuma camada nova: reaproveitar o que existe é o que impede a foto
+            de escurecer mais um degrau.
+
+            ⚠️ NÃO APARECE NO TELEFONE. A dobra de lá é apertada por medida, não
+            por estilo — a caixa acima registra a conta inteira: 844px de tela
+            para 844px de conteúdo, com o iPhone SE (667) já estourando quando
+            os ícones da faixa voltaram. Cinco cidades ali teriam de virar duas
+            ou três linhas de texto pequeno sobre a foto, e a página já publica
+            os cinco endereços por inteiro na seção de escritórios. Some em
+            `md`, que é o mesmo corte do lavado lateral e do fecho da base —
+            ou seja, some exatamente onde a composição deixa de ser horizontal.
+
+            TEXTO, E NÃO LINKS. A âncora `#offices` existe (é o `id` do
+            `LocationsBlock`) e seria fácil ligar cada cidade a ela, mas as cinco
+            iriam para o MESMO lugar: cinco links que fazem a mesma coisa leem
+            como cinco destinos diferentes. É a mesma regra dos pilares, anotada
+            lá embaixo — não prometer interação que não existe.
+
+            OS DADOS SÃO O `OFFICES` DESTA PÁGINA, a lista do documento do
+            cliente, e não `lib/offices.ts`: aqui só sai o nome da cidade, onde
+            as duas listas batem, mas ler a outra fonte abriria a porta para as
+            duas divergirem dentro da mesma página. A caixa do `OFFICES`, no topo
+            do arquivo, tem as três divergências conhecidas. */}
+        <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-9 md:block md:px-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px] font-semibold uppercase tracking-[2px] text-white/70">
+            {OFFICES.map((o, i) => (
+              <span key={o.city} className="flex items-center gap-x-3">
+                {i > 0 && (
+                  <span aria-hidden className="text-white/30">
+                    ·
+                  </span>
+                )}
+                {o.city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Block 3 · Our Purpose ─────────────────────────────────────
+          "Single column, centred, generous margins." A frase de abertura é o
+          maior tipo da página depois do herói, como o outline pede.
+
+          ⚠️ OS NÚMEROS DOS BANNERS SÃO OS DO OUTLINE DE 08-09, NÃO A ORDEM DA
+          PÁGINA — e desde 21-09 as duas coisas deixaram de coincidir. A Maliha
+          pediu por e-mail: *"Move block one to block 3, block 2 and 3 should
+          become 1 and 2."*, e a anotação da mesma call confirma qual é o bloco
+          um: *"o bloco da foto seria o 3 da pagina"* — a faixa com a fotografia
+          do time, que é o `#identity`. Então:
+
+            era   1 identity (foto do time)  2 purpose  3 promise
+            virou 1 purpose  2 promise  3 identity (foto do time)
+
+          Os banners continuam dizendo "Block 2 · Our Identity" etc. porque esse
+          número é o do DOCUMENTO do cliente, que é a referência de conteúdo e
+          não mudou. Quem for conferir a ordem lê o arquivo de cima para baixo.
+
+          ÂNCORAS: nenhuma mudou de seção — `#purpose`, `#promise` e `#identity`
+          viajaram com o bloco delas. A única âncora da /about apontada de fora é
+          `#values` (dois 301 no `next.config.mjs`, vindos do site antigo), e a
+          seção de valores não se moveu.
+
+          A EMENDA COM O HERÓI, para quem for olhar no ar: os dois são escuros e
+          agora se tocam. Não é o defeito que a emenda do bloco da foto era (ali
+          uma dobra escura encostava numa fotografia clara, ver a caixa do
+          `#identity`); aqui a faixa começa com a mesma cor e o que muda é a
+          textura da foto atrás do véu. Se ficar duro na revisão, o ajuste é
+          desta seção — um respiro no topo —, não do herói.
+
+          ⚠️ O "LIGHT GROUND" DO OUTLINE CAIU em 09-09. O cliente mandou a seção
+          equivalente da Explore Performance (`docs/rhea-feedback/`, a mesma
+          referência que já reorganizou o bloco de identidade) e pediu este
+          tratamento: foto de sangria total no fundo, escurecida, texto branco
+          centralizado por cima. É decisão posterior ao documento, então ganha
+          dele — mesma precedência do breadcrumb removido no bloco 1. Fica
+          registrado porque a contradição é literal: o outline pede fundo claro
+          em letra.
+
+          O QUE FOI MEDIDO NA REFERÊNCIA, e não estimado de olho: a faixa deles é
+          `background-size: cover` centralizada com um `::after` de
+          `rgba(27, 54, 65, .8)` por cima — um azul-petróleo escuro a 80%. Aqui a
+          cor é o `ink` do site (55, 50, 52) na MESMA opacidade: o que importa
+          copiar é a densidade do véu, não o matiz, que é da paleta deles.
+
+          A 80% a foto vira textura, não assunto. É de propósito, e é o que
+          permite usar uma imagem de 1280px de largura numa faixa que em telas
+          grandes pede o dobro: a esta opacidade o upscale não aparece. Mesmo
+          raciocínio já anotado na foto do herói, lá em cima.
+
+          A FOTO É A DA HOME (`dna-time-06`), a mulher no palco com o público em
+          volta — a mesma que a HeroV2 e a HeroV3 usam. Reaproveitar em vez de
+          pedir arte nova tem um efeito bom aqui: o bloco que fala do PROPÓSITO
+          mostra o trabalho acontecendo, que é o argumento do texto.
+
+          ORDEM DOS ELEMENTOS, copiada da referência: rótulo → frase grande →
+          citação → assinatura → RÉGUA VERMELHA CENTRALIZADA → prosa. A régua é
+          o detalhe que muda de lugar: no resto da página ela abre o rótulo, à
+          esquerda; aqui ela desce e vira separador entre a citação e a prosa.
+          Por isso o rótulo desta seção é escrito à mão em vez de usar o
+          <TypeLabel> — ele viria com a régua colada, e ela já está embaixo. */}
+      <section id="purpose" className="relative isolate overflow-hidden bg-ink text-white">
+        {/* NO TELEFONE O ENQUADRAMENTO VAI PARA A DIREITA (09-09), onde está a
+            mulher de pé no palco. Centralizado, o corte mostrava o meio do
+            salão — plateia de costas — e a pessoa que dá sentido à foto ficava
+            fora da tela.
+
+            A CONTA. Numa seção de 1028px de altura por 390 de largura, a caixa
+            tem proporção 0,38:1 contra 1,50:1 do arquivo, então o `object-cover`
+            escala PELA ALTURA: a imagem sai com 1543px de largura dentro de uma
+            caixa de 390. Sobram 1153px de folga horizontal e nenhuma vertical —
+            só o eixo X manda. A mulher está a ~80% da largura do arquivo, o que
+            a põe a 1242px da borda esquerda da imagem escalada; a 85% de
+            deslocamento a janela abre em 980px e ela cai a dois terços da tela,
+            à direita do centro e inteira.
+
+            `md:object-center` DEVOLVE O PADRÃO no desktop, e ali o eixo X não
+            teria efeito nenhum de qualquer forma: numa dobra larga a caixa fica
+            mais alongada que o arquivo, a escala passa a ser pela LARGURA e a
+            folga vira vertical. É a mesma armadilha já documentada duas vezes
+            neste arquivo, no herói — o eixo que funciona depende de qual lado
+            sobra, e ele troca com a proporção da caixa. */}
+        <Image
+          src={purposePhoto}
+          alt=""
+          aria-hidden
+          fill
+          sizes="100vw"
+          className="-z-20 object-cover object-[85%_center] md:object-center"
+        />
+        {/* HISTÓRICO DO TRATAMENTO, porque a versão final inverte a lógica das
+            duas primeiras e isso não se adivinha lendo o código.
+
+            V1 — véu chapado a 80%, copiado da referência. Medido com o conteúdo
+            oculto: texto branco 6,7:1 (passa), rótulo vermelho 1,83:1 (não passa
+            em nada). O problema é físico: #d84339 tem luminância 0,187, então
+            contra BRANCO PURO ele dá 4,39:1 — o teto absoluto dessa cor. Não
+            existe fundo que a leve ao AA.
+            V2 — véu 78% + vinheta escurecendo o miolo. Levou o branco a
+            8,9–10,5:1 e o vermelho a 2,32:1. Melhor, mas ainda escondia a foto
+            justamente onde o olho vai primeiro.
+
+            V3, esta — PAINEL DE VIDRO, pedido de 09-09 ("deixar aparecer
+            levemente mais a imagem, com um efeito de glassmorphism").
+
+            O que muda não é a estética, é de ONDE vem o contraste. Nas duas
+            primeiras versões o texto era protegido escurecendo a SEÇÃO INTEIRA:
+            para o texto ficar legível, a foto toda tinha de sumir junto. Os dois
+            objetivos brigavam por um único controle.
+
+            Com o painel eles se separam em dois controles independentes:
+
+              véu da seção  78%  → manda em quanto da foto aparece
+              painel        62%  → manda em quanto contraste o texto tem
+
+            ⚠️ A COR DOS DOIS NÃO É MAIS O `ink` (09-09, terceiro ajuste). O
+            `ink` é #373234 — um cinza QUENTE, não um preto —, e um véu feito
+            dele deixa a seção inteira cinza por definição, por mais opacidade
+            que se ponha. O pedido foi "mais preto mesmo", e isso é cor, não
+            opacidade: as duas camadas passam a rgb(22,19,20), que é o mesmo
+            matiz do `ink` com a luminosidade lá embaixo. Continua quente — não
+            é preto puro, que ao lado de uma foto de luz incandescente ficaria
+            azulado por contraste simultâneo.
+
+            O PAINEL TEVE DE ACOMPANHAR, e não é detalhe: ele é composto POR CIMA
+            do véu. Deixá-lo em `ink` cinza enquanto o entorno vira quase-preto
+            faria dele a área mais CLARA da seção, invertendo exatamente o papel
+            que ele tem — o assento escuro do texto viraria uma mancha clara no
+            meio de um campo escuro.
+
+            Por isso o véu pôde abrir sem que o texto perdesse nada: o que
+            segura a legibilidade é o painel, não o véu. A vinheta saiu junto —
+            ela existia só para simular o assento que o painel agora dá de
+            verdade.
+
+            O 78% é o terceiro valor. A primeira tentativa foi 42%, aproveitando
+            toda a folga que o painel abriu, e a foto ficou dominante demais — o
+            pedido era "levemente mais", não "o máximo que der". Veio 68% como
+            meio-termo, e depois 78% a pedido ("aumentar em 15%"), que é o 68
+            acrescido de 15% dele mesmo e não de 15 pontos.
+
+            O DESFOQUE não é enfeite: `backdrop-filter: blur` apaga o detalhe
+            fino do que está atrás. Uma foto de salão cheio tem alta frequência —
+            cabeças, cadeiras, luminárias — e é isso, não a luminância média, que
+            atrapalha ler texto por cima. Borrado, o fundo vira campo de cor. É
+            legibilidade, e o visual de vidro sai de brinde.
+
+            A BORDA É RETA. Glassmorphism costuma vir com canto arredondado, e
+            aqui não vem: o site inteiro é de canto vivo, e o próprio comentário
+            do topo deste arquivo registra que os cards arredondados da
+            referência da Maliha foram descartados por isso. O vidro aqui é feito
+            de translucidez, desfoque e um fio de borda clara — que é a parte
+            essencial do efeito; o raio de canto é só convenção. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
+        />
+        <Reveal className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
+          <div className="flex flex-col items-center text-center">
+            {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
+                recomendação registrada aqui. Fica o número para quem reabrir
+                isto depois: no `brand-light`, dentro do painel, ele dá 3,56:1
+                no pior ponto e 4,28:1 na média — acima da régua de 3:1 de
+                elemento gráfico, abaixo dos 4,5:1 que o AA pede para texto. O
+                branco daria 9,9:1, e o vermelho CHEIO daria 2,25:1, que é o
+                motivo de o tom aqui ser o `brand-light` e não o `brand`.
+
+                Uma versão intermediária chegou a subir com o rótulo branco e o
+                vermelho só na régua e nas aspas. O cliente pediu o vermelho de
+                volta, e o pedido ganha — é a cor da marca no lugar onde a marca
+                se anuncia, e a página inteira usa esse rótulo assim.
+
+                O QUE FOI FEITO PARA MELHORAR O NÚMERO sem desfazer o pedido
+                anterior: o painel escureceu de 55% para 65%, e SÓ o painel. Foi
+                o que levou o rótulo de 2,56:1 para 3,56:1. Isso não custou nada
+                da foto — a opacidade do painel governa o contraste do texto, o
+                véu da seção governa quanta imagem aparece, e são controles
+                separados desde que este bloco virou vidro. Fechar o véu teria
+                custado a imagem; fechar o painel não custa.
+
+                O teto continua existindo: nem o tom claro chega aos 4,5:1 dentro
+                de um painel translúcido sobre foto clara. Para isso o painel
+                teria de ser praticamente opaco, e aí não é mais vidro. */}
+            <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
+              Why Corporate DNA exists.
+            </span>
+            {/* h2 — Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
+                herói está em 52px, então a distância entre os dois níveis é de
+                12px: suficiente para hierarquia, pequena o bastante para os
+                dois lerem como a mesma voz. Era 60/44 antes, com peso 700 nos
+                dois — dois blocos, não dois níveis. */}
+            {/* PESO 600 aqui, e 500 nos outros h2, pelo mesmo motivo do h1: o
+                título passou a ser branco sobre fundo escuro, e nessa
+                combinação a letra afina opticamente. Um degrau de peso repõe o
+                que a inversão tira — é o mesmo ajuste, na mesma página, pela
+                mesma razão. */}
+            {/* A MEDIDA SUBIU DE 720 PARA 820px em 09-09, e o número não é
+                estético: medido, o título de então ("Our purpose is to keep
+                leadership real.") pedia 744px a 40px numa linha só. Preso em 720
+                ele quebrava por 24px e largava "real." sozinho na segunda linha.
+                820px é a largura cheia do container (900 menos os 80 de
+                padding), então é o teto real, não um valor escolhido — e por
+                isso ele fica, mesmo com o título novo, que é mais curto.
+
+                SAIU O `whitespace-nowrap` das duas últimas palavras, junto com o
+                título que ele protegia: ele existia para "leadership real."
+                descer em par quando a linha quebrasse. "Our people live our
+                purpose." mede ~620px a 40px e não quebra em nenhuma largura
+                deste container; uma trava para uma quebra que não acontece só
+                atrapalharia quem editar o texto depois.
+
+                ⚠️ CAIXA BAIXA, E O E-MAIL VEIO EM CAIXA ALTA — 21-09, *"Current
+                block 2 - change text to OUR PEOPLE LIVE OUR PURPOSE"*. O que a
+                página faz em caixa alta é o RÓTULO (via CSS, no `uppercase` do
+                rótulo logo acima); título de bloco é caixa baixa em serifa, nos
+                quatro h2 desta página. E os tiles de região, mais abaixo,
+                registram a saída da caixa alta justamente porque ela é o
+                "quadrado" que esta tipografia está tentando tirar. A caixa alta
+                do e-mail é ênfase de quem escreve, não instrução de desenho —
+                se for para ser literal na tela, é uma classe. O ponto final
+                acompanha os outros h2 e o rótulo. */}
+            <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+              Our people live our purpose.
+            </h2>
+          </div>
+
+          {/* ⚠️ A CITAÇÃO DA RHEA SAIU EM 21-09, E COM ELA A ASSINATURA. O que
+              estava aqui era a fala "With roots in Big 4 Consulting…", com as
+              aspas vermelhas e o crédito "Rhea Leckie, Founder & CEO", mais dois
+              parágrafos de prosa que a explicavam ("That obligation shapes
+              everything we do…"). Fica registrado o que ela carregava, porque é
+              conteúdo que não está mais em lugar nenhum do site: a gênese da
+              firma no Big 4 e a obrigação do consultor de cortar a complexidade.
+
+              O PEDIDO É DE SUBSTITUIÇÃO, não de acréscimo: *"Current block 2 -
+              change text to OUR PEOPLE LIVE OUR PURPOSE"* seguido do corpo
+              inteiro, e a anotação da mesma call diz que *"maliha tem textos
+              revisados para enviar do bloco com a imagem"*. Encaixar os quatro
+              parágrafos novos POR CIMA da citação deixaria a seção com duas
+              vozes dizendo a mesma coisa em 1.200 palavras.
+
+              A decisão anterior sobre a régua da esquerda da citação morre junto
+              com a citação; o que sobrevive dela é o princípio, anotado na régua
+              logo abaixo: neste bloco centralizado, destaque não vem de borda
+              lateral.
+
+              ⚠️ SE A RHEA QUISER A FALA DE VOLTA, ela é o bloco inteiro no
+              commit anterior — e o lugar dela seria entre o título e a régua.
+
+              O RÓTULO "Why Corporate DNA exists." FICOU. Ele é o kicker da
+              seção, não o texto dela, e o e-mail não mandou substituto; trocá-lo
+              por conta própria seria escrever copy que ninguém pediu. Continua
+              verdadeiro: o bloco segue sendo o do propósito. Se ela quiser outro
+              rótulo, é uma linha. */}
+
+          {/* A régua fica no lugar que a referência dá a ela: centralizada,
+              separando o título da prosa. Ela separava a FALA CITADA da prosa
+              até 21-09; sem a citação, o trabalho passa a ser o de respiro entre
+              o título e o corpo, que é o mesmo gesto com um vizinho a menos.
+              Largura de 56px — o dobro dos 28px que ela tem quando abre um
+              rótulo, porque isolada no meio de uma coluna de 820px um traço
+              curto some. */}
+          <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
+
+          {/* O CORPO É O DO E-MAIL DE 21-09, palavra por palavra. Duas correções
+              de digitação, e só: *"in the moments that matter ."* perdeu o
+              espaço antes do ponto e *"discernment  to know"* perdeu o espaço
+              duplo. Nenhuma palavra em negrito ou em vermelho — o e-mail veio em
+              texto corrido, e grifar "Keeping Leadership Real" no terceiro
+              parágrafo (como o bloco da foto grifa "Keeping It Real") seria
+              ênfase nossa num texto que a cliente revisou.
+
+              ⚠️ A MEDIDA PASSOU A SER PRESA EM 680px. A prosa daqui era de dois
+              parágrafos curtos e corria na largura cheia do container (820px);
+              agora são quatro, e o segundo é uma sequência de frases curtas que
+              depende de a quebra cair no lugar. A 820px e 18px dá ~110
+              caracteres por linha, contra os 45–75 legíveis que este arquivo já
+              cita no bloco de valores. 680px põe a linha em ~90 — ainda larga
+              para texto centralizado, mas é o que o "single column, centred,
+              generous margins" do outline pede, e encurtar mais deixaria a
+              coluna estreita demais debaixo de um h2 de 820. */}
+          <div className="mx-auto mt-10 max-w-[680px] space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
+            <p>
+              When a client trusts us as a consulting firm, that trust starts
+              from the very first interaction with the people who represent
+              CorporateDNA and how we live our purpose in the moments that
+              matter.
+            </p>
+            <p>
+              How we listen. How we challenge. How we add value. How we navigate
+              difficult decisions and conversations. And how we use our
+              discernment to know when to lead, when to question and when to
+              listen.
+            </p>
+            <p>
+              For us, Keeping Leadership Real starts from the inside out. It
+              shapes how we work with each other and how we show up with our
+              clients—with honesty, care, candour and experience.
+            </p>
+            <p>
+              Because before our clients experience our work, they experience
+              our people. And our people bring our purpose to life.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Block 4 · Our Promise ─────────────────────────────────────
+          Declaração à esquerda, explicação à direita. Escolhido em 09-09 entre
+          três versões montadas e comparadas na tela — as outras duas eram texto
+          empilhado, variando só a medida e a posição.
+
+          POR QUE ESTA. Das sete seções da página, seis empilham texto. O medo
+          registrado era o leitor cansar antes do fim, e a resposta não é mudar
+          corpo de letra: é ter, em algum ponto da leitura, uma seção que se lê
+          de outro jeito. Esta é a candidata natural porque o conteúdo já vem
+          partido em dois — uma promessa e a explicação dela. O arranjo não foi
+          imposto ao texto; ele estava no texto.
+
+          ⚠️ TENSÃO COM O OUTLINE, e ela é real. O documento diz "Type: single
+          column prose. Narrower measure than the surrounding blocks, to signal a
+          change of register." A imagem que a Maliha mandou mostra este bloco em
+          duas colunas; o texto pede uma, e a regra do cabeçalho deste arquivo é
+          que o documento ganha da imagem.
+
+          O argumento para esta versão: a PROSA continua em coluna única. O que o
+          documento rejeita é partir o corpo do texto em duas colunas, e não é o
+          que acontece aqui — a coluna da esquerda é a declaração e o convite, a
+          da direita é a prosa inteira, sem quebra. É argumento, não certeza. Se
+          alguém do lado do cliente ler ao pé da letra, cai; as versões A (três
+          tempos escalonados) e B (bloco estreito centrado) ficaram guardadas
+          para esse caso.
+
+          O CONVITE SOBE para junto da declaração, e não fica no pé da prosa. O
+          outline manda ele "standalone, larger, red"; à esquerda, embaixo da
+          promessa, ele fecha a coluna de voz — promessa e convite são as duas
+          frases que a CDNA diz na primeira pessoa. A prosa da direita explica as
+          duas. Deixá-lo embaixo da coluna direita o transformaria em conclusão
+          do argumento, que é outra coisa.
+
+          `md:col-span-5` e `md:col-start-7 md:col-span-6` de 12, com `gap-x-16`:
+          a declaração fica em ~530px e a prosa em ~650px num container de 1440.
+          A coluna direita é a mais larga de propósito — ela tem quatro vezes
+          mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
+      <section id="promise" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
+          <TypeLabel>What we promise.</TypeLabel>
+          <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="font-serif text-[28px] font-medium leading-[1.2] tracking-[-0.4px] text-ink md:text-[36px]">
+                To keep our craft real: honest with ourselves, true to our
+                clients.
+              </p>
+              <p className="mt-8 font-serif text-[21px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[25px]">
+                We invite you to experience the DNA Partnership.
+              </p>
+            </div>
+            <div className="space-y-5 text-[17px] leading-[1.7] text-muted lg:col-span-6 lg:col-start-7 md:text-[18px]">
+              <p>
+                We do not hide behind language to sound more intelligent. We do
+                not build layers that clients have to climb over to reach us. We
+                listen as much as we talk. We hold the space for our clients to
+                be their real, unedited selves, and meet us in true partnership.
+              </p>
+              <p>
+                Boldness lives in duality with humility. Our designs, ideas and
+                methods of challenging are bold enough to nudge traditional
+                comfort zones, and incubated through humility so the results are
+                sustainable. We are confident, but never arrogant.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* ── Block 2 · Our Identity ────────────────────────────────────
           "Two column. Photograph left, quote right. Four pillar cards in a row
           beneath, full width." (outline)
+
+          ⚠️ É O TERCEIRO BLOCO DA PÁGINA DESDE 21-09 — *"o bloco da foto seria
+          o 3 da pagina"*. O porquê inteiro está no banner do `#purpose`, que
+          passou a abrir a leitura; aqui fica só o que a descida muda de fato:
+
+          • O RESPIRO CONTRA O HERÓI PERDEU O DESTINATÁRIO. O `pt-12 md:pt-16`
+            logo abaixo existia porque a foto do time nascia colada na base de
+            uma dobra escura de sangria total. Agora o vizinho de cima é o
+            `#promise`, que é `paper` e termina em padding. O respiro FICA — ele
+            continua sendo o vão de entrada da faixa —, mas a razão registrada
+            nele é histórica, não mais a atual.
+          • O VIZINHO DE BAIXO VIROU O `#values`, que é branco. A faixa dos
+            pilares, que fecha esta seção, voltou a `bg-paper` por causa disso —
+            ver a caixa lá embaixo.
 
           REDESENHADO em 08-09 sobre a referência da Explore Performance que a
           Rhea aprovou (`docs/rhea-feedback/about-explore.png`): fundo BRANCO,
@@ -1514,8 +1995,22 @@ export default async function AboutV2Page() {
 
             O <div> extra fica, em vez de ser desmontado: ele é o que faria a
             faixa sangrar até a borda da janela se ela voltar a ter cor, e voltar
-            atrás nisso é uma classe. */}
-        <div className="bg-white">
+            atrás nisso é uma classe.
+
+            ⚠️ E É EXATAMENTE ISSO QUE ACONTECEU EM 21-09: voltou a `bg-paper`, a
+            classe prevista acima. Não é volta atrás na decisão — o argumento dos
+            "três valores na mesma seção" continua de pé —, é o efeito colateral
+            da reordenação. Esta faixa passou a ser a ÚLTIMA coisa da seção que
+            agora antecede o `#values`, e o `#values` é branco: branca aqui, o
+            corte entre as duas seções simplesmente não existiria, e o visitante
+            leria os pilares e os valores como uma lista só de nove caixas.
+
+            Dos dois chãos disponíveis, `paper` é o que a página já usa para
+            marcar essa fronteira, e ele devolve de brinde a silhueta ao card
+            branco — que é a razão pela qual ele existiu aqui em 09-09. O card
+            fica como está (branco, borda, sombra), porque é especificação
+            escrita do cliente. */}
+        <div className="bg-paper">
           <Reveal className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p) => (
@@ -1628,315 +2123,6 @@ export default async function AboutV2Page() {
           </div>
           </Reveal>
         </div>
-      </section>
-
-      {/* ── Block 3 · Our Purpose ─────────────────────────────────────
-          "Single column, centred, generous margins." A frase de abertura é o
-          maior tipo da página depois do herói, como o outline pede.
-
-          ⚠️ O "LIGHT GROUND" DO OUTLINE CAIU em 09-09. O cliente mandou a seção
-          equivalente da Explore Performance (`docs/rhea-feedback/`, a mesma
-          referência que já reorganizou o bloco de identidade) e pediu este
-          tratamento: foto de sangria total no fundo, escurecida, texto branco
-          centralizado por cima. É decisão posterior ao documento, então ganha
-          dele — mesma precedência do breadcrumb removido no bloco 1. Fica
-          registrado porque a contradição é literal: o outline pede fundo claro
-          em letra.
-
-          O QUE FOI MEDIDO NA REFERÊNCIA, e não estimado de olho: a faixa deles é
-          `background-size: cover` centralizada com um `::after` de
-          `rgba(27, 54, 65, .8)` por cima — um azul-petróleo escuro a 80%. Aqui a
-          cor é o `ink` do site (55, 50, 52) na MESMA opacidade: o que importa
-          copiar é a densidade do véu, não o matiz, que é da paleta deles.
-
-          A 80% a foto vira textura, não assunto. É de propósito, e é o que
-          permite usar uma imagem de 1280px de largura numa faixa que em telas
-          grandes pede o dobro: a esta opacidade o upscale não aparece. Mesmo
-          raciocínio já anotado na foto do herói, lá em cima.
-
-          A FOTO É A DA HOME (`dna-time-06`), a mulher no palco com o público em
-          volta — a mesma que a HeroV2 e a HeroV3 usam. Reaproveitar em vez de
-          pedir arte nova tem um efeito bom aqui: o bloco que fala do PROPÓSITO
-          mostra o trabalho acontecendo, que é o argumento do texto.
-
-          ORDEM DOS ELEMENTOS, copiada da referência: rótulo → frase grande →
-          citação → assinatura → RÉGUA VERMELHA CENTRALIZADA → prosa. A régua é
-          o detalhe que muda de lugar: no resto da página ela abre o rótulo, à
-          esquerda; aqui ela desce e vira separador entre a citação e a prosa.
-          Por isso o rótulo desta seção é escrito à mão em vez de usar o
-          <TypeLabel> — ele viria com a régua colada, e ela já está embaixo. */}
-      <section id="purpose" className="relative isolate overflow-hidden bg-ink text-white">
-        {/* NO TELEFONE O ENQUADRAMENTO VAI PARA A DIREITA (09-09), onde está a
-            mulher de pé no palco. Centralizado, o corte mostrava o meio do
-            salão — plateia de costas — e a pessoa que dá sentido à foto ficava
-            fora da tela.
-
-            A CONTA. Numa seção de 1028px de altura por 390 de largura, a caixa
-            tem proporção 0,38:1 contra 1,50:1 do arquivo, então o `object-cover`
-            escala PELA ALTURA: a imagem sai com 1543px de largura dentro de uma
-            caixa de 390. Sobram 1153px de folga horizontal e nenhuma vertical —
-            só o eixo X manda. A mulher está a ~80% da largura do arquivo, o que
-            a põe a 1242px da borda esquerda da imagem escalada; a 85% de
-            deslocamento a janela abre em 980px e ela cai a dois terços da tela,
-            à direita do centro e inteira.
-
-            `md:object-center` DEVOLVE O PADRÃO no desktop, e ali o eixo X não
-            teria efeito nenhum de qualquer forma: numa dobra larga a caixa fica
-            mais alongada que o arquivo, a escala passa a ser pela LARGURA e a
-            folga vira vertical. É a mesma armadilha já documentada duas vezes
-            neste arquivo, no herói — o eixo que funciona depende de qual lado
-            sobra, e ele troca com a proporção da caixa. */}
-        <Image
-          src={purposePhoto}
-          alt=""
-          aria-hidden
-          fill
-          sizes="100vw"
-          className="-z-20 object-cover object-[85%_center] md:object-center"
-        />
-        {/* HISTÓRICO DO TRATAMENTO, porque a versão final inverte a lógica das
-            duas primeiras e isso não se adivinha lendo o código.
-
-            V1 — véu chapado a 80%, copiado da referência. Medido com o conteúdo
-            oculto: texto branco 6,7:1 (passa), rótulo vermelho 1,83:1 (não passa
-            em nada). O problema é físico: #d84339 tem luminância 0,187, então
-            contra BRANCO PURO ele dá 4,39:1 — o teto absoluto dessa cor. Não
-            existe fundo que a leve ao AA.
-            V2 — véu 78% + vinheta escurecendo o miolo. Levou o branco a
-            8,9–10,5:1 e o vermelho a 2,32:1. Melhor, mas ainda escondia a foto
-            justamente onde o olho vai primeiro.
-
-            V3, esta — PAINEL DE VIDRO, pedido de 09-09 ("deixar aparecer
-            levemente mais a imagem, com um efeito de glassmorphism").
-
-            O que muda não é a estética, é de ONDE vem o contraste. Nas duas
-            primeiras versões o texto era protegido escurecendo a SEÇÃO INTEIRA:
-            para o texto ficar legível, a foto toda tinha de sumir junto. Os dois
-            objetivos brigavam por um único controle.
-
-            Com o painel eles se separam em dois controles independentes:
-
-              véu da seção  78%  → manda em quanto da foto aparece
-              painel        62%  → manda em quanto contraste o texto tem
-
-            ⚠️ A COR DOS DOIS NÃO É MAIS O `ink` (09-09, terceiro ajuste). O
-            `ink` é #373234 — um cinza QUENTE, não um preto —, e um véu feito
-            dele deixa a seção inteira cinza por definição, por mais opacidade
-            que se ponha. O pedido foi "mais preto mesmo", e isso é cor, não
-            opacidade: as duas camadas passam a rgb(22,19,20), que é o mesmo
-            matiz do `ink` com a luminosidade lá embaixo. Continua quente — não
-            é preto puro, que ao lado de uma foto de luz incandescente ficaria
-            azulado por contraste simultâneo.
-
-            O PAINEL TEVE DE ACOMPANHAR, e não é detalhe: ele é composto POR CIMA
-            do véu. Deixá-lo em `ink` cinza enquanto o entorno vira quase-preto
-            faria dele a área mais CLARA da seção, invertendo exatamente o papel
-            que ele tem — o assento escuro do texto viraria uma mancha clara no
-            meio de um campo escuro.
-
-            Por isso o véu pôde abrir sem que o texto perdesse nada: o que
-            segura a legibilidade é o painel, não o véu. A vinheta saiu junto —
-            ela existia só para simular o assento que o painel agora dá de
-            verdade.
-
-            O 78% é o terceiro valor. A primeira tentativa foi 42%, aproveitando
-            toda a folga que o painel abriu, e a foto ficou dominante demais — o
-            pedido era "levemente mais", não "o máximo que der". Veio 68% como
-            meio-termo, e depois 78% a pedido ("aumentar em 15%"), que é o 68
-            acrescido de 15% dele mesmo e não de 15 pontos.
-
-            O DESFOQUE não é enfeite: `backdrop-filter: blur` apaga o detalhe
-            fino do que está atrás. Uma foto de salão cheio tem alta frequência —
-            cabeças, cadeiras, luminárias — e é isso, não a luminância média, que
-            atrapalha ler texto por cima. Borrado, o fundo vira campo de cor. É
-            legibilidade, e o visual de vidro sai de brinde.
-
-            A BORDA É RETA. Glassmorphism costuma vir com canto arredondado, e
-            aqui não vem: o site inteiro é de canto vivo, e o próprio comentário
-            do topo deste arquivo registra que os cards arredondados da
-            referência da Maliha foram descartados por isso. O vidro aqui é feito
-            de translucidez, desfoque e um fio de borda clara — que é a parte
-            essencial do efeito; o raio de canto é só convenção. */}
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10"
-          style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
-        />
-        <Reveal className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
-          <div className="flex flex-col items-center text-center">
-            {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
-                recomendação registrada aqui. Fica o número para quem reabrir
-                isto depois: no `brand-light`, dentro do painel, ele dá 3,56:1
-                no pior ponto e 4,28:1 na média — acima da régua de 3:1 de
-                elemento gráfico, abaixo dos 4,5:1 que o AA pede para texto. O
-                branco daria 9,9:1, e o vermelho CHEIO daria 2,25:1, que é o
-                motivo de o tom aqui ser o `brand-light` e não o `brand`.
-
-                Uma versão intermediária chegou a subir com o rótulo branco e o
-                vermelho só na régua e nas aspas. O cliente pediu o vermelho de
-                volta, e o pedido ganha — é a cor da marca no lugar onde a marca
-                se anuncia, e a página inteira usa esse rótulo assim.
-
-                O QUE FOI FEITO PARA MELHORAR O NÚMERO sem desfazer o pedido
-                anterior: o painel escureceu de 55% para 65%, e SÓ o painel. Foi
-                o que levou o rótulo de 2,56:1 para 3,56:1. Isso não custou nada
-                da foto — a opacidade do painel governa o contraste do texto, o
-                véu da seção governa quanta imagem aparece, e são controles
-                separados desde que este bloco virou vidro. Fechar o véu teria
-                custado a imagem; fechar o painel não custa.
-
-                O teto continua existindo: nem o tom claro chega aos 4,5:1 dentro
-                de um painel translúcido sobre foto clara. Para isso o painel
-                teria de ser praticamente opaco, e aí não é mais vidro. */}
-            <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
-              Why Corporate DNA exists.
-            </span>
-            {/* h2 — Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
-                herói está em 52px, então a distância entre os dois níveis é de
-                12px: suficiente para hierarquia, pequena o bastante para os
-                dois lerem como a mesma voz. Era 60/44 antes, com peso 700 nos
-                dois — dois blocos, não dois níveis. */}
-            {/* PESO 600 aqui, e 500 nos outros h2, pelo mesmo motivo do h1: o
-                título passou a ser branco sobre fundo escuro, e nessa
-                combinação a letra afina opticamente. Um degrau de peso repõe o
-                que a inversão tira — é o mesmo ajuste, na mesma página, pela
-                mesma razão. */}
-            {/* A MEDIDA SUBIU DE 720 PARA 820px em 09-09, e o número não é
-                estético: medido, o título a 40px pede 744px numa linha só. Preso
-                em 720 ele quebrava por 24px e largava "real." sozinho na segunda
-                linha. 820px é a largura cheia do container (900 menos os 80 de
-                padding), então é o teto real, não um valor escolhido.
-
-                `whitespace-nowrap` nas duas últimas palavras para as telas onde
-                ele quebra de qualquer jeito. Sem isso a quebra leva UMA palavra
-                para baixo — órfã, e num título de 40px isso é a coisa mais
-                visível da seção. Presas, "leadership real." descem juntas, que é
-                uma quebra de frase normal.
-
-                As duas coisas juntas: cabe inteira onde couber, e onde não
-                couber quebra com duas palavras embaixo. */}
-            <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              Our purpose is to keep{" "}
-              <span className="whitespace-nowrap">leadership real.</span>
-            </h2>
-          </div>
-
-          {/* A citação PERDEU A RÉGUA DA ESQUERDA. Ela era o que destacava o
-              trecho do corpo enquanto o bloco era alinhado à esquerda; num
-              layout centralizado uma borda esquerda desalinha o eixo inteiro —
-              o texto centraliza dentro de uma caixa que começa 24px adentro, e
-              o olho lê como erro. O destaque agora vem da inversão de fundo, que
-              é mais forte do que a régua era. As aspas vermelhas ficam. */}
-          <blockquote className="mt-8 text-center">
-            <p className="text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
-              <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
-                “
-              </span>
-              <strong className="font-semibold">With roots in Big 4 Consulting</strong>, the
-              genesis of CorporateDNA is that a consultant’s obligation is to cut
-              through complexity, connect the threads and deliver the truth. We
-              want to take off language which hides real problems and bring
-              solutions and transformations that are true to the lived realities
-              of our clients. Accessing this truth and the powerful
-              transformation that it entails, depends on honesty, courage, and
-              authenticity.
-              <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
-                ”
-              </span>
-            </p>
-            <footer className="mt-5 text-[14px] font-medium tracking-[0.2px] text-white/60">
-              Rhea Leckie, Founder &amp; CEO
-            </footer>
-          </blockquote>
-
-          {/* A régua no lugar que a referência dá a ela: centralizada, entre a
-              assinatura e a prosa, separando a fala citada do texto da seção.
-              Largura de 56px — o dobro dos 28px que ela tem quando abre um
-              rótulo, porque isolada no meio de uma coluna de 820px um traço
-              curto some. */}
-          <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
-
-          <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
-            <p>
-              That obligation shapes everything we do. We release the power,
-              humanity and honesty of leadership in all its parts: the values an
-              organisation holds, the culture they produce, the teams that carry
-              them, and what makes each individual leader stronger.
-            </p>
-            <p>
-              We anchor the work in the inner and outer games, so change is
-              inside out, complete, and rooted in truth and impact.
-            </p>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ── Block 4 · Our Promise ─────────────────────────────────────
-          Declaração à esquerda, explicação à direita. Escolhido em 09-09 entre
-          três versões montadas e comparadas na tela — as outras duas eram texto
-          empilhado, variando só a medida e a posição.
-
-          POR QUE ESTA. Das sete seções da página, seis empilham texto. O medo
-          registrado era o leitor cansar antes do fim, e a resposta não é mudar
-          corpo de letra: é ter, em algum ponto da leitura, uma seção que se lê
-          de outro jeito. Esta é a candidata natural porque o conteúdo já vem
-          partido em dois — uma promessa e a explicação dela. O arranjo não foi
-          imposto ao texto; ele estava no texto.
-
-          ⚠️ TENSÃO COM O OUTLINE, e ela é real. O documento diz "Type: single
-          column prose. Narrower measure than the surrounding blocks, to signal a
-          change of register." A imagem que a Maliha mandou mostra este bloco em
-          duas colunas; o texto pede uma, e a regra do cabeçalho deste arquivo é
-          que o documento ganha da imagem.
-
-          O argumento para esta versão: a PROSA continua em coluna única. O que o
-          documento rejeita é partir o corpo do texto em duas colunas, e não é o
-          que acontece aqui — a coluna da esquerda é a declaração e o convite, a
-          da direita é a prosa inteira, sem quebra. É argumento, não certeza. Se
-          alguém do lado do cliente ler ao pé da letra, cai; as versões A (três
-          tempos escalonados) e B (bloco estreito centrado) ficaram guardadas
-          para esse caso.
-
-          O CONVITE SOBE para junto da declaração, e não fica no pé da prosa. O
-          outline manda ele "standalone, larger, red"; à esquerda, embaixo da
-          promessa, ele fecha a coluna de voz — promessa e convite são as duas
-          frases que a CDNA diz na primeira pessoa. A prosa da direita explica as
-          duas. Deixá-lo embaixo da coluna direita o transformaria em conclusão
-          do argumento, que é outra coisa.
-
-          `md:col-span-5` e `md:col-start-7 md:col-span-6` de 12, com `gap-x-16`:
-          a declaração fica em ~530px e a prosa em ~650px num container de 1440.
-          A coluna direita é a mais larga de propósito — ela tem quatro vezes
-          mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
-      <section id="promise" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
-          <TypeLabel>What we promise.</TypeLabel>
-          <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <p className="font-serif text-[28px] font-medium leading-[1.2] tracking-[-0.4px] text-ink md:text-[36px]">
-                To keep our craft real: honest with ourselves, true to our
-                clients.
-              </p>
-              <p className="mt-8 font-serif text-[21px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[25px]">
-                We invite you to experience the DNA Partnership.
-              </p>
-            </div>
-            <div className="space-y-5 text-[17px] leading-[1.7] text-muted lg:col-span-6 lg:col-start-7 md:text-[18px]">
-              <p>
-                We do not hide behind language to sound more intelligent. We do
-                not build layers that clients have to climb over to reach us. We
-                listen as much as we talk. We hold the space for our clients to
-                be their real, unedited selves, and meet us in true partnership.
-              </p>
-              <p>
-                Boldness lives in duality with humility. Our designs, ideas and
-                methods of challenging are bold enough to nudge traditional
-                comfort zones, and incubated through humility so the results are
-                sustainable. We are confident, but never arrogant.
-              </p>
-            </div>
-          </div>
-        </Reveal>
       </section>
 
 
@@ -2248,7 +2434,32 @@ export default async function AboutV2Page() {
         </Reveal>
       </section>
 
-      {/* ── Block 6c · Os escritórios, agora no carrossel ─────────────── */}
+      {/* ── Block 6c · Os escritórios, abertos e estáticos ──────────────── */}
+      {/* ⚠️ E EM 21-09 A LISTA ESTÁTICA VOLTOU — `layout="static"`, a prop nova
+          do `LocationsBlock`. O pedido veio nas duas línguas da mesma call: por
+          e-mail *"Have offices static - 5 horizontal static."* e na anotação do
+          Roberto *"na parte dos offices colocar eles abertos sempre"*. As duas
+          dizem a mesma coisa e as duas revogam o pedido de 14-09 registrado
+          logo abaixo, que é o motivo de ele continuar escrito aqui: o carrossel
+          não foi um erro nosso, foi o que ela pediu na call anterior.
+
+          NÃO É A LISTA DE 14-09 DE VOLTA. Aquela eram cinco FILEIRAS de largura
+          cheia empilhadas; esta são cinco COLUNAS lado a lado, que é o
+          "5 horizontal" literal do e-mail e o mesmo arranjo dos tiles de região
+          e dos cinco valores desta página. Em telefone e tablet ela empilha —
+          cinco colunas em 390px dariam 66px cada. A escada e o porquê estão na
+          caixa da prop, em `components/LocationsBlock.tsx`.
+
+          PROP, E NÃO UM COMPONENTE NOVO nem uma mudança no bloco: ele roda na
+          home, na /our-clients, na /team e na /contact com o carrossel, e
+          nenhuma delas pediu isso. O padrão da prop é o comportamento de hoje.
+
+          ⚠️ O `showMap={false}` ABAIXO FICOU SEM EFEITO, e continua escrito de
+          propósito: no `layout="static"` não há cidade ativa, então não há
+          câmera de mapa para mover e o Leaflet nunca entra. Tirar a prop daqui
+          não mudaria nada na tela, e mantê-la é o que documenta que a /about
+          segue sem o segundo mapa — que é uma decisão dela, de 14-09, e não um
+          efeito colateral do layout novo. */}
       {/* ⚠️ A LISTA ESTÁTICA SAIU EM 14-09. O pedido da Maliha na daily (item 4)
           foi trazer para cá a faixa de endereços da home: *"I did like on the
           original landing page that it was scrolling for the addresses — if we
@@ -2297,6 +2508,7 @@ export default async function AboutV2Page() {
         typeLabel
         showMap={false}
         showEmail
+        layout="static"
       />
 
       {/* ── Block 6b · The people behind it ───────────────────────────

@@ -5,7 +5,11 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import LeaderCard from "@/components/team/LeaderCard";
-import teamStanding from "@/public/team/team-standing-six.jpg";
+/* ⛔ `teamStanding` SAIU DO IMPORT EM 21-09, quando o carrossel tomou o lugar
+   da fotografia na seção "One team". O ARQUIVO FICA em
+   `public/team/team-standing-six.jpg` — é o retoque das seis na bancada, e a
+   caixa da seção guarda a história dele por inteiro. Para desfazer a troca,
+   este import volta junto com as três linhas de `<Image>`. */
 import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
@@ -16,8 +20,16 @@ import { getPeople } from "@/lib/cms/map";
    ela quiser os cartões), mas esta página não o consome mais. O
    `ImagePlaceholder` saiu pelo mesmo motivo: ele só existia para o slot 06
    vazio de cada cartão. */
-import { leaders, programmeManagers, facultyMembers, dnaLead, dnaStrands } from "@/lib/team";
+/* `facultyMembers` SAIU DA LISTA EM 21-09 e deu lugar ao `facultyByRegion`: a
+   seção passou a sair agrupada, a pedido, e quem monta os grupos é o próprio
+   `lib/team.ts` — a lista crua continua exportada de lá, é dela que os grupos
+   nascem. */
+import { leaders, programmeManagers, facultyByRegion, dnaLead, dnaStrands } from "@/lib/team";
 import PeopleRoster from "@/components/team/PeopleRoster";
+/* O CARROSSEL DA HOME, trazido em 21-09 — ver a caixa dele na DNA experience.
+   O componente é o mesmo arquivo que a home usa, sem uma linha de diferença. */
+import PhotoCarousel from "@/components/PhotoCarousel";
+import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -160,14 +172,49 @@ export default async function OurTeamPage() {
 
             Ancorar no topo tira os 160px todos DO PÉ, que é degrau vazio e
             piso tátil. Nada de gente se perde em nenhuma altura de janela. */}
+        {/* ⚠️ O TEXTO DO HERÓI É O DELA DESDE 21-09 — *"Change Hero text too"*,
+            com as três linhas escritas no email:
+
+              We’ve led. We’ve learned. We bring both
+              Practitioners first. Consultants second
+              A senior leadership team, backed by a global faculty of 60+
+              practitioners delivering across 36 countries.
+
+            TRÊS LINHAS, TRÊS SLOTS. O `SolutionHero` tem exatamente rótulo,
+            título e subtítulo, e a terceira linha JÁ ERA o subtítulo, palavra
+            por palavra — ou seja, o que ela mudou de verdade foi o título (era
+            "The people who sit where our clients sit.") e acrescentou a linha
+            do meio. Só sobrou o rótulo para recebê-la.
+
+            ⚠️ O CUSTO ESTÁ NO RÓTULO, E É REAL: esta passa a ser a única das
+            vinte rotas cujo rótulo de herói não é o NOME DA PÁGINA ("Our
+            Services", "Our Books", "Clients & Impact"…). Perde-se a etiqueta
+            que dizia "Our Team" acima do título.
+
+            A ALTERNATIVA FOI DESCARTADA POR CAUSA DA PONTUAÇÃO DELA. Manter
+            "Our Team" obrigaria a enfiar a linha do meio no começo do
+            subtítulo, e aí ela precisaria de um ponto final para não emendar na
+            seguinte ("…Consultants second A senior leadership team…"). Ela
+            escreveu as duas primeiras linhas SEM ponto, e pontuar texto de
+            cliente por conta própria é o que este repositório não faz. Como
+            rótulo a frase fica inteira, como ela mandou.
+
+            Se ela quiser "Our Team" de volta ao revisar, é trocar duas props —
+            e aí a linha do meio ganha o ponto final, que passa a ser
+            consequência do lugar e não correção nossa. */}
         <SolutionHero
-          eyebrow="Our Team"
-          title="The people who sit where our clients sit."
+          eyebrow="Practitioners first. Consultants second"
+          title="We’ve led. We’ve learned. We bring both"
           /* ⚠️ O `60+` ACOMPANHA A SEÇÃO GLOBAL FACULTY, embora o pedido de
              17-09 só cite a seção: o subtítulo do herói e o h2 de lá fazem a
              MESMA afirmação, a duas telas de distância. Deixar 75 aqui e 60+ lá
              não seria fidelidade ao pedido, seria a mesma página se
-             contradizendo sobre o tamanho da própria faculty. */
+             contradizendo sobre o tamanho da própria faculty.
+
+             ✅ E O EMAIL DE 21-09 CONFIRMA O NÚMERO: a terceira linha do herói
+             novo é esta frase, com o "60+" e os "36 countries" que já estavam
+             aqui. Um caractere não mudou — e isso responde de passagem a dúvida
+             anotada em 17-09 sobre contar por país ou por região. */
           subtitle="A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries."
           imageUrl={teamHero}
           imagePosition="object-top"
@@ -361,13 +408,39 @@ export default async function OurTeamPage() {
             vazios; a segunda foto continua valendo a pena pedir. */}
         <section className="bg-ink text-white">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
-            <div className="relative aspect-[3/2] w-full">
-              <Image
-                src={teamStanding}
-                alt="Six members of the Corporate DNA team standing behind a counter in the London office"
-                fill
-                sizes="(min-width: 768px) 56vw, 100vw"
-                className="object-cover object-center"
+            {/* ✅ O CARROSSEL DA HOME NO LUGAR DA FOTOGRAFIA ÚNICA — 21-09:
+                *"na seção One team da página /team tem que trocar a imagem pelo
+                carrossel de imagens da home"*.
+
+                É A MESMA PEÇA DA HOME, NÃO UMA CÓPIA: o componente é o
+                `PhotoCarousel` da `#people`, e a lista e o enquadramento vêm de
+                `lib/life-at-dna.ts`, que nasceu neste mesmo dia justamente para
+                as duas telas não manterem duas listas. O que a home consertou
+                em 21-09 — a foto duplicada que saiu e os seis enquadramentos que
+                salvam rostos cortados — vale aqui de graça.
+
+                ⚠️ A FOTO QUE SAIU CONTINUA NO REPOSITÓRIO
+                (`team/team-standing-six.jpg`), e a caixa acima é a história
+                inteira dela: as duas trocas de 16-09 e 17-09, o artefato do
+                gerador nas mãos e a conta do recorte 3:2. Nada disso foi apagado
+                porque a foto é o caminho de volta se o carrossel não convencer —
+                são três linhas de JSX.
+
+                A MOLDURA MUDA DE PROPORÇÃO, e é consequência, não escolha: o slot
+                era 3:2 fixo e o carrossel traz a própria caixa (16:10 no
+                telefone, 16:9 do `sm` para cima), com teto de 640px e
+                centragem próprios. O `aspect` daqui sai junto com a `<Image>`;
+                deixá-lo seria impor uma altura a um componente que já decide a
+                dele.
+
+                SOBRE ESCURO SEM AJUSTE: o quadro do carrossel tem `bg-ink`
+                próprio, então nesta seção `bg-ink` a moldura some e ficam as
+                fotos. Na home ele está sobre branco, onde a mesma moldura
+                recorta. */}
+            <div className="w-full">
+              <PhotoCarousel
+                images={LIFE_AT_DNA}
+                positions={LIFE_AT_DNA_FRAMING}
               />
             </div>
             <div>
@@ -514,8 +587,43 @@ export default async function OurTeamPage() {
                 o Oriente Médio aparece como "Middle East" em duas pessoas. Se a
                 faculty da Índia existe e ficou de fora da planilha, é pergunta
                 para a próxima daily. */}
-            <div className="mt-12">
-              <PeopleRoster people={facultyMembers} />
+            {/* ── AGRUPADA POR REGIÃO · 21-09 ────────────────────────────
+                *"o global — organizar em regions"*, na mesma lista em que ela
+                deu a região das três programme managers ("Maliha - MENA, Carol
+                is UKEE, Nic is Asia").
+
+                A LISTA NÃO MUDOU — são as mesmas 23 pessoas, na mesma ordem
+                dentro de cada grupo. O que mudou é que a região saiu de baixo
+                de cada nome e virou cabeçalho: 23 legendas repetidas viraram
+                sete títulos. Os grupos e a ordem deles moram em
+                `facultyByRegion`, em `lib/team.ts`, com o porquê de nenhum
+                rótulo ter sido remapeado.
+
+                ⚠️ QUATRO GRUPOS TÊM DUAS PESSOAS (UK & Europe, Middle East,
+                Africa, Australia) e a grade é de cinco/seis colunas, então
+                eles saem com a linha pela metade. É o que agrupar custa, e é o
+                desenho certo: a alternativa — grade cheia com a região miúda
+                embaixo de cada rosto — é exatamente o que ela pediu para
+                mudar. O vão também é informação: mostra onde a faculty é rala.
+
+                O CABEÇALHO É `h3` porque o `h2` da seção é "A faculty of 60+
+                senior practitioners…" e cada região está dentro dele. Os nomes,
+                que eram `h3`, desceram para `h4` no `PeopleRoster` pelo mesmo
+                motivo. */}
+            <div className="mt-12 space-y-14">
+              {facultyByRegion.map((group) => (
+                <div key={group.region || "sem-regiao"}>
+                  {/* Sem cabeçalho quando não há região — o balde neutro do
+                      `facultyByRegion`, hoje vazio. Um título inventado ali
+                      afirmaria algo que ninguém nos disse. */}
+                  {group.region && (
+                    <h3 className="font-serif mb-6 text-[20px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[22px]">
+                      {group.region}
+                    </h3>
+                  )}
+                  <PeopleRoster people={group.people} />
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -543,10 +651,13 @@ export default async function OurTeamPage() {
             também era `paper` e as duas viravam um bloco cinza só; com ela em
             `ink`, a divisa é a própria virada de cor.
 
-            ❓ EM ABERTO: o carrossel de 25 fotos candid que acompanha a seção na
-            home. O outline move os strands e não diz uma palavra sobre ele —
-            se vem junto, se fica lá, se some. Pergunta de meia linha para o
-            cliente, não pendência de conteúdo. */}
+            ✅ RESPONDIDA EM 21-09 A PERGUNTA QUE ESTAVA AQUI. Ela era: "o
+            carrossel de 25 fotos candid que acompanha a seção na home — o
+            outline move os strands e não diz uma palavra sobre ele: se vem
+            junto, se fica lá, se some". A resposta foi *"put the carousel da
+            home na pagina"*, e ele vem JUNTO: está no pé desta seção, logo
+            abaixo dos quatro cartões. A montagem e o porquê do lugar estão na
+            caixa dele. */}
         {/* ⚠️ ESTA SEÇÃO ERA CLARA (`bg-paper`) ATÉ 11-09. Recebeu o globo que
             estava na Global faculty, a pedido, e com ele veio a virada de tom: o
             rótulo passa a `onDark`, o título a branco.
@@ -710,6 +821,23 @@ export default async function OurTeamPage() {
                 </article>
               ))}
             </div>
+
+            {/* ⚠️ O CARROSSEL ESTEVE AQUI POR ALGUMAS HORAS EM 21-09, e subiu
+                para a seção "One team" no mesmo dia, a pedido. O argumento que o
+                trouxe para esta seção continua válido e fica registrado, porque
+                é ele que explica por que estes quatro cartões existem aqui: na
+                home o carrossel é a metade direita da seção cujo texto é
+                EXATAMENTE o deles (One DNA TEAM, The DNA Experience, Trusted
+                Relationships, Inclusion & Diversity). O `CDNA_04_Team.docx`
+                mandou o texto para cá ("moved here from the homepage") e deixou
+                o carrossel para trás — a pergunta anotada no topo desta seção
+                desde 11-09.
+
+                ELE NÃO VOLTA AQUI ENQUANTO ESTIVER LÁ EM CIMA. São as mesmas 25
+                fotos: duas passagens do mesmo acervo na mesma página é o
+                defeito que a própria cliente apontou no acervo ("photo quality
+                is not great" nasceu de uma foto repetida). Se um dia ele sair da
+                "One team", este é o lugar de volta. */}
           </div>
         </section>
 

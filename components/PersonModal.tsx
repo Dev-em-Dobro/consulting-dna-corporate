@@ -200,6 +200,17 @@ export default function PersonModal({ person, onClose }: { person: Person; onClo
           </div>
 
           <div className="max-h-[80vh] overflow-y-auto px-7 py-8 md:px-9 md:py-10">
+            {/* ⚠️ O NOME AQUI FICOU EM `ink`, e isso é decisão de 21-09, não
+                esquecimento. O pedido daquele dia — *"nome em vermelho do
+                team"* — é sobre as LISTAGENS da /team, e foi aplicado lá
+                (`LeaderCard` e `PeopleRoster`). Dentro deste pop-up o vermelho
+                já está tomado pelo CARGO, logo abaixo, e pelos rótulos dos
+                campos: pintar o nome de vermelho colaria duas linhas da mesma
+                cor e o cargo deixaria de se destacar do nome.
+
+                E ESTE ARQUIVO NÃO É SÓ DA /team — ele roda na /home-v1, na
+                /home-v3 e na /services/leadership. Uma cor trocada aqui sai em
+                quatro rotas por causa de um pedido feito sobre uma. */}
             <h2 className="text-[26px] font-bold leading-tight tracking-[-0.5px] text-ink">
               {person.name}
             </h2>

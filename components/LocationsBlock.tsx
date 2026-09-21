@@ -25,6 +25,7 @@ export default function LocationsBlock({
   align = "left",
   showMap = true,
   showEmail = false,
+  layout = "carousel",
 }: {
   offices?: Office[];
   eyebrow?: string;
@@ -124,6 +125,33 @@ export default function LocationsBlock({
    * critério de `maxWidthClass`, `typeLabel` e `align`.
    */
   showEmail?: boolean;
+  /**
+   * `static` troca o carrossel por todos os escritórios abertos ao mesmo tempo,
+   * lado a lado numa linha só.
+   *
+   * EXISTE PARA A /about, 21-09. O pedido veio nas duas línguas da mesma call —
+   * por e-mail *"Have offices static - 5 horizontal static."* e na anotação
+   * *"na parte dos offices colocar eles abertos sempre"*. É o oposto do que a
+   * Maliha pediu para esta página em 14-09 (*"I did like… that it was scrolling
+   * for the addresses"*), e é a versão nova que vale.
+   *
+   * `carousel` POR PADRÃO, e a prop existe justamente para isso: a home, a
+   * /our-clients, a /team e a /contact rodam este bloco há semanas com o
+   * carrossel, e nenhuma delas pediu para mudar. Mesmo critério de
+   * `maxWidthClass`, `typeLabel`, `align`, `showMap` e `showEmail`.
+   *
+   * O QUE O `static` DESLIGA JUNTO: o auto-avanço, a régua de cidades (todo
+   * mundo já está aberto, não há o que selecionar), o painel de endereço com
+   * altura reservada — e o mapa, que num layout sem cidade ativa não teria
+   * câmera para onde ir. O `showMap` deixa de ter efeito aqui, e o `showEmail`
+   * continua valendo: ele decide se o e-mail de cada cidade aparece na coluna.
+   *
+   * ⚠️ OS "5 NA HORIZONTAL" SÃO DE `lg` PARA CIMA. No telefone as cinco colunas
+   * dariam ~66px cada, e num tablet de 768 dariam ~140px — menos que o endereço
+   * mais longo pede. A escada é `1 → 2 (sm) → 5 (lg)`, a mesma dos valores e dos
+   * tiles de região da /about, que são as outras grades largas daquela página.
+   */
+  layout?: "carousel" | "static";
 }) {
   const dark = tone === "dark";
   const centered = align === "center";
@@ -199,13 +227,17 @@ export default function LocationsBlock({
   // Auto-advance through the offices to convey global reach (FR-602). Runs only
   // while the section is in view, motion is allowed, the visitor hasn't taken
   // over, and the block isn't hovered. Wraps infinitely (last → London).
+  // `layout === "static"`: não há cidade ativa para avançar. Sem este corte o
+  // intervalo continuaria rodando e re-renderizando a seção a cada 6s para
+  // mudar um índice que ninguém lê.
   useEffect(() => {
+    if (layout === "static") return;
     if (!inView || reduceMotion || userTook || hovered || offices.length < 2) return;
     const id = setInterval(() => {
       setActiveIndex((i) => (i + 1) % offices.length);
     }, 6000);
     return () => clearInterval(id);
-  }, [inView, reduceMotion, userTook, hovered, offices.length]);
+  }, [layout, inView, reduceMotion, userTook, hovered, offices.length]);
 
   // Lazy-mount the map only when the section is near the viewport (protect LCP).
   useEffect(() => {
@@ -274,7 +306,15 @@ export default function LocationsBlock({
           ) : null}
         </div>
 
-        {mapFailed ? (
+        {layout === "static" ? (
+          /* Os escritórios abertos, todos ao mesmo tempo — ver a caixa da prop
+             `layout`. Vai na largura da PÁGINA (`maxWidthClass`), e não nos
+             560px em que o carrossel e o mapa vivem: cinco colunas numa coluna
+             de 560px dariam 100px cada. */
+          <div className={`mx-auto ${maxWidthClass} px-6 md:px-10`}>
+            <OfficeColumns offices={offices} dark={dark} showEmail={showEmail} />
+          </div>
+        ) : mapFailed ? (
           <div className={`mx-auto ${maxWidthClass} px-6 md:px-10`}>
             <OfficeGrid offices={offices} dark={dark} />
           </div>
@@ -434,6 +474,86 @@ export default function LocationsBlock({
         )}
       </div>
     </section>
+  );
+}
+
+/**
+ * Os cinco escritórios abertos lado a lado — o `layout="static"` da /about.
+ *
+ * POR QUE NÃO É O `OfficeGrid` LOGO ABAIXO, que também é uma lista estática: os
+ * dois fazem trabalhos diferentes e um deles não pode mudar. O `OfficeGrid` é o
+ * PLANO B de quando o mapa não carrega, roda em duas colunas nas quatro páginas
+ * que têm mapa, e o filete vermelho dele fica no PÉ de cada cidade. Em cinco
+ * colunas esse filete é o defeito: as cidades têm 2, 3 e 4 linhas de endereço,
+ * então cinco filetes de rodapé cairiam em cinco alturas diferentes numa linha
+ * só. Com o filete no TOPO as cinco marcas alinham num eixo, que é como os
+ * tiles de região e os cinco valores da /about já são desenhados — a mesma
+ * página, o mesmo device.
+ *
+ * `font-serif` no nome da cidade pelo mesmo motivo: é o tratamento de título de
+ * tile daquela página. Fora dela a classe cai na serifa do tema, o que degrada
+ * sem quebrar — mas hoje só a /about pede `layout="static"`.
+ */
+function OfficeColumns({
+  offices,
+  dark,
+  showEmail,
+}: {
+  offices: Office[];
+  dark: boolean;
+  showEmail: boolean;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
+      {offices.map((o) => (
+        <div key={o.slug} className="border-t-2 border-brand pt-5">
+          <h3
+            className={`font-serif text-[20px] font-medium leading-[1.2] ${
+              dark ? "text-white" : "text-ink"
+            }`}
+          >
+            {o.city}
+          </h3>
+          <p
+            className={`mt-3 text-[14px] leading-[1.6] ${
+              dark ? "text-white/70" : "text-muted"
+            }`}
+          >
+            {o.addressLines.map((line, i) => (
+              <span key={i} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
+          {o.tel && (
+            <p
+              className={`mt-2 text-[14px] leading-[1.6] ${
+                dark ? "text-white/70" : "text-muted"
+              }`}
+            >
+              Tel: {o.tel}
+            </p>
+          )}
+          {showEmail && (
+            /* O `<wbr>` depois do @ é o mesmo do painel do carrossel, e aqui ele
+               é obrigatório, não conforto: a coluna tem ~246px num container de
+               1440, e `singapore@corporatednaconsulting.com` mede ~310px a 14px.
+               Sem a dica o navegador quebraria dentro de "corporatedna". */
+            <a
+              href={`mailto:${o.email}`}
+              className={`mt-2 inline-block break-words text-[14px] leading-[1.6] transition-colors ${
+                dark
+                  ? "text-brand-light hover:text-white"
+                  : "text-brand hover:text-brand-dark"
+              }`}
+            >
+              {o.email.split("@")[0]}@<wbr />
+              {o.email.split("@")[1]}
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
   );
 }
 

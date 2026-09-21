@@ -44,13 +44,14 @@ import BookEndorsements from "@/components/BookEndorsements";
 import BookCard from "@/components/books/BookCard";
 import { books } from "@/lib/books";
 import AwardsMentions from "@/components/AwardsMentions";
-import { getTickerEntries } from "@/lib/cms/map";
+import PartnersStrip from "@/components/PartnersStrip";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
+import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 // Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
 // título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
@@ -190,27 +191,47 @@ const differentiators = [
 // aprovação de 06-08 nunca fechou (45%, 43, 6.300). Despublicar o case não os
 // tira daqui: isto é dado do código, não do CMS. Se a cliente quiser a faixa
 // fora enquanto os cases estão fora, é apagar as três entradas abaixo.
+//
+// `logo` É O ARQUIVO EM /public/logos, e entrou em 21-09: *"Add company logos
+// to client metrics"* (anotação: *"colocar os logos nos cases"*). Os três
+// existem no acervo — `heineken.png`, `coca_cola.png` e `shell.png` —, então
+// nenhum card fica sem.
+//
+// ⚠️ O CAMPO É OPCIONAL DE PROPÓSITO. Se um dia entrar aqui um cliente sem arte
+// no acervo, o certo é deixar o campo de fora e o card renderiza só o nome, que
+// é o que ele sempre fez — melhor que um retângulo quebrado ou um logo
+// inventado. O cabeçalho do card já trata o caso.
+//
+// ⚠️ `heineken.png` NÃO ESTÁ no `clientLogoRows` do mural de logos (ver
+// `lib/logos.ts`, cuja lista é curada e depende de aprovação da CDNA). O
+// arquivo está em /public/logos e é usado aqui porque a Heineken já é citada
+// NOMINALMENTE neste card desde antes — o nome dela já está no ar; o logo não
+// acrescenta cliente novo à parede.
 const cases: {
   client: string; sector: string; challenge: string;
-  metric: string; metricLabel: string; caseSlug?: string;
+  metric: string; metricLabel: string; caseSlug?: string; logo?: string;
 }[] = [
-  { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
-  { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
+  { client: "Heineken", sector: "FMCG", logo: "heineken.png", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
+  { client: "Coca-Cola", sector: "FMCG", logo: "coca_cola.png", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
   // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
   // número tem que ser trocado nos dois lugares até a V2 ser decidida.
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
+  { client: "Shell", sector: "Energy", logo: "shell.png", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
 ];
 
+
 export default async function Home() {
-  // `getTickerEntries()` VOLTOU em 07-09. Ele tinha saído no mesmo dia, quando o
-  // selo do herói virou credencial escrita à mão e o segmento ficou sem
-  // consumidor — agora o cartão do lado direito do herói alterna entre as
-  // entradas do ticker, então há consumidor de novo.
+  // ⛔ `getTickerEntries()` SAIU DO `Promise.all` EM 21-09, e pela segunda vez.
+  // O consumidor dele era o cartão da quina do herói — o "pop up" que a cliente
+  // mandou tirar (*"Remove Brandon hall pop up on hero image add this to
+  // awards"*). Sem o cartão, esta chamada seria uma requisição ao CMS por build
+  // para preencher uma variável que ninguém lê, que é o mesmo defeito que o
+  // `getPeople()` tinha antes de sair, logo abaixo.
   //
-  // A faixa de credenciais abaixo do herói NÃO usa isto: ela segue com o par
-  // escrito à mão em HERO_CREDENTIALS. As duas fontes convivendo é redundância
-  // conhecida e está anotada no ponto de uso, dentro do HeroV2.
+  // ⏳ O QUE VOLTA COM ELE: a chamada aqui, o `import { getTickerEntries }` e o
+  // `ticker={ticker}` no `<HeroV2 />`. O cartão em si não precisa ser
+  // reescrito — o `CyclingCredential` continua no repo, vivo, porque a
+  // /home-v3 o usa pela HeroV3.
   //
   // ⛔ `getPeople()` SAIU DO `Promise.all` EM 14-09, junto com a grade de
   // retratos que era a única consumidora dele (item 29 — ver a caixa na seção
@@ -223,11 +244,7 @@ export default async function Home() {
   // porquê daquele `map` (o CMS guarda a leva ANTIGA de retratos; os oficiais de
   // 09-09 moram em `lib/team.ts`, e quem não tem oficial fica nas iniciais em vez
   // de republicar a foto velha) está no commit de 11-09 e continua valendo.
-  const [nav, stats, ticker] = await Promise.all([
-    buildSiteNav(),
-    getSiteStats(),
-    getTickerEntries(),
-  ]);
+  const [nav, stats] = await Promise.all([buildSiteNav(), getSiteStats()]);
 
   return (
     // `geist.variable` e `serif.variable` publicam --font-geist-v3 e
@@ -345,10 +362,14 @@ export default async function Home() {
           entrada mais RECENTE do segmento. Como o segmento mistura prêmios,
           regiões, escritórios e parcerias, o espaço de credencial do herói era
           sorteio — podia cair um escritório novo no lugar de um prêmio. Agora
-          são dois prêmios escolhidos, escritos no componente. */}
+          são dois prêmios escolhidos, escritos no componente.
+
+          ATUALIZAÇÃO 21-09: o cartão saiu do herói a pedido da cliente, e com
+          ele o último consumidor do ticker nesta página. Os dois prêmios que
+          ele mostrava estão agora na faixa de prêmios, mais abaixo. */}
 
       {/* HERO */}
-      <HeroV2 ticker={ticker} />
+      <HeroV2 />
 
       {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
@@ -497,8 +518,29 @@ export default async function Home() {
             <LogoMarquee logos={logoRow2} duration={logoRowDuration(logoRow2)} reverse />
           </div>
         </div>
+        {/* OS QUATRO NÚMEROS NUMA LINHA SÓ — 21-09: *"Have 4 metrics displayed
+            horizontally"* (anotação: *"the number should be horizontal in a
+            line"*).
+
+            ERAM 2x2 numa coluna de 760px centrada. O pedido é literal e a
+            leitura dele também: quatro em fileira é a forma que deixa comparar
+            os números de um olhar, em vez de ler dois e descer.
+
+            A COLUNA DE 760px TINHA DE SAIR JUNTO. Quatro células nela dariam
+            ~160px cada, e "Work sponsored by Chairman / CXO" em 16px não cabe
+            nisso — o rótulo viraria cinco linhas embaixo de um número de 56px.
+            Agora a fileira usa os 1440 da página, como as outras seções.
+
+            `gap-x-10` e não os `gap-x-16` de antes: com quatro colunas em vez
+            de duas são três vãos no lugar de um, e manter 64px em cada um
+            comeria 192px de largura útil de rótulo.
+
+            NO TELEFONE ELES EMPILHAM, e em 2x2 a partir de `sm` — não em
+            fileira. Quatro números de 44px lado a lado numa tela de 375px dão
+            ~80px por célula, que é menos que a largura de "10,000+". A fileira
+            começa em `md`, que é onde ela cabe. */}
         <div className="mx-auto max-w-[1440px] px-10 pb-20 pt-5">
-          <Reveal className="mx-auto grid max-w-[760px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
+          <Reveal className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="flex items-start gap-5">
                 <span className="mt-[38px] h-[3px] w-8 flex-none bg-brand md:mt-[50px]" />
@@ -619,9 +661,43 @@ export default async function Home() {
           <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
             {cases.map((c) => (
               <article key={c.client} className="flex flex-col border border-line bg-white">
-                <div className="bg-ink px-[26px] py-[22px] text-white">
-                  <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
-                  <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
+                {/* O LOGO DO CLIENTE ENTROU NO CABEÇALHO DO CARD — 21-09,
+                    *"Add company logos to client metrics"*.
+
+                    NUMA PLACA BRANCA, e isso não é enfeite. Os arquivos de
+                    /public/logos são marcas coloridas ou escuras sobre fundo
+                    transparente, feitas para papel branco: a Heineken é verde,
+                    a Coca-Cola é vermelha, a Shell é a concha vermelha e
+                    amarela. Jogadas direto sobre o `bg-ink` deste cabeçalho, as
+                    duas primeiras somem. É a mesma placa que o `LogoMarquee`
+                    desenha na esteira da home, que corre sobre o mesmo ink e
+                    pelo mesmo motivo.
+
+                    À DIREITA, e o nome fica onde estava. O nome escrito é que
+                    sustenta o card para quem não reconhece a marca e para quem
+                    usa leitor de tela; o logo é o reforço visual. Por isso ele
+                    também é `alt=""` — o nome já está na linha ao lado, e com
+                    alt o leitor anunciaria "Heineken" duas vezes seguidas.
+
+                    `<img>` e não `<Image>` do Next: são PNGs pequenos de
+                    largura fixa, servidos como estão. Mesma escolha, e mesma
+                    razão, do `LogoMarquee`. */}
+                <div className="flex items-center gap-4 bg-ink px-[26px] py-[22px] text-white">
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
+                    <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
+                  </div>
+                  {c.logo ? (
+                    <span className="flex h-[52px] w-[92px] flex-none items-center justify-center rounded-lg bg-white px-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/logos/${c.logo}`}
+                        alt=""
+                        loading="lazy"
+                        className="max-h-[34px] w-auto max-w-full object-contain"
+                      />
+                    </span>
+                  ) : null}
                 </div>
                 <div className="flex flex-1 flex-col px-[26px] py-7">
                   <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Challenge</p>
@@ -725,9 +801,35 @@ export default async function Home() {
                 With our “One DNA TEAM” principle, we execute as one
                 collaborative team.
               </p>
+              {/* OS TRÊS TÍTULOS DESTE BLOCO SÃO VERMELHOS DESDE 21-09 —
+                  e-mail: *"Add some colour to headers (red)"*; anotação: *"top
+                  headings in red da secao our people"*.
+
+                  `text-brand` e não um hex solto: é o `--color-brand` do
+                  globals.css (#d84339), o vermelho CHEIO da marca, que é o que
+                  se usa sobre fundo claro — esta seção é `bg-white`. O tom
+                  clareado (`brand-light`/`--accent-on-dark`) é o de fundo
+                  escuro, e aqui ele mediria 2,6:1.
+
+                  CONTRASTE: #d84339 sobre branco dá 4,39:1. Isso reprovaria em
+                  texto pequeno, e passa aqui porque estes títulos são 24px
+                  (26px no desktop) — a WCAG corta "texto grande" em 24px, e o
+                  mínimo dele é 3:1. ⚠️ É POR ISSO QUE O TAMANHO NÃO PODE CAIR:
+                  descer estes `h3` para 20px reprovaria o vermelho junto, sem
+                  nenhum aviso.
+
+                  O `h2` da seção CONTINUA `ink`, e é decisão, não esquecimento.
+                  O pedido é "headers", no plural, e são estes três que se
+                  repetem; acima deles o rótulo "Our people" (`TypeLabel`) já é
+                  vermelho, e empilhar rótulo vermelho + título de 40px vermelho
+                  põe cor como ÁREA logo na abertura da seção — exatamente o que
+                  a leitura da referência aponta como o defeito a evitar (§4.2:
+                  "na referência o acento nunca vira área, só marca"). Se ela
+                  quiser o h2 vermelho também, é trocar `text-ink` por
+                  `text-brand` na linha dele. */}
               <div className="mt-8 space-y-6">
                 <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
                     The DNA Experience
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -738,7 +840,7 @@ export default async function Home() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
                     Trusted Relationships
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -750,7 +852,7 @@ export default async function Home() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-ink">
+                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
                     Inclusion &amp; Diversity
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
@@ -764,22 +866,59 @@ export default async function Home() {
               </div>
             </div>
             <PhotoCarousel
-              images={Array.from({ length: 28 }, (_, i) => i + 1)
-                .filter((n) => n !== 5 && n !== 8 && n !== 14)
-                .map(
-                  (n) =>
-                    `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`
-                )}
+              images={LIFE_AT_DNA}
+              positions={LIFE_AT_DNA_FRAMING}
             />
           </div>
-          <div className="mt-14 flex flex-wrap items-center gap-x-14 gap-y-6 border-t border-line pt-10">
-            <span className="text-[12px] font-semibold uppercase tracking-[2px] text-muted">In partnership with</span>
-            <span className="text-[19px] font-bold text-ink">Harvard Business Impact</span>
-            <span className="h-[22px] w-px bg-[#d9d5d1]" />
-            <span className="text-[19px] font-bold text-ink">Imperial College London</span>
-          </div>
+          {/* ✅ A FAIXA VIROU A DA /SERVICES EM 21-09, por email: *"Have similar
+              layout to in partnership with as services page"*. O que estava aqui
+              eram DUAS MARCAS ESCRITAS À MÃO em `<span>` — Harvard e Imperial em
+              negrito, separadas por um filete —, e a /services já mostrava CINCO
+              parceiros com os arquivos de verdade. Eram duas respostas
+              diferentes para a mesma pergunta na mesma casa, e a errada era esta:
+              a home omitia CLO100, YPO e Explore Performance sem que ninguém
+              tivesse decidido omiti-los.
+
+              `tone="light"` NÃO É ESCOLHA DE ESTILO. Três das cinco marcas só
+              existem em arquivo branco, e esta seção é branca — sem o painel
+              escuro que o tom claro traz de volta, elas desapareceriam. A conta
+              está escrita no próprio componente.
+
+              O `label` fica porque a seção em volta é a `#people`, que fala do
+              time: sem a linha "In partnership with", cinco logos soltos no pé
+              dela leriam como clientes, que é justamente o que o mural lá de
+              cima mostra. A /services não precisa dela — lá o bloco tem título
+              próprio. */}
+          <PartnersStrip
+            label="In partnership with"
+            tone="light"
+            className="mt-14 border-t border-line pt-10"
+          />
         </Reveal>
       </section>
+
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
+          A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`
+          no wrapper lá em cima, sem duplicar o componente. Os logos dos prêmios
+          são claros, então funcionam sobre o ink do mesmo jeito que funcionavam
+          sobre o vermelho.
+
+          ⚠️ SUBIU PARA ANTES DO LIVRO EM 21-09 — *"Move awards above books"*
+          (anotação: *"awards and mentions above the book"*). Estava logo abaixo
+          da seção `#book` desde que as duas existem.
+
+          A TROCA ARRUMA O RITMO DE COR de brinde, e vale registrar porque é o
+          tipo de coisa que alguém desfaz sem perceber: a seção `#people` acima é
+          branca e a `#book` é `paper`, duas faixas claras encostadas. A faixa de
+          prêmios é escura nesta página (o override `data-awards-band`), então
+          entrando no meio ela devolve o claro-escuro-claro que o resto da
+          página segue.
+
+          `includeBrandonHall` põe os dois GOLD na frente da régua — é o outro
+          lado do pedido que tirou o cartão do herói ("add this to awards"). A
+          prop existe porque a faixa é compartilhada com /our-impact, /home-v1 e
+          /home-v3, e o pedido é sobre a home; ver a caixa dela no componente. */}
+      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall />
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
@@ -825,13 +964,6 @@ export default async function Home() {
           (`[&_#coverage_h2]:font-semibold!`). Ficam de propósito: são duas
           classes inertes sem o componente na árvore, e apagá-las é o que faz o
           mapa voltar torto no dia em que alguém reverter isto. */}
-
-      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
-          A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`
-          no wrapper lá em cima, sem duplicar o componente. Os logos dos prêmios
-          são claros, então funcionam sobre o ink do mesmo jeito que funcionavam
-          sobre o vermelho. */}
-      <AwardsMentions maxWidthClass="max-w-[1440px]" />
 
       {/* CONTACT — a terceira e última área vermelha da página.
 

@@ -202,7 +202,17 @@ export default function LeaderCard({
                 nome é 1,33x a do cargo, o que com o cargo em 14px dá ~19px. Em
                 20px o nome ficava mais pesado que o da referência e o bloco
                 inteiro passava dos ~81px que ela reserva. */}
-            <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink">
+            {/* ⚠️ VERMELHO DESDE 21-09 — *"nome em vermelho do team"*. Era
+                `text-ink`. `text-brand`, o token de vermelho sobre fundo claro,
+                e não um hex: a mesma cor do "+" ao lado e das aspas do cartão
+                da quote, que é o que faz o card inteiro ler como uma peça.
+
+                ESTE É O MELHOR DOS TRÊS LUGARES onde o nome ficou vermelho: 18px
+                peso 600 sobre BRANCO dá 4,39:1, o teto desta cor. A conta
+                inteira, e o que fazer se a régua de 4,5 tiver de ser cumprida,
+                está na caixa do nome em `PeopleRoster` — a decisão vale para as
+                três listas juntas, não para uma. */}
+            <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-brand">
               {person.name}
             </h3>
             {/* A RESERVA DE ALTURA É DO PAR CARGO+REGIÃO, e não do cargo.

@@ -1,22 +1,32 @@
 /**
- * Os livros — uma fonte só para a seção da home e para a página `/books`.
+ * Os livros — uma fonte só para a seção da home e para a seção `#books` da
+ * `/insights`.
  *
- * POR QUE SAIU DA HOME. Este objeto morava dentro de `app/page.tsx`. Com a
- * página de livros existindo, duas telas passam a mostrar o mesmo livro, e duas
- * cópias do mesmo texto divergem na primeira correção que alguém faz só de um
- * lado. O `officialPortrait` de `lib/team.ts` resolveu o mesmo problema entre a
- * home e a /team em 11-09; isto é a mesma decisão.
+ * ⚠️ O SEGUNDO CONSUMIDOR MUDOU DE ENDEREÇO EM 21-09. Era a página `/books`;
+ * agora é uma seção dentro da /insights, a pedido: *"insights and books e a
+ * seção de book vai pra tela de insights"* (anotação da reunião de 21-09).
+ * `app/books/page.tsx` foi removida e a rota 308a para `/insights#books`, em
+ * next.config. NADA AQUI PRECISOU MUDAR além deste comentário — que é o ponto
+ * de o arquivo existir: a copy sobreviveu à mudança de tela sem ser tocada.
  *
- * ⚠️ A PÁGINA ESTAVA ADIADA DE PROPÓSITO, e a condição para fazê-la era
+ * POR QUE SAIU DA HOME. Este objeto morava dentro de `app/page.tsx`. Com uma
+ * segunda tela mostrando o mesmo livro, duas cópias do mesmo texto divergem na
+ * primeira correção que alguém faz só de um lado. O `officialPortrait` de
+ * `lib/team.ts` resolveu o mesmo problema entre a home e a /team em 11-09; isto
+ * é a mesma decisão — e continua valendo hoje, com a home de um lado e a
+ * /insights do outro.
+ *
+ * ⚠️ A TELA ESTAVA ADIADA DE PROPÓSITO, e a condição para fazê-la era
  * exatamente esta. Está escrita em quatro documentos, o mais claro no status de
  * 27-08: *"Our Books supporting multiple authors — the agreed scope covered one
  * book. Suggestion: ship 'Our Books' in the plural pointing at Rhea's book, and
  * build the listing when a second book exists."* O cliente confirmou em 11-09
- * que são dois. A página foi feita nesse dia.
+ * que são dois. A página foi feita nesse dia — e em 21-09 virou seção. O
+ * conteúdo é o mesmo; o que mudou foi onde ele mora.
  *
  * ⏳ O SEGUNDO LIVRO NÃO TEM DADO NENHUM AQUI, e não é esquecimento: nem os
  * documentos, nem o CMS, nem o acervo dizem QUAL é. Faltam título, autor, capa,
- * descrição e link de compra. A página reserva o lugar dele em vez de escondê-lo
+ * descrição e link de compra. A seção reserva o lugar dele em vez de escondê-lo
  * — mesma decisão do slot da foto de grupo na /team, e pelo mesmo motivo: quem
  * revisa é o cliente, e esconder o bloco tira dele a chance de julgar se o
  * layout funciona com dois.

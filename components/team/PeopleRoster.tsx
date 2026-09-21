@@ -111,13 +111,45 @@ export default function PeopleRoster({
             <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
           </div>
 
-          <h3
-            className={`mt-3.5 font-semibold leading-snug text-ink ${
+          {/* ⚠️ O NOME É VERMELHO DESDE 21-09 — *"nome em vermelho do team"*.
+              Vale para as três listas de pessoas da página (esta duas vezes,
+              mais o `LeaderCard`), e é `text-brand`, o token que o site usa
+              para vermelho sobre fundo claro. A régua no pé do retrato continua
+              sendo a mesma cor: o nome passa a ler como continuação dela, que é
+              o que o pedido queria.
+
+              ⚠️ O CONTRASTE MEDIDO, porque esta é a pior das três posições:
+              #d84339 tem luminância 0,189, o que dá 4,39:1 sobre BRANCO (os
+              programme managers, que estão na seção branca da liderança) e
+              3,96:1 sobre o `paper` (#f3f3f3) da Global faculty, que é onde os
+              nomes são menores ainda. O mínimo AA para este corpo (15–17px) é
+              4,5 — ou seja, nenhuma das duas passa folgada, e a da faculty
+              fica 12% abaixo. É o teto da cor, não um ajuste que se faça pelo
+              fundo: a caixa do `--color-brand-light` em `globals.css` mostra
+              que 4,39 sobre branco puro é o melhor que este vermelho consegue
+              em qualquer lugar.
+
+              MANTIDO MESMO ASSIM, e o registro é para quem revisar: o pedido é
+              da cliente e é sobre A COR DA MARCA. Se a régua de 4,5 tiver de
+              ser cumprida à risca, a saída é `text-brand-dark` (#b5342b — mesma
+              matiz, 3,9° contra 3,8°) nos TRÊS lugares de uma vez, que devolve
+              6,0:1 no branco e 5,7:1 no `paper`. O que não se faz é corrigir só
+              a faculty: dois vermelhos diferentes para o mesmo objeto na mesma
+              página é pior que os 0,5 que faltam.
+
+              ⚠️ `h4` E NÃO `h3` DESDE 21-09. As duas chamadas desta grade
+              passaram a viver sob um `h3`: os programme managers sob "Supported
+              by a team of senior program managers." e a faculty sob o
+              cabeçalho de cada região. Nome de pessoa como `h3` ali empataria
+              com o título que o agrupa, e a árvore de cabeçalhos deixaria de
+              dizer quem está dentro de quê. */}
+          <h4
+            className={`mt-3.5 font-semibold leading-snug text-brand ${
               size === "lg" ? "text-[17px]" : "text-[15px]"
             }`}
           >
             {p.name}
-          </h3>
+          </h4>
           {p.meta && (
             <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>
           )}

@@ -43,6 +43,10 @@ export type NavItem = {
 //   • `Contact` returns as a button (`cta`), reversing the 28-08 removal of
 //     "Start a Conversation". It targets the home's `#contact` section, the
 //     same destination /contact and /contact-us already redirect to.
+//   • `Books` SAIU DA LISTA EM 21-09 e `Events` ocupou a vaga. É a única
+//     alteração posterior ao acordo de 08-09 nesta lista, e veio das anotações
+//     da reunião, não do e-mail da cliente. A caixa do próprio item conta o
+//     porquê de ela ser uma troca de rota e não de label.
 export const siteNav: NavItem[] = [
   { label: "About", href: "/about" },
   // Plain "(5H)" and not the site's 5H® treatment: labels are strings here (and
@@ -58,11 +62,28 @@ export const siteNav: NavItem[] = [
   // respondendo, por 308 em next.config.
   { label: "Team", href: "/team" },
   { label: "Clients & Impact", href: "/our-clients" },
+  // `/insights` agora carrega DUAS coisas: a biblioteca editorial e os livros,
+  // que chegaram aqui em 21-09 (*"insights and books e a seção de book vai pra
+  // tela de insights"*). O label não mudou porque o item continua sendo o mesmo
+  // endereço; quem procurar os livros chega pelo 308 de `/books`, que aponta
+  // para a âncora `#books` desta página.
   { label: "Insights", href: "/insights" },
-  // `/books` desde 11-09. O plano registrado em 30-08 era exatamente este: menu
-  // no plural apontando para a seção da home "e criar a página quando houver um
-  // segundo livro". O cliente confirmou os dois, a página existe, o link segue.
-  { label: "Books", href: "/books" },
+  // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }` — *"mudar book para
+  // events"* (anotação da reunião de 21-09). A troca É de rota, e isso precisa
+  // ficar claro contra a regra lá em cima ("labels são copy, rotas são
+  // endereço, não se renomeia rota para perseguir label"): aqui NÃO é o mesmo
+  // item ganhando outro nome. O destino antigo deixou de existir — os livros
+  // foram para a /insights e `/books` virou 308 —, então isto é um item
+  // APOSENTADO e outro NASCENDO na vaga dele. A regra continua valendo: o que
+  // se proíbe é mexer na rota quando só a palavra mudou, e não é o caso.
+  //
+  // ⏳ A PÁGINA NASCE VAZIA, de propósito. O pedido de 21-09 é de navegação, e
+  // conteúdo de Events não existe em lugar nenhum do projeto — nem no CMS, que
+  // não tem tipo "events", nem nos documentos. `app/events/page.tsx` usa o
+  // padrão de página pendente do site (PageHero + EmptyNotice + `noindex`), o
+  // mesmo de /awards e /our-partnerships. Um item de menu tem de levar a algum
+  // lugar; levar a um 404 seria pior que a página vazia.
+  { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact", cta: true },
 ];
 
