@@ -281,13 +281,13 @@ export type ServiceClosing = {
  * que a anotação da call menciona — ela estava na pasta desde o começo, mas as
  * notas só nomeavam a primeira, então o re-layout foi construído sem ela. Nesta
  * versão o bloco de duas colunas "How we work" e a fileira de oito ícones dão
- * lugar a uma tira só: um rótulo vermelho à esquerda e três práticas com ícone.
+ * lugar a uma tira só: três práticas com ícone.
  *
- * O `lead` É UM RÓTULO, NÃO UMA PRÁTICA. No desenho ele não tem ícone e é o
- * único em vermelho: ele nomeia o que os três itens à direita têm em comum
- * ("A common outcome"), e por isso vive num campo separado em vez de ser o
- * primeiro elemento de `items` — se fosse, qualquer laço que pinte ou conte os
- * itens o trataria como prática.
+ * ⛔ O RÓTULO "A COMMON OUTCOME" ESTEVE AQUI, num campo `lead`, e saiu no
+ * mesmo dia a pedido — *"pode tirar essa frase e deixar só os ícones"*. Ele era
+ * a célula vermelha sem ícone à esquerda, e nomeava o que as três práticas
+ * tinham em comum. O campo saiu junto em vez de virar opcional nunca
+ * preenchido; o caminho de volta está no cabeçalho de `SolutionPractices`.
  *
  * ⏳ SÓ O PRIMEIRO SERVIÇO TEM. Ausente = o serviço continua exatamente como
  * estava, com o bloco "How we work" e os `pillars`. É a mesma guarda de
@@ -295,8 +295,6 @@ export type ServiceClosing = {
  * outras nove páginas, que nunca receberam a copy nova.
  */
 export type ServicePractices = {
-  /** O rótulo vermelho da esquerda, sem ícone. */
-  lead: string;
   /** As práticas, com ícone. O mapa rótulo→ícone vive no componente. */
   items: string[];
 };
@@ -544,8 +542,9 @@ export const services: Service[] = [
       "Mastery labs",
     ],
     /* ✅ A TIRA DA SEGUNDA REVISÃO DE 21-09, transcrita da imagem
-       `docs/meetings/secao-atualizada-our-work.jpg`. Quatro células: o rótulo
-       vermelho e três práticas.
+       `docs/meetings/secao-atualizada-our-work.jpg`. Eram quatro células — o
+       rótulo vermelho "A common outcome" mais estas três — e o rótulo saiu no
+       mesmo dia, a pedido.
 
        ELA NÃO É UMA VERSÃO CURTA DOS `pillars` ACIMA, e por isso os dois campos
        convivem em vez de um substituir o outro. Os `pillars` são as palavras da
@@ -562,7 +561,6 @@ export const services: Service[] = [
        dívida deixou de existir por mudança de desenho, não por copy nova — e a
        caixa abaixo fica porque volta a valer se a fileira de oito voltar. */
     practices: {
-      lead: "A common outcome",
       items: ["Habits", "Identity", "Moments that matter in the flow of work"],
     },
     /* ⚠️ A FILEIRA DE ÍCONES DO MOCKUP DE 21-09 TEM OITO ITENS E ESTA TEM CINCO,

@@ -13,7 +13,7 @@ import type { ServicePractices } from "@/lib/services";
  * O QUE SAIU, e vale estar escrito porque some da tela sem deixar rastro: o
  * bloco de DUAS COLUNAS com o rótulo "How we work" (manchete em serifa à
  * esquerda, dois parágrafos à direita) e a FILEIRA DE OITO ÍCONES do primeiro
- * mockup. No lugar dos dois entra esta tira de quatro células. A copy do bloco
+ * mockup. No lugar dos dois entra esta tira. A copy do bloco
  * que saiu continua em `lib/services.ts`, nos campos `howWeWork*`, e volta a
  * aparecer sozinha se `practices` sair do serviço.
  *
@@ -25,8 +25,8 @@ import type { ServicePractices } from "@/lib/services";
  * a célula ficar três vezes mais alta que as vizinhas.
  *
  * ⚠️ POR QUE UM COMPONENTE NOVO E NÃO UMA PROP NO `SolutionPillars`: o que muda
- * não é um detalhe de estilo. Muda o eixo de cada célula (vertical → horizontal),
- * muda a primeira célula (vira rótulo sem ícone) e muda a origem do dado
+ * não é um detalhe de estilo. Muda o eixo de cada célula (vertical → horizontal)
+ * e muda a origem do dado
  * (`pillars`, que são as palavras da frase de `howWeHelp`, → `practices`, que
  * são outra pergunta; ver a caixa de `ServicePractices`). Uma prop que troque
  * as três coisas ao mesmo tempo é um segundo componente escondido dentro do
@@ -36,6 +36,17 @@ import type { ServicePractices } from "@/lib/services";
  * `bg-paper` PELO MESMO MOTIVO DE ANTES: na imagem a tira é a faixa quente que
  * fecha a região dos cartões, e não uma seção nova. O corte de verdade vem
  * depois, no divisor "Featured case study".
+ *
+ * ⛔ O RÓTULO "A COMMON OUTCOME" SAIU EM 21-09, a pedido: *"na seção A common
+ * outcome pode tirar essa frase e deixar só os ícones"*. Ele era a primeira
+ * célula da tira — vermelho, sem ícone, `shrink-0` à esquerda — e nomeava o
+ * que as três práticas à direita tinham em comum. A tira passou de quatro
+ * células para três, e as três dividem a faixa inteira.
+ *
+ * O campo `lead` saiu junto, de `ServicePractices` e do dado. NÃO ficou como
+ * opcional nunca usado: campo que ninguém preenche é a pergunta "isto ainda
+ * vale?" deixada para a próxima pessoa. Para devolvê-lo são o campo, um `<li>`
+ * com `md:shrink-0 md:pr-6` e o texto em `text-brand`.
  *
  * AUSENTE OU VAZIA NÃO RENDERIZA NADA, a régua do resto das páginas de serviço.
  */
@@ -63,7 +74,7 @@ export default function SolutionPractices({
   practices?: ServicePractices;
 }) {
   const items = (practices?.items ?? []).filter((i) => i.trim());
-  if (!practices?.lead?.trim() || items.length === 0) return null;
+  if (items.length === 0) return null;
 
   return (
     <section className="bg-paper">
@@ -73,7 +84,7 @@ export default function SolutionPractices({
           um rodapé da região, não um bloco de conteúdo — dar a ela o respiro
           das outras seções a promoveria a uma coisa que o desenho não quis. */}
       <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-12">
-        {/* `stagger={false}`: as quatro células entram juntas. Escaloná-las numa
+        {/* `stagger={false}`: as células entram juntas. Escaloná-las numa
             tira horizontal de uma linha faz o olho ler uma esteira, e não um
             conjunto — é o mesmo argumento do `SolutionClosing`. */}
         <Reveal stagger={false}>
@@ -86,35 +97,32 @@ export default function SolutionPractices({
               respiro vem do `md:px-6` de cada célula e o traço cai no meio. É a
               mesma armadilha que o `SolutionPillars` documenta.
 
-              ABAIXO DE `md` A TIRA VIRA GRADE DE DUAS E OS FILETES SOMEM, pelo
-              motivo que o `SolutionPillars` já registra: numa segunda linha o
-              `divide-x` desenha um traço órfão no primeiro item, onde não há
-              vizinho à esquerda para separar. */}
-          <ul className="grid grid-cols-2 gap-x-8 gap-y-8 md:flex md:items-center md:gap-x-0 md:divide-x md:divide-line">
-            {/* O RÓTULO É UM `<li>` COMO OS OUTROS, apesar de não ser prática.
-                Ele é a primeira célula da mesma tira, com o mesmo filete à
-                direita; tirá-lo da lista para "ser honesto" quanto à semântica
-                obrigaria a redesenhar o filete à mão fora do `divide-x`. O que
-                o diferencia para quem lê com leitor de tela é o texto em si —
-                "A common outcome" não se confunde com um item. */}
-            <li className="md:shrink-0 md:pr-6">
-              <span className="block max-w-[10ch] text-[12px] font-semibold uppercase leading-[1.35] tracking-[2px] text-brand">
-                {practices.lead}
-              </span>
-            </li>
+              ABAIXO DE `md` A TIRA EMPILHA E OS FILETES SOMEM, pelo motivo que o
+              `SolutionPillars` já registra: fora de uma linha única o `divide-x`
+              desenha um traço órfão no primeiro item de cada linha nova, onde
+              não há vizinho à esquerda para separar.
 
+              UMA COLUNA, e não duas. Eram duas enquanto a tira tinha QUATRO
+              células (o rótulo mais três práticas), quando 2+2 fechava certo;
+              com três, a mesma classe entrega 2+1 e deixa a última sozinha,
+              torta. */}
+          <ul className="grid grid-cols-1 gap-y-8 md:flex md:items-center md:gap-x-0 md:divide-x md:divide-line">
             {items.map((item) => {
               const Icon = PRACTICE_ICONS[item] ?? FALLBACK_ICON;
               return (
                 <li
                   key={item}
-                  /* `md:flex-1` DISTRIBUI O QUE SOBRA depois do rótulo, que é
-                     `shrink-0`. No desenho as três práticas não têm larguras
-                     iguais — a terceira é bem mais larga —, mas as calhas entre
-                     os filetes são regulares, e é isso que a divisão igual
+                  /* `md:flex-1` DÁ ÀS TRÊS A MESMA LARGURA. No desenho elas não
+                     têm — a terceira é bem mais larga —, mas as calhas entre os
+                     filetes são regulares, e é isso que a divisão igual
                      preserva. Com colunas de conteúdo, "Habits" ficaria com um
                      terço da largura de "Moments that matter…" e os filetes
-                     deixariam de marcar ritmo. */
+                     deixariam de marcar ritmo.
+
+                     Antes de 21-09 o `flex-1` dividia o que SOBRAVA depois do
+                     rótulo "A common outcome", que era `shrink-0` à esquerda.
+                     Sem ele, as três dividem a faixa inteira — a classe é a
+                     mesma, o resultado é simétrico em vez de deslocado. */
                   className="flex items-center gap-x-3 md:flex-1 md:justify-center md:px-6"
                 >
                   {/* DECORATIVO: o rótulo ao lado diz a mesma coisa, então

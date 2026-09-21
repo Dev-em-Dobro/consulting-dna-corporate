@@ -133,9 +133,12 @@ page from the cards down, so it shows the practices and the case study line but 
 work" block above them.
 
 That block stays. Its headline and paragraph are the ones from your first drawing, unchanged.
-What the second drawing replaces is the **row beneath it**: the eight icons are now the short
-strip, "A common outcome" beside habits, identity and the moments that matter, followed by the
-line that leads into the case study.
+What the second drawing replaces is the **row beneath it**: the eight icons are now a short strip
+of three, habits, identity and the moments that matter, followed by the line that leads into the
+case study.
+
+The "A common outcome" label that opened that strip in your drawing has been taken out, as asked.
+The three now share the full width instead of sitting to the right of it.
 
 **We changed only that section.** The same drawing also redraws the block above it, with a
 different label, headline and card copy, and with a label and a three-word credential sitting on
