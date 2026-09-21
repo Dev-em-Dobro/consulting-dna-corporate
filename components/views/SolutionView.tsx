@@ -261,48 +261,56 @@ export default function SolutionView({ service }: { service: Service }) {
           direto do primeiro bloco para o segundo, como antes. */}
       <SolutionAudiences items={service.audiences} />
 
-      {/* ⬅ A SEGUNDA REVISÃO DE 21-09 BIFURCA AQUI, e este bloco é a bifurcação
-          inteira — as três peças abaixo são duas versões da MESMA região, e não
-          quatro coisas que por acaso têm guardas.
+      {/* ✅ ESTE BLOCO VOLTOU EM 21-09, e o erro que o tirou vale mais registrado
+          do que escondido.
 
-          A imagem `docs/meetings/secao-atualizada-our-work.jpg` é a segunda das
-          duas referências que a anotação da call menciona. Ela chegou junto com
-          a primeira mas passou despercebida (as notas só nomeavam a outra), e o
-          pedido depois foi literal: *"a seção How we work tem que ser assim"*.
+          A segunda referência (`secao-atualizada-our-work.jpg`) enquadra a
+          região A PARTIR dos cartões: ela mostra a tira curta e o divisor do
+          case, e NÃO mostra este bloco de duas colunas. Lendo *"a seção How we
+          work tem que ser assim"* contra esse enquadramento, tirou-se o bloco
+          inteiro junto com os ícones — e a manchete "Real development. / In the
+          flow of work.", com o parágrafo do Inner Game and Outer Game, sumiu da
+          página sem ninguém ter pedido.
 
-          • COM `practices` — o desenho novo: some o bloco de duas colunas "How we
-            work", some a fileira de oito ícones, e no lugar dos dois entra a tira
-            curta seguida do divisor "Featured case study", que é o que a imagem
-            põe entre a tira e o case.
-          • SEM `practices` — os outros nove, exatamente como estavam: bloco de
-            duas colunas, `pillars` e o fecho de duas linhas.
+          O QUE A SEGUNDA IMAGEM SUBSTITUI É A FILEIRA, NÃO O BLOCO. As duas
+          referências convivem: o texto de "How we work" continua sendo o da
+          primeira, e o que mudou embaixo dele é a fileira de oito ícones, que
+          virou a tira de quatro células. "Ausente do enquadramento" nunca quis
+          dizer "removido" — e é a armadilha óbvia de trabalhar com recorte de
+          tela como especificação. */}
+      <SolutionSection
+        label="How we work"
+        headline={headlineOr(
+          service.howWeWorkHeadline ?? service.howWeHelpHeadline,
+        )}
+        html={paragraphs(service.howWeWork ?? service.howWeHelp)}
+        tone="paper"
+        /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da largura e
+           o do bloco de cima cai quase no meio — medido no arquivo, ver a caixa
+           da prop `split` em `SolutionSection`. A manchete daqui tem duas linhas
+           e a de cima tem três; a divisão acompanha o conteúdo. */
+        split="body"
+      />
 
-          ⚠️ A BIFURCAÇÃO É TEMPORÁRIA POR CONSTRUÇÃO. Ela existe porque só um
-          serviço recebeu a copy nova; quando os outros nove receberem, os três
-          ternários caem e o ramo antigo sai junto com os campos `howWeWork*`. O
-          que NÃO se deve fazer é o contrário — aplicar o desenho novo aos nove
-          sem copy —, porque aí nove páginas perdem o bloco de duas colunas em
-          troca de uma tira vazia que não renderiza. */}
+      {/* ⚠️ A FILEIRA É O QUE BIFURCA, e só ela. As duas peças ocupam o mesmo
+          lugar sob o bloco acima e as duas são `bg-paper`, então a faixa quente
+          começa no rótulo "How we work" e só termina depois da lista — nos dois
+          desenhos.
+
+          • COM `practices` — a tira de quatro células da segunda referência: um
+            rótulo vermelho e três práticas, com o ícone à esquerda.
+          • SEM `practices` — os `pillars`, a fileira de ícones centrados da
+            primeira. É o que os outros nove serviços mostram, e continuam
+            mostrando: eles nunca receberam a copy nova.
+
+          ⚠️ A BIFURCAÇÃO É TEMPORÁRIA POR CONSTRUÇÃO. Some quando a copy dos
+          nove chegar. O que NÃO se deve fazer é o contrário — apontar os nove
+          para a tira —, porque `practices` ausente não renderiza nada e as nove
+          páginas ficariam com o bloco de duas colunas e um vazio embaixo. */}
       {service.practices ? (
         <SolutionPractices practices={service.practices} />
       ) : (
-        <>
-          <SolutionSection
-            label="How we work"
-            headline={headlineOr(
-              service.howWeWorkHeadline ?? service.howWeHelpHeadline,
-            )}
-            html={paragraphs(service.howWeWork ?? service.howWeHelp)}
-            tone="paper"
-            /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da
-               largura e o do bloco de cima cai quase no meio — medido no
-               arquivo, ver a caixa da prop `split` em `SolutionSection`. A
-               manchete daqui tem duas linhas e a de cima tem três; a divisão
-               acompanha o conteúdo. */
-            split="body"
-          />
-          <SolutionPillars items={service.pillars} />
-        </>
+        <SolutionPillars items={service.pillars} />
       )}
 
       {/* ⚠️ O MESMO SLOT, DUAS COISAS. Na primeira referência aqui morre o fecho
