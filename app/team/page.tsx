@@ -16,8 +16,15 @@ import { getPeople } from "@/lib/cms/map";
    ela quiser os cartões), mas esta página não o consome mais. O
    `ImagePlaceholder` saiu pelo mesmo motivo: ele só existia para o slot 06
    vazio de cada cartão. */
-import { leaders, programmeManagers, facultyMembers, dnaLead, dnaStrands } from "@/lib/team";
+/* `facultyMembers` SAIU DA LISTA EM 21-09 e deu lugar ao `facultyByRegion`: a
+   seção passou a sair agrupada, a pedido, e quem monta os grupos é o próprio
+   `lib/team.ts` — a lista crua continua exportada de lá, é dela que os grupos
+   nascem. */
+import { leaders, programmeManagers, facultyByRegion, dnaLead, dnaStrands } from "@/lib/team";
 import PeopleRoster from "@/components/team/PeopleRoster";
+/* O CARROSSEL DA HOME, trazido em 21-09 — ver a caixa dele na DNA experience.
+   O componente é o mesmo arquivo que a home usa, sem uma linha de diferença. */
+import PhotoCarousel from "@/components/PhotoCarousel";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -160,14 +167,49 @@ export default async function OurTeamPage() {
 
             Ancorar no topo tira os 160px todos DO PÉ, que é degrau vazio e
             piso tátil. Nada de gente se perde em nenhuma altura de janela. */}
+        {/* ⚠️ O TEXTO DO HERÓI É O DELA DESDE 21-09 — *"Change Hero text too"*,
+            com as três linhas escritas no email:
+
+              We’ve led. We’ve learned. We bring both
+              Practitioners first. Consultants second
+              A senior leadership team, backed by a global faculty of 60+
+              practitioners delivering across 36 countries.
+
+            TRÊS LINHAS, TRÊS SLOTS. O `SolutionHero` tem exatamente rótulo,
+            título e subtítulo, e a terceira linha JÁ ERA o subtítulo, palavra
+            por palavra — ou seja, o que ela mudou de verdade foi o título (era
+            "The people who sit where our clients sit.") e acrescentou a linha
+            do meio. Só sobrou o rótulo para recebê-la.
+
+            ⚠️ O CUSTO ESTÁ NO RÓTULO, E É REAL: esta passa a ser a única das
+            vinte rotas cujo rótulo de herói não é o NOME DA PÁGINA ("Our
+            Services", "Our Books", "Clients & Impact"…). Perde-se a etiqueta
+            que dizia "Our Team" acima do título.
+
+            A ALTERNATIVA FOI DESCARTADA POR CAUSA DA PONTUAÇÃO DELA. Manter
+            "Our Team" obrigaria a enfiar a linha do meio no começo do
+            subtítulo, e aí ela precisaria de um ponto final para não emendar na
+            seguinte ("…Consultants second A senior leadership team…"). Ela
+            escreveu as duas primeiras linhas SEM ponto, e pontuar texto de
+            cliente por conta própria é o que este repositório não faz. Como
+            rótulo a frase fica inteira, como ela mandou.
+
+            Se ela quiser "Our Team" de volta ao revisar, é trocar duas props —
+            e aí a linha do meio ganha o ponto final, que passa a ser
+            consequência do lugar e não correção nossa. */}
         <SolutionHero
-          eyebrow="Our Team"
-          title="The people who sit where our clients sit."
+          eyebrow="Practitioners first. Consultants second"
+          title="We’ve led. We’ve learned. We bring both"
           /* ⚠️ O `60+` ACOMPANHA A SEÇÃO GLOBAL FACULTY, embora o pedido de
              17-09 só cite a seção: o subtítulo do herói e o h2 de lá fazem a
              MESMA afirmação, a duas telas de distância. Deixar 75 aqui e 60+ lá
              não seria fidelidade ao pedido, seria a mesma página se
-             contradizendo sobre o tamanho da própria faculty. */
+             contradizendo sobre o tamanho da própria faculty.
+
+             ✅ E O EMAIL DE 21-09 CONFIRMA O NÚMERO: a terceira linha do herói
+             novo é esta frase, com o "60+" e os "36 countries" que já estavam
+             aqui. Um caractere não mudou — e isso responde de passagem a dúvida
+             anotada em 17-09 sobre contar por país ou por região. */
           subtitle="A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries."
           imageUrl={teamHero}
           imagePosition="object-top"
@@ -514,8 +556,43 @@ export default async function OurTeamPage() {
                 o Oriente Médio aparece como "Middle East" em duas pessoas. Se a
                 faculty da Índia existe e ficou de fora da planilha, é pergunta
                 para a próxima daily. */}
-            <div className="mt-12">
-              <PeopleRoster people={facultyMembers} />
+            {/* ── AGRUPADA POR REGIÃO · 21-09 ────────────────────────────
+                *"o global — organizar em regions"*, na mesma lista em que ela
+                deu a região das três programme managers ("Maliha - MENA, Carol
+                is UKEE, Nic is Asia").
+
+                A LISTA NÃO MUDOU — são as mesmas 23 pessoas, na mesma ordem
+                dentro de cada grupo. O que mudou é que a região saiu de baixo
+                de cada nome e virou cabeçalho: 23 legendas repetidas viraram
+                sete títulos. Os grupos e a ordem deles moram em
+                `facultyByRegion`, em `lib/team.ts`, com o porquê de nenhum
+                rótulo ter sido remapeado.
+
+                ⚠️ QUATRO GRUPOS TÊM DUAS PESSOAS (UK & Europe, Middle East,
+                Africa, Australia) e a grade é de cinco/seis colunas, então
+                eles saem com a linha pela metade. É o que agrupar custa, e é o
+                desenho certo: a alternativa — grade cheia com a região miúda
+                embaixo de cada rosto — é exatamente o que ela pediu para
+                mudar. O vão também é informação: mostra onde a faculty é rala.
+
+                O CABEÇALHO É `h3` porque o `h2` da seção é "A faculty of 60+
+                senior practitioners…" e cada região está dentro dele. Os nomes,
+                que eram `h3`, desceram para `h4` no `PeopleRoster` pelo mesmo
+                motivo. */}
+            <div className="mt-12 space-y-14">
+              {facultyByRegion.map((group) => (
+                <div key={group.region || "sem-regiao"}>
+                  {/* Sem cabeçalho quando não há região — o balde neutro do
+                      `facultyByRegion`, hoje vazio. Um título inventado ali
+                      afirmaria algo que ninguém nos disse. */}
+                  {group.region && (
+                    <h3 className="font-serif mb-6 text-[20px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[22px]">
+                      {group.region}
+                    </h3>
+                  )}
+                  <PeopleRoster people={group.people} />
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -543,10 +620,13 @@ export default async function OurTeamPage() {
             também era `paper` e as duas viravam um bloco cinza só; com ela em
             `ink`, a divisa é a própria virada de cor.
 
-            ❓ EM ABERTO: o carrossel de 25 fotos candid que acompanha a seção na
-            home. O outline move os strands e não diz uma palavra sobre ele —
-            se vem junto, se fica lá, se some. Pergunta de meia linha para o
-            cliente, não pendência de conteúdo. */}
+            ✅ RESPONDIDA EM 21-09 A PERGUNTA QUE ESTAVA AQUI. Ela era: "o
+            carrossel de 25 fotos candid que acompanha a seção na home — o
+            outline move os strands e não diz uma palavra sobre ele: se vem
+            junto, se fica lá, se some". A resposta foi *"put the carousel da
+            home na pagina"*, e ele vem JUNTO: está no pé desta seção, logo
+            abaixo dos quatro cartões. A montagem e o porquê do lugar estão na
+            caixa dele. */}
         {/* ⚠️ ESTA SEÇÃO ERA CLARA (`bg-paper`) ATÉ 11-09. Recebeu o globo que
             estava na Global faculty, a pedido, e com ele veio a virada de tom: o
             rótulo passa a `onDark`, o título a branco.
@@ -709,6 +789,49 @@ export default async function OurTeamPage() {
                   </div>
                 </article>
               ))}
+            </div>
+
+            {/* ── O CARROSSEL DA HOME · 21-09 ─────────────────────────────
+                *"put the carousel da home na pagina"*. É o mesmo
+                `components/PhotoCarousel` que roda na `#people` da home, com a
+                MESMA lista de imagens — 25 fotos de `/dna-time/`, os números 05,
+                08 e 14 pulados porque aqueles arquivos não existem (conferido
+                na pasta, são 25 JPEGs de 28 números). A lista é montada aqui do
+                mesmo jeito que lá, e não copiada nome por nome: uma lista
+                literal de 25 caminhos envelhece na primeira foto que entrar.
+
+                ⚠️ POR QUE NESTA SEÇÃO, E NÃO EM OUTRA. Na home o carrossel não
+                é um bloco solto: ele é a metade direita da seção cujo texto é
+                EXATAMENTE o destes quatro cartões (One DNA TEAM, The DNA
+                Experience, Trusted Relationships, Inclusion & Diversity). O
+                `CDNA_04_Team.docx` mandou esse texto para cá ("moved here from
+                the homepage") e deixou o carrossel para trás — a pergunta que
+                estava anotada no topo desta seção desde 11-09. Trazê-lo para
+                junto dos mesmos quatro cartões é reconstituir a seção inteira,
+                em vez de achar um vão novo para ele na página.
+
+                ABAIXO DOS CARTÕES E NÃO AO LADO: lá o texto é uma coluna só e
+                sobra a metade direita; aqui ele são quatro cartões lado a lado,
+                e espremê-los em três colunas para abrir espaço desfaria o
+                desenho de 15-09 (a conta das quatro colunas está na caixa da
+                grade). O componente já se limita a 640px e se centraliza, então
+                ele fecha a seção centrado, como um rodapé de imagens.
+
+                FUNCIONA SOBRE ESCURO SEM AJUSTE: o quadro do carrossel tem
+                `bg-ink` próprio e cantos arredondados, e as fotos trazem a
+                própria luz. Na home ele está sobre branco, onde a moldura
+                escura recorta; aqui cai sobre a hélice já escurecida e a
+                moldura some, o que é o certo para um bloco que fecha a seção —
+                ficam as fotos, sem caixa em volta. */}
+            <div className="mt-14 md:mt-16">
+              <PhotoCarousel
+                images={Array.from({ length: 28 }, (_, i) => i + 1)
+                  .filter((n) => n !== 5 && n !== 8 && n !== 14)
+                  .map(
+                    (n) =>
+                      `/dna-time/dna-time-${String(n).padStart(2, "0")}.jpeg`
+                  )}
+              />
             </div>
           </div>
         </section>

@@ -512,11 +512,35 @@ export type RosterPerson = {
  *
  * ⚠️ SEM CARGO, como as outras: não está no `CDNA_04_Team.docx` nem no
  * `Facilitators for website.docx`. Vale a mesma regra da caixa acima.
+ *
+ * ================================================================
+ * ✅ A REGIÃO CHEGOU EM 21-09 — O CARGO, NÃO
+ * ================================================================
+ * O email dela, na lista da Team: *"Maliha - MENA, Carol is UKEE, Nic is
+ * Asia"*. São EXATAMENTE estas três pessoas — conferido nome por nome contra a
+ * `leaders` e a `facultyMembers`, onde não há nenhuma outra Maliha, Carol ou
+ * Nic (o "Nitin" da liderança não vira "Nic"). Então o `meta`, que estava vazio
+ * desde 17-09 à espera do cargo, passa a ser a REGIÃO — que é o mesmo que ele
+ * significa na faculty, logo abaixo.
+ *
+ * ⚠️ NÃO VIROU "HEAD OF MENA". Ela atribuiu uma região a cada uma, não um
+ * título; e três pessoas da LIDERANÇA já são "Head of MENA", "Head of UKEE" e
+ * "Head of Asia" (Rhea, Mike e Genevieve). Repetir esses títulos aqui criaria
+ * uma segunda chefia para as mesmas três regiões, que não é o que a frase diz.
+ *
+ * ⏳ OS CÓDIGOS SAEM COMO ELA OS ESCREVEU — "MENA", "UKEE", "Asia" —, e isso
+ * contraria de propósito a regra que a `facultyMembers` segue (lá AMS/EUR/APAC
+ * viraram Americas/Europe/Asia Pacific). Dois motivos: a página JÁ IMPRIME os
+ * dois acrônimos, em letra, nos cargos da liderança duas seções acima, então
+ * não é vocabulário novo; e "MENA" não tem tradução pronta no site — o mais
+ * próximo é "Middle East", que deixaria fora o Norte da África, que é
+ * justamente onde a faculty tem um grupo "Africa" separado. Traduzir os três
+ * para rótulo de público é uma linha cada, e é pergunta para a próxima daily.
  */
 export const programmeManagers: RosterPerson[] = [
-  { name: "Maliha Bathool", portrait: "/team/programme-managers/maliha-bathool.jpg" },
-  { name: "Carol Medcalf", portrait: "/team/programme-managers/carol-medcalf.jpg" },
-  { name: "Nicole Phoon", portrait: "/team/programme-managers/nicole-phoon.jpg" },
+  { name: "Maliha Bathool", meta: "MENA", portrait: "/team/programme-managers/maliha-bathool.jpg" },
+  { name: "Carol Medcalf", meta: "UKEE", portrait: "/team/programme-managers/carol-medcalf.jpg" },
+  { name: "Nicole Phoon", meta: "Asia", portrait: "/team/programme-managers/nicole-phoon.jpg" },
 ];
 
 /**
@@ -573,3 +597,52 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
   { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
 ];
+
+/**
+ * A MESMA FACULTY, AGRUPADA POR REGIÃO — 21-09, *"o global — organizar em
+ * regions"*, na mesma lista em que ela deu a região das três programme managers.
+ *
+ * O DADO JÁ EXISTIA e é isto que torna o pedido barato: a região de cada uma
+ * das 23 pessoas está na tabela dela desde 17-09, e vinha saindo como a linha
+ * de baixo do nome. O que muda é para onde ela vai — de 23 repetições sob os
+ * retratos para SETE cabeçalhos. Por isso as pessoas entram no grupo sem o
+ * `meta`: a região passou a ser dita uma vez, no título do grupo, e mantê-la
+ * embaixo de cada nome seria a mesma palavra duas vezes na mesma tela.
+ *
+ * ⚠️ OS SETE GRUPOS SÃO OS RÓTULOS QUE A TABELA DELA DÁ, sem remapeamento:
+ * UK & Europe, Europe, Middle East, Americas, Asia Pacific, Africa, Australia.
+ * Não foram dobrados nas quatro regiões da About (`facultyRegions`, aqui em
+ * cima) de propósito — juntar "Europe" com "UK & Europe", ou pendurar "Africa"
+ * em alguma delas, é decisão de conteúdo DELA, e é a mesma pendência que a
+ * caixa da `facultyMembers` já registra a propósito do comentário na célula do
+ * Tom Cross. Agrupar só tornou a divergência VISÍVEL: antes ela estava diluída
+ * em 23 legendas, agora são dois cabeçalhos vizinhos.
+ *
+ * A ORDEM É A DE APARIÇÃO NA TABELA, pelo mesmo motivo que a lista de pessoas
+ * segue a ordem do documento: qualquer outra (alfabética, por tamanho, por
+ * importância) exige uma decisão nossa sobre qual região vem primeiro.
+ *
+ * ⏳ O BALDE SEM RÓTULO (`region: ""`) ESTÁ VAZIO HOJE — as 23 têm região. Ele
+ * existe para o dia em que alguém for acrescentado sem ela: sem o balde a
+ * pessoa sumiria da página, com um rótulo inventado ("Global", "Other") ela
+ * apareceria afirmando algo que ninguém disse. Sem cabeçalho e por último, ela
+ * aparece e a falta fica evidente para quem revisa.
+ */
+export type FacultyRegionGroup = { region: string; people: RosterPerson[] };
+
+export const facultyByRegion: FacultyRegionGroup[] = (() => {
+  const groups: FacultyRegionGroup[] = [];
+  for (const person of facultyMembers) {
+    const region = person.meta ?? "";
+    let group = groups.find((g) => g.region === region);
+    if (!group) {
+      group = { region, people: [] };
+      groups.push(group);
+    }
+    /* Só nome e retrato: a região virou o cabeçalho (ver a caixa acima). */
+    group.people.push({ name: person.name, portrait: person.portrait });
+  }
+  /* O grupo sem rótulo vai para o fim, e é a única exceção à ordem da tabela —
+     uma pessoa sem região não pode encabeçar a seção. */
+  return groups.sort((a, b) => Number(a.region === "") - Number(b.region === ""));
+})();
