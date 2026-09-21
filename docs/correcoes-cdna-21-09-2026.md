@@ -71,10 +71,13 @@ stamps.
 **"Top 150 Leadership Development" is now "Senior Leadership Development"** — on the card, in
 the menu, in the breadcrumb and as the page title.
 
-The web address still ends in `top-150-leadership-development`. That was deliberate: the link is
-already live, in the sitemap and in the emails you have sent. You asked for a name change, and
-renaming the address to chase it would break all of that. If you want the address changed too,
-say so and we will do it properly, with a redirect from the old one.
+**The web address changed too**, as you then asked. The page now lives at
+`/services/senior-leadership-development`.
+
+Nothing breaks. The old address forwards permanently to the new one, so the link already live,
+the one in the sitemap and the ones in the emails you have sent all still land in the right
+place. Three older addresses from the previous site used to point at the old one; they now go
+straight to the new address rather than bouncing twice.
 
 ## 5. Service pages — the new internal layout
 
@@ -191,11 +194,13 @@ you moving it, not removing it.
    Plus your call on the collage, the three with YPO branding, and the one showing backs of
    heads.
 3. **Copy for the other nine service pages** — the introduction blocks, the three audiences, the
-   practices strip and the closing line. Photographs for the three audience cards.
-4. **Events content.**
-5. **Confirmation** that Events replaces Books in the menu.
-6. **Three short approvals** on wording we wrote where you had none: the Events page title, the
+   practices strip and the closing line.
+4. **The three audience card photographs as files.** We have seen them and they are the right
+   three, but they reached us pasted into a conversation rather than as files, so they are not
+   in the build yet. Until they are, those cards show a colour field.
+5. **Events content.**
+6. **Confirmation** that Events replaces Books in the menu.
+7. **Three short approvals** on wording we wrote where you had none: the Events page title, the
    books section heading on Insights, and the Insights browser title.
-7. **Your call** on whether the Senior Leadership Development web address should change too.
 8. **Whether to apply the rest of your second drawing** — the new label, headline and card copy
    above the practices strip, and the label and credential on each card photograph.
