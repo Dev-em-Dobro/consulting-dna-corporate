@@ -1,0 +1,67 @@
+correções por email
+Page
+Feedback
+Home
+Remove Brandon hall pop up on hero image add this to awards
+"See the work" should link to Clients & Impact
+Have 4 metrics displayed horizontally 
+Add company logos to client metrics
+Our people section - photo quality is not great, some photos are cropped. Add some colour to headers (red)
+Move awards above books
+Have similar layout to in partnership with as services page
+About
+Move block one to block 3, block 2 and 3 should become 1 and 2.
+Have offices static - 5 horizontal static. 
+Add offices to bottom right of hero image 
+Current block 2 - change text to OUR PEOPLE LIVE OUR PURPOSE 
+When a client trusts us as a consulting firm, that trust starts from the very first interaction with the people who represent CorporateDNA and how we live our purpose in the moments that matter .
+How we listen. How we challenge. How we add value. How we navigate difficult decisions and conversations. And how we use our discernment  to know when to lead, when to question and when to listen. 
+For us, Keeping Leadership Real starts from the inside out. It shapes how we work with each other and how we show up with our clients—with honesty, care, candour and experience.
+Because before our clients experience our work, they experience our people. And our people bring our purpose to life.
+Services
+Change top 150 leadership development to Senior Leadership Development 
+Partners - HBI and Imperial college on row 1 
+Services internal 
+Re-layout the internal with the image nova-pagina-interna-servicoes.jpg inside meetings folder
+Team 
+Change Hero text too - We’ve led. We’ve learned. We bring both
+Practitioners first. Consultants second
+A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries.
+Maliha - MENA, Carol is UKEE, Nic is Asia 
+
+
+correções que eu anotei
+home page
+
+remover o car de awards do hero
+the number should be horozontalu ina line
+colocar os logso nos cases 
+top headings in red da secao our pelople
+as fotos estao cortando os rostos 
+awards nad mentions above the book
+a seção de parceiros tem que ser igual a secao da listagem de servicos
+tela about
+colocar os escritoios embiaxo dos numeros
+o bloco da foto seria o 3 da pagina 
+maliha te textos revisados para enviar do bloco com a imagem
+na parte do que te os ofices colocar eles abertos sempre
+
+services
+trocar para senior leadship developmet - trocar o top 150
+dois logos pra cima harvacrd e imperial college e oss outros pra baixo
+pagina interna de serviços
+
+mmudar o layout para a imagens que a maliha mandou no drive
+sao duas imagens diferetes
+
+team
+trocar o texto do hero
+nome em vermelho do team
+
+o global 
+organizar em regions 
+put the carousel da home na pagina
+
+mudar book para events
+insigths and books e a seção de book vai pra tela de insigths 
+
