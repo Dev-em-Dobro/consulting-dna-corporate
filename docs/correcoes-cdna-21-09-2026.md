@@ -4,6 +4,8 @@ Everything from your email of 21 September is built, plus the extra items from t
 note is the record of what moved, why it looks the way it does, and the short list of what is
 still waiting on your side.
 
+**All of this is live** on the review site as of 21 September.
+
 Four things below need a decision from you rather than more work from us: the **Brandon Hall
 artwork** (section 1), the **photographs** (section 2), the **copy for the other nine service
 pages** (section 5), and whether **Events replaces Books or sits alongside it** (section 8).
@@ -165,7 +167,10 @@ so nobody mistakes them for approved.
   is now third.
 - **The offices are static, five across, always open.** The carousel is gone from this page and
   stays on the four others that use it.
-- **The offices also appear at the bottom right of the hero image**, just under the figures.
+- **The offices also appear across the bottom of the hero image**, just under the figures. They
+  started at the right, as your email says, and moved to the centre on your call. The space above
+  and below that line was then tuned so it reads even: measured in the browser, the visible gap
+  was 23 pixels above and 42 below, and it is now 26 and 30. The fold did not grow.
 - **The purpose block is now "Our people live our purpose"**, with your four paragraphs
   verbatim.
 
@@ -204,7 +209,11 @@ in all three places at once — never in one, or you end up with two reds.
 address forwards permanently to the books section of Insights. The three older addresses that
 used to point at it now go straight to the new place rather than bouncing twice.
 
-**The menu item "Books" is now "Events."**
+**The menu item "Books" is now "Events," and the Insights item reads "Insights & Books."**
+
+That second change matters more than it looks. When "Books" left the menu, the word disappeared
+from the navigation entirely, so anyone looking for the books had to guess they live inside
+Insights. The redirect only helps people who already have the old address.
 
 **The Events page is empty.** There is no events content anywhere — no entries in the CMS, no
 document. It carries the same "coming soon" treatment as Awards and Our Partnerships, and it is
