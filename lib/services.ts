@@ -231,6 +231,23 @@ export type ServiceAudience = {
    * URL e já entregou versão velha por isso.
    */
   image?: string;
+  /**
+   * AS TRÊS PALAVRAS SOBRE A FOTO, no canto inferior direito — 21-09.
+   *
+   * O rótulo (`label`) vai no canto SUPERIOR ESQUERDO da mesma foto e sai
+   * daquele campo, não daqui: ele já existe, e duplicá-lo seria criar a chance
+   * de o cartão dizer um nome em cima da foto e outro embaixo dela.
+   *
+   * É UM ARRAY PORQUE AS QUEBRAS SÃO DO DESENHO, não do acaso da largura:
+   * "BIGGER / PERSPECTIVE / BOLDER LEADERSHIP" tem três linhas, e as duas
+   * primeiras cabem folgadas numa linha só. Uma string única com `text-balance`
+   * entregaria "BIGGER PERSPECTIVE / BOLDER LEADERSHIP" e perderia o ritmo de
+   * três tempos que as três fotos repetem.
+   *
+   * ⏳ SÓ O SENIOR LEADERSHIP DEVELOPMENT TEM. Ausente = a foto fica sem a
+   * sobreposição de baixo, e só com o rótulo em cima.
+   */
+  credential?: string[];
 };
 
 /**
@@ -589,18 +606,26 @@ export const services: Service[] = [
         title: "Align. Decide. Deliver.",
         body: "We help Executive Teams build collective leadership, stronger decision quality and the capability to lead transformation together.",
         image: "/services/audiences/sld-executive-teams.jpg",
+        credential: ["Collective", "clarity", "Greater impact"],
       },
       {
         label: "SLT / ET-1",
         title: "From functional to enterprise leadership.",
         body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership — leading across boundaries, influencing horizontally and translating strategy into execution.",
         image: "/services/audiences/sld-slt-et1.jpg",
+        credential: ["Bigger", "perspective", "Bolder leadership"],
       },
       {
         label: "Top 100 – 150 leaders",
         title: "A stronger leadership community.",
         body: "We build leadership communities with a shared language, stronger judgement and the habits required to lead consistently at scale.",
         image: "/services/audiences/sld-top-100-150.jpg",
+        /* "JUDGEMENT" COM E, e a escolha é deliberada: o recorte que ela mandou
+           em 21-09 escreve assim, e o PARÁGRAFO deste mesmo cartão já dizia
+           "stronger judgement". O mockup anterior trazia "JUDGMENT" sem o e — a
+           grafia americana —, e seguir aquele deixaria a mesma palavra escrita
+           de dois jeitos dentro de um cartão de três linhas. */
+        credential: ["Greater", "judgement", "Lasting impact"],
       },
     ],
     /* ✅ O FECHO CENTRADO, transcrito do mockup de 21-09. É a última coisa que o

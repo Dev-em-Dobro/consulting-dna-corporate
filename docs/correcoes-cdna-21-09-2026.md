@@ -101,11 +101,22 @@ is copy from you, not code from us.
 - The three cards have the same background. Your mockup looks as though the first is white, but
   sampled pixel by pixel all three measure the same tone.
 
-**The three card photographs are in.** The boardroom at sunset sits on Executive Teams, the
-meeting on SLT / ET-1, and the audience on Top 100 - 150. They are cropped from the centre, and
-we checked the arithmetic rather than assuming: the frame is slightly wider than the files, so
-it trims about 11% of the height, and in all three the highest head sits well inside what
-remains. Nobody is cut.
+**The three card photographs are in, with the wording on them.** The boardroom at sunset sits on
+Executive Teams, the meeting on SLT / ET-1, and the audience on Top 100 - 150. Each carries the
+audience name at the top left and the three words at the bottom right, as in the crop you sent.
+
+They are cropped from the centre, and we checked the arithmetic rather than assuming: the frame
+is slightly wider than the files, so it trims about 11% of the height, and in all three the
+highest head sits well inside what remains. Nobody is cut.
+
+The photographs are darkened slightly at the top and bottom edges only, which is what keeps the
+white wording readable. The middle is left alone, because that is where the faces are. Two lines
+need it: the Executive Teams name falls across the sunset window, and the SLT credential falls
+across a pale shoulder.
+
+**One spelling note.** The wording reads "judgement". Your crop spells it that way and so does
+the paragraph on that same card; the earlier drawing had "judgment" without the e, and following
+it would have put the same word two ways inside one card.
 
 **The second image was found, and it changes the row under How we work.** Your note mentions two
 drawings, and the second one was in the folder all along under a different name. It frames the

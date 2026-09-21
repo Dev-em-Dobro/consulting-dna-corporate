@@ -100,6 +100,74 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                     {a.label}
                   </span>
                 )}
+
+                {/* ⬅ AS DUAS SOBREPOSIÇÕES — 21-09, do recorte que ela mandou: o
+                    rótulo no canto superior esquerdo e as três palavras no
+                    inferior direito, brancas sobre a fotografia.
+
+                    ⚠️ SÓ COM FOTO. Sem `image` o quadro é o campo de cor, e ele
+                    JÁ escreve o rótulo como marca d'água — desenhar a
+                    sobreposição por cima dele seria o mesmo texto duas vezes no
+                    mesmo quadro, uma delas ilegível sobre a outra.
+
+                    O RÓTULO É `aria-hidden` E A CREDENCIAL NÃO, e a diferença é
+                    de conteúdo, não de estilo: o rótulo se repete logo abaixo da
+                    foto, em vermelho, e anunciá-lo duas vezes faria o leitor de
+                    tela dizer "Executive teams, Executive teams". As três
+                    palavras não existem em nenhum outro lugar do cartão —
+                    escondê-las seria perder conteúdo. */}
+                {a.image ? (
+                  <>
+                    {/* O ESCURECIMENTO É O QUE GARANTE O CONTRASTE, e ele nasce
+                        nas DUAS pontas porque é nas duas que há texto. O miolo
+                        fica limpo (`transparent` dos 32% aos 58%), que é onde
+                        moram os rostos das três fotos — um véu chapado sobre a
+                        imagem inteira apagaria justamente o que ela mostra.
+
+                        SEM ELE O BRANCO NÃO SE SUSTENTA em duas das três: o
+                        rótulo da sala de reunião cai sobre a janela ao pôr do
+                        sol, e a credencial da mulher falando cai sobre o ombro
+                        claro do homem à direita. No recorte dela essas duas
+                        linhas já são as mais fracas. */}
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(38,36,37,.55)_0%,rgba(38,36,37,.12)_32%,rgba(38,36,37,.12)_58%,rgba(38,36,37,.62)_100%)]"
+                    />
+                    <span
+                      aria-hidden
+                      /* A MEDIDA VEM DO RECORTE: no desenho "EXECUTIVE TEAMS"
+                         ocupa ~45% da largura do cartão, o que a 437px (a medida
+                         do cartão a 1440) dá ~16px com 1,5px de entreletra.
+                         Abaixo de `lg` o cartão cai para ~181px e o rótulo mais
+                         longo ("Top 100 – 150 leaders", 21 caracteres) não cabe
+                         em 16px — daí os dois degraus. Ele pode quebrar em duas
+                         linhas nas telas estreitas, e quebrar é melhor que
+                         transbordar. */
+                      className="absolute left-0 top-0 p-4 text-[12px] font-bold uppercase leading-[1.25] tracking-[1.5px] text-white sm:text-[13px] lg:p-5 lg:text-[16px]"
+                    >
+                      {a.label}
+                    </span>
+                    {a.credential && a.credential.length > 0 ? (
+                      <span
+                        /* `text-right` E ALINHADO À DIREITA: as três linhas têm
+                           comprimentos bem diferentes ("Bigger" contra "Bolder
+                           leadership"), e é a borda direita comum que as faz ler
+                           como um bloco em vez de três frases soltas. */
+                        className="absolute bottom-0 right-0 p-4 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[1.5px] text-white lg:p-5 lg:text-[11px]"
+                      >
+                        {a.credential.map((line) => (
+                          /* Uma linha por `<span>` em bloco, e não `<br/>`: o
+                             leitor de tela lê as três como uma sequência, e a
+                             quebra continua sendo do desenho em vez de depender
+                             da largura disponível. */
+                          <span key={line} className="block">
+                            {line}
+                          </span>
+                        ))}
+                      </span>
+                    ) : null}
+                  </>
+                ) : null}
               </div>
 
               <div className="flex flex-1 flex-col p-7 md:p-8">
