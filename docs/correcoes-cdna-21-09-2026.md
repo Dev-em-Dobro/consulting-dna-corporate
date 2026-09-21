@@ -7,6 +7,7 @@ still waiting on your side.
 Four things below need a decision from you rather than more work from us: the **Brandon Hall
 artwork** (section 1), the **photographs** (section 2), the **copy for the other nine service
 pages** (section 5), and whether **Events replaces Books or sits alongside it** (section 8).
+Section 5 also has one new question: how much of your second services drawing to apply.
 
 ## 1. Home — the hero and the awards
 
@@ -77,9 +78,10 @@ say so and we will do it properly, with a redirect from the old one.
 
 ## 5. Service pages — the new internal layout
 
-The internal service page is rebuilt on the mockup you sent. Six pieces, top to bottom: the
-hero, "What we do" in two columns, the three audience cards, "How we work" in two columns, the
-row of eight practices, and the centred closing line.
+The internal service page is rebuilt on the two drawings you sent. Five pieces, top to bottom:
+the hero, "What we do" in two columns, the three audience cards, the strip of practices, and the
+line that leads into the case study. The first drawing gave us the first three; the second one,
+covered further down, replaced everything after them.
 
 **Only Senior Leadership Development has the new copy** — it is the one your mockup draws. The
 other nine service pages now use the new layout with the text they already had, and the two
@@ -87,10 +89,6 @@ blocks that have no text simply do not appear. Nothing is broken, but there is a
 would rather name than hide: **on those nine, the heading "What we do" currently sits above a
 paragraph that describes an outcome.** That is the wrong label over the right words, and the fix
 is copy from you, not code from us.
-
-**The row of practices has eight items in your mockup and five on our pages.** Those five are
-pulled from the sentence in your own services document; three of your eight — "Leadership
-experiments", "Everyday habits", "Measurement" — do not appear in any sentence we hold.
 
 **Two places where we knowingly differ from the drawing:**
 
@@ -100,10 +98,28 @@ experiments", "Everyday habits", "Measurement" — do not appear in any sentence
 - The three cards have the same background. Your mockup looks as though the first is white, but
   sampled pixel by pixel all three measure the same tone.
 
-**The second image never arrived.** Your note mentions two; only one is in the folder. The
-evidence block, the closing invitation and Related Services are therefore still on the page from
-earlier decisions, and are marked in our code as *not drawn* so nobody mistakes them for
-approved.
+**The second image was found, and How we work is built from it.** Your note mentions two
+drawings, and the second one was in the folder all along under a different name. The section
+called "How we work" is now what that drawing shows: the two-column block and the eight icons
+are gone, replaced by the short strip of practices and the "Featured case study" line that leads
+into the case.
+
+**We changed only that section.** The same drawing also redraws the block above it, with a
+different label, headline and card copy, and with a label and a three-word credential sitting on
+each photograph. We left that alone because the instruction named one section, and the rest is a
+larger change we would rather you ask for than assume. **Say the word and it is a short job.**
+
+The closing statement, "Different organisations. Different transformations.", no longer appears
+on that page. Your drawing puts the case study line in its slot. The words are still held and
+come back the moment you want them somewhere else.
+
+**One debt cleared itself.** The first drawing asked for eight practices where we had five, and
+three of yours appeared in none of your sentences. Your second drawing shortened the row to
+three, so the gap is gone.
+
+Everything after the case study line is still outside both drawings: the invitation and Related
+Services. They are on the page from earlier decisions and are marked in our code as *not drawn*
+so nobody mistakes them for approved.
 
 ## 6. About
 
@@ -168,12 +184,12 @@ you moving it, not removing it.
 2. **Higher-resolution originals** for two life-at-DNA photographs, or permission to drop them.
    Plus your call on the collage, the three with YPO branding, and the one showing backs of
    heads.
-3. **Copy for the other nine service pages** — the "What we do" and "How we work" blocks, the
-   three audiences and the closing line. Photographs for the three audience cards.
-4. **The eight practices as a sentence**, so the row can carry all eight.
-5. **Events content.**
-6. **Confirmation** that Events replaces Books in the menu.
-7. **Three short approvals** on wording we wrote where you had none: the Events page title, the
+3. **Copy for the other nine service pages** — the introduction blocks, the three audiences, the
+   practices strip and the closing line. Photographs for the three audience cards.
+4. **Events content.**
+5. **Confirmation** that Events replaces Books in the menu.
+6. **Three short approvals** on wording we wrote where you had none: the Events page title, the
    books section heading on Insights, and the Insights browser title.
-8. **The second services mockup**, which did not arrive.
-9. **Your call** on whether the Senior Leadership Development web address should change too.
+7. **Your call** on whether the Senior Leadership Development web address should change too.
+8. **Whether to apply the rest of your second drawing** — the new label, headline and card copy
+   above the practices strip, and the label and credential on each card photograph.
