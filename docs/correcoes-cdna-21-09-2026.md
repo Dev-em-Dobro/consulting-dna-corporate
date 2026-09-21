@@ -114,6 +114,15 @@ white wording readable. The middle is left alone, because that is where the face
 need it: the Executive Teams name falls across the sunset window, and the SLT credential falls
 across a pale shoulder.
 
+**The icon and the red label under each photograph are gone**, as asked. They were saying, thirty
+pixels below the picture, the same name the picture already carries. Each card now opens straight
+into its heading.
+
+One consequence worth recording: that red label was the only version of the audience name a
+screen reader could hear, because the one on the photograph was deliberately hidden from it to
+avoid saying the name twice. With the label gone, the one on the photograph was unhidden in the
+same change. Nothing is lost to anyone.
+
 **One spelling note.** The wording reads "judgement". Your crop spells it that way and so does
 the paragraph on that same card; the earlier drawing had "judgment" without the e, and following
 it would have put the same word two ways inside one card.

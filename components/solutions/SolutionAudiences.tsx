@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Users } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import type { ServiceAudience } from "@/lib/services";
 
@@ -134,8 +133,14 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                       className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(38,36,37,.55)_0%,rgba(38,36,37,.12)_32%,rgba(38,36,37,.12)_58%,rgba(38,36,37,.62)_100%)]"
                     />
                     <span
-                      aria-hidden
-                      /* A MEDIDA VEM DO RECORTE: no desenho "EXECUTIVE TEAMS"
+                      /* ⚠️ NÃO É MAIS `aria-hidden`, desde 21-09. Era, enquanto
+                         o rótulo vermelho abaixo da foto repetia este texto;
+                         aquele bloco saiu a pedido (ver a caixa na coluna de
+                         texto), e este virou a ÚNICA ocorrência do nome do
+                         público no cartão. Escondê-lo agora seria apagar
+                         "Executive teams" para quem usa leitor de tela.
+
+                         A MEDIDA VEM DO RECORTE: no desenho "EXECUTIVE TEAMS"
                          ocupa ~45% da largura do cartão, o que a 437px (a medida
                          do cartão a 1440) dá ~16px com 1,5px de entreletra.
                          Abaixo de `lg` o cartão cai para ~181px e o rótulo mais
@@ -171,56 +176,48 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
               </div>
 
               <div className="flex flex-1 flex-col p-7 md:p-8">
-                <div className="flex items-center gap-4">
-                  {/* ⚠️ O MESMO ÍCONE NOS TRÊS, e é o que o desenho mostra — o
-                      grupo de três pessoas, em vermelho, nos três cartões. Não
-                      há mapa rótulo → ícone aqui como há em `SolutionPillars`
-                      porque não há o que mapear: os três cartões falam de
-                      POPULAÇÕES de liderança, e a cliente escolheu dizer isso
-                      com um símbolo só, repetido. Inventar três ícones
-                      diferentes seria afirmar uma distinção que o desenho
-                      recusa.
+                {/* ⛔ O ÍCONE E O RÓTULO VERMELHO SAÍRAM DAQUI EM 21-09, a pedido:
+                    *"aquela parte que tem o Executive Teams e o logo pode tirar
+                    das 3 caixas"*.
 
-                      ⚠️ `size` NÃO É A ALTURA DO DESENHO. O lucide compõe dentro
-                      de um quadro 24×24 com folga, e o `Users` ocupa uns 16 dos
-                      24 em altura — ou seja, `size={44}` põe na tela um traçado
-                      de ~29px. No arquivo o ícone mede 30×24 a 866, o que a 1440
-                      daria ~40px de traçado, e o `size` equivalente seria 60.
-                      Ficou em 44 porque a 60 o ícone passa a pesar mais que o
-                      título do cartão — o desenho dela tem o ícone GRANDE, não
-                      dominante, e 60 cruza essa linha. Traço 1.5, o mesmo dos
-                      pilares. `aria-hidden` porque o rótulo ao lado diz a mesma
-                      coisa. */}
-                  <Users
-                    aria-hidden
-                    size={44}
-                    strokeWidth={1.5}
-                    className="shrink-0 text-brand"
-                  />
-                  <div>
-                    <p className="text-[12px] font-medium uppercase leading-none tracking-[1.3px] text-brand">
-                      {a.label}
-                    </p>
-                    {/* O TRAÇO EMBAIXO DO RÓTULO, e não ao lado dele como no
-                        herói: no herói a régua e o rótulo formam uma linha só, e
-                        aqui o lugar à esquerda já é do ícone. No arquivo ele
-                        mede 26px de largura por 2 de altura, a 866 — uns 43×3 a
-                        1440 —, começando no mesmo x do rótulo. `w-10` (40) é o
-                        degrau mais próximo na escala.
+                    O QUE OS TORNOU DISPENSÁVEIS foi a sobreposição na foto,
+                    feita horas antes: o nome do público passou a viver no canto
+                    superior esquerdo da imagem, então o rótulo aqui embaixo
+                    dizia pela segunda vez, a 30px de distância, o que a foto já
+                    dizia. O cartão agora abre direto no título em serifa.
 
-                        `bg-brand/40` e não `bg-brand` cheio: no desenho este
-                        filete é visivelmente mais claro que a letra do rótulo.
-                        Ele é pontuação, não acento — se sair na cor cheia,
-                        disputa com o ícone e com o título. */}
-                    <span aria-hidden className="mt-2 block h-0.5 w-10 bg-brand/40" />
-                  </div>
-                </div>
+                    O QUE SAIU, para quem precisar reverter: o ícone `Users` do
+                    lucide a `size={44}` e traço 1.5 (o mesmo símbolo nos três,
+                    porque é o que o desenho mostra — três ícones diferentes
+                    afirmariam uma distinção que ele recusa), o `<p>` do rótulo em
+                    `text-brand` com 1,3px de entreletra, e o filete de 40x2 em
+                    `bg-brand/40` abaixo dele. O `import { Users }` saiu junto.
+
+                    ⚠️ ISSO MUDOU A ACESSIBILIDADE DA FOTO, e as duas coisas têm
+                    de andar juntas: o rótulo sobreposto era `aria-hidden`
+                    justamente porque este aqui o repetia. Sem este, aquele é a
+                    ÚNICA ocorrência do nome do público no cartão — mantê-lo
+                    escondido apagaria "Executive teams" para quem usa leitor de
+                    tela. O `aria-hidden` de lá saiu no mesmo commit.
+
+                    ⚠️ E DEIXOU O CARTÃO SEM RÓTULO QUANDO NÃO HÁ FOTO. Hoje isso
+                    não acontece — o único serviço com `audiences` tem as três
+                    fotografias —, mas um serviço novo com `audiences` e sem
+                    `image` cairia no campo de cor, que escreve o rótulo como
+                    marca d'água a 15% de opacidade: decorativo, não legível. Se
+                    esse caso aparecer, o conserto é devolver o rótulo AQUI só
+                    para ele, não para os três. */}
 
                 {/* `h3` — ver a caixa no topo do arquivo sobre a escada de
                     cabeçalhos. 26px a 1440 é a medida do arquivo: as duas linhas
                     do cartão do meio distam 19px a 866, o que dá 32px de
                     entrelinha a 1440 e, com `leading-[1.2]`, uma fonte de ~26. */}
-                <h3 className="mt-6 font-serif text-[22px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[26px]">
+                {/* SEM `mt-6`: aquele respiro separava o título do rótulo que
+                    saiu. Agora o `h3` é a primeira coisa da caixa, e o
+                    afastamento do topo é o `p-7 md:p-8` do próprio contêiner —
+                    somar os dois abriria um vazio de 52px entre a foto e a
+                    primeira letra. */}
+                <h3 className="font-serif text-[22px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[26px]">
                   {a.title}
                 </h3>
                 <p className="mt-4 font-serif text-[16px] leading-[1.6] text-muted">
