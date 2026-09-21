@@ -1,6 +1,8 @@
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
+import SolutionAudiences from "@/components/solutions/SolutionAudiences";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
+import SolutionClosing from "@/components/solutions/SolutionClosing";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
@@ -10,15 +12,48 @@ import { headlineOr, paragraphs, services, type Service } from "@/lib/services";
 /**
  * O template de página de serviço — "one template, ten instances".
  *
- * A ORDEM É A DO TEMPLATE DELA, e hoje é esta:
+ * A ORDEM É A DO MOCKUP DELA, e hoje é esta:
  *
  *   1. Hero            — nome, banner statement, imagem
- *   2. Impact          — o que muda no negócio      (era "The Outcome")
- *   3. How we help     — a intervenção              (era "How CDNA Helps")
- *   4. Pilares         — os termos da frase acima, com ícone
- *   5. Evidence        — o caso-carro-chefe, seus números e a citação
- *   6. Let's talk      — o convite, POR SERVIÇO
- *   7. Related services — quatro cards, do template dela
+ *   2. What we do      — manchete, fio, corpo        (era "Impact")
+ *   3. Cartões de público — a quem o serviço se destina        ⬅ novo, 21-09
+ *   4. How we work     — manchete, fio, corpo        (era "How we help")
+ *   5. Fileira de ícones — os termos da frase acima, divididos por filetes
+ *   6. Fecho centrado  — a assinatura de duas linhas            ⬅ novo, 21-09
+ *   ── daqui para baixo o desenho acaba ────────────────────────────────────
+ *   7. Evidence        — o caso-carro-chefe, seus números e a citação
+ *   8. Let's talk      — o convite, POR SERVIÇO
+ *   9. Related services — quatro cards, do template de 15-09
+ *
+ * ============================================================================
+ * ⚠️ O RE-LAYOUT DE 21-09, E ONDE ELE PARA
+ * ============================================================================
+ *
+ * Pedido por email: *"Services internal — Re-layout the internal with the image
+ * nova-pagina-interna-servicoes.jpg inside meetings folder"*. A imagem está em
+ * `docs/meetings/` e desenha UM dos dez serviços — o Senior Leadership
+ * Development, que até 21-09 se chamava Top 150.
+ *
+ * ⚠️ O DESENHO TERMINA NO FECHO CENTRADO. O mockup vai do herói até "Different
+ * organisations. Different transformations. / Leadership that makes it happen."
+ * e acaba ali: evidência, convite e "Related services" NÃO APARECEM nele. Os
+ * três continuam na página porque saíram de pedidos anteriores que ninguém
+ * desfez — mas ficam formalmente SEM REFERÊNCIA VISUAL, e é assim que devem ser
+ * apresentados na revisão, em vez de passarem por aprovados junto com o resto.
+ *
+ * ⚠️ FALTA A SEGUNDA IMAGEM. A anotação da daily diz *"mudar o layout para as
+ * imagens que a maliha mandou no drive; são duas imagens diferentes"*, e só uma
+ * chegou ao repositório — a pasta `docs/meetings/MALIHA-ATUALIZACA0-15-09` está
+ * vazia. É plausível que a segunda desenhe justamente o pé da página, mas isso
+ * é palpite: nada aqui foi construído em cima dele.
+ *
+ * ⏳ O CONTEÚDO NOVO EXISTE EM UM SERVIÇO SÓ. Os cartões de público, o fecho e a
+ * copy de "What we do"/"How we work" estão escritos em letra no mockup, e
+ * portanto só valem para o serviço que ele desenha. Nos outros nove: os dois
+ * blocos de duas colunas caem na copy do `CDNA_03_Services.docx` que já tinham
+ * (mudou o rótulo em cima, não o texto), e os dois blocos novos simplesmente não
+ * renderizam. As guardas estão em cada componente; a contagem do que falta pedir
+ * está em `lib/services.ts`.
  *
  * ⚠️ O CONVITE VOLTOU PARA O FIM EM 16-09, E ISSO DESFAZ UM PEDIDO DELA DE
  * 15-09 — leia isto antes de "corrigir" a ordem de volta. Em 15-09 ela pediu o
@@ -43,7 +78,10 @@ import { headlineOr, paragraphs, services, type Service } from "@/lib/services";
  * em `SolutionEvidence`.
  *
  * Os dois rótulos encurtaram em 15-09, seguindo os cabeçalhos da planilha dela
- * ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP").
+ * ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP") — e em 21-09 trocaram de vez
+ * para "What we do" e "How we work", que é o que o mockup novo escreve. A caixa
+ * logo acima dos dois `SolutionSection`, mais abaixo neste arquivo, guarda o
+ * porquê e o que a troca custou em coerência de rótulo nos outros nove.
  *
  * O CONTEÚDO VEM DE `lib/services.ts`, não do CMS — o porquê está na caixa de
  * abertura daquele arquivo. Aqui isso aparece em duas coisas: os blocos de
@@ -66,6 +104,23 @@ export default function SolutionView({ service }: { service: Service }) {
            sobre por que os caminhos não foram renomeados atrás dos rótulos. */
         eyebrow="Our Services"
         title={service.title}
+        /* ⚠️ A LINHA DE APOIO DO MOCKUP DE 21-09 NÃO É ESTA, e ficamos com esta
+           de propósito. O desenho escreve *"For the leaders who shape what comes
+           next."*; aqui sai a `banner`, que é *"Build enterprise leaders who lead
+           beyond their function and geography into collective leadership at
+           scale."* — a banner statement que o `CDNA_03_Services.docx` e o
+           `WEBSITE SERVICE COPY.xlsx` marcam como FINAL.
+
+           É a mesma régua que o `ServiceCard` já aplica ao card do índice, pela
+           mesma razão: frase escrita em mockup sem fonte em documento nenhum é
+           reescrita solta, e trocar a copy final por ela seria decidir copy no
+           lugar da cliente. As três frases NOVAS que entraram deste mockup (os
+           cartões de público, o fecho e o corpo dos dois blocos) passaram porque
+           não existia copy anterior para aquelas peças — aqui existe, e ela é
+           final. Se ela quiser a do desenho, é uma linha em `lib/services.ts`.
+
+           ⚠️ O HERÓI É O ÚNICO PONTO EM QUE A PÁGINA DIVERGE DO MOCKUP EM
+           PALAVRAS. Convém dizer isso na revisão antes que ela note sozinha. */
         subtitle={service.banner}
         /* A MESMA FOTO DO CARD DA LISTAGEM, pedida em 17-09. Até aqui as dez
            páginas de dentro dividiam a `service-hero-fallback.jpg` — uma foto
@@ -119,27 +174,42 @@ export default function SolutionView({ service }: { service: Service }) {
           conteúdo sem mudar de medida. Ver `docs/mensagem-grupo-fotos-servicos-
           11-09.ENVIAR.txt`, onde isso foi pedido ao cliente como sugestão de
           desenho e não como pendência de lançamento. */}
-      {/* ── Blocos 1 e 2 · Impact e How we help ────────────────────────
+      {/* ── Blocos 1 e 2 · What we do e How we work ────────────────────
           ⚠️ REFEITOS EM 17-09 no arranjo do template dela (`4. Services/ExCo
           Leadership Services Page.png`): rótulo em cima, MANCHETE à esquerda,
           fio vertical, CORPO à direita. O desenho e o que foi deixado de fora
           estão no cabeçalho do `SolutionSection`; aqui fica só o que é decisão
           DESTA página.
 
-          ⚠️ OS RÓTULOS CONTINUAM "IMPACT" E "HOW WE HELP", e o template diz
-          "THE OUTCOME" e "HOW CORPORATEDNA HELPS". Não é descuido: os nomes
-          curtos são pedido DELA, de 15-09, e seguem os cabeçalhos da planilha
-          ("IMPACT OF THE WORK", "WHAT CDNA DOES TO HELP"). O template é de
-          15-09 também, e portanto empatado em data — mas um é instrução direta
-          e o outro é um desenho, e instrução ganha de desenho. Se ela quiser os
-          longos de volta, são duas strings.
+          ⚠️ O ARRANJO SOBREVIVEU AO RE-LAYOUT DE 21-09 — o mockup novo desenha a
+          mesma caixa de duas colunas —, mas OS RÓTULOS TROCARAM: "Impact" virou
+          "What we do" e "How we help" virou "How we work", que é o que o
+          desenho escreve.
+
+          A HISTÓRIA DOS NOMES, porque ela já foi longa e não se apaga: os
+          rótulos curtos "Impact" e "How we help" eram pedido DELA, de 15-09,
+          contra o template do mesmo dia que dizia "THE OUTCOME" e "HOW
+          CORPORATEDNA HELPS"; a regra aplicada então foi "instrução ganha de
+          desenho". Em 21-09 o pedido POR ESCRITO é o próprio desenho — *"re-
+          layout the internal with the image"* —, então desta vez os dois
+          apontam para o mesmo lado e não há conflito para arbitrar.
+
+          ⚠️ "IMPACT" NÃO FOI SÓ RENOMEADO, ele MUDOU DE ASSUNTO no serviço que o
+          mockup desenha. Lá o bloco fala de com quem a CDNA trabalha e de como a
+          jornada é desenhada — não do que muda no negócio. Por isso a copy nova
+          entrou como campo próprio (`whatWeDo`) em vez de sobrescrever o
+          `outcome`: nos outros nove o `outcome` continua sendo o corpo deste
+          bloco, agora sob um rótulo que não o descreve bem. É dívida de
+          CONTEÚDO, está anotada na caixa de `whatWeDo` em `lib/services.ts`, e
+          o conserto é a cliente escrever o "what we do" dos outros nove.
 
           ⏳ A MANCHETE NÃO EXISTIA NO NOSSO DADO. O documento de Services dá o
           CORPO dos dois blocos (`outcome`, `howWeHelp`) e nada mais; a frase
-          grande da esquerda é um campo novo. Só o Top 150 tem as duas de
-          verdade, porque o template desenha justamente ele e as escreve em
-          letra. Nos outros nove entra o placeholder — `headlineOr` e a caixa do
-          `HEADLINE_PLACEHOLDER`, em `lib/services.ts`, contam quantas faltam.
+          grande da esquerda é um campo novo. Só o Senior Leadership Development
+          tem as duas de verdade, porque os dois mockups desenham justamente ele
+          e as escrevem em letra. Nos outros nove entra o placeholder —
+          `headlineOr` e a caixa do `HEADLINE_PLACEHOLDER`, em `lib/services.ts`,
+          contam quantas faltam.
 
           O QUE SUMIU COM A REESCRITA, e por que não se procura mais por isso
           neste arquivo: os dois blocos eram faixas de meia tela com um CAMPO DE
@@ -149,35 +219,66 @@ export default function SolutionView({ service }: { service: Service }) {
           16-09) conforme o CTA subia e descia na página. Sem painéis, a regra
           não tem sobre o que decidir. Está tudo no git.
 
-          A SEQUÊNCIA DE FUNDOS DE HOJE: herói `ink` → branco (Impact) → paper
-          (How we help) → paper (pilares) → ink (evidência) → `brand` (CTA) →
-          branco (related). O How we help e os pilares dividem a MESMA faixa
-          `paper`, sem emenda entre eles, que é exatamente o que o template
-          mostra.
+          A SEQUÊNCIA DE FUNDOS DE HOJE: herói `ink` → branco (What we do +
+          cartões) → paper (How we work + ícones) → branco (fecho) → `ink`
+          (evidência) → `brand` (CTA) → branco (related). Os pares que dividem
+          faixa — bloco + cartões, bloco + ícones — não têm emenda entre si, que
+          é exatamente o que o mockup de 21-09 mostra, e os três primeiros
+          degraus foram CONFERIDOS PIXEL A PIXEL no arquivo (#fefefe até o pé dos
+          cartões, #f7f3f0 dali até o fim dos ícones, branco de novo no fecho).
 
-          ⚠️ A EVIDÊNCIA PASSOU DE BRANCO A `paper` EM 18-09, a pedido na daily,
-          e com isso são TRÊS faixas `paper` seguidas (How we help → pilares →
-          evidência), sem um branco entre os pilares e a evidência para marcar a
-          troca de assunto. Os pilares NÃO foram mexidos de propósito: o pedido
-          foi só sobre a evidência, e cabe a ela decidir se quer os pilares em
-          branco para devolver a alternância. A altura do CTA também encolheu
-          nessa data, e SÓ nesta página: é a prop `compact` do `SolutionCta`,
-          passada logo abaixo. */}
+          ⚠️ A CAIXA ANTERIOR DESCREVIA A EVIDÊNCIA COMO `paper` E ELA ESTÁ
+          `ink` DESDE 18-09 (`SolutionEvidence`, linha do `<section>`). O erro
+          era de registro, não de tela, e ficou três dias. Corrigido aqui em
+          21-09 — quem for conferir a sequência de fundos confere no componente,
+          não nesta lista.
+
+          ✅ E COM ISSO O FECHO GANHOU UMA SEGUNDA FUNÇÃO: ele é branco e cai
+          entre a faixa papel dos ícones e a faixa `ink` da evidência, de modo
+          que a página passa a alternar claro/escuro em vez de saltar de papel
+          para tinta. Não foi por isso que ele entrou — entrou porque o mockup o
+          desenha —, mas é o que se perde se alguém o remover por achá-lo
+          redundante com o CTA.
+
+          A altura do CTA encolheu em 18-09, e SÓ nesta página: é a prop
+          `compact` do `SolutionCta`, passada logo abaixo. */}
+      {/* ⚠️ O `??` É A GUARDA DOS OUTROS NOVE, e é ele que faz este re-layout
+          caber num serviço só sem apagar os outros: quem tem a copy nova do
+          mockup mostra a copy nova; quem não tem continua mostrando a do
+          `CDNA_03_Services.docx`, que nunca deixou de ser publicável. Ver as
+          caixas de `whatWeDo` e `howWeWork` em `lib/services.ts`. */}
       <SolutionSection
-        label="Impact"
-        headline={headlineOr(service.outcomeHeadline)}
-        html={paragraphs(service.outcome)}
+        label="What we do"
+        headline={headlineOr(service.whatWeDoHeadline ?? service.outcomeHeadline)}
+        html={paragraphs(service.whatWeDo ?? service.outcome)}
         tone="white"
       />
 
+      {/* ⬅ NOVO EM 21-09. Divide a faixa BRANCA com o bloco acima, sem emenda —
+          no mockup os três cartões pertencem visivelmente ao "What we do". Nos
+          nove serviços sem `audiences` isto não renderiza e a página segue
+          direto do primeiro bloco para o segundo, como antes. */}
+      <SolutionAudiences items={service.audiences} />
+
       <SolutionSection
-        label="How we help"
-        headline={headlineOr(service.howWeHelpHeadline)}
-        html={paragraphs(service.howWeHelp)}
+        label="How we work"
+        headline={headlineOr(service.howWeWorkHeadline ?? service.howWeHelpHeadline)}
+        html={paragraphs(service.howWeWork ?? service.howWeHelp)}
         tone="paper"
+        /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da largura e
+           o do bloco de cima cai quase no meio — medido no arquivo, ver a caixa
+           da prop `split` em `SolutionSection`. A manchete daqui tem duas linhas
+           e a de cima tem três; a divisão acompanha o conteúdo. */
+        split="body"
       />
 
       <SolutionPillars items={service.pillars} />
+
+      {/* ⬅ NOVO EM 21-09, e é ONDE O DESENHO DELA TERMINA. Tudo o que vem depois
+          — evidência, convite, related services — está fora do mockup; ver a
+          caixa de abertura deste arquivo. O fecho volta ao BRANCO depois da
+          faixa papel dos ícones, que é o que o arquivo mostra. */}
+      <SolutionClosing closing={service.closing} />
 
       {/* ⚠️ A CITAÇÃO AGORA DEPENDE DA EVIDÊNCIA. Ela é a terceira coluna desta
           faixa desde 16-09, então serviço com citação e sem evidência não

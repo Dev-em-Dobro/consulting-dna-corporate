@@ -38,8 +38,46 @@ import {
 import Reveal from "@/components/Reveal";
 
 /**
- * A faixa de pilares sob o bloco "How we help" — os cartões com ícone do
- * template de 15-09 (`4. Services/ExCo Leadership Services Page.png`).
+ * A faixa de pilares sob o bloco "How we work" — hoje, a FILEIRA DE ÍCONES
+ * SEPARADOS POR FILETES do mockup de 21-09 (`docs/meetings/nova-pagina-interna-
+ * servicoes.jpg`), pedido por email: *"Services internal — Re-layout the
+ * internal with the image nova-pagina-interna-servicoes.jpg inside meetings
+ * folder"*.
+ *
+ * ============================================================================
+ * ⚠️ O QUE O RE-LAYOUT DE 21-09 MUDOU AQUI
+ * ============================================================================
+ * A faixa já era ícone + rótulo centrados sobre `paper`, e continua sendo. O
+ * que mudou é que os itens deixaram de flutuar numa grade solta e passaram a
+ * ser COLUNAS DE UMA FILEIRA SÓ, divididas por filetes verticais de altura
+ * cheia — no arquivo de 866px há sete filetes (x=111, 208, 314, 393, 492, 601,
+ * 722) para oito itens, e nenhum antes do primeiro nem depois do último.
+ *
+ * ⚠️ O DESENHO TEM OITO ITENS E O NOSSO DADO TEM CINCO, e isso é decisão de
+ * CONTEÚDO, não um layout que não coube. O mockup lista "Immersions · Live
+ * business challenges · Mastery Labs · Coaching · Peer learning · Leadership
+ * experiments · Everyday habits · Measurement"; três desses não existem na
+ * frase de `howWeHelp` de serviço nenhum, e os `pillars` são, por regra, as
+ * palavras dessa frase. O raciocínio inteiro e o caminho de volta estão na
+ * caixa de `pillars` do Senior Leadership Development, em `lib/services.ts`.
+ *
+ * ⚠️ AS LARGURAS DO DESENHO SÃO DESIGUAIS (de 73 a 121px a 866, conforme o
+ * rótulo) e aqui as colunas são IGUAIS. Foi escolha: com colunas de conteúdo,
+ * "Coaching" fica com metade da largura de "Leadership experiments" e os
+ * filetes param de marcar um ritmo — viram um acaso do texto. Numa fileira de
+ * quatro a seis itens, que é o que os dez serviços têm, a grade igual é o que
+ * mais se parece com o desenho.
+ *
+ * Abaixo do `lg` a fileira quebra em duas ou três colunas e OS FILETES SOMEM.
+ * Não é omissão: `divide-x` põe borda em todo filho menos o primeiro, e numa
+ * grade de duas linhas isso desenha um traço órfão no começo da segunda linha,
+ * onde não há vizinho à esquerda para separar. Um filete que separa um item do
+ * nada é pior do que nenhum.
+ *
+ * A HISTÓRIA ANTERIOR DESTA FAIXA, que continua valendo:
+ *
+ * A faixa nasceu dos cartões com ícone do template de 15-09 (`4. Services/ExCo
+ * Leadership Services Page.png`).
  *
  * ⚠️ O ÍCONE SUBSTITUIU O NUMERAL EM 16-09, a pedido interno, e a caixa antiga
  * dizia o contrário — fica o registro de por que ela caiu. O argumento de então
@@ -57,8 +95,10 @@ import Reveal from "@/components/Reveal";
  * existe em nenhuma outra página. Se ela pedir as cores do mockup, é trocar a
  * classe por uma cor no mapa.
  *
- * ⚠️ `bg-paper` PARA CONTINUAR O BLOCO DE CIMA, que é o "How we help" e também é
- * paper. Aqui as duas faixas encostadas são o efeito desejado: a lista pertence
+ * ⚠️ `bg-paper` PARA CONTINUAR O BLOCO DE CIMA, que é o "How we work" e também é
+ * paper — e o mockup de 21-09 confirmou isso pixel a pixel: a faixa #f7f3f0 do
+ * arquivo começa no rótulo "HOW WE WORK" e só termina depois desta fileira.
+ * Aqui as duas faixas encostadas são o efeito desejado: a lista pertence
  * àquele bloco, não é uma seção nova. O que separa as duas é o respiro do topo,
  * e não uma troca de fundo nem uma régua — as duas foram tentadas e saíram em
  * 16-09. O corte de verdade vem depois, na faixa vermelha do CTA (a evidência
@@ -180,7 +220,20 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
             pelo mesmo motivo. Em leitor de tela isso dá a contagem ("lista com
             5 itens") de graça, que é justamente o que o numeral fazia no visual
             e o ícone deixou de fazer. */}
-        <ul className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
+        {/* ⚠️ `lg:gap-x-0` ANDA JUNTO COM O `lg:divide-x`, e esquecê-lo é o erro
+            óbvio: com calha, a borda nasce colada à borda ESQUERDA do item e a
+            calha inteira fica de um lado só dela — o filete deixa de estar entre
+            os dois itens e passa a estar encostado num deles. Sem calha, o
+            respiro vem do `lg:px-5` de cada item e o traço cai no meio.
+
+            Abaixo do `lg` a calha volta (`gap-x-8`) e os filetes não existem —
+            ver a caixa no topo do arquivo sobre o traço órfão na segunda linha.
+
+            `minmax(150px,…)` e não os 180px de antes: com seis pilares e a
+            largura que sobra depois do `px-5` de cada um, 180 forçava a grade a
+            quebrar em duas linhas justamente nas telas de 1024–1200, que é onde
+            o desenho ainda cabe numa fileira só. */}
+        <ul className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(150px,1fr))] lg:gap-x-0 lg:divide-x lg:divide-line">
           {pillars.map((p) => {
             const Icon = PILLAR_ICONS[p] ?? FALLBACK_ICON;
             /* ⚠️ CENTRALIZADO E SEM A RÉGUA, desde 16-09, a pedido. Cada item
@@ -196,17 +249,35 @@ export default function SolutionPillars({ items }: { items?: string[] }) {
                uncertainty"), o pé da fileira fica irregular. Com a régua isso
                não aparecia, porque o olho lia o topo alinhado. */
             return (
-              <li key={p} className="text-center">
+              <li key={p} className="text-center lg:px-5">
                 {/* ⚠️ DECORATIVO: o rótulo logo abaixo diz a mesma coisa, então
                     anunciar o ícone seria repetir o item duas vezes por pilar.
-                    28px com traço 1.5 é a medida do mockup — traço fino o
-                    bastante para não competir com o corpo serifado do rótulo. */}
+
+                    ⚠️ 40 NÃO É A ALTURA DO DESENHO — o lucide compõe dentro de um
+                    quadro 24×24 com folga, e o traçado ocupa uns 16 desses 24.
+                    `size={40}` põe na tela ~27px de desenho; no mockup de 21-09
+                    o ícone mede 27×19 a 866, uns 45×32 a 1440, o que pediria
+                    `size` perto de 48. Ficou em 40 porque a 48 o ícone fica mais
+                    alto que duas linhas de rótulo e a fileira passa a ler como
+                    uma tira de ícones com legenda, e não como uma lista.
+
+                    Subiu de 28 em 21-09: o valor antigo vinha do mockup de
+                    15-09, onde cada pilar era um CARTÃO e o ícone dividia espaço
+                    com uma caixa. Numa fileira nua ele é a única peça gráfica.
+
+                    Traço 1.5 — fino o bastante para não competir com o corpo
+                    serifado do rótulo, e é o que os dois desenhos mostram. */}
                 <Icon
                   aria-hidden
-                  size={28}
+                  size={40}
                   strokeWidth={1.5}
                   className="mx-auto block text-brand"
                 />
+                {/* O RÓTULO FICOU EM SERIFA, e o mockup de 21-09 concorda: as
+                    oito legendas dele são serifadas, não versalete de grotesca —
+                    são NOME DE COISA, não rótulo de seção. A medida também
+                    aguentou a conferência: a caixa alta da legenda mede ~8px a
+                    866, o que a 1440 dá uns 20px de fonte, e aqui já são 19/21. */}
                 <p className="mt-3 font-serif text-[19px] leading-[1.25] tracking-[-0.2px] text-ink md:text-[21px]">
                   {p}
                 </p>

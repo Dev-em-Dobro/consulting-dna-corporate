@@ -2,8 +2,41 @@ import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
 
 /**
- * Os dois primeiros blocos do template de serviço — Impact e How we help.
- * Rótulo em cima; embaixo, MANCHETE À ESQUERDA, fio vertical, CORPO À DIREITA.
+ * Os dois blocos de duas colunas do template de serviço — hoje "What we do" e
+ * "How we work". Rótulo em cima; embaixo, MANCHETE À ESQUERDA, fio vertical,
+ * CORPO À DIREITA.
+ *
+ * ============================================================================
+ * ⚠️ O ARRANJO SOBREVIVEU AO RE-LAYOUT DE 21-09; OS RÓTULOS E AS MEDIDAS, NÃO
+ * ============================================================================
+ *
+ * Pedido por email: *"Services internal — Re-layout the internal with the image
+ * nova-pagina-interna-servicoes.jpg inside meetings folder"*. O mockup novo
+ * (`docs/meetings/nova-pagina-interna-servicoes.jpg`) desenha EXATAMENTE a mesma
+ * caixa que o template de 15-09 já tinha posto aqui — rótulo, manchete, fio,
+ * corpo —, e é por isso que este componente não foi refeito pela segunda vez em
+ * quatro dias. O que mudou nele:
+ *
+ *   • OS RÓTULOS. "Impact" virou "What we do" e "How we help" virou "How we
+ *     work". Quem os passa é o `SolutionView`; aqui é só uma string.
+ *   • A MANCHETE CRESCEU, de 38px para 46px no desktop. Não é gosto: no arquivo
+ *     de 866px a entrelinha da manchete mede 32,5px, o que a 1440 dá 54px — com
+ *     `leading-[1.15]`, uma fonte de ~46px. Os 38px vinham do template ANTERIOR,
+ *     que era outro desenho.
+ *   • O FIO MUDOU DE LUGAR CONFORME O BLOCO, e virou a prop `split` — ver a
+ *     caixa dela.
+ *
+ * ⚠️ O CORPO NÃO MUDOU DE TAMANHO, e a medição é a razão: no mockup ele dá
+ * ~18,8px a 1440, e aqui já são 18px. A diferença está dentro do erro de medir
+ * letra em JPEG de 866px, e mexer nela quebraria a única coisa que este bloco
+ * tem em comum com a /about e com a faixa de evidência — o corpo de texto do
+ * site inteiro ler no mesmo tamanho.
+ *
+ * ⚠️ A MANCHETE ACEITA QUEBRA DE LINHA EXPLÍCITA (`\n`), desde 21-09, via
+ * `whitespace-pre-line`. O mockup escreve "Real development." e "In the flow of
+ * work." em duas linhas, e essa quebra é COMPOSIÇÃO, não acaso — deixá-la para
+ * o refluxo do navegador punha "In the" no fim da primeira linha em telas
+ * intermediárias. Manchete sem `\n` não muda de comportamento.
  *
  * ============================================================================
  * ⚠️ REESCRITO EM 17-09. O QUE ESTAVA AQUI ERA OUTRO OBJETO
@@ -61,8 +94,9 @@ export default function SolutionSection({
   headline,
   html,
   tone = "white",
+  split = "even",
 }: {
-  /** "Impact" / "How we help" — o rótulo pequeno no alto da faixa. */
+  /** "What we do" / "How we work" — o rótulo pequeno no alto da faixa. */
   label: string;
   /**
    * A frase grande da coluna esquerda. Vem sempre resolvida por `headlineOr`,
@@ -73,15 +107,49 @@ export default function SolutionSection({
   /** O corpo, em HTML já processado (o `**negrito**` da planilha dela). */
   html: string;
   /**
-   * ⚠️ OS DOIS TONS FICARAM COMO ESTAVAM: `white` no Impact, `paper` no How we
-   * help. Não é inércia — é o que o template mostra. Lá o Impact é uma faixa um
-   * degrau mais escura que o herói e o How we help divide a MESMA faixa com os
-   * cinco pilares logo abaixo, sem emenda entre os dois. Como os pilares já são
-   * `paper` e o pedido foi para não tocar neles, `paper` aqui é o que mantém a
-   * emenda invisível. Trocar para branco abriria uma divisa onde o template não
-   * tem nenhuma.
+   * ⚠️ OS DOIS TONS ATRAVESSARAM OS DOIS DESENHOS INTACTOS: `white` no primeiro
+   * bloco, `paper` no segundo. No mockup de 21-09 isso foi CONFERIDO PIXEL A
+   * PIXEL, porque era a pergunta mais barata de responder errado — a faixa
+   * branca vai da base do herói até o fim dos três cartões (#fefefe), a faixa
+   * papel começa no "How we work" e engloba a fileira de ícones (#f7f3f0), e o
+   * fecho centrado volta ao branco.
+   *
+   * O QUE ISSO DECIDE: o segundo bloco divide a MESMA faixa com a fileira de
+   * ícones logo abaixo, sem emenda entre os dois, e o primeiro divide a dele
+   * com os três cartões. Trocar qualquer um dos dois para o outro tom abriria
+   * uma divisa onde o desenho não tem nenhuma.
+   *
+   * ⚠️ O PAPEL DO DESENHO É MAIS QUENTE QUE O NOSSO — #f7f3f0 contra o
+   * `--color-paper: #f3f3f3` de `globals.css`, que é neutro. Não foi trocado: o
+   * token serve o site inteiro e mudá-lo por causa de uma página tingiria a
+   * /about, a /team e o índice de serviços de uma vez. Se ela pedir o tom
+   * quente, é uma linha no `globals.css` — e uma revisão das outras telas.
    */
   tone?: "white" | "paper";
+  /**
+   * ONDE CAI O FIO VERTICAL. `even` divide quase ao meio, `body` dá mais
+   * largura ao corpo.
+   *
+   * ⚠️ EXISTE PORQUE O MOCKUP DE 21-09 NÃO USA A MESMA DIVISÃO NOS DOIS BLOCOS,
+   * e isso foi MEDIDO no arquivo, não presumido. Nos 792px de conteúdo do
+   * desenho (866 de largura, margens de 38 e 36), o fio do "What we do" cai em
+   * x=424 — 48,7% contra 51,3% — e o do "How we work" cai em x=341, ou seja
+   * 38,3% contra 61,7%. São 83px de diferença, visíveis a olho nu quando se
+   * rola de um bloco para o outro. `[1fr_1.05fr]` dá 48,8/51,2 e `[1fr_1.6fr]`
+   * dá 38,5/61,5.
+   *
+   * A LEITURA DA ESCOLHA DELA, porque ajuda a decidir em serviço novo: a
+   * manchete de "What we do" tem três linhas e a de "How we work" tem duas —
+   * quanto mais curta a manchete, mais estreita a coluna dela. Não é um estilo
+   * por bloco, é ajuste ao conteúdo. Em serviço sem copy nova, onde a manchete
+   * é o `HEADLINE_PLACEHOLDER` de uma linha, `even` continua sendo o padrão
+   * seguro.
+   *
+   * ⚠️ AS DUAS CLASSES PRECISAM APARECER INTEIRAS NA FONTE — o Tailwind procura
+   * a string literal no arquivo, e uma classe montada por concatenação nunca é
+   * gerada. Daí o ternário com os dois nomes completos, em vez de um template.
+   */
+  split?: "even" | "body";
 }) {
   return (
     <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
@@ -98,16 +166,21 @@ export default function SolutionSection({
           {label}
         </p>
 
-        {/* ⚠️ AS PROPORÇÕES SÃO AS DO TEMPLATE, MEDIDAS NELE e convertidas, não
-            estimadas. No arquivo de 1024px de largura a coluna da manchete ocupa
-            372px e a do corpo 464px, com o fio vertical entre elas — ou seja
-            44,5% contra 55,5% do conteúdo. `[1fr_1.25fr]` dá 44,4% / 55,6%.
+        {/* ⚠️ AS PROPORÇÕES SÃO AS DO MOCKUP DE 21-09, MEDIDAS NELE e
+            convertidas, não estimadas — e são DUAS, uma por bloco. A conta está
+            na caixa da prop `split`; o resumo é que o fio do "What we do" cai
+            quase no meio e o do "How we work" cai a 38% da largura.
 
-            OS DOIS RESPIROS AO REDOR DO FIO SÃO DESIGUAIS NO TEMPLATE — 29px
-            antes, 52px depois, o que a 1440 vira ~41 e ~73. Daí `lg:pr-10` (40)
-            de um lado e `lg:pl-16` (64) do outro em vez de um `gap` simétrico: a
-            assimetria é o que puxa o corpo para longe do fio e deixa a manchete
-            quase encostada nele, que é o que se vê no desenho.
+            (O TEMPLATE ANTERIOR, de 15-09, dava um valor só: 44,5% / 55,5%, daí
+            o `[1fr_1.25fr]` que esteve aqui até 21-09. Fica o registro para quem
+            comparar as duas gerações de desenho e achar que alguém errou a
+            medida — são medidas de arquivos diferentes.)
+
+            OS DOIS RESPIROS AO REDOR DO FIO SÃO DESIGUAIS NO DESENHO — no "What
+            we do", 19px antes e 31px depois, o que a 1440 vira ~32 e ~52. Daí
+            `lg:pr-8` (32) de um lado e `lg:pl-12` (48) do outro em vez de um
+            `gap` simétrico: a assimetria é o que puxa o corpo para longe do fio
+            e deixa a manchete quase encostada nele, que é o que se vê.
 
             ⚠️ O FIO É `border-l` NA COLUNA DA DIREITA, e não um elemento próprio.
             Um `<div>` de 1px precisaria de altura — e a altura certa é a da
@@ -115,16 +188,25 @@ export default function SolutionSection({
             sozinho, e some junto com o `lg:` quando as colunas empilham.
 
             EMPILHA ABAIXO DE `lg` porque a manchete é longa: a 768px, metade da
-            largura dá ~330px e a frase do Top 150 quebraria em seis linhas. */}
-        <div className="mt-8 grid gap-y-6 md:mt-10 lg:grid-cols-[1fr_1.25fr] lg:gap-y-0">
+            largura dá ~330px e a frase do Senior Leadership Development
+            quebraria em seis linhas. */}
+        <div
+          className={`mt-8 grid gap-y-6 md:mt-10 lg:gap-y-0 ${
+            split === "body" ? "lg:grid-cols-[1fr_1.6fr]" : "lg:grid-cols-[1fr_1.05fr]"
+          }`}
+        >
           {/* `h2` E NÃO `p`: esta é a manchete do bloco, e é ela que estrutura a
               página para quem navega por cabeçalhos. O rótulo acima é rótulo, não
-              título — por isso ficou como `<p>`. */}
-          <h2 className="font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[34px] lg:pr-10 lg:text-[38px]">
+              título — por isso ficou como `<p>`.
+
+              `whitespace-pre-line` É O QUE FAZ O `\n` DA COPY VIRAR QUEBRA — ver
+              a caixa no topo do arquivo. Ele NÃO colapsa a indentação do JSX
+              porque o filho é uma expressão `{headline}`, não texto literal. */}
+          <h2 className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px] lg:pr-8 lg:text-[46px]">
             {headline}
           </h2>
 
-          <div className="lg:border-l lg:border-line lg:pl-16">
+          <div className="lg:border-l lg:border-line lg:pl-12">
             {/* O CORPO ENCOLHEU DE 21/25px PARA 17/18px, e é o que o template
                 pede: lá a manchete é o dobro do corpo, e no arranjo antigo o
                 parágrafo era quase do tamanho de um título porque não havia
