@@ -152,7 +152,9 @@ line would read as a different kind of object. One class changes it if you prefe
   table. The region is a heading now rather than a repeated line under each face.
 - **Maliha is MENA, Carol is UKEE, Nic is Asia.**
 - **The names are in red**, on the leadership cards and in the listing.
-- **The life-at-DNA carousel from the home page is now on this page too.**
+- **The life-at-DNA carousel from the home page is now in the One team block**, in place of the
+  photograph of six of you behind the counter. That picture is kept and comes back in one step
+  if you prefer it.
 
 **Two things the grouping made visible**, both already present in your own table: "UKEE" and
 "Europe" now sit next to each other as two separate groups, and India has nobody in it.
