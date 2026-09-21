@@ -409,7 +409,12 @@ export default function SolutionView({ service }: { service: Service }) {
           último bloco antes daqui, então o vizinho de cima é SEMPRE o vermelho —
           nas dez páginas, com ou sem evidência. O branco continua sendo o degrau
           certo contra ele. */}
-      <section className="bg-white">
+      {/* `id` PARA O BLOCO SER ENDEREÇÁVEL, como `#what-we-do` no índice e
+          `#offices` na /about. Serve para linkar direto e, na prática, para
+          conseguir fotografar SÓ esta faixa: o herói desta página é `84svh`, então
+          qualquer janela alta o infla e desloca tudo o que vem depois. Com
+          âncora, a captura acontece numa janela de tamanho real. */}
+      <section id="related-services" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
             Related services
