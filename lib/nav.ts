@@ -62,12 +62,23 @@ export const siteNav: NavItem[] = [
   // respondendo, por 308 em next.config.
   { label: "Team", href: "/team" },
   { label: "Clients & Impact", href: "/our-clients" },
-  // `/insights` agora carrega DUAS coisas: a biblioteca editorial e os livros,
-  // que chegaram aqui em 21-09 (*"insights and books e a seção de book vai pra
-  // tela de insights"*). O label não mudou porque o item continua sendo o mesmo
-  // endereço; quem procurar os livros chega pelo 308 de `/books`, que aponta
-  // para a âncora `#books` desta página.
-  { label: "Insights", href: "/insights" },
+  // `/insights` carrega DUAS coisas desde 21-09: a biblioteca editorial e os
+  // livros (*"insights and books e a seção de book vai pra tela de insights"*).
+  //
+  // O LABEL PASSOU A DIZER AS DUAS no mesmo dia, a pedido — *"só o nome do menu
+  // tem que ser insights & books"*. A primeira versão manteve "Insights" com o
+  // argumento de que o item continuava sendo o mesmo endereço, e o argumento
+  // estava certo sobre a ROTA e errado sobre a NAVEGAÇÃO: o menu perdeu a
+  // palavra "Books" na mesma tarde (a vaga virou "Events"), então quem procura
+  // os livros deixou de ter por onde chegar sem adivinhar que eles moram dentro
+  // de Insights. O 308 de `/books` só socorre quem já tem a URL antiga.
+  //
+  // É exatamente o caso que a caixa de abertura descreve: label é copy e muda,
+  // rota é endereço e fica. A rota segue `/insights`.
+  //
+  // `&` E NÃO "and", como em "Clients & Impact" logo acima — é string de dado,
+  // não JSX, então o caractere entra cru e o React escapa na renderização.
+  { label: "Insights & Books", href: "/insights" },
   // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }` — *"mudar book para
   // events"* (anotação da reunião de 21-09). A troca É de rota, e isso precisa
   // ficar claro contra a regra lá em cima ("labels são copy, rotas são
