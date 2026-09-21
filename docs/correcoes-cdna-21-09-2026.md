@@ -101,6 +101,12 @@ is copy from you, not code from us.
 - The three cards have the same background. Your mockup looks as though the first is white, but
   sampled pixel by pixel all three measure the same tone.
 
+**The three card photographs are in.** The boardroom at sunset sits on Executive Teams, the
+meeting on SLT / ET-1, and the audience on Top 100 - 150. They are cropped from the centre, and
+we checked the arithmetic rather than assuming: the frame is slightly wider than the files, so
+it trims about 11% of the height, and in all three the highest head sits well inside what
+remains. Nobody is cut.
+
 **The second image was found, and it changes the row under How we work.** Your note mentions two
 drawings, and the second one was in the folder all along under a different name. It frames the
 page from the cards down, so it shows the practices and the case study line but not the "How we
@@ -195,12 +201,9 @@ you moving it, not removing it.
    heads.
 3. **Copy for the other nine service pages** — the introduction blocks, the three audiences, the
    practices strip and the closing line.
-4. **The three audience card photographs as files.** We have seen them and they are the right
-   three, but they reached us pasted into a conversation rather than as files, so they are not
-   in the build yet. Until they are, those cards show a colour field.
-5. **Events content.**
-6. **Confirmation** that Events replaces Books in the menu.
-7. **Three short approvals** on wording we wrote where you had none: the Events page title, the
+4. **Events content.**
+5. **Confirmation** that Events replaces Books in the menu.
+6. **Three short approvals** on wording we wrote where you had none: the Events page title, the
    books section heading on Insights, and the Insights browser title.
-8. **Whether to apply the rest of your second drawing** — the new label, headline and card copy
+7. **Whether to apply the rest of your second drawing** — the new label, headline and card copy
    above the practices strip, and the label and credential on each card photograph.

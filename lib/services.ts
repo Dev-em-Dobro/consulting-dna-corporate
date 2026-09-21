@@ -215,22 +215,17 @@ export type ServiceAudience = {
   /**
    * A foto do topo do cartão, em ~2:1.
    *
-   * ⏳ AS TRÊS FOTOS EXISTEM E ESTÃO FORA DO REPOSITÓRIO. Em 21-09 elas
-   * apareceram — são as mesmas três cenas do mockup (a sala de reunião ao
-   * pôr do sol, a mulher falando na mesa, a plateia no auditório) —, mas
-   * chegaram coladas numa conversa, não como arquivo. Sem `image` o cartão cai
-   * no CAMPO DE COR, exatamente como o `ServiceCard` do índice faz desde 12-09.
+   * ✅ O SENIOR LEADERSHIP DEVELOPMENT TEM AS TRÊS, desde 21-09, em
+   * `public/services/audiences/`. Os outros nove não têm `audiences` nenhum, então
+   * a pergunta nem se coloca para eles hoje.
    *
-   * PARA LIGAR, quando os arquivos entrarem no disco, são três linhas nos
-   * `audiences` do Senior Leadership Development, nesta ordem:
-   *
-   *   Executive Teams        → /services/audiences/sld-executive-teams.jpg
-   *   SLT / ET-1             → /services/audiences/sld-slt-et1.jpg
-   *   Top 100 – 150 leaders  → /services/audiences/sld-top-100-150.jpg
+   * Sem `image` o cartão cai no CAMPO DE COR, como o `ServiceCard` do índice faz
+   * desde 12-09. É um estado BOM, e é o que torna a regra abaixo barata de
+   * cumprir.
    *
    * ⚠️ NÃO APONTAR PARA ARQUIVO QUE AINDA NÃO EXISTE. O `next/image` não falha
    * no build por isso — falha em produção, com o cartão exibindo imagem
-   * quebrada. O campo de cor é um estado bom; o 404 não é.
+   * quebrada. Deixar o campo vazio até o arquivo estar no disco custa nada.
    *
    * ⚠️ Nome de arquivo NOVO a cada troca, que o otimizador do Next serve por
    * URL e já entregou versão velha por isso.
@@ -575,21 +570,37 @@ export const services: Service[] = [
        caixa de `ServiceAudience`. Sem `image` de propósito: as três fotografias
        do desenho não vieram no pacote do Drive e o cartão cai no campo de cor
        até virem. */
+    /* ✅ AS TRÊS FOTOS CHEGARAM EM 21-09 e são as do mockup — a sala de reunião
+       ao pôr do sol, a mulher falando na mesa e a plateia no auditório. Vieram
+       como PNG de ~1,6 MB e viraram JPEG q90 numa ÚNICA compressão (189, 144 e
+       179 KB), que é o tratamento padrão deste repo. Os três cartões saíram do
+       campo de cor.
+
+       ⚠️ SEM ENQUADRAMENTO, e isso foi conferido, não presumido. Os arquivos são
+       1672x941 (1,78:1) e o slot é 2:1, então o `object-cover` escala pela
+       largura e come 11% da ALTURA — 5,6% em cima e 5,6% embaixo, centrado. Nas
+       três, o topo da cabeça mais alta fica abaixo de 9% (a plateia é o caso
+       mais apertado), ou seja ninguém é cortado. Se um arquivo NOVO entrar aqui
+       com composição diferente, refazer essa conta antes de confiar no centro —
+       é exatamente o defeito que o carrossel da home tinha. */
     audiences: [
       {
         label: "Executive teams",
         title: "Align. Decide. Deliver.",
         body: "We help Executive Teams build collective leadership, stronger decision quality and the capability to lead transformation together.",
+        image: "/services/audiences/sld-executive-teams.jpg",
       },
       {
         label: "SLT / ET-1",
         title: "From functional to enterprise leadership.",
         body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership — leading across boundaries, influencing horizontally and translating strategy into execution.",
+        image: "/services/audiences/sld-slt-et1.jpg",
       },
       {
         label: "Top 100 – 150 leaders",
         title: "A stronger leadership community.",
         body: "We build leadership communities with a shared language, stronger judgement and the habits required to lead consistently at scale.",
+        image: "/services/audiences/sld-top-100-150.jpg",
       },
     ],
     /* ✅ O FECHO CENTRADO, transcrito do mockup de 21-09. É a última coisa que o

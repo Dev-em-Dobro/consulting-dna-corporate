@@ -84,9 +84,11 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                      em cada cartão de graça, porque o que preenche o quadro é o
                      rótulo do público.
 
-                     ⏳ HOJE ELE É O ESTADO DE TODOS OS TRÊS. As fotografias do
-                     mockup não vieram no pacote do Drive; ver `image` em
-                     `ServiceAudience`.
+                     ⚠️ HOJE NADA CAI AQUI. O Senior Leadership Development é o
+                     único serviço com `audiences`, e desde 21-09 os três
+                     cartões dele têm fotografia. O ramo fica porque é ele que
+                     permite publicar os outros nove sem esperar foto — ver
+                     `image` em `ServiceAudience`.
 
                      `text-white/15` e `aria-hidden` pela mesma razão de lá: é
                      marca d'água, e é a repetição de um texto que já está
