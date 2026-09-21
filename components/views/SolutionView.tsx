@@ -2,6 +2,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionAudiences from "@/components/solutions/SolutionAudiences";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
+import SolutionPractices from "@/components/solutions/SolutionPractices";
 import SolutionClosing from "@/components/solutions/SolutionClosing";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
@@ -260,25 +261,69 @@ export default function SolutionView({ service }: { service: Service }) {
           direto do primeiro bloco para o segundo, como antes. */}
       <SolutionAudiences items={service.audiences} />
 
-      <SolutionSection
-        label="How we work"
-        headline={headlineOr(service.howWeWorkHeadline ?? service.howWeHelpHeadline)}
-        html={paragraphs(service.howWeWork ?? service.howWeHelp)}
-        tone="paper"
-        /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da largura e
-           o do bloco de cima cai quase no meio — medido no arquivo, ver a caixa
-           da prop `split` em `SolutionSection`. A manchete daqui tem duas linhas
-           e a de cima tem três; a divisão acompanha o conteúdo. */
-        split="body"
-      />
+      {/* ⬅ A SEGUNDA REVISÃO DE 21-09 BIFURCA AQUI, e este bloco é a bifurcação
+          inteira — as três peças abaixo são duas versões da MESMA região, e não
+          quatro coisas que por acaso têm guardas.
 
-      <SolutionPillars items={service.pillars} />
+          A imagem `docs/meetings/secao-atualizada-our-work.jpg` é a segunda das
+          duas referências que a anotação da call menciona. Ela chegou junto com
+          a primeira mas passou despercebida (as notas só nomeavam a outra), e o
+          pedido depois foi literal: *"a seção How we work tem que ser assim"*.
 
-      {/* ⬅ NOVO EM 21-09, e é ONDE O DESENHO DELA TERMINA. Tudo o que vem depois
-          — evidência, convite, related services — está fora do mockup; ver a
-          caixa de abertura deste arquivo. O fecho volta ao BRANCO depois da
-          faixa papel dos ícones, que é o que o arquivo mostra. */}
-      <SolutionClosing closing={service.closing} />
+          • COM `practices` — o desenho novo: some o bloco de duas colunas "How we
+            work", some a fileira de oito ícones, e no lugar dos dois entra a tira
+            curta seguida do divisor "Featured case study", que é o que a imagem
+            põe entre a tira e o case.
+          • SEM `practices` — os outros nove, exatamente como estavam: bloco de
+            duas colunas, `pillars` e o fecho de duas linhas.
+
+          ⚠️ A BIFURCAÇÃO É TEMPORÁRIA POR CONSTRUÇÃO. Ela existe porque só um
+          serviço recebeu a copy nova; quando os outros nove receberem, os três
+          ternários caem e o ramo antigo sai junto com os campos `howWeWork*`. O
+          que NÃO se deve fazer é o contrário — aplicar o desenho novo aos nove
+          sem copy —, porque aí nove páginas perdem o bloco de duas colunas em
+          troca de uma tira vazia que não renderiza. */}
+      {service.practices ? (
+        <SolutionPractices practices={service.practices} />
+      ) : (
+        <>
+          <SolutionSection
+            label="How we work"
+            headline={headlineOr(
+              service.howWeWorkHeadline ?? service.howWeHelpHeadline,
+            )}
+            html={paragraphs(service.howWeWork ?? service.howWeHelp)}
+            tone="paper"
+            /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da
+               largura e o do bloco de cima cai quase no meio — medido no
+               arquivo, ver a caixa da prop `split` em `SolutionSection`. A
+               manchete daqui tem duas linhas e a de cima tem três; a divisão
+               acompanha o conteúdo. */
+            split="body"
+          />
+          <SolutionPillars items={service.pillars} />
+        </>
+      )}
+
+      {/* ⚠️ O MESMO SLOT, DUAS COISAS. Na primeira referência aqui morre o fecho
+          de duas linhas ("Different organisations. Different transformations.");
+          na segunda, o divisor que anuncia o case. São o mesmo móvel — filete,
+          texto centrado, filete —, então é o mesmo componente com outra prop.
+
+          O FECHO NÃO FOI APAGADO: `closing` continua no dado, e o serviço volta a
+          mostrá-lo no instante em que `practices` sair. O que a imagem diz é que
+          os dois não dividem a página, não que um deixou de existir.
+
+          `service.evidence &&` NO RAMO NOVO porque o rótulo NOMEIA o bloco de
+          baixo: sem case, "Featured case study" anunciaria um vazio. Hoje o
+          único serviço com `practices` tem evidência, então a guarda nunca
+          dispara — ela existe para o dia em que um segundo serviço receber a
+          copy nova antes de ter case. */}
+      {service.practices ? (
+        service.evidence && <SolutionClosing label="Featured case study" />
+      ) : (
+        <SolutionClosing closing={service.closing} />
+      )}
 
       {/* ⚠️ A CITAÇÃO AGORA DEPENDE DA EVIDÊNCIA. Ela é a terceira coluna desta
           faixa desde 16-09, então serviço com citação e sem evidência não

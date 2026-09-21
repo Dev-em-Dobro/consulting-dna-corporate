@@ -44,20 +44,62 @@ import type { ServiceClosing } from "@/lib/services";
  * Sem `closing` no serviço, o bloco não renderiza — a mesma guarda dos pilares,
  * dos cartões de público e da evidência. Hoje um dos dez tem.
  */
-export default function SolutionClosing({ closing }: { closing?: ServiceClosing }) {
-  if (!closing?.lead?.trim() || !closing?.accent?.trim()) return null;
+/**
+ * ⬅ A VARIANTE DE RÓTULO ENTROU EM 21-09, na segunda revisão. A imagem
+ * `secao-atualizada-our-work.jpg` fecha a região com *"FEATURED CASE STUDY"* no
+ * MESMO móvel desta assinatura: filete vermelho, texto centrado, filete
+ * vermelho. É a mesma peça com outro conteúdo, então é uma prop — um segundo
+ * componente desenhando dois filetes idênticos é como os dois passam a
+ * divergir na primeira vez que alguém ajustar a opacidade de um deles.
+ *
+ * O RÓTULO GANHA. Passar os dois é erro de chamada, e o mais provável é que
+ * quem o fizer esteja migrando um serviço para o desenho novo e tenha esquecido
+ * de tirar o antigo; nesse caso o novo é o que ele quis.
+ *
+ * ⚠️ O RÓTULO É UM TÍTULO DE VERDADE, e por isso sai em `h2` enquanto a
+ * assinatura sai em `<p>`. A diferença não é de estilo: *"Featured case study"*
+ * NOMEIA o bloco de evidência que vem logo abaixo, e um leitor de tela que
+ * chegue ali sem cabeçalho encontra um case sem título. A assinatura não tem
+ * nada "sob" ela — a caixa dela, abaixo, explica por que um `h2` mentiria.
+ */
+export default function SolutionClosing({
+  closing,
+  label,
+}: {
+  closing?: ServiceClosing;
+  /** A variante divisor: um rótulo curto em vez das duas linhas em serifa. */
+  label?: string;
+}) {
+  const asLabel = Boolean(label?.trim());
+  if (!asLabel && (!closing?.lead?.trim() || !closing?.accent?.trim()))
+    return null;
 
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+      {/* O DIVISOR É MAIS BAIXO QUE A ASSINATURA (`py-12 md:py-16` contra `py-20
+          md:py-24`). Na imagem ele não é uma seção: é a dobradiça entre a tira
+          de práticas e o case, e o respiro de seção inteira o soltaria dos dois
+          lados, transformando uma dobradiça em parada. */}
+      <div
+        className={`mx-auto max-w-[1440px] px-6 md:px-10 ${
+          asLabel ? "py-12 md:py-16" : "py-20 md:py-24"
+        }`}
+      >
         {/* `stagger={false}`: os filhos diretos são filete, texto e filete, e
             escaloná-los faria os dois traços entrarem em tempos diferentes de
             cada lado da mesma frase. O bloco é uma peça só. */}
         <Reveal stagger={false} className="flex items-center gap-8">
           <span aria-hidden className="hidden h-px flex-1 bg-brand/50 sm:block" />
+          {asLabel ? (
+            <h2 className="text-center text-[12px] font-semibold uppercase tracking-[2px] text-brand">
+              {label}
+            </h2>
+          ) : null}
           {/* `<p>` E NÃO CABEÇALHO: é uma assinatura, não um título de seção — não
               há conteúdo "sob" ela, e um `h2` aqui prometeria ao leitor de tela
-              uma seção que não existe. */}
+              uma seção que não existe. O rótulo da variante acima é o caso
+              contrário, e por isso ele é `h2`. */}
+          {!asLabel && closing ? (
           <p className="text-center [text-wrap:balance]">
             <span className="block font-serif text-[22px] font-medium leading-[1.25] tracking-[-0.2px] text-ink md:text-[30px]">
               {closing.lead}
@@ -66,6 +108,7 @@ export default function SolutionClosing({ closing }: { closing?: ServiceClosing 
               {closing.accent}
             </span>
           </p>
+          ) : null}
           <span aria-hidden className="hidden h-px flex-1 bg-brand/50 sm:block" />
         </Reveal>
       </div>

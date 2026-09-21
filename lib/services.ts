@@ -249,6 +249,33 @@ export type ServiceClosing = {
   accent: string;
 };
 
+/**
+ * A FAIXA CURTA QUE SUBSTITUIU O "HOW WE WORK" EM 21-09 (segunda revisão).
+ *
+ * A imagem `docs/meetings/secao-atualizada-our-work.jpg` é a SEGUNDA referência
+ * que a anotação da call menciona — ela estava na pasta desde o começo, mas as
+ * notas só nomeavam a primeira, então o re-layout foi construído sem ela. Nesta
+ * versão o bloco de duas colunas "How we work" e a fileira de oito ícones dão
+ * lugar a uma tira só: um rótulo vermelho à esquerda e três práticas com ícone.
+ *
+ * O `lead` É UM RÓTULO, NÃO UMA PRÁTICA. No desenho ele não tem ícone e é o
+ * único em vermelho: ele nomeia o que os três itens à direita têm em comum
+ * ("A common outcome"), e por isso vive num campo separado em vez de ser o
+ * primeiro elemento de `items` — se fosse, qualquer laço que pinte ou conte os
+ * itens o trataria como prática.
+ *
+ * ⏳ SÓ O PRIMEIRO SERVIÇO TEM. Ausente = o serviço continua exatamente como
+ * estava, com o bloco "How we work" e os `pillars`. É a mesma guarda de
+ * `audiences` e `closing`, e é o que impede esta segunda revisão de esvaziar as
+ * outras nove páginas, que nunca receberam a copy nova.
+ */
+export type ServicePractices = {
+  /** O rótulo vermelho da esquerda, sem ícone. */
+  lead: string;
+  /** As práticas, com ícone. O mapa rótulo→ícone vive no componente. */
+  items: string[];
+};
+
 export type Service = {
   slug: string;
   title: string;
@@ -359,6 +386,19 @@ export type Service = {
    * ⏳ UM DOS DEZ TEM.
    */
   closing?: ServiceClosing;
+  /**
+   * A tira de práticas da segunda revisão de 21-09 — ver a caixa de
+   * `ServicePractices`.
+   *
+   * ⚠️ A PRESENÇA DESTE CAMPO É O INTERRUPTOR DO LAYOUT NOVO, e não só a fonte
+   * de uma lista: quem o tem perde o bloco de duas colunas "How we work" e a
+   * fileira de `pillars`, e ganha esta tira seguida do divisor "Featured case
+   * study". Quem não o tem segue na versão anterior, inteira. A conta está em
+   * `SolutionView`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  practices?: ServicePractices;
   /** Bloco 6 — as três partes que o outline chama de "all thirty parts". */
   cta: { strapline: string; line: string; label: string };
   evidence?: ServiceEvidence;
@@ -463,6 +503,28 @@ export const services: Service[] = [
       "Peer learning",
       "Mastery labs",
     ],
+    /* ✅ A TIRA DA SEGUNDA REVISÃO DE 21-09, transcrita da imagem
+       `docs/meetings/secao-atualizada-our-work.jpg`. Quatro células: o rótulo
+       vermelho e três práticas.
+
+       ELA NÃO É UMA VERSÃO CURTA DOS `pillars` ACIMA, e por isso os dois campos
+       convivem em vez de um substituir o outro. Os `pillars` são as palavras da
+       frase de `howWeHelp` — o COMO: imersões, coaching, desafios reais. Estes
+       três são o que o trabalho produz — hábitos, identidade, os momentos que
+       importam. Trocar um pelo outro no mesmo campo faria a próxima pessoa achar
+       que a cliente renomeou cinco itens, quando ela trocou a pergunta.
+
+       ⚠️ OS TRÊS ITENS RESOLVEM, DE LAMBUJA, A DÍVIDA ANOTADA LOGO ABAIXO. A
+       caixa dos `pillars` registra que o mockup de 21-09 pedia oito itens e
+       nós tínhamos cinco, faltando "leadership experiments", "everyday habits" e
+       "measurement", e que o conserto dependia de a cliente reescrever a frase.
+       A revisão dela não reescreveu a frase: encurtou a fileira para três. A
+       dívida deixou de existir por mudança de desenho, não por copy nova — e a
+       caixa abaixo fica porque volta a valer se a fileira de oito voltar. */
+    practices: {
+      lead: "A common outcome",
+      items: ["Habits", "Identity", "Moments that matter in the flow of work"],
+    },
     /* ⚠️ A FILEIRA DE ÍCONES DO MOCKUP DE 21-09 TEM OITO ITENS E ESTA TEM CINCO,
        e a diferença é deliberada. O desenho lista "Immersions · Live business
        challenges · Mastery Labs · Coaching · Peer learning · Leadership
