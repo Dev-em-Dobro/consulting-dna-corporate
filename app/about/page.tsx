@@ -1147,16 +1147,21 @@ export default async function AboutV2Page() {
             seguir), e os 48px que fechavam o bloco passariam a separar os
             números dos escritórios em vez de fechar a seção.
 
-            ✅ OS DOIS VÃOS SÃO IGUAIS DESDE A REVISÃO DA MESMA DATA. A primeira
-            versão deixou 24px acima da lista e 48px abaixo, e a linha ficava
-            encostada nos números e boiando sobre a borda. Agora são 36px dos dois
-            lados — o de cima é este `md:pb-9`, o de baixo é o `pb-9` da lista.
+            OS DOIS VÃOS PASSARAM POR TRÊS ESTADOS NA MESMA DATA, e o último é o
+            que está no ar: 24/48 (a linha encostada nos números e boiando sobre a
+            borda), depois 36/36 pedindo simetria sem crescer a dobra, e agora
+            36 aqui em cima com 24 embaixo — o `pb-6` da lista.
 
-            A SOMA É A MESMA DE ANTES, e isso é o ponto: 24 + 48 e 36 + 36 fecham
-            os mesmos 72px, então a dobra não cresceu um pixel. O pedido foi
-            explicitamente por paddings iguais SEM aumentar a altura do herói, e
-            redistribuir é a única forma de atender aos dois. Quem mexer num dos
-            dois números tem de mexer no outro na direção contrária.
+            ⚠️ 36 E 24 SÃO O QUE FICA IGUAL NA TELA, e é por isso que os números
+            não batem. Medido no navegador a 1440x1000: com 36/36 o vazio VISÍVEL
+            era de 23px acima da linha e 42px abaixo. A assimetria vem da caixa
+            de linha do texto — os 13px da lista deixam ~5px de folga sob os
+            glifos, que somam ao padding de baixo, enquanto em cima o padding
+            nasce do rodapé da grade de números, que já está justo. Igualar os
+            valores de CSS era desigualar o resultado.
+
+            A dobra não cresce: ela é `min-h-[84svh]` e o conteúdo ficou 12px mais
+            curto, não mais longo.
 
             No telefone o `pb-10` continua igual, porque lá a lista não aparece e
             a faixa de números segue sendo o fim da dobra. */}
@@ -1300,7 +1305,7 @@ export default async function AboutV2Page() {
             as duas listas batem, mas ler a outra fonte abriria a porta para as
             duas divergirem dentro da mesma página. A caixa do `OFFICES`, no topo
             do arquivo, tem as três divergências conhecidas. */}
-        <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-9 md:block md:px-10">
+        <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-6 md:block md:px-10">
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px] font-semibold uppercase tracking-[2px] text-white/70">
             {OFFICES.map((o, i) => (
               <span key={o.city} className="flex items-center gap-x-3">
