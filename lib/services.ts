@@ -286,7 +286,18 @@ export const services: Service[] = [
   {
     slug: "top-150-leadership-development",
     cardImage: "/services/cards/top-150-leadership-development-client.jpg",
-    title: "Top 150 Leadership Development",
+    /* ✅ O NOME MUDOU EM 21-09, por email: *"Change top 150 leadership
+       development to Senior Leadership Development"*. É o que aparece no card
+       do índice, no submenu de Services, na migalha e no `h1` da página — o
+       `title` alimenta os quatro.
+
+       ⚠️ O SLUG NÃO MUDA, de propósito. `/services/top-150-leadership-development`
+       já está no ar, no sitemap e nos links que a cliente mandou por email; o
+       pedido foi de NOME, e trocar a rota para persegui-lo quebraria tudo isso
+       em troca de uma URL mais bonita. É a mesma regra que `lib/nav.ts`
+       registra para os labels do menu: rota é endereço, título é copy.
+       Se um dia a URL precisar mudar, o caminho é rota nova + 301 da antiga. */
+    title: "Senior Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
     /* ✅ AS DUAS ÚNICAS MANCHETES ESCRITAS PELA CLIENTE. Estão em letra no
