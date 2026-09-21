@@ -2,7 +2,6 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionAudiences from "@/components/solutions/SolutionAudiences";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
-import SolutionPractices from "@/components/solutions/SolutionPractices";
 import SolutionClosing from "@/components/solutions/SolutionClosing";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionCta from "@/components/solutions/SolutionCta";
@@ -292,26 +291,24 @@ export default function SolutionView({ service }: { service: Service }) {
         split="body"
       />
 
-      {/* ⚠️ A FILEIRA É O QUE BIFURCA, e só ela. As duas peças ocupam o mesmo
-          lugar sob o bloco acima e as duas são `bg-paper`, então a faixa quente
-          começa no rótulo "How we work" e só termina depois da lista — nos dois
-          desenhos.
+      {/* A FILEIRA DE ÍCONES É UMA SÓ PARA OS DEZ, desde 21-09. Só a LISTA muda.
 
-          • COM `practices` — a tira de quatro células da segunda referência: um
-            rótulo vermelho e três práticas, com o ícone à esquerda.
-          • SEM `practices` — os `pillars`, a fileira de ícones centrados da
-            primeira. É o que os outros nove serviços mostram, e continuam
-            mostrando: eles nunca receberam a copy nova.
+          Ela chegou a ser duas peças de desenhos diferentes — a fileira de
+          ícones centrados do primeiro mockup e uma tira de células horizontais
+          da segunda imagem —, até o pedido de pôr nesta seção os oito ícones do
+          primeiro desenho. Com os dois desenhos convergindo para o mesmo
+          arranjo, o segundo componente virou uma cópia do primeiro esperando
+          divergir na primeira vez que alguém ajustasse um dos dois. Saiu.
 
-          ⚠️ A BIFURCAÇÃO É TEMPORÁRIA POR CONSTRUÇÃO. Some quando a copy dos
-          nove chegar. O que NÃO se deve fazer é o contrário — apontar os nove
-          para a tira —, porque `practices` ausente não renderiza nada e as nove
-          páginas ficariam com o bloco de duas colunas e um vazio embaixo. */}
-      {service.practices ? (
-        <SolutionPractices practices={service.practices} />
-      ) : (
-        <SolutionPillars items={service.pillars} />
-      )}
+          ⚠️ `practices` PRIMEIRO, `pillars` como base. O serviço com a copy nova
+          mostra os oito rótulos do desenho; os outros nove continuam mostrando
+          os `pillars` deles, que são palavras da própria frase de `howWeHelp` —
+          a regra que impede os oito de morarem lá. Ver a caixa de `practices`
+          em `lib/services.ts`.
+
+          `bg-paper` nos dois casos, então a faixa quente começa no rótulo "How
+          we work" e só termina depois da lista. */}
+      <SolutionPillars items={service.practices?.items ?? service.pillars} />
 
       {/* ⚠️ O MESMO SLOT, DUAS COISAS. Na primeira referência aqui morre o fecho
           de duas linhas ("Different organisations. Different transformations.");

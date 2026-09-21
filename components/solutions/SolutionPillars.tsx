@@ -5,6 +5,9 @@ import {
   Circle,
   ClipboardCheck,
   Compass,
+  BarChart3,
+  Cog,
+  FileBarChart,
   Crosshair,
   Gavel,
   GitBranch,
@@ -30,6 +33,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  UsersRound,
   Waypoints,
   Workflow,
   Zap,
@@ -121,12 +125,49 @@ import Reveal from "@/components/Reveal";
  * copy nova acrescenta a linha aqui; o círculo é o aviso visual de que faltou.
  */
 const PILLAR_ICONS: Record<string, LucideIcon> = {
-  /* Top 150 Leadership Development — estes cinco seguem o próprio mockup dela
-     (pessoas, balão de fala, alvo, rede, gráfico em alta). */
+  /* ✅ OS OITO DA FILEIRA DO SENIOR LEADERSHIP DEVELOPMENT — 21-09. Os ícones
+     foram LIDOS DO DESENHO dela (`nova-pagina-interna-servicoes.jpg`), um a um,
+     e não escolhidos por afinidade com a palavra: pessoas, alvo com flecha,
+     engrenagem, balão de fala, pessoas, lâmpada, barras em alta, documento com
+     gráfico.
+
+     ⚠️ DOIS DELES SÃO PESSOAS NO DESENHO — "Immersions" e "Peer learning" — e
+     aqui saem com glifos DIFERENTES (`Users` e `UsersRound`). No arquivo dela os
+     dois desenhos também diferem entre si (três cabeças agrupadas contra três
+     figuras lado a lado), mas a diferença é sutil demais para sobreviver a
+     22px; dois glifos idênticos numa fileira de oito leriam como erro de
+     copiar e colar.
+
+     ⚠️ "Mastery Labs" COM L MAIÚSCULO é chave PRÓPRIA, e convive com a
+     "Mastery labs" minúscula logo abaixo. O mapa casa por string exata: são as
+     grafias de dois documentos diferentes dela (o desenho de 21-09 e a planilha
+     de copy), e os ícones também diferem — engrenagem no desenho, gráfico em
+     alta na leitura antiga. Unificar as duas sem ela pedir seria escolher qual
+     dos documentos dela está errado. */
+  Immersions: Users,
+  "Live business challenges": Target,
+  "Mastery Labs": Cog,
+  "Peer learning": UsersRound,
+  "Leadership experiments": Lightbulb,
+  /* BARRAS, e não a seta de tendência que este rótulo puxaria por associação.
+     O desenho mostra três barras ascendentes; a primeira versão saiu com
+     `TrendingUp` e a comparação lado a lado com o arquivo pegou a troca. */
+  "Everyday habits": BarChart3,
+  Measurement: FileBarChart,
+
+  /* Top 150 Leadership Development — os CINCO `pillars`, que esta página deixou
+     de renderizar em 21-09 (a fileira passa por `practices`; ver a caixa daquele
+     campo). Ficam porque os `pillars` continuam sendo o caminho de volta.
+     Seguem o próprio mockup dela: pessoas, balão de fala, alvo, rede, gráfico
+     em alta. */
   "Immersive experiences": Users,
   Coaching: MessageSquare,
   "Real business challenges": Target,
-  "Peer learning": Network,
+  /* ⚠️ "Peer learning" MUDOU DE ÍCONE EM 21-09 (era `Network`) e subiu para o
+     bloco dos oito, acima: o rótulo é o MESMO nos dois desenhos dela, e uma
+     chave só não pode ter dois ícones. O desenho mostra pessoas, não um
+     diagrama de rede — e este rótulo só aparece neste serviço, então a troca
+     não alcança nenhuma outra página. */
   "Mastery labs": TrendingUp,
 
   /* Culture Transformation */

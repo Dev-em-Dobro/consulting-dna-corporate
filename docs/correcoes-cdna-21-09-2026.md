@@ -133,12 +133,13 @@ page from the cards down, so it shows the practices and the case study line but 
 work" block above them.
 
 That block stays. Its headline and paragraph are the ones from your first drawing, unchanged.
-What the second drawing replaces is the **row beneath it**: the eight icons are now a short strip
-of three, habits, identity and the moments that matter, followed by the line that leads into the
-case study.
+What the second drawing replaces is the **line beneath the row**, which now reads "Featured case
+study" and leads into the case.
 
-The "A common outcome" label that opened that strip in your drawing has been taken out, as asked.
-The three now share the full width instead of sitting to the right of it.
+**The row itself is your eight**, from the first drawing: immersions, live business challenges,
+Mastery Labs, coaching, peer learning, leadership experiments, everyday habits and measurement,
+each with the icon you drew for it. It briefly carried the shorter set from the second drawing
+before you asked for the eight back.
 
 **We changed only that section.** The same drawing also redraws the block above it, with a
 different label, headline and card copy, and with a label and a three-word credential sitting on
@@ -149,9 +150,10 @@ The closing statement, "Different organisations. Different transformations.", no
 on that page. Your drawing puts the case study line in its slot. The words are still held and
 come back the moment you want them somewhere else.
 
-**One debt cleared itself.** The first drawing asked for eight practices where we had five, and
-three of yours appeared in none of your sentences. Your second drawing shortened the row to
-three, so the gap is gone.
+**One debt is settled.** The row used to be built from the words in your own services sentence,
+which is why it could only ever show five of your eight: "leadership experiments", "everyday
+habits" and "measurement" appear in no sentence we hold. The row no longer derives from that
+sentence, so all eight are there. Your services copy is untouched.
 
 Everything after the case study line is still outside both drawings: the invitation and Related
 Services. They are on the page from earlier decisions and are marked in our code as *not drawn*

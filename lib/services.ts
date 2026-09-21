@@ -285,9 +285,16 @@ export type ServiceClosing = {
  *
  * ⛔ O RÓTULO "A COMMON OUTCOME" ESTEVE AQUI, num campo `lead`, e saiu no
  * mesmo dia a pedido — *"pode tirar essa frase e deixar só os ícones"*. Ele era
- * a célula vermelha sem ícone à esquerda, e nomeava o que as três práticas
+ * uma célula vermelha sem ícone à esquerda, e nomeava o que os itens à direita
  * tinham em comum. O campo saiu junto em vez de virar opcional nunca
- * preenchido; o caminho de volta está no cabeçalho de `SolutionPractices`.
+ * preenchido.
+ *
+ * ⛔ O COMPONENTE PRÓPRIO TAMBÉM SAIU. Esta lista teve, por algumas horas, um
+ * `SolutionPractices` com ícone à ESQUERDA do rótulo, que era o arranjo da
+ * segunda imagem. Com o pedido seguinte — pôr nesta seção os oito ícones do
+ * primeiro desenho — os dois desenhos convergiram para o mesmo arranjo, o de
+ * ícone ACIMA do rótulo, e o componente virou cópia do `SolutionPillars`. Hoje
+ * a fileira é uma só para os dez serviços; o que muda é a lista.
  *
  * ⏳ SÓ O PRIMEIRO SERVIÇO TEM. Ausente = o serviço continua exatamente como
  * estava, com o bloco "How we work" e os `pillars`. É a mesma guarda de
@@ -541,27 +548,40 @@ export const services: Service[] = [
       "Peer learning",
       "Mastery labs",
     ],
-    /* ✅ A TIRA DA SEGUNDA REVISÃO DE 21-09, transcrita da imagem
-       `docs/meetings/secao-atualizada-our-work.jpg`. Eram quatro células — o
-       rótulo vermelho "A common outcome" mais estas três — e o rótulo saiu no
-       mesmo dia, a pedido.
+    /* ✅ OS OITO DO PRIMEIRO MOCKUP, transcritos de
+       `docs/meetings/nova-pagina-interna-servicoes.jpg`, a pedido de 21-09.
+       A fileira de oito VOLTOU — e este campo já passou por três estados no
+       mesmo dia, o que vale registrar porque explica por que ele existe:
 
-       ELA NÃO É UMA VERSÃO CURTA DOS `pillars` ACIMA, e por isso os dois campos
-       convivem em vez de um substituir o outro. Os `pillars` são as palavras da
-       frase de `howWeHelp` — o COMO: imersões, coaching, desafios reais. Estes
-       três são o que o trabalho produz — hábitos, identidade, os momentos que
-       importam. Trocar um pelo outro no mesmo campo faria a próxima pessoa achar
-       que a cliente renomeou cinco itens, quando ela trocou a pergunta.
+         1º  cinco `pillars`, do primeiro mockup, com a dívida anotada de que
+             ele desenhava OITO e nós tínhamos cinco;
+         2º  quatro células da segunda imagem ("A common outcome" mais hábitos,
+             identidade e os momentos que importam), que encurtaram a fileira;
+         3º  os oito de novo, agora aqui, com os rótulos e os ícones do desenho.
 
-       ⚠️ OS TRÊS ITENS RESOLVEM, DE LAMBUJA, A DÍVIDA ANOTADA LOGO ABAIXO. A
-       caixa dos `pillars` registra que o mockup de 21-09 pedia oito itens e
-       nós tínhamos cinco, faltando "leadership experiments", "everyday habits" e
-       "measurement", e que o conserto dependia de a cliente reescrever a frase.
-       A revisão dela não reescreveu a frase: encurtou a fileira para três. A
-       dívida deixou de existir por mudança de desenho, não por copy nova — e a
-       caixa abaixo fica porque volta a valer se a fileira de oito voltar. */
+       ⚠️ É POR ISTO QUE OS OITO NÃO VÃO PARA `pillars`. Aquele campo tem uma
+       regra própria — os itens são PALAVRAS LITERAIS da frase de `howWeHelp` —
+       e três destes oito ("Leadership experiments", "Everyday habits",
+       "Measurement") não estão em frase nenhuma da cliente. Pô-los lá quebraria
+       a regra em silêncio e também o teste, que fixa de quatro a seis pilares
+       por serviço. Os `pillars` ficam intactos, como caminho de volta; quem
+       manda na tela é este campo.
+
+       A DÍVIDA ANOTADA NA CAIXA ABAIXO MORRE AQUI, e de outro jeito que o
+       previsto: ela dizia que o conserto dependia de a cliente reescrever a
+       frase de `howWeHelp` para os três termos novos aparecerem. Não dependia —
+       bastava parar de derivar a fileira daquela frase. */
     practices: {
-      items: ["Habits", "Identity", "Moments that matter in the flow of work"],
+      items: [
+        "Immersions",
+        "Live business challenges",
+        "Mastery Labs",
+        "Coaching",
+        "Peer learning",
+        "Leadership experiments",
+        "Everyday habits",
+        "Measurement",
+      ],
     },
     /* ⚠️ A FILEIRA DE ÍCONES DO MOCKUP DE 21-09 TEM OITO ITENS E ESTA TEM CINCO,
        e a diferença é deliberada. O desenho lista "Immersions · Live business
