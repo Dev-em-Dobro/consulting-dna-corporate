@@ -95,12 +95,16 @@ type Award = {
  * como mais duas menções. O próprio comentário daquela mudança já previa este
  * caso ao explicar por que o campo `distinction` não foi apagado do tipo.
  *
- * ⚠️ SEM LOGO. `/public/awards/` não tem arte da Brandon Hall e não é coisa
- * que se invente — é o selo de um instituto. Enquanto ela não chega, a célula
- * mostra o selo tipográfico.
+ * ⚠️ AS ARTES CHEGARAM EM 22-09, da apresentação (slide "Our Awards").
+ * Os dois arquivos estão em `/public/awards/`. O fundo branco do selo de
+ * DE&I foi removido para o círculo sentar na faixa escura do mesmo jeito
+ * que o de Talent Acquisition, que já veio com transparência.
  *
- * ⚠️ OS NOMES ESTÃO ENCURTADOS, e o original fica escrito aqui para ninguém
- * achar que foi digitado errado. No cartão do herói eles vinham inteiros:
+ * Os nomes visíveis seguem a faixa de cada selo — "Diversity, Equity and
+ * Inclusion" e "Talent Acquisition" — e não os títulos longos do cartão do
+ * herói, que continuam escritos abaixo para ninguém achar que se perderam.
+ *
+ * ⚠️ OS NOMES LONGOS, do cartão do herói:
  *
  *   "Brandon Hall Best Leadership Development for Talent Acceleration
  *    Programme for Asian Leaders"
@@ -119,16 +123,18 @@ type Award = {
  */
 const BRANDON_HALL: Award[] = [
   {
-    name: "Brandon Hall — Leadership Development",
-    distinction: "Gold",
-    showDistinction: true,
-    year: "2024",
-  },
-  {
-    name: "Brandon Hall — DE&I Leadership Development",
+    name: "Brandon Hall — Diversity, Equity and Inclusion",
     distinction: "Gold",
     showDistinction: true,
     year: "2023",
+    logo: "/awards/brandon-hall-dei.png",
+  },
+  {
+    name: "Brandon Hall — Talent Acquisition",
+    distinction: "Gold",
+    showDistinction: true,
+    year: "2024",
+    logo: "/awards/brandon-hall-talent-acquisition.png",
   },
 ];
 
