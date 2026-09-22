@@ -1526,104 +1526,56 @@ export default async function AboutV2Page() {
                 padding), então é o teto real, não um valor escolhido — e por
                 isso ele fica, mesmo com o título novo, que é mais curto.
 
-                SAIU O `whitespace-nowrap` das duas últimas palavras, junto com o
-                título que ele protegia: ele existia para "leadership real."
-                descer em par quando a linha quebrasse. "Our people live our
-                purpose." mede ~620px a 40px e não quebra em nenhuma largura
-                deste container; uma trava para uma quebra que não acontece só
-                atrapalharia quem editar o texto depois.
-
-                ⚠️ CAIXA BAIXA, E O E-MAIL VEIO EM CAIXA ALTA — 21-09, *"Current
-                block 2 - change text to OUR PEOPLE LIVE OUR PURPOSE"*. O que a
-                página faz em caixa alta é o RÓTULO (via CSS, no `uppercase` do
-                rótulo logo acima); título de bloco é caixa baixa em serifa, nos
-                quatro h2 desta página. E os tiles de região, mais abaixo,
-                registram a saída da caixa alta justamente porque ela é o
-                "quadrado" que esta tipografia está tentando tirar. A caixa alta
-                do e-mail é ênfase de quem escreve, não instrução de desenho —
-                se for para ser literal na tela, é uma classe. O ponto final
-                acompanha os outros h2 e o rótulo. */}
+                `whitespace-nowrap` nas duas últimas palavras, de volta em 22-09
+                junto com o título que ele protege. A Maliha pediu o texto
+                anterior a 21-09 ("Our purpose is to keep leadership real.").
+                Sem a trava, "real." desce sozinho quando a linha quebra. */}
             <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              Our people live our purpose.
+              Our purpose is to keep{" "}
+              <span className="whitespace-nowrap">leadership real.</span>
             </h2>
           </div>
 
-          {/* ⚠️ A CITAÇÃO DA RHEA SAIU EM 21-09, E COM ELA A ASSINATURA. O que
-              estava aqui era a fala "With roots in Big 4 Consulting…", com as
-              aspas vermelhas e o crédito "Rhea Leckie, Founder & CEO", mais dois
-              parágrafos de prosa que a explicavam ("That obligation shapes
-              everything we do…"). Fica registrado o que ela carregava, porque é
-              conteúdo que não está mais em lugar nenhum do site: a gênese da
-              firma no Big 4 e a obrigação do consultor de cortar a complexidade.
+          {/* ⚠️ 22-09 O TEXTO DE 21-09 SAIU DESTA SEÇÃO, a pedido da Maliha:
+              voltar a versão anterior de "Why Corporate DNA exists". O h2, a
+              citação e os dois parágrafos abaixo são os de antes do commit
+              b1c431e. Os quatro parágrafos que estavam aqui ("When a client
+              trusts us…") foram para o cartão Keeping Leadership Real, no
+              bloco da foto. */}
+          <blockquote className="mt-8 text-center">
+            <p className="text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
+              <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
+                “
+              </span>
+              <strong className="font-semibold">With roots in Big 4 Consulting</strong>, the
+              genesis of CorporateDNA is that a consultant’s obligation is to cut
+              through complexity, connect the threads and deliver the truth. We
+              want to take off language which hides real problems and bring
+              solutions and transformations that are true to the lived realities
+              of our clients. Accessing this truth and the powerful
+              transformation that it entails, depends on honesty, courage, and
+              authenticity.
+              <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
+                ”
+              </span>
+            </p>
+            <footer className="mt-5 text-[14px] font-medium tracking-[0.2px] text-white/60">
+              Rhea Leckie, Founder &amp; CEO
+            </footer>
+          </blockquote>
 
-              O PEDIDO É DE SUBSTITUIÇÃO, não de acréscimo: *"Current block 2 -
-              change text to OUR PEOPLE LIVE OUR PURPOSE"* seguido do corpo
-              inteiro, e a anotação da mesma call diz que *"maliha tem textos
-              revisados para enviar do bloco com a imagem"*. Encaixar os quatro
-              parágrafos novos POR CIMA da citação deixaria a seção com duas
-              vozes dizendo a mesma coisa em 1.200 palavras.
-
-              A decisão anterior sobre a régua da esquerda da citação morre junto
-              com a citação; o que sobrevive dela é o princípio, anotado na régua
-              logo abaixo: neste bloco centralizado, destaque não vem de borda
-              lateral.
-
-              ⚠️ SE A RHEA QUISER A FALA DE VOLTA, ela é o bloco inteiro no
-              commit anterior — e o lugar dela seria entre o título e a régua.
-
-              O RÓTULO "Why Corporate DNA exists." FICOU. Ele é o kicker da
-              seção, não o texto dela, e o e-mail não mandou substituto; trocá-lo
-              por conta própria seria escrever copy que ninguém pediu. Continua
-              verdadeiro: o bloco segue sendo o do propósito. Se ela quiser outro
-              rótulo, é uma linha. */}
-
-          {/* A régua fica no lugar que a referência dá a ela: centralizada,
-              separando o título da prosa. Ela separava a FALA CITADA da prosa
-              até 21-09; sem a citação, o trabalho passa a ser o de respiro entre
-              o título e o corpo, que é o mesmo gesto com um vizinho a menos.
-              Largura de 56px — o dobro dos 28px que ela tem quando abre um
-              rótulo, porque isolada no meio de uma coluna de 820px um traço
-              curto some. */}
           <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
 
-          {/* O CORPO É O DO E-MAIL DE 21-09, palavra por palavra. Duas correções
-              de digitação, e só: *"in the moments that matter ."* perdeu o
-              espaço antes do ponto e *"discernment  to know"* perdeu o espaço
-              duplo. Nenhuma palavra em negrito ou em vermelho — o e-mail veio em
-              texto corrido, e grifar "Keeping Leadership Real" no terceiro
-              parágrafo (como o bloco da foto grifa "Keeping It Real") seria
-              ênfase nossa num texto que a cliente revisou.
-
-              ⚠️ A MEDIDA PASSOU A SER PRESA EM 680px. A prosa daqui era de dois
-              parágrafos curtos e corria na largura cheia do container (820px);
-              agora são quatro, e o segundo é uma sequência de frases curtas que
-              depende de a quebra cair no lugar. A 820px e 18px dá ~110
-              caracteres por linha, contra os 45–75 legíveis que este arquivo já
-              cita no bloco de valores. 680px põe a linha em ~90 — ainda larga
-              para texto centralizado, mas é o que o "single column, centred,
-              generous margins" do outline pede, e encurtar mais deixaria a
-              coluna estreita demais debaixo de um h2 de 820. */}
-          <div className="mx-auto mt-10 max-w-[680px] space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
+          <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
             <p>
-              When a client trusts us as a consulting firm, that trust starts
-              from the very first interaction with the people who represent
-              CorporateDNA and how we live our purpose in the moments that
-              matter.
+              That obligation shapes everything we do. We release the power,
+              humanity and honesty of leadership in all its parts: the values an
+              organisation holds, the culture they produce, the teams that carry
+              them, and what makes each individual leader stronger.
             </p>
             <p>
-              How we listen. How we challenge. How we add value. How we navigate
-              difficult decisions and conversations. And how we use our
-              discernment to know when to lead, when to question and when to
-              listen.
-            </p>
-            <p>
-              For us, Keeping Leadership Real starts from the inside out. It
-              shapes how we work with each other and how we show up with our
-              clients—with honesty, care, candour and experience.
-            </p>
-            <p>
-              Because before our clients experience our work, they experience
-              our people. And our people bring our purpose to life.
+              We anchor the work in the inner and outer games, so change is
+              inside out, complete, and rooted in truth and impact.
             </p>
           </div>
         </Reveal>
@@ -1893,67 +1845,45 @@ export default async function AboutV2Page() {
                       tem altura de x menor que a Poppins, então 18px aqui lê
                       com mais ou menos o mesmo tamanho aparente dos 17,5px de
                       antes — a mudança que se vê é o desenho, não a escala. */}
-                  <p className="text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
-                    At CDNA, <span className="font-semibold text-brand">Keeping It Real</span>{" "}
-                    isn’t a slogan; it’s how we work. We speak with honesty, design
-                    with truth, and deliver with the same authenticity we expect
-                    from leaders. Our conversations are candid, our relationships
-                    are human, and our programmes are built from real, lived
-                    experience, not theory.
-                  </p>
-                  <p className="mt-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
-                    CEOs and CHROs respect us for keeping it relevant, resilient,
-                    and{" "}
-                    {/* A aspa de fechamento acompanha a de abertura: mesmo corpo
-                        (44px) e na altura da linha, não pendurada abaixo dela.
-
-                        `leading-[0]` é o detalhe que faz funcionar. Sem ele, um
-                        glifo de 44px dentro de um parágrafo de 18px ESTICA a
-                        caixa da última linha e abre um buraco entre ela e a
-                        assinatura. Com altura de linha zero o glifo transborda da
-                        própria caixa sem empurrar nada, e o `translate-y` o traz
-                        para o nível do texto — a aspa serifada nasce muito acima
-                        da linha de base.
-
-                        ⚠️ O DESLOCAMENTO SUBIU DE 0,22em PARA 0,36em EM 09-09,
-                        e a razão é a troca de fonte: 0,22em foi calibrado contra
-                        a serifa GENÉRICA do sistema, que era o que `font-serif`
-                        entregava antes. A Source Serif 4 põe o `”` mais alto na
-                        caixa do em, então a mesma constante deixava a aspa
-                        pairando acima de "real." em vez de encostada nela.
-                        Conferido no navegador contra 0,22 / 0,30 / 0,36: em 0,36
-                        a tinta da aspa cai na altura-x da palavra, que é onde
-                        ela lê como parte da linha.
-
-                        Constante calibrada por fonte: se a família mudar de
-                        novo, esta é para reconferir, não para herdar.
-
-                        `whitespace-nowrap` na última palavra + aspa, desde 09-09:
-                        ao conter a faixa em 1440 a medida do texto caiu de 680
-                        para 652px, e nessa largura a linha quebrava EXATAMENTE
-                        entre "real." e a aspa, deixando o glifo sozinho numa
-                        linha só dele. Presos, os dois descem juntos quando não
-                        couberem — que é uma quebra normal de parágrafo, não um
-                        órfão. */}
-                    <span className="whitespace-nowrap">
-                      real.
-                      <span
-                        aria-hidden
-                        className="ml-1.5 inline-block translate-y-[0.36em] select-none font-serif text-[44px] leading-[0] text-brand"
-                      >
-                        ”
+                  {/* 22-09: o corpo que estava em "Why Corporate DNA exists"
+                      ("When a client trusts us…") veio para cá. A fala "Keeping
+                      It Real isn’t a slogan" e a assinatura da Rhea saíram com
+                      ele — aquele crédito era da citação, e estes quatro
+                      parágrafos não são assinados. A aspa de fecho continua na
+                      última linha, com `leading-[0]` para o glifo de 44px não
+                      esticar o parágrafo. */}
+                  <div className="space-y-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
+                    <p>
+                      When a client trusts us as a consulting firm, that trust starts
+                      from the very first interaction with the people who represent
+                      CorporateDNA and how we live our purpose in the moments that
+                      matter.
+                    </p>
+                    <p>
+                      How we listen. How we challenge. How we add value. How we navigate
+                      difficult decisions and conversations. And how we use our
+                      discernment to know when to lead, when to question and when to
+                      listen.
+                    </p>
+                    <p>
+                      For us, Keeping Leadership Real starts from the inside out. It
+                      shapes how we work with each other and how we show up with our
+                      clients—with honesty, care, candour and experience.
+                    </p>
+                    <p>
+                      Because before our clients experience our work, they experience
+                      our people. And our people bring our purpose to{" "}
+                      <span className="whitespace-nowrap">
+                        life.
+                        <span
+                          aria-hidden
+                          className="ml-1.5 inline-block translate-y-[0.36em] select-none font-serif text-[44px] leading-[0] text-brand"
+                        >
+                          ”
+                        </span>
                       </span>
-                    </span>
-                  </p>
-                  {/* A ASSINATURA FICA EM GEIST, e não na serifa que a grade dá
-                      para "texto pequeno". Ela não é corpo de texto: é o
-                      crédito da citação, e o trabalho dela é se separar do que
-                      está sendo citado. Em serifa 14px, no mesmo desenho do
-                      parágrafo logo acima, ela leria como mais uma linha da
-                      fala. Em grotesca 500 ela vira rótulo — que é a função. */}
-                  <footer className="mt-6 text-[14px] font-medium tracking-[0.2px] text-ink">
-                    Rhea Leckie, Founder &amp; CEO of CDNA Consulting
-                  </footer>
+                    </p>
+                  </div>
                 </blockquote>
             </div>
           </div>
