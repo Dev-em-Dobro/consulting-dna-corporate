@@ -84,6 +84,12 @@ docs/meetings/drive-download-*/
 # Ler localmente.
 docs/emails-cdna-thread.md
 
+# O export da thread do domínio com a Axon (33 mensagens, 31/08 a 22/09), tirado
+# do Gmail em 22-09 e usado para corrigir o thread consolidado. Mesma regra: é
+# correspondência verbatim do cliente, com endereços de toda a CDNA e dados de
+# fatura. Ler localmente.
+docs/axon-thread-cutover-EXPORT-*.txt
+
 # O pacote do drive da Maliha de 16-09 — a mesma pasta de sempre, agora com o
 # nome que ela usa no Drive ("CDNA — Photographs for the new website"), mais o
 # .zip do download. São 51 MB de originais do cliente (HEIC, PNGs de 2 MB,

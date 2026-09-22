@@ -1,5 +1,28 @@
 DOC 4 - WHAT WE STILL NEED, AND FROM WHOM
 
+**********************************************************************
+UPDATED 22 SEPTEMBER 2026 - READ BEFORE ACTING ON ANYTHING BELOW
+
+This document is a snapshot of 3 September. The full email thread was
+exported on 22 September and three items below are now out of date:
+
+  - THE HOSTING EXTENSION IS NOT PENDING. Rhea approved it on 4
+    September, Finance told Axon the same day and Axon invoiced it.
+    The old hosting runs to 31 December. Do not ask again, and ignore
+    any "rollback window shrinks on 30 September" reasoning here.
+  - THE ADMIN CONTACT NOW NEEDS AN EMAIL FROM RHEA DIRECTLY TO AXON.
+    A reply-all in the thread is no longer accepted (Rico, 15 Sep).
+  - THE BACKUP HAS A CONFIRMED PRICE: one credit, one hour, USD 100,
+    at https://axon.com.sg/credit-top-up.html. Still unbought.
+
+New since: invoice #120844 (S$ 22, the domain, due 13 October), Axon
+reminders firing early, and a request not to pay any third-party
+account without written confirmation from Amit.
+
+Full detail in the addendum of 1-axon-cutover-and-open-items.txt.
+**********************************************************************
+
+
 Everything blocked, with a named owner. Nothing here is waiting on Dev em Dobro.
 
 ======================================================================
@@ -8,8 +31,10 @@ A - FROM AXON (RICO / AMIT)
 
 A1. GOOGLE SEARCH CONSOLE
     What: who holds the property, and access for singapore@, Nitin and Nicole.
-    Status: asked three times since 31 August. NO ANSWER. The only item genuinely
-            blocked on Axon.
+    Status: asked FOUR times - 31 August, 1, 3 and 15 September. NO ANSWER.
+            Still the only Google item blocked on Axon. (Analytics is done:
+            Nicole was made administrator on 3 September at 04:07 and only has
+            to accept the invitation.)
     Why it matters: carries search history and ownership verification. Matters more
             than Analytics.
 
@@ -185,7 +210,9 @@ THE TWO DECISIONS WITH A DATE ON THEM
 1. RHEA'S EMAIL - no cost, no deadline stated by Axon, but the domain expires 13
    October and nothing moves until she replies.
 
-2. THE HOSTING EXTENSION - SGD 150 for 1 October to 31 December. ANSWER DUE 20
-   SEPTEMBER. Recommendation: take it. Without it the rollback window shrinks to zero
-   on 30 September; with it the launch date gets chosen on merit rather than on a
-   hosting invoice.
+2. THE HOSTING EXTENSION - CLOSED, AND IT ALWAYS WAS. Superseded on 22 September:
+   Rhea approved the SGD 150 for 1 October to 31 December on 4 SEPTEMBER, Finance
+   passed it to Axon the same day and re-confirmed on 11 September, and Axon had
+   already invoiced it. The old hosting runs to 31 December. There is no answer due
+   on 20 September, no shrinking rollback window, and nothing to ask Rhea. The launch
+   date is now chosen on merit, which is what this was for.

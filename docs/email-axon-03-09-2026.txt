@@ -1,0 +1,106 @@
+E-MAIL RECEBIDO DA AXON — 03/09/2026, 12:04 SGT (01:04 de Brasília)
+Rico M., Support Engineer, Axon 1Pro Solutions.
+"Gentle reminder" com os cinco itens em aberto da transição.
+Para: Guilherme, Ricardo, Rhea, Nicole. Cc: Amit, Nitin, Finance, JP, Tay Weida,
+      Maliha, Spencer.
+Nossa resposta na época: docs/resposta-axon-03-09.ENVIAR.txt
+Respondido de novo, fora de data, em 15/09: docs/mensagem-guilherme-15-09-2026-pendencias-axon.txt
+
+⚠️ ESTE ARQUIVO JÁ ESTEVE ERRADO EM DUAS COISAS. Corrigido em 22/09/2026 a partir do
+   export da thread (docs/axon-thread-cutover-EXPORT-22-09-2026.txt):
+
+   1. DATA. Chamava-se email-axon-15-09-2026.txt e dizia "2º reminder" de 15/09.
+      Não é: este e-mail é de 03/09. A prova está no próprio corpo — o item 2 ainda
+      cobra o e-mail Google da Nicole, que ela entregou em 03/09 e que o Rico
+      confirmou 28 minutos depois. No export não existe nenhuma mensagem do Rico em
+      15/09 além das duas sobre o preço do crédito. O que aconteceu foi que o Roberto,
+      voltando de férias em 15/09, respondeu "o último e-mail que a Axon mandou" e o
+      arquivo foi salvo com a data da leitura, não do envio. Note que o
+      resposta-axon-03-09.ENVIAR.txt sempre datou este mesmo e-mail corretamente.
+
+   2. TRUNCAGEM. A colagem anterior avisava de um corte depois de "Once we receive the
+      Google-linked address, we c" e o descrevia como o fim de uma frase mais o começo
+      do parágrafo dos créditos. Era bem maior: tinham sumido DOIS ITENS INTEIROS —
+      o 3 (Domain administrative contact) e o 4 (DNS cutover and backup). O e-mail tem
+      cinco itens. Abaixo está o texto íntegro.
+
+────────────────────────────────────────────────────────────────────────
+
+Good morning, Guilherme, Ricardo, Rhea, Nicole and everyone,
+
+Just a gentle reminder regarding the remaining items for the
+corporatednaconsulting.com website transition.
+1. Hosting extension for rollback
+
+Please confirm whether Corporate DNA would like to extend the current
+hosting beyond 30 September 2026 for rollback purposes.
+
+Hosting cannot be extended monthly. The minimum extension is one quarter:
+
+- Period: 1 October to 31 December 2026
+- Cost: SGD 150 for the quarter
+
+If you would like the extension, please confirm by Reply-all and we
+will update the billing system accordingly. If it is not required,
+please also let us know so that we can proceed on the basis that the
+existing hosting will end on 30 September 2026.
+
+2. Google Analytics and Search Console
+
+We are still waiting for Nicole to provide an email address linked to
+a Google Account. Nicole may create a Google Account using her
+Corporate DNA email address; a Gmail address is not required.
+
+Once we receive the Google-linked address, we can complete the
+requested Google Analytics and Google Search Console access.
+
+3. Domain administrative contact
+
+Rhea, please confirm by Reply-all that you authorise Axon to update
+the domain administrative contact to:
+
+Rhea Leckie
+rhea.l@corporatednaconsulting.com
+
+This will also allow us to remove Allison Vickery's former mailbox
+from future domain correspondence.
+
+4. DNS cutover and backup
+
+Ricardo and the Dev em Dobro team already have the necessary access
+and would normally be able to handle the DNS cutover directly. Before
+making the change, please send the exact target DNS values together
+with the proposed date, time and timezone.
+
+As agreed, only the apex A record and the www record should be
+changed. The Microsoft 365 mail records, including MX, SPF, DKIM and
+DMARC, must remain unchanged.
+
+Please also confirm the arrangements for the complete backup of the
+existing WordPress files, database and media before the old hosting is
+retired.
+
+5. Optional Axon assistance
+
+If Corporate DNA would like Axon to assist with the backup, DNS
+settings, cutover checking or any related technical work beyond the
+Google access, we will be glad to help under the maintenance-credit
+arrangement.
+
+Maintenance credits can be purchased at:
+
+https://axon.com.sg
+
+Please click “Buy Credits.” One maintenance credit, equivalent to one
+hour, should normally be sufficient for a focused backup task or basic
+DNS assistance and verification, depending on the final scope.
+
+This assistance is optional, as the appointed developer already has
+full access and should normally be able to complete the migration and
+DNS work.
+
+Thank you, and please let us know if any other assistance is required.
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions

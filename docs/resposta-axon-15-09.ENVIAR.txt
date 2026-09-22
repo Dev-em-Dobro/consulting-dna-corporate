@@ -1,9 +1,19 @@
-RESPOSTA À AXON — 15/09/2026
-Responde ao segundo "gentle reminder" do Rico (hospedagem, Google, créditos de
-manutenção). Corpo em texto puro, em inglês.
+RESPOSTA À AXON — rascunho de 15/09/2026
+Responde ao "gentle reminder" do Rico, que é de 03/09
+(docs/email-axon-03-09-2026.txt) — hospedagem, Google, créditos de manutenção.
+Corpo em texto puro, em inglês.
+
+NUNCA FOI ENVIADA, e não deve mais ser como está. Confirmado pelo export de
+22/09: quem respondeu à Axon foi o próprio Guilherme, em 15/09 às 14:27, com um
+reply-all na thread. Dois parágrafos envelheceram desde então:
+  • §1 (extensão da hospedagem) — a Rhea já tinha aprovado em 04/09 e a Axon já
+    tinha faturado. Nunca esteve pendente.
+  • §2 (contato administrativo) — a Axon mudou a exigência outra vez em 15/09:
+    a Rhea tem que escrever DIRETO a eles; reply-all não serve mais.
+O §3 já estava vencido no próprio dia, pelo motivo do quadro abaixo. O §4 vale.
 
 ╔══════════════════════════════════════════════════════════════════════╗
-║  ⚠️ EM ESPERA, E O §3 ESTÁ VENCIDO — NÃO MANDAR COMO ESTÁ.           ║
+║  ⚠️ O §3 ESTÁ VENCIDO — motivo original, de 15/09.                    ║
 ║                                                                      ║
 ║  O Roberto escreveu ao Guilherme em 15/09                            ║
 ║  (docs/mensagem-guilherme-15-09-2026-pendencias-axon.txt) fechando   ║
@@ -23,7 +33,7 @@ manutenção). Corpo em texto puro, em inglês.
 ╚══════════════════════════════════════════════════════════════════════╝
 
 ────────────────────────────────────────────────────────────────────────
-COMO MANDAR: **Responder a todos** no e-mail do Rico de 15/09 que começa
+COMO MANDAR: **Responder a todos** no e-mail do Rico de 03/09 que começa
              com "Just a gentle reminder regarding the remaining items for
              the corporatednaconsulting.com website transition". Vai para
              Guilherme, Ricardo, Rhea, Nicole e quem mais o Reply All

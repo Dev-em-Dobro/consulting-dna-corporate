@@ -1,55 +1,73 @@
-MENSAGEM AO GUILHERME — 15/09/2026
-De: Roberto (voltando das férias).
+MENSAGEM AO GUILHERME — 15/09/2026, 11:58
+De: Roberto (voltando das férias). Por e-mail, direto ao Guilherme (não reply-all).
 Fecha as três pendências da Axon do lado da CDNA antes de responder a eles.
-Responde a: docs/email-axon-15-09-2026.txt (o 2º reminder do Rico).
-STATUS: ENVIADA — registrada aqui como o Roberto a passou. Se ainda não saiu,
-        corrigir esta linha.
+Responde a: docs/email-axon-03-09-2026.txt (o "gentle reminder" do Rico, de 03/09 —
+            este arquivo antes o chamava de "2º reminder de 15/09"; ver a nota lá).
+STATUS: ENVIADA — confirmada no export da thread.
 
-⚠️ ORIGEM: colada da conversa, não exportada. Dois furos na colagem:
-   • o ITEM 1 corta em "SGD 150 pelo trimestre de" e emenda direto num
-     endereço de e-mail — falta o fim da frase;
-   • o ITEM 2 não aparece. Pela ordem do e-mail do Rico, é o dos acessos
-     do Google (Analytics e Search Console), mas isso é dedução, não o
-     que está escrito. Não foi reconstituído aqui de propósito.
-   Os dois pontos estão marcados no corpo com [TRUNCADO NA COLAGEM].
-   Para ter o texto íntegro, reexportar do WhatsApp/e-mail.
+✅ TEXTO ÍNTEGRO desde 22/09/2026. Esta mensagem esteve truncada em dois pontos e a
+   versão anterior deduzia, errado, o que faltava. Reconstituída verbatim a partir de
+   docs/axon-thread-cutover-EXPORT-22-09-2026.txt:
 
-⚠️ MUDA A POSIÇÃO DO BACKUP. Até 03/09 a nossa posição era pedir acesso e
-   fazer o backup nós mesmos, recusando o crédito de manutenção — é o que
-   está no `docs/resposta-axon-03-09.ENVIAR.txt` e no §3 do rascunho
-   `docs/resposta-axon-15-09.ENVIAR.txt`. Esta mensagem fecha o contrário:
-   como a Axon não liberou os acessos da hospedagem, comprar 1 hora de
-   crédito e deixar a Axon fazer o backup dos arquivos e do banco.
-   Confere com o registro de 03/09, que já dizia que eles devolveram o
-   pedido de cPanel e ofereceram o serviço pago.
-   CONSEQUÊNCIA: o §3 daquele rascunho está vencido e precisa ser
-   reescrito antes de o e-mail à Axon sair. O e-mail à Axon só sai depois
-   dos "oks" pedidos aqui.
+   • o ITEM 1 cortava em "SGD 150 pelo trimestre de". O que faltava era a recomendação
+     de comprar (motivo de calendário: Team, Services e Approach ainda em produção, a
+     5H do Guli não aprovada) e o prazo — resposta da CDNA até 20/09.
+   • o ITEM 2 estava AUSENTE, e a nota anterior supunha que fosse "os acessos do
+     Google". Não era: o item 2 é a autorização da Rhea para trocar o contato
+     administrativo do domínio. O fragmento solto "@corporatednaconsulting.com" que
+     tinha sobrado na colagem era o final de "rhea.l@corporatednaconsulting.com".
+     Google não é mencionado nesta mensagem.
+
+⚠️ MUDA A POSIÇÃO DO BACKUP. Até 03/09 a nossa posição era pedir acesso e fazer o
+   backup nós mesmos, recusando o crédito de manutenção — é o que está no
+   `docs/resposta-axon-03-09.ENVIAR.txt` e no §3 do rascunho
+   `docs/resposta-axon-15-09.ENVIAR.txt`. Esta mensagem fecha o contrário: como a Axon
+   não liberou os acessos da hospedagem, comprar 1 hora de crédito e deixar a Axon
+   fazer o backup dos arquivos e do banco.
+   CONSEQUÊNCIA: o §3 daquele rascunho está vencido. E ele nunca foi enviado — quem
+   respondeu à Axon foi o próprio Guilherme, em 15/09 14:27, com um reply-all na
+   thread (está no export).
+
+⚠️ O ITEM 1 ESTAVA ERRADO, e não por culpa desta mensagem. A extensão da hospedagem
+   NÃO estava pendente da Rhea: ela já tinha aprovado em 04/09, a Finance comunicou à
+   Axon no mesmo dia, reconfirmou em 11/09 e a Axon já tinha faturado. Isso só veio à
+   tona em 16/09, quando a Yvonne (Finance) corrigiu a thread. Ver o addendum de 22/09
+   em docs/locked-in/1-axon-cutover-and-open-items.txt.
 
 O QUE ESTA MENSAGEM PEDE À CDNA:
-   a. ok para a extensão da hospedagem (S$ 150, trimestre 01/10 a 31/12);
-   b. ok para comprar 1 hora de crédito de suporte para a Axon fazer o
-      backup do site antigo e do banco;
-   c. (dedução, ver acima) o que falta do lado do Google.
+   a. ok para a extensão da hospedagem (S$ 150, trimestre 01/10 a 31/12)
+      → já estava aprovada desde 04/09, ver acima;
+   b. autorização da Rhea para a troca do contato administrativo do domínio
+      → continua pendente;
+   c. ok para comprar 1 hora de crédito de suporte (USD 100, preço confirmado pelo
+      Rico em 15/09) para a Axon fazer o backup do site antigo e do banco
+      → continua pendente.
 
 ────────────────────────────────────────────────────────────────────────
-
 
 Opa Guilherme, bom dia! Roberto aqui voltando das férias.
 
 Sobre as perguntas que tu pediu para o Cadu ajudar a responder, do último email que a Axon mandou, pra fecharmos em relação ao cutover, segue:
 
-1. Hospedagem: SGD 150 pelo trimestre de    [TRUNCADO NA COLAGEM]
+1. Hospedagem: SGD 150 pelo trimestre de 01/10 a 31/12. Não existe extensão mensal, o mínimo é o trimestre. Nossa recomendação é comprar essa extensão, e o motivo é de
+calendário, o conteúdo de Team, Services e Approach ainda está em desenvolvimento, e a página 5H que o Guli desenhou ainda não foi aprovada. Fora as outras páginas que
+ainda não foram revisadas. Lançar dentro de setembro seria ou correndo, ou sem nenhuma janela de rollback — em 30/09 o servidor antigo termina e não teria como voltar atrás.
+Os SGD 150 compram o direito de escolher a data de lançamento pelo estado do trabalho e entregar com qualidade.
+Quem autoriza a compra é a Corporate DNA, então precisa de uma resposta da Rhea aprovando a extensão. Precisamos da resposta de vocês até dia 20/09 no máximo
+pra pedir pra eles fazerem a extensão.
 
-@corporatednaconsulting.com
+2. Da Rhea, falta a resposta autorizando a troca do contato administrativo do domínio para o e-mail e a saída da caixa da Allison, só confirmar com a Rhea se eles podem fazer a
+alteração do email para rhea.l@corporatednaconsulting.com
 
-   [ITEM 2 AUSENTE NA COLAGEM — pela ordem do e-mail do Rico, seria o dos
-   acessos do Google (Analytics e Search Console)]
-
-3. Sobre o backup da hospedagem antiga, não foi permitido nos mandarem os acessos a hospedagem então precisaria contratar horas de suporte para que a axon faça o backup dos arquivos do projeto e do banco de dados, pra isso eles instruíram a entrar no painel e fazer a contratação em
-
+3. Sobre o backup da hospedagem antiga, não foi permitido nos mandarem os acessos a hospedagem então precisaria contratar horas de suporte para que a axon faça o backup
+dos arquivos do projeto e do banco de dados, pra isso eles instruíram a entrar no painel e fazer a contratação em
 https://axon.com.sg
 
-Clicar em "Buy Credits." e comprar uma hora de suporte pra eles fazerem o backup, acho que como temos o acesso a gente pode fazer essa compra, só precisamos do ok de vocês para comprar essa 1 hora e alinharmos com eles os backups.
+Clicar em “Buy Credits.” e comprar uma hora de suporte pra eles fazerem o backup, acho que como temos o acesso a gente pode fazer essa compra, só
+precisamos do ok de vocês para comprar essa 1 hora e alinharmos com eles os backups.
 
 Tendo esses oks, a gente pode redigir o email de resposta para eles.
+
+Abraço,
+Roberto
+Dev em Dobro

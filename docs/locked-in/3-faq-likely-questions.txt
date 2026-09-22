@@ -1,5 +1,28 @@
 DOC 3 - FAQ: WHAT SHE IS LIKELY TO ASK, AND THE SHORT ANSWER
 
+**********************************************************************
+UPDATED 22 SEPTEMBER 2026 - READ BEFORE ACTING ON ANYTHING BELOW
+
+This document is a snapshot of 3 September. The full email thread was
+exported on 22 September and three items below are now out of date:
+
+  - THE HOSTING EXTENSION IS NOT PENDING. Rhea approved it on 4
+    September, Finance told Axon the same day and Axon invoiced it.
+    The old hosting runs to 31 December. Do not ask again, and ignore
+    any "rollback window shrinks on 30 September" reasoning here.
+  - THE ADMIN CONTACT NOW NEEDS AN EMAIL FROM RHEA DIRECTLY TO AXON.
+    A reply-all in the thread is no longer accepted (Rico, 15 Sep).
+  - THE BACKUP HAS A CONFIRMED PRICE: one credit, one hour, USD 100,
+    at https://axon.com.sg/credit-top-up.html. Still unbought.
+
+New since: invoice #120844 (S$ 22, the domain, due 13 October), Axon
+reminders firing early, and a request not to pay any third-party
+account without written confirmation from Amit.
+
+Full detail in the addendum of 1-axon-cutover-and-open-items.txt.
+**********************************************************************
+
+
 Answers are written to be said out loud. Numbers are exact and verified.
 A Portuguese glossary of the terms likely to be spoken is at the end of this file.
 

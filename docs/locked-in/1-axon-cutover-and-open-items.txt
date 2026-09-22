@@ -1,7 +1,11 @@
 DOC 1 - AXON, THE WEBSITE CUTOVER, AND EVERY OPEN ITEM
-Corporate DNA Consulting - website migration - state as of 3 September 2026
+Corporate DNA Consulting - website migration
+Body below: state as of 3 September 2026.
+UPDATED 22 September 2026 - see the addendum at the end, which CORRECTS the
+hosting-extension item and the rollback-window table in the body.
 Source: email thread "corporatednaconsulting.com - domain, and how the cutover will run",
-13 messages between 31 August and 3 September 2026.
+33 messages between 31 August and 22 September 2026, exported in full to
+docs/axon-thread-cutover-EXPORT-22-09-2026.txt.
 
 ======================================================================
 THE ONE-PARAGRAPH VERSION
@@ -226,3 +230,183 @@ account. The account we can operate day to day is a Dev em Dobro one. Either way
 client's sending domain ends up inside an agency account - the same shape as the
 content database. It belongs in the handover conversation with the domain and Vercel,
 not in a DNS ticket.
+
+
+======================================================================
+ADDENDUM - 22 SEPTEMBER 2026: WHAT THE FULL THREAD EXPORT CHANGED
+======================================================================
+
+On 22 September the whole email thread was exported from Gmail (33 messages,
+31 August to 22 September) and reconciled against these notes. Three things in
+the body above are now wrong, and two new items appeared. Everything here is
+sourced from docs/axon-thread-cutover-EXPORT-22-09-2026.txt.
+
+----------------------------------------------------------------------
+CORRECTION 1 - THE HOSTING EXTENSION WAS NEVER PENDING. IT IS PAID FOR.
+----------------------------------------------------------------------
+
+The body above lists the SGD 150 extension as a decision due by 20 September.
+It was not. Rhea approved it on 4 SEPTEMBER. CDNA Finance communicated the
+approval to Axon the same day, re-confirmed it on 11 September when asked
+again, and Axon had already issued the invoice.
+
+Nobody on our side knew. On 15 September we listed it as outstanding, Guilherme
+relayed it to Rhea as a request needing an answer by the 20th, and Axon - who
+held the approval on file - repeated the request too. Yvonne (CDNA Finance) cut
+it off on 16 September. Rico's reply, in writing:
+
+    "No further approval or confirmation for the hosting extension is pending
+     from Rhea or Corporate DNA. [...] We will treat the extension as confirmed
+     and will not request the same approval again."
+
+CONSEQUENCES:
+
+  - The old hosting now runs to 31 DECEMBER 2026, not 30 September.
+  - THE ROLLBACK-WINDOW TABLE IN THE BODY ABOVE IS DEAD. There is no
+    "14 days / 7 days / none" squeeze. Launch date is now chosen by the state
+    of the work, which is what buying the quarter was for.
+  - Do not raise the extension with Axon or with Rhea again.
+
+PROCESS LESSON, worth more than the item itself: CDNA Finance closes things by
+email that we never see. Before listing anything financial as outstanding, ask
+Yvonne first.
+
+----------------------------------------------------------------------
+CORRECTION 2 - THE ADMIN-CONTACT REQUIREMENT CHANGED A THIRD TIME
+----------------------------------------------------------------------
+
+The body says Axon dropped the signed-letter requirement and that a reply-all
+from Rhea is enough. That was Rico on 1 September. On 15 September he changed
+it again:
+
+    "for security and authorization purposes, Rhea must email us directly to
+     confirm the requested change."
+
+So the sequence is: letterhead letter, signed (Amit, 1 Sep) -> reply-all from
+Rhea is sufficient (Rico, 1 Sep) -> Rhea must email Axon DIRECTLY (Rico, 15
+Sep). A reply-all inside the thread, or Guilherme authorising on her behalf, no
+longer counts.
+
+Still free of charge, still three free updates, and still blocked on one person.
+Open since 31 August - the longest-running item in the project.
+
+The letterhead letter drafted on 10 September (docs/carta-axon-PARA-O-GUILHERME.txt)
+was never needed and is not needed now.
+
+----------------------------------------------------------------------
+CORRECTION 3 - THE BACKUP HAS A PRICE, AND IT IS ONE HOUR, NOT THREE
+----------------------------------------------------------------------
+
+The body records the paid offer as declined, pending a position by 20 September.
+The position was taken on 15 September: buy it. Axon never granted cPanel
+access, so the backup gets done by them.
+
+Rico confirmed the price twice on 15 September:
+
+  - one maintenance credit = one hour of remote support = USD 100;
+  - one hour covers the COMPLETE backup - WordPress files, database and media -
+    provided hosting access is working normally;
+  - if it needs more, they stop and ask before going past the purchased credit;
+  - purchase at https://axon.com.sg/credit-top-up.html, or "Buy Credits" on
+    axon.com.sg.
+
+That settles the USD 300 argument from 1 September, where Amit quoted two hours
+and charged for three.
+
+STATUS AS OF 22 SEPTEMBER: nobody has bought it. Guilherme asked Rhea to approve
+the purchase and Maliha to coordinate payment with Finance on 15 September; no
+answer in the thread since. This is the one item where our own money could
+unblock it - USD 100 - if CDNA prefers we just buy it and invoice.
+
+----------------------------------------------------------------------
+NEW ITEM 7 - BILLING: PREMATURE REMINDERS AND A PAYMENT-FRAUD SMELL
+----------------------------------------------------------------------
+
+This one is CDNA's money, not ours, but it belongs on the record.
+
+The invoice: #120844, S$ 22.00, generated 29 August, DUE 13 OCTOBER 2026. That
+is the DOMAIN, not the SGD 150 hosting extension.
+
+What happened:
+
+  - Axon's billing system kept firing reminders ahead of the agreed dates. Two
+    forwarded by Yvonne on 22 September contradict each other inside the same
+    message - one says payment is due 27 September, the other 13 October.
+    Rico admitted the misconfiguration and said they are correcting it.
+
+  - Yvonne asked for bank details, because the invoices carry none. Two things
+    surfaced:
+
+      a) Axon's own invoice footer says they DO NOT ACCEPT BANK TRANSFER OR
+         CHEQUE - "all renewals and registrations are via online credit card
+         only", plus PayNow/Stripe for Singapore customers.
+
+      b) Yvonne: "I believe my colleague paid with his cc last year and the year
+         before, we were informed by your office to pay to a 3rd party account."
+
+  - Rico did not supply any account details. He said Axon will verify the
+    correct beneficiary first, and added, unprompted:
+
+        "Please do not use any third-party account details unless they are
+         confirmed in writing by Amit or through an official Axon payment
+         instruction."
+
+WHY THIS IS FLAGGED HERE: invoices with no bank details, a history of being told
+to pay a third party, automated reminders firing off-schedule, and an incumbent
+provider being replaced - that is the exact shape of a payment-redirection scam,
+whether or not one is being attempted. If bank details arrive by email, CONFIRM
+THEM ON ANOTHER CHANNEL BEFORE PAYING. Said once to CDNA, and then it is their
+call.
+
+Open on Axon's side: send the verified payment details. Yvonne is waiting.
+
+----------------------------------------------------------------------
+ITEM 3 AND 4 - GOOGLE: ONE CLOSED, ONE STILL IGNORED
+----------------------------------------------------------------------
+
+ANALYTICS is done, and was done earlier than the body suggests. Nicole created a
+Google Account with her corporate address on 3 September at 03:39 and Rico added
+her as administrator at 04:07 - 28 minutes later. She still has to ACCEPT THE
+INVITATION. Rico also confirmed the property is legacy Universal Analytics and
+pushed GA4 configuration to "your new webmaster/developer" - that is us.
+
+Guilherme asked for the same Google access again on 15 September, already
+resolved since the 3rd, because he was replying to a stale reminder.
+
+SEARCH CONSOLE is still unanswered. Asked on 31 August, 1, 3 and 15 September.
+Four times, no reply. It remains the only item genuinely blocked on Axon, and
+it matters more than Analytics: it carries search history and ownership
+verification. The verification TXT record is still published in the zone.
+
+----------------------------------------------------------------------
+WHERE EVERY ITEM ACTUALLY STANDS, 22 SEPTEMBER
+----------------------------------------------------------------------
+
+  1. Domain administrative contact    BLOCKED ON RHEA - and she must now email
+                                      Axon directly. Open since 31 August.
+  2. Hosting extension                CLOSED. Approved 4 Sep, invoiced, runs to
+                                      31 December. Do not reopen.
+  3. Google Analytics                 DONE 3 Sep. Nicole to accept the invite.
+                                      GA4 setup is ours.
+  4. Google Search Console            BLOCKED ON AXON. Asked four times.
+  5. Legacy WordPress backup          BLOCKED ON CDNA - USD 100, one credit.
+                                      Price confirmed, nobody has bought it.
+  6. Sender domain for contact form   Unchanged - rides with the cutover.
+  7. Invoice #120844 (S$ 22, domain)  BLOCKED ON AXON - verified payment details.
+                                      Due 13 October. Watch for third-party
+                                      account details.
+
+  Ours, unrelated to Axon: the Supabase free plan with no backup. Unchanged, and
+  still the only item in the landscape with total-loss risk.
+
+----------------------------------------------------------------------
+WHAT THE CUTOVER NEEDS FROM US WHEN THE TIME COMES
+----------------------------------------------------------------------
+
+Unchanged and still agreed in writing, restated here because it is the part that
+does not slip: send Axon the exact A and www record values plus the date, time
+and timezone BEFORE touching anything; change only the apex A record and www;
+leave MX, SPF, DKIM and DMARC alone; keep Cloudflare Under Attack mode on until
+validation is done; then confirm in the thread that it is safe to start the
+rollback holding period. With the hosting paid to 31 December, that holding
+period is no longer a countdown.
