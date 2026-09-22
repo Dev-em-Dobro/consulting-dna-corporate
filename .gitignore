@@ -91,3 +91,9 @@ docs/emails-cdna-thread.md
 # útil entra processado em `public/`, e a planilha vira JSON versionado por
 # `scripts/cases-xlsx-to-json.py`.
 docs/meetings/CDNA*Photographs*
+
+# A planilha de acessos do onboarding (docs/acessos-CONFIDENCIAL.md). Tem login e
+# senha de Vercel, Supabase, Bunny, Resend e Cloudflare escritos por extenso. É
+# material de entrega por cofre/Task Manager, nunca por repositório — mesmo
+# privado, mesmo com histórico limpo.
+docs/acessos-*.md
