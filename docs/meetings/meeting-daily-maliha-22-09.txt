@@ -1,0 +1,13 @@
+Home
+trocar a imagem da hero para a imagem https://drive.google.com/file/d/1gvNqLTaO4AyALpTX5zLKFAvQq-nIROlX/view?usp=drive_link 
+retirar as datas da seção awards and mentions 
+pegar os logos da apresentacao e colocar na seção awards and mentions - consulting-dna-corporate\docs\meetings\logos-ppt.PNG link da apresentação https://docs.google.com/presentation/d/11EYjajxFbeblHEmAzfT7LRgB_4F7DMbs/edit?usp=drive_link&ouid=112107643201102977800&rtpof=true&sd=true
+tentar pegar uma versão mais antiga do github da seção "why corporate dna exists", a maliha falou que teria que voltar esse texto e pegar o texto atual da seção e trocar pelo texto da seção "Keeping Leadership Real" da página de about
+
+pagina de about
+remover o texto "our oficces"
+colocar os endereços embaixo da sua respectiva região, americas embaixo colocar miami, uk & europe embaixo colocar London, Middle East & North Africa embaixo colocar Dubai e Riyadh e em Asia embaixo colocar Singapore
+
+página team
+na seção "Global faculty" organizar as pessoas em 4 regiões nessa ordem
+Americas, UK & Europe, Middle East & North Africa e Asia Pacific. A Austrália deve ficar dentro de Asia Pacific.
