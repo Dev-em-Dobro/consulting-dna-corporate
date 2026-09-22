@@ -492,15 +492,15 @@ const OFFICE_CARDS: Office[] = OFFICES.map((o) => {
  * — e devem virar campo de CMS.
  */
 const REGIONS = [
-  { name: "Americas", descriptor: "Driving leadership impact across North and South America." },
-  { name: "UK & Europe", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
+  { name: "Americas", offices: "Miami", descriptor: "Driving leadership impact across North and South America." },
+  { name: "UK & Europe", offices: "London", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
   /* ⚠️ ERA "GCC & Middle East" ATÉ 17-09 — *"na seção 'Where we work.' trocar
      GCC & Middle East para Middle East and North Africa."* Não é sinônimo: a
      região deixou de ser o Golfo com o Oriente Médio em volta e passou a ser
      MENA, que estende para o norte da África. O descritor acompanha, senão a
      linha de baixo continuaria dizendo "GCC". */
-  { name: "Middle East & North Africa", descriptor: "Supporting transformation across the Middle East and North Africa." },
-  { name: "Asia", descriptor: "Developing leaders for a fast-changing Asia." },
+  { name: "Middle East & North Africa", offices: "Dubai and Riyadh", descriptor: "Supporting transformation across the Middle East and North Africa." },
+  { name: "Asia", offices: "Singapore", descriptor: "Developing leaders for a fast-changing Asia." },
 ];
 
 export default async function AboutV2Page() {
@@ -2360,6 +2360,12 @@ export default async function AboutV2Page() {
                 <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
                   {r.name}
                 </h3>
+                {/* 22-09: a cidade do escritório logo abaixo da região —
+                    Americas/Miami, UK & Europe/London, MENA/Dubai and Riyadh,
+                    Asia/Singapore. O endereço completo continua nas colunas. */}
+                <p className="mt-2 text-[15px] font-medium leading-[1.4] text-ink">
+                  {r.offices}
+                </p>
                 <p className="mt-3 text-[14px] leading-[1.6] text-muted">
                   {r.descriptor}
                 </p>
