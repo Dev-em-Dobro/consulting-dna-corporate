@@ -28,7 +28,8 @@ export default function LocationsBlock({
   layout = "carousel",
 }: {
   offices?: Office[];
-  eyebrow?: string;
+  /** `null` omite o rótulo. `undefined` usa o padrão. */
+  eyebrow?: string | null;
   context?: string;
   /**
    * Largura do container do cabeçalho e da lista de fallback.
@@ -272,8 +273,10 @@ export default function LocationsBlock({
       className={dark ? "bg-ink-2" : "bg-paper"}
     >
       <div className="py-24">
+        {eyebrow || context ? (
         <div className={`mx-auto mb-12 ${maxWidthClass} px-6 md:px-10`}>
-          {typeLabel ? (
+          {eyebrow ? (
+            typeLabel ? (
             /* `justify-center` E NÃO `text-center` no pai: o rótulo é um par
                régua+palavra dentro de um flex. Centrar o texto do contêiner não
                move um flex item; o que move é o eixo principal. O `TypeLabel`
@@ -290,7 +293,8 @@ export default function LocationsBlock({
                 {eyebrow}
               </span>
             </div>
-          )}
+          )
+          ) : null}
           {context ? (
             /* `mx-auto` MAIS `text-center`: o primeiro centra a CAIXA de 640px
                na página, o segundo centra as linhas dentro dela. Só o primeiro
@@ -305,6 +309,7 @@ export default function LocationsBlock({
             </p>
           ) : null}
         </div>
+        ) : null}
 
         {layout === "static" ? (
           /* Os escritórios abertos, todos ao mesmo tempo — ver a caixa da prop

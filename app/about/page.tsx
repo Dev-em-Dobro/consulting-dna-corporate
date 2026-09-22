@@ -2428,10 +2428,13 @@ export default async function AboutV2Page() {
 
           `showEmail` porque a lista que saiu publicava o e-mail de cada cidade e
           o painel do carrossel mostrava só endereço e telefone. Sem a prop, a
-          troca custaria cinco endereços de contato. */}
+          troca custaria cinco endereços de contato.
+
+          ⚠️ 22-09 O RÓTULO "Our offices" SAIU, a pedido da Maliha. `eyebrow={null}`
+          omite o título; as cinco colunas ficam. */}
       <LocationsBlock
         offices={OFFICE_CARDS}
-        eyebrow="Our offices"
+        eyebrow={null}
         /* SEM PARÁGRAFO DE CONTEXTO: o da home ("From our established hubs in
            London, Singapore…") repetiria, quase palavra por palavra, o "With
            headquarters in London, Singapore, Dubai, Riyadh and Miami" que abre
