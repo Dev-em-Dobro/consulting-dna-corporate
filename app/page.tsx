@@ -918,7 +918,7 @@ export default async function Home() {
           lado do pedido que tirou o cartão do herói ("add this to awards"). A
           prop existe porque a faixa é compartilhada com /our-impact, /home-v1 e
           /home-v3, e o pedido é sobre a home; ver a caixa dela no componente. */}
-      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall />
+      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall showYear={false} />
 
       {/* BOOK */}
       <section id="book" className="bg-paper">

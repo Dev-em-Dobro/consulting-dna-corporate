@@ -168,6 +168,7 @@ const awards: Award[] = [
 export default function AwardsMentions({
   maxWidthClass = "max-w-[1200px]",
   includeBrandonHall = false,
+  showYear = true,
 }: {
   /**
    * Largura do container da faixa.
@@ -194,6 +195,15 @@ export default function AwardsMentions({
    * mudança é trocar este `false` por `true` e apagar a prop dos pontos de uso.
    */
   includeBrandonHall?: boolean;
+  /**
+   * Mostra o ano embaixo do nome.
+   *
+   * A home desliga isto desde 22-09 — a Maliha pediu para tirar as datas da
+   * faixa. Prop, e não um corte no dado: /our-impact, /home-v1 e /home-v3
+   * continuam datando cada prêmio, e o `year` segue no tipo para o dia em
+   * que a lista for revista com a Ria.
+   */
+  showYear?: boolean;
 } = {}) {
   const scope = useRef<HTMLElement>(null);
   const shown = includeBrandonHall ? [...BRANDON_HALL, ...awards] : awards;
@@ -343,7 +353,8 @@ export default function AwardsMentions({
                     item 34 — era aqui que se lia "FINALIST 2008" nos cinco
                     antigos. Os dois GOLD a mostram porque colocação e prêmio
                     ganho não são a mesma alegação; ver a caixa do
-                    `BRANDON_HALL`. O ano fica em todos: é fato datado. */}
+                    `BRANDON_HALL`. O ano fica no dado e sai na tela quando
+                    `showYear` está ligado — a home desliga desde 22-09. */}
                 {a.showDistinction ? (
                   <p className="mt-4 text-[11px] font-bold uppercase tracking-[2px] text-white">
                     {a.distinction}
@@ -356,9 +367,11 @@ export default function AwardsMentions({
                 >
                   {a.name}
                 </p>
-                <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
-                  {a.year}
-                </p>
+                {showYear ? (
+                  <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
+                    {a.year}
+                  </p>
+                ) : null}
               </li>
             ))}
           </ul>
