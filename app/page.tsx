@@ -45,6 +45,7 @@ import BookCard from "@/components/books/BookCard";
 import { books } from "@/lib/books";
 import AwardsMentions from "@/components/AwardsMentions";
 import PartnersStrip from "@/components/PartnersStrip";
+import { LOGO_COLORS } from "@/lib/logo-colors";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import JsonLd from "@/components/JsonLd";
@@ -106,7 +107,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // O título volta a ser o da home. "Home V2 (proposta)" era rótulo de revisão
   // e não pode ir para a aba do navegador nem para o resultado de busca.
   const title =
-    "Global Leadership Advisory & Executive Coaching | Corporate DNA";
+    "Global Leadership Advisory & Executive Coaching | CorporateDNA";
   return {
     title,
     description: SITE_DESCRIPTION,
@@ -169,7 +170,7 @@ const challenges = [
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
-  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework — not a generic coaching approach borrowed from elsewhere." },
+  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework, not a generic coaching approach borrowed from elsewhere." },
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
@@ -208,7 +209,16 @@ const differentiators = [
 // no editor, o logo continua sendo o desta lista — trocar arte é aqui.
 //
 // SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
-const caseLogos: (string | undefined)[] = ["heineken.png", "coca_cola.png", "shell.png"];
+//
+// A COR DO CABEÇALHO entrou em 23-09 (main): cada card leva a cor do próprio
+// cliente (verde, vermelho, amarelo) para os três se separarem. Ela vem de
+// `lib/logo-colors.ts`, e `onLight` é o texto escuro de quem tem fundo claro —
+// o amarelo da Shell. Arte, como o logo, então mora aqui e não na copy.
+const caseArt: { logo?: string; headerBg: string; onLight?: boolean }[] = [
+  { logo: "heineken.png", headerBg: LOGO_COLORS.heineken },
+  { logo: "coca_cola.png", headerBg: LOGO_COLORS.coca_cola },
+  { logo: "shell.png", headerBg: LOGO_COLORS.shell, onLight: true },
+];
 
 
 export default async function Home() {
@@ -240,7 +250,7 @@ export default async function Home() {
   // do CMS), o livro com o texto da home por cima do módulo, e os cards.
   const stats = cmsStats.map((s, i) => ({ ...s, label: copy.credibility.statLabels[i] ?? s.label }));
   const homeBook = { ...book, ...copy.book };
-  const cases = copy.impact.cases.map((c, i) => ({ ...c, logo: caseLogos[i] }));
+  const cases = copy.impact.cases.map((c, i) => ({ ...c, ...caseArt[i] }));
   const reals = copy.solve.reals;
 
   return (
@@ -575,7 +585,7 @@ export default async function Home() {
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          <TypeLabel>Why Corporate DNA</TypeLabel>
+          <TypeLabel>Why CorporateDNA</TypeLabel>
           <h2 className="mb-[52px] max-w-[760px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
@@ -665,8 +675,8 @@ export default async function Home() {
                     /public/logos são marcas coloridas ou escuras sobre fundo
                     transparente, feitas para papel branco: a Heineken é verde,
                     a Coca-Cola é vermelha, a Shell é a concha vermelha e
-                    amarela. Jogadas direto sobre o `bg-ink` deste cabeçalho, as
-                    duas primeiras somem. É a mesma placa que o `LogoMarquee`
+                    amarela. Jogadas direto sobre a cor do cabeçalho, as duas
+                    primeiras somem. É a mesma placa que o `LogoMarquee`
                     desenha na esteira da home, que corre sobre o mesmo ink e
                     pelo mesmo motivo.
 
@@ -679,19 +689,27 @@ export default async function Home() {
                     `<img>` e não `<Image>` do Next: são PNGs pequenos de
                     largura fixa, servidos como estão. Mesma escolha, e mesma
                     razão, do `LogoMarquee`. */}
-                <div className="flex items-center gap-4 bg-ink px-[26px] py-[22px] text-white">
+                {/* 23-09: cada cabeçalho leva a cor do próprio cliente (verde,
+                    vermelho, amarelo) para os três cards se separarem. A placa
+                    branca do logo fica — a marca some se sentar na mesma cor. */}
+                <div
+                  className={`flex items-center gap-5 px-7 py-6 ${
+                    c.onLight ? "text-ink" : "text-white"
+                  }`}
+                  style={{ backgroundColor: c.headerBg }}
+                >
                   <div className="min-w-0 flex-1">
-                    <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
-                    <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
+                    <div className="text-[22px] font-bold leading-none tracking-[0.3px]">{c.client}</div>
+                    <div className="mt-2 text-[11px] font-semibold uppercase tracking-[1px]">{c.sector}</div>
                   </div>
                   {c.logo ? (
-                    <span className="flex h-[52px] w-[92px] flex-none items-center justify-center rounded-lg bg-white px-3">
+                    <span className="flex h-[60px] w-[108px] flex-none items-center justify-center rounded-xl bg-white px-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`/logos/${c.logo}`}
                         alt=""
                         loading="lazy"
-                        className="max-h-[34px] w-auto max-w-full object-contain"
+                        className="max-h-[42px] w-auto max-w-full object-contain"
                       />
                     </span>
                   ) : null}
@@ -733,7 +751,7 @@ export default async function Home() {
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
-              Sustained leadership change comes from identity and habits — not skills alone. Our proprietary 5H methodology works across the{" "}
+              Sustained leadership change comes from identity and habits, not skills alone. Our proprietary 5H methodology works across the{" "}
               <em className="font-semibold not-italic text-white">inner game</em> of the leader and the{" "}
               <em className="font-semibold not-italic text-white">outer game</em> of performance, so behaviour holds under real enterprise pressure.
             </p>
@@ -839,30 +857,19 @@ export default async function Home() {
               positions={LIFE_AT_DNA_FRAMING}
             />
           </div>
-          {/* ✅ A FAIXA VIROU A DA /SERVICES EM 21-09, por email: *"Have similar
-              layout to in partnership with as services page"*. O que estava aqui
-              eram DUAS MARCAS ESCRITAS À MÃO em `<span>` — Harvard e Imperial em
-              negrito, separadas por um filete —, e a /services já mostrava CINCO
-              parceiros com os arquivos de verdade. Eram duas respostas
-              diferentes para a mesma pergunta na mesma casa, e a errada era esta:
-              a home omitia CLO100, YPO e Explore Performance sem que ninguém
-              tivesse decidido omiti-los.
+          {/* A faixa "In partnership with" saiu daqui em 23-09 e virou a
+              seção seguinte. Até então era o painel escuro no pé deste bloco. */}
+        </Reveal>
+      </section>
 
-              `tone="light"` NÃO É ESCOLHA DE ESTILO. Três das cinco marcas só
-              existem em arquivo branco, e esta seção é branca — sem o painel
-              escuro que o tom claro traz de volta, elas desapareceriam. A conta
-              está escrita no próprio componente.
-
-              O `label` fica porque a seção em volta é a `#people`, que fala do
-              time: sem a linha "In partnership with", cinco logos soltos no pé
-              dela leriam como clientes, que é justamente o que o mural lá de
-              cima mostra. A /services não precisa dela — lá o bloco tem título
-              próprio. */}
-          <PartnersStrip
-            label={copy.people.partnersLabel}
-            tone="light"
-            className="mt-14 border-t border-line pt-10"
-          />
+      {/* 23-09: "In partnership with" saiu do pé de Our people. Lá era um
+          painel escuro pequeno; o pedido foi dar mais destaque e tirar esse
+          fundo. Vira faixa própria, em paper, entre o branco de #people e o
+          escuro de Awards. O arranjo dos logos está no PartnersStrip
+          (`tone="featured"`). A /services continua no escuro. */}
+      <section aria-labelledby="partnerships-heading" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+          <PartnersStrip label={copy.people.partnersLabel} tone="featured" headingId="partnerships-heading" />
         </Reveal>
       </section>
 
@@ -877,11 +884,10 @@ export default async function Home() {
           da seção `#book` desde que as duas existem.
 
           A TROCA ARRUMA O RITMO DE COR de brinde, e vale registrar porque é o
-          tipo de coisa que alguém desfaz sem perceber: a seção `#people` acima é
-          branca e a `#book` é `paper`, duas faixas claras encostadas. A faixa de
-          prêmios é escura nesta página (o override `data-awards-band`), então
-          entrando no meio ela devolve o claro-escuro-claro que o resto da
-          página segue.
+          tipo de coisa que alguém desfaz sem perceber: a faixa de parceiros
+          acima é `paper` e a `#book` também. A faixa de prêmios é escura nesta
+          página (o override `data-awards-band`), então no meio ela separa as
+          duas.
 
           `includeBrandonHall` põe os dois GOLD na frente da régua — é o outro
           lado do pedido que tirou o cartão do herói ("add this to awards"). A

@@ -10,7 +10,7 @@ import { offices } from "@/lib/offices";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Contact — Corporate DNA",
+    title: "Contact | CorporateDNA",
     description:
       "Tell us the leadership challenge you are facing. Offices in London, Miami, Singapore, Dubai and Riyadh.",
     alternates: localeAlternates("/contact"),
@@ -60,7 +60,7 @@ export default function ContactPage() {
         <SolutionHero
           eyebrow="Contact"
           title="What is changing, and where does leadership need to go?"
-          subtitle="Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch."
+          subtitle="Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch."
         />
 
         {/* O FORMULÁRIO NÃO DIVIDE ESPAÇO COM TEXTO, ao contrário da home. Ali

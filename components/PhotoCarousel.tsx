@@ -61,7 +61,7 @@ export default function PhotoCarousel({
       className="group relative mx-auto w-full max-w-[640px] overflow-hidden rounded-xl bg-ink"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Life at Corporate DNA"
+      aria-label="Life at CorporateDNA"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}

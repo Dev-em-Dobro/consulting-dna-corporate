@@ -82,12 +82,14 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
   },
   stats: [
     { value: "19 years", label: "of senior leadership advisory, since London, 2007" },
-    { value: "5 regions", label: "of global programme delivery" },
+    /* 23-09 (main): eram cinco até a Índia entrar em Asia (16-09). Americas,
+       UK & Europe, Middle East & North Africa, Asia. */
+    { value: "4 regions", label: "of global programme delivery" },
     { value: "10,000+", label: "leaders coached and teams developed" },
     { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients" },
   ],
   purpose: {
-    label: "Why Corporate DNA exists.",
+    label: "Why CorporateDNA exists.",
     title: "Our purpose is to keep",
     titleNowrap: "leadership real.",
     quote:
@@ -117,7 +119,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     quote: [
       "When a client trusts us as a consulting firm, that trust starts from the very first interaction with the people who represent CorporateDNA and how we live our purpose in the moments that matter.",
       "How we listen. How we challenge. How we add value. How we navigate difficult decisions and conversations. And how we use our discernment to know when to lead, when to question and when to listen.",
-      "For us, Keeping Leadership Real starts from the inside out. It shapes how we work with each other and how we show up with our clients—with honesty, care, candour and experience.",
+      "For us, Keeping Leadership Real starts from the inside out. It shapes how we work with each other and how we show up with our clients, with honesty, care, candour and experience.",
       "Because before our clients experience our work, they experience our people. And our people bring our purpose to life.",
     ],
     pillars: [
@@ -422,7 +424,10 @@ export const EDITOR_SECTIONS: EditorSection[] = [
   {
     id: "offices",
     title: "Our offices",
-    anchor: "/about#offices",
+    /* #region-tiles, e não #offices: a faixa solta de escritórios saiu da
+       About em 23-09 (main) e cada endereço passou a morar dentro da coluna
+       da sua região. O que a cliente edita aqui aparece lá. */
+    anchor: "/about#region-tiles",
     fields: [
       ...officeFields(0, "Office 1"),
       ...officeFields(1, "Office 2"),

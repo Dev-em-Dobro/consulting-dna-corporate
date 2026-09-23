@@ -59,13 +59,13 @@ export const books: Book[] = [
   {
     name: "Leadership: It’s In Your DNA",
     headline:
-      "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
+      "CorporateDNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
     kicker: "The book behind the method",
     body: [
-      "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
+      "What if the greatest competitive advantage isn't your strategy, products or technology, but your organisational DNA?",
       "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
-      "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a Corporate DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
-      "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
+      "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+      "For leaders who want to build companies that thrive through uncertainty, not just survive it. This is a blueprint for creating a legacy that lasts.",
     ],
     cover: "/book-cover.png",
     buyUrl: "https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340",

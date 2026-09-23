@@ -49,7 +49,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
   hero: {
     title: "Keeping Leadership Real",
     subtitle:
-      "We help CEOs, CHROs & CLOs build real leadership when the stakes are high — through real conversations, real choices and real decisions that deliver in the moments that matter.",
+      "We help CEOs, CHROs & CLOs build real leadership when the stakes are high, through real conversations, real choices and real decisions that deliver in the moments that matter.",
     primaryCta: "Discuss a leadership challenge",
     secondaryCta: "See the work",
   },
@@ -57,7 +57,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
     label: "What we solve",
     title: "The leadership challenges that determine enterprise performance.",
     subtitle:
-      "We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.",
+      "We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.",
     purposeTitle: "Our purpose is to make leadership",
     purposeAccent: "real.",
     reals: ["pressures", "politics", "choices", "judgement", "people", "consequences"],
@@ -73,7 +73,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
   },
   impact: {
     label: "Client impact",
-    title: "Results, not promises — measured where it matters.",
+    title: "Results, not promises. Measured where it matters.",
     challengeLabel: "Challenge",
     readMore: "read more here",
     cases: [
@@ -136,7 +136,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
   contact: {
     title: "What is changing, and where does leadership need to go?",
     subtitle:
-      "Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.",
+      "Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch.",
   },
 };
 

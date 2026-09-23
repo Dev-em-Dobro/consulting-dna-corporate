@@ -27,11 +27,11 @@ export async function generateMetadata({
   const cms = await getRegion(region);
   const name =
     cms?.name ?? staticRegions.find((r) => r.slug === region)?.name;
-  const title = name ? `${name} — Corporate DNA` : "Region — Corporate DNA";
+  const title = name ? `${name} | CorporateDNA` : "Region | CorporateDNA";
   const description =
     firstDescription([cms?.body]) ??
     (name
-      ? `Corporate DNA's leadership advisory and executive coaching in ${name} — global insight with local delivery.`
+      ? `CorporateDNA's leadership advisory and executive coaching in ${name}, global insight with local delivery.`
       : undefined);
   return {
     title,

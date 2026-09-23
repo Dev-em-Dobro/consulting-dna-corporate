@@ -18,7 +18,7 @@ import type { Office } from "@/lib/offices";
 const TILE_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 const ATTRIBUTION =
-  'Tiles &copy; <a href="https://www.esri.com">Esri</a> — Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community';
+  'Tiles &copy; <a href="https://www.esri.com">Esri</a>, Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community';
 
 // The service advertises levels up to 23, but its cache stops at 16: past that
 // every request returns HTTP 200 carrying a grey "Map data not yet available"

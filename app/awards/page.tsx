@@ -8,9 +8,9 @@ import { getCmsPage } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Awards & partnerships — Corporate DNA",
+    title: "Awards & partnerships | CorporateDNA",
     description:
-      "The awards, accreditations and partnerships — including Harvard Business Impact and Imperial College London — behind Corporate DNA's leadership advisory.",
+      "The awards, accreditations and partnerships, including Harvard Business Impact and Imperial College London, behind CorporateDNA's leadership advisory.",
     alternates: localeAlternates("/awards"),
   };
 }

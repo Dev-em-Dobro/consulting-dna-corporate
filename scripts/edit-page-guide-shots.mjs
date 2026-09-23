@@ -74,7 +74,10 @@ const PAGES = {
       ["values", "#values"],
       ["regions", "#regions"],
       ["region-tiles", "#region-tiles"],
-      ["offices", "#offices"],
+      /* 23-09 (merge com a main): a faixa solta de escritórios saiu da About.
+         Rua, telefone e e-mail agora vivem dentro da coluna da região, então a
+         foto do guia é a mesma grade dos tiles. */
+      ["offices", "#region-tiles"],
       ["people", "#people"],
     ],
   },

@@ -38,11 +38,8 @@ import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
-import LocationsBlock from "@/components/LocationsBlock";
-import { offices as siteOffices, type Office } from "@/lib/offices";
 import { FIRM_STAT_ICONS } from "@/lib/stats";
 import { getAboutCopy } from "@/lib/about-copy-server";
-import { type AboutOffice } from "@/lib/about-copy";
 import { inlineEmphasis } from "@/lib/page-copy/text";
 import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
@@ -114,7 +111,7 @@ const serif = Source_Serif_4({
 
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "About — Corporate DNA";
+  const title = "About | CorporateDNA";
   return {
     title,
     description:
@@ -386,46 +383,6 @@ function ValueIcon({ name }: { name: string }) {
  */
 
 /**
- * O `offices` da copy no formato que o `LocationsBlock` lê — 14-09, item 4.
- *
- * POR QUE ADAPTAR EM VEZ DE PASSAR `lib/offices.ts`: é a caixa do `offices`
- * inteira. Aquela lista existe justamente porque três registros do documento do
- * cliente divergem do que a home publica; o bloco lendo a fonte da home
- * reverteria os três sem ninguém notar.
- *
- * `coords` E `zoom` VÊM DE `lib/offices.ts`, por cidade. Eles não são usados
- * aqui — o bloco roda com `showMap={false}` —, mas o tipo `Office` os exige, e
- * preenchê-los com zeros deixaria uma bomba armada para quem ligasse o mapa
- * nesta página um dia: cinco pinos no Golfo da Guiné. A coordenada de um
- * escritório é a mesma nos dois arquivos; o que diverge entre eles é o texto.
- *
- * ⚠️ O CASAMENTO É PELO NOME DA CIDADE, e isso passou a ser editável em 23-09:
- * a cliente pode renomear uma cidade em `/edit-about`. Se renomear, o `find`
- * volta `undefined` e o `?? 0` abaixo entrega a coordenada nula — sem efeito
- * enquanto o mapa estiver desligado, e por isso este aviso existe em vez de um
- * `throw`: quebrar a About por um campo que nada renderiza seria pior que o
- * defeito.
- *
- * `tel` VAZIO VIRA `null`: é assim que a copy diz "sem telefone publicado"
- * (Riyadh e Miami), e é `null` que o `LocationsBlock` espera para omitir a
- * linha.
- */
-function toOfficeCards(offices: AboutOffice[]): Office[] {
-  return offices.map((o) => {
-    const onMap = siteOffices.find((s) => s.city === o.city);
-    return {
-      slug: o.city.toLowerCase(),
-      city: o.city,
-      country: onMap?.country ?? "",
-      addressLines: o.address,
-      tel: o.tel || null,
-      email: o.email,
-      coords: onMap?.coords ?? { lng: 0, lat: 0 },
-      zoom: onMap?.zoom ?? 12,
-    };
-  });
-}
-
 /**
  * A ASPA DE FECHAMENTO DA CITAÇÃO DA IDENTITY gruda na ÚLTIMA PALAVRA do último
  * parágrafo, dentro de um `nowrap`, para não cair sozinha numa linha. Enquanto o
@@ -454,12 +411,29 @@ function splitLastWord(text: string): [string, string] {
  * em volta e passou a ser MENA, que estende para o norte da África. O descritor
  * acompanhou, senão a linha de baixo continuaria dizendo "GCC".
  */
+/* AS FOTOS DAS REGIÕES, por posição na lista da copy — 23-09 (main): as mesmas
+   de `public/team/mock` que ilustravam estas colunas (Miami, Londres, Dubai,
+   Singapura). Arte não é copy: a cliente troca o texto da região em
+   `/edit-about`, e a foto continua vindo daqui. */
+const REGION_IMAGES = [
+  "/team/mock/miami.jpg",
+  "/team/mock/london.jpg",
+  "/team/mock/dubai.jpg",
+  "/team/mock/singapore.jpg",
+];
+
+/* AS CIDADES DE UMA REGIÃO saem do campo `offices` da copy ("Miami", "Dubai and
+   Riyadh"), que é o que a cliente edita. A coluna usa a lista para achar o
+   endereço correspondente em `copy.offices` — se ela renomear uma cidade num
+   lugar e não no outro, a coluna simplesmente não mostra aquele endereço, que é
+   melhor que quebrar a página. */
+const regionCities = (offices: string) =>
+  offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
 
 export default async function AboutV2Page() {
   const [nav, copy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
   /* O ícone casa com o número POR POSIÇÃO — ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
-  const officeCards = toOfficeCards(copy.offices);
   return (
     /* SEM <SiteShell> — e essa é a razão de o shell estar montado à mão aqui.
        O SiteShell embute a NavV1: barra vermelha, `sticky`, ocupando 76px do
@@ -1763,7 +1737,7 @@ export default async function AboutV2Page() {
             <div className="relative aspect-[4/5] self-center">
               <Image
                 src={teamStairs}
-                alt="The Corporate DNA team on the office stairs"
+                alt="The CorporateDNA team on the office stairs"
                 fill
                 sizes="(min-width: 1024px) 54vw, 100vw"
                 className="object-cover object-center"
@@ -2299,9 +2273,24 @@ export default async function AboutV2Page() {
               As duas listas continuam tendo de bater — é instrução do documento
               de Team ("tiles matching the About page regions"), e o `lib/team.ts`
               tem a metade de lá. */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {copy.regions.items.map((r) => (
-              <div key={r.name} className="border-t-2 border-brand pt-5">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {copy.regions.items.map((r, ri) => (
+              <div key={r.name}>
+                {/* 23-09: as fotos de cidade voltam para cima do texto. São as
+                    mesmas de `public/team/mock` que ilustravam estas regiões
+                    (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
+                {REGION_IMAGES[ri] ? (
+                  <div className="relative mb-5 aspect-[3/2] overflow-hidden">
+                    <Image
+                      src={REGION_IMAGES[ri]}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                ) : null}
+                <div className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
                     tratamento do rótulo vermelho, aplicado a um TÍTULO, e
                     caixa alta em grotesca pesada é exatamente o "quadrado" que
@@ -2312,105 +2301,51 @@ export default async function AboutV2Page() {
                 <h3 className="font-serif text-[20px] font-medium leading-[1.2] text-ink">
                   {r.name}
                 </h3>
-                {/* 22-09: a cidade do escritório logo abaixo da região —
-                    Americas/Miami, UK & Europe/London, MENA/Dubai and Riyadh,
-                    Asia/Singapore. O endereço completo continua nas colunas. */}
-                <p className="mt-2 text-[15px] font-medium leading-[1.4] text-ink">
-                  {r.offices}
-                </p>
-                <p className="mt-3 text-[14px] leading-[1.6] text-muted">
+                <div className="mt-5 space-y-8">
+                  {regionCities(r.offices).map((city) => {
+                    const office = copy.offices.find((o) => o.city === city);
+                    if (!office) return null;
+                    return (
+                      <div key={city}>
+                        <p className="text-[15px] font-medium leading-[1.4] text-ink">
+                          {office.city}
+                        </p>
+                        <p className="mt-3 text-[14px] leading-[1.6] text-muted">
+                          {office.address.map((line, i) => (
+                            <span key={i} className="block">
+                              {line}
+                            </span>
+                          ))}
+                        </p>
+                        {office.tel && (
+                          <p className="mt-2 text-[14px] leading-[1.6] text-muted">
+                            Tel: {office.tel}
+                          </p>
+                        )}
+                        <a
+                          href={`mailto:${office.email}`}
+                          className="mt-2 inline-block break-words text-[14px] leading-[1.6] text-brand transition-colors hover:text-brand-dark"
+                        >
+                          {office.email.split("@")[0]}@<wbr />
+                          {office.email.split("@")[1]}
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-5 text-[14px] leading-[1.6] text-muted">
                   {r.descriptor}
                 </p>
+                </div>
               </div>
             ))}
           </div>
         </Reveal>
       </section>
 
-      {/* ── Block 6c · Os escritórios, abertos e estáticos ──────────────── */}
-      {/* ⚠️ E EM 21-09 A LISTA ESTÁTICA VOLTOU — `layout="static"`, a prop nova
-          do `LocationsBlock`. O pedido veio nas duas línguas da mesma call: por
-          e-mail *"Have offices static - 5 horizontal static."* e na anotação do
-          Roberto *"na parte dos offices colocar eles abertos sempre"*. As duas
-          dizem a mesma coisa e as duas revogam o pedido de 14-09 registrado
-          logo abaixo, que é o motivo de ele continuar escrito aqui: o carrossel
-          não foi um erro nosso, foi o que ela pediu na call anterior.
-
-          NÃO É A LISTA DE 14-09 DE VOLTA. Aquela eram cinco FILEIRAS de largura
-          cheia empilhadas; esta são cinco COLUNAS lado a lado, que é o
-          "5 horizontal" literal do e-mail e o mesmo arranjo dos tiles de região
-          e dos cinco valores desta página. Em telefone e tablet ela empilha —
-          cinco colunas em 390px dariam 66px cada. A escada e o porquê estão na
-          caixa da prop, em `components/LocationsBlock.tsx`.
-
-          PROP, E NÃO UM COMPONENTE NOVO nem uma mudança no bloco: ele roda na
-          home, na /our-clients, na /team e na /contact com o carrossel, e
-          nenhuma delas pediu isso. O padrão da prop é o comportamento de hoje.
-
-          ⚠️ O `showMap={false}` ABAIXO FICOU SEM EFEITO, e continua escrito de
-          propósito: no `layout="static"` não há cidade ativa, então não há
-          câmera de mapa para mover e o Leaflet nunca entra. Tirar a prop daqui
-          não mudaria nada na tela, e mantê-la é o que documenta que a /about
-          segue sem o segundo mapa — que é uma decisão dela, de 14-09, e não um
-          efeito colateral do layout novo. */}
-      {/* ⚠️ A LISTA ESTÁTICA SAIU EM 14-09. O pedido da Maliha na daily (item 4)
-          foi trazer para cá a faixa de endereços da home: *"I did like on the
-          original landing page that it was scrolling for the addresses — if we
-          can have just the bottom bit, without the map."* A lista de cinco
-          fileiras que vivia aqui (cidade em serifa grande, endereço, contato,
-          separadas por filete) está no commit anterior, com o raciocínio inteiro
-          de por que ela deixou de ser grade de cards em 09-09.
-
-          `showMap={false}` É O "WITHOUT THE MAP". O mapa da /about é o
-          `WorldCoverageMap` logo acima — um segundo mapa, do Leaflet, a 400px de
-          distância, era exatamente a duplicação que ela apontou na home (item
-          33). Sem ele o Leaflet nem entra no bundle desta página.
-
-          ================================================================
-          OS DADOS CONTINUAM SENDO OS DO DOCUMENTO DO CLIENTE
-          ================================================================
-          Esta é a parte que não pode se perder na troca. O `OFFICES` acima NÃO
-          é `lib/offices.ts`, e a caixa dele explica por quê: três registros
-          divergem do que está no ar (o endereço e o telefone de Singapura, o
-          telefone de Dubai, o telefone de Miami), e ninguém confirmou qual
-          versão vale. Passar o bloco a ler a fonte da home reverteria os três em
-          silêncio — uma regressão de conteúdo que ninguém pediu e que só
-          apareceria quando o cliente relesse a página.
-
-          Por isso o `offices={...}`: o bloco recebe a lista DAQUI, adaptada ao
-          tipo `Office`. O que ele não tem é `coords`/`zoom`, que são do mapa —
-          e em vez de inventar zeros, que virariam armadilha no dia em que
-          alguém ligasse o mapa aqui, eles vêm da entrada de mesma cidade em
-          `lib/offices.ts`. Coordenada de escritório é a mesma nos dois arquivos;
-          o que diverge é o texto.
-
-          `showEmail` porque a lista que saiu publicava o e-mail de cada cidade e
-          o painel do carrossel mostrava só endereço e telefone. Sem a prop, a
-          troca custaria cinco endereços de contato.
-
-          ⚠️ 22-09 O RÓTULO "Our offices" SAIU, a pedido da Maliha. `eyebrow={null}`
-          omite o título; as cinco colunas ficam. */}
-      {/* O wrapper existe pelo `id`: o <LocationsBlock> não recebe um, e o
-          script do guia visual precisa de um alvo para fotografar esta
-          seção. */}
-      <div id="offices">
-      <LocationsBlock
-        offices={officeCards}
-        eyebrow={null}
-        /* SEM PARÁGRAFO DE CONTEXTO: o da home ("From our established hubs in
-           London, Singapore…") repetiria, quase palavra por palavra, o "With
-           headquarters in London, Singapore, Dubai, Riyadh and Miami" que abre
-           a faixa do mapa duas seções acima. String vazia é falsy e o bloco
-           simplesmente não renderiza o <p>. */
-        context=""
-        tone="paper"
-        maxWidthClass="max-w-[1440px]"
-        typeLabel
-        showMap={false}
-        showEmail
-        layout="static"
-      />
-      </div>
+      {/* 22-09: a faixa solta de escritórios saiu daqui. Rua, telefone e e-mail
+          ficam dentro da coluna da região, no bloco acima. O `LocationsBlock`
+          continua na home, /team e /contact. */}
 
       {/* ── Block 6b · The people behind it ───────────────────────────
           Pedido pela Maliha em 09-09, apontando o bloco que já existe na

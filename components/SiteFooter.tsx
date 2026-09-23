@@ -56,7 +56,7 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-full.png"
-            alt="Corporate DNA Consulting"
+            alt="CorporateDNA Consulting"
             className="h-12 w-auto"
           />
         </Link>

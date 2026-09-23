@@ -36,7 +36,7 @@ export async function generateMetadata({
      do serviço na página e a aba do navegador, o `og:title` e o snippet do
      Google continuariam com o nome velho. */
   const service = (await getServicesWithCopy()).find((x) => x.slug === slug);
-  const title = service ? `${service.title} — Corporate DNA` : "Solution — Corporate DNA";
+  const title = service ? `${service.title} | CorporateDNA` : "Solution | CorporateDNA";
   return {
     title,
     description: service?.banner,

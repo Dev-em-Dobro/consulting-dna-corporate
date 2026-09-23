@@ -61,7 +61,7 @@ export const offices: Office[] = [
     addressLines: [
       "Sheikh Rashid Tower, 4th Floor",
       "Dubai World Trade Centre",
-      "Dubai — United Arab Emirates",
+      "Dubai, United Arab Emirates",
     ],
     tel: null,
     email: "dubai@corporatednaconsulting.com",

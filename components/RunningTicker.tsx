@@ -50,7 +50,7 @@ export default function RunningTicker({
 
   return (
     <section
-      aria-label="Corporate DNA milestones"
+      aria-label="CorporateDNA milestones"
       className="w-full bg-ink-2 text-white"
     >
       <div

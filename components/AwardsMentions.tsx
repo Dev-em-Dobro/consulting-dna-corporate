@@ -123,14 +123,14 @@ type Award = {
  */
 const BRANDON_HALL: Award[] = [
   {
-    name: "Brandon Hall — Diversity, Equity and Inclusion",
+    name: "Brandon Hall: Diversity, Equity and Inclusion",
     distinction: "Gold",
     showDistinction: true,
     year: "2023",
     logo: "/awards/brandon-hall-dei.png",
   },
   {
-    name: "Brandon Hall — Talent Acquisition",
+    name: "Brandon Hall: Talent Acquisition",
     distinction: "Gold",
     showDistinction: true,
     year: "2024",

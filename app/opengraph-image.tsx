@@ -5,7 +5,7 @@ import { SITE_NAME } from "@/lib/site";
 // under /[locale] and auto-populates BOTH og:image and twitter:image, so a
 // branded 1200×630 card is shared to LinkedIn, WhatsApp, X, etc. Detail pages
 // override this with their CMS cover via `openGraph.images` in generateMetadata.
-export const alt = "Corporate DNA — Global Leadership Advisory & Executive Coaching";
+export const alt = "CorporateDNA: Global Leadership Advisory & Executive Coaching";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -65,7 +65,7 @@ export default function OgImage() {
             color: "rgba(255,255,255,0.75)",
           }}
         >
-          Making leadership real — across 36 countries.
+          Making leadership real, across 36 countries.
         </div>
       </div>
     ),

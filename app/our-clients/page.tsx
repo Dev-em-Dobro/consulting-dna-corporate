@@ -16,16 +16,16 @@ import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats, getFirmStats } from "@/lib/stats";
 import { getClientsCopy } from "@/lib/clients-copy-server";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
-/* O MESMO skyline da /about e da /services, importado e não copiado — ver a
-   caixa em `app/services/page.tsx`. Ela ainda não mandou fotografia própria
-   para esta página; quando mandar, é trocar esta linha. */
-import skylinePhoto from "@/public/skyline-dna.jpg";
+/* 23-09: a Rhea mandou o paredão de logos (`clients-impact.jpeg`). O título
+   que vinha gravado na arte saiu, porque o herói já escreve o h1 por cima.
+   O arquivo limpo mora em `public/hero`. */
+import clientsHero from "@/public/hero/clients-impact.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Clients & Impact — Corporate DNA",
+    title: "Clients & Impact | CorporateDNA",
     description:
-      "The organisations Corporate DNA advises, the breadth of work behind each name, and what changed — measured.",
+      "The organisations CorporateDNA advises, the breadth of work behind each name, and what changed, measured.",
     alternates: localeAlternates("/our-clients"),
   };
 }
@@ -197,8 +197,8 @@ export default async function ClientsAndImpactPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title}
           subtitle={copy.hero.subtitle}
-          imageUrl={skylinePhoto}
-          imagePosition="object-[50%_38%]"
+          imageUrl={clientsHero}
+          imagePosition="object-[62%_center]"
         />
         </div>
 

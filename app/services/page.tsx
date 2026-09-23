@@ -10,16 +10,16 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
 import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
-/* O MESMO ARQUIVO DA /about, importado e não copiado: é literalmente "the same
-   backdrop" que ela pediu, e um segundo arquivo com outro nome garantiria que
-   as duas páginas divergissem no dia em que o original dela chegar. */
-import skylinePhoto from "@/public/skyline-dna.jpg";
+/* 23-09 (main): a foto da Rhea — golfe, tênis e futebol — substituiu o skyline
+   que a /about e a /services dividiam. Só nesta página; a padrão
+   `service-hero-fallback.jpg` segue nas outras rotas do SolutionHero. */
+import heroPhoto from "@/public/hero/hero-services.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Our Services — Corporate DNA",
+    title: "Our Services | CorporateDNA",
     description:
-      "Real impact for individuals, leaders, teams and organisations — ten ways in, each starting with what is at stake for the business.",
+      "Real impact for individuals, leaders, teams and organisations, ten ways in, each starting with what is at stake for the business.",
     alternates: localeAlternates("/services"),
   };
 }
@@ -59,39 +59,14 @@ export default async function SolutionsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        {/* ⚠️ O SKYLINE ENTROU EM 14-09 e resolve DOIS pedidos da mesma daily:
-            • item 8 — *"definitely need to change this image because some of the
-              girls have their eyes closed."* A foto que estava aqui é a
-              `service-hero-fallback.jpg`, a padrão compartilhada por onze rotas,
-              e é nela que estão as pessoas de olhos fechados.
-            • item 9 — *"I'm thinking with the services, if we use the same
-              backdrop as we did the skyline again."* "A outra página" é a
-              /about, e o arquivo é o skyline que ela mesma mandou em
-              08-09: Big Ben, Marina Bay, Burj Khalifa e Kingdom Centre com a
-              hélice de DNA atravessando o céu.
+        {/* Foto da Rhea, 23-09 (1600×600): golfe, tênis e futebol. Só nesta
+            página. A padrão `service-hero-fallback.jpg` continua nas outras
+            rotas do SolutionHero. `object-center` porque o texto fica no
+            lavado da esquerda e o arquivo é bem mais largo que a dobra.
 
-            SÓ AQUI, e não no `SolutionHero`. A padrão continua servindo as outras
-            dez rotas: ela reclamou desta página, e trocar o fallback mudaria a
-            /team, a /books e as oito de serviço sem pedido nenhum.
-
-            ✅ O ARQUIVO MELHOROU EM 15-09. A `about-hero.jpeg` era a cópia que
-            o WhatsApp gerou — 229 KB de JPEG já recomprimido, com o céu em
-            blocos e os pontos da hélice empastados. O pacote do Drive trouxe o
-            PNG de origem (`1.About Page/ChatGPT Image Sep 8...png`, 2,2 MB), que
-            virou `public/skyline-dna.jpg` com uma única compressão em q90.
-
-            ⚠️ O QUE ISSO NÃO RESOLVE: a RESOLUÇÃO. O PNG tem os mesmos
-            1373x1145 (1,2:1) do arquivo antigo — é a mesma imagem sem a segunda
-            compressão, não uma maior. Num herói de sangria total com dobra de
-            ~1,9:1 o `object-cover` escala pela largura e corta ~38% da altura
-            (o que sobra é a faixa do meio, onde moram o skyline e a hélice, que
-            é o recorte que interessa), mas num monitor de 1920 o upscale segue
-            em 1,4x. O pedido pelo arquivo em largura de dobra continua de pé.
-
-            `object-[50%_38%]` SOBE O ENQUADRAMENTO. Centrado, o corte tira 19%
-            de cima e 19% de baixo, e a ponta do Burj ficava rente à borda
-            superior enquanto sobrava água no pé. Subir para 38% devolve céu
-            acima das torres — que é onde o `h1` mora, à esquerda. */}
+            O SKYLINE QUE ESTAVA AQUI — o mesmo da /about, pedido na daily de
+            14-09 — saiu com esta troca. O arquivo continua em
+            `public/skyline-dna.jpg`, servindo a /about. */}
         {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
             script do guia visual do editor precisa de um alvo. */}
         <div id="services-hero">
@@ -99,8 +74,8 @@ export default async function SolutionsPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title}
           subtitle={copy.hero.subtitle}
-          imageUrl={skylinePhoto}
-          imagePosition="object-[50%_38%]"
+          imageUrl={heroPhoto}
+          imagePosition="object-center"
         />
         </div>
 

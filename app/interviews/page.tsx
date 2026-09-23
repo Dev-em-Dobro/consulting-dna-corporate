@@ -4,9 +4,9 @@ import PagePlaceholder from "@/components/PagePlaceholder";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Interviews — Corporate DNA",
+    title: "Interviews | CorporateDNA",
     description:
-      "Full client interviews on leadership, culture and transformation with the executives behind Corporate DNA's flagship engagements.",
+      "Full client interviews on leadership, culture and transformation with the executives behind CorporateDNA's flagship engagements.",
     alternates: localeAlternates("/interviews"),
     // Placeholder page: it is linked from the case "Hear the complete interview"
     // CTA, so it must resolve, but a thin page with no interviews on it should

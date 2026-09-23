@@ -22,7 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const i = await getInsight(slug);
-  const title = i ? `${i.title} — Corporate DNA` : "Insight — Corporate DNA";
+  const title = i ? `${i.title} | CorporateDNA` : "Insight | CorporateDNA";
   const description = firstDescription([i?.body]);
   return {
     title,

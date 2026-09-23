@@ -30,6 +30,9 @@ const dnaTime = (n: number) =>
  * foto nova só precise ser jogada na pasta:
  *
  *   05, 08, 14   nunca existiram no acervo entregue.
+ *   07           ⚠️ SAIU EM 23-09. É o jantar em que o grupo brinda com
+ *                taças. A cliente pediu essa foto fora do carrossel da home
+ *                e da /team. O arquivo continua em /public.
  *   10           ⚠️ SAIU EM 21-09. É A MESMA FOTO DA 15 — o grupo no pátio do
  *                escritório de Singapura —, só que a 1280x960 contra 1600x1200,
  *                e com um enquadramento um pouco mais fechado. O carrossel
@@ -47,7 +50,7 @@ const dnaTime = (n: number) =>
  * resolve com o arquivo original, que é pedido para a CDNA.
  */
 export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
-  .filter((n) => n !== 5 && n !== 8 && n !== 10 && n !== 14)
+  .filter((n) => n !== 5 && n !== 7 && n !== 8 && n !== 10 && n !== 14)
   .map(dnaTime);
 
 /**

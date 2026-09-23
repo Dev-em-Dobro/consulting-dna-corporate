@@ -59,7 +59,7 @@ export const DEFAULT_CLIENTS_COPY: ClientsCopy = {
   },
   social: {
     title: "A force for good, beyond the boardroom.",
-    body: "Corporate DNA is committed to being a force for good in the world. Our mission is to make transformative impact through humanity, honesty, and purpose. In acting on our deeply held values of social awareness, sustainability, and boldness, we have partnered with TERRAGRN, an organisation dedicated to sustainable community-led agroforestry.",
+    body: "CorporateDNA is committed to being a force for good in the world. Our mission is to make transformative impact through humanity, honesty, and purpose. In acting on our deeply held values of social awareness, sustainability, and boldness, we have partnered with TERRAGRN, an organisation dedicated to sustainable community-led agroforestry.",
     ctaLabel: "Learn more",
   },
   footprint: {

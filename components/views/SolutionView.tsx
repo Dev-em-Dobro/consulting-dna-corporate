@@ -354,7 +354,7 @@ export default function SolutionView({
           caseSlug={service.evidence.caseSlug}
           caseTitle={
             service.evidence.title
-              ? `${service.evidence.client} — ${service.evidence.title}`
+              ? `${service.evidence.client}: ${service.evidence.title}`
               : service.evidence.client
           }
           body={service.evidence.body}

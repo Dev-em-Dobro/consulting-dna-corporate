@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { applyEnvClasses, isTouchDevice } from "@/lib/hero-intro";
 import { buildHeroIntro } from "@/lib/hero-timeline";
-import heroPhoto from "@/public/hero/hero-home.jpeg";
+import heroPhoto from "@/public/dna-time/dna-time-06.jpeg";
 
 /**
  * Hero da HOME (`/`) desde 10-09 — e também da `/home-v3`, que só troca o herói
@@ -428,13 +428,11 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
           lugar nenhum, então as duas plataformas mostram a mesma coisa e não há
           o que decidir.
 
-          A FOTO É A DA SESSÃO, desde 22-09 (`public/hero/hero-home.jpeg`,
-          1600×1200). Substitui `dna-time-06.jpeg`. O recorte de 96% no
-          telefone, medido logo abaixo, era daquela foto — a facilitadora
-          ficava à direita. Nesta a facilitadora está à esquerda, então
-          `object-center` mostra o meio da sala nos dois tamanhos. O texto
-          do recorte antigo fica aqui porque a conta ainda serve se a foto
-          voltar a ter o assunto na direita.
+          A FOTO VOLTOU A SER A DA RHEA NO PALCO em 23-09
+          (`public/dna-time/dna-time-06.jpeg`). A da sessão
+          (`public/hero/hero-home.jpeg`) ficou no ar entre 22-09 e hoje; o
+          pedido foi reverter. Ela está à direita, então o recorte de 96% no
+          telefone, medido logo abaixo, volta junto.
 
           A escolha anterior está explicada em HeroV3.tsx — era a única das 25 do
           acervo que mostra uma sessão acontecendo, e é placeholder até chegar o
@@ -485,7 +483,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[96%_center] md:object-center"
           aria-hidden="true"
         />
       </div>
