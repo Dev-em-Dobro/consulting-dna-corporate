@@ -95,12 +95,16 @@ type Award = {
  * como mais duas menções. O próprio comentário daquela mudança já previa este
  * caso ao explicar por que o campo `distinction` não foi apagado do tipo.
  *
- * ⚠️ SEM LOGO. `/public/awards/` não tem arte da Brandon Hall e não é coisa
- * que se invente — é o selo de um instituto. Enquanto ela não chega, a célula
- * mostra o selo tipográfico.
+ * ⚠️ AS ARTES CHEGARAM EM 22-09, da apresentação (slide "Our Awards").
+ * Os dois arquivos estão em `/public/awards/`. O fundo branco do selo de
+ * DE&I foi removido para o círculo sentar na faixa escura do mesmo jeito
+ * que o de Talent Acquisition, que já veio com transparência.
  *
- * ⚠️ OS NOMES ESTÃO ENCURTADOS, e o original fica escrito aqui para ninguém
- * achar que foi digitado errado. No cartão do herói eles vinham inteiros:
+ * Os nomes visíveis seguem a faixa de cada selo — "Diversity, Equity and
+ * Inclusion" e "Talent Acquisition" — e não os títulos longos do cartão do
+ * herói, que continuam escritos abaixo para ninguém achar que se perderam.
+ *
+ * ⚠️ OS NOMES LONGOS, do cartão do herói:
  *
  *   "Brandon Hall Best Leadership Development for Talent Acceleration
  *    Programme for Asian Leaders"
@@ -119,16 +123,18 @@ type Award = {
  */
 const BRANDON_HALL: Award[] = [
   {
-    name: "Brandon Hall — Leadership Development",
-    distinction: "Gold",
-    showDistinction: true,
-    year: "2024",
-  },
-  {
-    name: "Brandon Hall — DE&I Leadership Development",
+    name: "Brandon Hall — Diversity, Equity and Inclusion",
     distinction: "Gold",
     showDistinction: true,
     year: "2023",
+    logo: "/awards/brandon-hall-dei.png",
+  },
+  {
+    name: "Brandon Hall — Talent Acquisition",
+    distinction: "Gold",
+    showDistinction: true,
+    year: "2024",
+    logo: "/awards/brandon-hall-talent-acquisition.png",
   },
 ];
 
@@ -168,6 +174,7 @@ const awards: Award[] = [
 export default function AwardsMentions({
   maxWidthClass = "max-w-[1200px]",
   includeBrandonHall = false,
+  showYear = true,
 }: {
   /**
    * Largura do container da faixa.
@@ -194,6 +201,15 @@ export default function AwardsMentions({
    * mudança é trocar este `false` por `true` e apagar a prop dos pontos de uso.
    */
   includeBrandonHall?: boolean;
+  /**
+   * Mostra o ano embaixo do nome.
+   *
+   * A home desliga isto desde 22-09 — a Maliha pediu para tirar as datas da
+   * faixa. Prop, e não um corte no dado: /our-impact, /home-v1 e /home-v3
+   * continuam datando cada prêmio, e o `year` segue no tipo para o dia em
+   * que a lista for revista com a Ria.
+   */
+  showYear?: boolean;
 } = {}) {
   const scope = useRef<HTMLElement>(null);
   const shown = includeBrandonHall ? [...BRANDON_HALL, ...awards] : awards;
@@ -343,7 +359,8 @@ export default function AwardsMentions({
                     item 34 — era aqui que se lia "FINALIST 2008" nos cinco
                     antigos. Os dois GOLD a mostram porque colocação e prêmio
                     ganho não são a mesma alegação; ver a caixa do
-                    `BRANDON_HALL`. O ano fica em todos: é fato datado. */}
+                    `BRANDON_HALL`. O ano fica no dado e sai na tela quando
+                    `showYear` está ligado — a home desliga desde 22-09. */}
                 {a.showDistinction ? (
                   <p className="mt-4 text-[11px] font-bold uppercase tracking-[2px] text-white">
                     {a.distinction}
@@ -356,9 +373,11 @@ export default function AwardsMentions({
                 >
                   {a.name}
                 </p>
-                <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
-                  {a.year}
-                </p>
+                {showYear ? (
+                  <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
+                    {a.year}
+                  </p>
+                ) : null}
               </li>
             ))}
           </ul>

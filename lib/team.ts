@@ -599,50 +599,60 @@ export const facultyMembers: RosterPerson[] = [
 ];
 
 /**
- * A MESMA FACULTY, AGRUPADA POR REGIÃO — 21-09, *"o global — organizar em
- * regions"*, na mesma lista em que ela deu a região das três programme managers.
+ * A MESMA FACULTY, AGRUPADA EM QUATRO REGIÕES — 22-09.
  *
- * O DADO JÁ EXISTIA e é isto que torna o pedido barato: a região de cada uma
- * das 23 pessoas está na tabela dela desde 17-09, e vinha saindo como a linha
- * de baixo do nome. O que muda é para onde ela vai — de 23 repetições sob os
- * retratos para SETE cabeçalhos. Por isso as pessoas entram no grupo sem o
- * `meta`: a região passou a ser dita uma vez, no título do grupo, e mantê-la
- * embaixo de cada nome seria a mesma palavra duas vezes na mesma tela.
+ * A Maliha pediu esta ordem, e só estas quatro: Americas, UK & Europe,
+ * Middle East & North Africa, Asia Pacific. A Austrália entra em Asia Pacific.
  *
- * ⚠️ OS SETE GRUPOS SÃO OS RÓTULOS QUE A TABELA DELA DÁ, sem remapeamento:
- * UK & Europe, Europe, Middle East, Americas, Asia Pacific, Africa, Australia.
- * Não foram dobrados nas quatro regiões da About (`facultyRegions`, aqui em
- * cima) de propósito — juntar "Europe" com "UK & Europe", ou pendurar "Africa"
- * em alguma delas, é decisão de conteúdo DELA, e é a mesma pendência que a
- * caixa da `facultyMembers` já registra a propósito do comentário na célula do
- * Tom Cross. Agrupar só tornou a divergência VISÍVEL: antes ela estava diluída
- * em 23 legendas, agora são dois cabeçalhos vizinhos.
+ * O rótulo da tabela dela não muda no dado (`facultyMembers.meta`). O que muda
+ * é o balde em que a pessoa cai:
+ *   • "Europe" e "UK & Europe" → UK & Europe
+ *   • "Middle East" e "Africa" → Middle East & North Africa
+ *   • "Australia" e "Asia Pacific" → Asia Pacific
+ *   • "Americas" → Americas
  *
- * A ORDEM É A DE APARIÇÃO NA TABELA, pelo mesmo motivo que a lista de pessoas
- * segue a ordem do documento: qualquer outra (alfabética, por tamanho, por
- * importância) exige uma decisão nossa sobre qual região vem primeiro.
+ * Africa não foi nomeada na daily. Das quatro regiões, Middle East & North
+ * Africa é a única que a cobre. Dentro de cada grupo a ordem continua a da
+ * tabela.
  *
- * ⏳ O BALDE SEM RÓTULO (`region: ""`) ESTÁ VAZIO HOJE — as 23 têm região. Ele
- * existe para o dia em que alguém for acrescentado sem ela: sem o balde a
- * pessoa sumiria da página, com um rótulo inventado ("Global", "Other") ela
- * apareceria afirmando algo que ninguém disse. Sem cabeçalho e por último, ela
- * aparece e a falta fica evidente para quem revisa.
+ * Quem chegar sem região, ou com um rótulo que esta tabela não conhece, cai
+ * no balde sem título, no fim — some da página seria pior do que aparecer
+ * sem cabeçalho.
  */
 export type FacultyRegionGroup = { region: string; people: RosterPerson[] };
 
+const FACULTY_REGION_ORDER = [
+  "Americas",
+  "UK & Europe",
+  "Middle East & North Africa",
+  "Asia Pacific",
+] as const;
+
+const FACULTY_REGION_OF: Record<string, (typeof FACULTY_REGION_ORDER)[number]> = {
+  Americas: "Americas",
+  "UK & Europe": "UK & Europe",
+  Europe: "UK & Europe",
+  "Middle East": "Middle East & North Africa",
+  Africa: "Middle East & North Africa",
+  "Asia Pacific": "Asia Pacific",
+  Australia: "Asia Pacific",
+};
+
 export const facultyByRegion: FacultyRegionGroup[] = (() => {
-  const groups: FacultyRegionGroup[] = [];
+  const groups: FacultyRegionGroup[] = FACULTY_REGION_ORDER.map((region) => ({
+    region,
+    people: [],
+  }));
+  const unlabeled: FacultyRegionGroup = { region: "", people: [] };
+
   for (const person of facultyMembers) {
-    const region = person.meta ?? "";
-    let group = groups.find((g) => g.region === region);
-    if (!group) {
-      group = { region, people: [] };
-      groups.push(group);
-    }
-    /* Só nome e retrato: a região virou o cabeçalho (ver a caixa acima). */
-    group.people.push({ name: person.name, portrait: person.portrait });
+    const bucket = FACULTY_REGION_OF[person.meta ?? ""];
+    const group = bucket
+      ? groups.find((g) => g.region === bucket)
+      : unlabeled;
+    group?.people.push({ name: person.name, portrait: person.portrait });
   }
-  /* O grupo sem rótulo vai para o fim, e é a única exceção à ordem da tabela —
-     uma pessoa sem região não pode encabeçar a seção. */
-  return groups.sort((a, b) => Number(a.region === "") - Number(b.region === ""));
+
+  const filled = groups.filter((g) => g.people.length > 0);
+  return unlabeled.people.length ? [...filled, unlabeled] : filled;
 })();

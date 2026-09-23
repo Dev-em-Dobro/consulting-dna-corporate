@@ -587,29 +587,10 @@ export default async function OurTeamPage() {
                 o Oriente Médio aparece como "Middle East" em duas pessoas. Se a
                 faculty da Índia existe e ficou de fora da planilha, é pergunta
                 para a próxima daily. */}
-            {/* ── AGRUPADA POR REGIÃO · 21-09 ────────────────────────────
-                *"o global — organizar em regions"*, na mesma lista em que ela
-                deu a região das três programme managers ("Maliha - MENA, Carol
-                is UKEE, Nic is Asia").
-
-                A LISTA NÃO MUDOU — são as mesmas 23 pessoas, na mesma ordem
-                dentro de cada grupo. O que mudou é que a região saiu de baixo
-                de cada nome e virou cabeçalho: 23 legendas repetidas viraram
-                sete títulos. Os grupos e a ordem deles moram em
-                `facultyByRegion`, em `lib/team.ts`, com o porquê de nenhum
-                rótulo ter sido remapeado.
-
-                ⚠️ QUATRO GRUPOS TÊM DUAS PESSOAS (UK & Europe, Middle East,
-                Africa, Australia) e a grade é de cinco/seis colunas, então
-                eles saem com a linha pela metade. É o que agrupar custa, e é o
-                desenho certo: a alternativa — grade cheia com a região miúda
-                embaixo de cada rosto — é exatamente o que ela pediu para
-                mudar. O vão também é informação: mostra onde a faculty é rala.
-
-                O CABEÇALHO É `h3` porque o `h2` da seção é "A faculty of 60+
-                senior practitioners…" e cada região está dentro dele. Os nomes,
-                que eram `h3`, desceram para `h4` no `PeopleRoster` pelo mesmo
-                motivo. */}
+            {/* ── QUATRO REGIÕES · 22-09 ─────────────────────────────────
+                Americas, UK & Europe, Middle East & North Africa, Asia Pacific,
+                nesta ordem. A Austrália entra em Asia Pacific. O agrupamento
+                mora em `facultyByRegion`. */}
             <div className="mt-12 space-y-14">
               {facultyByRegion.map((group) => (
                 <div key={group.region || "sem-regiao"}>
