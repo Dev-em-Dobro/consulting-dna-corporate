@@ -51,6 +51,7 @@ import JsonLd from "@/components/JsonLd";
 import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
+import { getHomeCopy } from "@/lib/home-copy-server";
 import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 // Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
@@ -162,14 +163,8 @@ const challenges = [
  * here also broke the `sr-only` sentence, which joins the six into "Real
  * pressures, politics, choices…" and would have carried a capital mid-clause.
  */
-const reals = [
-  "pressures",
-  "politics",
-  "choices",
-  "judgement",
-  "people",
-  "consequences",
-];
+// ✅ A LISTA MORA EM `lib/home-copy.ts` DESDE 23-09 (`solve.reals`), e a cliente
+// a edita em /edit-home. As regras acima continuam valendo para o padrão.
 
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
@@ -207,17 +202,13 @@ const differentiators = [
 // arquivo está em /public/logos e é usado aqui porque a Heineken já é citada
 // NOMINALMENTE neste card desde antes — o nome dela já está no ar; o logo não
 // acrescenta cliente novo à parede.
-const cases: {
-  client: string; sector: string; challenge: string;
-  metric: string; metricLabel: string; caseSlug?: string; logo?: string;
-}[] = [
-  { client: "Heineken", sector: "FMCG", logo: "heineken.png", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
-  { client: "Coca-Cola", sector: "FMCG", logo: "coca_cola.png", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
-  // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
-  // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
-  // número tem que ser trocado nos dois lugares até a V2 ser decidida.
-  { client: "Shell", sector: "Energy", logo: "shell.png", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
-];
+// ✅ O TEXTO DOS TRÊS CARDS MORA EM `lib/home-copy.ts` DESDE 23-09
+// (`impact.cases`), editável em /edit-home. O que fica aqui é só o que NÃO é
+// texto: o arquivo do logo, por posição. Se a cliente trocar o cliente do card
+// no editor, o logo continua sendo o desta lista — trocar arte é aqui.
+//
+// SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
+const caseLogos: (string | undefined)[] = ["heineken.png", "coca_cola.png", "shell.png"];
 
 
 export default async function Home() {
@@ -244,7 +235,13 @@ export default async function Home() {
   // porquê daquele `map` (o CMS guarda a leva ANTIGA de retratos; os oficiais de
   // 09-09 moram em `lib/team.ts`, e quem não tem oficial fica nas iniciais em vez
   // de republicar a foto velha) está no commit de 11-09 e continua valendo.
-  const [nav, stats] = await Promise.all([buildSiteNav(), getSiteStats()]);
+  const [nav, cmsStats, copy] = await Promise.all([buildSiteNav(), getSiteStats(), getHomeCopy()]);
+  // A copy editável (23-09): rótulos dos números por posição (os VALORES seguem
+  // do CMS), o livro com o texto da home por cima do módulo, e os cards.
+  const stats = cmsStats.map((s, i) => ({ ...s, label: copy.credibility.statLabels[i] ?? s.label }));
+  const homeBook = { ...book, ...copy.book };
+  const cases = copy.impact.cases.map((c, i) => ({ ...c, logo: caseLogos[i] }));
+  const reals = copy.solve.reals;
 
   return (
     // `geist.variable` e `serif.variable` publicam --font-geist-v3 e
@@ -323,7 +320,7 @@ export default async function Home() {
             name: book.name,
             author: "Rhea Leckie",
             path: "/#book",
-            description: book.body[1],
+            description: homeBook.body[1] ?? homeBook.body[0],
             image: `${SITE_URL}/book-cover.jpg`,
           }),
         ]}
@@ -369,7 +366,7 @@ export default async function Home() {
           ele mostrava estão agora na faixa de prêmios, mais abaixo. */}
 
       {/* HERO */}
-      <HeroV2 />
+      <HeroV2 copy={copy.hero} />
 
       {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
@@ -450,7 +447,7 @@ export default async function Home() {
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-0">
             <div>
-              <TypeLabel>What we solve</TypeLabel>
+              <TypeLabel>{copy.solve.label}</TypeLabel>
               {/* ⚠️ `font-sans!` CONTRA A REGRA DA PÁGINA, e de propósito. O
                   wrapper da home força `[&_h2]:font-serif` em todo h2, e aqui
                   isso empataria: o propósito ao lado também é serifa, nos mesmos
@@ -462,7 +459,7 @@ export default async function Home() {
                   (rótulo em Geist → título → corpo em serifa); aqui ele só
                   opera entre colunas em vez de entre linhas. */}
               <h2 className="font-sans! mb-5 text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[32px]">
-                The leadership challenges that determine enterprise performance.
+                {copy.solve.title}
               </h2>
               {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do
                   herói, o par tipográfico saindo da primeira dobra. */}
@@ -470,17 +467,17 @@ export default async function Home() {
                 className="max-w-[560px] text-[18px] leading-[1.6] text-muted md:text-[20px]"
                 style={{ fontFamily: "var(--font-serif-v2)" }}
               >
-                We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+                {copy.solve.subtitle}
               </p>
             </div>
 
             <div className="lg:border-l lg:border-line lg:pl-24">
               <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] text-ink md:text-[48px]">
-                Our purpose is to make leadership{" "}
+                {copy.solve.purposeTitle}{" "}
                 {/* O ponto fica DENTRO do span: fora dele, sairia um pingo
                     escuro pendurado na palavra vermelha, e a linha de baixo
                     termina com ponto vermelho também. */}
-                <span className="text-brand">real.</span>
+                <span className="text-brand">{copy.solve.purposeAccent}</span>
               </h2>
               {/* Fora do `h2`: a palavra muda a cada 55ms, e um heading que se
                   reescreve é hostil a leitor de tela e sem sentido para um
@@ -508,10 +505,10 @@ export default async function Home() {
           esta faixa foi parar aqui, e continua sendo o argumento contra a
           ordem atual — se alguém trouxer o assunto de volta, é este o texto a
           citar. O que mudou foi a decisão, não o princípio. */}
-      <section className="bg-ink text-white">
+      <section id="credibility" className="bg-ink text-white">
         <div className="pb-[34px] pt-[70px]">
           <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
-            Trusted by leadership teams at
+            {copy.credibility.label}
           </p>
           <div className="flex flex-col gap-5">
             <LogoMarquee logos={logoRow1} duration={logoRowDuration(logoRow1)} />
@@ -651,9 +648,9 @@ export default async function Home() {
               `ink` mede 2,9:1 e reprovaria em 13px. Sobre `paper` a conta se
               inverte: o cheio passa e o claro é que reprovaria. Régua e texto
               trocam juntos — o `TypeLabel` já faz isso sozinho. */}
-          <TypeLabel>Client impact</TypeLabel>
+          <TypeLabel>{copy.impact.label}</TypeLabel>
           <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
-            Results, not promises — measured where it matters.
+            {copy.impact.title}
           </h2>
           {/* `bg-white` nos cards continua sendo estrutural, não decoração: com
               a faixa em `paper`, é o preenchimento branco que os destaca do
@@ -700,7 +697,7 @@ export default async function Home() {
                   ) : null}
                 </div>
                 <div className="flex flex-1 flex-col px-[26px] py-7">
-                  <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Challenge</p>
+                  <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.impact.challengeLabel}</p>
                   <p className="mb-[22px] text-[15px] leading-[1.55] text-[#4a4548]">{c.challenge}</p>
                   <div className="mt-auto pt-[22px]">
                     <span className="mb-[18px] block h-[3px] w-9 bg-brand" />
@@ -709,10 +706,10 @@ export default async function Home() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/cases"}
+                      href="/cases"
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
-                      read more here
+                      {copy.impact.readMore}
                     </a>
                   </div>
                 </div>
@@ -780,15 +777,15 @@ export default async function Home() {
           continua existindo com todo o resto do conteúdo. */}
       <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          <TypeLabel>Our people</TypeLabel>
+          <TypeLabel>{copy.people.label}</TypeLabel>
           <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
-            Senior advisors who have sat where our clients sit.
+            {copy.people.title}
           </h2>
           <p
             className="mb-12 max-w-[640px] text-[19px] leading-[1.65] text-muted"
             style={{ fontFamily: "var(--font-serif-v2)" }}
           >
-            A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
+            {copy.people.subtitle}
           </p>
           {/* The DNA experience — copy on the left, life-at-DNA carousel on the
               right. Stacks on mobile (text first, then the images).
@@ -798,8 +795,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
             <div>
               <p className="text-lg font-medium leading-[1.55] text-ink">
-                With our “One DNA TEAM” principle, we execute as one
-                collaborative team.
+                {copy.people.intro}
               </p>
               {/* OS TRÊS TÍTULOS DESTE BLOCO SÃO VERMELHOS DESDE 21-09 —
                   e-mail: *"Add some colour to headers (red)"*; anotação: *"top
@@ -828,41 +824,14 @@ export default async function Home() {
                   quiser o h2 vermelho também, é trocar `text-ink` por
                   `text-brand` na linha dele. */}
               <div className="mt-8 space-y-6">
-                <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
-                    The DNA Experience
-                  </h3>
-                  <p className="text-[15px] leading-[1.6] text-muted">
-                    We blend our individual talents with the collective
-                    expertise of our global pool of 75 members across 36
-                    countries, and deliver the power of the “DNA experience” to
-                    every client. Each time, every time.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
-                    Trusted Relationships
-                  </h3>
-                  <p className="text-[15px] leading-[1.6] text-muted">
-                    Relationships are at the core of who we are. We build
-                    long-term, deep relationships with our people and become
-                    part of each other’s stories. We are part of a family who
-                    care about each other, stay close and grow, laugh and unmask
-                    together.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
-                    Inclusion &amp; Diversity
-                  </h3>
-                  <p className="text-[15px] leading-[1.6] text-muted">
-                    Our best-in-class people are full of great character and
-                    personality, representing a range of backgrounds in the
-                    behavioural sciences and business; coming from different
-                    markets around the world, and representing a wide range of
-                    social identities.
-                  </p>
-                </div>
+                {copy.people.pillars.map((p) => (
+                  <div key={p.title}>
+                    <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
+                      {p.title}
+                    </h3>
+                    <p className="text-[15px] leading-[1.6] text-muted">{p.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
             <PhotoCarousel
@@ -890,7 +859,7 @@ export default async function Home() {
               cima mostra. A /services não precisa dela — lá o bloco tem título
               próprio. */}
           <PartnersStrip
-            label="In partnership with"
+            label={copy.people.partnersLabel}
             tone="light"
             className="mt-14 border-t border-line pt-10"
           />
@@ -933,7 +902,7 @@ export default async function Home() {
 
               Os endossos continuam DENTRO do cartão, recuperados da antiga
               /book-endorsements, que redireciona para cá. */}
-          <BookCard book={book}>
+          <BookCard book={homeBook}>
             <BookEndorsements />
           </BookCard>
         </Reveal>
@@ -981,13 +950,13 @@ export default async function Home() {
             {/* Era 44px: o único título de seção fora do padrão de 40 no
                 arquivo. Nivelado. */}
             <h2 className="mb-6 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white [text-wrap:balance]">
-              What is changing, and where does leadership need to go?
+              {copy.contact.title}
             </h2>
             <p
               className="mb-2 max-w-[460px] text-[19px] leading-[1.65] text-white/90"
               style={{ fontFamily: "var(--font-serif-v2)" }}
             >
-              Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
+              {copy.contact.subtitle}
             </p>
           </div>
           {/* Em teste (10-09): o `hover-button` do 21st, com o bloco em ink
