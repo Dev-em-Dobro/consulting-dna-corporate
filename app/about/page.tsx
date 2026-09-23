@@ -414,12 +414,38 @@ function splitLastWord(text: string): [string, string] {
 /* AS FOTOS DAS REGIÕES, por posição na lista da copy — 23-09 (main): as mesmas
    de `public/team/mock` que ilustravam estas colunas (Miami, Londres, Dubai,
    Singapura). Arte não é copy: a cliente troca o texto da região em
-   `/edit-about`, e a foto continua vindo daqui. */
+   `/edit-about`, e a foto continua vindo daqui.
+
+   Ú A DE CINGAPURA SAIU DO `mock` — 23-09, fim do dia: o usuário mandou uma
+   foto de Marina Bay e ela virou `public/about/regions/singapore.jpg`, servida
+   a 1600×1280 e 203 KB (o original tinha 7074×4716 e 18,7 MB — pôr isso no
+   repositório seria 90× o peso para a mesma imagem na tela). A pasta nova diz
+   o que o nome antigo mentia: esta não é imagem de placeholder de time, é arte
+   da /about. As outras três seguem no `mock` até chegarem as definitivas. */
+/* O `y` É O ENQUADRAMENTO DE CADA FOTO, e ele existe porque um valor único não
+   serve para as quatro. A moldura é 5/4 e os arquivos são 4/5: sobra 36% de
+   altura para cortar, e `y` decide de onde essa sobra sai (0% = corta tudo
+   embaixo, 100% = corta tudo em cima, 50% = metade de cada lado). Como o assunto
+   está numa altura diferente em cada imagem, `object-top` centralizava a ponte e
+   decapitava o hotel. Os valores abaixo põem o assunto no meio da janela:
+
+     miami      15%  a villa mora no terço de cima; embaixo só há jardim
+     london      0%  a ponte já começa no topo do arquivo — qualquer valor
+                     maior que zero come a torre da esquerda
+     dubai      40%  a faixa de prédios fica no meio, entre o sol e a água
+     singapore  50%  IRRELEVANTE, e de propósito: este arquivo já é 5/4, a
+                     proporção exata da moldura, então não sobra nada para o
+                     `object-position` escolher. É o caminho mais limpo — quem
+                     enquadra é o corte do arquivo, não o CSS
+
+   Trocar uma foto sem revisar o `y` dela devolve o problema — os dois andam
+   juntos. Para calibrar: suba o valor se o assunto estiver baixo demais na
+   janela, desça se estiver alto demais. */
 const REGION_IMAGES = [
-  "/team/mock/miami.jpg",
-  "/team/mock/london.jpg",
-  "/team/mock/dubai.jpg",
-  "/team/mock/singapore.jpg",
+  { src: "/team/mock/miami.jpg", y: "15%" },
+  { src: "/team/mock/london.jpg", y: "0%" },
+  { src: "/team/mock/dubai.jpg", y: "40%" },
+  { src: "/about/regions/singapore.jpg", y: "50%" },
 ];
 
 /* AS CIDADES DE UMA REGIÃO saem do campo `offices` da copy ("Miami", "Dubai and
@@ -2279,14 +2305,39 @@ export default async function AboutV2Page() {
                 {/* 23-09: as fotos de cidade voltam para cima do texto. São as
                     mesmas de `public/team/mock` que ilustravam estas regiões
                     (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
+                {/* ⚠️ QUADRADA, E ANCORADA NO TOPO — 23-09, em duas passadas.
+                    Os cinco arquivos de `public/team/mock` são retratos de
+                    900×1125 (4/5). A moldura era 3/2, paisagem: o `object-cover`
+                    tinha de jogar fora quase metade da altura e, com
+                    `object-center`, a perda saía metade em cima e metade embaixo
+                    — a ponte de Londres sem o vão de cima, a skyline de
+                    Cingapura sem as torres. Na tela parecia zoom; era recorte.
+                    A proporção nativa (4/5) resolvia o corte e criava outro
+                    problema: quatro retratos inteiros lado a lado deixavam a
+                    faixa alta demais para o texto que vem embaixo.
+
+                    5/4 é onde paramos, depois de passar pelo quadrado: sobra
+                    36% de altura para cortar, contra os 47% de antes — menos que
+                    a moldura original, e ~253px de altura em quatro colunas a
+                    1440, contra os 395px do retrato inteiro. E o corte inteiro
+                    vai para BAIXO, via `object-top`, porque é onde mora o chão
+                    da foto — o céu, a ponte e as torres, que são o assunto,
+                    ficam. Trocar por `object-center` devolve o defeito original
+                    pela metade. Reduzir mais que isto começa a comer a base dos
+                    prédios, e aí o recorte volta a se ver. */}
                 {REGION_IMAGES[ri] ? (
-                  <div className="relative mb-5 aspect-[3/2] overflow-hidden">
+                  <div className="relative mb-5 aspect-[5/4] overflow-hidden">
                     <Image
-                      src={REGION_IMAGES[ri]}
+                      src={REGION_IMAGES[ri].src}
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover object-center"
+                      className="object-cover"
+                      /* INLINE, E NÃO CLASSE UTILITÁRIA: o valor vem de dados, e a
+                         Tailwind só gera classe que ela LEU no fonte — um
+                         `object-[center_${y}]` montado em runtime não existiria
+                         no CSS final e a foto cairia no centro, calada. */
+                      style={{ objectPosition: `center ${REGION_IMAGES[ri].y}` }}
                     />
                   </div>
                 ) : null}
