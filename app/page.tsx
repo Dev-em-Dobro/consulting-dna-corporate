@@ -45,6 +45,7 @@ import BookCard from "@/components/books/BookCard";
 import { books } from "@/lib/books";
 import AwardsMentions from "@/components/AwardsMentions";
 import PartnersStrip from "@/components/PartnersStrip";
+import { LOGO_COLORS } from "@/lib/logo-colors";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import JsonLd from "@/components/JsonLd";
@@ -210,13 +211,17 @@ const differentiators = [
 const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string; logo?: string;
+  /** Cor do cabeçalho. Vem da cor predominante do logo (`lib/logo-colors.ts`). */
+  headerBg: string;
+  /** Texto escuro quando o fundo é claro (o amarelo da Shell). */
+  headerOnLight?: boolean;
 }[] = [
-  { client: "Heineken", sector: "FMCG", logo: "heineken.png", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
-  { client: "Coca-Cola", sector: "FMCG", logo: "coca_cola.png", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
+  { client: "Heineken", sector: "FMCG", logo: "heineken.png", headerBg: LOGO_COLORS.heineken, challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants" },
+  { client: "Coca-Cola", sector: "FMCG", logo: "coca_cola.png", headerBg: LOGO_COLORS.coca_cola, challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
   // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
   // número tem que ser trocado nos dois lugares até a V2 ser decidida.
-  { client: "Shell", sector: "Energy", logo: "shell.png", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
+  { client: "Shell", sector: "Energy", logo: "shell.png", headerBg: LOGO_COLORS.shell, headerOnLight: true, challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme" },
 ];
 
 
@@ -668,8 +673,8 @@ export default async function Home() {
                     /public/logos são marcas coloridas ou escuras sobre fundo
                     transparente, feitas para papel branco: a Heineken é verde,
                     a Coca-Cola é vermelha, a Shell é a concha vermelha e
-                    amarela. Jogadas direto sobre o `bg-ink` deste cabeçalho, as
-                    duas primeiras somem. É a mesma placa que o `LogoMarquee`
+                    amarela. Jogadas direto sobre a cor do cabeçalho, as duas
+                    primeiras somem. É a mesma placa que o `LogoMarquee`
                     desenha na esteira da home, que corre sobre o mesmo ink e
                     pelo mesmo motivo.
 
@@ -682,19 +687,27 @@ export default async function Home() {
                     `<img>` e não `<Image>` do Next: são PNGs pequenos de
                     largura fixa, servidos como estão. Mesma escolha, e mesma
                     razão, do `LogoMarquee`. */}
-                <div className="flex items-center gap-4 bg-ink px-[26px] py-[22px] text-white">
+                {/* 23-09: cada cabeçalho leva a cor do próprio cliente (verde,
+                    vermelho, amarelo) para os três cards se separarem. A placa
+                    branca do logo fica — a marca some se sentar na mesma cor. */}
+                <div
+                  className={`flex items-center gap-5 px-7 py-6 ${
+                    c.headerOnLight ? "text-ink" : "text-white"
+                  }`}
+                  style={{ backgroundColor: c.headerBg }}
+                >
                   <div className="min-w-0 flex-1">
-                    <div className="text-[19px] font-bold tracking-[0.5px]">{c.client}</div>
-                    <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1px] text-white/70">{c.sector}</div>
+                    <div className="text-[22px] font-bold leading-none tracking-[0.3px]">{c.client}</div>
+                    <div className="mt-2 text-[11px] font-semibold uppercase tracking-[1px]">{c.sector}</div>
                   </div>
                   {c.logo ? (
-                    <span className="flex h-[52px] w-[92px] flex-none items-center justify-center rounded-lg bg-white px-3">
+                    <span className="flex h-[60px] w-[108px] flex-none items-center justify-center rounded-xl bg-white px-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`/logos/${c.logo}`}
                         alt=""
                         loading="lazy"
-                        className="max-h-[34px] w-auto max-w-full object-contain"
+                        className="max-h-[42px] w-auto max-w-full object-contain"
                       />
                     </span>
                   ) : null}
@@ -870,30 +883,19 @@ export default async function Home() {
               positions={LIFE_AT_DNA_FRAMING}
             />
           </div>
-          {/* ✅ A FAIXA VIROU A DA /SERVICES EM 21-09, por email: *"Have similar
-              layout to in partnership with as services page"*. O que estava aqui
-              eram DUAS MARCAS ESCRITAS À MÃO em `<span>` — Harvard e Imperial em
-              negrito, separadas por um filete —, e a /services já mostrava CINCO
-              parceiros com os arquivos de verdade. Eram duas respostas
-              diferentes para a mesma pergunta na mesma casa, e a errada era esta:
-              a home omitia CLO100, YPO e Explore Performance sem que ninguém
-              tivesse decidido omiti-los.
+          {/* A faixa "In partnership with" saiu daqui em 23-09 e virou a
+              seção seguinte. Até então era o painel escuro no pé deste bloco. */}
+        </Reveal>
+      </section>
 
-              `tone="light"` NÃO É ESCOLHA DE ESTILO. Três das cinco marcas só
-              existem em arquivo branco, e esta seção é branca — sem o painel
-              escuro que o tom claro traz de volta, elas desapareceriam. A conta
-              está escrita no próprio componente.
-
-              O `label` fica porque a seção em volta é a `#people`, que fala do
-              time: sem a linha "In partnership with", cinco logos soltos no pé
-              dela leriam como clientes, que é justamente o que o mural lá de
-              cima mostra. A /services não precisa dela — lá o bloco tem título
-              próprio. */}
-          <PartnersStrip
-            label="In partnership with"
-            tone="light"
-            className="mt-14 border-t border-line pt-10"
-          />
+      {/* 23-09: "In partnership with" saiu do pé de Our people. Lá era um
+          painel escuro pequeno; o pedido foi dar mais destaque e tirar esse
+          fundo. Vira faixa própria, em paper, entre o branco de #people e o
+          escuro de Awards. O arranjo dos logos está no PartnersStrip
+          (`tone="featured"`). A /services continua no escuro. */}
+      <section aria-labelledby="partnerships-heading" className="bg-paper">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+          <PartnersStrip label="In partnership with" tone="featured" headingId="partnerships-heading" />
         </Reveal>
       </section>
 
@@ -908,11 +910,10 @@ export default async function Home() {
           da seção `#book` desde que as duas existem.
 
           A TROCA ARRUMA O RITMO DE COR de brinde, e vale registrar porque é o
-          tipo de coisa que alguém desfaz sem perceber: a seção `#people` acima é
-          branca e a `#book` é `paper`, duas faixas claras encostadas. A faixa de
-          prêmios é escura nesta página (o override `data-awards-band`), então
-          entrando no meio ela devolve o claro-escuro-claro que o resto da
-          página segue.
+          tipo de coisa que alguém desfaz sem perceber: a faixa de parceiros
+          acima é `paper` e a `#book` também. A faixa de prêmios é escura nesta
+          página (o override `data-awards-band`), então no meio ela separa as
+          duas.
 
           `includeBrandonHall` põe os dois GOLD na frente da régua — é o outro
           lado do pedido que tirou o cartão do herói ("add this to awards"). A
