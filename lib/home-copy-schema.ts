@@ -8,6 +8,7 @@
  */
 import { z } from "zod";
 import { DEFAULT_HOME_COPY, type HomeCopy } from "./home-copy.ts";
+import { mergeCopy } from "./page-copy/merge.ts";
 
 const str = z.string().max(2000);
 const lines = z.array(str).min(1).max(20);
@@ -67,39 +68,11 @@ export const HomeCopySchema: z.ZodType<HomeCopy> = z.object({
   }),
 });
 
-type Plain = Record<string, unknown>;
-const isPlain = (v: unknown): v is Plain =>
-  typeof v === "object" && v !== null && !Array.isArray(v);
-
 /**
- * Mescla o que foi salvo por cima dos padrões, campo a campo.
- *
- * REGRAS: objeto entra dentro de objeto; string e array SUBSTITUEM (uma lista
- * editada é a lista inteira, não um remendo); string VAZIA cai no padrão, para
- * um campo limpo por engano não apagar um título da home; chave desconhecida é
- * ignorada. Se depois de mesclar o resultado não passa no schema, volta o
- * padrão inteiro — a home nunca renderiza com copy inválida.
+ * A MESCLA saiu daqui em 23-09 para `lib/page-copy/merge.ts`, palavra por
+ * palavra: a About usa a mesma, mudando só o padrão e o schema que ela fecha
+ * por cima. A função abaixo é o que sobrou — os dois argumentos da home.
  */
 export function mergeHomeCopy(saved: unknown): HomeCopy {
-  const merged = deepMerge(DEFAULT_HOME_COPY as unknown as Plain, saved);
-  const parsed = HomeCopySchema.safeParse(merged);
-  return parsed.success ? parsed.data : DEFAULT_HOME_COPY;
-}
-
-function deepMerge(base: Plain, over: unknown): Plain {
-  if (!isPlain(over)) return base;
-  const out: Plain = { ...base };
-  for (const key of Object.keys(base)) {
-    const b = base[key];
-    const o = over[key];
-    if (o === undefined || o === null) continue;
-    if (isPlain(b)) {
-      out[key] = deepMerge(b, o);
-    } else if (Array.isArray(b)) {
-      if (Array.isArray(o)) out[key] = o;
-    } else if (typeof b === "string") {
-      if (typeof o === "string" && o.trim() !== "") out[key] = o;
-    }
-  }
-  return out;
+  return mergeCopy(DEFAULT_HOME_COPY, HomeCopySchema, saved);
 }

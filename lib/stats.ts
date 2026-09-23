@@ -1,3 +1,4 @@
+import { getAboutCopy } from "@/lib/about-copy-server";
 import { getPage } from "@/lib/cms/client";
 
 /**
@@ -37,33 +38,47 @@ export type SiteStat = { value: string; label: string };
  * a Our Impact; este é a faixa da About, transcrita do outline de 08-09 e
  * corrigida na daily de 17-09 (*"trocar todas as menções de 18 years para 19
  * years / trocar 36 países para 5 regions / trocar 1,000 leaders para
- * 10 000+"*). Até 18-09 ele morava dentro de `app/about/page.tsx`, de
- * propósito — a caixa de lá explica: enquanto a About era proposta, nenhum dado
- * da página real podia depender dela.
+ * 10 000+"*).
  *
- * MUDOU DE CASA EM 18-09, na daily: a cliente pediu que a "By the numbers" da
- * Clients & Impact publicasse EXATAMENTE estes quatro no lugar dos do CMS. Dois
- * lugares com a mesma lista copiada é o que faz a firma dizer "19 anos" numa
- * página e "18" na outra na próxima correção; por isso a lista sobe para cá e
- * as duas páginas importam.
+ * ⚠️ MUDOU DE CASA DUAS VEZES, e a segunda inverteu a direção. Em 18-09 a lista
+ * saiu de dentro de `app/about/page.tsx` para cá, porque a cliente pediu os
+ * mesmos quatro números na Clients & Impact e duas listas copiadas são o que
+ * faz a firma dizer "19 anos" numa página e "18" na outra. Em 23-09 ela saiu
+ * daqui para `lib/about-copy.ts`, pelo mesmo motivo levado um passo adiante: os
+ * quatro entraram no editor `/edit-about`, e uma constante em código ao lado de
+ * um número editável teria recriado a divergência na PRIMEIRA edição.
  *
- * O `icon` É CHAVE DE DESENHO, não texto: aponta para o `StatIcon` que vive na
- * About (calendar / globe / people / chart). A Clients & Impact ignora o campo —
- * a fileira dela nunca teve ícone — mas ele viaja junto para a About não
- * precisar de uma segunda tabela só para casar ícone com número.
+ * Então hoje: o TEXTO (valor e rótulo) vem da copy da About — padrão em
+ * `lib/about-copy.ts`, salvo no Blob — e o ÍCONE continua aqui, porque é chave
+ * de DESENHO e não texto. As duas páginas leem por `getFirmStats()`.
+ *
+ * O `icon` aponta para o `StatIcon` que vive na About (calendar / globe /
+ * people / chart) e CASA POR POSIÇÃO com a lista da copy. A Clients & Impact
+ * ignora o campo — a fileira dela nunca teve ícone —, mas ele viaja junto para
+ * a About não precisar de uma segunda tabela.
  *
  * ⚠️ ESTÁTICO, e não do CMS. Não há campo para "5 of the top 10" no `page_home`,
  * e os outros três não têm o mesmo formato dos de lá ("19 years" com unidade no
- * valor, contra "19" com unidade no rótulo). Se um dia for para o CMS, é campo
- * novo, não reaproveitamento do que existe.
+ * valor, contra "19" com unidade no rótulo).
  */
 export type FirmStat = SiteStat & { icon: string };
-export const FIRM_STATS: FirmStat[] = [
-  { value: "19 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
-  { value: "5 regions", label: "of global programme delivery", icon: "globe" },
-  { value: "10,000+", label: "leaders coached and teams developed", icon: "people" },
-  { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients", icon: "chart" },
-];
+
+/** Os quatro desenhos, na ordem da faixa. O schema da About trava a lista em 4. */
+export const FIRM_STAT_ICONS = ["calendar", "globe", "people", "chart"];
+
+/**
+ * Os quatro números como estão publicados agora: o que a cliente salvou em
+ * `/edit-about`, ou o padrão em código se ela não salvou nada.
+ *
+ * ⚠️ É `async` PORQUE LÊ O BLOB. A `/our-clients` já era `async`; a About
+ * também. Quem chamar daqui para a frente precisa estar num componente de
+ * servidor — o que é verdade nas duas, e continua sendo o motivo de a lista não
+ * poder voltar a ser uma constante.
+ */
+export async function getFirmStats(): Promise<FirmStat[]> {
+  const { stats } = await getAboutCopy();
+  return stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
+}
 
 /**
  * Order matters and is the brief's, not ours (item 2): "O 90% Chairman/CXO-

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
@@ -14,6 +15,7 @@ import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
+import { getTeamCopy } from "@/lib/team-copy-server";
 /* ⚠️ `facultyRegions` SAIU DESTA LISTA EM 17-09, junto com os cartões de
    região que a Global faculty perdeu para a lista de pessoas. O export
    continua em `lib/team.ts` (a /team-tests o usa, e é o caminho de volta se
@@ -24,7 +26,10 @@ import { getPeople } from "@/lib/cms/map";
    seção passou a sair agrupada, a pedido, e quem monta os grupos é o próprio
    `lib/team.ts` — a lista crua continua exportada de lá, é dela que os grupos
    nascem. */
-import { leaders, programmeManagers, facultyByRegion, dnaLead, dnaStrands } from "@/lib/team";
+/* `dnaLead` e `dnaStrands` saíram deste import em 23-09: o texto deles passou
+   a chegar por `copy.dna`, que os tem como PADRÃO (ver `lib/team-copy.ts`). Eles
+   continuam escritos em `lib/team.ts`, com a procedência anotada lá. */
+import { leaders, programmeManagers, facultyByRegion } from "@/lib/team";
 import PeopleRoster from "@/components/team/PeopleRoster";
 /* O CARROSSEL DA HOME, trazido em 21-09 — ver a caixa dele na DNA experience.
    O componente é o mesmo arquivo que a home usa, sem uma linha de diferença. */
@@ -101,9 +106,18 @@ export default async function OurTeamPage() {
      `undefined`, e os seis cards saem sem o "+" — a página inteira continua de
      pé, porque nada do que se lê nela depende desta chamada. É a diferença entre
      enriquecer com o CMS e depender dele. */
-  const cmsPeople = await getPeople();
+  /* A COPY DA PÁGINA VEM DO EDITOR desde 23-09 — `/edit-team`. O padrão
+     continua sendo o que está escrito em `lib/team.ts` e nas props daqui;
+     o que a cliente salvar entra por cima. Ver `lib/team-copy.ts`. */
+  const [cmsPeople, copy] = await Promise.all([getPeople(), getTeamCopy()]);
   const profileFor = (slug?: string) =>
     slug ? cmsPeople.find((p) => p.slug === slug) : undefined;
+
+  /* CARGO, REGIÃO E FRASE VÊM DA COPY; nome, retrato, recorte e `cmsSlug`
+     continuam em `lib/team.ts`. O casamento é POR POSIÇÃO, e o schema trava
+     a lista em seis para que ele não escorregue — ver
+     `lib/team-copy-schema.ts`. */
+  const leadershipCards = leaders.map((p, i) => ({ ...p, ...copy.leaders[i] }));
 
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -202,9 +216,13 @@ export default async function OurTeamPage() {
             Se ela quiser "Our Team" de volta ao revisar, é trocar duas props —
             e aí a linha do meio ganha o ponto final, que passa a ser
             consequência do lugar e não correção nossa. */}
+        {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
+            script do guia visual do editor precisa de um alvo para
+            fotografar a dobra. */}
+        <div id="team-hero">
         <SolutionHero
-          eyebrow="Practitioners first. Consultants second"
-          title="We’ve led. We’ve learned. We bring both"
+          eyebrow={copy.hero.eyebrow}
+          title={copy.hero.title}
           /* ⚠️ O `60+` ACOMPANHA A SEÇÃO GLOBAL FACULTY, embora o pedido de
              17-09 só cite a seção: o subtítulo do herói e o h2 de lá fazem a
              MESMA afirmação, a duas telas de distância. Deixar 75 aqui e 60+ lá
@@ -215,19 +233,20 @@ export default async function OurTeamPage() {
              novo é esta frase, com o "60+" e os "36 countries" que já estavam
              aqui. Um caractere não mudou — e isso responde de passagem a dúvida
              anotada em 17-09 sobre contar por país ou por região. */
-          subtitle="A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries."
+          subtitle={copy.hero.subtitle}
           imageUrl={teamHero}
           imagePosition="object-top"
         />
+        </div>
 
         {/* ── Leadership ────────────────────────────────────────────────── */}
         <section id="leadership" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel>Leadership</TypeLabel>
+            <TypeLabel>{copy.leadership.label}</TypeLabel>
             {/* Mesma escala de h2 da Client impact da home, agora nas três
                 seções desta página. Ver a caixa no bloco 6. */}
             <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
-              The team behind the work.
+              {copy.leadership.title}
             </h2>
 
             {/* TRÊS COLUNAS, como o documento pede ("portrait grid, three
@@ -284,8 +303,10 @@ export default async function OurTeamPage() {
                 medidas). A partir de `sm` e não sempre: em uma coluna, no
                 celular, isso esticaria cada card até a quote mais longa das
                 seis, e rosa vazio no celular é só rolagem. */}
-            <div className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:grid-cols-3">
-              {leaders.map((p) => (
+            {/* `id` para o guia visual: os seis cards são uma seção à parte
+                no editor, porque são dezoito campos. */}
+            <div id="leaders" className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:grid-cols-3">
+              {leadershipCards.map((p) => (
                 <LeaderCard
                   key={p.name}
                   person={p}
@@ -321,7 +342,7 @@ export default async function OurTeamPage() {
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
               <h3 className="font-serif mb-10 max-w-[720px] text-[22px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink sm:text-[26px] md:text-[30px]">
-                Supported by a team of senior program managers.
+                {copy.leadership.managersTitle}
               </h3>
               <PeopleRoster people={programmeManagers} size="lg" />
             </div>
@@ -406,7 +427,7 @@ export default async function OurTeamPage() {
             inteira em 2:3). O documento avisa que repetir a fotografia "is
             visible". Decisão consciente de 15-09 para não deixar os dois slots
             vazios; a segunda foto continua valendo a pena pedir. */}
-        <section className="bg-ink text-white">
+        <section id="one-team" className="bg-ink text-white">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
             {/* ✅ O CARROSSEL DA HOME NO LUGAR DA FOTOGRAFIA ÚNICA — 21-09:
                 *"na seção One team da página /team tem que trocar a imagem pelo
@@ -444,10 +465,16 @@ export default async function OurTeamPage() {
               />
             </div>
             <div>
-              <TypeLabel onDark>One team</TypeLabel>
+              <TypeLabel onDark>{copy.oneTeam.label}</TypeLabel>
               <p className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-white md:text-[40px]">
-                Different perspectives.
-                <br />A shared purpose.
+                {/* A QUEBRA É DADO, não largura de caixa: a lista de linhas
+                    vem da copy e cada uma começa numa fileira. */}
+                {copy.oneTeam.lines.map((line, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && <br />}
+                    {line}
+                  </Fragment>
+                ))}
               </p>
               {/* O FILETE VERMELHO FECHA O BLOCO, como no mockup — lá ele
                   aparece sob a frase, curto e à esquerda. É a mesma marca que o
@@ -527,7 +554,8 @@ export default async function OurTeamPage() {
                 próprio escurecimento, então os nomes seguem brancos sobre a
                 imagem, medidos, independentes do fundo da seção. Foi por isso
                 que a troca custou quatro linhas de cor e mais nada. */}
-            <TypeLabel>Global faculty</TypeLabel>
+            <div id="faculty-head">
+            <TypeLabel>{copy.faculty.label}</TypeLabel>
             {/* A MESMA ESCALA, mas SEM o `mb-[52px]`: aqui o que vem depois do
                 título é um parágrafo de corpo, não a grade. Na home o 52px
                 existe para abrir o título dos cartões; entre título e texto
@@ -542,14 +570,15 @@ export default async function OurTeamPage() {
                 faixa da About, que desde hoje conta por REGIÃO e não por país.
                 ⏳ Alinhar as duas unidades é pergunta para a próxima daily. */}
             <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
-              A faculty of 60+ senior practitioners across 36 countries.
+              {copy.faculty.title}
             </h2>
+            {/* O `id` do wrapper isola o CABEÇALHO da seção para o print do
+                editor: a seção inteira traz os 23 da faculty e não se lê na
+                coluna de 440px. */}
             <p className="mt-6 max-w-[720px] font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
-              Our facilitators and coaches come from the behavioural sciences,
-              organisation development, psychology and business. They span over twenty
-              nationalities and a wide range of social identities. They are senior enough
-              to have sat where our clients sit.
+              {copy.faculty.intro}
             </p>
+            </div>
 
             {/* ── A LISTA DE PESSOAS · 17-09 ────────────────────────────
                 *"nessa mesma seção remove the countries cards and change for
@@ -654,7 +683,7 @@ export default async function OurTeamPage() {
             mesmos números — o plano de 75% para segurar as luzes das cidades, e
             o horizontal fechando em `ink/45`, que mantém a esquerda (onde o
             título mora) mais escura que a direita. */}
-        <section className="relative isolate overflow-hidden bg-ink">
+        <section id="dna-experience" className="relative isolate overflow-hidden bg-ink">
           <Image
             src="/team/dna-helix.jpg"
             alt=""
@@ -745,7 +774,7 @@ export default async function OurTeamPage() {
           }
           <div aria-hidden className="absolute inset-0 -z-10 bg-ink/[0.62]" />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel onDark>The DNA experience</TypeLabel>
+            <TypeLabel onDark>{copy.dna.label}</TypeLabel>
             {/* A escala do h2 da Client impact, inteira — 28/34/40, peso 600,
                 tracking -0,5px, `mb-[52px]` até os cartões. A serifa não é
                 desvio: a home força `[&_h2]:font-serif` no wrapper, então o
@@ -754,7 +783,7 @@ export default async function OurTeamPage() {
 
                 Sem `mt`: o `TypeLabel` já traz `mb-5`, igual à home. */}
             <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              {dnaLead}
+              {copy.dna.title}
             </h2>
             {/* A SOMBRA DOS CARTÕES É ADIÇÃO NOSSA — a home não tem. Dois
                 planos: um contato curto de 2px, que assenta o cartão na
@@ -770,7 +799,7 @@ export default async function OurTeamPage() {
                 caracteres) viraria uma tira de quinze linhas. Em duas colunas no
                 tablet cada cartão tem ~450px, que é a medida em que ele lê. */}
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4">
-              {dnaStrands.map((s) => (
+              {copy.dna.strands.map((s) => (
                 <article
                   key={s.title}
                   className="flex flex-col border border-line bg-white shadow-[0_2px_4px_rgba(35,31,33,0.04),0_14px_30px_-18px_rgba(35,31,33,0.22)]"
@@ -873,11 +902,15 @@ export default async function OurTeamPage() {
             É O MESMO COMPONENTE DAS PÁGINAS DE SERVIÇO, e o rótulo "Let's talk"
             já é o padrão dele — não precisou de prop. O que muda são as três
             partes escritas por ela. */}
+        {/* Wrapper com `id` pelo mesmo motivo do herói: o <SolutionCta> não
+            recebe um, e o guia visual precisa do alvo. */}
+        <div id="team-cta">
         <SolutionCta
-          strapline="Ready to make leadership real?"
-          line="We partner with organisations to unlock real people, cultures and performance."
-          ctaLabel="Get in touch"
+          strapline={copy.cta.strapline}
+          line={copy.cta.line}
+          ctaLabel={copy.cta.ctaLabel}
         />
+        </div>
       </SiteShell>
     </div>
   );

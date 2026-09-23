@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import HomeEditor from "@/components/home-editor/HomeEditor";
+import CopyEditor from "@/components/copy-editor/CopyEditor";
+import { DEFAULT_HOME_COPY, EDITOR_SECTIONS } from "@/lib/home-copy";
 import { getHomeCopy } from "@/lib/home-copy-server";
 
 /**
@@ -7,7 +8,7 @@ import { getHomeCopy } from "@/lib/home-copy-server";
  *
  * Sem login, por pedido (23-09). `noindex` e fora do sitemap; o `robots.ts`
  * também a exclui. A copy inicial vem do servidor para a tela abrir já
- * preenchida, sem piscar; o resto (salvar) é o `HomeEditor`, no cliente.
+ * preenchida, sem piscar; o resto (salvar) é o `CopyEditor`, no cliente.
  */
 export const metadata: Metadata = {
   title: "Edit home page text | Corporate DNA",
@@ -18,5 +19,15 @@ export const dynamic = "force-dynamic";
 
 export default async function EditHomePage() {
   const copy = await getHomeCopy();
-  return <HomeEditor initial={copy} />;
+  return (
+    <CopyEditor
+      initial={copy}
+      defaults={DEFAULT_HOME_COPY}
+      sections={EDITOR_SECTIONS}
+      apiPath="/api/home-copy"
+      guideDir="edit-home-guide"
+      siteHref="/"
+      title="Home page text"
+    />
+  );
 }

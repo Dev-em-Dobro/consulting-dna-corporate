@@ -2,23 +2,32 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  DEFAULT_HOME_COPY,
-  EDITOR_SECTIONS,
   fromInput,
   getAtPath,
   setAtPath,
   toInput,
   type EditorField,
-  type HomeCopy,
-} from "@/lib/home-copy";
+  type EditorSection,
+} from "@/lib/page-copy/fields";
 
 /**
- * O EDITOR DA HOME — uma coluna de seções, na ordem da página, cada uma com
- * seus campos; barra fixa no topo com o estado e o botão de salvar.
+ * O EDITOR DE TEXTOS DE UMA PÁGINA — uma coluna de seções, na ordem da página,
+ * cada uma com seus campos; barra fixa no topo com o estado e o botão de salvar.
  *
- * DIRIGIDO POR DADOS: a lista de campos é `EDITOR_SECTIONS` em `lib/home-copy`.
- * Para expor um texto novo, é acrescentar o campo lá; esta tela não sabe o que
- * cada campo é, só o `kind`.
+ * DIRIGIDO POR DADOS: a lista de campos é o `EDITOR_SECTIONS` da página
+ * (`lib/home-copy.ts`, `lib/about-copy.ts`). Para expor um texto novo, é
+ * acrescentar o campo lá; esta tela não sabe o que cada campo é, só o `kind`.
+ *
+ * ERA O `HomeEditor` ATÉ 23-09, e virou genérico quando a About pediu o mesmo.
+ * O que mudou foi só a origem dos dados: `sections`, `defaults` e `apiPath`
+ * entram por prop em vez de serem importados de `lib/home-copy`. O componente
+ * já era dirigido por dados; trocar dois imports por três props foi a extração
+ * inteira.
+ *
+ * ⚠️ `defaults` E `sections` ATRAVESSAM A FRONTEIRA SERVIDOR→CLIENTE. Os dois
+ * são JSON puro de propósito — string, número, array e objeto simples. Um
+ * `EDITOR_SECTIONS` com função dentro (um `label` calculado, por exemplo) não
+ * serializa e quebra a página inteira em tempo de render.
  *
  * TAMANHO DAS CAIXAS: `textarea` cresce com o conteúdo por script, e não por
  * `field-sizing: content`, porque o Safari (o iPhone da cliente) não tem a
@@ -26,9 +35,46 @@ import {
  */
 type Status = { kind: "idle" | "saving" | "saved" | "error"; message?: string };
 
-export default function HomeEditor({ initial }: { initial: HomeCopy }) {
-  const [copy, setCopy] = useState<HomeCopy>(initial);
-  const [saved, setSaved] = useState<HomeCopy>(initial);
+export default function CopyEditor<T>({
+  initial,
+  defaults,
+  sections,
+  apiPath,
+  guideDir,
+  siteHref,
+  title,
+  note,
+}: {
+  /** A copy em vigor (padrão + salvo), vinda do servidor para a tela abrir cheia. */
+  initial: T;
+  /** Os padrões em código — é contra eles que o "Restore original" compara. */
+  defaults: T;
+  sections: EditorSection[];
+  /** A rota que faz GET/POST desta copy, ex.: `/api/about-copy`. */
+  apiPath: string;
+  /**
+   * Pasta dos prints do guia em `public/`, ex.: `edit-about-guide`.
+   *
+   * AUSENTE = SEM COLUNA DE PRINT, e os campos ocupam a largura toda. É o que
+   * as dez telas de serviço usam: o template das dez é o MESMO, então a foto
+   * mostraria a mesma forma dez vezes e custaria ~70 JPEGs versionados. Lá o
+   * "See on site ↗" de cada seção faz o trabalho, abrindo a página real na
+   * âncora. Decidido com o cliente em 23-09.
+   */
+  guideDir?: string;
+  /** Para onde vai o "View site ↗". */
+  siteHref: string;
+  /** O que a barra do topo escreve, ex.: "About page text". */
+  title: string;
+  /**
+   * Um aviso extra abaixo da instrução, para quando editar esta página mexe em
+   * OUTRA. Existe por causa das internas de serviço, cujo nome e sub-título
+   * aparecem também nos cards da listagem.
+   */
+  note?: string;
+}) {
+  const [copy, setCopy] = useState<T>(initial);
+  const [saved, setSaved] = useState<T>(initial);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const dirty = useMemo(() => JSON.stringify(copy) !== JSON.stringify(saved), [copy, saved]);
 
@@ -47,14 +93,17 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
     setStatus((s) => (s.kind === "saved" || s.kind === "error" ? { kind: "idle" } : s));
   }, []);
 
-  const resetField = useCallback((field: EditorField) => {
-    setCopy((prev) => setAtPath(prev, field.path, getAtPath(DEFAULT_HOME_COPY, field.path)));
-  }, []);
+  const resetField = useCallback(
+    (field: EditorField) => {
+      setCopy((prev) => setAtPath(prev, field.path, getAtPath(defaults, field.path)));
+    },
+    [defaults],
+  );
 
   async function save() {
     setStatus({ kind: "saving" });
     try {
-      const res = await fetch("/api/home-copy", {
+      const res = await fetch(apiPath, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(copy),
@@ -90,17 +139,48 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
       <style>{`[aria-label="Cookie consent"],[aria-label="Chat with us on WhatsApp"]{display:none!important}`}</style>
       {/* Barra do topo */}
       <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[1360px] items-center gap-4 px-6 py-4">
-          <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-semibold uppercase tracking-[2px] text-brand">Corporate DNA</p>
-            <h1 className="truncate text-[20px] font-semibold leading-tight">Home page text</h1>
-          </div>
-          <StatusPill status={status} dirty={dirty} />
+        {/* A BARRA QUEBRA EM DUAS LINHAS NO TELEFONE, e não é enfeite: com o
+            botão de voltar somado ao que já havia, num iPhone de 390px sobravam
+            ~40px para o título — ele sumia e o rótulo da marca escrevia por cima
+            do estado. Com `flex-wrap`, o estado desce para uma linha só dele
+            (`basis-full` abaixo de `md`) e a primeira linha fica com voltar,
+            título e salvar, que é a ordem em que ela lê. */}
+        <div className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4">
+          {/* VOLTAR PARA O ÍNDICE. Com duas páginas editáveis, a cliente precisa
+              de um caminho de volta na própria tela — o botão de voltar do
+              navegador serve, mas com mudança pendente ele dispara o aviso de
+              saída, que parece erro em vez de navegação.
+
+              É um <a> com cara de botão, e não um <button> com `router.push`:
+              o alvo é um endereço, então abrir em aba nova (o clique do meio,
+              o Ctrl+clique) tem de funcionar.
+
+              A palavra some abaixo de `md` e fica só a seta: nessa largura a
+              barra já disputa espaço com o estado e o botão de salvar, que é a
+              ação principal. */}
           <a
-            href="/"
+            href="/edit"
+            className="flex shrink-0 items-center gap-1.5 border border-line px-3 py-2 text-[14px] font-medium text-ink transition-colors hover:border-brand hover:text-brand"
+          >
+            <span aria-hidden>←</span>
+            <span className="hidden md:inline">All pages</span>
+            <span className="sr-only md:hidden">Back to all pages</span>
+          </a>
+          <div className="min-w-0 flex-1">
+            {/* O rótulo da marca some no telefone: ele não informa nada que a
+                tela inteira não diga, e é a linha mais barata a cortar para o
+                título caber. */}
+            <p className="hidden text-[11px] font-semibold uppercase tracking-[2px] text-brand md:block">
+              Corporate DNA
+            </p>
+            <h1 className="truncate text-[17px] font-semibold leading-tight md:text-[20px]">{title}</h1>
+          </div>
+          <StatusPill status={status} dirty={dirty} className="order-last basis-full md:order-none md:basis-auto" />
+          <a
+            href={siteHref}
             target="_blank"
             rel="noreferrer"
-            className="hidden text-[14px] font-medium text-ink underline underline-offset-4 hover:text-brand sm:inline"
+            className="hidden text-[14px] font-medium text-ink underline underline-offset-4 hover:text-brand md:inline"
           >
             View site ↗
           </a>
@@ -119,7 +199,7 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
         {/* Índice de seções */}
         <nav className="hidden lg:block">
           <ol className="sticky top-24 space-y-1 text-[14px]">
-            {EDITOR_SECTIONS.map((s, i) => (
+            {sections.map((s, i) => (
               <li key={s.id}>
                 <a href={`#s-${s.id}`} className="flex gap-2 py-1 text-muted hover:text-brand">
                   <span className="w-5 text-[12px] font-semibold text-brand">{String(i + 1).padStart(2, "0")}</span>
@@ -132,11 +212,16 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
 
         <main className="space-y-8">
           <p className="max-w-[640px] text-[15px] leading-relaxed text-muted">
-            Edit any text below and click <strong className="text-ink">Save changes</strong>. The home page updates
+            Edit any text below and click <strong className="text-ink">Save changes</strong>. The page updates
             within a few seconds. Leave a field empty to restore its original text.
           </p>
+          {note && (
+            <p className="max-w-[640px] border-l-2 border-brand pl-4 text-[14px] leading-relaxed text-ink">
+              {note}
+            </p>
+          )}
 
-          {EDITOR_SECTIONS.map((s, i) => (
+          {sections.map((s, i) => (
             <section key={s.id} id={`s-${s.id}`} className="scroll-mt-24 border border-line bg-white">
               <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
                 <h2 className="text-[17px] font-semibold">
@@ -155,9 +240,15 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
               {/* O PRINT DA SEÇÃO FICA AO LADO DOS CAMPOS, e acompanha a rolagem
                   (sticky): com 19 campos no Client impact, uma imagem só no
                   topo já teria saído da tela quando ela chega no card 3.
-                  Os arquivos vêm de `scripts/edit-home-guide-shots.mjs`. */}
-              <div className="grid gap-8 px-6 py-6 xl:grid-cols-[minmax(0,1fr)_440px]">
-                <div className="grid gap-5 md:grid-cols-2">
+                  Os arquivos vêm de `scripts/edit-page-guide-shots.mjs`. */}
+              <div className={`grid gap-8 px-6 py-6 ${guideDir ? "xl:grid-cols-[minmax(0,1fr)_440px]" : ""}`}>
+                {/* `content-start` prende os campos no TOPO. Sem ele o grid
+                    herda `align-content: stretch`, e como a coluna do print dá
+                    a altura da linha, três campos ao lado de uma imagem de
+                    1.900px saíam espalhados com buracos de 200px entre eles.
+                    Apareceu na Team, na seção Leadership, e valia para as três
+                    telas. */}
+                <div className="grid content-start gap-5 md:grid-cols-2">
                 {s.fields.map((f) => (
                   <Field
                     key={f.path}
@@ -165,28 +256,30 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
                     value={toInput(f.kind, getAtPath(copy, f.path))}
                     changed={getAtPath(copy, f.path) !== getAtPath(saved, f.path)}
                     isDefault={
-                      JSON.stringify(getAtPath(copy, f.path)) === JSON.stringify(getAtPath(DEFAULT_HOME_COPY, f.path))
+                      JSON.stringify(getAtPath(copy, f.path)) === JSON.stringify(getAtPath(defaults, f.path))
                     }
                     onChange={(t) => update(f, t)}
                     onReset={() => resetField(f)}
                   />
                 ))}
                 </div>
-                <aside className="xl:order-none order-first">
-                  <figure className="xl:sticky xl:top-24">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`/edit-home-guide/${s.id}.jpg`}
-                      alt={`How the “${s.title}” section looks on the site`}
-                      loading="lazy"
-                      className="w-full border border-line bg-paper"
-                    />
-                    <figcaption className="mt-2 text-[12px] leading-snug text-muted">
-                      How this section looks on the site. The picture does not update as you type — save and open
-                      the site to see your changes.
-                    </figcaption>
-                  </figure>
-                </aside>
+                {guideDir && (
+                  <aside className="xl:order-none order-first">
+                    <figure className="xl:sticky xl:top-24">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/${guideDir}/${s.id}.jpg`}
+                        alt={`How the “${s.title}” section looks on the site`}
+                        loading="lazy"
+                        className="w-full border border-line bg-paper"
+                      />
+                      <figcaption className="mt-2 text-[12px] leading-snug text-muted">
+                        How this section looks on the site. The picture does not update as you type — save and open
+                        the site to see your changes.
+                      </figcaption>
+                    </figure>
+                  </aside>
+                )}
               </div>
             </section>
           ))}
@@ -208,7 +301,16 @@ export default function HomeEditor({ initial }: { initial: HomeCopy }) {
   );
 }
 
-function StatusPill({ status, dirty }: { status: Status; dirty: boolean }) {
+/** `className` é de LAYOUT (ordem e largura na barra), nunca de tipografia. */
+function StatusPill({
+  status,
+  dirty,
+  className = "",
+}: {
+  status: Status;
+  dirty: boolean;
+  className?: string;
+}) {
   let text = "All changes saved";
   let tone = "text-muted";
   if (status.kind === "saving") text = "Saving…";
@@ -222,7 +324,7 @@ function StatusPill({ status, dirty }: { status: Status; dirty: boolean }) {
     text = "Unsaved changes";
     tone = "text-ink";
   }
-  return <span className={`text-[13px] font-medium ${tone}`}>{text}</span>;
+  return <span className={`text-[13px] font-medium ${tone} ${className}`}>{text}</span>;
 }
 
 function Field({
