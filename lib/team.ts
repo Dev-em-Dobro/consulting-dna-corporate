@@ -150,7 +150,10 @@ export const leaders: Leader[] = [
        adianta: o `/_next/image` responde com cache longo e a URL é a mesma, então
        navegador (e o cache do dev server) continuam servindo os bytes velhos.
        Nome novo = URL nova = fim do problema. Vale para a próxima troca de foto. */
-    portrait: "/team/rhea-leckie-4x5-bw.jpg",
+    /* 23-09, vídeo da Rhea: o enquadramento mostrava mais corpo que rosto.
+       Recorte do mesmo arquivo, sem redesenhar o rosto. O anterior fica em
+       `rhea-leckie-4x5-bw.jpg`. */
+    portrait: "/team/rhea-leckie-face-bw.jpg",
   },
   {
     name: "Guilherme Mendes",
@@ -177,7 +180,10 @@ export const leaders: Leader[] = [
     /* TROCADO EM 18-09 pelo retrato novo da cliente — ver a caixa da `leaders`.
        O anterior (`/team/mike-jackson-bw.jpg`, 1377×1142 PAISAGEM) era o que a
        Rhea tinha reprovado, e num quadro 3:4 cedia metade da largura. */
-    portrait: "/team/mike-jackson-2-bw.jpg",
+    /* 23-09, vídeo da Rhea: esta foto deveria voltar ao retrato profissional
+       anterior (terno), no mesmo tamanho de rosto de Genevieve e Nitin. O
+       close da camiseta preta fica em `mike-jackson-2-bw.jpg`. */
+    portrait: "/team/mike-jackson-3-bw.jpg",
   },
   {
     name: "Genevieve James",
@@ -218,7 +224,10 @@ export const leaders: Leader[] = [
     region: "Asia",
     quote:
       "When smart people keep repeating a pattern they say they want to change, I look for the commitment underneath it. Surface that, and resistance starts to make sense.",
-    portrait: "/team/jon-paul-pritchard-bw.jpg",
+    /* 23-09, vídeo da Rhea: o rosto estava pequeno e o corpo grande, ao
+       contrário de Genevieve e Nitin. Recorte do mesmo arquivo, sem
+       redesenhar o rosto. O anterior fica em `jon-paul-pritchard-bw.jpg`. */
+    portrait: "/team/jon-paul-pritchard-2-bw.jpg",
   },
   {
     name: "Nitin Goil",
