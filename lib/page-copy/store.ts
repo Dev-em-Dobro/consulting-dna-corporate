@@ -57,8 +57,8 @@ const hasBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
  *      servido de lá. Quem invalida é o `POST` da rota, por `revalidateTag`,
  *      no mesmo instante em que a cliente salva — então o custo passa a ser
  *      proporcional às EDIÇÕES (uma leitura do Blob por salvamento), e não ao
- *      tráfego. O `revalidate` de uma hora é só um teto de segurança, para o
- *      caso de uma invalidação se perder.
+ *      tráfego. O `revalidate` é só um teto de segurança, para o caso de uma
+ *      invalidação se perder.
  *   2. `cache()` do React, que junta num só os vários `read()` do MESMO render.
  *   3. A versão é buscada com `force-cache` em vez de `no-store`. Isso era
  *      seguro desde sempre e eu não tinha percebido: o nome do arquivo carrega
@@ -77,7 +77,30 @@ const hasBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
  * operação. São ~33 KB de copy contra um teto de 512 KB, então caberia. Não foi
  * feito agora porque o cache resolve o custo sem migração e sem token novo.
  */
-const READ_CACHE_SECONDS = 3600;
+/**
+ * O TETO DE SEGURANÇA, E POR QUE ELE É DE UM DIA E NÃO DE UMA HORA.
+ *
+ * Quem mantém a copy fresca é a invalidação por tag, no salvamento. Este número
+ * só existe para o caso de uma invalidação se perder — um salvamento no meio de
+ * um deploy, por exemplo. Mas ele NÃO É DE GRAÇA: quando o prazo vence, a
+ * próxima visita paga um `list()` por chave.
+ *
+ * ⚠️ UMA HORA ERA CARO DEMAIS, e foi assim que este arquivo nasceu na primeira
+ * tentativa de conserto. São SEIS chaves (home, about, team, services-index,
+ * clients, service-pages): a uma hora, isso dá 6 × 24 = 144 operações por dia,
+ * ou ~4.300 por mês, contra uma cota de 2.000. O cache resolvia o custo por
+ * tráfego e reintroduzia o mesmo estouro pela porta dos fundos.
+ *
+ * A UM DIA são 6 × 30 = 180 por mês, e a conta fecha com folga. O preço é a
+ * janela de obsolescência no cenário raro de uma invalidação perdida — e mesmo
+ * nele a cliente conserta salvando de novo, e todo deploy repopula o cache.
+ *
+ * ⏳ SE PRECISAR DE MAIS FOLGA, a alavanca seguinte não é este número: é juntar
+ * as seis chaves numa só. Um `list()` por atualização em vez de seis derrubaria
+ * também o custo de cada deploy (medido em 14). Não foi feito porque a conta já
+ * fecha, e uma chave só faria todo salvamento reescrever a copy do site inteiro.
+ */
+const READ_CACHE_SECONDS = 86_400;
 
 export type CopyStore<T> = {
   /** A copy como deve ser renderizada: o salvo por cima do padrão. */

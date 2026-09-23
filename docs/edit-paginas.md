@@ -65,6 +65,28 @@ O conserto, em `lib/page-copy/store.ts`:
 Medido depois: **45 requisições a 9 páginas = zero `list()`**; um build inteiro
 = 14 (limitado pelos processos paralelos do build, não pelo número de rotas).
 
+### A conta que sobra, contra uma cota de 2.000/mês
+
+| De onde vem | Quanto custa | Por mês |
+| --- | --- | --- |
+| Um salvamento da cliente | `put` + `list` da poda + o `list` da releitura | ~4 cada |
+| Um deploy | o prerender do build | ~14 cada |
+| O teto de 1 dia do cache | 1 `list` por chave, 6 chaves | ~180 |
+
+Com 100 salvamentos e 20 deploys num mês: 400 + 280 + 180 ≈ **860**. Fecha.
+
+⚠️ **O teto do cache era de UMA HORA e não fechava**: 6 chaves × 24 h = 144 por
+dia, ~4.300 por mês. O cache resolvia o custo por tráfego e reintroduzia o
+estouro pela porta dos fundos. Está em um dia (`READ_CACHE_SECONDS`).
+
+⚠️ **`rm -rf .next` antes de um build local custa ~14 operações.** Com o cache
+de build quente, o mesmo build custa quase nada. Não apague o `.next` por
+hábito.
+
+⏳ A alavanca seguinte, se faltar folga, não é o teto: é **juntar as seis chaves
+numa só**, o que derrubaria o custo de cada deploy de 14 para ~2. O preço é todo
+salvamento reescrever a copy do site inteiro.
+
 ✅ **Isso também consertou o prerender.** O `no-store` fazia a leitura estourar
 no `next build`, o erro era engolido e a página saía com o padrão — ou seja,
 depois de todo deploy o site publicava o texto de código até o ISR regenerar.
