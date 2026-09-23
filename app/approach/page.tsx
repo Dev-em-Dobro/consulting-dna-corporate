@@ -12,9 +12,9 @@ import methodology from "@/public/5H-methodology.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "The 5H® Framework — Corporate DNA",
+    title: "The 5H® Framework | CorporateDNA",
     description:
-      "The 5H® Methodology is the neuroscience-led formula behind Corporate DNA's results across 36 countries — Head, Heart, Hunch, Hands and Habits.",
+      "The 5H® Methodology is the neuroscience-led formula behind CorporateDNA's results across 36 countries: Head, Heart, Hunch, Hands and Habits.",
     alternates: localeAlternates("/approach"),
   };
 }
@@ -37,11 +37,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 const OUTCOMES = [
-  "Build great habits beyond ‘aha’ moments — repeating a skill enough to strengthen neural connections through practice, problem-solving and decision-making.",
+  "Build great habits beyond ‘aha’ moments, repeating a skill enough to strengthen neural connections through practice, problem-solving and decision-making.",
   "Create real-world relevance by actively participating, experimenting and co-creating possible ideas and solutions.",
   "“Normalise” the real power of learning from mistakes.",
   "Share peer learning within the group through a collaborative model of multi-loop problem solving and feedback cycles.",
-  "Create sustainable habits — new mindsets and skill sets that drive long-term success outside the workshops.",
+  "Create sustainable habits, new mindsets and skill sets that drive long-term success outside the workshops.",
   "Gain self-efficacy and confidence.",
   "Accelerate ROI on the organisation’s learning investments.",
 ];
@@ -54,12 +54,12 @@ const FAQS = [
   {
     question: "What is the 5H® Framework?",
     answer:
-      "The 5H® Framework is Corporate DNA Consulting's proprietary, neuroscience-led leadership methodology built on five lenses — Head, Heart, Hunch, Hands and Habits (thinking, relating, sensing, doing and applying). It develops the whole leader rather than isolated skills, so new behaviours hold under real enterprise pressure.",
+      "The 5H® Framework is CorporateDNA Consulting's proprietary, neuroscience-led leadership methodology built on five lenses: Head, Heart, Hunch, Hands and Habits (thinking, relating, sensing, doing and applying). It develops the whole leader rather than isolated skills, so new behaviours hold under real enterprise pressure.",
   },
   {
     question: "What do the five H's stand for?",
     answer:
-      "The five H's are Head (thinking), Heart (relating), Hunch (sensing), Hands (doing) and Habits (applying). Head, Heart and Hunch form the Inner Game — the internal drivers of purpose — while Hands and Habits form the Outer Game, translating intent into action.",
+      "The five H's are Head (thinking), Heart (relating), Hunch (sensing), Hands (doing) and Habits (applying). Head, Heart and Hunch form the Inner Game, the internal drivers of purpose, while Hands and Habits form the Outer Game, translating intent into action.",
   },
   {
     question:
@@ -70,12 +70,12 @@ const FAQS = [
   {
     question: "What is the DNA 360 Profiler?",
     answer:
-      "The DNA 360 Profiler is Corporate DNA's diagnostic tool used alongside the 5H® Methodology. It turns a leadership diagnosis into a measurable development plan for individuals, teams and the wider organisation.",
+      "The DNA 360 Profiler is CorporateDNA's diagnostic tool used alongside the 5H® Methodology. It turns a leadership diagnosis into a measurable development plan for individuals, teams and the wider organisation.",
   },
   {
     question: "Where and with whom has the 5H® Framework been used?",
     answer:
-      "Corporate DNA has applied the 5H® Methodology across culture transformations, leadership development, team building and executive coaching in 36 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
+      "CorporateDNA has applied the 5H® Methodology across culture transformations, leadership development, team building and executive coaching in 36 countries, with clients including GSK, Heineken, Unilever, Shell, Morgan Stanley and Coca-Cola.",
   },
 ];
 
@@ -122,7 +122,7 @@ export default async function FiveHFrameworkPage() {
             name: "The 5H® Framework",
             path: "/approach",
             description:
-              "Corporate DNA's proprietary, neuroscience-led leadership methodology — Head, Heart, Hunch, Hands and Habits — that develops the whole leader so behaviour change holds under real enterprise pressure.",
+              "CorporateDNA's proprietary, neuroscience-led leadership methodology: Head, Heart, Hunch, Hands and Habits, that develops the whole leader so behaviour change holds under real enterprise pressure.",
           }),
           faqLd(FAQS),
         ]}
@@ -161,7 +161,7 @@ export default async function FiveHFrameworkPage() {
               Proprietary frameworks and diagnostics we own.
             </h2>
             <p className="mt-5 text-[17px] leading-[1.7] text-muted">
-              The tools that make our approach measurable and ownable — a
+              The tools that make our approach measurable and ownable, a
               neuroscience-led framework and the diagnostics that put it to work
               with leaders and teams.
             </p>
@@ -180,8 +180,8 @@ export default async function FiveHFrameworkPage() {
                 The 5H<R /> Framework
               </h3>
               <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">
-                Our proprietary, neuroscience-led leadership methodology — Head,
-                Heart, Hunch, Hands and Habits — developing the whole leader so
+                Our proprietary, neuroscience-led leadership methodology: Head,
+                Heart, Hunch, Hands and Habits, developing the whole leader so
                 behaviour change holds under real enterprise pressure.
               </p>
               <span className="mt-5 text-[13px] font-semibold uppercase tracking-[1px] text-ink group-hover:text-brand">
@@ -230,7 +230,7 @@ export default async function FiveHFrameworkPage() {
           </div>
           <div className="max-w-[62ch] space-y-5 text-[17px] leading-[1.7] text-muted">
             <p>
-              Corporate DNA’s proprietary 5H<R /> Methodology is the
+              CorporateDNA’s proprietary 5H<R /> Methodology is the
               neuroscience-led formula behind our proven results and global
               {/* "Over ten years and across 26 countries" — the age claim goes
                   (12-08 instruction, no source), the country count is corrected
@@ -238,16 +238,15 @@ export default async function FiveHFrameworkPage() {
                   the same e-mail, and 26 was the only real contradiction with
                   the rest of the site. */}
               success. Across 36 countries, we have used the
-              5H<R /> in all our programs — culture transformations, leadership
+              5H<R /> in all our programs: culture transformations, leadership
               development, building high-performing teams and executive coaching.
             </p>
             <p>
               There are five clear lenses through which we approach developing
-              the whole self in leadership — the{" "}
+              the whole self in leadership, the{" "}
               <strong className="text-ink">
                 Head, Heart, Hunch, Hands and Habits
-              </strong>{" "}
-              — in other words, thinking, relating, sensing, doing and applying.
+              </strong>, in other words, thinking, relating, sensing, doing and applying.
             </p>
             <p>
               5H<R /> was born from the belief that traditional executive
@@ -277,11 +276,9 @@ export default async function FiveHFrameworkPage() {
             </h2>
             <p className="mt-5 text-[17px] leading-[1.7] text-white/70">
               The Head, Heart and Hunch live in the{" "}
-              <strong className="font-semibold text-white">Inner Game</strong> —
-              the internal processes that drive us to lead with purpose. The
+              <strong className="font-semibold text-white">Inner Game</strong>, the internal processes that drive us to lead with purpose. The
               Hands and Habits exist in the{" "}
-              <strong className="font-semibold text-white">Outer Game</strong> —
-              the ways we translate intent into action.
+              <strong className="font-semibold text-white">Outer Game</strong>, the ways we translate intent into action.
             </p>
           </div>
 
@@ -322,14 +319,14 @@ export default async function FiveHFrameworkPage() {
               The 5H<R /> are highly interconnected. Through them we illuminate
               different aspects of a single leadership ingredient. Courage, for
               example, has no simple definition: one leader may excel at
-              “thinking brave” — Head-based courage — while another excels at
+              “thinking brave”: Head-based courage, while another excels at
               “acting brave,” taking decisive action from the Hands.
             </p>
             <p className="text-[17px] leading-[1.7] text-muted">
               Created with simplicity in mind, the 5H<R /> live in a symbiotic,
               interdependent loop. To be a better thinker you must be more aware
               as a feeler; to be a doer you must be in tune as a sensor.
-              Transformation happens only when the H’s connect — simple and
+              Transformation happens only when the H’s connect: simple and
               practical, yet nuanced and deep.
             </p>
           </div>
@@ -381,7 +378,7 @@ export default async function FiveHFrameworkPage() {
             </blockquote>
             <figcaption className="mt-6 border-t border-white/10 pt-5 text-sm">
               <span className="font-semibold text-white">Amy Yang</span>
-              <span className="text-white/55"> — Managing Director, Levi’s China</span>
+              <span className="text-white/55">: Managing Director, Levi’s China</span>
             </figcaption>
           </figure>
 
@@ -393,7 +390,7 @@ export default async function FiveHFrameworkPage() {
             </blockquote>
             <figcaption className="mt-6 border-t border-white/10 pt-5 text-sm">
               <span className="font-semibold text-white">Rhea Leckie</span>
-              <span className="text-white/55"> — Founder, Corporate DNA</span>
+              <span className="text-white/55">: Founder, CorporateDNA</span>
             </figcaption>
           </figure>
         </div>
@@ -494,7 +491,7 @@ export default async function FiveHFrameworkPage() {
       </section>
 
       <p className="bg-white px-6 py-8 text-center text-xs text-muted">
-        © 2021– 5H is the sole copyright and IP of Corporate DNA Consulting. All
+        © 2021– 5H is the sole copyright and IP of CorporateDNA Consulting. All
         rights reserved.
       </p>
     </SiteShell>

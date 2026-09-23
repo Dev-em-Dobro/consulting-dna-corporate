@@ -17,7 +17,7 @@ import { getPreview } from "@/lib/cms/map";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Preview — Corporate DNA",
+  title: "Preview | CorporateDNA",
   robots: { index: false, follow: false },
 };
 
@@ -38,7 +38,7 @@ export default async function PreviewPage({
   return (
     <SiteShell>
       <div className="bg-amber-400 px-4 py-2 text-center text-xs font-bold uppercase tracking-[1.5px] text-black">
-        Preview · draft — not yet published
+        Preview · draft, not yet published
       </div>
       {/* `serviceFromSolutionVM`: as páginas de serviço saíram do CMS em 11-09
           (ver `lib/services.ts`), então o rascunho precisa ser traduzido para o

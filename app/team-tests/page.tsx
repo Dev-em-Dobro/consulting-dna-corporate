@@ -249,7 +249,7 @@ export default function TeamTestsPage() {
         <div className="h-[76px] bg-ink" />
 
         {/* ── ref ─────────────────────────────────────────────────────── */}
-        <Tag id="ref">como está no ar hoje — referência de comparação</Tag>
+        <Tag id="ref">como está no ar hoje, referência de comparação</Tag>
         <section className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <Heading />
@@ -270,7 +270,7 @@ export default function TeamTestsPage() {
             alinhado à esquerda como o resto desta página, e a MESMA grade de
             cinco de hoje, virada em vidro. É a mudança mínima — nenhum elemento
             novo, nenhuma medida nova; só o fundo e as cores. */}
-        <Tag id="1">foto + véu 78% — a grade de hoje, em vidro</Tag>
+        <Tag id="1">foto + véu 78%, a grade de hoje, em vidro</Tag>
         <section className="relative isolate overflow-hidden bg-ink">
           <Backdrop photo={facultyPhoto} />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
@@ -300,7 +300,7 @@ export default function TeamTestsPage() {
             BORDA RETA, sem canto arredondado: o site inteiro é de canto vivo, e
             o vidro aqui é feito de translucidez, desfoque e um fio de borda
             clara — o raio é só convenção. Mesma decisão registrada na /about. */}
-        <Tag id="2">foto + painel de vidro — a versão final da /about</Tag>
+        <Tag id="2">foto + painel de vidro, a versão final da /about</Tag>
         <section className="relative isolate overflow-hidden bg-ink">
           <Backdrop photo={facultyPhoto} veil={0.52} />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28">
@@ -393,7 +393,7 @@ export default function TeamTestsPage() {
             É a versão que ainda funciona no dia em que chegarem as fotos por
             região do slot 06 — a coluna da direita vira o mosaico e o resto fica
             de pé. As outras três teriam de ser refeitas. */}
-        <Tag id="4">metade texto, metade foto — sem véu, a foto limpa</Tag>
+        <Tag id="4">metade texto, metade foto, sem véu, a foto limpa</Tag>
         <section className="bg-ink">
           <div className="grid items-stretch lg:grid-cols-2">
             <div className="px-6 py-20 md:px-10 md:py-24 lg:pl-[max(2.5rem,calc((100vw-1440px)/2+2.5rem))]">
@@ -417,7 +417,7 @@ export default function TeamTestsPage() {
             <div className="relative min-h-[380px] lg:min-h-[620px]">
               <Image
                 src={facultyPhoto}
-                alt="Members of the Corporate DNA faculty together at a firm gathering."
+                alt="Members of the CorporateDNA faculty together at a firm gathering."
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-[50%_65%]"

@@ -743,7 +743,7 @@ export default function ServiceSectionTests() {
     },
     {
       name: "Primeira frase em destaque",
-      note: "Hierarquia dentro do bloco em vez de um peso só. O Outcome tem uma frase única, então ali o bloco fica sem corpo — é o teste real desta versão.",
+      note: "Hierarquia dentro do bloco em vez de um peso só. O Outcome tem uma frase única, então ali o bloco fica sem corpo, é o teste real desta versão.",
       node: <V2 />,
     },
     {
@@ -753,7 +753,7 @@ export default function ServiceSectionTests() {
     },
     {
       name: "Foto em sangria  ·  ref 1",
-      note: "A de maior presença — e a que mais depende do que não temos. A foto é a mesma do herói, então a página a mostraria três vezes.",
+      note: "A de maior presença, e a que mais depende do que não temos. A foto é a mesma do herói, então a página a mostraria três vezes.",
       node: <V4 />,
     },
     {
@@ -763,12 +763,12 @@ export default function ServiceSectionTests() {
     },
     {
       name: "Numerada",
-      note: "O número vira o gráfico e diz o que hoje não está dito: que os dois blocos são uma sequência — primeiro o que muda, depois como.",
+      note: "O número vira o gráfico e diz o que hoje não está dito: que os dois blocos são uma sequência, primeiro o que muda, depois como.",
       node: <V6 />,
     },
     {
       name: "Hélice ao fundo · texto centrado",
-      note: "A imagem cobre a seção e o texto vai para o meio. O escurecimento é parejo, porque texto centrado cruza a largura toda e não sobra lado seguro — e é isso que mais apaga a imagem.",
+      note: "A imagem cobre a seção e o texto vai para o meio. O escurecimento é parejo, porque texto centrado cruza a largura toda e não sobra lado seguro, e é isso que mais apaga a imagem.",
       node: <V7 />,
     },
     {
@@ -778,12 +778,12 @@ export default function ServiceSectionTests() {
     },
     {
       name: "Painel com corte diagonal  ·  ref 3",
-      note: "A única sobre fundo claro com imagem. A diagonal é o elemento gráfico, e ela espelha entre os dois blocos — então eles formam um vai e volta em vez de duas fatias iguais. O texto fica preto sobre claro, que é onde lê melhor.",
+      note: "A única sobre fundo claro com imagem. A diagonal é o elemento gráfico, e ela espelha entre os dois blocos, então eles formam um vai e volta em vez de duas fatias iguais. O texto fica preto sobre claro, que é onde lê melhor.",
       node: <V9 />,
     },
     {
       name: "Uma tela cheia por bloco",
-      note: "Onde a série chegou. A diagonal saiu: o que ela resolvia era dizer onde um bloco termina e o outro começa, e a altura cheia já diz isso sozinha. Sobram três coisas — a tela inteira, a troca de lado e a troca de tom.",
+      note: "Onde a série chegou. A diagonal saiu: o que ela resolvia era dizer onde um bloco termina e o outro começa, e a altura cheia já diz isso sozinha. Sobram três coisas, a tela inteira, a troca de lado e a troca de tom.",
       node: <V10 />,
     },
   ];
@@ -799,8 +799,7 @@ export default function ServiceSectionTests() {
             Seis tratamentos para The Outcome e How CorporateDNA Helps
           </h1>
           <p className="mt-5 max-w-[760px] text-[16px] leading-[1.6] text-white/80">
-            A copy é a real de Executive Coaching, tirada de <code>lib/services.ts</code> —
-            tratamento se julga com a medida verdadeira do parágrafo. As versões 1, 2, 3 e 6
+            A copy é a real de Executive Coaching, tirada de <code>lib/services.ts</code>, tratamento se julga com a medida verdadeira do parágrafo. As versões 1, 2, 3 e 6
             não dependem de imagem nenhuma; a 4 e a 5 dependem de fotografia por serviço, que
             ainda não existe.
           </p>

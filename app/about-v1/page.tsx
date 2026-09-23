@@ -8,9 +8,9 @@ import { localeAlternates } from "@/lib/seo/alternates";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Our Identity — Corporate DNA",
+    title: "Our Identity | CorporateDNA",
     description:
-      "Who Corporate DNA is, how the firm came to be, what it believes and the difference it makes — the identity behind a global leadership advisory.",
+      "Who CorporateDNA is, how the firm came to be, what it believes and the difference it makes, the identity behind a global leadership advisory.",
     // ARQUIVO, desde 09-09. Esta era a About do site; a nova mora em `/about` e
     // `/our-identity` 308a para lá. Guardada a pedido, para não se perder.
     //
@@ -51,7 +51,7 @@ export default async function OurIdentityPage() {
       <PageHero
         eyebrow="Our Identity"
         title="Who we are, and why leadership must become real."
-        subtitle="Our purpose, our story, what we believe — and the difference that only we can make."
+        subtitle="Our purpose, our story, what we believe, and the difference that only we can make."
       />
 
       {/* ── Our Purpose ───────────────────────────────────────────────── */}
@@ -59,13 +59,13 @@ export default async function OurIdentityPage() {
         <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
           <Eyebrow>Our Purpose</Eyebrow>
           <h2 className="max-w-[680px] text-[28px] font-bold leading-[1.12] tracking-[-0.6px] text-ink sm:text-[34px]">
-            Why Corporate DNA exists.
+            Why CorporateDNA exists.
           </h2>
           <EmptyNotice className="mt-8">
             Purpose statement to be provided by CDNA. The brief asks that it
-            preserve the firm’s role as consultants — “cut through complexity,
+            preserve the firm’s role as consultants: “cut through complexity,
             connect the present and deliver the truth: real problems and real
-            solutions” — which appears nowhere on the site today.
+            solutions”, which appears nowhere on the site today.
           </EmptyNotice>
         </div>
       </section>
@@ -82,7 +82,7 @@ export default async function OurIdentityPage() {
             How we came to be.
           </h2>
           <EmptyNotice className="mt-8">
-            Our Story copy to be provided by CDNA — the founding, growth and
+            Our Story copy to be provided by CDNA, the founding, growth and
             milestones of the firm. Two things belong inside this narrative
             rather than beside it: the <strong>London origin story</strong>,
             which the brief asks to be woven into the company story and not left
@@ -118,7 +118,7 @@ export default async function OurIdentityPage() {
           </h2>
           <EmptyNotice className="mt-8">
             To be provided by CDNA. The homepage now leads on this line; this is
-            where it gets explained as part of who the firm is — the brief frames
+            where it gets explained as part of who the firm is, the brief frames
             it through real pressures, real politics, real choices, real
             judgement, real people and real consequences.
           </EmptyNotice>
@@ -137,7 +137,7 @@ export default async function OurIdentityPage() {
             Our own method, not a borrowed one.
           </h2>
           <EmptyNotice className="mt-8">
-            A short identity-level reference to be provided by CDNA — what owning
+            A short identity-level reference to be provided by CDNA, what owning
             the 5H says about the firm. The framework itself is explained on Our
             Approach and is not repeated here.
           </EmptyNotice>
@@ -163,7 +163,7 @@ export default async function OurIdentityPage() {
           <div className="mt-8 flex items-center gap-4 border border-dashed border-white/25 bg-white/5 px-7 py-6 text-[13.5px] text-white/70">
             <span className="inline-block h-2 w-2 flex-none rounded-full bg-brand" />
             Final “Why We Are Different” language is in development with Rhea, JP
-            and Nitin. Placeholder only — no claim has been written here.
+            and Nitin. Placeholder only, no claim has been written here.
           </div>
         </div>
       </section>

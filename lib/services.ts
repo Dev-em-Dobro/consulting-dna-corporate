@@ -176,7 +176,7 @@ const EVIDENCE_IMAGE_PLACEHOLDER = "/services/evidence/evidence.PLACEHOLDER.jpg"
  */
 const evidenceQuotePlaceholder = (client: string): ServiceTestimonial => ({
   quote: `A quote from ${client} to be confirmed.`,
-  attribution: `Name, Title — ${client}`,
+  attribution: `Name, Title: ${client}`,
 });
 
 /**
@@ -540,7 +540,7 @@ export const services: Service[] = [
        de fecho "It changes how they lead every day." */
     howWeWorkHeadline: "Real development.\nIn the flow of work.",
     howWeWork:
-      "We develop the **Inner Game and Outer Game** of leadership — how leaders think, judge and show up, and how they translate that into the way they lead people, make decisions, collaborate and deliver performance. Real business challenges, everyday decisions, critical conversations and leadership habits become the practice ground — so development is not something leaders attend. **It changes how they lead every day.**",
+      "We develop the **Inner Game and Outer Game** of leadership: how leaders think, judge and show up, and how they translate that into the way they lead people, make decisions, collaborate and deliver performance. Real business challenges, everyday decisions, critical conversations and leadership habits become the practice ground, so development is not something leaders attend. **It changes how they lead every day.**",
     pillars: [
       "Immersive experiences",
       "Coaching",
@@ -629,7 +629,7 @@ export const services: Service[] = [
       {
         label: "SLT / ET-1",
         title: "From functional to enterprise leadership.",
-        body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership — leading across boundaries, influencing horizontally and translating strategy into execution.",
+        body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership: leading across boundaries, influencing horizontally and translating strategy into execution.",
         image: "/services/audiences/sld-slt-et1.jpg",
         credential: ["Bigger", "perspective", "Bolder leadership"],
       },
@@ -707,7 +707,7 @@ export const services: Service[] = [
        Quando a frase real do Dolf chegar, é trocar as duas linhas abaixo. */
     testimonial: {
       quote: "A quote from Dolf to be confirmed.",
-      attribution: "Name, Title — HEINEKEN",
+      attribution: "Name, Title: HEINEKEN",
     },
   },
   {

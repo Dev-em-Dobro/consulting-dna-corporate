@@ -65,7 +65,7 @@ export function Avatar({ person, sizes }: { person: Person; sizes: string }) {
     return (
       <Image
         src={person.img}
-        alt={`${person.name} — ${person.role}`}
+        alt={`${person.name}, ${person.role}`}
         fill
         sizes={sizes}
         className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"

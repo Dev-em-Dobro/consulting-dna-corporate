@@ -88,8 +88,8 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
               aria-label="Sort by date"
               className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
             >
-              <option value="newest">date — newest</option>
-              <option value="oldest">date — oldest</option>
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
             </select>
             <SelectChevron />
           </div>

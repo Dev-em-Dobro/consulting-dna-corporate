@@ -39,6 +39,12 @@ type PartnerLogo = {
    * primeiro fica seis vezes mais largo que o segundo e o brasão some.
    */
   className: string;
+  /**
+   * Versão que lê em cartão branco. A de `src` é a reversa, branca, feita para
+   * o fundo escuro da /services. `invert` pinta de preto um wordmark branco
+   * (CLO100, YPO) — o arquivo colorido desses dois não existe aqui.
+   */
+  onLight?: { src: string; className: string; invert?: boolean };
 };
 
 /**
@@ -88,13 +94,38 @@ const PARTNER_ROWS: PartnerLogo[][] = [
      para PROMOVER leria como duas estampinhas em cima de um bloco largo. Nos
      56/68 eles ganham a massa que a posição pede sem estourar a coluna. */
   [
-    { src: "/logos/partners/harvard-business-impact.png", alt: "Harvard Business Impact", className: "h-[56px] md:h-[68px]" },
-    { src: "/logos/partners/imperial-college-london.png", alt: "Imperial College London", className: "h-[56px] md:h-[68px]" },
+    {
+      src: "/logos/partners/harvard-business-impact.png",
+      alt: "Harvard Business Impact",
+      className: "h-[56px] md:h-[68px]",
+      onLight: { src: "/logos/harvard_business_impact.png", className: "h-[88px] md:h-[104px]" },
+    },
+    {
+      src: "/logos/partners/imperial-college-london.png",
+      alt: "Imperial College London",
+      className: "h-[56px] md:h-[68px]",
+      onLight: { src: "/logos/partners/imperial-college-london.png", className: "h-[88px] md:h-[104px]" },
+    },
   ],
   [
-    { src: "/logos/partners/clo100.png", alt: "CLO100", className: "h-[34px] md:h-[40px]" },
-    { src: "/logos/partners/ypo.png", alt: "YPO", className: "h-[34px] md:h-[40px]" },
-    { src: "/logos/partners/explore-performance.png", alt: "Explore Performance", className: "h-[26px] md:h-[30px]" },
+    {
+      src: "/logos/partners/clo100.png",
+      alt: "CLO100",
+      className: "h-[34px] md:h-[40px]",
+      onLight: { src: "/logos/partners/clo100.png", className: "h-[36px] md:h-[42px]", invert: true },
+    },
+    {
+      src: "/logos/partners/ypo.png",
+      alt: "YPO",
+      className: "h-[34px] md:h-[40px]",
+      onLight: { src: "/logos/partners/ypo.png", className: "h-[44px] md:h-[52px]", invert: true },
+    },
+    {
+      src: "/logos/partners/explore-performance.png",
+      alt: "Explore Performance",
+      className: "h-[26px] md:h-[30px]",
+      onLight: { src: "/logos/explore_performance.png", className: "h-[64px] md:h-[72px]" },
+    },
   ],
 ];
 
@@ -102,6 +133,7 @@ export default function PartnersStrip({
   label,
   tone = "dark",
   className = "",
+  headingId,
 }: {
   /**
    * A linha que introduz o bloco, se a tela não a tiver em volta. A home abre
@@ -118,17 +150,35 @@ export default function PartnersStrip({
    * fundo da parte dos logos escuro pra dar visibilidade nos logos"*. Em `dark`
    * o painel não existe: a seção já é escura e os logos ficam direto sobre ela,
    * num tom só, que foi o pedido de 18-09 (*"tirar a cor de fundo dos logos"*).
+   *
+   * `featured` É SÓ A HOME, desde 23-09. O painel escuro saiu: a faixa virou
+   * seção própria e cada marca senta num cartão branco. Harvard e Explore usam
+   * o arquivo colorido de `/logos`; CLO100 e YPO continuam no wordmark branco,
+   * pintado de preto. A /services não usa este tom.
    */
-  tone?: "dark" | "light";
+  tone?: "dark" | "light" | "featured";
+  /** id do h2, para a seção da home apontar `aria-labelledby`. */
+  headingId?: string;
   /** Espaçamento e divisa que pertencem à PÁGINA, não à faixa (a home a separa
    *  do que vem acima com `border-t`; a /services não). */
   className?: string;
 }) {
   const onLight = tone === "light";
+  const featured = tone === "featured";
 
   return (
     <div className={className}>
-      {label ? (
+      {label && featured ? (
+        <div>
+          <span className="mb-5 block h-[3px] w-9 bg-brand" />
+          <h2
+            id={headingId}
+            className="max-w-[16ch] font-serif text-[32px] font-medium leading-[1.15] text-ink md:text-[40px]"
+          >
+            {label}
+          </h2>
+        </div>
+      ) : label ? (
         <span
           className={`block text-[12px] font-semibold uppercase tracking-[2px] ${
             onLight ? "text-muted" : "text-white/70"
@@ -142,8 +192,8 @@ export default function PartnersStrip({
           mesmas alturas, mesmos arquivos. */}
       <div
         className={[
-          "flex flex-col items-center gap-y-8",
-          label ? "mt-8" : "",
+          featured ? "mt-10 flex flex-col gap-5" : "flex flex-col items-center gap-y-8",
+          !featured && label ? "mt-8" : "",
           /* `rounded-xl` porque é o raio que o resto do site usa; um valor novo
              aqui seria um canto que não combina com nenhum outro cartão. */
           onLight ? "rounded-xl bg-ink px-8 py-10" : "",
@@ -155,18 +205,36 @@ export default function PartnersStrip({
         {PARTNER_ROWS.map((row) => (
           <ul
             key={row[0].src}
-            className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8"
+            className={
+              featured
+                ? `grid grid-cols-1 gap-5 ${row.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`
+                : "flex flex-wrap items-center justify-center gap-x-10 gap-y-8"
+            }
           >
-            {row.map((l) => (
-              <li key={l.src}>
-                {/* SEM `next/image`, mesmo critério do mural de clientes: são
-                    PNG com transparência servidos a 180px de altura de arquivo
-                    contra 26–68px de exibição, ou seja já há ~2,6x de folga para
-                    tela densa. O `/_next/image` não tem o que otimizar num logo
-                    de 20KB — só acrescentaria uma requisição de transformação. */}
-                <img src={l.src} alt={l.alt} className={`w-auto ${l.className}`} />
-              </li>
-            ))}
+            {row.map((l) => {
+              const art = featured && l.onLight ? l.onLight : { src: l.src, className: l.className, invert: false };
+              return (
+                <li
+                  key={l.src}
+                  className={
+                    featured
+                      ? "flex min-h-[148px] items-center justify-center rounded-xl border border-line bg-white px-8 py-8"
+                      : undefined
+                  }
+                >
+                  {/* SEM `next/image`, mesmo critério do mural de clientes: são
+                      PNG com transparência servidos a 180px de altura de arquivo
+                      contra 26–68px de exibição, ou seja já há ~2,6x de folga para
+                      tela densa. O `/_next/image` não tem o que otimizar num logo
+                      de 20KB — só acrescentaria uma requisição de transformação. */}
+                  <img
+                    src={art.src}
+                    alt={l.alt}
+                    className={`w-auto ${art.className}${art.invert ? " brightness-0" : ""}`}
+                  />
+                </li>
+              );
+            })}
           </ul>
         ))}
         {/* eslint-enable @next/next/no-img-element */}

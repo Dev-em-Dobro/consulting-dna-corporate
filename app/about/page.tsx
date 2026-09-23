@@ -108,7 +108,7 @@ const serif = Source_Serif_4({
 
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "About — Corporate DNA";
+  const title = "About | CorporateDNA";
   return {
     title,
     description:
@@ -460,16 +460,16 @@ const OFFICES = [
  * e Riyadh, Asia → Singapore. A faixa solta de cinco colunas saiu: o endereço
  * mora nesta grade, não num segundo bloco.
  */
-const REGIONS: { name: string; cities: string[]; descriptor: string }[] = [
-  { name: "Americas", cities: ["Miami"], descriptor: "Driving leadership impact across North and South America." },
-  { name: "UK & Europe", cities: ["London"], descriptor: "Partnering with organisations to build resilient leaders across Europe." },
+const REGIONS: { name: string; cities: string[]; descriptor: string; image: string }[] = [
+  { name: "Americas", cities: ["Miami"], image: "/team/mock/miami.jpg", descriptor: "Driving leadership impact across North and South America." },
+  { name: "UK & Europe", cities: ["London"], image: "/team/mock/london.jpg", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
   /* ⚠️ ERA "GCC & Middle East" ATÉ 17-09 — *"na seção 'Where we work.' trocar
      GCC & Middle East para Middle East and North Africa."* Não é sinônimo: a
      região deixou de ser o Golfo com o Oriente Médio em volta e passou a ser
      MENA, que estende para o norte da África. O descritor acompanha, senão a
      linha de baixo continuaria dizendo "GCC". */
-  { name: "Middle East & North Africa", cities: ["Dubai", "Riyadh"], descriptor: "Supporting transformation across the Middle East and North Africa." },
-  { name: "Asia", cities: ["Singapore"], descriptor: "Developing leaders for a fast-changing Asia." },
+  { name: "Middle East & North Africa", cities: ["Dubai", "Riyadh"], image: "/team/mock/dubai.jpg", descriptor: "Supporting transformation across the Middle East and North Africa." },
+  { name: "Asia", cities: ["Singapore"], image: "/team/mock/singapore.jpg", descriptor: "Developing leaders for a fast-changing Asia." },
 ];
 
 export default async function AboutV2Page() {
@@ -1475,7 +1475,7 @@ export default async function AboutV2Page() {
                 de um painel translúcido sobre foto clara. Para isso o painel
                 teria de ser praticamente opaco, e aí não é mais vidro. */}
             <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
-              Why Corporate DNA exists.
+              Why CorporateDNA exists.
             </span>
             {/* h2 — Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
                 herói está em 52px, então a distância entre os dois níveis é de
@@ -1774,7 +1774,7 @@ export default async function AboutV2Page() {
             <div className="relative aspect-[4/5] self-center">
               <Image
                 src={teamStairs}
-                alt="The Corporate DNA team on the office stairs"
+                alt="The CorporateDNA team on the office stairs"
                 fill
                 sizes="(min-width: 1024px) 54vw, 100vw"
                 className="object-cover object-center"
@@ -1837,7 +1837,7 @@ export default async function AboutV2Page() {
                     <p>
                       For us, Keeping Leadership Real starts from the inside out. It
                       shapes how we work with each other and how we show up with our
-                      clients—with honesty, care, candour and experience.
+                      clients, with honesty, care, candour and experience.
                     </p>
                     <p>
                       Because before our clients experience our work, they experience
@@ -2318,7 +2318,20 @@ export default async function AboutV2Page() {
               tem a metade de lá. */}
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {REGIONS.map((r) => (
-              <div key={r.name} className="border-t-2 border-brand pt-5">
+              <div key={r.name}>
+                {/* 23-09: as fotos de cidade voltam para cima do texto. São as
+                    mesmas de `public/team/mock` que ilustravam estas regiões
+                    (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
+                <div className="relative mb-5 aspect-[3/2] overflow-hidden">
+                  <Image
+                    src={r.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
+                    className="object-cover object-center"
+                  />
+                </div>
+                <div className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
                     tratamento do rótulo vermelho, aplicado a um TÍTULO, e
                     caixa alta em grotesca pesada é exatamente o "quadrado" que
@@ -2364,6 +2377,7 @@ export default async function AboutV2Page() {
                 <p className="mt-5 text-[14px] leading-[1.6] text-muted">
                   {r.descriptor}
                 </p>
+                </div>
               </div>
             ))}
           </div>

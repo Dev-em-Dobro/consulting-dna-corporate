@@ -34,9 +34,9 @@ import { books } from "@/lib/books";
  */
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Insights & Books — Corporate DNA",
+    title: "Insights & Books | CorporateDNA",
     description:
-      "Perspectives on leadership, executive-team alignment, succession and enterprise transformation from Corporate DNA's senior advisory faculty — and the books behind the method.",
+      "Perspectives on leadership, executive-team alignment, succession and enterprise transformation from CorporateDNA's senior advisory faculty, and the books behind the method.",
     alternates: localeAlternates("/insights"),
   };
 }
@@ -188,7 +188,7 @@ export default async function InsightsPage() {
             <div className="mt-16">
               <TypeLabel>The second book</TypeLabel>
               <div className="mt-8 md:w-[400px]">
-                <ImagePlaceholder label="Second book — cover" className="aspect-[4/3] w-full" />
+                <ImagePlaceholder label="Second book, cover" className="aspect-[4/3] w-full" />
               </div>
             </div>
           </div>

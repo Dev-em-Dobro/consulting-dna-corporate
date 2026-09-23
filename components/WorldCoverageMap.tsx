@@ -75,14 +75,19 @@ const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
  */
 const PAINT_COVERAGE = false;
 
-// Simple equirectangular projection into a 1000×500 canvas; the viewBox then
-// crops most of Antarctica + the empty ocean margins for a tighter frame.
+// Equirectangular into a 1000×500 canvas, then latitude drawn 1.22× taller.
+// At 2:1 the continents read as a strip — "achatado", o pedido de 23-09 na
+// /about. 1.22 é a conta que leva a MESMA janela geográfica (o VIEW abaixo)
+// para 16:9: 880 / (405 × 1.22) ≈ 1.78. Os pinos usam o mesmo `project`, então
+// sobem junto com a costa. A janela continua cortando Antártida e o Pacífico
+// vazio; o que muda é a altura de cada grau de latitude.
+const LAT_SCALE = 1.22;
 const W = 1000;
-const H = 500;
+const H = 500 * LAT_SCALE;
 
 // Visible window (crops empty Pacific sides + the polar oceans). Everything that
 // keeps labels on-screen references this so the bounds never drift from the crop.
-const VIEW = { x: 60, y: 15, w: 880, h: 405 };
+const VIEW = { x: 60, y: 15 * LAT_SCALE, w: 880, h: 405 * LAT_SCALE };
 
 type Ring = number[][];
 type Geometry =

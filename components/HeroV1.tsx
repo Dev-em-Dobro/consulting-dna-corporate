@@ -441,7 +441,7 @@ export default function HeroV1() {
           </h1>
           <p className="h-sub mx-auto mb-8 max-w-[760px] text-xl font-normal leading-[1.55] text-white/85">
             We help CEOs, CHROs &amp; CLOs build real leadership when the stakes
-            are high — through real conversations, real choices and real
+            are high, through real conversations, real choices and real
             decisions that deliver in the moments that matter.
           </p>
           <p className="h-cta mb-9 text-[15px] font-semibold uppercase tracking-[3px] text-white/90">

@@ -34,7 +34,7 @@ const PURPOSE = "Our purpose is to make leadership";
 const EYEBROW = "What we solve";
 const H2 = "The leadership challenges that determine enterprise performance.";
 const SUB =
-  "We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.";
+  "We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.";
 
 function Tag({ id, children }: { id: string; children: React.ReactNode }) {
   return (
@@ -141,13 +141,13 @@ export default function HomeTestsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell>
-        <Tag id="ref">a escura já aprovada — referência de comparação</Tag>
+        <Tag id="ref">a escura já aprovada, referência de comparação</Tag>
         <Shell bg="bg-ink" onDark />
 
         <Tag id="1">branco puro</Tag>
         <Shell bg="bg-white" />
 
-        <Tag id="2">paper (#f3f3f3) — o cinza que o site já usa</Tag>
+        <Tag id="2">paper (#f3f3f3), o cinza que o site já usa</Tag>
         <Shell bg="bg-paper" />
 
         {/* 3 — divisória vertical entre as colunas. O device que a faixa de

@@ -19,9 +19,9 @@ import { localeAlternates } from "@/lib/seo/alternates";
  */
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Events — Corporate DNA",
+    title: "Events | CorporateDNA",
     description:
-      "Where Corporate DNA convenes leaders — the sessions, forums and gatherings behind our leadership advisory.",
+      "Where CorporateDNA convenes leaders, the sessions, forums and gatherings behind our leadership advisory.",
     alternates: localeAlternates("/events"),
     robots: { index: false, follow: true },
   };
@@ -64,8 +64,7 @@ export default function EventsPage() {
         <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
           <EmptyNotice>
             Events are pending from CDNA. The 21-09 request moved this item into
-            the menu; the programme itself — sessions, dates and descriptions —
-            has not arrived yet, so nothing is published here.
+            the menu; the programme itself, sessions, dates and descriptions, has not arrived yet, so nothing is published here.
           </EmptyNotice>
         </div>
       </section>

@@ -60,7 +60,9 @@ export type SiteStat = { value: string; label: string };
 export type FirmStat = SiteStat & { icon: string };
 export const FIRM_STATS: FirmStat[] = [
   { value: "19 years", label: "of senior leadership advisory, since London, 2007", icon: "calendar" },
-  { value: "5 regions", label: "of global programme delivery", icon: "globe" },
+  /* 23-09: eram cinco até a Índia entrar em Asia (16-09). A faixa ficou em
+     "5 regions". Americas, UK & Europe, Middle East & North Africa, Asia. */
+  { value: "4 regions", label: "of global programme delivery", icon: "globe" },
   { value: "10,000+", label: "leaders coached and teams developed", icon: "people" },
   { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients", icon: "chart" },
 ];

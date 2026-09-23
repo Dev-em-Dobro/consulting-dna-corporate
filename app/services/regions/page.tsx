@@ -8,9 +8,9 @@ import { localeAlternates } from "@/lib/seo/alternates";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Regions — Corporate DNA",
+    title: "Regions | CorporateDNA",
     description:
-      "Corporate DNA's global delivery — senior leadership advisory and executive coaching across 36 countries, with local insight in every region.",
+      "CorporateDNA's global delivery, senior leadership advisory and executive coaching across 36 countries, with local insight in every region.",
     alternates: localeAlternates("/services/regions"),
   };
 }

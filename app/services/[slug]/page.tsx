@@ -32,7 +32,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
-  const title = service ? `${service.title} — Corporate DNA` : "Solution — Corporate DNA";
+  const title = service ? `${service.title} | CorporateDNA` : "Solution | CorporateDNA";
   return {
     title,
     description: service?.banner,
