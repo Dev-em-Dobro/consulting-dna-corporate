@@ -3,7 +3,7 @@ import Link from "next/link";
 import CopyEditor from "@/components/copy-editor/CopyEditor";
 import { DEFAULT_SERVICES_INDEX_COPY, EDITOR_SECTIONS } from "@/lib/services-index-copy";
 import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
-import { EDITABLE_SERVICES } from "@/lib/service-pages-copy";
+import { EDITABLE_SERVICES, SHOW_SERVICE_PAGE_EDITORS } from "@/lib/service-pages-copy";
 
 /**
  * `/edit-services` — a tela da LISTAGEM de serviços.
@@ -11,6 +11,10 @@ import { EDITABLE_SERVICES } from "@/lib/service-pages-copy";
  * As dez páginas internas têm cada uma a sua, em `/edit-services/<slug>`; a
  * lista delas fica abaixo do editor, porque é daqui que a cliente chega nelas
  * (o índice `/edit` também as lista).
+ *
+ * ⏸️ ESSA LISTA ESTÁ ESCONDIDA desde 23-09 — ver `SHOW_SERVICE_PAGE_EDITORS`,
+ * em `lib/service-pages-copy.ts`, que também diz como trazê-la de volta. As
+ * rotas continuam funcionando; o que sai daqui é o caminho até elas.
  */
 export const metadata: Metadata = {
   title: "Edit Services page text | Corporate DNA",
@@ -31,10 +35,15 @@ export default async function EditServicesPage() {
         guideDir="edit-services-guide"
         siteHref="/services"
         title="Services page text"
-        note="The ten cards on this page take their name and sub-headline from each service’s own page — edit those below."
+        note={
+          SHOW_SERVICE_PAGE_EDITORS
+            ? "The ten cards on this page take their name and sub-headline from each service’s own page — edit those below."
+            : "The ten cards on this page take their name and sub-headline from each service’s own page — send us those changes for now."
+        }
       />
       {/* FORA DO <CopyEditor> de propósito: ele é a tela de um objeto de copy, e
           esta lista não edita nada. Fica depois dele, com o mesmo fundo. */}
+      {SHOW_SERVICE_PAGE_EDITORS && (
       <section className="bg-paper">
         <div className="mx-auto max-w-[1360px] px-6 pb-20">
           <h2 className="text-[17px] font-semibold">The ten service pages</h2>
@@ -58,6 +67,7 @@ export default async function EditServicesPage() {
           </ul>
         </div>
       </section>
+      )}
     </>
   );
 }

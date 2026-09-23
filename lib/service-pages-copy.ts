@@ -354,3 +354,18 @@ export function sectionsFor(slug: string): EditorSection[] {
 
 /** Os dez, para o índice `/edit` e para a navegação entre as telas. */
 export const EDITABLE_SERVICES = services.map((s) => ({ slug: s.slug, title: s.title }));
+
+/**
+ * ⏸️ AS DEZ TELAS DE SERVIÇO ESTÃO ESCONDIDAS — 23-09, a pedido, e por
+ * enquanto. A cliente recebeu seis editores de uma vez; as dez internas em cima
+ * disso são tela demais para a primeira semana.
+ *
+ * O QUE "ESCONDIDO" QUER DIZER: só os LINKS somem — a lista no pé de
+ * `/edit-services` e a menção a ela no índice `/edit`. As rotas
+ * `/edit-services/<slug>` continuam de pé e funcionando, então um link antigo
+ * que alguém tenha guardado ainda abre, e nada do que já foi salvo se perde.
+ *
+ * PARA TRAZER DE VOLTA: trocar por `true`. Não há mais nada a fazer — os dois
+ * lugares que mostram a lista leem daqui.
+ */
+export const SHOW_SERVICE_PAGE_EDITORS = false;
