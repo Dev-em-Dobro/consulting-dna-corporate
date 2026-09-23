@@ -94,7 +94,7 @@ Agora o HTML já sai do build com o que a cliente salvou.
 
 ⚠️ **Quem mexer no `store.ts` tem de manter as três camadas.** Tirar o cache
 devolve o custo por tráfego; tirar o `revalidateTag` da rota faz a cliente salvar
-e não ver nada mudar por até uma hora.
+e não ver nada mudar até o teto vencer — hoje, um dia.
 
 ⏳ Se um dia precisar de mais, o primitivo certo para "config pequena, lida a
 todo request" é o **Edge Config**, cuja leitura não é cobrada por operação: são
@@ -150,6 +150,18 @@ frase · One team (rótulo e as duas linhas) · Global faculty (rótulo, título
 parágrafo) · The DNA experience (rótulo, título e os quatro cartões) · a faixa
 de fecho (frase, apoio e botão).
 
+**Serviços (listagem)** — Herói · o rótulo "What we do" · o bloco Partners
+(rótulo, título e os dois parágrafos) · a faixa de fecho.
+
+**Cada uma das dez internas de serviço** — nome e sub-título do serviço · as
+duas seções de texto (título e corpo) · "Who we work with", onde existe · a tira
+de frases curtas · o case em destaque com os números e o depoimento, onde existe
+· a faixa de fecho.
+
+**Clients & Impact** — Herói · a linha acima dos logos · o cabeçalho de cada uma
+das cinco seções · o bloco "A force for good" · os três rótulos do footprint · a
+faixa de fecho.
+
 Fora, de propósito, em todas: rodapé, faixa de prêmios, formulário, mural de
 logos, mapas, fotos, e os cases e depoimentos que vêm do CMS; e os ÍCONES, que
 são chave de desenho e não texto (casam com a lista **por posição** — reordenar os
@@ -177,18 +189,6 @@ teste "o padrão passa no próprio schema" faz um sétimo líder quebrar o
 da Global faculty, a duas telas de distância. Os dois campos estão no editor com
 um `hint` avisando; mudar um e esquecer o outro publica a página se
 contradizendo sobre o tamanho da própria faculty.
-
-**Serviços (listagem)** — Herói · o rótulo "What we do" · o bloco Partners
-(rótulo, título e os dois parágrafos) · a faixa de fecho.
-
-**Cada uma das dez internas de serviço** — nome e sub-título do serviço · as
-duas seções de texto (título e corpo) · "Who we work with", onde existe · a tira
-de frases curtas · o case em destaque com os números e o depoimento, onde existe
-· a faixa de fecho.
-
-**Clients & Impact** — Herói · a linha acima dos logos · o cabeçalho de cada uma
-das cinco seções · o bloco "A force for good" · os três rótulos do footprint · a
-faixa de fecho.
 
 ### ⚠️ Nos serviços, editar uma página mexe em três
 
@@ -244,12 +244,42 @@ inclusive as dez de serviço). Isso é higiene, não proteção.
 
 ---
 
-## Para subir em produção
+## Onde está no ar, e o que falta para produção
 
-A loja Blob está ligada só ao projeto **`consulting-dna-corporate-preview`**
-(staging). O projeto de produção (`consulting-dna-corporate`) ainda **não tem**
-o `BLOB_READ_WRITE_TOKEN` — sem ele, em produção o salvar cai no arquivo local,
-que na Vercel não persiste. Antes do primeiro deploy de produção:
+**Staging** (`consulting-dna-corporate-preview`) tem tudo:
+<https://consulting-dna-corporate-preview.vercel.app/edit>. Ele é publicado À
+MÃO, pelo CLI, que sobe os arquivos locais:
+
+```
+npx vercel deploy --prod --scope dobro66   # com o .vercel apontando para o preview
+```
+
+**Produção** (`consulting-dna-corporate`) ainda NÃO tem nada disto — o trabalho
+está numa branch que não foi empurrada.
+
+### ⚠️ Produção sai do GitHub sozinha
+
+Descoberto em 23-09, investigando um build que falhou: o projeto de produção tem
+**integração com o GitHub ligada**. O log daquele build começa com
+
+```
+Cloning github.com/Dev-em-Dobro/consulting-dna-corporate (Branch: main, Commit: 9c593d9)
+```
+
+ou seja, **todo merge em `main` publica produção**, sem ninguém rodar comando
+nenhum. (Push em outra branch gera um Preview do mesmo projeto.)
+
+Isso muda a ordem das coisas: não existe "antes do primeiro deploy de produção"
+como um momento que alguém escolhe. O momento é o merge.
+
+### ⚠️ O token do Blob tem de estar lá ANTES do merge
+
+A loja Blob está ligada só ao projeto de staging. O de produção **não tem** o
+`BLOB_READ_WRITE_TOKEN` — e sem ele o `createCopyStore` cai no ramo do arquivo
+local (`.data/`), que na Vercel é descartado a cada invocação. O sintoma não é
+um erro: a cliente salva, a tela diz "Saved", e nada muda. Silencioso.
+
+Então, **antes de mergear esta branch em `main`**:
 
 ```
 # com o link apontando para o projeto de produção (ver memória do deploy)
