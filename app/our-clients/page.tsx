@@ -15,10 +15,10 @@ import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats, FIRM_STATS } from "@/lib/stats";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
-/* O MESMO skyline da /about e da /services, importado e não copiado — ver a
-   caixa em `app/services/page.tsx`. Ela ainda não mandou fotografia própria
-   para esta página; quando mandar, é trocar esta linha. */
-import skylinePhoto from "@/public/skyline-dna.jpg";
+/* 23-09: a Rhea mandou o paredão de logos (`clients-impact.jpeg`). O título
+   que vinha gravado na arte saiu, porque o herói já escreve o h1 por cima.
+   O arquivo limpo mora em `public/hero`. */
+import clientsHero from "@/public/hero/clients-impact.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -176,8 +176,8 @@ export default async function ClientsAndImpactPage() {
           eyebrow="Clients & Impact"
           title="Leadership change, measured where it matters."
           subtitle="From energy and pharma to luxury and financial services, advisory delivered where the stakes are highest."
-          imageUrl={skylinePhoto}
-          imagePosition="object-[50%_38%]"
+          imageUrl={clientsHero}
+          imagePosition="object-[62%_center]"
         />
 
         {/* ── Esteira de logos ──────────────────────────────────────────────
