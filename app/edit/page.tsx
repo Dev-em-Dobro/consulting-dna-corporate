@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SHOW_SERVICE_PAGE_EDITORS } from "@/lib/service-pages-copy";
 
 /**
  * `/edit` — o índice das telas de edição de texto.
@@ -42,8 +43,15 @@ const PAGES = [
   {
     href: "/edit-services",
     title: "Services page",
-    body: "Headline, the “What we do” label, the Partners block and the closing band — plus a way in to each of the ten service pages.",
-    note: "Each service page has its own screen, listed at the foot of that one.",
+    /* ⏸️ AS DEZ INTERNAS SAÍRAM DAQUI em 23-09 — ver `SHOW_SERVICE_PAGE_EDITORS`
+       em `lib/service-pages-copy.ts`. Enquanto a bandeira estiver desligada,
+       este cartão fala só da listagem, que é o que a cliente alcança. */
+    body: SHOW_SERVICE_PAGE_EDITORS
+      ? "Headline, the “What we do” label, the Partners block and the closing band — plus a way in to each of the ten service pages."
+      : "Headline, the “What we do” label, the Partners block and the closing band.",
+    note: SHOW_SERVICE_PAGE_EDITORS
+      ? "Each service page has its own screen, listed at the foot of that one."
+      : "The ten individual service pages are not editable yet — send us those changes.",
   },
   {
     href: "/edit-clients",
