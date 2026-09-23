@@ -126,7 +126,7 @@ export default function BreadthMatrix({ entries }: { entries: CaseListEntry[] })
                       <span className="sr-only">{`${client}: ${title}`}</span>
                     </>
                   ) : (
-                    <span className="sr-only">—</span>
+                    <span className="sr-only">Not included</span>
                   )}
                 </td>
               ))}

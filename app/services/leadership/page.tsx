@@ -8,9 +8,9 @@ import { getPeople } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Leadership profiles — Corporate DNA",
+    title: "Leadership profiles | CorporateDNA",
     description:
-      "The senior advisory team behind Corporate DNA — leaders who have sat where our clients sit, delivering across 36 countries with a 75-strong faculty.",
+      "The senior advisory team behind CorporateDNA, leaders who have sat where our clients sit, delivering across 36 countries with a 75-strong faculty.",
     alternates: localeAlternates("/services/leadership"),
   };
 }

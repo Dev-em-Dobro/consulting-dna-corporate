@@ -14,7 +14,7 @@ export default function WhatsAppButton() {
 
   const message =
     process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ??
-    "Hello Corporate DNA — I'd like to talk about a leadership challenge.";
+    "Hello CorporateDNA. I'd like to talk about a leadership challenge.";
   const href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 
   return (

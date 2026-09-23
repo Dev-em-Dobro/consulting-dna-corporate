@@ -14,9 +14,9 @@ import { getCaseListEntries } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Our Impact — Corporate DNA",
+    title: "Our Impact | CorporateDNA",
     description:
-      "The measured outcomes of Corporate DNA's work — firm-level figures and the results behind individual client engagements.",
+      "The measured outcomes of CorporateDNA's work, firm-level figures and the results behind individual client engagements.",
     alternates: localeAlternates("/our-impact"),
   };
 }
@@ -96,8 +96,8 @@ export default async function OurImpactPage() {
             Our clients say
           </h2>
           <p className="mt-6 max-w-[62ch] text-[16px] leading-[1.7] text-white/85">
-            Awaiting testimonials about Corporate DNA — in the John Murphy /
-            Jorge Gardino mould — rather than generic corporate quotes, each
+            Awaiting testimonials about CorporateDNA, in the John Murphy /
+            Jorge Gardino mould, rather than generic corporate quotes, each
             approved by CDNA before publishing.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default async function OurImpactPage() {
             A force for good, beyond the boardroom.
           </h2>
           <p className="mt-6 max-w-[68ch] text-[17px] leading-[1.7] text-muted">
-            Corporate DNA is committed to being a force for good in the world.
+            CorporateDNA is committed to being a force for good in the world.
             Our mission is to make transformative impact through humanity,
             honesty, and purpose. In acting on our deeply held values of social
             awareness, sustainability, and boldness, we have partnered with
@@ -141,7 +141,7 @@ export default async function OurImpactPage() {
 
           {measured.length === 0 ? (
             <EmptyNotice className="mt-8">
-              No published case carries a measured result yet — the figures
+              No published case carries a measured result yet, the figures
               appear here as cases are authored.
             </EmptyNotice>
           ) : (

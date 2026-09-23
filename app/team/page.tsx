@@ -33,9 +33,9 @@ import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Our Team — Corporate DNA",
+    title: "Our Team | CorporateDNA",
     description:
-      "The leadership team and global faculty behind Corporate DNA — senior practitioners delivering across 36 countries.",
+      "The leadership team and global faculty behind CorporateDNA, senior practitioners delivering across 36 countries.",
     alternates: localeAlternates("/team"),
   };
 }

@@ -9,9 +9,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     // The "Client Impact" area name is retired by the 27-08 brief (split into
     // Our Clients and Our Impact); this route stays as the case library.
-    title: "Case Studies — Corporate DNA",
+    title: "Case Studies | CorporateDNA",
     description:
-      "Measured leadership outcomes for global enterprises — how Corporate DNA's advisory and 5H® methodology moved the metrics that matter for clients like Shell and Heineken.",
+      "Measured leadership outcomes for global enterprises, how CorporateDNA's advisory and 5H® methodology moved the metrics that matter for clients like Shell and Heineken.",
     alternates: localeAlternates("/cases"),
   };
 }
@@ -29,7 +29,7 @@ export default async function CasesPage() {
             Leadership change, measured where it matters.
           </h1>
           <p className="mt-5 max-w-[560px] text-[17px] leading-[1.5] text-muted md:text-[19px]">
-            Explore how Corporate DNA helps leaders and organisations improve
+            Explore how CorporateDNA helps leaders and organisations improve
             alignment, readiness, decision quality, execution and performance.
           </p>
         </div>

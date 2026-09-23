@@ -4,9 +4,9 @@ import LegalView from "@/components/views/LegalView";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Cookie Policy — Corporate DNA",
+    title: "Cookie Policy | CorporateDNA",
     description:
-      "How Corporate DNA Consulting uses cookies and similar technologies on this website.",
+      "How CorporateDNA Consulting uses cookies and similar technologies on this website.",
     alternates: localeAlternates("/cookies"),
   };
 }

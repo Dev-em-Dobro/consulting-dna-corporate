@@ -106,7 +106,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // O título volta a ser o da home. "Home V2 (proposta)" era rótulo de revisão
   // e não pode ir para a aba do navegador nem para o resultado de busca.
   const title =
-    "Global Leadership Advisory & Executive Coaching | Corporate DNA";
+    "Global Leadership Advisory & Executive Coaching | CorporateDNA";
   return {
     title,
     description: SITE_DESCRIPTION,
@@ -175,7 +175,7 @@ const reals = [
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
-  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework — not a generic coaching approach borrowed from elsewhere." },
+  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework, not a generic coaching approach borrowed from elsewhere." },
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
@@ -475,7 +475,7 @@ export default async function Home() {
                 className="max-w-[560px] text-[18px] leading-[1.6] text-muted md:text-[20px]"
                 style={{ fontFamily: "var(--font-serif-v2)" }}
               >
-                We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+                We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.
               </p>
             </div>
 
@@ -583,7 +583,7 @@ export default async function Home() {
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
-          <TypeLabel>Why Corporate DNA</TypeLabel>
+          <TypeLabel>Why CorporateDNA</TypeLabel>
           <h2 className="mb-[52px] max-w-[760px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
           </h2>
@@ -658,7 +658,7 @@ export default async function Home() {
               trocam juntos — o `TypeLabel` já faz isso sozinho. */}
           <TypeLabel>Client impact</TypeLabel>
           <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
-            Results, not promises — measured where it matters.
+            Results, not promises. Measured where it matters.
           </h2>
           {/* `bg-white` nos cards continua sendo estrutural, não decoração: com
               a faixa em `paper`, é o preenchimento branco que os destaca do
@@ -749,7 +749,7 @@ export default async function Home() {
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
-              Sustained leadership change comes from identity and habits — not skills alone. Our proprietary 5H methodology works across the{" "}
+              Sustained leadership change comes from identity and habits, not skills alone. Our proprietary 5H methodology works across the{" "}
               <em className="font-semibold not-italic text-white">inner game</em> of the leader and the{" "}
               <em className="font-semibold not-italic text-white">outer game</em> of performance, so behaviour holds under real enterprise pressure.
             </p>
@@ -988,7 +988,7 @@ export default async function Home() {
               className="mb-2 max-w-[460px] text-[19px] leading-[1.65] text-white/90"
               style={{ fontFamily: "var(--font-serif-v2)" }}
             >
-              Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
+              Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch.
             </p>
           </div>
           {/* Em teste (10-09): o `hover-button` do 21st, com o bloco em ink

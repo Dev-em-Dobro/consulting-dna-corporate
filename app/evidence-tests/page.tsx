@@ -194,7 +194,7 @@ export default function EvidenceTestsPage() {
       <SiteShell floatingNav>
         <div className="h-[76px] bg-ink" />
 
-        <Tag id="1">sóbrio — sem gradiente, só borda e preenchimento leve</Tag>
+        <Tag id="1">sóbrio, sem gradiente, só borda e preenchimento leve</Tag>
         <Block
           bg="bg-ink"
           gradient="linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02))"
@@ -202,7 +202,7 @@ export default function EvidenceTestsPage() {
           border="border-white/12"
         />
 
-        <Tag id="2">vermelho da marca — gradiente diagonal, como a referência</Tag>
+        <Tag id="2">vermelho da marca, gradiente diagonal, como a referência</Tag>
         <Block
           bg="bg-ink"
           gradient="linear-gradient(150deg, #e0503f 0%, #c93a30 45%, #96281f 100%)"
@@ -210,7 +210,7 @@ export default function EvidenceTestsPage() {
           border="border-white/15"
         />
 
-        <Tag id="3">carvão — o mesmo efeito em preto</Tag>
+        <Tag id="3">carvão, o mesmo efeito em preto</Tag>
         <Block
           bg="bg-ink-2"
           gradient="linear-gradient(150deg, #4a4244 0%, #332d2f 45%, #1e1a1b 100%)"
@@ -218,7 +218,7 @@ export default function EvidenceTestsPage() {
           border="border-white/12"
         />
 
-        <Tag id="4">vinho — vermelho profundo, menos saturado</Tag>
+        <Tag id="4">vinho, vermelho profundo, menos saturado</Tag>
         <Block
           bg="bg-ink"
           gradient="linear-gradient(150deg, #8f3a33 0%, #6d2822 50%, #431714 100%)"
@@ -226,7 +226,7 @@ export default function EvidenceTestsPage() {
           border="border-white/12"
         />
 
-        <Tag id="5">carvão → vermelho — o duotone do herói, aplicado ao card</Tag>
+        <Tag id="5">carvão → vermelho, o duotone do herói, aplicado ao card</Tag>
         <Block
           bg="bg-ink-2"
           gradient="linear-gradient(145deg, #3a3436 0%, #5c2b28 55%, #a33a2e 100%)"
@@ -234,7 +234,7 @@ export default function EvidenceTestsPage() {
           border="border-white/12"
         />
 
-        <Tag id="6">preto quase puro — o mais sóbrio dos escuros</Tag>
+        <Tag id="6">preto quase puro, o mais sóbrio dos escuros</Tag>
         <Block
           bg="bg-ink"
           gradient="linear-gradient(155deg, #2a2527 0%, #1b1819 55%, #121011 100%)"

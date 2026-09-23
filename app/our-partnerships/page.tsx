@@ -18,9 +18,9 @@ export const revalidate = 300;
 export async function generateMetadata(): Promise<Metadata> {
   const partnerships = await getPartnerships();
   return {
-    title: "Our Partnerships — Corporate DNA",
+    title: "Our Partnerships | CorporateDNA",
     description:
-      "The institutions and platforms Corporate DNA partners with, and what each partnership enables for our clients.",
+      "The institutions and platforms CorporateDNA partners with, and what each partnership enables for our clients.",
     alternates: localeAlternates("/our-partnerships"),
     ...(partnerships.length === 0 && { robots: { index: false, follow: true } }),
   };
@@ -55,7 +55,7 @@ export default async function OurPartnershipsPage() {
         <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
           {partnerships.length === 0 ? (
             <EmptyNotice>
-              Partnership entries pending from CDNA — for each one, what it
+              Partnership entries pending from CDNA, for each one, what it
               enables for our clients. Names and final text are still to be
               validated, so nothing is published here yet.
             </EmptyNotice>

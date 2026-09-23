@@ -628,7 +628,7 @@ export default function HeroV2() {
             style={{ fontFamily: "var(--font-serif-v2)" }}
           >
             We help CEOs, CHROs &amp; CLOs build real leadership when the stakes
-            are high — through real conversations, real choices and real
+            are high, through real conversations, real choices and real
             decisions that deliver in the moments that matter.
           </p>
           {/* BOTÕES — medido, também em 1440px:

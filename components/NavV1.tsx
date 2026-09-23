@@ -55,7 +55,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-full-light.png"
-            alt="Corporate DNA Consulting"
+            alt="CorporateDNA Consulting"
             className="h-8 w-auto xl:h-10"
           />
         </Link>

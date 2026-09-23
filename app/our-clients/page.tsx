@@ -22,9 +22,9 @@ import clientsHero from "@/public/hero/clients-impact.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Clients & Impact — Corporate DNA",
+    title: "Clients & Impact | CorporateDNA",
     description:
-      "The organisations Corporate DNA advises, the breadth of work behind each name, and what changed — measured.",
+      "The organisations CorporateDNA advises, the breadth of work behind each name, and what changed, measured.",
     alternates: localeAlternates("/our-clients"),
   };
 }
@@ -516,7 +516,7 @@ export default async function ClientsAndImpactPage() {
                   documento nenhum. Se ela quiser a do mockup, é pedido de copy.
                   `max-w` em ch para a linha não atravessar a faixa inteira. */}
               <p className="mt-5 max-w-[78ch] text-[15px] leading-[1.7] text-white/70 md:text-[16px]">
-                Corporate DNA is committed to being a force for good in the
+                CorporateDNA is committed to being a force for good in the
                 world. Our mission is to make transformative impact through
                 humanity, honesty, and purpose. In acting on our deeply held
                 values of social awareness, sustainability, and boldness, we

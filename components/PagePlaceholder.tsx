@@ -67,7 +67,7 @@ export default function PagePlaceholder({
             ) : (
               <div className="mt-14 flex items-center gap-4 border border-dashed border-line bg-paper/60 px-7 py-8 text-[13.5px] text-muted">
                 <span className="inline-block h-2 w-2 flex-none rounded-full bg-brand" />
-                Page structure to be defined — content coming next.
+                Page structure to be defined, content coming next.
               </div>
             )}
         </div>

@@ -85,7 +85,7 @@ export default function TestimonialsVideo({
           ) : (
             // Placeholder until the real testimonials reel is delivered.
             <div className="flex h-full w-full items-center justify-center px-6 text-center text-[13.5px] font-semibold uppercase tracking-[1.5px] text-white/55">
-              Testimonials video — coming soon
+              Testimonials video, coming soon
             </div>
           )}
         </div>

@@ -41,7 +41,7 @@ import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Home V1 (arquivo) | Corporate DNA";
+  const title = "Home V1 (arquivo) | CorporateDNA";
   return {
     title,
     description: SITE_DESCRIPTION,
@@ -65,7 +65,7 @@ const book = {
    * heading is deliberately not the title).
    */
   title:
-    "Corporate DNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
+    "CorporateDNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
   /**
    * The published title, as it appears on the cover, in the endorsements and on
    * the Amazon listing the CTA points to. Separate from `title` because the
@@ -76,10 +76,10 @@ const book = {
   name: "Leadership: It's In Your DNA",
   subtitle: "The book behind the method",
   body: [
-    "What if the greatest competitive advantage isn't your strategy, products or technology—but your organisational DNA?",
+    "What if the greatest competitive advantage isn't your strategy, products or technology, but your organisational DNA?",
     "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
-    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a Corporate DNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
-    "For leaders who want to build companies that thrive through uncertainty—not just survive it—this is a blueprint for creating a legacy that lasts.",
+    "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+    "For leaders who want to build companies that thrive through uncertainty, not just survive it, this is a blueprint for creating a legacy that lasts.",
   ],
 };
 
@@ -117,7 +117,7 @@ const reals = [
 const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
-  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework — not a generic coaching approach borrowed from elsewhere." },
+  { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework, not a generic coaching approach borrowed from elsewhere." },
   { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
@@ -303,7 +303,7 @@ export default async function HomeV1() {
             The leadership challenges that determine enterprise performance.
           </h2>
           <p className="max-w-[620px] text-lg leading-[1.55] text-muted md:mx-auto">
-            We start with what is at stake for the organisation — then bring the people, method and evidence to solve it.
+            We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.
           </p>
         </Reveal>
       </section>
@@ -331,7 +331,7 @@ export default async function HomeV1() {
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
           <div className="mb-2.5 flex items-baseline gap-3">
             <span className="inline-block h-0.5 w-9 bg-brand" />
-            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why Corporate DNA</span>
+            <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why CorporateDNA</span>
           </div>
           <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
@@ -380,7 +380,7 @@ export default async function HomeV1() {
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-white">Client impact</span>
           </div>
           <h2 className="mb-[52px] max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-bold leading-[1.1] tracking-[-0.8px] text-white">
-            Results, not promises — measured where it matters.
+            Results, not promises. Measured where it matters.
           </h2>
           {/* `bg-white` on the cards below is now load-bearing, not decoration:
               they used to inherit the section's white ground, and on red they
@@ -429,7 +429,7 @@ export default async function HomeV1() {
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
             </h2>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
-              Sustained leadership change comes from identity and habits — not skills alone. Our proprietary 5H methodology works across the{" "}
+              Sustained leadership change comes from identity and habits, not skills alone. Our proprietary 5H methodology works across the{" "}
               <em className="font-semibold not-italic text-white">inner game</em> of the leader and the{" "}
               <em className="font-semibold not-italic text-white">outer game</em> of performance, so behaviour holds under real enterprise pressure.
             </p>
@@ -590,7 +590,7 @@ export default async function HomeV1() {
               What is changing, and where does leadership need to go?
             </h2>
             <p className="mb-2 max-w-[460px] text-[19px] leading-[1.6] text-white/90">
-              Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view — not a sales pitch.
+              Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch.
             </p>
           </div>
           <ContactForm />

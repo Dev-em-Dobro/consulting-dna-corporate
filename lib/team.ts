@@ -128,7 +128,7 @@ export const leaders: Leader[] = [
     role: "CEO, Founder, Author, Head of MENA",
     region: "UAE",
     quote:
-      "With executive teams and top 100 leaders, there’s a certain science to creating magic in the room. It’s finding the optimal blend of ‘care and dare’ — then bringing judgement, curiosity, maturity and trust together so people can go further than they thought they would.",
+      "With executive teams and top 100 leaders, there’s a certain science to creating magic in the room. It’s finding the optimal blend of ‘care and dare’, then bringing judgement, curiosity, maturity and trust together so people can go further than they thought they would.",
     /* ⚠️ VERSÃO GERADA, não é o arquivo da Maliha. O original
        (`/team/rhea-leckie.jpeg`, 1536×1024) é PAISAGEM, e num quadro 4:5 o
        recorte fechava no rosto — o card dela destoava dos outros cinco. Este
