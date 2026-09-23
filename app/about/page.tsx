@@ -26,6 +26,7 @@
  * aqui — é trabalho de redirects e sitemap, separado desta página, e foi
  * levantado com o cliente.
  */
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +38,9 @@ import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
-import { FIRM_STATS } from "@/lib/stats";
+import { FIRM_STAT_ICONS } from "@/lib/stats";
+import { getAboutCopy } from "@/lib/about-copy-server";
+import { inlineEmphasis } from "@/lib/page-copy/text";
 import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
@@ -154,26 +157,21 @@ export const revalidate = 300;
  * trocar 36 países para 5 regions / trocar 1,000 leaders para 10 000+."* O
  * `[36]` entre colchetes deixou de existir porque a resposta não foi um número
  * de países — foi trocar a UNIDADE: a firma conta alcance por REGIÃO, que é a
- * mesma unidade do bloco 6 desta página (`REGIONS`, logo abaixo) e não colide
- * mais com "across five regions" no rótulo, que por isso saiu.
+ * mesma unidade do bloco 6 desta página e não colide mais com "across five
+ * regions" no rótulo, que por isso saiu.
  *
- * ⚠️ A HOME E A OUR IMPACT AINDA DIZEM 18/36/75. Não vem de `getSiteStats()`:
- * aquelas quatro são outras (90% sponsored, 18 years, 36 countries, 75 faculty),
- * vêm do CMS (`page_home`) e alimentam a home e a Our Impact. Mudar os fallbacks
- * de `lib/stats.ts` daqui não resolveria — o valor publicado no CMS ganha deles.
- * Enquanto os dois lados não forem alinhados, a mesma firma diz 18 anos numa
- * página e 19 na outra, e a correção é no CMS.
+ * ⚠️ A LISTA MUDOU DE CASA DUAS VEZES. Em 18-09 saiu daqui para `lib/stats.ts`
+ * (`FIRM_STATS`), porque a cliente pediu os mesmos quatro números na "By the
+ * numbers" da Clients & Impact e uma lista copiada em duas páginas é o que gera
+ * a próxima divergência. Em 23-09 saiu de lá para `lib/about-copy.ts`, pelo
+ * mesmo motivo um passo adiante: os quatro entraram no editor `/edit-about`, e
+ * uma constante em código ao lado de um número editável teria recriado a
+ * divergência na primeira edição. Hoje o TEXTO vem da copy e a Clients & Impact
+ * lê a mesma fonte por `getFirmStats()`.
  *
- * ⚠️ A LISTA MUDOU DE CASA EM 18-09. Ela era um `const STATS` aqui dentro — e
- * a caixa acima ("estes arrays vivem na página, e não em `lib/`, de propósito")
- * ainda vale para os OUTROS blocos. Esta é a exceção: na daily de 18-09 a
- * cliente pediu os mesmos quatro números na "By the numbers" da Clients &
- * Impact, e uma lista copiada em duas páginas é o que gera a próxima
- * divergência. Os valores são os mesmos de antes, só que em `lib/stats.ts`
- * (`FIRM_STATS`); o `StatIcon` abaixo continua aqui, porque só esta página
- * desenha ícone.
+ * O `StatIcon` abaixo continua aqui, porque só esta página desenha ícone, e ele
+ * casa com a lista POR POSIÇÃO (`FIRM_STAT_ICONS`, em `lib/stats.ts`).
  */
-const STATS = FIRM_STATS;
 
 /**
  * Os quatro ícones da faixa de números, desenhados aqui dentro.
@@ -244,60 +242,28 @@ function StatIcon({ name }: { name: string }) {
   );
 }
 
-/** Block 2, os quatro pilares. FINAL. */
-const PILLARS = [
-  {
-    heading: "We invest in Identity beyond role.",
-    body: "When leaders shift Identity (Who am I), they accelerate skills faster.",
-  },
-  {
-    heading: "We lead with care and candour.",
-    body: "We empower leaders by balancing compassion and action.",
-  },
-  {
-    heading: "We tackle root causes, not symptoms.",
-    body: "We achieve success through robust discovery and laser focus.",
-  },
-  {
-    heading: "We earn the right as your trusted ally.",
-    body: "By Keeping It Real, we develop Talent and build relationships.",
-  },
-];
+/* Block 2, os quatro pilares. FINAL no documento; o texto mora em
+   `lib/about-copy.ts` (`identity.pillars`) desde 23-09. */
 
 /**
  * Block 5, os cinco valores. Os corpos são FINAL; o documento diz que três dos
  * cinco NOMES estão em HOLD ("shown in brackets, pending confirmation") e pede
  * que os nomes sejam campos de CMS para trocar sem deploy. O documento não
- * marca quais três — a tabela dele traz os cinco sem colchete. Ficam como
- * escritos, e viram campo de CMS quando a página real for montada.
+ * marca quais três — a tabela dele traz os cinco sem colchete.
+ *
+ * ✅ O PEDIDO DO HOLD FOI ATENDIDO EM 23-09, sem CMS: nome e corpo dos cinco
+ * estão em `lib/about-copy.ts` (`values.items`) e a cliente troca os dois em
+ * `/edit-about`, sem deploy — que era o que "campo de CMS" queria dizer ali.
+ *
+ * ⚠️ O QUE NÃO ENTROU NO EDITOR É O ÍCONE, e a lista abaixo é o motivo: `icon`
+ * nunca foi texto, é uma CHAVE para um desenho que existe neste arquivo. A
+ * caixa do `ValueIcon` já previa que, virando campo aberto, um valor novo sairia
+ * sem ícone e ninguém descobriria. A solução aqui é a mesma da faixa de números:
+ * casar POR POSIÇÃO. Reordenar os cinco valores no editor reordena nome e texto,
+ * e os ícones ficam onde estão — o que é o comportamento certo enquanto lâmpada,
+ * folha, par, alvo e escudo forem genéricos o bastante para qualquer valor.
  */
-const VALUES = [
-  {
-    name: "Creative Flow",
-    icon: "bulb",
-    body: "Our creativity lives in the big ideas and equally in the details and frameworks that hold them together. Execution should feel like flow.",
-  },
-  {
-    name: "Bold Humility",
-    icon: "leaf",
-    body: "Boldness lives in duality with humility. Bold enough to move people beyond their comfort zones, humble enough to be sustainable. Confident, never arrogant.",
-  },
-  {
-    name: "Relationship Centricity",
-    icon: "pair",
-    body: "We believe in mutually empowered relationships where we learn from each other. Clients should always feel us as deeply invested in their present and their future.",
-  },
-  {
-    name: "Real Results",
-    icon: "target",
-    body: "Our relentless quest for excellence is anchored in real issues and real results: engagement up, performance up, collaboration up.",
-  },
-  {
-    name: "Trust & Truth",
-    icon: "shield",
-    body: "Trust and truth live in one cycle. We help our clients with the hard right rather than the easy wrong, and hold ourselves accountable for breakthrough results.",
-  },
-];
+const VALUE_ICONS = ["bulb", "leaf", "pair", "target", "shield"];
 
 /**
  * Os cinco ícones dos valores (09-09).
@@ -400,9 +366,10 @@ function ValueIcon({ name }: { name: string }) {
 
 /**
  * Block 6, os escritórios — endereço, telefone e e-mail como o documento pede.
+ * O conteúdo mora em `lib/about-copy.ts` (`offices`) desde 23-09.
  *
- * ⚠️ Local de propósito, e NÃO `lib/offices.ts`. Três destes registros
- * divergem do que está no ar hoje:
+ * ⚠️ A LISTA É DESTA PÁGINA, e NÃO `lib/offices.ts`. Três dos registros
+ * divergem do que o site serve hoje:
  *   • Singapore: o documento traz "1 Raffles Place, Level 24, Tower 1, 048616"
  *     e +65 6408 0636; o site serve "The Great Room, Afro Asia, 63 Robinson
  *     Road, Level 8, 068894" e +65 6995 2480. São endereços diferentes.
@@ -410,70 +377,63 @@ function ValueIcon({ name }: { name: string }) {
  *     abaixo, diz que Dubai "has no contact details published anywhere".
  *   • Miami: o documento não traz telefone; o site publica +1 305-374-4611.
  * Escrever isso em `lib/offices.ts` mudaria a home e a Our Team sem ninguém ter
- * confirmado qual versão está certa. Fica aqui até o cliente decidir.
+ * confirmado qual versão está certa. Fica separado até o cliente decidir — e
+ * agora a cliente pode corrigir os cinco sozinha, o que é a rota mais curta
+ * para essa decisão sair do limbo.
  */
-const OFFICES = [
-  {
-    city: "London",
-    address: ["60 St Martin’s Lane, Covent Garden", "London WC2N 4JS"],
-    tel: "+44 20 3755 5329",
-    email: "london@corporatednaconsulting.com",
-  },
-  {
-    city: "Singapore",
-    address: ["1 Raffles Place, Level 24", "Tower 1, Singapore 048616"],
-    tel: "+65 6408 0636",
-    email: "singapore@corporatednaconsulting.com",
-  },
-  {
-    city: "Dubai",
-    address: ["Sheikh Rashid Tower, 4th Floor", "Dubai World Trade Centre, Dubai"],
-    tel: "+971 58 141 2901",
-    email: "dubai@corporatednaconsulting.com",
-  },
-  {
-    city: "Riyadh",
-    address: [
-      "2888 King Fahd Road, Saudi Journalists",
-      "Association Building, 2nd Floor, Al Sahafah",
-      "Dist. 13671, Riyadh 13321, RASA6101",
-    ],
-    tel: null,
-    email: "riyadh@corporatednaconsulting.com",
-  },
-  {
-    city: "Miami",
-    address: ["1221 Brickell Ave, Suite 900", "Miami, FL 33131"],
-    tel: null,
-    email: "miami@corporatednaconsulting.com",
-  },
-];
 
 /**
- * Block 6, as quatro regiões. Os NOMES são FINAL; os descritores são HOLD ("one
- * line descriptor per region, max 120 characters"). Os textos abaixo são os que
- * aparecem na própria imagem da Maliha — placeholder do cliente, não copy nossa
- * — e devem virar campo de CMS.
+/**
+ * A ASPA DE FECHAMENTO DA CITAÇÃO DA IDENTITY gruda na ÚLTIMA PALAVRA do último
+ * parágrafo, dentro de um `nowrap`, para não cair sozinha numa linha. Enquanto o
+ * texto era JSX, isso era uma marcação escrita à mão em volta de "life."; agora
+ * que ele vem do editor, a última palavra é descoberta em tempo de render.
  *
- * 22-09: cada coluna é a região e, logo abaixo, o escritório dela (cidade,
- * rua, telefone, e-mail). Americas → Miami, UK & Europe → London, MENA → Dubai
- * e Riyadh, Asia → Singapore. A faixa solta de cinco colunas saiu: o endereço
- * mora nesta grade, não num segundo bloco.
+ * Devolve [tudo menos a última palavra, a última palavra]. Parágrafo de uma
+ * palavra só cai no ramo sem espaço e sai inteiro no segundo elemento.
  */
-const REGIONS: { name: string; cities: string[]; descriptor: string; image: string }[] = [
-  { name: "Americas", cities: ["Miami"], image: "/team/mock/miami.jpg", descriptor: "Driving leadership impact across North and South America." },
-  { name: "UK & Europe", cities: ["London"], image: "/team/mock/london.jpg", descriptor: "Partnering with organisations to build resilient leaders across Europe." },
-  /* ⚠️ ERA "GCC & Middle East" ATÉ 17-09 — *"na seção 'Where we work.' trocar
-     GCC & Middle East para Middle East and North Africa."* Não é sinônimo: a
-     região deixou de ser o Golfo com o Oriente Médio em volta e passou a ser
-     MENA, que estende para o norte da África. O descritor acompanha, senão a
-     linha de baixo continuaria dizendo "GCC". */
-  { name: "Middle East & North Africa", cities: ["Dubai", "Riyadh"], image: "/team/mock/dubai.jpg", descriptor: "Supporting transformation across the Middle East and North Africa." },
-  { name: "Asia", cities: ["Singapore"], image: "/team/mock/singapore.jpg", descriptor: "Developing leaders for a fast-changing Asia." },
+function splitLastWord(text: string): [string, string] {
+  const trimmed = text.trimEnd();
+  const i = trimmed.lastIndexOf(" ");
+  return i === -1 ? ["", trimmed] : [trimmed.slice(0, i + 1), trimmed.slice(i + 1)];
+}
+
+/**
+ * Block 6, as regiões. Os NOMES são FINAL; os descritores eram HOLD ("one line
+ * descriptor per region, max 120 characters") e os textos publicados são os que
+ * aparecem na própria imagem da Maliha — placeholder do cliente, não copy
+ * nossa. O documento pedia que virassem campo de CMS; desde 23-09 eles estão em
+ * `lib/about-copy.ts` (`regions.items`) e a cliente os troca em `/edit-about`.
+ *
+ * ⚠️ "GCC & Middle East" VIROU "Middle East & North Africa" EM 17-09 — *"na
+ * seção 'Where we work.' trocar GCC & Middle East para Middle East and North
+ * Africa."* Não é sinônimo: a região deixou de ser o Golfo com o Oriente Médio
+ * em volta e passou a ser MENA, que estende para o norte da África. O descritor
+ * acompanhou, senão a linha de baixo continuaria dizendo "GCC".
+ */
+/* AS FOTOS DAS REGIÕES, por posição na lista da copy — 23-09 (main): as mesmas
+   de `public/team/mock` que ilustravam estas colunas (Miami, Londres, Dubai,
+   Singapura). Arte não é copy: a cliente troca o texto da região em
+   `/edit-about`, e a foto continua vindo daqui. */
+const REGION_IMAGES = [
+  "/team/mock/miami.jpg",
+  "/team/mock/london.jpg",
+  "/team/mock/dubai.jpg",
+  "/team/mock/singapore.jpg",
 ];
 
+/* AS CIDADES DE UMA REGIÃO saem do campo `offices` da copy ("Miami", "Dubai and
+   Riyadh"), que é o que a cliente edita. A coluna usa a lista para achar o
+   endereço correspondente em `copy.offices` — se ela renomear uma cidade num
+   lugar e não no outro, a coluna simplesmente não mostra aquele endereço, que é
+   melhor que quebrar a página. */
+const regionCities = (offices: string) =>
+  offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
+
 export default async function AboutV2Page() {
-  const nav = await buildSiteNav();
+  const [nav, copy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
+  /* O ícone casa com o número POR POSIÇÃO — ver a caixa do bloco 1 acima. */
+  const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
   return (
     /* SEM <SiteShell> — e essa é a razão de o shell estar montado à mão aqui.
        O SiteShell embute a NavV1: barra vermelha, `sticky`, ocupando 76px do
@@ -561,7 +521,10 @@ export default async function AboutV2Page() {
           seção, não mais o placeholder da home V2, e desde 14-09 é também o
           herói da /services, a pedido dela. Uma ressalva de arquivo está
           anotada no <Image> logo abaixo. */}
-      <section className="relative isolate flex min-h-[84svh] flex-col overflow-hidden bg-ink pt-[76px] text-white">
+      {/* `id` posto em 23-09 para o script do guia visual do editor saber
+          fotografar esta dobra (`scripts/edit-page-guide-shots.mjs`). Não é
+          âncora de navegação — o menu não aponta para cá. */}
+      <section id="about-hero" className="relative isolate flex min-h-[84svh] flex-col overflow-hidden bg-ink pt-[76px] text-white">
         {/* ✅ A RECOMPRESSÃO DO WHATSAPP SAIU EM 15-09. O que estava aqui era
             a `about-hero.jpeg`, 229 KB de JPEG que o WhatsApp já havia
             recomprimido: céu em blocos e os pontos da hélice empastados. O
@@ -940,7 +903,7 @@ export default async function AboutV2Page() {
               pula o que não encontra. */}
           <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
             <TypeLabel onDark className="h-eyebrow">
-              About
+              {copy.hero.label}
             </TypeLabel>
             {/* h1 — Geist 500 a 52px, entrelinha 1,1, como a grade pede.
                 Duas coisas mudaram além da família:
@@ -983,7 +946,7 @@ export default async function AboutV2Page() {
                 espacejamento encolhe a linha e trabalha contra a presença que a
                 comparação está pedindo. */}
             <h1 className="h-title font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
-              Keeping Leadership Real.
+              {copy.hero.title}
             </h1>
             {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
                 frase só com `max-width` deixando o navegador decidir: o pedido
@@ -1002,8 +965,15 @@ export default async function AboutV2Page() {
                 o device inteiro. Se a serifa só aparecesse lá embaixo no corpo,
                 o contraste chegaria tarde demais para ser lido como escolha. */}
             <p className="h-sub mt-5 max-w-[620px] text-[19px] leading-[1.4] text-white/75 md:text-[22px]">
-              <span className="md:block">Our purpose, our promise,</span>{" "}
-              <span className="md:block">what we believe, and where we work.</span>
+              {/* A lista de linhas vem da copy; o `{" "}` entre elas é o que
+                  mantém o texto correndo como um parágrafo no telefone, onde
+                  os spans não são `block`. */}
+              {copy.hero.subtitleLines.map((line, i) => (
+                <Fragment key={i}>
+                  {i > 0 && " "}
+                  <span className="md:block">{line}</span>
+                </Fragment>
+              ))}
             </p>
           </HeroIntro>
         </div>
@@ -1134,7 +1104,7 @@ export default async function AboutV2Page() {
 
             No telefone o `pb-10` continua igual, porque lá a lista não aparece e
             a faixa de números segue sendo o fim da dobra. */}
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-9">
+        <div id="about-stats" className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-9">
           {/* DUAS COLUNAS JÁ NO TELEFONE (pedido de 09-09: "duas linhas com 2
               quadrados menores, ao invés de cada quadrado ocupar a largura toda
               da tela"). Em 390px cada célula fica com 161px úteis — o `gap-x`
@@ -1146,7 +1116,7 @@ export default async function AboutV2Page() {
               empilhados não cabiam na dobra de jeito nenhum (a seção media
               1102px numa tela de 844px, e o quarto número ficava fora). */}
           <Reveal className="grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-x-10 sm:gap-y-10 xl:grid-cols-4">
-            {STATS.map((s, i) => (
+            {stats.map((s, i) => (
               <div
                 key={s.label}
                 /* A divisória mora no ITEM, não no container, porque precisa
@@ -1276,7 +1246,7 @@ export default async function AboutV2Page() {
             do arquivo, tem as três divergências conhecidas. */}
         <div className="mx-auto hidden w-full max-w-[1440px] px-6 pb-6 md:block md:px-10">
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px] font-semibold uppercase tracking-[2px] text-white/70">
-            {OFFICES.map((o, i) => (
+            {copy.offices.map((o, i) => (
               <span key={o.city} className="flex items-center gap-x-3">
                 {i > 0 && (
                   <span aria-hidden className="text-white/30">
@@ -1475,7 +1445,7 @@ export default async function AboutV2Page() {
                 de um painel translúcido sobre foto clara. Para isso o painel
                 teria de ser praticamente opaco, e aí não é mais vidro. */}
             <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
-              Why CorporateDNA exists.
+              {copy.purpose.label}
             </span>
             {/* h2 — Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
                 herói está em 52px, então a distância entre os dois níveis é de
@@ -1500,8 +1470,8 @@ export default async function AboutV2Page() {
                 anterior a 21-09 ("Our purpose is to keep leadership real.").
                 Sem a trava, "real." desce sozinho quando a linha quebra. */}
             <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              Our purpose is to keep{" "}
-              <span className="whitespace-nowrap">leadership real.</span>
+              {copy.purpose.title}{" "}
+              <span className="whitespace-nowrap">{copy.purpose.titleNowrap}</span>
             </h2>
           </div>
 
@@ -1516,36 +1486,34 @@ export default async function AboutV2Page() {
               <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
                 “
               </span>
-              <strong className="font-semibold">With roots in Big 4 Consulting</strong>, the
-              genesis of CorporateDNA is that a consultant’s obligation is to cut
-              through complexity, connect the threads and deliver the truth. We
-              want to take off language which hides real problems and bring
-              solutions and transformations that are true to the lived realities
-              of our clients. Accessing this truth and the powerful
-              transformation that it entails, depends on honesty, courage, and
-              authenticity.
+              {/* O NEGRITO DE ABERTURA vem marcado com `**…**` dentro do texto
+                  da copy e é convertido aqui. `dangerouslySetInnerHTML` com o
+                  escape feito ANTES da conversão (ver `inlineEmphasis`): o que
+                  a cliente escrever não vira marcação, só o `**` vira. */}
+              <span
+                /* `[&_strong]:font-semibold` porque o negrito agora é gerado, e
+                   não escrito no JSX: o `<strong>` que sai do `inlineEmphasis`
+                   não carrega classe, e o padrão do navegador é 700. O texto
+                   aqui sempre foi 600 — sem esta linha, a abertura da citação
+                   engrossaria um degrau sozinha. */
+                className="[&_strong]:font-semibold"
+                dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.purpose.quote) }}
+              />
               <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
                 ”
               </span>
             </p>
             <footer className="mt-5 text-[14px] font-medium tracking-[0.2px] text-white/60">
-              Rhea Leckie, Founder &amp; CEO
+              {copy.purpose.attribution}
             </footer>
           </blockquote>
 
           <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
 
           <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
-            <p>
-              That obligation shapes everything we do. We release the power,
-              humanity and honesty of leadership in all its parts: the values an
-              organisation holds, the culture they produce, the teams that carry
-              them, and what makes each individual leader stronger.
-            </p>
-            <p>
-              We anchor the work in the inner and outer games, so change is
-              inside out, complete, and rooted in truth and impact.
-            </p>
+            {copy.purpose.body.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
         </Reveal>
       </section>
@@ -1589,30 +1557,20 @@ export default async function AboutV2Page() {
           mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
-          <TypeLabel>What we promise.</TypeLabel>
+          <TypeLabel>{copy.promise.label}</TypeLabel>
           <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <p className="font-serif text-[28px] font-medium leading-[1.2] tracking-[-0.4px] text-ink md:text-[36px]">
-                To keep our craft real: honest with ourselves, true to our
-                clients.
+                {copy.promise.lead}
               </p>
               <p className="mt-8 font-serif text-[21px] font-medium leading-[1.35] tracking-[-0.3px] text-brand md:text-[25px]">
-                We invite you to experience the DNA Partnership.
+                {copy.promise.accent}
               </p>
             </div>
             <div className="space-y-5 text-[17px] leading-[1.7] text-muted lg:col-span-6 lg:col-start-7 md:text-[18px]">
-              <p>
-                We do not hide behind language to sound more intelligent. We do
-                not build layers that clients have to climb over to reach us. We
-                listen as much as we talk. We hold the space for our clients to
-                be their real, unedited selves, and meet us in true partnership.
-              </p>
-              <p>
-                Boldness lives in duality with humility. Our designs, ideas and
-                methods of challenging are bold enough to nudge traditional
-                comfort zones, and incubated through humility so the results are
-                sustainable. We are confident, but never arrogant.
-              </p>
+              {copy.promise.body.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </div>
         </Reveal>
@@ -1700,6 +1658,11 @@ export default async function AboutV2Page() {
             64/80px que as outras seções usam de respiro. Aqui não se quer uma
             separação de seção: o herói e a foto do time contam a mesma coisa em
             sequência, então o vão precisa dizer "respira" sem dizer "acabou". */}
+        {/* O `id` fica num wrapper porque o <Reveal> não recebe `id`. Ele
+            existe porque o editor mostra a citação e os quatro cartões em
+            telas separadas, cada uma com o seu print — num print só, na
+            coluna de 440px desta tela, não se lê nada. */}
+        <div id="identity-quote">
         <Reveal className="mx-auto max-w-[1440px] px-6 pt-12 md:px-10 md:pt-16">
           {/* A CITAÇÃO ENCAVALA A FOTO — referência de 09-09 (`ref
               testimonial.png`): foto de um lado, card do depoimento montado por
@@ -1782,7 +1745,7 @@ export default async function AboutV2Page() {
             </div>
 
             <div className="relative z-10 mx-4 -mt-8 bg-white px-7 py-9 shadow-[0_18px_50px_-14px_rgba(55,50,52,0.28)] sm:mx-10 lg:mx-0 lg:-ml-16 lg:mt-0 lg:px-12 lg:py-12">
-                <TypeLabel>Keeping Leadership Real</TypeLabel>
+                <TypeLabel>{copy.identity.label}</TypeLabel>
                 {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
                     em 08-09 contra a referência.
 
@@ -1822,41 +1785,32 @@ export default async function AboutV2Page() {
                       última linha, com `leading-[0]` para o glifo de 44px não
                       esticar o parágrafo. */}
                   <div className="space-y-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
-                    <p>
-                      When a client trusts us as a consulting firm, that trust starts
-                      from the very first interaction with the people who represent
-                      CorporateDNA and how we live our purpose in the moments that
-                      matter.
-                    </p>
-                    <p>
-                      How we listen. How we challenge. How we add value. How we navigate
-                      difficult decisions and conversations. And how we use our
-                      discernment to know when to lead, when to question and when to
-                      listen.
-                    </p>
-                    <p>
-                      For us, Keeping Leadership Real starts from the inside out. It
-                      shapes how we work with each other and how we show up with our
-                      clients, with honesty, care, candour and experience.
-                    </p>
-                    <p>
-                      Because before our clients experience our work, they experience
-                      our people. And our people bring our purpose to{" "}
-                      <span className="whitespace-nowrap">
-                        life.
-                        <span
-                          aria-hidden
-                          className="ml-1.5 inline-block translate-y-[0.36em] select-none font-serif text-[44px] leading-[0] text-brand"
-                        >
-                          ”
-                        </span>
-                      </span>
-                    </p>
+                    {copy.identity.quote.map((p, i) => {
+                      if (i < copy.identity.quote.length - 1) return <p key={i}>{p}</p>;
+                      /* A ASPA DE FECHAMENTO gruda na última palavra — ver
+                         `splitLastWord`, lá em cima. */
+                      const [head, last] = splitLastWord(p);
+                      return (
+                        <p key={i}>
+                          {head}
+                          <span className="whitespace-nowrap">
+                            {last}
+                            <span
+                              aria-hidden
+                              className="ml-1.5 inline-block translate-y-[0.36em] select-none font-serif text-[44px] leading-[0] text-brand"
+                            >
+                              ”
+                            </span>
+                          </span>
+                        </p>
+                      );
+                    })}
                   </div>
                 </blockquote>
             </div>
           </div>
         </Reveal>
+        </div>
 
         {/* Quatro pilares, largura cheia, como o outline descreve.
             `items-stretch` dá altura igual aos quatro.
@@ -1914,10 +1868,10 @@ export default async function AboutV2Page() {
             branco — que é a razão pela qual ele existiu aqui em 09-09. O card
             fica como está (branco, borda, sombra), porque é especificação
             escrita do cliente. */}
-        <div className="bg-paper">
+        <div id="identity-pillars" className="bg-paper">
           <Reveal className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {PILLARS.map((p) => (
+            {copy.identity.pillars.map((p) => (
               /* AS BLACK BOXES VOLTAM, agora como superfície (09-09).
                  A Rhea pediu de volta o device do site antigo, e ele já existe
                  aqui: as linhas da Solutions (`.sbox`, em globals.css) são a
@@ -2051,12 +2005,15 @@ export default async function AboutV2Page() {
               linhas curtas no meio de uma faixa de 1360px, e ali elas anunciam
               o bloco em vez de disputar eixo com ele. */}
           <div className="flex flex-col items-start text-left md:items-center md:text-center">
-            <TypeLabel>What we believe, and how we work.</TypeLabel>
-            <p className="max-w-[760px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
-              <strong className="font-semibold">Our values</strong> are deeply
-              human centric, and always in service of a client’s greatness. We do
-              not compromise on them, however complex the circumstances.
-            </p>
+            <TypeLabel>{copy.values.label}</TypeLabel>
+            {/* O negrito vem marcado com `**…**` na copy — mesma conversão do
+                bloco de propósito. */}
+            <p
+              /* `[&_strong]:font-semibold` pelo mesmo motivo do bloco de
+                 propósito — ver a caixa lá. */
+              className="max-w-[760px] text-[20px] leading-[1.4] text-ink [&_strong]:font-semibold md:text-[22px]"
+              dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.values.intro) }}
+            />
           </div>
 
           {/* ⏸️ O QUE ESTEVE AQUI ENTRE 09-09 E 14-09, porque a decisão vai e
@@ -2138,10 +2095,10 @@ export default async function AboutV2Page() {
               cima — a mesma escada dos tiles de região, que é a outra grade de
               cinco desta página. */}
           <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-            {VALUES.map((v) => (
+            {copy.values.items.map((v, i) => (
               <div key={v.name} className="border-t-2 border-brand pt-5">
                 <span className="block text-brand">
-                  <ValueIcon name={v.icon} />
+                  <ValueIcon name={VALUE_ICONS[i] ?? ""} />
                 </span>
                 <h3 className="font-serif mt-4 text-[20px] font-medium leading-[1.2] text-ink">
                   {v.name}
@@ -2200,7 +2157,7 @@ export default async function AboutV2Page() {
             o espaçamento final tem de ser padding do container, nunca margem do
             último filho. */}
         <Reveal className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-20">
-          <TypeLabel>Where we work.</TypeLabel>
+          <TypeLabel>{copy.regions.label}</TypeLabel>
 
           {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA — item 3 da call de 14-09.
               Antes o parágrafo ficava sozinho numa linha e o mapa entrava
@@ -2244,8 +2201,7 @@ export default async function AboutV2Page() {
                 60+ é, aliás, de número EXATO para PISO — ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
             <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
-              With headquarters in London, Singapore, Dubai, Riyadh and Miami,
-              and a faculty of 60+ senior practitioners, we deliver globally.
+              {copy.regions.intro}
             </p>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
@@ -2264,7 +2220,8 @@ export default async function AboutV2Page() {
           e-mail cabe inteiro em 14px como o telefone ao lado, e o layout passa a
           ser o que o texto do outline pede. As cinco regiões abaixo continuam em
           cinco, porque lá o texto é curto e cabe. */}
-      <section className="bg-paper">
+      {/* `id` para o script do guia visual — ver a caixa do `identity-quote`. */}
+      <section id="region-tiles" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
               ORDEM, 09-09: as regiões passaram a vir LOGO ABAIXO DO MAPA, e os
@@ -2317,20 +2274,22 @@ export default async function AboutV2Page() {
               de Team ("tiles matching the About page regions"), e o `lib/team.ts`
               tem a metade de lá. */}
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {REGIONS.map((r) => (
+            {copy.regions.items.map((r, ri) => (
               <div key={r.name}>
                 {/* 23-09: as fotos de cidade voltam para cima do texto. São as
                     mesmas de `public/team/mock` que ilustravam estas regiões
                     (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
-                <div className="relative mb-5 aspect-[3/2] overflow-hidden">
-                  <Image
-                    src={r.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
-                    className="object-cover object-center"
-                  />
-                </div>
+                {REGION_IMAGES[ri] ? (
+                  <div className="relative mb-5 aspect-[3/2] overflow-hidden">
+                    <Image
+                      src={REGION_IMAGES[ri]}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                ) : null}
                 <div className="border-t-2 border-brand pt-5">
                 {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
                     tratamento do rótulo vermelho, aplicado a um TÍTULO, e
@@ -2343,8 +2302,8 @@ export default async function AboutV2Page() {
                   {r.name}
                 </h3>
                 <div className="mt-5 space-y-8">
-                  {r.cities.map((city) => {
-                    const office = OFFICES.find((o) => o.city === city);
+                  {regionCities(r.offices).map((city) => {
+                    const office = copy.offices.find((o) => o.city === city);
                     if (!office) return null;
                     return (
                       <div key={city}>
@@ -2422,13 +2381,12 @@ export default async function AboutV2Page() {
           hierarquia — este é o caminho lateral, aquele é o convite. */}
       <section id="people" className="bg-ink text-white">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
-          <TypeLabel onDark>The people behind it</TypeLabel>
+          <TypeLabel onDark>{copy.people.label}</TypeLabel>
           <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
-            Identity is what the team does under pressure.
+            {copy.people.title}
           </h2>
           <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-white/70">
-            Our leadership, our global faculty and the regions we deliver from
-            now have an area of their own.
+            {copy.people.body}
           </p>
           {/* O MESMO BOTÃO DA HOME, desde 10-09 — mesmo componente, mesmas
               cores, mesma animação (o bloco vermelho claro varrendo da seta para
@@ -2445,7 +2403,7 @@ export default async function AboutV2Page() {
               O rótulo passa a ser caixa alta, porque é o tratamento do
               componente. Se "Meet the team" tiver de voltar a ser em caixa
               mista, é uma prop de tipografia, não um botão diferente. */}
-          <HoverFillButton label="Meet the team" href="/team" className="mt-8" />
+          <HoverFillButton label={copy.people.cta} href="/team" className="mt-8" />
         </Reveal>
       </section>
 

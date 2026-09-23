@@ -8,7 +8,11 @@ import PartnersStrip from "@/components/PartnersStrip";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { services } from "@/lib/services";
+import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
+import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
+/* 23-09 (main): a foto da Rhea — golfe, tênis e futebol — substituiu o skyline
+   que a /about e a /services dividiam. Só nesta página; a padrão
+   `service-hero-fallback.jpg` segue nas outras rotas do SolutionHero. */
 import heroPhoto from "@/public/hero/hero-services.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -42,25 +46,42 @@ export async function generateMetadata(): Promise<Metadata> {
  * a última fileira com um par, não com um órfão. O que se paga é a medida: ver
  * a caixa na própria grade.
  */
-export default function SolutionsPage() {
+/* ⚠️ VIROU `async` EM 23-09: as duas leituras abaixo vão ao Vercel Blob. A
+   copy desta página vem de `/edit-services`, e a dos dez cards vem da tela
+   de cada serviço — o nome e o sub-título do card são os mesmos que abrem a
+   página interna, e editá-los em dois lugares daria duas fontes para o mesmo
+   texto. Ver `lib/service-pages-copy.ts`. */
+export default async function SolutionsPage() {
+  const [copy, services] = await Promise.all([
+    getServicesIndexCopy(),
+    getServicesWithCopy(),
+  ]);
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         {/* Foto da Rhea, 23-09 (1600×600): golfe, tênis e futebol. Só nesta
             página. A padrão `service-hero-fallback.jpg` continua nas outras
             rotas do SolutionHero. `object-center` porque o texto fica no
-            lavado da esquerda e o arquivo é bem mais largo que a dobra. */}
+            lavado da esquerda e o arquivo é bem mais largo que a dobra.
+
+            O SKYLINE QUE ESTAVA AQUI — o mesmo da /about, pedido na daily de
+            14-09 — saiu com esta troca. O arquivo continua em
+            `public/skyline-dna.jpg`, servindo a /about. */}
+        {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
+            script do guia visual do editor precisa de um alvo. */}
+        <div id="services-hero">
         <SolutionHero
-          eyebrow="Our Services"
-          title="Real impact for individuals, leaders, teams and organisations."
-          subtitle="Ten ways in. Everyone starts with what is at stake for the business."
+          eyebrow={copy.hero.eyebrow}
+          title={copy.hero.title}
+          subtitle={copy.hero.subtitle}
           imageUrl={heroPhoto}
           imagePosition="object-center"
         />
+        </div>
 
         <section id="what-we-do" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel>What we do</TypeLabel>
+            <TypeLabel>{copy.whatWeDo.label}</TypeLabel>
             {/* O `Reveal` ESCALONA OS DEZ CARDS, um atrás do outro, porque eles
                 são filhos diretos dele — é para isso que o `stagger` do
                 componente existe. Numa grade de dez, a entrada em cascata é o
@@ -166,7 +187,7 @@ export default function SolutionsPage() {
             A VIZINHANÇA CONTINUA COM DIVISA: acima é o `bg-paper` da grade de
             serviços, abaixo é o `SolutionCta` em `bg-brand` (vermelho), então o
             `ink` não encosta em outra faixa do mesmo tom. */}
-        <section className="bg-ink text-white">
+        <section id="partners" className="bg-ink text-white">
           {/* ⚠️ ESTE BLOCO MUDOU DE ARRANJO DUAS VEZES EM 17-09, e o registro das
               duas fica porque a segunda só se entende contra a primeira:
 
@@ -196,9 +217,9 @@ export default function SolutionsPage() {
               degrau visível no pé da direita. */}
           <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:gap-16 md:px-10 md:py-24">
             <div>
-              <TypeLabel onDark>Partners</TypeLabel>
+              <TypeLabel onDark>{copy.partners.label}</TypeLabel>
               <h2 className="font-serif mt-5 text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-white md:text-[34px]">
-                The work is ours. The partners are chosen.
+                {copy.partners.title}
               </h2>
 
               {/* ⏳ O TEXTO É O ANTIGO, E NOMEIA SÓ DOIS DOS CINCO. Ele fala de
@@ -210,17 +231,9 @@ export default function SolutionsPage() {
                   por conta própria seria inventar a natureza de três parcerias
                   reais. */}
               <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.7] text-white/80 md:text-[18px]">
-                <p>
-                  Most work is designed and delivered by our own faculty. Where a bespoke
-                  programme calls for more, we bring partners in by design rather than by
-                  default.
-                </p>
-                <p>
-                  Harvard Business Impact for faculty research and a digital delivery spine
-                  that scales. Imperial College London for applied innovation and customised
-                  executive education. Each joins where the programme needs what they bring,
-                  and not otherwise.
-                </p>
+                {copy.partners.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
             </div>
 
@@ -261,7 +274,19 @@ export default function SolutionsPage() {
             pelo cliente são POR SERVIÇO; o índice não é um serviço, e escrever
             uma strapline para ele seria copy nossa numa página onde todo o
             resto é dele. */}
-        <SolutionCta />
+        {/* ⚠️ ERA `<SolutionCta />` SEM PROP NENHUMA, caindo nos padrões do
+            componente — a caixa acima explica por quê. Desde 23-09 as três
+            partes vêm da copy, e os PADRÕES DELA são exatamente os do
+            componente, transcritos em `lib/services-index-copy.ts`: enquanto
+            a cliente não editar, esta faixa publica o mesmo que publicava.
+            `line` vazio continua não desenhando o parágrafo. */}
+        <div id="services-cta">
+        <SolutionCta
+          strapline={copy.cta.strapline}
+          line={copy.cta.line || undefined}
+          ctaLabel={copy.cta.ctaLabel}
+        />
+        </div>
       </SiteShell>
     </div>
   );

@@ -6,7 +6,8 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { serviceLd, breadcrumbLd } from "@/lib/seo/jsonld";
 import JsonLd from "@/components/JsonLd";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { getService, services } from "@/lib/services";
+import { services } from "@/lib/services";
+import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
 
 /**
  * Página de serviço — "one template, ten instances" (outline de 09-09, §3.2).
@@ -31,7 +32,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getService(slug);
+  /* ⚠️ A METADATA TAMBÉM LÊ A COPY EDITADA. Sem isto, a cliente trocaria o nome
+     do serviço na página e a aba do navegador, o `og:title` e o snippet do
+     Google continuariam com o nome velho. */
+  const service = (await getServicesWithCopy()).find((x) => x.slug === slug);
   const title = service ? `${service.title} | CorporateDNA` : "Solution | CorporateDNA";
   return {
     title,
@@ -47,7 +51,11 @@ export default async function SolutionDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getService(slug);
+  /* A LISTA INTEIRA, e não só este serviço: o rodapé "Related services" desenha
+     o card de quatro dos outros nove, e eles também leem a copy editada. Uma
+     leitura só do Blob serve os dois. */
+  const all = await getServicesWithCopy();
+  const service = all.find((x) => x.slug === slug);
   if (!service) notFound();
 
   const jsonLd = [
@@ -73,7 +81,7 @@ export default async function SolutionDetailPage({
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <JsonLd data={jsonLd} />
-        <SolutionView service={service} />
+        <SolutionView service={service} all={all} />
       </SiteShell>
     </div>
   );

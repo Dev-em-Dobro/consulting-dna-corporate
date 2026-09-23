@@ -1,5 +1,7 @@
 "use client";
 
+import { DEFAULT_HOME_COPY, type HomeCopy } from "@/lib/home-copy";
+
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -276,7 +278,17 @@ const HERO_TINT = {
  * pela HeroV3 —, então nada disso precisa ser reescrito, só religado.
  */
 
-export default function HeroV2() {
+/** A última quebra do título é decidida à mão: o `&nbsp;` que segurava
+ *  "Leadership Real" junto agora é aplicado ao último espaço do que a cliente
+ *  escrever, para a headline editada quebrar do mesmo jeito. */
+const nbspLast = (s: string) => s.replace(/ (\S+)$/, "\u00a0$1");
+
+/**
+ * `copy` — os quatro textos do herói, editáveis em `/edit-home` desde 23-09.
+ * Opcional, com o padrão do módulo, para a /home-v3 (que também monta este
+ * herói) continuar funcionando sem passar nada.
+ */
+export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeCopy["hero"] }) {
   const scope = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -609,7 +621,7 @@ export default function HeroV2() {
               lá a quebra é livre e equilibrada pelo navegador, aqui ela é
               decidida à mão, e as duas coisas brigariam. */}
           <h1 className="h-title mb-7 text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white sm:text-[44px] md:text-[52px]">
-            Keeping Leadership&nbsp;Real<span className="text-brand">.</span>
+            {nbspLast(copy.title)}<span className="text-brand">.</span>
           </h1>
           {/* Serifa no corpo — o par tipográfico do item 2.1 da leitura da
               referência. A família vem da página (--font-serif-v2), não daqui,
@@ -627,9 +639,7 @@ export default function HeroV2() {
             className="h-sub mb-9 max-w-[620px] text-[19px] leading-[1.65] text-white md:text-[21px]"
             style={{ fontFamily: "var(--font-serif-v2)" }}
           >
-            We help CEOs, CHROs &amp; CLOs build real leadership when the stakes
-            are high, through real conversations, real choices and real
-            decisions that deliver in the moments that matter.
+            {copy.subtitle}
           </p>
           {/* BOTÕES — medido, também em 1440px:
 
@@ -657,7 +667,7 @@ export default function HeroV2() {
               href="#contact"
               className="h-cta bg-brand px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-dark"
             >
-              Discuss a leadership challenge
+              {copy.primaryCta}
             </a>
             {/* Segundo CTA, como na referência ("Explore Our Work" ao lado do
                 principal).
@@ -682,7 +692,7 @@ export default function HeroV2() {
               href="/our-clients"
               className="h-cta border border-white/40 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
             >
-              See the work
+              {copy.secondaryCta}
             </a>
           </div>
           {/* A assinatura "Making Leadership Real. Results, Not Promises." saiu

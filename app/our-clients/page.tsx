@@ -13,7 +13,8 @@ import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
-import { getSiteStats, FIRM_STATS } from "@/lib/stats";
+import { getSiteStats, getFirmStats } from "@/lib/stats";
+import { getClientsCopy } from "@/lib/clients-copy-server";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
 /* 23-09: a Rhea mandou o paredão de logos (`clients-impact.jpeg`). O título
    que vinha gravado na arte saiu, porque o herói já escreve o h1 por cima.
@@ -82,9 +83,10 @@ const VOICE_COUNT = 3;
  *     clients", "90% recommend us", "10+ years"; nenhum desses passou por
  *     aprovação e três contradizem o que o site publica hoje (`lib/stats.ts`, e
  *     a nota lá sobre a lista de aprovação de 06-08 que segue aberta). A faixa
- *     usava os números do CMS; DESDE 18-09 usa os quatro da About
- *     (`FIRM_STATS`, em `lib/stats.ts`), a pedido da daily — a caixa da seção
- *     conta. Trocar por outros continua sendo decisão da CDNA, não nossa.
+ *     usava os números do CMS; DESDE 18-09 usa os quatro da About, a pedido
+ *     da daily, e desde 23-09 eles vêm da copy que a cliente edita em
+ *     `/edit-about` (`getFirmStats()`) — a caixa da seção conta. Trocar por
+ *     outros continua sendo decisão da CDNA, não nossa.
  *
  *   • OS DEPOIMENTOS SÃO DOS CASES, com nome e cargo reais. Os três do mockup
  *     ("VP, Retail Banking, UK") são genéricos e sem fonte. Ela ficou de mandar
@@ -97,7 +99,15 @@ const VOICE_COUNT = 3;
  * abaixo degrada sozinho quando o dado não está lá; nenhum deles quebra.
  */
 export default async function ClientsAndImpactPage() {
-  const [cases, stats] = await Promise.all([getCaseListEntries(), getSiteStats()]);
+  /* `copy` vem de `/edit-clients`; `firmStats` vem de `/edit-about`, porque
+     os quatro números desta página são os mesmos da faixa de lá desde 18-09
+     — ver `lib/clients-copy.ts`. */
+  const [cases, stats, firmStats, copy] = await Promise.all([
+    getCaseListEntries(),
+    getSiteStats(),
+    getFirmStats(),
+    getClientsCopy(),
+  ]);
 
   /* UM CARD POR CLIENTE. A Frasers Property tem DOIS cases publicados — Top 150
      Leadership Development e HRLT Effectiveness —, e são trabalhos diferentes,
@@ -163,22 +173,34 @@ export default async function ClientsAndImpactPage() {
 
      ⚠️ ESTA É A ÚNICA RAZÃO DE `getSiteStats()` AINDA SER CHAMADO NESTA PÁGINA:
      a faixa "By the numbers" passou a usar `FIRM_STATS` em 18-09. */
+  /* ⚠️ OS VALORES CONTINUAM CALCULADOS e só os RÓTULOS são editáveis: dois
+     dos três são contagens (quantos logos, quantos cases o CMS publicou) e o
+     primeiro vem do CMS. O `find` por "Regions" é o mesmo de antes — a caixa
+     acima conta por que ele procura essa palavra.
+
+     ⚠️ O `find` CONTINUA CASANDO PELO RÓTULO DE `lib/stats.ts`, e NÃO por
+     este daqui: aquele é o rótulo do CMS, este é o que esta página escreve.
+     Trocar "Regions" no editor não pode desligar a busca. */
   const footprint = [
-    { value: stats.find((s) => s.label.includes("Regions"))?.value ?? "5", label: "Regions" },
-    { value: `${clientLogos.length}`, label: "Clients" },
-    { value: `${cases.length}`, label: "Published case studies" },
+    { value: stats.find((s) => s.label.includes("Regions"))?.value ?? "5", label: copy.footprint.statLabels[0] },
+    { value: `${clientLogos.length}`, label: copy.footprint.statLabels[1] },
+    { value: `${cases.length}`, label: copy.footprint.statLabels[2] },
   ];
 
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
+        {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
+            script do guia visual do editor precisa de um alvo. */}
+        <div id="clients-hero">
         <SolutionHero
-          eyebrow="Clients & Impact"
-          title="Leadership change, measured where it matters."
-          subtitle="From energy and pharma to luxury and financial services, advisory delivered where the stakes are highest."
+          eyebrow={copy.hero.eyebrow}
+          title={copy.hero.title}
+          subtitle={copy.hero.subtitle}
           imageUrl={clientsHero}
           imagePosition="object-[62%_center]"
         />
+        </div>
 
         {/* ── Esteira de logos ──────────────────────────────────────────────
             ⚠️ ERA O PAREDÃO PARADO ATÉ 17-09 — *"na seção 'Trusted by global
@@ -207,7 +229,7 @@ export default async function ClientsAndImpactPage() {
                 industries`, a contagem do paredão à direita do rótulo. O
                 `clientLogos` continua importado porque o `footprint`, no topo
                 deste arquivo, ainda conta os clientes por ele. */}
-            <SectionHead label="Trusted by global organisations" />
+            <SectionHead label={copy.logos.label} />
             <div className="flex flex-col gap-4">
               <LogoMarquee
                 logos={clientLogoRows[0]}
@@ -239,18 +261,23 @@ export default async function ClientsAndImpactPage() {
             claros, como o herói. */}
         <section id="numbers" className="bg-ink text-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead onDark label="By the numbers" kicker="Real change, a broader reach." />
+            <SectionHead onDark label={copy.numbers.label} kicker={copy.numbers.kicker} />
 
             {/* ⚠️ OS NÚMEROS SÃO OS DA ABOUT DESDE 18-09 — pedido da daily: a
                 fileira passa a publicar os quatro da faixa da About (19 years /
                 5 regions / 10,000+ / 5 of the top 10) no lugar dos quatro do
-                CMS (`getSiteStats()`: 90% sponsored / 19 / 5 / 60+). A lista é
-                `FIRM_STATS`, em `lib/stats.ts`, importada pelas duas páginas —
-                a caixa de lá conta por que ela saiu de dentro da About. O
-                `getSiteStats()` continua sendo chamado aqui, mas só para o
-                `footprint` ao lado do mapa. O ícone que a About desenha ao lado
-                de cada número NÃO entra: esta fileira nunca teve ícone, e o
-                pedido foi de números, não de composição.
+                CMS (`getSiteStats()`: 90% sponsored / 19 / 5 / 60+).
+
+                ⚠️ A FONTE MUDOU DE NOVO EM 23-09, e agora ela é EDITÁVEL: os
+                quatro entraram no editor `/edit-about`, então o texto vem da
+                copy da About (padrão em `lib/about-copy.ts`, salvo no Blob) e
+                chega aqui por `getFirmStats()`. O que a cliente salvar lá muda
+                esta fileira junto — que é o ponto, e é por isso que a rota
+                `/api/about-copy` revalida as DUAS páginas. O `getSiteStats()`
+                continua sendo chamado aqui, mas só para o `footprint` ao lado
+                do mapa. O ícone que a About desenha ao lado de cada número NÃO
+                entra: esta fileira nunca teve ícone, e o pedido foi de números,
+                não de composição.
 
                 A nota "OS NÚMEROS SÃO OS NOSSOS" no cabeçalho deste arquivo
                 continua verdadeira no que importa — os do mockup ("6,300+",
@@ -278,12 +305,12 @@ export default async function ClientsAndImpactPage() {
                 `TypeLabel` — régua e palavra —, só que empilhado em vez de lado
                 a lado, porque aqui ele rotula uma FILEIRA e não uma seção. */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[150px_1fr] lg:gap-10">
-              <RowLabel onDark>Our scale</RowLabel>
+              <RowLabel onDark>{copy.numbers.rowLabel}</RowLabel>
               {/* `divide-x` com borda só entre as células é o que o desenho faz
                   — as barras verticais separando os números sem caixa ao redor
                   de cada um. */}
               <Reveal className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 sm:divide-x sm:divide-white/15">
-                {FIRM_STATS.map((s) => (
+                {firmStats.map((s) => (
                   <div key={s.label} className="px-2 text-center sm:px-5">
                     {/* "5 of the top 10" é uma FRASE onde os outros três são
                         um número curto, e no mesmo corpo ela quebrava em duas
@@ -292,8 +319,11 @@ export default async function ClientsAndImpactPage() {
                         5 of the top 10"*) o valor longo (>10 caracteres) desce
                         um degrau: 28/34px contra 34/42. O limiar é por
                         comprimento e não por índice para não depender da
-                        ordem em `FIRM_STATS`; "5 regions" (9) e "19 years" (8)
-                        ficam no corpo cheio. Só aqui — a About tem a própria
+                        ordem da lista; "5 regions" (9) e "19 years" (8)
+                        ficam no corpo cheio. Com os valores editáveis desde
+                        23-09, depender do comprimento é ainda mais certo:
+                        qualquer número que ela escreva encontra o degrau
+                        sozinho. Só aqui — a About tem a própria
                         composição, com ícones, e não foi pedida. */}
                     <p
                       className={`font-semibold leading-none tracking-[-1.5px] text-white ${
@@ -354,7 +384,7 @@ export default async function ClientsAndImpactPage() {
         {/* ── Case studies ─────────────────────────────────────────────── */}
         <section id="case-studies" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label="Case studies" kicker="Real stories. Lasting change." />
+            <SectionHead label={copy.cases.label} kicker={copy.cases.kicker} />
 
             {/* ⚠️ ERA UMA GRADE DE CARTÕES COM FOTO até 17-09 — *"mudar o
                 estilo da seção 'case studies' deixar cada case em uma linha com
@@ -376,7 +406,7 @@ export default async function ClientsAndImpactPage() {
                 que de reescrever. Quando as capas chegarem, a conversa sobre
                 cartão × linha volta com dado melhor do que tem hoje. */}
             {tiles.length === 0 ? (
-              <EmptyNotice>No case studies published yet.</EmptyNotice>
+              <EmptyNotice>{copy.cases.empty}</EmptyNotice>
             ) : (
               /* ⚠️ O `-mx` SAIU EM 17-09, junto com o realce de `hover` da
                  linha. Ele existia para a tarja transbordar a margem do conteúdo
@@ -431,10 +461,7 @@ export default async function ClientsAndImpactPage() {
         {voices.length > 0 && (
           <section id="voices" className="bg-paper">
             <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-              <SectionHead
-                label="What our clients say"
-                kicker="Real partnerships. Lasting perspectives."
-              />
+              <SectionHead label={copy.voices.label} kicker={copy.voices.kicker} />
               <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-3">
                 {voices.map((c) => (
                   <figure
@@ -508,7 +535,7 @@ export default async function ClientsAndImpactPage() {
                   única seção da página cujo título é o próprio texto grande, em
                   vez de um rótulo acima de um parágrafo. */}
               <h2 className="font-serif text-[19px] uppercase leading-[1.35] tracking-[2px] text-white sm:text-[22px]">
-                A force for good, beyond the boardroom.
+                {copy.social.title}
               </h2>
               {/* A COPY É A DA /our-impact, palavra por palavra. Ela já está no
                   ar e já passou pela cliente; o desenho traz uma versão mais
@@ -516,12 +543,7 @@ export default async function ClientsAndImpactPage() {
                   documento nenhum. Se ela quiser a do mockup, é pedido de copy.
                   `max-w` em ch para a linha não atravessar a faixa inteira. */}
               <p className="mt-5 max-w-[78ch] text-[15px] leading-[1.7] text-white/70 md:text-[16px]">
-                CorporateDNA is committed to being a force for good in the
-                world. Our mission is to make transformative impact through
-                humanity, honesty, and purpose. In acting on our deeply held
-                values of social awareness, sustainability, and boldness, we
-                have partnered with TERRAGRN, an organisation dedicated to
-                sustainable community-led agroforestry.
+                {copy.social.body}
               </p>
             </div>
             {/* `shrink-0` para o botão não ser espremido pelo parágrafo quando
@@ -531,7 +553,7 @@ export default async function ClientsAndImpactPage() {
               href="/our-impact#social-impact"
               className="inline-flex shrink-0 items-center gap-3 self-start border border-white px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[1.5px] text-white transition-colors hover:bg-white hover:text-ink md:self-auto"
             >
-              Learn more
+              {copy.social.ctaLabel}
               <span aria-hidden>→</span>
             </Link>
           </div>
@@ -551,10 +573,7 @@ export default async function ClientsAndImpactPage() {
             SVG cru para a grade daqui posicionar. */}
         <section id="footprint" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead
-              label="Global footprint"
-              kicker="Where our clients create change."
-            />
+            <SectionHead label={copy.footprint.label} kicker={copy.footprint.kicker} />
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_260px] lg:items-center lg:gap-16">
               <WorldCoverageMap eyebrow={null} title={null} tone="white" bare />
               {/* OS NÚMEROS REPETEM os da faixa de cima de propósito: é o mesmo
@@ -590,11 +609,13 @@ export default async function ClientsAndImpactPage() {
           </div>
         </section>
 
+        <div id="clients-cta">
         <SolutionCta
-          strapline="Let’s create real change, together."
-          line="Speak to our team about how we can support your organisation."
-          ctaLabel="Get in touch"
+          strapline={copy.cta.strapline}
+          line={copy.cta.line || undefined}
+          ctaLabel={copy.cta.ctaLabel}
         />
+        </div>
       </SiteShell>
     </div>
   );

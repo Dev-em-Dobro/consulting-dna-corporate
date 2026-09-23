@@ -8,7 +8,31 @@ import { SITE_URL } from "@/lib/site";
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/v1", "/preview/"] }],
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        // As telas de edição de texto (23-09) entram aqui pelo mesmo motivo de
+        // `/preview/`: são rotas de trabalho, `noindex` e fora do sitemap. Isso
+        // é higiene, não proteção — elas não têm login.
+        //
+        // `/edit` sozinho já bastaria: a regra do robots.txt casa por PREFIXO,
+        // então ela cobre todas as `/edit-*`, inclusive as dez telas em
+        // `/edit-services/<serviço>`. As outras ficam escritas mesmo assim,
+        // para quem lê o arquivo ver o que existe.
+        disallow: [
+          "/v1",
+          "/preview/",
+          "/edit",
+          "/edit-home",
+          "/edit-about",
+          "/edit-team",
+          "/edit-services",
+          "/edit-clients",
+          "/api/",
+        ],
+      },
+    ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };

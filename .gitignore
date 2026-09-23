@@ -97,3 +97,6 @@ docs/meetings/CDNA*Photographs*
 # material de entrega por cofre/Task Manager, nunca por repositório — mesmo
 # privado, mesmo com histórico limpo.
 docs/acessos-*.md
+
+# O que a cliente salva em /edit-home quando nao ha Vercel Blob (dev local).
+.data/

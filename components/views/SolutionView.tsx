@@ -94,7 +94,20 @@ import { headlineOr, paragraphs, services, type Service } from "@/lib/services";
  * ele; o de 09-09 não tem esse bloco — o herói passou a carregar a "banner
  * statement", e é ela que ocupa aquele lugar.
  */
-export default function SolutionView({ service }: { service: Service }) {
+export default function SolutionView({
+  service,
+  all = services,
+}: {
+  service: Service;
+  /**
+   * Os dez serviços com a copy editada aplicada, para o "Related services".
+   *
+   * PADRÃO É A CONSTANTE, e não um `await` aqui dentro, porque este componente
+   * também roda na rota de PREVIEW do CMS (`/preview/[type]/[id]`), que monta um
+   * `Service` a partir de um rascunho e não tem copy salva a aplicar.
+   */
+  all?: Service[];
+}) {
   return (
     <>
       <SolutionHero
@@ -420,7 +433,7 @@ export default function SolutionView({ service }: { service: Service }) {
             Related services
           </p>
           <Reveal className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {services
+            {all
               .filter((s) => s.slug !== service.slug)
               .slice(0, 4)
               .map((s) => (
