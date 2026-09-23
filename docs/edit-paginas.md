@@ -20,7 +20,7 @@ mora num trio de arquivos por página.
 | --- | --- | --- |
 | Formato do campo + caminhos | `lib/page-copy/fields.ts` | `EditorField`/`EditorSection`, `getAtPath`, `setAtPath`, e a conversão texto do controle ↔ valor no objeto. |
 | Mescla | `lib/page-copy/merge.ts` | `mergeCopy(padrões, schema, salvo)`: salvo por cima do padrão; string vazia volta ao padrão; lista substitui a lista; inválido volta o padrão inteiro. |
-| Armazenamento | `lib/page-copy/store.ts` | `createCopyStore({ key })` — **um arquivo novo por versão** (`<key>-copy/<timestamp>.json`) no **Vercel Blob** (loja `cdna-home-copy`), lendo a mais nova via `list()`; guarda as últimas 20. Sem `BLOB_READ_WRITE_TOKEN`, em `.data/<key>-copy.json` (gitignored). |
+| Armazenamento | `lib/page-copy/store.ts` | `createCopyStore({ key })` — **um arquivo novo por versão** (`<key>-copy/<timestamp>.json`) no **Vercel Blob** (loja `cdna-home-copy`), lendo a mais nova via `list()`; guarda as últimas 20. A leitura é **cacheada por tag** (ver abaixo). Sem `BLOB_READ_WRITE_TOKEN`, em `.data/<key>-copy.json` (gitignored). |
 | API | `lib/page-copy/route.ts` | Fábrica do `GET`/`POST`: `GET` devolve a copy em vigor, `POST` valida, grava e revalida os caminhos passados. |
 | Ênfase `**…**` | `lib/page-copy/text.ts` | `inlineEmphasis()` — escapa o HTML e só então converte para `<strong>`. O mesmo miolo do `paragraphs()` de `lib/services.ts`. |
 | Tela | `components/copy-editor/CopyEditor.tsx` | Seções na ordem da página, campos com "Restore original", barra fixa com Save, Ctrl/Cmd+S, aviso ao fechar com mudança pendente, botão `← All pages`. Recebe `sections`, `defaults`, `apiPath`, `siteHref`, `title` e, opcionalmente, `guideDir` e `note` por prop. **Sem `guideDir` a coluna do print some** e os campos ocupam a largura toda — é o que as dez telas de serviço usam. |
@@ -40,6 +40,44 @@ Testes: `tests/home-copy.test.ts`, `tests/about-copy.test.ts`,
 ver a nota no `tsconfig.json`. Por isso `lib/about-copy.ts` não importa nada além
 de um tipo, e `lib/team-copy.ts` só importa `./team.ts` (que, por sorte e por
 conferência, não tem import nenhum).
+
+---
+
+## ⚠️ A leitura do Blob é cacheada, e tem de continuar sendo
+
+O `list()` que descobre qual é a versão mais nova é uma **operação avançada** do
+Vercel Blob — a classe cara, de cota apertada. Na primeira versão ele acontecia
+a CADA RENDER, então o custo era proporcional ao tráfego, e não ao número de
+edições. Uma tarde de desenvolvimento (seis builds, os prints do guia, os testes
+de fumaça) consumiu **1,6 mil das 2 mil operações do mês**, sem um visitante.
+
+O conserto, em `lib/page-copy/store.ts`:
+
+1. **`unstable_cache` com tag.** A leitura vai para o Data Cache do Next. Quem
+   invalida é o `POST` da rota, por `revalidateTag`, no instante em que a
+   cliente salva. O custo passa a ser proporcional às EDIÇÕES.
+2. **`cache()` do React**, que junta os vários `read()` do mesmo render — a
+   `/our-clients` lê duas lojas, e a interna de serviço lia a mesma duas vezes.
+3. **`force-cache` na busca da versão**, em vez de `no-store`: o nome do arquivo
+   carrega um timestamp, então cada versão tem URL própria e nunca esteve em
+   cache antes.
+
+Medido depois: **45 requisições a 9 páginas = zero `list()`**; um build inteiro
+= 14 (limitado pelos processos paralelos do build, não pelo número de rotas).
+
+✅ **Isso também consertou o prerender.** O `no-store` fazia a leitura estourar
+no `next build`, o erro era engolido e a página saía com o padrão — ou seja,
+depois de todo deploy o site publicava o texto de código até o ISR regenerar.
+Agora o HTML já sai do build com o que a cliente salvou.
+
+⚠️ **Quem mexer no `store.ts` tem de manter as três camadas.** Tirar o cache
+devolve o custo por tráfego; tirar o `revalidateTag` da rota faz a cliente salvar
+e não ver nada mudar por até uma hora.
+
+⏳ Se um dia precisar de mais, o primitivo certo para "config pequena, lida a
+todo request" é o **Edge Config**, cuja leitura não é cobrada por operação: são
+~33 KB de copy contra um teto de 512 KB. Não foi feito porque o cache resolve
+sem migração e sem token novo.
 
 ---
 
