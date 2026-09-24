@@ -91,15 +91,16 @@ export default function SolutionProof({ proof }: { proof?: ServiceProof }) {
                     fundo `paper`, aqui ele está sobre `ink` e um círculo cheio
                     viraria uma mancha.
 
-                    `shrink-0` porque ele é medida fixa ao lado de um texto que
-                    quebra: sem isso o flex o comprime no cartão mais estreito. */}
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/35 md:h-14 md:w-14">
+                    64/80px (era 48/56) a pedido: os três glifos liam pequenos
+                    demais ao lado do título. `shrink-0` porque ele é medida
+                    fixa ao lado de um texto que quebra. */}
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-white/35 md:h-20 md:w-20">
                   {Icon ? (
                     <Icon
                       aria-hidden
-                      size={24}
+                      size={32}
                       strokeWidth={1.5}
-                      className="text-white"
+                      className="text-white md:size-10"
                     />
                   ) : null}
                 </span>

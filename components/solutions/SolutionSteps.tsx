@@ -1,11 +1,19 @@
 import {
   ArrowRight,
+  BarChart3,
+  ClipboardCheck,
   FileText,
+  Globe,
   Laptop,
   MessageCircle,
+  Search,
   Smartphone,
+  Sprout,
+  TrendingUp,
   Users,
   UsersRound,
+  Workflow,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -57,19 +65,86 @@ const STEP_ICONS: Record<string, LucideIcon> = {
   speech: MessageCircle,
   document: FileText,
   phone: Smartphone,
+
+  /* ⬅ OS SETE DA HRLT — 24-09, quando aquela página saiu de uma implementação
+     própria e passou a usar este componente.
+
+     ⚠️ AS CHAVES SÃO O VOCABULÁRIO COMUM QUE A DAILY PEDIU: *"o mesmo ícone
+     para o mesmo conceito em todas as páginas"*. Por isso `growth` é a mesma
+     seta que sobe que o `SolutionProof` usa para "Business proof" — o conceito
+     ali e aqui é o mesmo (o que muda como resultado), e duas setas diferentes
+     para ele seriam a divergência que o pedido quer acabar.
+
+     ⚠️ DOIS DELES NÃO SÃO OS GLIFOS QUE A PÁGINA ANTIGA MOSTRAVA, e a troca é
+     deliberada: lá "Ways of Working" e "Measure" eram os dois `BarChart3`, o
+     mesmo desenho para "como o time trabalha junto" e para "medir progresso".
+     Barras medem; fluxo de trabalho é `Workflow`. O glifo repetido vinha de uma
+     página escrita à mão, sem mapa que obrigasse a escolher. */
+  search: Search,
+  document_check: ClipboardCheck,
+  tools: Wrench,
+  chart: BarChart3,
+  sprout: Sprout,
+  workflow: Workflow,
+  growth: TrendingUp,
+  globe: Globe,
 };
 
-export default function SolutionSteps({ items }: { items?: ServiceStep[] }) {
+export default function SolutionSteps({
+  items,
+  /**
+   * ⚠️ ESTA FILEIRA É UMA SEQUÊNCIA? — 24-09, com a migração da HRLT.
+   *
+   * `true` (o padrão) é o que este arquivo sempre foi: `<ol>`, seta ligando
+   * cada item ao anterior, e a ordem AFIRMA alguma coisa — "Discover" vem antes
+   * de "Embed" porque o trabalho acontece nessa ordem.
+   *
+   * `false` é uma LISTA de itens de igual peso com a mesma anatomia (disco,
+   * ícone, título, descrição): os cinco eixos que a HRLT fortalece
+   * (`capabilities`) não têm ordem, e numerá-los ou ligá-los por seta afirmaria
+   * uma progressão que não existe.
+   *
+   * ⚠️ POR QUE UMA PROP E NÃO UM COMPONENTE NOVO. A régua deste projeto separa
+   * peças quando elas diferem em SIGNIFICADO *e* em anatomia — é o argumento da
+   * caixa acima sobre `SolutionPillars`, que é ícone nu com filetes e não disco
+   * com descrição. Aqui as duas partilham tudo menos a seta e o elemento de
+   * lista; um segundo arquivo seria a cópia que este repositório já apagou uma
+   * vez, em 21-09, "esperando divergir na primeira vez que alguém ajustasse um
+   * dos dois".
+   *
+   * ⚠️ O `<ul>`/`<ol>` MUDA JUNTO, e é a metade que se esquece: a seta é a marca
+   * VISUAL da ordem e o `<ol>` é a marca para quem usa leitor de tela ("item 1
+   * de 5"). Tirar só a seta deixaria a lista anunciando uma ordem que o desenho
+   * não mostra.
+   */
+  sequence = true,
+  /**
+   * O fundo da faixa. `paper` (padrão) é o de sempre: a fileira continua o bloco
+   * "How we work", que também é paper, sem emenda entre os dois.
+   *
+   * `white` existe para a fileira que pertence ao "What we do" — os
+   * `capabilities` da HRLT dividem a faixa BRANCA com aquele bloco, pela mesma
+   * razão que os cartões de público e as trilhas dividem: no desenho eles são
+   * parte dele, não uma seção nova.
+   */
+  tone = "paper",
+}: {
+  items?: ServiceStep[];
+  sequence?: boolean;
+  tone?: "paper" | "white";
+}) {
   const steps = (items ?? []).filter((s) => s.title.trim());
   if (steps.length === 0) return null;
+
+  const List = sequence ? "ol" : "ul";
 
   return (
     /* `bg-paper`, como a fileira de pilares: a faixa quente começa no rótulo
        "How we work" e só termina depois desta lista, sem emenda entre as duas.
-       É o que o layout mostra. */
-    <section className="bg-paper">
+       É o que o layout mostra. Ver a prop `tone` para a exceção. */
+    <section className={tone === "white" ? "bg-white" : "bg-paper"}>
       <Reveal className="mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24">
-        <ol className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(150px,1fr))] lg:gap-x-0">
+        <List className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(150px,1fr))] lg:gap-x-0">
           {steps.map((step, i) => {
             const Icon = step.icon ? STEP_ICONS[step.icon] : undefined;
             return (
@@ -87,7 +162,10 @@ export default function SolutionSteps({ items }: { items?: ServiceStep[] }) {
                     ícone começava 8px abaixo, empurrado pelo disco do número.
                     Tirar o numeral sem mexer aqui deixaria as setas 8px baixas
                     — a conta anda junto com a altura do que está acima. */}
-                {i > 0 ? (
+                {/* ⚠️ `sequence &&` — ver a prop. Sem ordem a afirmar, a seta
+                    sai junto com o `<ol>`: as duas são a mesma marcação da
+                    progressão, uma para o olho e outra para o leitor de tela. */}
+                {sequence && i > 0 ? (
                   <ArrowRight
                     aria-hidden
                     size={20}
@@ -122,7 +200,7 @@ export default function SolutionSteps({ items }: { items?: ServiceStep[] }) {
               </li>
             );
           })}
-        </ol>
+        </List>
       </Reveal>
     </section>
   );

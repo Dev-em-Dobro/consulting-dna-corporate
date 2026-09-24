@@ -318,6 +318,20 @@ export type ServiceEvidenceSummary = {
   /** A linha de apoio, um corpo abaixo da manchete. */
   lead: string;
   /**
+   * Resultados em PALAVRA, numa grade de ícone + rótulo acima dos logos — 24-09,
+   * com a migração da HRLT.
+   *
+   * ⚠️ NÃO SÃO `facts` SEM NÚMERO. Um `fact` é uma célula da fileira de baixo,
+   * que é uma linha só com filetes e comporta umas cinco; estes são seis frases
+   * e vivem numa grade própria. A conta está na prop `outcomes` do
+   * `SolutionEvidenceSummary`.
+   *
+   * ⚠️ CADA RÓTULO PRECISA DE LINHA NO MAPA de `SolutionPillars` — é de lá que
+   * o ícone vem, via `pillarIcon`. Sem a linha o item sai com o círculo de
+   * fallback, que é o aviso visual de que faltou.
+   */
+  outcomes?: string[];
+  /**
    * As marcas nas duas pontas da fileira — caminho em `public/logos/` e o nome
    * do cliente para o `alt`.
    *
@@ -331,8 +345,18 @@ export type ServiceEvidenceSummary = {
    * igual, só não é clicável.
    */
   logos: { src: string; alt: string; caseSlug?: string }[];
-  /** As medidas entre as marcas. Mesmo `ServiceFact` da faixa antiga. */
-  facts: ServiceFact[];
+  /**
+   * As medidas entre as marcas. Mesmo `ServiceFact` da faixa antiga.
+   *
+   * ⚠️ VIROU OPCIONAL EM 24-09, com a migração da HRLT, e a diferença entre os
+   * dois serviços com esta faixa explica por quê: o Senior Leadership
+   * Development tem três medidas ("47%", "85%", "3x") e dois logos, e a fileira
+   * intercala os cinco; a HRLT não tem número NENHUM publicável — o que ela
+   * afirma são seis frases, que entram em `outcomes` e desenham acima. Obrigar
+   * um `facts: []` só para satisfazer o tipo seria escrever lista vazia em vez
+   * de dizer que o campo não se aplica.
+   */
+  facts?: ServiceFact[];
 };
 
 /**
@@ -726,6 +750,23 @@ export type Service = {
    * ⏳ UM DOS DEZ TEM.
    */
   steps?: ServiceStep[];
+  /**
+   * OS EIXOS QUE O SERVIÇO FORTALECE — a fileira de disco, ícone, título e
+   * descrição que divide a faixa branca com o "What we do". 24-09, com a
+   * migração da HRLT para o template.
+   *
+   * ⚠️ MESMA FORMA QUE `steps`, SIGNIFICADO DIFERENTE, e é essa distinção que
+   * decide qual campo usar: `steps` é uma SEQUÊNCIA (Discover → Co-create →
+   * Experience…) e sai com seta e `<ol>`; estes são uma LISTA de itens de igual
+   * peso e saem sem seta, em `<ul>`. Reordenar os `steps` muda o que a CDNA
+   * afirma que acontece primeiro; reordenar estes não muda nada.
+   *
+   * Os dois passam pelo mesmo `SolutionSteps`, em slots diferentes da página —
+   * ver a prop `sequence` dele.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  capabilities?: ServiceStep[];
   /**
    * A faixa escura de "How we work" do layout de Culture — ver
    * `ServiceEcosystem`.
@@ -1261,7 +1302,10 @@ export const services: Service[] = [
       },
     ],
     ecosystem: {
-      headline: "The CDNA Culture Ecosystem",
+      /* QUEBRA PEDIDA: "The CDNA" numa linha, "Culture Ecosystem" na de baixo.
+         O `whitespace-pre-line` do `SolutionEcosystem` é o que transforma o `\n`
+         em quebra — a mesma conta das manchetes de `SolutionSection`. */
+      headline: "The CDNA\nCulture Ecosystem",
       body: "We embed culture through ten interconnected elements: the moments that matter in the flow of work. When these work together, culture stops being a poster and becomes a lived reality.",
       asideTitle: "Ten planets. A stronger culture.",
       asideBody:
@@ -1617,8 +1661,147 @@ export const services: Service[] = [
   {
     slug: "hrlt-effectiveness",
     cardImage: "/services/cards/hrlt-effectiveness-client.jpg",
+    /* ============================================================================
+       ✅ A HRLT VOLTOU PARA O TEMPLATE — 24-09
+       ============================================================================
+       Até aqui esta era a ÚNICA das dez escrita à mão: a branch
+       `feature/paginas-servicos-menu-herois` trouxe uma `HrltPage.tsx` com o
+       layout inteiro em JSX, fora do `SolutionView`. Ela saiu, e a copy dela
+       virou o dado abaixo.
+
+       O QUE ISSO CONSERTA, que foi o pedido: a página media `max-w-[1200px]`
+       contra os 1440 das outras nove, pintava a faixa clara com um `#f7f1ef`
+       cravado em vez do token `paper`, escrevia os rótulos a 13px/2px contra
+       14px/1,3px, desenhava os ícones num disco `#f6e8e6` de 64px em vez do
+       `brand/10` de 56, punha seta em texto (`→`) no lugar do glifo do lucide, e
+       ainda numerava os passos — que é justamente o que a daily deste mesmo dia
+       mandou tirar (*"no How we work, tirar a numeração, porque as setas já
+       mostram a progressão"*). Nada disso precisa mais ser consertado uma vez:
+       as medidas passaram a vir dos mesmos componentes das outras nove.
+
+       O QUE MUDOU DE FORMA, e vale dizer porque não é transcrição pura:
+
+         • OS CINCO EIXOS ("Collective Identity"…) ficavam na coluna da direita
+           do "What we do". Aqui eles são `capabilities` e saem numa fileira
+           ABAIXO daquele bloco, dividindo a faixa branca com ele — o mesmo
+           arranjo dos cartões de público e das trilhas, que é o que o template
+           faz com um bloco que pertence ao de cima.
+
+         • A EVIDÊNCIA ERA seis resultados à esquerda e quatro logos à direita,
+           sob um rótulo "Trusted by". Virou a faixa `evidenceSummary`: manchete,
+           linha de apoio, a grade dos seis (`outcomes`) e os quatro logos na
+           fileira de baixo. O "Trusted by" saiu — o rótulo da faixa já é
+           "Evidence" e a manchete já diz do que ela trata.
+
+         • O FECHO PRÓPRIO ("Keep leadership real. / People · Teams ·
+           Organisations · A brighter tomorrow") SAIU com o `ServiceClose`. No
+           lugar dele entram o CTA e o "Related services" que as outras nove
+           têm — o convite desta página já existia em `cta`, logo abaixo, e não
+           estava sendo mostrado.
+
+       ⏳ A COPY ABAIXO AINDA VAI MUDAR. A daily de 24-09 diz que *"elas vão
+       mandar o texto reduzido"* da HRLT. O que se ganha com a migração é que o
+       texto novo entra trocando string neste arquivo, sem tocar em layout. */
     title: "HR Leadership Teams (HRLT)",
     banner: "Stronger HR leadership teams. A greater impact on the business.",
+    heroImage: "/hero/hrlt.jpeg",
+    whatWeDoHeadline:
+      "Build HR leadership teams that shape the business, from the inside out.",
+    whatWeDo:
+      "We help CHROs and their HR Leadership Teams strengthen their collective identity, capability and ways of working, so they can lead people, performance and transformation in a more connected, strategic and impactful way.",
+    capabilities: [
+      {
+        icon: "people",
+        title: "Collective Identity",
+        body: "Align purpose, values and enterprise role for the HR function.",
+      },
+      {
+        icon: "sprout",
+        title: "Capability & Mindset",
+        body: "Build the skills, judgement and confidence to lead in a complex, AI-driven world.",
+      },
+      /* ⚠️ `workflow` E NÃO O GRÁFICO DE BARRAS que a página antiga mostrava
+         aqui. Lá "Ways of Working" e "Measure" saíam com o MESMO `BarChart3` —
+         barras medem, e o que este eixo descreve é como o time trabalha junto.
+         O glifo repetido vinha de uma página escrita à mão, sem mapa de ícones
+         que obrigasse a escolher. */
+      {
+        icon: "workflow",
+        title: "Ways of Working",
+        body: "Create clarity, rhythm and collaboration across the team and wider business.",
+      },
+      {
+        icon: "growth",
+        title: "Enterprise Impact",
+        body: "Increase influence, credibility and contribution to business priorities.",
+      },
+      {
+        icon: "globe",
+        title: "Future Readiness",
+        body: "Prepare HRLTs to navigate change, disruption and shape what comes next.",
+      },
+    ],
+    howWeWorkHeadline: "A focused, practical journey. Built around your context.",
+    howWeWork:
+      "We combine insight, experience and real-world application to help HRLTs make progress that sticks.",
+    /* ESTES SÃO SEQUÊNCIA — saem com seta e `<ol>`, ao contrário dos
+       `capabilities` acima. Discover vem antes de Embed porque o trabalho
+       acontece nessa ordem, e é isso que a seta afirma. */
+    steps: [
+      {
+        icon: "search",
+        title: "Discover",
+        body: "Understand your context, ambitions and team dynamics.",
+      },
+      {
+        icon: "document_check",
+        title: "Co-create",
+        body: "Design a tailored journey with the CHRO and HRLT.",
+      },
+      {
+        icon: "people",
+        title: "Experience",
+        body: "Run immersive sessions, sprints and real-time application.",
+      },
+      {
+        icon: "tools",
+        title: "Embed",
+        body: "Provide tools, coaching and team practices to integrate new behaviours.",
+      },
+      {
+        icon: "chart",
+        title: "Measure",
+        body: "Track progress and impact on team effectiveness and business outcomes.",
+      },
+    ],
+    /* ⚠️ OS QUATRO LOGOS SÃO OS DO MURAL, e não os arquivos de 24-09 que a faixa
+       de evidência do Senior Leadership Development usa. Os dela foram
+       recortados pela caixa do alfa para respeitarem o teto de 240x86; estes
+       vêm do acervo antigo e podem desenhar menores que o teto. É dívida de
+       ASSET, não de layout: quando os quatro forem tratados como os outros dois,
+       é trocar o caminho aqui.
+
+       ⚠️ NENHUM LEVA A CASE. `caseSlug` só entra quando existe página publicada
+       para linkar, e a régua é a mesma da HEINEKEN no outro serviço — ver a
+       caixa de `evidenceSummary` do Senior Leadership Development. */
+    evidenceSummary: {
+      headline: "Stronger HRLTs. Greater business impact.",
+      lead: "Our work helps HR leadership teams build the capability and influence to drive real change.",
+      logos: [
+        { src: "/logos/adidas.png", alt: "adidas" },
+        { src: "/logos/frasers_property.png", alt: "Frasers Property" },
+        { src: "/logos/dyson.png", alt: "dyson" },
+        { src: "/logos/maaden.png", alt: "Ma'aden" },
+      ],
+      outcomes: [
+        "Stronger strategic influence",
+        "Faster and better decision-making",
+        "Greater alignment and collective impact",
+        "Higher employee and manager engagement",
+        "More consistent execution of people priorities",
+        "A future-ready HR function",
+      ],
+    },
     outcome:
       "Greater **strategic influence, organisational connectivity and transformation readiness**, with HR operating as an enterprise leadership function capable of accelerating business and people performance.",
     howWeHelp:

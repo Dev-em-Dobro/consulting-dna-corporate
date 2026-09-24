@@ -165,6 +165,26 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
          que os criou, e não depois: a caixa acima diz que o travessão volta
          justamente por transcrição "à letra" de layout da cliente, e este
          layout tem quatro deles. Três escaparam na primeira escrita. */
+      /* ⬅ A COPY DA HRLT, 24-09: ela veio de uma página escrita à mão que nunca
+         passou por este teste, porque não era dado. Passou a ser. */
+      ...(s.capabilities ?? []).flatMap(
+        (c, i): [string, string | undefined][] => [
+          [`capabilities.${i}.title`, c.title],
+          [`capabilities.${i}.body`, c.body],
+        ],
+      ),
+      ...(s.steps ?? []).flatMap(
+        (st, i): [string, string | undefined][] => [
+          [`steps.${i}.title`, st.title],
+          [`steps.${i}.body`, st.body],
+        ],
+      ),
+      ...(s.evidenceSummary?.outcomes ?? []).map(
+        (o, i): [string, string | undefined] => [
+          `evidenceSummary.outcomes.${i}`,
+          o,
+        ],
+      ),
       ["ecosystem.headline", s.ecosystem?.headline],
       ["ecosystem.body", s.ecosystem?.body],
       ["ecosystem.asideTitle", s.ecosystem?.asideTitle],

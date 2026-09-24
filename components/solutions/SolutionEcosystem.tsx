@@ -58,15 +58,17 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
        ver a lista em `SolutionView`. */
     <section className="bg-ink">
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-        {/* A GRADE É 1 / 1,6 / 0,9, aproximando o layout: o diagrama é a coluna
-            mais larga porque é o assunto da faixa, e a coluna da direita é a
-            mais estreita porque é um comentário sobre ele.
+        {/* A GRADE É 1,2 / 1,5 / 0,8. A esquerda ganhou um pouco contra o
+            1 / 1,6 / 0,9 original para a segunda linha da manchete
+            ("Culture Ecosystem") caber inteira — a 42px ela mede ~378px, e a
+            coluna antiga tinha 361. O diagrama continua sendo a coluna mais
+            larga; a da direita continua a mais estreita.
 
             ⚠️ SÓ A PARTIR DE `lg`. Abaixo disso as três empilham na ordem do
             DOM — texto, diagrama, comentário —, que é a ordem de leitura do
             layout. Tentar manter três colunas em tablet daria uma coluna de
             ~200px para um parágrafo de seis linhas. */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.6fr_0.9fr] lg:gap-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1.5fr_0.8fr] lg:gap-10">
           <div>
             {/* O MESMO RÓTULO DAS OUTRAS PÁGINAS, em `brand-light` e não em
                 `brand`: sobre `ink` o vermelho cheio dá 2,87:1 e não passa na
@@ -75,8 +77,17 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
             <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
               How we work
             </p>
-            <h2 className="mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[42px]">
-              {item.headline}
+            {/* UMA LINHA POR `<span>` EM BLOCO, e não `whitespace-pre-line`:
+                o `\n` da copy decide ONDE quebra ("The CDNA" / "Culture
+                Ecosystem"), e o `whitespace-nowrap` impede a segunda linha de
+                partir de novo em "Culture" / "Ecosystem" quando a coluna aperta. */}
+            <h2 className="mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
+              {item.headline.split("\n").map((line, i, lines) => (
+                <span key={line} className="block whitespace-nowrap">
+                  {line}
+                  {i < lines.length - 1 ? " " : ""}
+                </span>
+              ))}
             </h2>
             <p className="mt-6 font-serif text-[16px] leading-[1.65] text-white/75 md:text-[17px]">
               {item.body}
@@ -124,6 +135,14 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
               nada à esquerda para separar, e o fio viraria um traço solto acima
               do texto. `pl-0 lg:pl-10` acompanha. */}
           <div className="lg:border-l lg:border-white/20 lg:pl-10">
+            {/* A RÉGUA VERMELHA PADRÃO (`h-0.5 w-9`), a mesma do `TypeLabel`,
+                EM CIMA do título e não ao lado: o pedido foi o traço acima de
+                "Ten planets. A stronger culture.". `brand-light` porque o fundo
+                é `ink` — a mesma regra de contraste do rótulo "How we work". */}
+            <span
+              aria-hidden
+              className="mb-4 block h-0.5 w-9 bg-brand-light"
+            />
             {/* CAIXA ALTA E NÃO SERIFA, ao contrário da manchete da esquerda: no
                 layout as duas frases grandes desta faixa têm tratamentos
                 diferentes de propósito — a da esquerda é o título do bloco, esta

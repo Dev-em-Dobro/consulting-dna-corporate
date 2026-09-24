@@ -210,6 +210,26 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Horizontal working": ArrowLeftRight,
   Influence: Megaphone,
 
+  /* ⬅ OS SEIS RESULTADOS DA HRLT — 24-09, quando aquela página saiu de uma
+     implementação própria e passou a usar o template. Eles NÃO são `pillars`
+     (não são palavras da frase de `howWeHelp`, que é a regra daquele campo):
+     são `evidenceSummary.outcomes`, e desenham a grade de ícone + rótulo acima
+     dos logos. Moram neste mapa porque `pillarIcon` é a busca única do site —
+     ver a caixa dela.
+
+     ⚠️ OS GLIFOS REPETEM OS DOS RÓTULOS CURTOS DE PROPÓSITO, e é o pedido de
+     24-09 em ação (*"o mesmo ícone para o mesmo conceito em todas as páginas"*):
+     "Stronger strategic influence" leva o mesmo megafone de "Influence", "More
+     consistent execution…" o mesmo raio de "Execution", e "Greater alignment…"
+     a mesma mira de "Alignment". Uma frase e a palavra que a resume não podem
+     ter símbolos diferentes na mesma página. */
+  "Stronger strategic influence": Megaphone,
+  "Faster and better decision-making": GitBranch,
+  "Greater alignment and collective impact": Crosshair,
+  "Higher employee and manager engagement": Users,
+  "More consistent execution of people priorities": Zap,
+  "A future-ready HR function": Compass,
+
   /* Judgement in AI */
   "Critical thinking": Brain,
   Judgement: Scale,
@@ -233,6 +253,19 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
 
 /** Rótulo fora do mapa fechado acima. Ver a caixa do mapa. */
 const FALLBACK_ICON: LucideIcon = Circle;
+
+/**
+ * O ícone de um rótulo, para quem desenha uma fileira de ícone + texto FORA
+ * desta seção — hoje, os `outcomes` da faixa de evidência da HRLT.
+ *
+ * ⚠️ EXPORTA A BUSCA, E NÃO O MAPA. Quem importar o `Record` acaba mexendo nele
+ * de outro arquivo, e o mapa é fechado de propósito (ver a caixa dele): os
+ * rótulos são palavras da cliente e só mudam quando o texto dela muda. Com uma
+ * função, o único jeito de acrescentar ícone continua sendo escrever a linha
+ * aqui, junto do comentário que explica de onde o glifo veio.
+ */
+export const pillarIcon = (label: string): LucideIcon =>
+  PILLAR_ICONS[label] ?? FALLBACK_ICON;
 
 export default function SolutionPillars({ items }: { items?: string[] }) {
   const pillars = (items ?? []).filter((p) => p.trim());

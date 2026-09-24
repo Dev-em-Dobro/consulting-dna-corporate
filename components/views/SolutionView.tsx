@@ -316,6 +316,16 @@ export default function SolutionView({
           dois empilham na ordem em que estão escritos aqui. */}
       <SolutionPathways items={service.pathways} />
 
+      {/* ⬅ NOVO EM 24-09, com a volta da HRLT ao template. Divide a faixa BRANCA
+          com o "What we do", sem emenda, pela mesma razão dos dois blocos acima:
+          na página que a HRLT tinha antes, os cinco eixos ficavam DENTRO daquele
+          bloco, na coluna da direita.
+
+          `sequence={false}` é o que os separa dos `steps`: mesma anatomia, sem
+          seta e em `<ul>`, porque a ordem dos cinco não afirma nada. Ver a prop
+          no `SolutionSteps`. */}
+      <SolutionSteps items={service.capabilities} sequence={false} tone="white" />
+
       {/* ⬅ NOVO EM 24-09. Faixa PRÓPRIA, com rótulo próprio vindo do dado — ao
           contrário das trilhas, ela não pertence ao bloco de cima. */}
       <SolutionMoments moments={service.moments} />
@@ -467,6 +477,7 @@ export default function SolutionView({
           lead={service.evidenceSummary.lead}
           logos={service.evidenceSummary.logos}
           facts={service.evidenceSummary.facts}
+          outcomes={service.evidenceSummary.outcomes}
         />
       )}
 

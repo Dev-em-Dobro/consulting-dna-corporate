@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Counter from "@/components/Counter";
+import { pillarIcon } from "@/components/solutions/SolutionPillars";
 import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceFact } from "@/lib/services";
 
@@ -126,13 +127,35 @@ export default function SolutionEvidenceSummary({
   lead,
   logos = [],
   facts = [],
+  outcomes = [],
 }: {
   headline: string;
   lead?: string;
   logos?: EvidenceLogoData[];
   facts?: ServiceFact[];
+  /**
+   * ⬅ OS RESULTADOS EM PALAVRA — 24-09, com a migração da HRLT para o template.
+   *
+   * A página que a HRLT tinha antes fechava com seis frases de ícone
+   * ("Stronger strategic influence", "A future-ready HR function"…) ao lado de
+   * quatro logos sob o rótulo "Trusted by". As seis não são MEDIDAS — não têm
+   * número nenhum — e por isso não podiam entrar como `facts`.
+   *
+   * ⚠️ POR QUE NÃO COUBE NA FILEIRA DE BAIXO, que é onde um `fact` moraria: ela
+   * é uma linha só, dividida por filetes, desenhada para logo · número · número
+   * · número · logo. Seis frases mais quatro marcas dariam dez células numa
+   * fileira que o layout desenha com cinco — cada uma sairia com 144px a 1440,
+   * e os rótulos de três palavras quebrariam em três linhas.
+   *
+   * Então elas saem ACIMA da fileira, numa grade própria de ícone + rótulo, e a
+   * fileira de baixo fica só com as marcas. O ícone vem do mesmo mapa dos
+   * pilares (`pillarIcon`), que é o que mantém "o mesmo ícone para o mesmo
+   * conceito em todas as páginas", pedido na daily de 24-09.
+   */
+  outcomes?: string[];
 }) {
   const shown = facts.filter((f) => f.value?.trim());
+  const shownOutcomes = outcomes.filter((o) => o.trim());
 
   /* AS CÉLULAS SÃO MONTADAS NUMA LISTA SÓ, e não em três grupos desenhados
      separadamente, porque o filete divisor é "todo mundo menos o primeiro" —
@@ -176,6 +199,41 @@ export default function SolutionEvidenceSummary({
           <p className="mt-4 max-w-[62ch] font-serif text-[18px] leading-[1.5] text-ink/70 md:text-[20px]">
             {lead}
           </p>
+        )}
+
+        {shownOutcomes.length > 0 && (
+          /* A GRADE É `auto-fit` COM PISO DE 190px, e não três colunas fixas: a
+             HRLT tem seis resultados e sai 3×2 a 1440, mas o campo é livre e um
+             serviço com quatro sairia 4×1 sem ninguém reajustar nada.
+
+             ⚠️ SEM FILETES, ao contrário da fileira de baixo e da faixa de
+             pilares. Aqui a lista quebra em VÁRIAS linhas por desenho, não por
+             falta de espaço, e `divide-x` desenharia um traço órfão no começo de
+             cada linha nova — a mesma armadilha que aquelas duas evitam
+             escondendo os filetes abaixo de `lg`. */
+          <ul className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:mt-16 lg:grid-cols-[repeat(auto-fit,minmax(190px,1fr))]">
+            {shownOutcomes.map((outcome) => {
+              const Icon = pillarIcon(outcome);
+              return (
+                <li key={outcome} className="text-center">
+                  {/* DECORATIVO: o rótulo logo abaixo diz a mesma coisa. Mesma
+                      regra da faixa de pilares, e o `size={32}` é o degrau
+                      abaixo dos 40 de lá — ali o ícone é a única peça gráfica
+                      da seção, aqui ele divide a faixa com uma manchete de 44px
+                      e com os logos. */}
+                  <Icon
+                    aria-hidden
+                    size={32}
+                    strokeWidth={1.5}
+                    className="mx-auto block text-brand"
+                  />
+                  <p className="mx-auto mt-3 max-w-[20ch] font-serif text-[16px] leading-[1.35] text-ink md:text-[17px]">
+                    {outcome}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         )}
 
         {cells.length > 0 && (
