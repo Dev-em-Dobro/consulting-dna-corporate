@@ -42,7 +42,40 @@
 import { inlineEmphasis } from "./page-copy/text.ts";
 
 /** Um fato da faixa de evidência: o número grande e o que ele conta. */
-export type ServiceFact = { value: string; label?: string };
+export type ServiceFact = {
+  value: string;
+  label?: string;
+  /**
+   * A DESCRIÇÃO ABAIXO DO NÚMERO — 24-09, com o layout do Executive Coaching.
+   *
+   * ⚠️ ELA TROCA O ARRANJO DA GRADE, e não é só um terceiro texto: com
+   * descrição a medida sai com o ícone À ESQUERDA do número e tudo alinhado à
+   * esquerda, separada da vizinha por um filete; sem ela continua o arranjo
+   * centrado do Talent Development (disco rosa, número, rótulo). A conta está em
+   * `SolutionEvidenceSummary`, e é a mesma régua do `icon` logo abaixo — o dado
+   * carrega a distinção, uma prop de layout a repetiria.
+   *
+   * ⚠️ SÓ VALE NA FAIXA NOVA. A antiga (`ServiceEvidence`) usa o mesmo tipo e
+   * ignora o campo.
+   */
+  body?: string;
+  /**
+   * A CHAVE DO ÍCONE NO MAPA DE `SolutionPillars` — 24-09, com as quatro
+   * medidas do "The impact" do Talent Development.
+   *
+   * ⚠️ ELE NÃO É SÓ ENFEITE: é o que decide EM QUE ARRANJO a medida sai na
+   * faixa de evidência. Com ícone ela vai para a grade própria, acima dos
+   * logos; sem ícone ela entra na fileira intercalada LOGO | medida | LOGO do
+   * layout do Senior Leadership Development. A conta está em
+   * `SolutionEvidenceSummary`, e a caixa lá explica por que nove células numa
+   * fileira só não funcionariam.
+   *
+   * ⚠️ NÃO VALE PARA OS `facts` DA FAIXA DE EVIDÊNCIA ANTIGA (`ServiceEvidence`),
+   * que usa o mesmo tipo e ignora o campo — lá as medidas saem em coluna, ao
+   * lado da foto do caso, e não há grade em que pô-las.
+   */
+  icon?: string;
+};
 
 /**
  * Este fato é uma MEDIDA ou uma PALAVRA?
@@ -312,11 +345,161 @@ export type ServiceStep = {
   icon?: string;
 };
 
-export type ServiceEvidenceSummary = {
-  /** A manchete em serifa, logo abaixo do rótulo "Evidence". */
+/**
+ * A GRADE DE LADRILHOS DO "THE INFLECTION POINTS" — layout do Talent
+ * Development, 24-09. Ver `SolutionInflectionPoints`.
+ *
+ * ⚠️ OS ITENS SÃO STRINGS, E NÃO OBJETOS COM ÍCONE, de propósito: o glifo vem
+ * do mapa de `SolutionPillars`, que casa pelo RÓTULO EXATO. Pôr a chave do
+ * ícone aqui criaria um segundo lugar onde a mesma decisão mora, e o primeiro
+ * serviço que escrevesse "Retention / flight risk" com outro glifo quebraria o
+ * vocabulário comum que a daily pediu.
+ *
+ * ⚠️ CADA ITEM PRECISA DE LINHA NO MAPA. Sem ela o ladrilho sai com o círculo
+ * de fallback, que é o aviso visual de que faltou.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceInflectionPoints = {
+  /** O rótulo da faixa ("The inflection points"). */
+  label?: string;
+  /** A manchete da coluna da esquerda. `
+` vira quebra. */
   headline: string;
-  /** A linha de apoio, um corpo abaixo da manchete. */
-  lead: string;
+  /** A linha de apoio abaixo da manchete. */
+  lead?: string;
+  /** Os oito momentos, na ordem do desenho — ver a caixa do tabuleiro. */
+  items: string[];
+};
+
+/**
+ * A LISTA "WHAT SHIFTS" — os pares "de → para" do layout do Talent
+ * Development, 24-09. Ver `SolutionShifts`.
+ *
+ * ⚠️ A ORDEM DO PAR É A AFIRMAÇÃO. `from` é o que a organização mede hoje,
+ * `to` é o que ela passa a medir; invertê-los diria o contrário. Não é uma
+ * lista de sinônimos.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceShifts = {
+  /** O rótulo da faixa ("What shifts"). */
+  label?: string;
+  items: { from: string; to: string }[];
+};
+
+/**
+ * A FILEIRA "COMMON OUTCOME" — 24-09, com o Talent Development.
+ *
+ * ⚠️ É A MESMA FORMA QUE `ServicePractices` (rótulo + lista de palavras) e um
+ * tipo SEPARADO de propósito: `practices` SUBSTITUI a fileira de `pillars` no
+ * pé do bloco "How we work", e este desenha em outro lugar da página — entre os
+ * aceleradores e o "How we work". Unificá-los faria um serviço com os dois
+ * desenhar a mesma fileira duas vezes, ou obrigaria uma prop de posição para
+ * desempatar. Ver a conta em `SolutionView`.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceCommonOutcome = {
+  label?: string;
+  /**
+   * ⚠️ O PONTO FINAL FAZ PARTE DO ITEM ("Readiness."), porque é assim que o
+   * layout escreve e porque o mapa de ícones de `SolutionPillars` casa por
+   * string exata. Tirá-lo derruba o item para o círculo de fallback.
+   */
+  items: string[];
+};
+
+/**
+ * ============================================================================
+ * OS TRÊS CARTÕES DE CLIENTE DA FAIXA "EVIDENCE" — LAYOUT DE WOMEN’S
+ * LEADERSHIP DEVELOPMENT, 24-09
+ * ============================================================================
+ *
+ * A TERCEIRA forma de evidência do template, e a que afirma mais de um
+ * resultado: três cartões lado a lado, um por cliente, cada um com o seu logo,
+ * o nome do programa, três medidas, uma tira de recortes (anos, mercados) e a
+ * legenda do que mudou.
+ *
+ * ⚠️ EXCLUDENTE COM AS OUTRAS DUAS, pela mesma razão que já vale entre elas: as
+ * três escrevem o rótulo "Evidence" e ocupam o mesmo lugar na página.
+ * `SolutionView` desempata e `tests/services.test.ts` fixa a regra.
+ *
+ * POR QUE NÃO É O `evidenceSummary` COM MAIS LOGOS: lá as medidas são de UMA
+ * afirmação e a fileira as intercala com as marcas, como se as marcas fossem o
+ * lastro daquela afirmação. Aqui cada medida pertence a um cliente e a um
+ * recorte de tempo — 6.300 pessoas na Shell e 5–7 patrocinadores por
+ * participante na Kellanova não são medidas da mesma coisa, e postas na mesma
+ * fileira leriam como se fossem.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceEvidenceCase = {
+  /** A marca, em `public/logos/`. Ver a régua de tamanho no componente. */
+  logo: { src: string; alt: string };
+  /**
+   * O NOME DO CLIENTE, e só onde o logo não o escreve.
+   *
+   * ⚠️ NO LAYOUT SÓ A SHELL TEM: o logo dela é a concha, sem palavra. A
+   * Kellanova e a Aviva trazem o nome dentro do próprio lockup, e repeti-lo ao
+   * lado diria a marca duas vezes na mesma linha.
+   */
+  client?: string;
+  /** O nome do programa ("Powering women"). Sai em versalete, por CSS. */
+  title: string;
+  /** A linha de resultado, em serifa ("Building the pipeline at scale."). */
+  tagline: string;
+  /** As TRÊS medidas do cartão. Mesmo `ServiceFact` das outras faixas. */
+  facts: ServiceFact[];
+  /**
+   * OS RECORTES — "5+ years", "Global", "16 countries".
+   *
+   * ⚠️ NÃO SÃO MEDIDAS, e é por isso que não entram em `facts`: eles não dizem
+   * o que mudou, dizem em quanto tempo e onde a prova vale. Em corpo de medida
+   * competiriam com os três números que estão logo acima deles.
+   */
+  meta?: string[];
+  /** A legenda do pé do cartão, em corpo pequeno. */
+  note: string;
+};
+
+export type ServiceEvidenceCases = {
+  /** O rótulo da faixa. Ausente = "Evidence". */
+  label?: string;
+  /** A manchete em serifa ("Progression you can see."). */
+  headline: string;
+  /** A linha de apoio abaixo da manchete. */
+  lead?: string;
+  items: ServiceEvidenceCase[];
+};
+
+export type ServiceEvidenceSummary = {
+  /**
+   * O RÓTULO DA FAIXA. Ausente = "Evidence", que é como ela nasceu e como os
+   * outros dois serviços a escrevem.
+   *
+   * ⚠️ É COPY, E POR ISSO É CAMPO. O layout do Talent Development chama esta
+   * mesma faixa de "The impact", e escrever "Evidence" numa página que desenha
+   * outra palavra seria inventar rótulo no lugar da cliente. O padrão fica no
+   * componente para que os outros dois não precisem repetir a palavra no dado.
+   *
+   * ⚠️ QUEM MUDA O RÓTULO NÃO MUDA O `id` da faixa (`#evidence`), de propósito:
+   * ele é endereço, não texto — a mesma regra que mantém `/solutions` atrás do
+   * rótulo "Services".
+   */
+  label?: string;
+  /** A manchete em serifa, logo abaixo do rótulo da faixa. */
+  headline: string;
+  /**
+   * A linha de apoio, um corpo abaixo da manchete.
+   *
+   * ⚠️ VIROU OPCIONAL EM 24-09, com o Talent Development: naquele layout a
+   * manchete de "The impact" é seguida direto pelas quatro medidas, e o
+   * parágrafo que existe na faixa pertence às MARCAS, não ao resultado — vive
+   * em `experience.lead`, colado nos logos. Escrever uma linha de apoio aqui só
+   * para satisfazer o tipo seria copy nossa no lugar da dela.
+   */
+  lead?: string;
   /**
    * Resultados em PALAVRA, numa grade de ícone + rótulo acima dos logos — 24-09,
    * com a migração da HRLT.
@@ -344,7 +527,42 @@ export type ServiceEvidenceSummary = {
    * despublicado é 404 em cima de um logo de cliente. Sem ele a marca desenha
    * igual, só não é clicável.
    */
-  logos: { src: string; alt: string; caseSlug?: string }[];
+  /* ⚠️ OPCIONAL DESDE 24-09: o layout do Executive Coaching desenha esta faixa
+     só com as quatro medidas, sem marca nenhuma. Um `logos: []` para satisfazer
+     o tipo seria escrever lista vazia em vez de dizer que o campo não se
+     aplica — a mesma conta que já valia para `facts`. */
+  logos?: { src: string; alt: string; caseSlug?: string }[];
+  /**
+   * O TAMANHO DAS MARCAS em coluna única — 24-09. Ausente = o teto de 240px do
+   * layout do Senior Leadership. `small` (teto de 140px) é a HRLT: *"os logos
+   * da seção evidence ficaram muito grandes"*; `medium` (teto de 190px) é o
+   * próprio Senior Leadership: *"pode diminuir um pouco os logos"*.
+   */
+  logoSize?: "small" | "medium";
+  /**
+   * A LINHA DE FECHO AO LADO DAS MARCAS — 24-09: *"Turn potential into
+   * readiness. And readiness into impact."*
+   *
+   * ⚠️ NÃO É O `closing`. Aquele é uma faixa própria entre duas seções; esta
+   * frase mora DENTRO da faixa de evidência, encostada nos logos, que é onde o
+   * layout a desenha.
+   */
+  note?: string;
+  /**
+   * O RÓTULO E O PARÁGRAFO QUE APRESENTAM AS MARCAS — 24-09, com o Talent
+   * Development: *"Our experience / For nearly two decades, we've worked with
+   * organisations to identify, accelerate and retain talent…"*.
+   *
+   * ⚠️ NÃO É O `lead`. Aquele mora sob a manchete e fala do RESULTADO (o que a
+   * faixa afirma); este mora colado na fileira de logos e fala de QUEM — no
+   * layout são duas colunas com rótulos diferentes ("The impact" e "Our
+   * experience"), e aqui viram dois degraus da mesma coluna. Fundir os dois
+   * poria a frase que termina em "including:" acima das medidas, anunciando uma
+   * lista de marcas que só viria depois de quatro números.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  experience?: { label?: string; lead?: string };
   /**
    * As medidas entre as marcas. Mesmo `ServiceFact` da faixa antiga.
    *
@@ -451,8 +669,16 @@ const evidenceQuotePlaceholder = (client: string): ServiceTestimonial => ({
  * muda.
  */
 export type ServiceAudience = {
-  /** O rótulo vermelho em caixa alta, com o traço embaixo. */
-  label: string;
+  /**
+   * O rótulo em caixa alta, sobreposto ao canto superior esquerdo da foto.
+   *
+   * ⚠️ OPCIONAL DESDE 24-09: no layout do Executive Coaching os quatro cartões
+   * não têm texto sobre a fotografia — o nome do público é o título em serifa
+   * logo abaixo dela. Exigir o campo obrigaria a inventar uma palavra para pôr
+   * em cima da foto, ou a repetir o título a 30px de distância. Ausente = a foto
+   * fica limpa; ver o filtro em `SolutionAudiences`.
+   */
+  label?: string;
   /** O título curto em serifa ("Align. Decide. Deliver."). */
   title: string;
   /** O parágrafo do cartão. Texto puro — este bloco não usa `**…**`. */
@@ -493,6 +719,22 @@ export type ServiceAudience = {
    * sobreposição de baixo, e só com o rótulo em cima.
    */
   credential?: string[];
+  /**
+   * A LISTA "FOCUS ON" DO PÉ DO CARTÃO — 24-09, com o layout de Women’s
+   * Leadership Development: os temas que aquela trilha trabalha, atrás de um
+   * filete vermelho.
+   *
+   * ⚠️ NÃO É UM SEGUNDO `body`. O parágrafo diz PARA QUEM a trilha serve ("For
+   * organisations wanting to…"); esta lista diz O QUE ela treina. Emendá-los
+   * num texto só daria um parágrafo que muda de assunto no meio.
+   *
+   * ⚠️ O RÓTULO "FOCUS ON" É DO COMPONENTE, e não deste campo — ele é o mesmo
+   * nos três cartões do desenho. Ver a caixa em `SolutionAudiences`.
+   *
+   * ⏳ UM DOS DEZ TEM. Ausente = o cartão termina no parágrafo, como nos
+   * outros.
+   */
+  focus?: string[];
 };
 
 /**
@@ -551,6 +793,126 @@ export type ServicePractices = {
   items: string[];
 };
 
+/**
+ * ============================================================================
+ * AS PEÇAS DO LAYOUT DE FAMILY BUSINESS CONSULTING — 24-09
+ * ============================================================================
+ *
+ * Duas imagens, uma página só. O layout traz TRÊS blocos que o template não
+ * tinha: a faixa "Two systems. One future.", a faixa rosa "Where we typically
+ * enter" e o fecho "The outcome" com o "Our experience" ao lado.
+ *
+ * ⚠️ NENHUM DELES SUBSTITUI NADA, como em todas as rodadas anteriores: cada um
+ * é campo opcional, e serviço que não o tem simplesmente não desenha aquele
+ * bloco. As outras nove páginas não sentem esta rodada.
+ *
+ * O resto da página cai em campos que JÁ EXISTIAM — `heroBody` (os dois
+ * parágrafos da dobra), `howWeWorkHeadline` + `steps` (os seis passos) e
+ * `shifts` (os pares "de → para"). Foi o que o template já tinha a ganhar de
+ * "one template, ten instances".
+ */
+
+/** Um item da fileira sob um dos dois painéis — rótulo e uma linha. */
+export type ServiceSystemItem = {
+  /**
+   * ⚠️ É TAMBÉM A CHAVE DO ÍCONE. O glifo vem do mapa de `SolutionPillars`, que
+   * casa por string EXATA — a mesma regra de `inflectionPoints`. Pôr a chave
+   * num campo próprio criaria um segundo lugar onde a mesma decisão mora.
+   */
+  label: string;
+  /** A linha de descrição, abaixo do rótulo. */
+  body: string;
+};
+
+/** Um dos dois painéis de "Two systems. One future.". */
+export type ServiceSystemPanel = {
+  /** O título em caixa alta dentro da barra de cor ("THE FAMILY"). */
+  title: string;
+  /** A linha de apoio, dentro da mesma barra. */
+  lead: string;
+  /** O parágrafo abaixo da barra. */
+  body: string;
+  /** A chave do ícone da barra, no mapa genérico de `SolutionTwoSystems`. */
+  icon?: string;
+  items: ServiceSystemItem[];
+};
+
+/**
+ * A FAIXA "TWO SYSTEMS. ONE FUTURE." — ver `SolutionTwoSystems`.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceTwoSystems = {
+  label?: string;
+  family: ServiceSystemPanel;
+  business: ServiceSystemPanel;
+  /**
+   * O DIAGRAMA DE VENN DO MEIO, escrito e não desenhado: as palavras dentro dos
+   * dois círculos são copy da cliente, e num PNG deixariam de ser legíveis,
+   * traduzíveis e editáveis. O componente monta os círculos em SVG.
+   */
+  venn: {
+    leftTitle: string;
+    leftWords: string[];
+    rightTitle: string;
+    rightWords: string[];
+    /** O fecho em caixa alta sob o diagrama. */
+    note: string;
+  };
+};
+
+/**
+ * A FAIXA ROSA "WHERE WE TYPICALLY ENTER" — ver `SolutionEntryPoints`.
+ *
+ * ⚠️ OS ITENS SÃO STRINGS, E NÃO OBJETOS COM ÍCONE, pela mesma razão de
+ * `ServiceInflectionPoints`: o glifo vem do mapa de `SolutionPillars`, que casa
+ * pelo rótulo exato.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceEntryPoints = {
+  label?: string;
+  items: string[];
+  /** A primeira linha do fecho, em tinta escura. */
+  noteLead: string;
+  /** A segunda, em vermelho. É a mesma anatomia do `ServiceClosing`. */
+  noteAccent: string;
+};
+
+/**
+ * O FECHO "THE OUTCOME" — ver `SolutionOutcome`.
+ *
+ * ⚠️ NÃO É O CAMPO `outcome`, que é o corpo do bloco "What we do" e vem do
+ * `CDNA_03_Services.docx`. Este é uma FAIXA do layout, com manchete própria,
+ * quatro resultados ilustrados e a caixa de cor. Os dois convivem na mesma
+ * página de propósito.
+ *
+ * ⏳ UM DOS DEZ TEM.
+ */
+export type ServiceOutcomeSummary = {
+  label?: string;
+  headline: string;
+  /**
+   * Os quatro resultados. ⚠️ O PONTO FINAL FAZ PARTE DO ITEM e também é a chave
+   * do ícone — a mesma armadilha de `commonOutcome`.
+   */
+  items: string[];
+  /**
+   * AS TRÊS LINHAS DA CAIXA DE COR, uma por item e não um texto com `\n`: são
+   * três afirmações, e deixá-las refluir juntaria duas na mesma linha em tela
+   * larga.
+   */
+  note: string[];
+  /**
+   * O "OUR EXPERIENCE" da coluna da direita.
+   *
+   * ⚠️ NÃO É O `evidenceSummary.experience`. Aquele apresenta uma FILEIRA DE
+   * LOGOS e vive dentro da faixa de evidência; este é um parágrafo solto ao
+   * lado do resultado, e esta página não tem logos.
+   */
+  experience?: { label?: string; body: string };
+};
+
 export type Service = {
   slug: string;
   title: string;
@@ -581,6 +943,23 @@ export type Service = {
    * sempre — a mesma guarda de `whatWeDo`, `audiences` e `practices`.
    */
   heroSubtitle?: string;
+  /**
+   * OS PARÁGRAFOS DENTRO DO HERÓI — 24-09, com o layout do Talent Development,
+   * o primeiro dos dez a escrever corpo na dobra em vez de só a frase de apoio.
+   *
+   * ⚠️ NÃO É UM SEGUNDO `heroSubtitle`. A frase de apoio é a AFIRMAÇÃO da
+   * página (uma linha, corpo grande); estes são explicação, em corpo menor.
+   * Postos na mesma medida, o herói ficaria com três blocos de texto de peso
+   * igual e a manchete perderia o lugar — ver a caixa na marcação do
+   * `SolutionHero`.
+   *
+   * ⚠️ UM ITEM POR PARÁGRAFO, e não um texto com `
+`: o componente desenha um
+   * `<p>` por item. O layout do Talent Development traz dois.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  heroBody?: string[];
   /**
    * Bloco 2 — The Outcome. O que muda no negócio.
    *
@@ -634,6 +1013,31 @@ export type Service = {
   /** O corpo de "What we do". Mesma marcação `**…**` do `outcome`. */
   whatWeDo?: string;
   /**
+   * O BLOCO "WHAT WE DO" NÃO DESENHA NESTA PÁGINA — 24-09, a pedido, com o
+   * Talent Development: *"What we do pode remover"*.
+   *
+   * ⚠️ É UM OPT-OUT, E NÃO UMA GUARDA POR CONTEÚDO, de propósito. A tentação é
+   * esconder o bloco sempre que a manchete for o `HEADLINE_PLACEHOLDER` — e
+   * isso o apagaria de CINCO serviços de uma vez, sem ninguém ter pedido. O
+   * placeholder é uma pendência de copy visível, que é o trabalho dele; aqui o
+   * caso é outro: o layout de 24-09 simplesmente NÃO desenha esta faixa, e o
+   * que ela diria já está escrito nos dois parágrafos do herói.
+   *
+   * ⚠️ O `outcome` CONTINUA NO DADO E SAI DA TELA. Ele era o corpo deste bloco e
+   * não é lido por mais ninguém (o card do índice usa `banner`, e o `outcome` do
+   * `SolutionBoxList` vem do CMS, não daqui). Ou seja, a frase do
+   * `CDNA_03_Services.docx` deixa de ser publicada NESTE serviço — o campo fica
+   * porque é o caminho de volta e porque `tests/services.test.ts` continua
+   * exigindo-o nos dez.
+   *
+   * ⚠️ A TELA DO /edit PERDE A SEÇÃO JUNTO. Deixá-la lá ofereceria dois campos
+   * que não chegam a lugar nenhum — ver `sectionsFor` em
+   * `lib/service-pages-copy.ts`, e o teste que casa as duas coisas.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  hideWhatWeDo?: boolean;
+  /**
    * Bloco 3 — How CorporateDNA Helps. A intervenção.
    *
    * Mesma regra do `outcome`: `**…**` é o negrito da planilha da cliente e vira
@@ -673,12 +1077,48 @@ export type Service = {
    */
   pillars?: string[];
   /**
-   * Os três cartões de público do mockup de 21-09 — ver a caixa de
+   * Os cartões de público do mockup de 21-09 — ver a caixa de
    * `ServiceAudience`. Ausente ou vazio = a faixa não renderiza.
+   *
+   * ⏳ DOIS DOS DEZ TÊM: três cartões no Senior Leadership Development e quatro
+   * no Talent Development. A contagem muda a grade, e a conta está em
+   * `SolutionAudiences`.
+   */
+  audiences?: ServiceAudience[];
+  /**
+   * O RÓTULO ACIMA DOS CARTÕES DE PÚBLICO — 24-09, com o "Where we work" do
+   * Talent Development.
+   *
+   * ⚠️ NASCE VAZIO, E O SENIOR LEADERSHIP DEVELOPMENT NÃO DEVE GANHAR UM: lá os
+   * cartões são a continuação visual do "What we do" logo acima, que já escreveu
+   * rótulo e manchete, e o mockup de 21-09 não desenha rótulo nenhum sobre eles.
+   * No Talent Development a grade de ladrilhos entra entre os dois blocos, então
+   * os cartões deixam de encostar no bloco que os explicava.
+   *
+   * ⚠️ CAMPO SOLTO E NÃO UM OBJETO EM VOLTA DE `audiences` (como o
+   * `capabilitiesHeader` faz): mudar a forma daquele campo obrigaria a mexer no
+   * outro serviço para que nada mude na tela dele. Se um dia esta faixa ganhar
+   * manchete própria, aí sim vale o objeto — e será uma migração de dois
+   * serviços, não de um.
+   */
+  audiencesLabel?: string;
+  /**
+   * A FAIXA ROSA DE UMA LINHA QUE FECHA OS CARTÕES DE PÚBLICO — 24-09, com o
+   * layout de Women’s Leadership Development: *"One ambition: stronger
+   * pipelines, greater progression and more women leading at every level."*
+   *
+   * ⚠️ NÃO É O `closing` NEM O `stepsFlow`. O `closing` é a assinatura em
+   * serifa de duas linhas sobre branco, no pé da página; o `stepsFlow` é o
+   * campo vermelho cheio que resume a sequência de passos. Esta é a frase que
+   * amarra as TRÊS trilhas de público numa ambição só, e mora entre elas e o
+   * "How we work". Ver `SolutionAmbition`.
+   *
+   * ⚠️ ESCRITA COMO FRASE, não em caixa alta: o versalete é CSS. Ver a caixa no
+   * componente.
    *
    * ⏳ UM DOS DEZ TEM.
    */
-  audiences?: ServiceAudience[];
+  ambition?: string;
   /**
    * O fecho centrado de duas linhas do mockup de 21-09 — ver a caixa de
    * `ServiceClosing`. Ausente = o bloco não renderiza.
@@ -715,6 +1155,17 @@ export type Service = {
    */
   evidenceSummary?: ServiceEvidenceSummary;
   /**
+   * Os três cartões de cliente do layout de 24-09 — ver `ServiceEvidenceCases`.
+   *
+   * ⚠️ EXCLUDENTE COM `evidence` E COM `evidenceSummary`, pela mesma conta que
+   * já valia entre aqueles dois: as três faixas escrevem "Evidence" e ocupam o
+   * mesmo lugar. `SolutionView` dá precedência a esta e o teste em
+   * `tests/services.test.ts` fixa a regra.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  evidenceCases?: ServiceEvidenceCases;
+  /**
    * ⚠️ O INTERRUPTOR DO ARRANJO DOS DOIS BLOCOS DE TEXTO — 24-09.
    *
    * O template desenha "What we do" e "How we work" em DUAS COLUNAS: manchete à
@@ -747,9 +1198,44 @@ export type Service = {
    * duas ocupam o mesmo lugar, logo abaixo do bloco "How we work". A conta está
    * em `SolutionView`.
    *
-   * ⏳ UM DOS DEZ TEM.
+   * ⏳ DOIS DOS DEZ TÊM.
    */
   steps?: ServiceStep[];
+  /**
+   * A FAIXA VERMELHA DE UMA LINHA NO PÉ DA SEQUÊNCIA — 24-09, com o Talent
+   * Development: *"From business need → to talent bet → to readiness → to
+   * measurable value."*
+   *
+   * ⚠️ NÃO É UM OITAVO PASSO, e é por isso que não entra em `steps`: ela RESUME
+   * a sequência inteira numa frase. Na lista, faria o leitor de tela anunciar
+   * oito etapas onde há sete.
+   *
+   * ⚠️ AS SETAS SÃO TEXTO NO DADO, e não glifo injetado pelo componente — a
+   * frase é uma só, e parti-la para desenhar ícone entre os pedaços a faria ser
+   * lida como quatro fragmentos soltos. Ver a prop `flow` em `SolutionSteps`.
+   *
+   * ⚠️ SEM `steps` ELA NÃO DESENHA, porque mora dentro daquele componente. Não é
+   * uma faixa autônoma.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  stepsFlow?: string;
+  /**
+   * A NOTA DE RODAPÉ DA FILEIRA DE PASSOS — 24-09, com o layout de Women’s
+   * Leadership Development: *"Learning is deliberately connected to the real
+   * roles, relationships, career moments and organisational systems women are
+   * navigating every day."*
+   *
+   * ⚠️ NÃO É O `stepsFlow`, e os dois podem conviver sem se atropelar: aquele é
+   * um campo vermelho cheio que RESUME a sequência; esta é uma linha em corpo
+   * pequeno, atrás de um filete, que a QUALIFICA. Ver a prop `note` em
+   * `SolutionSteps`.
+   *
+   * ⚠️ SEM `steps` ELA NÃO DESENHA, porque mora dentro daquele componente.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  stepsNote?: string;
   /**
    * OS EIXOS QUE O SERVIÇO FORTALECE — a fileira de disco, ícone, título e
    * descrição que divide a faixa branca com o "What we do". 24-09, com a
@@ -767,6 +1253,63 @@ export type Service = {
    * ⏳ UM DOS DEZ TEM.
    */
   capabilities?: ServiceStep[];
+  /**
+   * O CABEÇALHO DA FILEIRA DE `capabilities` — 24-09, com os aceleradores do
+   * Talent Development.
+   *
+   * ⚠️ CAMPO SEPARADO E NÃO UM OBJETO EM VOLTA DE `capabilities`, porque
+   * mudar a forma daquele campo quebraria a HRLT, que já o usa como lista pura.
+   *
+   * ⚠️ A HRLT NÃO TEM E NÃO DEVE TER: lá a fileira é a continuação visual do
+   * bloco "What we do" logo acima, que já escreveu rótulo e manchete. Aqui ela
+   * é uma faixa autônoma. A guarda está no próprio `SolutionSteps`.
+   */
+  capabilitiesHeader?: { label?: string; headline?: string; lead?: string };
+  /**
+   * OS `capabilities` À DIREITA DO "WHAT WE DO", e não numa fileira abaixo
+   * dele — 24-09, com o layout do Executive Coaching. Ver `SolutionStandouts`
+   * e a prop `aside` do `SolutionSection`. Só `capabilitiesHeader.label` é
+   * lido nesse arranjo.
+   */
+  capabilitiesBeside?: boolean;
+  /**
+   * COMO CADA ITEM DA FILEIRA DE `capabilities` SE ARRUMA — 24-09, a pedido,
+   * com os aceleradores do Talent Development.
+   *
+   * `aside` põe o glifo à ESQUERDA, o título e a descrição à direita dele, e um
+   * filete vertical entre uma célula e a seguinte, que é o que o layout
+   * desenha. Ausente = o arranjo de sempre (disco em cima, texto embaixo,
+   * centrado), que é o da HRLT e o dos passos de "How we work".
+   *
+   * ⚠️ VALE SÓ PARA `capabilities`, e não para `steps`: são duas fileiras
+   * diferentes na mesma página, e a de baixo segue o desenho da sequência. Se
+   * um dia a de baixo precisar do mesmo arranjo, é outro campo — a prop no
+   * `SolutionSteps` já existe para os dois.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  capabilitiesLayout?: "stacked" | "aside";
+  /**
+   * A GRADE DE LADRILHOS DE "The inflection points" — ver
+   * `ServiceInflectionPoints`. Desenha logo abaixo do bloco "What we do".
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  inflectionPoints?: ServiceInflectionPoints;
+  /**
+   * A FILEIRA "Common outcome" — ver `ServiceCommonOutcome`. Desenha entre os
+   * `capabilities` e o bloco "How we work".
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  commonOutcome?: ServiceCommonOutcome;
+  /**
+   * A LISTA "What shifts" — ver `ServiceShifts`. Desenha logo abaixo da fileira
+   * de `steps`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  shifts?: ServiceShifts;
   /**
    * A faixa escura de "How we work" do layout de Culture — ver
    * `ServiceEcosystem`.
@@ -843,13 +1386,96 @@ export type Service = {
    * Trocar as duas de uma vez mudaria em silêncio uma página que ninguém
    * mandou mexer.
    *
-   * ⏳ O CAMINHO SE ELA QUISER AS DUAS IGUAIS: apagar este campo e pôr o mesmo
-   * arquivo em `cardImage`. Uma linha, e a continuidade volta.
+   * ✅ A CONTINUIDADE VOLTOU EM 24-09, pelo outro lado: o `ServiceCard` passou
+   * a mostrar `heroImage ?? cardImage`, a pedido (*"as imagens da lista estão
+   * antigas, pega as imagens dos heros"*). O `cardImage` só aparece hoje em
+   * quem não tem `heroImage`.
    *
    * Ausente = o herói segue mostrando o `cardImage`, e quem não tem nenhum dos
    * dois cai na `service-hero-fallback.jpg`.
    */
   heroImage?: string;
+  /**
+   * O RÓTULO DO HERÓI QUANDO ELE NÃO É "Our Services" — 24-09, com o layout de
+   * Family Business Consulting, que escreve "FAMILY-LED BUSINESS CONSULTING"
+   * acima da manchete.
+   *
+   * ⚠️ O PADRÃO NÃO MUDOU E NÃO DEVE MUDAR. "Our Services" é o rótulo acertado
+   * com a cliente em 08-09 — é o que o menu diz e o que o índice escreve —, e
+   * ele é o que dá ao leitor a noção de ONDE ele está. Este campo é exceção de
+   * uma página, não um rótulo por serviço.
+   *
+   * ⏳ UM DOS DEZ TEM. Ausente = "Our Services", como sempre.
+   */
+  heroEyebrow?: string;
+  /**
+   * A SEGUNDA METADE DA MANCHETE DO HERÓI, EM VERMELHO — 24-09.
+   *
+   * O layout de Family Business Consulting escreve a manchete em duas cores:
+   * *"Protecting the legacy."* em tinta escura e *"Preparing the family and
+   * business for what comes next."* em vermelho, uma debaixo da outra.
+   *
+   * ⚠️ NO NOSSO HERÓI A COR ESCURA VIRA BRANCA, e não é liberdade: aquele
+   * layout põe a manchete sobre papel branco, e este herói é fotografia de
+   * sangria total com escurecimento por cima. O vermelho também troca de tom
+   * (`brand-light`), pela regra de uma linha do `globals.css` — `brand` em
+   * fundo claro, `brand-light` em fundo escuro.
+   *
+   * ⚠️ NÃO É O `h1`. A manchete do layout mora no `heroSubtitle` e este campo é
+   * a continuação dela; o `h1` continua sendo o NOME do serviço, que alimenta o
+   * menu e a metadata. É o mesmo arranjo do Talent Development e da Culture
+   * Transformation.
+   *
+   * ⏳ UM DOS DEZ TEM. Ausente = a frase de apoio termina onde sempre terminou.
+   */
+  heroSubtitleAccent?: string;
+  /**
+   * A COLUNA DE PALAVRAS NO CANTO DA DOBRA — 24-09: *"PEOPLE / FAMILIES /
+   * BUSINESSES / A BRIGHTER TOMORROW."*
+   *
+   * ⚠️ UM ITEM POR LINHA, e as quebras são do desenho: as quatro cabem folgadas
+   * numa linha só, e deixá-las refluir perderia a escada que o layout monta.
+   * É a mesma decisão do `credential` de `ServiceAudience`.
+   *
+   * ⏳ DOIS DOS DEZ TÊM — a Family Business Consulting, que a caixa acima
+   * descreve, e a Women’s Leadership Development (*"People / Perspective /
+   * Possibilities"*). SÓ NO DESKTOP — ver a prop no `SolutionHero`.
+   */
+  heroCredential?: string[];
+  /**
+   * A NUMERAÇÃO DA FILEIRA DE `steps` — ver a prop `numbered` do
+   * `SolutionSteps`.
+   *
+   * ⚠️ O PADRÃO É SEM NÚMERO, e isso é pedido de 24-09 (*"na seção How we work
+   * pode tirar os numeros"*) sobre o layout de Manager Development. Os layouts
+   * de Executive Coaching e de Family Business Consulting desenham os passos
+   * numerados — dois desenhos para a mesma fileira, e é o dado que decide.
+   */
+  stepsNumbered?: boolean;
+  /** Ícone nu e escuro nos `steps`, sem o disco rosa — ver `plainIcons` no
+   *  `SolutionSteps`. */
+  stepsPlainIcons?: boolean;
+  /**
+   * A faixa "Two systems. One future." — ver `ServiceTwoSystems`. Desenha logo
+   * abaixo do bloco "What we do".
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  twoSystems?: ServiceTwoSystems;
+  /**
+   * A faixa rosa "Where we typically enter" — ver `ServiceEntryPoints`. Desenha
+   * entre a faixa dos dois sistemas e o bloco "How we work".
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  entryPoints?: ServiceEntryPoints;
+  /**
+   * O fecho "The outcome" — ver `ServiceOutcomeSummary`. Desenha logo abaixo da
+   * lista de `shifts`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  outcomeSummary?: ServiceOutcomeSummary;
 };
 
 /**
@@ -1190,6 +1816,7 @@ export const services: Service[] = [
     evidenceSummary: {
       headline: "Leadership shifts you can see in the business.",
       lead: "Evidence of stronger enterprise leadership, greater readiness and sustained behaviour change.",
+      logoSize: "medium",
       logos: [
         {
           src: "/logos/frasers-property-2026.png",
@@ -1310,9 +1937,10 @@ export const services: Service[] = [
       asideTitle: "Ten planets. A stronger culture.",
       asideBody:
         "These ten elements work together as an integrated ecosystem to create the conditions for culture to come alive at every level, in every part of the organisation.",
-      /* ⏳ SEM `diagram`: a chapa PLACEHOLDER fica no meio da faixa até o arquivo
-         delas chegar. O porquê inteiro está na caixa da prop, e o resumo é que o
-         diagrama do layout é justamente a versão que elas pediram para trocar. */
+      /* ✅ O DIAGRAMA CHEGOU EM 24-09 (WhatsApp, 1024x683). ⚠️ Ele traz o
+         próprio título ("The CDNA Culture Ecosystem") desenhado no canto
+         superior esquerdo, repetindo a manchete da coluna ao lado. */
+      diagram: "/services/ecosystem/culture-ecosystem.jpg",
       elements: [
         "Leadership and Role Modelling",
         "Ownership and Accountability",
@@ -1381,10 +2009,353 @@ export const services: Service[] = [
   },
   {
     slug: "talent-development",
+    /* ⚠️ O HERÓI CONTINUA SENDO A FOTO DA BRANCH DOS HERÓIS, e não a dos
+       alpinistas do layout: aquela é arte DO PRÓPRIO ARQUIVO (1024px de
+       largura, com o lettering "People Potential Progress" chapado no pixel),
+       não asset entregue pela cliente. Recortá-la daria uma dobra de sangria
+       total com 1024px de fonte e um texto cravado na imagem que ninguém
+       consegue traduzir nem editar pelo /edit. */
     heroImage: "/hero/talent-high-potentials.jpeg",
     cardImage: "/services/cards/talent-development-client.jpg",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
+    /* ============================================================================
+       ✅ A PÁGINA REFEITA PELO LAYOUT DE 24-09
+       ============================================================================
+
+       Toda a copy abaixo está escrita em letra no arquivo do layout e foi
+       TRANSCRITA, não reescrita. É a mesma operação que Culture, Manager e HRLT
+       já sofreram no mesmo dia, e os campos novos que ela exigiu (`heroBody`,
+       `inflectionPoints`, `capabilitiesHeader`, `commonOutcome`, `stepsFlow`,
+       `shifts`) estão documentados um a um lá em cima, no tipo `Service`.
+
+       ⚠️ O `outcome`, O `howWeHelp` E OS `pillars` CONTINUAM NO DADO, mais
+       abaixo, e é de propósito — a mesma decisão da Manager Development: eles
+       são a copy do `CDNA_03_Services.docx`, que nunca deixou de ser final, e o
+       template cai neles por `??` em qualquer bloco que a copy nova não cubra.
+       Na prática, nesta página, só o `howWeHelp` chega à tela: é ele o corpo do
+       bloco "How we work". Os `pillars` saem porque `steps` tem precedência
+       sobre eles, e o `outcome` sai com o bloco inteiro — ver `hideWhatWeDo`,
+       logo abaixo.
+
+       ⚠️ TRAVESSÕES: este layout não tem nenhum, ao contrário do de Culture. O
+       que ele tem são SETAS (→) na faixa de fluxo e meios-traços em
+       "emerging-market" e "Succession-ready" — nem um nem outro é alvo do
+       pedido de 23-09, que é sobre o travessão de frase. `tests/services.test.ts`
+       guarda a regra e agora cobre também os campos novos.
+       ============================================================================ */
+    /* ✅ A MANCHETE DO LAYOUT VIRA A FRASE DE APOIO DO HERÓI, e não o `h1`:
+       no arquivo, "TALENT DEVELOPMENT" é o sobretítulo e esta frase é o corpo
+       grande. No template o `h1` é o NOME do serviço — ele alimenta a migalha,
+       o menu e a metadata —, então a frase desce um degrau. É exatamente o que
+       o Senior Leadership Development fez em 24-09; ver a caixa de
+       `heroSubtitle` no tipo `Service`. */
+    heroSubtitle: "Potential when shaped into readiness, accelerates talent.",
+    /* ✅ SEM O BLOCO "WHAT WE DO" — 24-09, a pedido: *"What we do pode
+       remover"*. O layout não o desenha, e a manchete dele nesta página era o
+       `HEADLINE_PLACEHOLDER`. A grade de ladrilhos passa a ser a primeira faixa
+       depois do herói. Ver a caixa do campo no tipo `Service`. */
+    hideWhatWeDo: true,
+    /* ✅ OS DOIS PARÁGRAFOS DA DOBRA — este é o primeiro dos dez serviços a ter
+       corpo dentro do herói. Ver `heroBody` no tipo `Service`. */
+    heroBody: [
+      "We design talent acceleration journeys for high-potential and critical talent at pivotal moments in their careers, building the identity, judgement, enterprise capability and visibility they need to step into bigger, broader and more complex roles.",
+      "Our work connects development directly to succession, mobility and business impact, so talent doesn’t simply learn more. They become more ready.",
+    ],
+    /* ✅ A GRADE DE OITO LADRILHOS, logo abaixo do "What we do" — ver
+       `SolutionInflectionPoints`.
+
+       ⚠️ A MANCHETE VAI SEM `\n`, ao contrário da de Manager Development. Lá a
+       quebra foi pedida em letra; aqui ela não é pedida, e a coluna de texto
+       desta faixa já é a menor das duas (1 contra 1,7), então a frase quebra
+       sozinha nas três linhas do desenho sem que ninguém fixe onde. Um `\n`
+       cravado quebraria também no telefone, onde a linha já não cabe.
+
+       ⚠️ A ORDEM DOS OITO É A DO DESENHO, e o tabuleiro vermelho/cinza é
+       calculado pela POSIÇÃO no componente. Reordenar a lista para "arrumar as
+       cores" troca o que a CDNA afirma sobre talento por um efeito visual. */
+    inflectionPoints: {
+      label: "The inflection points",
+      headline: "The definition and identification of talent is changing in today’s world.",
+      lead: "We work with talent at eight common inflection points.",
+      items: [
+        "Newly identified High Potentials",
+        "Accelerated / fast-track talent",
+        "First-time leadership transitions",
+        "Role expansion / scope increase",
+        "Cross-functional / enterprise moves",
+        "Inconsistent High Potentials",
+        "Succession pipeline activation",
+        "Retention / flight risk",
+      ],
+    },
+    /* ✅ O RÓTULO DOS CARTÕES DE PÚBLICO — ver `audiencesLabel` no tipo
+       `Service`. O Senior Leadership Development não tem: lá os cartões nascem
+       colados no "What we do" e o desenho não escreve rótulo nenhum sobre eles.
+       Aqui entre os dois há a grade de ladrilhos, e sem rótulo os quatro
+       cartões entrariam na página sem nada que os anuncie. */
+    audiencesLabel: "Where we work",
+    /* ✅ OS QUATRO PÚBLICOS DO LAYOUT. O mapeamento para o cartão do template é
+       o mesmo dos três do Senior Leadership Development: o NOME do público
+       (`label`) é a sobreposição no quadro de cima, a linha vermelha do desenho
+       é o `title` em serifa e o parágrafo é o `body`.
+
+       ⚠️ SÃO QUATRO, E ISSO MUDA A GRADE — até aqui o componente desenhava três
+       colunas cravadas e o quarto cartão desceria sozinho com 66% de vazio ao
+       lado. A escada nova (1 → 2 → 4) está em `SolutionAudiences`.
+
+       ⚠️ OS TÍTULOS NÃO TERMINAM EM PONTO, ao contrário dos três do outro
+       serviço, porque o layout não os escreve com ponto. É transcrição, não
+       descuido.
+
+       ⏳ SEM FOTOGRAFIA: os quatro retratos do layout são arte do arquivo
+       (~250px de largura cada) e não estão na pasta da cliente. Sem `image` o
+       cartão cai no campo de cor `ink` com o nome do público em cima, que é um
+       estado BOM e o mesmo da Culture Transformation. Quando as fotos chegarem,
+       é acrescentar `image` nos quatro, em `public/services/audiences/`. */
+    audiences: [
+      {
+        label: "Global Top Talent",
+        title: "Building the next generation of enterprise leaders",
+        body: "Accelerating talent for the organisation’s most significant future roles, with a focus on enterprise leadership, strategic judgement and readiness for complexity.",
+      },
+      {
+        label: "Regional & Emerging Market Talent",
+        title: "Accelerating readiness across markets and boundaries",
+        body: "Building leadership capability, visibility and influence across different cultures, markets and organisational contexts.",
+      },
+      {
+        label: "Functional & Critical-Role Talent",
+        title: "Turning deep expertise into broader leadership impact",
+        body: "Helping high-value specialists broaden their identity, influence and enterprise contribution as their scope increases.",
+      },
+      {
+        label: "Early & Mid-Career High Potentials",
+        title: "Creating the runway for what comes next",
+        body: "Developing the capabilities, experiences and confidence required to make successful transitions into larger leadership roles.",
+      },
+    ],
+    /* ✅ O CABEÇALHO DA FAIXA DE ACELERADORES. No layout o rótulo e a manchete
+       dividem a mesma linha; aqui eles empilham, como em todas as outras faixas
+       do site. Ver `capabilitiesHeader` no tipo `Service`. */
+    capabilitiesHeader: {
+      label: "Our talent DNA accelerators",
+      headline: "What accelerates talent isn’t capability alone.",
+      lead: "Across our work with high-potential talent, four accelerators consistently matter:",
+    },
+    /* ✅ O ARRANJO DO LAYOUT, a pedido de 24-09: *"os icones a esquerda e o
+       titulo e texto a [direita], com uma linha dividindo cada um"*. Ver a
+       caixa do campo no tipo `Service`. */
+    capabilitiesLayout: "aside",
+    /* ✅ OS QUATRO ACELERADORES. `sequence={false}` no template: eles são uma
+       LISTA de iguais, não uma sequência — nenhum vem antes do outro.
+
+       ⚠️ OS GLIFOS FORAM LIDOS DO LAYOUT, um a um: montanha, alvo com flecha,
+       olho e o grupo de pessoas. "Accountability" cai em `people`, que já
+       existia, porque é o mesmo desenho do mesmo conceito — a regra da daily de
+       24-09 (*"o mesmo ícone para o mesmo conceito em todas as páginas"*). */
+    capabilities: [
+      {
+        icon: "mountain",
+        title: "Grit",
+        body: "The resilience and sustained effort to navigate ambiguity, setbacks and increasingly complex demands.",
+      },
+      {
+        icon: "target",
+        title: "Impact & Identity",
+        body: "Building a leadership identity that matches the next level, while delivering visible, business-relevant impact.",
+      },
+      {
+        icon: "eye",
+        title: "Visibility",
+        body: "Creating meaningful exposure through stretch assignments, cross-functional and cross-market experiences, senior sponsorship and real business challenges.",
+      },
+      {
+        icon: "people",
+        title: "Accountability",
+        body: "Owning the thinking, relationships, judgement, actions and standards required at the next level.",
+      },
+    ],
+    /* ✅ A FILEIRA "COMMON OUTCOME", entre os aceleradores e o "How we work".
+       Desenha na mesma peça dos `pillars` (`SolutionPillars`), com rótulo
+       próprio — ver `ServiceCommonOutcome`.
+
+       ⚠️ O PONTO FINAL DE CADA ITEM É DO LAYOUT E TAMBÉM É A CHAVE DO ÍCONE.
+       "Readiness." com ponto casa no mapa; "Readiness" sem ponto cai no círculo
+       de fallback. */
+    commonOutcome: {
+      label: "Common outcome",
+      items: [
+        "Readiness.",
+        "Team identity.",
+        "Horizontal trust.",
+        "Collective habits.",
+        "Moments that matter in the flow of work.",
+      ],
+    },
+    /* ✅ A MANCHETE DE "HOW WE WORK" É A ÚNICA LINHA QUE O LAYOUT ESCREVE ALI.
+       O corpo do bloco continua sendo o `howWeHelp` do documento, por `??` —
+       ver a caixa de abertura desta entrada. */
+    howWeWorkHeadline:
+      "Talent development starts with the business imperative, and ends with measurable value creation.",
+    /* ✅ EMPILHADO, a pedido de 24-09: *"na seção How we work coloca o titulo
+       ocupando toda a linha, o texto embaixo e depois os icones"*. É o mesmo
+       arranjo que a Manager Development usa, e a razão aqui é a do layout: a
+       manchete é uma frase longa que ocupa a linha inteira, e os sete passos
+       vêm logo abaixo dela — em duas colunas, a manchete ficaria espremida em
+       metade da largura com o corpo ao lado.
+
+       ⚠️ `sectionLayout` VALE PARA OS DOIS BLOCOS DE DUAS COLUNAS, mas aqui só
+       resta um: o "What we do" saiu desta página (ver `hideWhatWeDo`). */
+    sectionLayout: "stacked",
+    /* ✅ OS SETE PASSOS. Aqui a ordem AFIRMA: "Business Imperative" vem antes de
+       "Needs Analysis" porque o trabalho acontece nessa ordem, e é isso que a
+       seta entre os discos diz. Saem em `<ol>`.
+
+       ⚠️ SÃO SETE NUMA FILEIRA DESENHADA PARA SEIS (a de Manager Development).
+       A grade é `auto-fit`, então o sétimo não quebra nada; o que ele faz é
+       apertar as células a 1440, que é o que o próprio layout mostra. */
+    steps: [
+      {
+        icon: "target",
+        title: "Business Imperative",
+        body: "Define the strategic context, future capability requirements and critical roles the organisation needs talent to step into.",
+      },
+      {
+        icon: "search",
+        title: "Needs Analysis",
+        body: "Understand organisational, leadership and individual development needs through stakeholder interviews, diagnostics and talent data.",
+      },
+      {
+        icon: "people",
+        title: "Talent Identification",
+        body: "Align on who the talent is, why they have been selected, their readiness today and their future roles being accelerated towards.",
+      },
+      {
+        icon: "document",
+        title: "Modules",
+        body: "Build targeted learning and experiences that matter most, using immersive modules, live business challenges and application in the flow of work.",
+      },
+      {
+        icon: "peers",
+        title: "Coaching + Mastery",
+        body: "Deepen individual development through coaching, mastery sessions and targeted practice around each leader’s specific stretch areas.",
+      },
+      {
+        icon: "chart",
+        title: "Talent Tracking",
+        body: "Track readiness, mobility, development progress and observable shifts, keeping participants, managers, HR and sponsors connected to the journey.",
+      },
+      {
+        icon: "trophy",
+        title: "Success + Value Creation",
+        body: "Measure what changed: readiness, role moves, promotion, retention, leadership impact and tangible value created.",
+      },
+    ],
+    /* ✅ A FAIXA VERMELHA DE UMA LINHA, no pé da sequência — ver `stepsFlow` no
+       tipo `Service`. As setas são TEXTO, porque a frase é uma só. */
+    stepsFlow:
+      "From business need → to talent bet → to readiness → to measurable value.",
+    /* ✅ OS SETE PARES "DE → PARA". A ordem dentro do par é a afirmação: à
+       esquerda o que a organização mede hoje, à direita o que ela passa a
+       medir. Ver `ServiceShifts`. */
+    shifts: {
+      label: "What shifts",
+      items: [
+        { from: "Potential", to: "Demonstrated readiness" },
+        { from: "Functional excellence", to: "Enterprise contribution" },
+        { from: "Career ambition", to: "Leadership identity" },
+        {
+          from: "Learning about leadership",
+          to: "Leading through real business challenges",
+        },
+        { from: "Internal capability", to: "Visible impact and sponsorship" },
+        { from: "Individual success", to: "Influence across boundaries" },
+        { from: "Future promise", to: "Succession-ready talent" },
+      ],
+    },
+    cta: {
+      strapline: "Global ambition. Local talent realities.",
+      line: "Build a talent runway that identifies what your people need here and now, while preparing them for what the business will need next.",
+      label: "Talk to us about your talent pipeline",
+    },
+    /* ============================================================================
+       ⛔ O BLOCO DE CASO DA VODAFONE SAIU EM 24-09
+       ============================================================================
+
+       O layout troca a faixa de evidência inteira: onde havia o case contado por
+       extenso, agora há "The impact" com quatro medidas e "Our experience" com
+       seis marcas. É a mesma troca que o Senior Leadership Development sofreu no
+       mesmo dia, e as duas faixas são EXCLUDENTES — `tests/services.test.ts`
+       guarda isso, porque as duas escrevem o rótulo de evidência em cima.
+
+       O QUE SAIU, para quem precisar reverter (o git tem tudo):
+
+         • `evidence`, com `client: "VODAFONE"`, `title: "Inspire"`, o parágrafo
+           da parceria plurianual, os três fatos ("400+ alumni", "7 years
+           partnership", "Multi market development") e o
+           `EVIDENCE_IMAGE_PLACEHOLDER`;
+         • `testimonial`, que era o placeholder de 17-09 — e vale dizer que foi
+           ESTA PÁGINA que o motivou: era a faixa mais vazia dos cinco serviços
+           com case, numa coluna só. A citação real nunca chegou; a pendência
+           morre aqui em vez de ficar esperando.
+
+       ✅ A VODAFONE NÃO SUMIU DA PÁGINA: ela é a sexta marca da fileira, que é
+       onde o layout a põe. O que se perdeu foram os três números dela, e eles
+       não cabiam — a faixa nova afirma resultado de PROGRAMA, não de cliente.
+
+       ⚠️ A LINHA "Award winning programmes across regions" CONTINUA FORA, e o
+       motivo é o mesmo de 17-09: o outline a reprova em letra (*"Name the award
+       rather than alluding to it"*). O layout também não a traz. */
+    /* ✅ A FAIXA DE EVIDÊNCIA NOVA — "The impact" à esquerda e "Our experience"
+       à direita, no layout; aqui as duas empilham, porque a faixa é uma coluna
+       só desde que nasceu.
+
+       ⚠️ O `icon` DE CADA MEDIDA REPETE O RÓTULO, e não é redundância à toa: é
+       ele que manda a medida para a grade de ícones em vez da fileira
+       intercalada com os logos (a conta está em `SolutionEvidenceSummary`), e o
+       mapa de `SolutionPillars` casa por STRING EXATA. Uma chave "chart" ali
+       cairia no círculo de fallback.
+
+       ⏳ TRÊS DOS SEIS LOGOS SÃO DO ACERVO ANTIGO e desenham pequenos: `gsk`
+       (123px), `kellanova` (154px) e `vodafone` (123px) contra o teto de 240px
+       da fileira. É dívida de ASSET, não de layout — a mesma anotada na HRLT.
+       Quando forem tratados como os de 24-09 (recorte pela caixa do alfa e
+       800px de largura), é trocar o caminho aqui.
+
+       ⚠️ SÓ A FRASERS LEVA A CASE. `/cases/frasers-property-leadership` é
+       justamente *"Building the next generation of leaders and talent for One
+       Frasers"*, que é este serviço. Os outros cinco não têm página publicada, e
+       a régua é a de sempre: link para case despublicado é 404 em cima do logo
+       de um cliente. */
+    evidenceSummary: {
+      label: "The impact",
+      headline:
+        "Talent acceleration should change the pipeline, not just the participant experience.",
+      facts: [
+        { icon: "Higher Productivity", value: "35%", label: "Higher Productivity" },
+        { icon: "Promotion Readiness", value: "70%", label: "Promotion Readiness" },
+        { icon: "Expanded Role Moves", value: "80%", label: "Expanded Role Moves" },
+        { icon: "Discretionary Effort", value: "2x", label: "Discretionary Effort" },
+      ],
+      experience: {
+        label: "Our experience",
+        lead: "For nearly two decades, we’ve worked with organisations to identify, accelerate and retain talent across global, regional, emerging-market and local populations, including:",
+      },
+      logos: [
+        { src: "/logos/heineken-2026.png", alt: "HEINEKEN" },
+        { src: "/logos/gsk.png", alt: "GSK" },
+        {
+          src: "/logos/frasers-property-2026.png",
+          alt: "Frasers Property",
+          caseSlug: "frasers-property-leadership",
+        },
+        { src: "/logos/kellanova.png", alt: "Kellanova" },
+        { src: "/logos/schroders.png", alt: "Schroders" },
+        { src: "/logos/vodafone.png", alt: "Vodafone" },
+      ],
+      note: "Turn potential into readiness. And readiness into impact.",
+    },
     outcome:
       "Greater **bench strength, successor readiness and talent velocity**, reducing dependency on external hiring and strengthening the organisation’s capacity to grow.",
     howWeHelp:
@@ -1396,32 +2367,6 @@ export const services: Service[] = [
       "Business challenges",
       "Deliberate practice",
     ],
-    cta: {
-      strapline: "Global ambition. Local talent realities.",
-      line: "Build a talent runway that identifies what your people need here and now, while preparing them for what the business will need next.",
-      label: "Talk to us about your talent pipeline",
-    },
-    /* ⚠️ A linha "Award winning programmes across regions" do documento NÃO
-       entrou. O próprio outline a reprova: *"Name the award rather than alluding
-       to it. Award winning with no award named is the weakest line on any of the
-       five, and the Brandon Hall gold is already published on the live Our Impact
-       page."* Publicar o prêmio pelo nome depende de confirmarem qual é. */
-    evidence: {
-      client: "VODAFONE",
-      title: "Inspire",
-      body: "A multi year talent development partnership accelerating high-potential talent and strengthening leadership pipelines across markets.",
-      facts: [
-        { value: "400+", label: "alumni" },
-        { value: "7 years", label: "partnership" },
-        { value: "Multi market", label: "development" },
-      ],
-      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
-      image: EVIDENCE_IMAGE_PLACEHOLDER,
-    },
-    /* ⏳ Placeholder de 17-09 — ver a caixa de `evidenceQuotePlaceholder`. Foi
-       ESTA PÁGINA que motivou o pedido: era a faixa de evidência mais vazia dos
-       cinco serviços que a renderizam, em uma coluna só. */
-    testimonial: evidenceQuotePlaceholder("VODAFONE"),
   },
   {
     slug: "manager-development",
@@ -1597,9 +2542,226 @@ export const services: Service[] = [
     slug: "women-in-leadership",
     heroImage: "/hero/women-leadership.jpeg",
     cardImage: "/services/cards/women-in-leadership-client.jpg",
-    title: "Women in Leadership",
+    /* ============================================================================
+       ✅ A PÁGINA REFEITA PELO LAYOUT DE 24-09 (`women leadership.jpeg`)
+       ============================================================================
+
+       Toda a copy abaixo está escrita em letra no arquivo e foi TRANSCRITA, não
+       reescrita — a mesma operação que Culture, Manager, HRLT e Talent já
+       sofreram. Os campos novos que ela exigiu (`heroCredential`, `focus` nos
+       cartões, `ambition`, `stepsNote`, `evidenceCases`) estão documentados um a
+       um lá em cima, no tipo `Service`.
+
+       ⚠️ TRAVESSÕES: o layout tem TRÊS, e os três saíram por causa do pedido de
+       23-09 (*"tirar o travessão do site todo nos textos pra nao parecer ia"*),
+       que `tests/services.test.ts` guarda. Onde o desenho escreve "— " esta
+       transcrição usa dois pontos ou vírgula: no `heroBody` ("careers: from
+       early career"), no `whatWeDo` ("women face, and the opportunities") e no
+       `howWeWork` ("matters most: in the real roles"). Uma quarta ocorrência
+       está na legenda da Kellanova, e ali o desenho usa MEIO-traço como
+       pontuação de frase ("not as exceptions – but as"); virou vírgula pela
+       mesma razão. Os meios-traços de INTERVALO ficam ("6–9 months", "20–25",
+       "5–7", "2020 – 2025"), que é o que o teste diz em letra.
+
+       ⚠️ O `outcome`, O `howWeHelp` E OS `pillars` CONTINUAM NO DADO, mais
+       abaixo, como em todos os serviços migrados: são a copy do
+       `CDNA_03_Services.docx`, que nunca deixou de ser final, e o template cai
+       neles por `??` em qualquer bloco que a copy nova não cubra. Na prática o
+       `outcome` SAI DA TELA aqui (o `whatWeDo` o cobre) e os `pillars` também,
+       porque `steps` tem precedência sobre eles — mas os dois sustentam o card
+       da `/services`, o teste de `pillars` e o caminho de volta.
+       ============================================================================ */
+    /* ⚠️ O NOME DA PÁGINA MUDOU, E ISSO VAI ALÉM DO HERÓI. O layout escreve
+       "Women’s Leadership Development" no `h1`, e não "Women in Leadership",
+       que é como o `CDNA_03_Services.docx` nomeia o serviço. O `title` alimenta
+       QUATRO lugares além do herói: o card na `/services`, o card no "Related
+       services" das outras nove, o `<title>` da metadata e o `og:title`.
+
+       POR QUE A TROCA MESMO ASSIM: é a mesma régua que 24-09 aplicou ao
+       `heroSubtitle` — layout aprovado e POSTERIOR ganha do documento, quando
+       ele escreve a frase em letra. E o custo aqui é baixo de medir: o nome
+       novo tem 30 caracteres contra os 29 de "Senior Leadership Development",
+       que já passa pelo card sem quebrar nada.
+
+       ⏳ O QUE FICA DESALINHADO: a rota segue `/services/women-in-leadership` e
+       o slug não muda — é endereço, não texto, a mesma regra que mantém
+       `/solutions` atrás do rótulo "Services". As tags de caso no CMS também
+       continuam dizendo "Women in Leadership"; nenhum código casa título com
+       tag, então isso é vocabulário do acervo, não dependência. */
+    title: "Women’s Leadership Development",
     banner:
       "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
+    /* ✅ A FRASE DE APOIO DO HERÓI É A DO LAYOUT, e a `banner` segue viva nos
+       quatro lugares acima. Ver `heroSubtitle` no tipo `Service`. */
+    heroSubtitle: "Advancing women. Shaping the system.",
+    /* ⚠️ SEM AS TRÊS PALAVRAS DA BORDA DIREITA (`heroCredential`) — 24-09, a
+       pedido, junto com a régua vermelha que as fecha. */
+    heroBody: [
+      "Leadership development for women at the moments that shape careers: from early career to enterprise leadership.",
+    ],
+    whatWeDoHeadline:
+      "Different organisational needs. Three pathways for women to lead at a higher level.",
+    whatWeDo:
+      "Every organisation has different needs at different stages. We create three distinct pathways, each designed to meet the real challenges women face, and the opportunities ahead.",
+    /* ✅ AS TRÊS TRILHAS, no mapeamento de sempre: o rótulo é a sobreposição no
+       quadro de cima, a linha em serifa é o `title` e o parágrafo é o `body`. A
+       lista "FOCUS ON" é o campo novo — ver `focus` em `ServiceAudience`.
+
+       ⚠️ SEM `audiencesLabel`, de propósito: aqui os cartões encostam no "What
+       we do", que acabou de escrever rótulo e manchete, e o layout não desenha
+       rótulo nenhum sobre eles. É o caso do Senior Leadership Development, não
+       o do Talent Development. Ver a caixa daquele campo.
+
+       ⏳ SEM FOTOGRAFIA: os três retratos do layout são arte do arquivo
+       (~215px de largura cada) e não estão na pasta da cliente. Sem `image` o
+       cartão cai no campo de cor `ink` com o nome da trilha em cima, que é o
+       mesmo estado da Culture e do Talent Development. Quando as fotos
+       chegarem, é acrescentar `image` nos três, em `public/services/audiences/`.
+
+       ⚠️ OS RÓTULOS VÃO EM CAIXA BAIXA e o versalete é CSS, como em todos os
+       outros serviços. */
+    audiences: [
+      {
+        label: "Early career women",
+        title: "Build the foundations early.",
+        body: "For organisations wanting to strengthen confidence, voice, networks and leadership identity earlier in the pipeline.",
+        focus: [
+          "Leadership identity",
+          "Voice & confidence",
+          "Relationships",
+          "Career ownership",
+          "Resilience",
+          "Networks",
+        ],
+      },
+      {
+        label: "Mid-career women",
+        title: "Accelerate the critical middle.",
+        body: "For organisations wanting to strengthen progression, sponsorship and readiness for bigger, broader leadership roles.",
+        focus: [
+          "Strategic perspective",
+          "Influence",
+          "Visibility",
+          "Judgement",
+          "Sponsorship",
+          "Enterprise mindset",
+        ],
+      },
+      {
+        label: "Senior women",
+        title: "Increase impact at the top.",
+        body: "For organisations wanting to accelerate women into enterprise, ExCo and Board-level leadership and amplify their influence once there.",
+        focus: [
+          "Enterprise leadership",
+          "Power & influence",
+          "Collective judgement",
+          "Board/ExCo impact",
+          "Sponsorship of others",
+          "Legacy",
+        ],
+      },
+    ],
+    /* ✅ A FAIXA ROSA QUE FECHA OS TRÊS CARTÕES — ver `ambition`. */
+    ambition:
+      "One ambition: stronger pipelines, greater progression and more women leading at every level.",
+    howWeWorkHeadline: "Development in the flow of work.",
+    howWeWork:
+      "We combine proven methodologies with practical tools and support, so learning is applied where it matters most: in the real roles, relationships and moments women are navigating every day.",
+    /* ✅ OS SETE PARÂMETROS DO PROGRAMA, na fileira de `steps`.
+
+       ⚠️ ELES NÃO SÃO ETAPAS, e é a única coisa que esta escolha de campo
+       afirma de mais: o layout liga os sete por SETAS, que é o desenho que só a
+       fileira de `steps` faz, e `capabilities` (a lista sem seta) desenha em
+       outro lugar da página — na faixa branca, ACIMA do "How we work", onde o
+       layout não põe nada. Ou seja, a alternativa custaria a posição para
+       ganhar a semântica. Fica o registro de que o `<ol>` daqui promete uma
+       ordem que "6–9 months → 20–25 leaders" não tem; se a revisão reclamar, o
+       conserto é uma prop de "seta sem ordem" no `SolutionSteps`, e não mover a
+       fileira de lugar.
+
+       ⚠️ O PAR TÍTULO/CORPO É A QUEBRA DO DESENHO: em cada célula a primeira
+       parte da frase está em negrito e a segunda em corpo leve ("Face-to-face +"
+       / "virtual"). Emendá-las numa string só perderia essa hierarquia.
+
+       ⚠️ OS GLIFOS FORAM LIDOS DO LAYOUT, um a um: calendário, grupo, laptop,
+       balão de fala, nós de rede, duas pessoas e bússola. `network` é o mesmo
+       glifo que `SolutionPillars` dá a "Strategic networks" — mesmo conceito,
+       mesmo símbolo, que é a regra da daily de 24-09. */
+    steps: [
+      { icon: "calendar", title: "6–9 months", body: "Typically" },
+      { icon: "people", title: "20–25", body: "leaders per cohort" },
+      { icon: "laptop", title: "Face-to-face +", body: "virtual" },
+      { icon: "speech", title: "1:1", body: "coaching" },
+      { icon: "network", title: "Peer & sponsor", body: "ecosystem" },
+      { icon: "peers", title: "Tripartites with", body: "line managers" },
+      { icon: "compass", title: "External", body: "mentors" },
+    ],
+    /* ✅ A LINHA ABAIXO DA FILEIRA — ver `stepsNote`. */
+    stepsNote:
+      "Learning is deliberately connected to the real roles, relationships, career moments and organisational systems women are navigating every day.",
+    /* ✅ A FAIXA DE EVIDÊNCIA DO LAYOUT: três clientes, três provas — ver
+       `ServiceEvidenceCases`.
+
+       ⚠️ ESTE SERVIÇO NÃO TINHA EVIDÊNCIA NENHUMA até aqui. O outline o lista
+       entre os cinco que *"launch on copy alone"*, e os blocos 4 e 5 não
+       renderizavam nele. As três provas abaixo estão escritas em letra no
+       layout, que é material posterior e aprovado — não são case do acervo nem
+       dedução nossa.
+
+       ⚠️ OS TRÊS LOGOS JÁ ESTAVAM EM `public/logos/`, e nenhum caminho novo foi
+       inventado. ⏳ São do ACERVO ANTIGO (arquivos pequenos, com margem
+       transparente em volta), e não do jogo recortado de 24-09 — na caixa do
+       cartão eles desenham menor que o teto de 96px. É dívida de ASSET, a mesma
+       anotada na HRLT e no Talent Development: quando forem tratados, é trocar
+       o caminho aqui.
+
+       ⛔ SEM `caseSlug`: nenhuma das três marcas tem página de caso publicada
+       para este trabalho, e link para case despublicado é 404 em cima do logo
+       de um cliente. */
+    evidenceCases: {
+      headline: "Progression you can see.",
+      lead: "Real results from our work with women across industries, geographies and organisational levels.",
+      items: [
+        {
+          logo: { src: "/logos/shell.png", alt: "Shell" },
+          client: "Shell",
+          title: "Powering women",
+          tagline: "Building the pipeline at scale.",
+          facts: [
+            { value: "6,300", label: "Women impacted" },
+            { value: "96%", label: "Facilitator impact" },
+            { value: "70", label: "Net Promoter Score" },
+          ],
+          meta: ["5+ years", "Global"],
+          note: "Leadership potential unlocked across levels, strengthening succession pipelines and inclusive enterprise mindsets at scale.",
+        },
+        {
+          /* SEM `client`: o lockup da Kellanova já escreve o nome. */
+          logo: { src: "/logos/kellanova.png", alt: "Kellanova" },
+          title: "Women of Kellanova Aspire",
+          tagline: "Turning potential into progression.",
+          facts: [
+            { value: "40%", label: "Rise in self-rated confidence" },
+            { value: "90%", label: "Programme alumni retention" },
+            { value: "5–7", label: "New sponsor relationships per participant" },
+          ],
+          meta: ["2020 – 2025", "16 countries", "AMEA"],
+          note: "Women stepping into next-level roles not as exceptions, but as visible role models for others.",
+        },
+        {
+          logo: { src: "/logos/aviva.png", alt: "Aviva" },
+          title: "Accelerating leadership from the inside out",
+          tagline: "Building inclusive leadership at the top.",
+          facts: [
+            { value: "350+", label: "Women leaders impacted" },
+            { value: ">70%", label: "Delegates promoted" },
+            { value: "3+", label: "Years of sustained partnership" },
+          ],
+          meta: ["2020 – 2023", "UK", "Canada", "Asia"],
+          note: "Stronger succession pipelines, greater enterprise leadership and women progressing into increasingly influential roles.",
+        },
+      ],
+    },
     outcome:
       "Increased **representation, successor readiness and retention of critical female talent**, creating a stronger and more diverse leadership pipeline.",
     howWeHelp:
@@ -1610,9 +2772,25 @@ export const services: Service[] = [
       "Strategic networks",
       "Readiness for bigger roles",
     ],
+    /* ✅ AS DUAS PRIMEIRAS PARTES DO CTA SÃO AS DO LAYOUT, a terceira é a do
+       documento. A strapline e a linha estão escritas em letra no fecho do
+       desenho ("Lower the ceiling. Raise the floor." e as três frases ao lado
+       do filete vermelho); o rótulo do botão não aparece ali, e o do
+       `CDNA_03_Services.docx` continua valendo — é copy final e não há desenho
+       que a contradiga.
+
+       ⚠️ AS TRÊS FRASES VIRAM UMA LINHA SÓ. No layout elas empilham à direita
+       de um filete; o `SolutionCta` recebe `line` como um texto, e parti-lo
+       exigiria uma prop de lista numa faixa que as outras nove páginas
+       partilham. Em frases curtas e pontuadas a emenda não se nota.
+
+       ⛔ A STRAPLINE ANTERIOR ERA *"Talent is there. Progression isn’t
+       always."*, e a linha *"Accelerate the readiness, visibility and
+       progression of women while strengthening the leadership pipeline around
+       them."* — as duas do documento. Estão aqui para quem precisar reverter. */
     cta: {
-      strapline: "Talent is there. Progression isn’t always.",
-      line: "Accelerate the readiness, visibility and progression of women while strengthening the leadership pipeline around them.",
+      strapline: "Lower the ceiling. Raise the floor.",
+      line: "Develop the woman. Strengthen the environment around her. Create the conditions for progression to continue.",
       label: "Talk to us about accelerating women in your pipeline",
     },
   },
@@ -1787,6 +2965,7 @@ export const services: Service[] = [
     evidenceSummary: {
       headline: "Stronger HRLTs. Greater business impact.",
       lead: "Our work helps HR leadership teams build the capability and influence to drive real change.",
+      logoSize: "small",
       logos: [
         { src: "/logos/adidas.png", alt: "adidas" },
         { src: "/logos/frasers_property.png", alt: "Frasers Property" },
@@ -1848,6 +3027,183 @@ export const services: Service[] = [
     cardImage: "/services/cards/executive-coaching-client.jpg",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
+    /* ============================================================================
+       ✅ O LAYOUT DE 24-09 (`executive coaching.jpeg`) — O QUE ELE TROUXE
+       ============================================================================
+       A página passou a ter, na ordem do desenho: a dobra com a frase de três
+       tempos, o "What we do" com os quatro diferenciais ao lado, os quatro
+       públicos da pipeline, os sete passos NUMERADOS e a faixa de evidência com
+       quatro medidas.
+
+       ⚠️ A FAIXA DE EVIDÊNCIA TROCOU DE TIPO, e é a decisão que mais mexe no
+       dado: `evidence` (o bloco de caso, escuro, com foto placeholder) saiu e
+       `evidenceSummary` entrou — os dois são excludentes, e o teste em
+       `tests/services.test.ts` fixa isso. O parágrafo da prática e as três
+       medidas dela ("1,000+", "20+", "6 to 12") chegaram a morar na faixa nova
+       e saíram a pedido no mesmo dia — ver a caixa em `evidenceSummary`. A
+       CITAÇÃO — a única publicável dos dez — continua no `testimonial`.
+
+       ⏳ AS QUATRO FOTOS DOS CARTÕES DE PÚBLICO NÃO EXISTEM — ver a caixa em
+       `audiences`, abaixo. */
+    heroSubtitle: "Individuals. Pairs. Teams.",
+    heroBody: [
+      "Deeper insight, broader perspective and lasting impact for leaders and their organisations.",
+    ],
+    /* ⚠️ SEM AS TRÊS PALAVRAS DA BORDA DIREITA (`heroCredential`) — 24-09, a
+       pedido, junto com a régua vermelha que as fecha. */
+    whatWeDoHeadline: "Coaching that goes beneath the surface.",
+    whatWeDo:
+      "Our coaching combines deep personal insight with real-world leadership experience. We work with the whole leader – their identity, context, relationships and performance – connecting the inner game with the outer game to drive sustained impact.",
+    /* ✅ À DIREITA DO "WHAT WE DO", na mesma faixa branca, como o layout
+       desenha — 24-09, a pedido: *"faltou aquela parte da direita"*. Ver
+       `capabilitiesBeside`.
+
+       ⚠️ A CAIXA ALTA É DO LAYOUT e está escrita no dado porque o componente não
+       transforma o título — ele é `font-semibold` e mais nada. */
+    capabilitiesBeside: true,
+    capabilitiesHeader: { label: "Why our coaching stands out" },
+    capabilities: [
+      {
+        icon: "mindset",
+        title: "INSIDE OUT",
+        body: "We get beneath behaviour to the beliefs, patterns and assumptions driving it.",
+      },
+      {
+        icon: "people",
+        title: "PRACTITIONERS, NOT JUST COACHES",
+        body: "Our coaches bring senior organisational and leadership experience into the room.",
+      },
+      {
+        icon: "target",
+        title: "REAL WORK. REAL MOMENTS.",
+        body: "Coaching is anchored in live challenges, relationships, decisions and transitions – not abstract development.",
+      },
+      {
+        icon: "network",
+        title: "CONNECTED TO THE SYSTEM",
+        body: "Where appropriate, tripartites, stakeholder insight and 360 feedback connect individual growth to organisational impact.",
+      },
+    ],
+    audiencesLabel: "Coaching across the leadership pipeline",
+    /* ⚠️ SEM `label` — o layout não escreve nada sobre as fotos; o nome do
+       público é o título. Ver a caixa do campo em `ServiceAudience`.
+
+       ⏳ AS QUATRO FOTOS SÃO A CHAPA PLACEHOLDER, e de propósito: as do arquivo
+       são retratos chapados no pixel, e emprestar as fotos de outro serviço
+       (`/services/audiences/sld-*.jpg`) passaria por asset entregue numa revisão
+       rápida — que é exatamente o que a chapa impede. Sai quando as fotos
+       chegarem; é trocar o caminho aqui. */
+    audiences: [
+      {
+        title: "Executive teams and ELT minus one",
+        body: "Navigate complex challenges and lead with greater impact.",
+        image: EVIDENCE_IMAGE_PLACEHOLDER,
+      },
+      {
+        title: "Regional & functional leaders",
+        body: "Broaden perspective, strengthen influence and drive performance across geographies and functions.",
+        image: EVIDENCE_IMAGE_PLACEHOLDER,
+      },
+      {
+        title: "Directors & VPs",
+        body: "Step into bigger, broader roles with greater confidence and clarity.",
+        image: EVIDENCE_IMAGE_PLACEHOLDER,
+      },
+      {
+        title: "Managers & emerging leaders",
+        body: "Build leadership foundations, resilience and the confidence to lead through others.",
+        image: EVIDENCE_IMAGE_PLACEHOLDER,
+      },
+    ],
+    howWeWorkHeadline: "A structured, personalised journey from insight to impact.",
+    /* ✅ SEM CORPO E EMPILHADO — 24-09, a pedido: o layout escreve só a
+       manchete, em largura cheia, e os passos logo abaixo. A string vazia (e
+       não a ausência do campo) é o que impede o `??` de cair no `howWeHelp`.
+       `sectionLayout` só vale aqui: o "What we do" desta página usa o arranjo
+       de `capabilitiesBeside`. */
+    howWeWork: "",
+    sectionLayout: "stacked",
+    /* ⚠️ NUMERADOS — o layout desenha o disco vermelho com o número em cada um
+       dos sete, e o ícone escuro, sem disco, logo abaixo dele. Ver
+       `stepsNumbered` e `stepsPlainIcons`. */
+    stepsNumbered: true,
+    stepsPlainIcons: true,
+    steps: [
+      {
+        icon: "search",
+        title: "Chemistry conversation",
+        body: "30 minutes to explore fit, goals and how we work together.",
+      },
+      {
+        icon: "target",
+        title: "Set the direction",
+        body: "Clarify focus, define success and agree on the coaching journey.",
+      },
+      {
+        icon: "speech",
+        title: "Coaching sessions",
+        body: "A series of focused sessions to build awareness, overcome barriers and drive behaviour change.",
+      },
+      {
+        icon: "people",
+        title: "Tripartite check-ins (with line manager)",
+        body: "Strengthen alignment, accelerate progress and remove blockers.",
+      },
+      {
+        icon: "chart",
+        title: "Integration and practice",
+        body: "Apply insights in the flow of work with ongoing support and reflection.",
+      },
+      {
+        icon: "check",
+        title: "Review and sustain",
+        body: "Measure progress, reinforce new habits and plan the next chapter.",
+      },
+      {
+        icon: "fast_forward",
+        title: "Extend (optional)",
+        body: "Additional sessions or team coaching to build on impact.",
+      },
+    ],
+    /* ⚠️ AS QUATRO MEDIDAS DO LAYOUT TÊM `icon` E `body`, e é isso que as manda
+       para a grade alinhada à esquerda, com o ícone ao lado do número. A conta
+       está em `SolutionEvidenceSummary`.
+
+       ⚠️ SEM `logos`: o layout não desenha marca nenhuma nesta faixa. */
+    evidenceSummary: {
+      headline: "Measurable impact for leaders and their organisations.",
+      facts: [
+        {
+          icon: "Higher resilience",
+          value: "80%",
+          label: "Higher resilience",
+          body: "Leaders feel better equipped to manage pressure, uncertainty and change.",
+        },
+        {
+          icon: "Stronger role integration",
+          value: "75%",
+          label: "Stronger role integration",
+          body: "Leaders bring greater alignment between their values, strengths and role demands.",
+        },
+        {
+          icon: "New role success",
+          value: "70%",
+          label: "New role success",
+          body: "Leaders in new roles reach impact faster and with greater confidence.",
+        },
+        {
+          icon: "Greater team effectiveness",
+          value: "3x",
+          label: "Greater team effectiveness",
+          body: "Coached leaders report stronger collaboration, trust and performance in their teams.",
+        },
+      ],
+      /* ⛔ SEM "GLOBAL EXECUTIVE COACHING PRACTICE" — 24-09, a pedido. O
+         parágrafo e as três medidas da prática ("1,000+ leaders coached",
+         "20+ countries", "6 to 12 session journeys") saíram junto; estão no
+         git. Sem `experience` a faixa volta a ter uma coluna só, e as quatro
+         medidas ocupam a largura inteira, como o layout desenha. */
+    },
     outcome:
       "Greater **leadership impact, decision quality, role readiness and performance under pressure** at the moments where an executive’s behaviour has disproportionate organisational consequences.",
     howWeHelp:
@@ -1859,27 +3215,19 @@ export const services: Service[] = [
       "Performance",
       "Leadership scale",
     ],
+    /* ⚠️ A STRAPLINE E A LINHA SÃO AS DO LAYOUT DE 24-09, e substituem as do
+       `CDNA_03_Services.docx` (*"Bigger roles. Higher stakes. Fewer easy
+       answers."*, com o parágrafo sobre complexidade e escala) — que estão no
+       git e podem voltar numa linha. O `label` do botão fica: o desenho não
+       desenha botão nenhum, e inventá-lo seria copy nossa.
+
+       ⚠️ O FECHO DO LAYOUT É UMA FOTO DE MONTANHAS com as duas frases por cima,
+       e aqui ele é a faixa vermelha do `SolutionCta` — a mesma das outras nove.
+       Foto de fundo nesta faixa não existe no template. */
     cta: {
-      strapline: "Bigger roles. Higher stakes. Fewer easy answers.",
-      line: "Strengthen the judgement, impact and performance of executives navigating complexity, transition and increasing leadership scale.",
+      strapline: "Deeper insight. Bigger impact.",
+      line: "Helping leaders and their teams turn insight into lasting performance.",
       label: "Talk to us about your executive coaching needs",
-    },
-    /* Este bloco não é um caso de cliente, é um resumo de prática — por isso não
-       tem logo, nome nem link de história. */
-    evidence: {
-      client: "GLOBAL EXECUTIVE COACHING PRACTICE",
-      /* Sem `title`: o documento dá só esta linha como cabeçalho do bloco, ao
-         contrário dos outros quatro, que trazem "CLIENTE | recorte do trabalho". */
-      body: "For more than a decade, CorporateDNA has coached leaders across levels, functions, businesses and geographies, from Chairs and C-suite executives to directors, managers, high-potential and critical-role talent. At the heart of our approach is the trusted tripartite: coach, coachee and line manager aligned around clear objectives, progress and visible organisational impact.",
-      facts: [
-        { value: "1,000+", label: "leaders coached" },
-        { value: "20+", label: "countries" },
-        { value: "6 to 12", label: "session journeys" },
-      ],
-      /* ⏳ Placeholder de 17-09 — ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`.
-         ⚠️ SÓ A FOTO É PLACEHOLDER AQUI: a citação abaixo é real e é a única
-         publicável dos dez. Não trocar por `evidenceQuotePlaceholder`. */
-      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
     /* A única citação publicável dos dez. O outline explica por que ela serve de
        molde: *"anonymised to a role and a client tier, which needs no individual
@@ -1892,10 +3240,236 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
+    /* ⚠️ O HERÓI CONTINUA SENDO A FOTO DO CARD, e a foto da família ao pôr do
+       sol que o layout desenha NÃO ENTROU: ela é arte do próprio arquivo, num
+       JPEG de 1536px em que a imagem mede ~700px de largura e traz o lettering
+       "Generations People Possibilities." chapado no pixel. Recortá-la daria
+       uma dobra de sangria total macia e com texto cravado que ninguém
+       consegue traduzir nem editar pelo /edit. A `family-business-consulting-
+       client.jpg` é material da cliente, escolhido por ela em 17-09, e mantém
+       a continuidade card → herói. */
     cardImage: "/services/cards/family-business-consulting-client.jpg",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
+    /* ============================================================================
+       ✅ A PÁGINA REFEITA PELO LAYOUT DE 24-09 (duas imagens, uma página só)
+       ============================================================================
+
+       Toda a copy abaixo está escrita em letra nas duas partes do layout e foi
+       TRANSCRITA, não reescrita — a mesma operação que Culture, Manager, HRLT e
+       Talent já sofreram. Os campos novos que ela exigiu (`heroEyebrow`,
+       `heroSubtitleAccent`, `heroCredential`, `twoSystems`, `entryPoints`,
+       `outcomeSummary`) estão documentados um a um no tipo `Service`.
+
+       ⚠️ O `outcome`, O `howWeHelp` E OS `pillars` CONTINUAM NO DADO, mais
+       abaixo, pela decisão de sempre: são a copy do `CDNA_03_Services.docx`, que
+       nunca deixou de ser final, e o template cai neles por `??` em qualquer
+       bloco que a copy nova não cubra. O `outcome` era o corpo do bloco "What
+       we do", que saiu da página em 24-09 (`hideWhatWeDo`). Os `pillars` também
+       saem, porque `steps` tem precedência sobre eles.
+
+       ⚠️ TRAVESSÕES: o layout não tem nenhum. O que ele tem são MEIOS-TRAÇOS
+       (–) na segunda frase do herói e em "founder-led", "High-Performing",
+       "Next-generation", que não são alvo do pedido de 23-09 — ele é sobre o
+       travessão de frase (—). `tests/services.test.ts` guarda a regra.
+       ============================================================================ */
+    /* ✅ O RÓTULO DO HERÓI É O DO LAYOUT, e é o único dos dez que não escreve
+       "Our Services" — ver a caixa de `heroEyebrow` no tipo `Service`. */
+    heroEyebrow: "Family-led business consulting",
+    /* ✅ SEM O BLOCO "WHAT WE DO" — 24-09, a pedido. O layout não o desenha;
+       a faixa "Two systems" passa a ser a primeira depois do herói. */
+    hideWhatWeDo: true,
+    /* ✅ A MANCHETE BICOLOR DO LAYOUT, partida em dois campos: a primeira linha
+       em tinta (branca, sobre a foto) e a segunda em vermelho. Ver
+       `heroSubtitleAccent`. O `h1` continua sendo o nome do serviço. */
+    heroSubtitle: "Protecting the legacy.",
+    heroSubtitleAccent:
+      "Preparing the family and business for what comes next.",
+    heroBody: [
+      "Family businesses carry something powerful that other organisations cannot replicate: history, identity, relationships and a deeply personal connection to the enterprise.",
+      "As the business grows and generations evolve, what once happened naturally can become more complex. We work across both sides of the system – the family behind the business and the business led by the family – helping each evolve without losing the values and identity that made it successful.",
+    ],
+    /* ⚠️ SEM A COLUNA DE PALAVRAS NO CANTO DA DOBRA (`heroCredential`) — 24-09,
+       a pedido, junto com a régua vermelha que a fecha. O lettering manuscrito
+       do layout ("Generations People Possibilities.") também não entrou: é arte
+       desenhada dentro da imagem, numa caligrafia que o site não tem. */
+    /* ✅ A FAIXA DOS DOIS SISTEMAS — ver `ServiceTwoSystems` e
+       `SolutionTwoSystems`. Os glifos dos onze itens foram lidos do desenho, um
+       a um, e moram no mapa de `SolutionPillars`. */
+    twoSystems: {
+      label: "Two systems. One future.",
+      family: {
+        title: "The family",
+        lead: "From legacy to shared stewardship.",
+        body: "We work with the Founding Chairman, family leaders, next generation and wider family members to strengthen relationships, alignment and prepare for what comes next.",
+        icon: "people",
+        items: [
+          { label: "Values & Legacy", body: "What we stand for." },
+          {
+            label: "Family Alignment",
+            body: "Roles, expectations and contribution.",
+          },
+          {
+            label: "Radical Conversations",
+            body: "A trusted space for the hard conversations.",
+          },
+          {
+            label: "Founder & Successor Coaching",
+            body: "Personalised coaching through transition.",
+          },
+          {
+            label: "Transition Readiness",
+            body: "Preparing the family for the next chapter.",
+          },
+        ],
+      },
+      business: {
+        title: "The business",
+        lead: "From founder-led success to enduring enterprise performance.",
+        body: "Alongside the family, we build the leadership, talent and organisational capability required for the business to thrive across generations.",
+        icon: "chart",
+        items: [
+          {
+            label: "Next Generation Talent",
+            body: "Accelerating family and non-family talent.",
+          },
+          {
+            label: "High-Performing Culture",
+            body: "Building the habits and accountability for the next stage.",
+          },
+          {
+            label: "Women in Leadership",
+            body: "Stronger pathways and opportunities across the enterprise.",
+          },
+          {
+            label: "Manager Development",
+            body: "Building capable managers for everyday execution.",
+          },
+          {
+            label: "Leader Coaching",
+            body: "Executive and leadership coaching for greater impact.",
+          },
+          {
+            label: "Performance & Accountability",
+            body: "Clear expectations and ownership across the organisation.",
+          },
+        ],
+      },
+      venn: {
+        leftTitle: "Family",
+        leftWords: ["Values", "Relationships", "Legacy"],
+        rightTitle: "Business",
+        rightWords: ["Growth", "Performance", "Impact"],
+        note: "Stronger families. Higher-performing businesses. Lasting impact.",
+      },
+    },
+    /* ✅ A FAIXA ROSA DOS OITO GATILHOS — ver `SolutionEntryPoints`. O fecho de
+       duas linhas tem a mesma anatomia do `closing` (tinta + vermelho) e mora
+       aqui porque no layout ele é a coluna da direita DESTA faixa, e não um
+       bloco entre seções. */
+    entryPoints: {
+      label: "Where we typically enter",
+      items: [
+        "Founder / Chairman transition",
+        "Next generation stepping up",
+        "Family roles changing",
+        "Growth or diversification",
+        "Professionalising the organisation",
+        "Culture needing to evolve",
+        "Succession approaching",
+        "Family alignment around a critical decision",
+      ],
+      noteLead: "The transition may begin with one person.",
+      noteAccent:
+        "But its consequences ripple through the family and the business.",
+    },
+    /* ✅ A MANCHETE DE "HOW WE WORK" É A ÚNICA LINHA QUE O LAYOUT ESCREVE ALI.
+       O corpo do bloco continua sendo o `howWeHelp` do documento, por `??`. */
+    howWeWorkHeadline:
+      "We work with the family system and the business system together.",
+    /* ✅ OS SEIS PASSOS, numerados como o layout os desenha — ver
+       `stepsNumbered`. A ordem AFIRMA: "Listen" vem antes de "Surface" porque o
+       trabalho acontece nessa ordem, e é isso que a seta entre os discos diz. */
+    stepsNumbered: true,
+    steps: [
+      {
+        icon: "search",
+        title: "Listen",
+        body: "Understand the family story, business ambition, relationships, values and transition ahead.",
+      },
+      {
+        icon: "document",
+        title: "Surface",
+        body: "Bring underlying expectations, tensions and differing perspectives into the conversation.",
+      },
+      {
+        icon: "people",
+        title: "Align",
+        body: "Create clarity around shared values, roles, decisions and what the family wants to protect and evolve.",
+      },
+      {
+        icon: "lightbulb",
+        title: "Prepare",
+        body: "Coach the Chairman, family members and next generation for the transitions ahead.",
+      },
+      {
+        icon: "cog",
+        title: "Build",
+        body: "Strengthen the talent, leadership, culture and management capability of the enterprise.",
+      },
+      {
+        icon: "chart",
+        title: "Embed",
+        body: "Translate intent into new habits, conversations, decisions and ways of working.",
+      },
+    ],
+    /* ✅ OS OITO PARES "DE → PARA". A ordem dentro do par é a afirmação: à
+       esquerda o que a família tem hoje, à direita o que ela passa a ter.
+
+       ⏳ O LAYOUT OS SEPARA EM DOIS GRUPOS — três pares, um respiro, cinco
+       pares —, e aqui eles saem numa lista só. `ServiceShifts` não tem campo de
+       grupo e inventá-lo para uma página seria mudar a forma do dado do Talent
+       Development junto; o respiro do desenho é ritmo visual, não informação.
+       Se a cliente pedir a separação na revisão, é um campo opcional no tipo. */
+    shifts: {
+      label: "What shifts",
+      items: [
+        { from: "Inherited values", to: "Conscious stewardship" },
+        { from: "Unspoken expectations", to: "Radical conversations" },
+        {
+          from: "Individual perspectives",
+          to: "Decisions the family can stand behind",
+        },
+        { from: "Founder dependency", to: "Next-generation readiness" },
+        { from: "Family legacy", to: "Future-facing identity" },
+        { from: "Founder-led culture", to: "High-performing culture" },
+        { from: "Potential successors", to: "Enterprise-ready talent" },
+        { from: "Informal accountability", to: "Performance ownership" },
+      ],
+    },
+    /* ✅ O FECHO "THE OUTCOME", com o "Our experience" na coluna da direita —
+       ver `ServiceOutcomeSummary`. O ponto final das quatro legendas é do
+       layout E é a chave do ícone no mapa de `SolutionPillars`. */
+    outcomeSummary: {
+      label: "The outcome",
+      headline: "Continuity without standing still.",
+      items: [
+        "A family clearer about what it stands for.",
+        "Stronger relationships and alignment.",
+        "A higher-performing business with the leadership and talent to scale.",
+        "A successful transition to the next generation.",
+      ],
+      note: [
+        "Preserve what matters.",
+        "Evolve what must.",
+        "Build what comes next.",
+      ],
+      experience: {
+        label: "Our experience",
+        body: "We’ve partnered with family-led businesses across industries and geographies, helping generations of families and their businesses navigate complexity, unlock potential and build a lasting legacy.",
+      },
+    },
     outcome:
       "Greater **succession readiness, governance clarity, decision quality and organisational continuity**, enabling the business to evolve without losing what made it successful.",
     howWeHelp:

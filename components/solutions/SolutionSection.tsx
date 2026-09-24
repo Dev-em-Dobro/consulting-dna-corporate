@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
 
@@ -97,7 +98,17 @@ export default function SolutionSection({
   split = "even",
   rule = "thin",
   layout = "split",
+  aside,
 }: {
+  /**
+   * UMA COLUNA À DIREITA DO BLOCO INTEIRO — 24-09, com o layout do Executive
+   * Coaching, onde os quatro diferenciais ficam ao lado do "What we do".
+   *
+   * ⚠️ COM `aside` O BLOCO VIRA OUTRO ARRANJO: rótulo, manchete e corpo
+   * empilham na coluna da esquerda (mais estreita), e `layout`, `split` e
+   * `rule` são ignorados — não há fio entre manchete e corpo para dividir.
+   */
+  aside?: ReactNode;
   /** "What we do" / "How we work" — o rótulo pequeno no alto da faixa. */
   label: string;
   /**
@@ -197,6 +208,28 @@ export default function SolutionSection({
    */
   split?: "even" | "body";
 }) {
+  if (aside) {
+    return (
+      <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
+        <Reveal className="mx-auto grid max-w-[1440px] gap-14 px-6 py-20 md:px-10 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12 xl:gap-16">
+          <div>
+            <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
+              {label}
+            </p>
+            <h2 className="mt-6 whitespace-pre-line font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px]">
+              {headline}
+            </h2>
+            <RichText
+              html={html}
+              className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]"
+            />
+          </div>
+          <div className="min-w-0">{aside}</div>
+        </Reveal>
+      </section>
+    );
+  }
+
   return (
     <section className={tone === "paper" ? "bg-paper" : "bg-white"}>
       {/* A FAIXA ENCOLHEU. Cada bloco era `lg:min-h-[55svh]` porque o campo de
@@ -271,10 +304,14 @@ export default function SolutionSection({
 
                 O CORPO É MAIOR QUE O DA COLUNA (18/20 contra 17/18): aqui o
                 texto é uma LINHA DE APOIO logo abaixo da manchete, não um bloco
-                de leitura ao lado dela. */}
+                de leitura ao lado dela.
+
+                ⚠️ SEM TETO DE LARGURA, como a manchete — 24-09, a pedido, no
+                Talent Development: *"pode colocar o texto ocupando toda a
+                largura tbm como o titulo"*. Havia `max-w-[68ch]`. */}
             <RichText
               html={html}
-              className="mt-4 max-w-[68ch] font-serif text-[18px] leading-[1.55] text-ink/75 md:text-[20px]"
+              className="mt-4 font-serif text-[18px] leading-[1.55] text-ink/75 md:text-[20px]"
             />
           </div>
         ) : (

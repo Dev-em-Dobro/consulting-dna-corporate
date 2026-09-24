@@ -98,7 +98,9 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
               que ele ocupa no layout (~470x350 no arquivo de 1284), e vale para
               os dois estados: quando o arquivo chegar, a faixa não muda de
               altura e nada abaixo dela se desloca. */}
-          <div className="relative aspect-[4/3] w-full">
+          {/* ⚠️ 3:2 COM O ARQUIVO, que é a proporção dele (1024x683): em 4:3 o
+              `object-contain` deixaria duas tarjas escuras em cima e embaixo. */}
+          <div className={`relative w-full ${item.diagram ? "aspect-[3/2] self-center" : "aspect-[4/3]"}`}>
             {item.diagram ? (
               <Image
                 src={item.diagram}
@@ -110,7 +112,10 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-contain"
+                /* O arquivo é um quadro de fundo branco sobre a faixa `ink`:
+                   o canto arredondado o assenta como cartão, em vez de um
+                   recorte seco. */
+                className="rounded-sm object-cover"
               />
             ) : (
               <div

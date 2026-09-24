@@ -88,7 +88,12 @@ test("o corpo editável é o que a página realmente renderiza", () => {
     assert.equal(c.whatWeDoBody, s.whatWeDo ?? s.outcome, s.slug);
     assert.equal(c.howWeWorkBody, s.howWeWork ?? s.howWeHelp, s.slug);
     assert.ok(c.whatWeDoBody.trim(), `${s.slug}: corpo do "What we do" vazio`);
-    assert.ok(c.howWeWorkBody.trim(), `${s.slug}: corpo do "How we work" vazio`);
+    /* ⬅ 24-09: `howWeWork: ""` é o jeito explícito de o bloco sair só com a
+       manchete (o Executive Coaching) — ausente continua caindo no
+       `howWeHelp`, e esse não pode ser vazio. */
+    if (s.howWeWork !== "") {
+      assert.ok(c.howWeWorkBody.trim(), `${s.slug}: corpo do "How we work" vazio`);
+    }
   }
 });
 
@@ -133,6 +138,10 @@ test("slug desconhecido não devolve seção nenhuma", () => {
 test("a tela de cada serviço mostra só as seções que ele tem", () => {
   for (const s of services) {
     const ids = sectionsFor(s.slug).map((x) => x.id);
+    /* ⬅ 24-09: o "What we do" deixou de ser obrigatório na página, e a tela
+       tem de acompanhar — campo que não chega à tela não se oferece para
+       editar. Ver `hideWhatWeDo` em `lib/services.ts`. */
+    assert.equal(ids.includes("what-we-do"), !s.hideWhatWeDo, s.slug);
     assert.equal(ids.includes("audiences"), Boolean(s.audiences?.length), s.slug);
     /* A assinatura de fecho só chega à tela quando o serviço NÃO tem
        `practices` — ver a caixa em `sectionsFor`. Hoje isso significa que ela
