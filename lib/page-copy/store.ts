@@ -77,7 +77,10 @@ export function createCopyStore<T>({
      servido até o prazo vencer (defeito de 24-09, ver o histórico do git). */
   const shape = createHash("sha1").update(JSON.stringify(defaults)).digest("hex").slice(0, 8);
 
-  const readCached = unstable_cache(readFresh, [tag, shape], {
+  /* "supabase" na chave: o Data Cache da Vercel sobrevive a deploy, e sem ela
+     o primeiro deploy depois do Blob herdaria o padrão que o Blob bloqueado
+     deixou guardado, por até um dia. Trocar a origem da leitura = trocar aqui. */
+  const readCached = unstable_cache(readFresh, [tag, shape, "supabase"], {
     tags: [tag],
     revalidate: READ_CACHE_SECONDS,
   });
