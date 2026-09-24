@@ -52,7 +52,7 @@ export const siteNav: NavItem[] = [
   // Plain "(5H)" and not the site's 5H® treatment: labels are strings here (and
   // are used as React keys), so a superscript would mean a node-typed label
   // across three components for one nav item.
-  { label: "Approach (5H)", href: "/approach" },
+  { label: "Approach", href: "/approach" },
   // No static children: the Services submenu is filled from the CMS in
   // `buildSiteNav`, and stays a plain link when the CMS returns nothing.
   { label: "Services", href: "/services" },
@@ -61,7 +61,8 @@ export const siteNav: NavItem[] = [
   // decisão de endereço — e o `/our-team` que está em produção continua
   // respondendo, por 308 em next.config.
   { label: "Team", href: "/team" },
-  { label: "Clients & Impact", href: "/our-clients" },
+  { label: "Clients", href: "/our-clients" },
+  { label: "Impact", href: "/our-impact" },
   // `/insights` carrega DUAS coisas desde 21-09: a biblioteca editorial e os
   // livros (*"insights and books e a seção de book vai pra tela de insights"*).
   //
@@ -78,7 +79,7 @@ export const siteNav: NavItem[] = [
   //
   // `&` E NÃO "and", como em "Clients & Impact" logo acima — é string de dado,
   // não JSX, então o caractere entra cru e o React escapa na renderização.
-  { label: "Insights & Books", href: "/insights" },
+  { label: "Insights", href: "/insights" },
   // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }` — *"mudar book para
   // events"* (anotação da reunião de 21-09). A troca É de rota, e isso precisa
   // ficar claro contra a regra lá em cima ("labels são copy, rotas são

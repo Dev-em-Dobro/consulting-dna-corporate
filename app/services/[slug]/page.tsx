@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionView from "@/components/views/SolutionView";
+import HrltPage from "@/components/solutions/layouts/HrltPage";
+import ManagerDevelopmentPage from "@/components/solutions/layouts/ManagerDevelopmentPage";
+import CultureTransformationPage from "@/components/solutions/layouts/CultureTransformationPage";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { serviceLd, breadcrumbLd } from "@/lib/seo/jsonld";
 import JsonLd from "@/components/JsonLd";
@@ -81,7 +84,15 @@ export default async function SolutionDetailPage({
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <JsonLd data={jsonLd} />
-        <SolutionView service={service} all={all} />
+        {slug === "hrlt-effectiveness" ? (
+          <HrltPage />
+        ) : slug === "manager-development" ? (
+          <ManagerDevelopmentPage />
+        ) : slug === "culture-transformation" ? (
+          <CultureTransformationPage />
+        ) : (
+          <SolutionView service={service} all={all} />
+        )}
       </SiteShell>
     </div>
   );

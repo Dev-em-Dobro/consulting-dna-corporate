@@ -160,7 +160,7 @@ export default function SolutionView({
            da foto. Se um serviço específico pedir outra âncora, `imagePosition`
            existe no `SolutionHero` para isso — é uma prop por página, não uma
            mudança no componente. */
-        imageUrl={service.cardImage}
+        imageUrl={service.heroImage ?? service.cardImage}
       />
 
       {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot

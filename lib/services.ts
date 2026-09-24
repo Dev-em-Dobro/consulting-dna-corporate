@@ -474,6 +474,8 @@ export type Service = {
    * card. Se o arquivo for trocado, esta conta é para refazer, não para herdar.
    */
   cardImage?: string;
+  /** Foto do herói da página, quando não é a mesma do card da listagem. */
+  heroImage?: string;
 };
 
 /**
@@ -485,6 +487,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "senior-leadership-development",
+    heroImage: "/hero/senior-leadership.jpeg",
     /* ⚠️ O NOME DO ARQUIVO CONTINUA "top-150", e não é esquecimento. Ele é o
        caminho de um JPEG em `public/services/cards/`, não parte da URL da
        página; renomeá-lo obrigaria a mexer no disco para que nada mude na tela,
@@ -717,7 +720,7 @@ export const services: Service[] = [
     cardImage: "/services/cards/culture-transformation-client.jpg",
     title: "Culture Transformation",
     banner:
-      "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
+      "Turn strategic intent into the habits that shape how the organisation actually operates.",
     outcome:
       "Greater **transformation readiness, organisational adaptability and execution discipline**. Culture becomes an accelerator of strategy rather than friction that slows it down.",
     howWeHelp:
@@ -755,6 +758,7 @@ export const services: Service[] = [
   },
   {
     slug: "talent-development",
+    heroImage: "/hero/talent-high-potentials.jpeg",
     cardImage: "/services/cards/talent-development-client.jpg",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
@@ -800,7 +804,7 @@ export const services: Service[] = [
     slug: "manager-development",
     cardImage: "/services/cards/manager-development-client.jpg",
     title: "Manager Development",
-    banner: "Build managers who turn strategy into performance through people.",
+    banner: "Great managers turn everyday moments into better performance.",
     outcome:
       "Stronger **execution discipline, team performance and leadership capacity** where employees experience leadership every day. Better managers create clarity, accountability and the conditions for people to perform.",
     howWeHelp:
@@ -821,6 +825,7 @@ export const services: Service[] = [
   },
   {
     slug: "women-in-leadership",
+    heroImage: "/hero/women-leadership.jpeg",
     cardImage: "/services/cards/women-in-leadership-client.jpg",
     title: "Women in Leadership",
     banner:
@@ -843,6 +848,7 @@ export const services: Service[] = [
   },
   {
     slug: "high-performing-teams",
+    heroImage: "/hero/hpt-f1.jpeg",
     cardImage: "/services/cards/high-performing-teams-client.jpg",
     title: "High Performing Teams",
     banner:
@@ -885,9 +891,8 @@ export const services: Service[] = [
   {
     slug: "hrlt-effectiveness",
     cardImage: "/services/cards/hrlt-effectiveness-client.jpg",
-    title: "HRLT Effectiveness",
-    banner:
-      "Build an HR leadership team with the strategic influence and collective authority to shape the business, not simply support it.",
+    title: "HR Leadership Teams (HRLT)",
+    banner: "Stronger HR leadership teams. A greater impact on the business.",
     outcome:
       "Greater **strategic influence, organisational connectivity and transformation readiness**, with HR operating as an enterprise leadership function capable of accelerating business and people performance.",
     howWeHelp:
