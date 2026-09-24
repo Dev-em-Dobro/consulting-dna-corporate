@@ -14,6 +14,11 @@
  * ⚠️ NÃO DUPLICA: página que já tem linha na tabela é pulada, a não ser com
  * --force. Rodar duas vezes é seguro.
  *
+ * --only home,about      limita às páginas listadas. O backup do staging de
+ *                        24-09 marca `service-pages` como diferente do padrão,
+ *                        mas ela nunca foi salva no Blob: é texto de um deploy
+ *                        antigo, e migrá-la congelaria esse texto velho.
+ *
  * Uso: node --env-file=.env.local --experimental-strip-types \
  *        scripts/migrate-page-copy-to-supabase.ts --from-blob [--dry-run]
  */
@@ -38,18 +43,23 @@ const DEFAULTS: Record<string, unknown> = {
   clients: DEFAULT_CLIENTS_COPY,
   "service-pages": DEFAULT_SERVICE_PAGES_COPY,
 };
-const KEYS = Object.keys(DEFAULTS);
-
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const force = args.includes("--force");
 const fromBlob = args.includes("--from-blob");
 const backupLabel = args.includes("--from-backup") ? args[args.indexOf("--from-backup") + 1] : null;
+const only = args.includes("--only") ? args[args.indexOf("--only") + 1]?.split(",") : null;
 
 if (!fromBlob && !backupLabel) {
-  console.error("uso: --from-blob | --from-backup <rótulo>  [--dry-run] [--force]");
+  console.error("uso: --from-blob | --from-backup <rótulo>  [--only k1,k2] [--dry-run] [--force]");
   process.exit(1);
 }
+const unknown = only?.filter((k) => !(k in DEFAULTS)) ?? [];
+if (unknown.length) {
+  console.error(`chave(s) desconhecida(s) em --only: ${unknown.join(", ")}`);
+  process.exit(1);
+}
+const KEYS = only ?? Object.keys(DEFAULTS);
 
 const url = process.env.SUPABASE_URL;
 const secretKey = process.env.SUPABASE_SECRET_KEY;
