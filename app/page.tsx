@@ -214,7 +214,7 @@ const differentiators = [
 // o amarelo da Shell. Arte, como o logo, então mora aqui e não na copy.
 const caseArt: { logo?: string; headerBg: string; onLight?: boolean }[] = [
   { logo: "heineken.png", headerBg: LOGO_COLORS.heineken },
-  { logo: "coca_cola.png", headerBg: LOGO_COLORS.coca_cola },
+  { logo: "coca-cola.png", headerBg: LOGO_COLORS.coca_cola },
   { logo: "shell.png", headerBg: LOGO_COLORS.shell, onLight: true },
 ];
 
@@ -704,7 +704,7 @@ export default async function Home() {
                     <span className="flex h-[60px] w-[108px] flex-none items-center justify-center rounded-xl bg-white px-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`/logos/${c.logo}`}
+                        src={`/logos/client-logos/${c.logo}`}
                         alt=""
                         loading="lazy"
                         className="max-h-[42px] w-auto max-w-full object-contain"

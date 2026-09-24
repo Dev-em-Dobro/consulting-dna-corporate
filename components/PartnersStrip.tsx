@@ -60,7 +60,7 @@ type PartnerLogo = {
  * couber, que é o que se espera; o que a estrutura garante é que HBI e Imperial
  * nunca dividam linha com as outras três.
  *
- * Os arquivos em `public/logos/partners/` são DERIVADOS dos que a cliente
+ * Os arquivos em `public/logos/partner-logos/` são DERIVADOS dos que a cliente
  * mandou na pasta `4. Services` do Drive. Três das cinco precisaram ser tratadas
  * para viver sobre fundo escuro, e isso fica anotado porque é alteração de marca
  * de terceiro:
@@ -95,42 +95,42 @@ const PARTNER_ROWS: PartnerLogo[][] = [
      56/68 eles ganham a massa que a posição pede sem estourar a coluna. */
   [
     {
-      src: "/logos/partners/harvard-business-impact.png",
+      src: "/logos/partner-logos/harvard-business-impact.png",
       alt: "Harvard Business Impact",
       className: "h-[56px] md:h-[68px]",
-      onLight: { src: "/logos/harvard_business_impact.png", className: "h-[88px] md:h-[104px]" },
+      onLight: { src: "/logos/partner-logos/harvard_business_impact.png", className: "h-[88px] md:h-[104px]" },
     },
     {
-      src: "/logos/partners/imperial-college-london.png",
+      src: "/logos/partner-logos/imperial-college-london.png",
       alt: "Imperial College London",
       className: "h-[56px] md:h-[68px]",
-      onLight: { src: "/logos/partners/imperial-college-london.png", className: "h-[88px] md:h-[104px]" },
+      onLight: { src: "/logos/partner-logos/imperial-college-london.png", className: "h-[88px] md:h-[104px]" },
     },
   ],
   [
     {
-      src: "/logos/partners/clo100.png",
+      src: "/logos/partner-logos/clo100.png",
       alt: "CLO100",
       className: "h-[34px] md:h-[40px]",
-      onLight: { src: "/logos/partners/clo100.png", className: "h-[36px] md:h-[42px]", invert: true },
+      onLight: { src: "/logos/partner-logos/clo100.png", className: "h-[36px] md:h-[42px]", invert: true },
     },
     {
-      src: "/logos/partners/ypo.png",
+      src: "/logos/partner-logos/ypo.png",
       alt: "YPO",
       className: "h-[34px] md:h-[40px]",
-      onLight: { src: "/logos/partners/ypo.png", className: "h-[44px] md:h-[52px]", invert: true },
+      onLight: { src: "/logos/partner-logos/ypo.png", className: "h-[44px] md:h-[52px]", invert: true },
     },
     {
-      src: "/logos/partners/explore-performance.png",
+      src: "/logos/partner-logos/explore-performance.png",
       alt: "Explore Performance",
       className: "h-[26px] md:h-[30px]",
-      onLight: { src: "/logos/explore_performance.png", className: "h-[64px] md:h-[72px]" },
+      onLight: { src: "/logos/partner-logos/explore-performance.png", className: "h-[64px] md:h-[72px]", invert: true },
     },
     {
-      src: "/logos/partners/imeld-ai.jpg",
+      src: "/logos/partner-logos/imeld-ai.jpg",
       alt: "Imeld AI",
       className: "h-[34px] md:h-[40px]",
-      onLight: { src: "/logos/partners/imeld-ai.jpg", className: "h-[40px] md:h-[48px]" },
+      onLight: { src: "/logos/partner-logos/imeld-ai.jpg", className: "h-[40px] md:h-[48px]" },
     },
   ],
 ];
