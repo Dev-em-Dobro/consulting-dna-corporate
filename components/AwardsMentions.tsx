@@ -140,16 +140,17 @@ const BRANDON_HALL: Award[] = [
 
 const awards: Award[] = [
   {
+    name: "Corporate Vision",
+    distinction: "2×",
+    showDistinction: true,
+    year: "",
+    logo: "/awards/corporate-vision.png",
+  },
+  {
     name: "Women of the Future Awards",
     distinction: "Finalist",
     year: "2008",
     logo: "/awards/women-of-the-future.png",
-  },
-  {
-    name: "HSBC Start-up Stars",
-    distinction: "Semi finalist",
-    year: "2009",
-    logo: "/awards/hsbc-start-up-stars.png",
   },
   {
     name: "British Indian Awards",
@@ -158,16 +159,10 @@ const awards: Award[] = [
     logo: "/awards/british-indian-awards.png",
   },
   {
-    name: "Women Entrepreneur",
-    distinction: "Top 10 Indian women leader in the UK",
-    year: "2021",
-    logo: "/awards/women-entrepreneur-india.png",
-  },
-  {
-    name: "Corporate Excellence Awards",
-    distinction: "Best international leadership consulting firm",
-    year: "2022",
-    logo: "/awards/corporate-excellence-awards.png",
+    name: "Top 15 woman leader in the Middle East",
+    distinction: "",
+    year: "2025",
+    logo: "/awards/top-15-women-leader-middle-east.png",
   },
 ];
 
@@ -291,8 +286,7 @@ export default function AwardsMentions({
           >
             {/* On mobile the title breaks as "Awards and" / "Mentions", per the
                 design — so the break is explicit rather than left to wrapping. */}
-            Awards and{" "}
-            <span className="block sm:inline">Mentions</span>
+            Awards
           </h2>
 
           {/* A RÉGUA TEM TANTAS COLUNAS QUANTOS PRÊMIOS a partir de `lg`, e é
@@ -311,7 +305,7 @@ export default function AwardsMentions({
               muda: três colunas no tablet, duas no telefone. */}
           <ul
             className={`mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:mt-12 ${
-              shown.length > 5 ? "lg:grid-cols-7" : "lg:grid-cols-5"
+              "lg:grid-cols-5"
             }`}
           >
             {shown.map((a) => (

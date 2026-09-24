@@ -794,66 +794,46 @@ export default async function Home() {
       <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
           <TypeLabel>{copy.people.label}</TypeLabel>
-          <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
-            {copy.people.title}
-          </h2>
-          <p
-            className="mb-12 max-w-[640px] text-[19px] leading-[1.65] text-muted"
-            style={{ fontFamily: "var(--font-serif-v2)" }}
-          >
-            {copy.people.subtitle}
-          </p>
-          {/* The DNA experience — copy on the left, life-at-DNA carousel on the
-              right. Stacks on mobile (text first, then the images).
-
-              SEM `mt-14`: a grade de retratos que vinha antes é que abria este
-              vão. Agora o vizinho de cima é o parágrafo, que já traz `mb-12`. */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
-            <div>
-              <p className="text-lg font-medium leading-[1.55] text-ink">
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,640px)] lg:gap-16">
+            <div className="w-full max-w-[40rem]">
+              <h2 className="mb-3 whitespace-pre-line text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+                {copy.people.title}
+              </h2>
+              <p className="whitespace-pre-line text-[19px] font-normal leading-[1.65] text-ink">
+                {copy.people.subtitle}
+              </p>
+              <p className="mt-6 whitespace-pre-line text-[18px] font-normal leading-[1.55] text-ink">
                 {copy.people.intro}
               </p>
-              {/* OS TRÊS TÍTULOS DESTE BLOCO SÃO VERMELHOS DESDE 21-09 —
-                  e-mail: *"Add some colour to headers (red)"*; anotação: *"top
-                  headings in red da secao our people"*.
-
-                  `text-brand` e não um hex solto: é o `--color-brand` do
-                  globals.css (#d84339), o vermelho CHEIO da marca, que é o que
-                  se usa sobre fundo claro — esta seção é `bg-white`. O tom
-                  clareado (`brand-light`/`--accent-on-dark`) é o de fundo
-                  escuro, e aqui ele mediria 2,6:1.
-
-                  CONTRASTE: #d84339 sobre branco dá 4,39:1. Isso reprovaria em
-                  texto pequeno, e passa aqui porque estes títulos são 24px
-                  (26px no desktop) — a WCAG corta "texto grande" em 24px, e o
-                  mínimo dele é 3:1. ⚠️ É POR ISSO QUE O TAMANHO NÃO PODE CAIR:
-                  descer estes `h3` para 20px reprovaria o vermelho junto, sem
-                  nenhum aviso.
-
-                  O `h2` da seção CONTINUA `ink`, e é decisão, não esquecimento.
-                  O pedido é "headers", no plural, e são estes três que se
-                  repetem; acima deles o rótulo "Our people" (`TypeLabel`) já é
-                  vermelho, e empilhar rótulo vermelho + título de 40px vermelho
-                  põe cor como ÁREA logo na abertura da seção — exatamente o que
-                  a leitura da referência aponta como o defeito a evitar (§4.2:
-                  "na referência o acento nunca vira área, só marca"). Se ela
-                  quiser o h2 vermelho também, é trocar `text-ink` por
-                  `text-brand` na linha dele. */}
-              <div className="mt-8 space-y-6">
-                {copy.people.pillars.map((p) => (
-                  <div key={p.title}>
-                    <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
-                      {p.title}
-                    </h3>
-                    <p className="text-[15px] leading-[1.6] text-muted">{p.body}</p>
-                  </div>
-                ))}
-              </div>
             </div>
-            <PhotoCarousel
-              images={LIFE_AT_DNA}
-              positions={LIFE_AT_DNA_FRAMING}
-            />
+            <div className="mx-auto w-full lg:mx-0 lg:justify-self-end">
+              <PhotoCarousel
+                images={LIFE_AT_DNA}
+                positions={LIFE_AT_DNA_FRAMING}
+              />
+            </div>
+          </div>
+          {/* Different by design entra na mesma fileira dos três pilares.
+              Título e corpo usam a mesma medida em todos, para nenhum bloco
+              parecer um cabeçalho dos outros. 24px no título mantém o vermelho
+              da marca dentro do contraste de texto grande. */}
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
+            <div>
+              <h3 className="mb-2 whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
+                {copy.people.designTitle}
+              </h3>
+              <p className="whitespace-pre-line text-[16px] font-semibold leading-[1.6] text-ink">
+                {copy.people.designBody}
+              </p>
+            </div>
+            {copy.people.pillars.map((p) => (
+              <div key={p.title}>
+                <h3 className="mb-2 whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
+                  {p.title}
+                </h3>
+                <p className="whitespace-pre-line text-[16px] font-semibold leading-[1.6] text-ink">{p.body}</p>
+              </div>
+            ))}
           </div>
           {/* A faixa "In partnership with" saiu daqui em 23-09 e virou a
               seção seguinte. Até então era o painel escuro no pé deste bloco. */}
@@ -865,7 +845,7 @@ export default async function Home() {
           fundo. Vira faixa própria, em paper, entre o branco de #people e o
           escuro de Awards. O arranjo dos logos está no PartnersStrip
           (`tone="featured"`). A /services continua no escuro. */}
-      <section aria-labelledby="partnerships-heading" className="bg-paper">
+      <section aria-labelledby="partnerships-heading" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
           <PartnersStrip label={copy.people.partnersLabel} tone="featured" headingId="partnerships-heading" />
         </Reveal>
