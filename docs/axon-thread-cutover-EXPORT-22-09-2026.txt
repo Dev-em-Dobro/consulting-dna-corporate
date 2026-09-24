@@ -1,0 +1,1624 @@
+EXPORT DA THREAD "corporatednaconsulting.com — domain, and how the cutover will run"
+=====================================================================================
+
+Origem:  PDF exportado do Gmail em 22/09/2026 ("Imprimir tudo" da conversa inteira).
+Extração: pdftotext -layout -enc UTF-8.
+Conteúdo: 33 mensagens, de 31/08/2026 08:55 a 22/09/2026 05:07 (horário de Brasília).
+Escopo:  SÓ o fio da Axon — domínio, hospedagem, DNS, Google e cobrança. Não cobre
+         conteúdo, design nem as trocas com Maliha/Rhea/Guli.
+
+POR QUE ESTE ARQUIVO EXISTE
+
+Até 22/09 os e-mails RECEBIDOS da Axon estavam no projeto só de duas formas: citados
+dentro das notas de análise (docs/resposta-axon-*.md) ou colados à mão. Uma dessas
+colagens — o "gentle reminder" do Rico — entrou truncada e com a data errada. Este
+export é a fonte primária: quando houver divergência entre um arquivo de docs/ e este
+aqui, este aqui vence.
+
+COMO LER
+
+É saída bruta de pdftotext, não texto editado. Isso significa:
+
+- a ordem é a do Gmail (cronológica), mas a data que aparece na linha do cabeçalho de
+  cada mensagem é o horário de Brasília, não o de Singapura — o corpo das mensagens
+  frequentemente cita o horário SGT, que está 6h à frente;
+- "[Texto das mensagens anteriores oculto]" é o Gmail dobrando a citação, não texto
+  perdido;
+- há linhas de data soltas no meio do texto (ex.: "31 de agosto de 2026 às 17:57"):
+  são cabeçalhos de página do PDF que caíram dentro da coluna. Uma delas quebrou um
+  endereço no meio — "rico.m8@7aKxon.com.sg" é artefato de extração, o endereço real
+  é rico.m@axon.com.sg;
+- os anexos aparecem só como nome e tamanho (Invoice-120844.pdf, os .eml, .msg).
+
+O que foi lido daqui e virou registro está em docs/emails-cdna-thread.md, seção
+"Axon (provedor/domínio)", e o estado consolidado em
+docs/locked-in/1-axon-cutover-and-open-items.txt (addendum de 22/09).
+
+=====================================================================================
+TEXTO EXPORTADO — VERBATIM A PARTIR DAQUI
+=====================================================================================
+
+                                                                              Dev em Dobro <devemdobro@gmail.com>
+
+corporatednaconsulting.com — domain, and how the cutover will run
+
+33 mensagens
+
+Dev em Dobro <devemdobro@gmail.com>                                           31 de agosto de 2026 às 08:55
+
+Para: amit@axon.com.sg, rico.m@axon.com.sg
+
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>, weidatay@eztech.com.sg, Mike Jackson <mike.jackson@corporatednaconsulting.com>, Jon-paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, finance@corporatednaconsulting.com, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>
+
+Dear Rico and Amit,
+
+I am Ricardo, from Dev em Dobro — the provider Guilherme Mendes confirmed to you on 12 August as the team building Corporate DNA's new website.
+Your reminder of 19 August was addressed to Rhea, and it reached us inside CDNA, forwarded on to Guilherme, who passed it to us to answer. Since I was not on the original
+thread I cannot reply within it, so this is a new message on the same subject — I have kept your subject line for reference and copied CDNA, who can confirm that we are
+answering on their behalf and that the decisions below are theirs.
+
+To answer your question directly: of the three options you offered, it is the middle one — the domain stays registered with Axon, and only the website moves. There is no transfer
+to arrange and we do not need the EPP code, so please treat any auth code already issued as no longer required.
+
+One thing we would ask you to update: the domain's administrative contact. Amit referenced allison.vickery@corporatednaconsulting.com on 13 August; she has since left CDNA,
+so that mailbox is no longer monitored and should not be receiving domain correspondence. CDNA will confirm the replacement contact — could you let us know what you need in
+order to make the change?
+
+On the cutover, Amit, this follows the sequence you asked for: we change the A/CNAME records in Cloudflare, keeping "Under Attack" mode enabled until that is done; we validate
+the new site on the live domain; and then we write to you to confirm it is safe to disconnect. Please keep the WordPress site running for a week or two after the records change, as
+a rollback path.
+
+One request alongside that: a full backup of the current WordPress site. Not for the migration — the new site is built independently and takes nothing from it — but so CDNA keeps
+the old content and media once the server is eventually retired.
+
+On lead times, your point about planning ahead is well taken. In this case the usual risks do not apply: email runs on Microsoft 365 rather than the hosting server, so the A/CNAME
+change does not touch mail delivery; there is nothing to export, as the new site is already built on its own platform; and DNS is already under our control thanks to your access.
+
+We will let you know before making any change.
+
+Best regards,
+Ricardo
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                       31 de agosto de 2026 às 09:51
+
+Para: devemdobro@gmail.com
+
+Cc: gm@corporatednaconsulting.com, weidatay@eztech.com.sg, mike.jackson@corporatednaconsulting.com, jp.pritchard@corporatednaconsulting.com,
+
+finance@corporatednaconsulting.com, Maliha.Bathool@corporatednaconsulting.com, rhea.l@corporatednaconsulting.com, amit@axon.com.sg, spencer@axon.com.sg
+
+Good morning, Ricardo,
+
+Thank you for the clear confirmation. We have noted the following:
+
+- corporatednaconsulting.com will remain registered with Axon;
+- only the website will move, so no domain transfer or EPP code is required;
+- the website cutover will be limited to the required A/CNAME records
+in Cloudflare;
+- the Microsoft 365 mail records must remain unchanged;
+- the current WordPress site should remain available during the
+rollback period; and
+- a complete backup of the current WordPress site and media is
+required before it is retired.
+
+For the administrative contact update, please ask Corporate DNA to
+confirm the replacement contact's full name, role, monitored email
+address, direct telephone number with country code, and postal address
+if the existing contact address must also change. No password or login
+details are required.
+
+When the new site is ready for cutover, please send the exact target
+DNS record values and the proposed date, time and timezone before
+making any change. Please do not alter the MX, SPF, DKIM or DMARC
+records. Keep Cloudflare Under Attack mode enabled as agreed, validate
+the new website on the live domain after the A/CNAME update, and then
+confirm in this thread when it is safe to begin the rollback holding
+period.
+
+We will not disconnect the existing WordPress site until Corporate DNA
+has confirmed that the new site is working correctly and the agreed
+rollback period has completed. We will also arrange the requested full
+backup before the old hosting is retired.
+
+Amit and Spencer are copied for coordination.
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+View our YouTube channel: https://www.youtube.com/@NOHYPETECHbyAmit
+
+Dev em Dobro <devemdobro@gmail.com>                                           31 de agosto de 2026 às 15:44
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+Boa tarde, Guilherme. Tudo bem?
+
+O Rico respondeu sobre o cutover e as dúvidas que tu tinha ficado dos e-mails que ele mandou, e está tudo certo, assim que começarmos esse processo vamos avisar ele, a
+única coisa que precisamos de vocês é isso aqui que ele pediu sobre um contato administrativo do domínio que vai ficar na Axon por enquanto:
+
+For the administrative contact update, please ask Corporate DNA to
+confirm the replacement contact's full name, role, monitored email
+address, direct telephone number with country code, and postal address
+if the existing contact address must also change. No password or login
+details are required.
+
+Acredito que antes estava um e-mail da Rhea que mudou, é importante alguém da CDNA ficar com esse cadastro. Se tiver um e-mail comum da área financeira ou de tecnologia
+poderia ser esse, senão pode ser de uma pessoa do time de vocês mesmo, pro caso de se um dia a gente sair vocês continuam com esse acesso do domínio.
+
+Abraço.
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                                                                                        31 de agosto de 2026 às 16:45
+Para: devemdobro <devemdobro@gmail.com>
+
+  Oi Beto! Blz? Precisa ser um contato somente ou pederia ser mais de um? Obrigado!
+
+  www.CorporateDNAConsulting.com                                                                                                        31 de agosto de 2026 às 16:46
+                                                                                                                                        31 de agosto de 2026 às 17:57
+  From: Dev em Dobro <devemdobro@gmail.com>
+  Sent: Monday, August 31, 2026 2:44 PM
+  To: Guilherme Mendes <gm@corporatednaconsulting.com>
+  Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+   [Texto das mensagens anteriores oculto]
+
+Dev em Dobro <devemdobro@gmail.com>
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+  oi, a axon tinha pedido um contato, mas podemos mandar mais e ver se eles enviam o mesmo e-mail pra mais de uma pessoa caso precise.
+
+   [Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>
+Para: devemdobro <devemdobro@gmail.com>
+  Otimo! Entao vamos mandar o meu, o do Nitin, do JP e o da Rhea... voce tem os emails de todos ai mas seguem novamente:
+  "Jon-paul Pritchard" <jp.pritchard@corporatednaconsulting.com>; "Nitin Goil" <nitin.goil@corporatednaconsulting.com>; "Rhea Leckie" <rhea.l@
+  corporatednaconsulting.com>
+
+  Se precisar de mais alguma coisa me avise por favor! Obrigado e abs!
+
+  www.CorporateDNAConsulting.com
+  From: Dev em Dobro <devemdobro@gmail.com>
+  Sent: Monday, August 31, 2026 3:46 PM
+
+   [Texto das mensagens anteriores oculto]
+
+   [Texto das mensagens anteriores oculto]
+
+Amit @ Axon 1ProIT <amit@axon.com.sg>
+Para: Dev em Dobro <devemdobro@gmail.com>
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>, weidatay@eztech.com.sg, Mike Jackson <mike.jackson@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@c
+<Maliha.Bathool@corporatednaconsulting.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>
+
+  Good morning Ricardo
+  Thank you for the clarification. Please see our response to each item below.
+  1. Domain administrative contact
+  No problem. To update the domain’s administrative contact, we will require a formal request on CDNA’s company letterhead, signed or authorised by the company owner or authorised re
+  Please include the replacement contact’s:
+
+            Full name
+            Email address
+            Telephone number
+            Postal address, if different from CDNA’s registered address
+  There will be no charge from Axon for updating the domain contact.
+  2. Cloudflare cutover
+  CDNA already has full access to Cloudflare and can complete the cutover directly.
+  When the new website is ready, please:
+        1. Log in to Cloudflare.
+        2. Select the relevant domain.
+        3. Open DNS > Records.
+        4. Update only the root domain’s A record and the www record to point to the new hosting server.
+        5. Validate the new website using the live domain.
+        6. Inform us once everything has been successfully tested.
+  Please do not modify or delete any other DNS records, as they include settings required for email and other services.
+  We can keep the existing WordPress website available for one to two weeks after the cutover as a rollback option, provided the current hosting account remains active during that perio
+  3. Full WordPress backup
+  CDNA also has access to the hosting control panel and can download a complete backup of the WordPress website files and database.
+  Please complete this before the current hosting expires. Once the hosting service is deactivated, the website, database and any server-side backups may no longer be accessible.
+  Optional assistance from Axon
+  As CDNA already has access to both Cloudflare and the hosting control panel, the backup and cutover can be completed from your end.
+  If you would like Axon to handle them, we can schedule two hours under our Credit Maintenance service at USD 100 per hour. Please visit https://axon.com.sg and purchase three cre
+  This will cover:
+            Creating a complete backup of the WordPress files and database
+            Uploading the backup to Dropbox
+            Waiting for your confirmed cutover date
+            Updating only the required A and www DNS records after receiving the new server IP address
+            Confirming that the DNS update has been completed
+            Assistance on cutover migratin and others related to SSL or Proxy settings in Cloudflare
+  Please confirm whether CDNA will complete these tasks directly or would like Axon to proceed under the three-hour maintenance service.
+  ======
+  One important point regarding the new CDNA website:
+The existing CDNA website has been online for many years and has established good organic search visibility. We strongly recommend ensuring that the new website is properly config
+setup could result in reduced traffic, visibility and enquiries.
+
+Please ensure the new website includes:
+
+         Proper page titles and meta descriptions
+         SEO-friendly headings and content structure
+         SEO, AEO and GEO optimisation
+         Structured data and relevant JSON-LD schema
+         GA4 tracking across all pages
+         Google Search Console verification
+         A valid sitemap.xml
+         A properly configured robots.txt
+         An llms.txt file to support AI-readiness
+         Canonical URLs and social-sharing metadata
+         Permanent 301 redirects from any old URLs that are changing
+         Optimised page speed, images and mobile performance
+
+CDNA’s previous Google Analytics tracking ID is UA-96902425-1. Please note that this is a legacy Universal Analytics ID and should be retained only for historical reference. It cannot be
+cannot itself be converted into a GA4 ID maintaing historical data.
+
+An invitation to CDNA’s Google Analytics account has been sent to devemdobro@gmail.com. Please check the inbox, including the spam folder, and accept the invitation. The corre
+
+Please also ensure that the existing organic search value is protected during migration. Any important page whose URL changes must have a permanent 301 redirect from the old URL
+
+More information about SEO, AEO, GEO and AI-ready websites is available at:
+
+https://axon.com.sg/trending/
+
+You may also view Amit’s YouTube channel,https://www.youtube.com/@CHATapaNHT where he discusses AI-readiness and technology concepts using practical explanations and h
+
+Please confirm once the analytics, search optimisation, sitemap, redirects and AI-readiness requirements have been completed and tested.
+
+Refe to sample report you can view at google analytics
+
+If you need Axon to assist you with SEO/AEO/GEO, we can do so under a flat rate , once the new site is launcehd or the same provider can do.
+
+I dont reocmmend using total new analytics as you will loose all analytics data. Ricardo have access to analytics, , If CDNA need acess, pls advise your gmail and I Can send invitatio
+Regards,
+
+Warm Regards
+Amit Kumar
+amit@axon.com.sg
+
+AXON 1proIT Solutions
+Tech Support Partner : OnePro IT Solutions
+
+AI and Web: axon.com.sg | axon1pro.com
+Domain and Hosting :1ProIT.com | 1ProHost.com
+
+Customer Support
+Click --> Whatsapp Support
+
+Amit Youtube Channel
+https://www.youtube.com/@NOHYPETECHbyAmit
+
+[Texto das mensagens anteriores oculto]
+
+Dev em Dobro <devemdobro@gmail.com>                                                                                                       31 de agosto de 2026 às 22:57
+
+Para: "Amit @ Axon 1ProIT" <amit@axon.com.sg>
+
+Cc: rico.m@axon.com.sg, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, finance@corporatednaconsulting.com, Guilherme Mendes
+
+<gm@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Rhea Leckie <rhea.l@corporatednaconsulting.com>
+
+Dear Amit and Rico,
+
+Thank you both. I have put Rico back on copy — your replies crossed, so this answers both.
+
+1. ADMINISTRATIVE CONTACT
+
+Understood on the letterhead request, and thank you for confirming there is no charge. Corporate DNA will send the signed letter. Three things first, so that we get it right the first
+time: do you have a template or required wording we should follow, which address should the letter go to, and is a scanned PDF sufficient or do you need an original? We would
+rather ask now than have it returned once it has been signed.
+
+The people to record:
+
+- Rhea Leckie — Founder & CEO — rhea.l@corporatednaconsulting.com
+- Guilherme Mendes — CEO Corporate DNA Americas — gm@corporatednaconsulting.com
+- Nitin Goil — Regional Director — nitin.goil@corporatednaconsulting.com
+- Jon-Paul Pritchard — Senior Facilitator — jp.pritchard@corporatednaconsulting.com
+
+Please use rhea.l@ — earlier correspondence went to an older address of hers. And Allison Vickery has left the company, so please remove her mailbox from all domain
+correspondence.
+
+If the record accepts only one administrative contact, use Rhea Leckie — she is already the registered contact, so only the email address changes — and add the other three to
+your notification list. The postal address is unchanged, and the telephone number will be in the letter.
+
+2. THE CUTOVER
+
+Agreed, and we will make the change ourselves, so no assistance is needed. We will still follow Rico's sequence: exact record values, date, time and timezone sent to you
+beforehand; only the apex A record and the www record touched; MX, SPF, DKIM and DMARC untouched, so Microsoft 365 mail is unaffected; validation on the live domain, then
+confirmation in this thread.
+One clarification on Under Attack mode: it stays on through the change and validation, but has to come off at go-live, as it challenges every visitor and blocks search engines. If
+you test the domain today you will see /sitemap.xml return 403 and a Cloudflare-managed robots.txt — both are Under Attack, not the new site. We will tell you when we disable it.
+
+3. THE HOSTING, AND THE ROLLBACK WINDOW
+
+Amit, you offered one to two weeks of rollback provided the current hosting account remains active. The renewal records Rico sent on 19 August were from the previous cycle, so
+we checked Corporate DNA's account at billing.axonserver.com for the current ones. It shows no active services: a Bitdefender licence and an Axon-P300 package, both
+Terminated, and a Corporate Web Hosting Package Axon-P500, next due 30 September 2026, marked Cancelled.
+
+So the rollback window is bounded by 30 September rather than counted from the cutover date. If the launch lands near or past that date, is a short extension possible instead of a
+full renewal term, and at what cost?
+
+4. ANALYTICS AND SEARCH CONSOLE
+
+Thank you for raising this. You are right that UA-96902425-1 cannot be converted and its history does not migrate. We have accepted the invitation and can see the property —
+corporatednaconsulting.com - GA4, under the same account — so we have what we need to install and validate the tag before launch. Two things still outstanding:
+
+- Google Search Console. There is a Google verification record in the DNS zone, so a property clearly exists somewhere. Could you grant access to it, and tell us who else
+currently holds access? It carries the search history and the ownership verification, and matters more than GA for the organic value you mention.
+- A separate invitation for Corporate DNA — we will confirm the address shortly.
+
+5. THE PRE-LAUNCH CHECKLIST
+
+Your point about protecting the existing organic visibility is how the site was built. Already in place: 301 redirects for every changing URL — 52 of them, mapped from the current
+site; titles, meta descriptions and heading structure; canonical and social metadata; JSON-LD; sitemap.xml and robots.txt served by the application; llms.txt; and image, speed
+and mobile optimisation. GA4 is the one item still to install, and we now have the access to do it.
+
+Thank you for the offer of SEO, AEO and GEO work — that is covered on our side, as are the DNS change and the Cloudflare settings. On the backup and the maintenance credit,
+we will come back to you separately.
+
+Best regards,
+Ricardo
+
+Dev em Dobro <devemdobro@gmail.com>                                                                                31 de agosto de 2026 às 22:58
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Obrigado, já mandei pra eles os e-mails.
+
+Não sei se viu ali, mas a Axon respondeu duas vezes o mesmo e-mail — o Rico primeiro, e depois de umas horas o Amit — e as duas respostas não batem em três pontos.
+Eu te respondi só sobre a mensagem do Rico, e não dá do Amit, precisei analisar bastante coisa aqui pra mastigar melhor pra vocês, então vamos lá.
+
+Também já respondi aos dois pedindo que se alinhem, e recoloquei o Rico na cópia, porque o Amit tinha tirado ele.
+
+O que muda para vocês:
+
+1. O contato do domínio agora exige carta em papel timbrado, assinada por você ou pela Rhea como representante autorizada. Não é cobrado. Perguntei à Axon se eles têm um
+modelo próprio de carta.
+Para fechar a carta falta só um telefone com DDI. Pode me mandar? Sugiro a linha principal do escritório, não o celular de ninguém.
+Os cargos eu já preenchi, coloquei: Rhea como Founder & CEO, você como CEO Corporate DNA Americas, Nitin como Regional Director e JP como Senior Facilitator.
+
+Sobre o cadastro: registrador normalmente tem só um campo de contato administrativo, e os outros entram como cópia. Pedi para deixarem a Rhea nesse campo.
+
+2. Sobre o acesso ao WordPress, fui atrás do histórico e já está resolvido do nosso lado. Anteriormente tu me mandaste o login do billing.axonserver.com, na conta do finance@
+— mas aquilo é o portal de faturamento da Axon, não o WordPress. Na época o suporte deles avisou que o reset das senhas de cPanel e WordPress só sai se o cliente pedir por
+e-mail ao support@axon.com.sg. Ficou um texto pronto para você mandar e, pelo que consigo ver, ele nunca saiu. Me corrija se eu estiver errado. Já pedi agora, no e-mail para
+eles, com vocês em cópia — é a cópia que valida o pedido.
+
+3. Eles mandaram uma conta de Google Analytics da CDNA, e já entrei. Não precisamos criar nada, é só instalar a tag dela no site novo e o histórico continua de onde parou.
+
+Uma coisa para não se assustar se o Amit insistir: ele escreveu que vocês "perderiam todo o histórico de analytics". Esse dado está na conta do Google, não no servidor dele.
+Desligar a hospedagem em 30/09 não apaga nada.
+
+Pedi também o Search Console, que é o que realmente guarda o histórico de busca e a verificação de propriedade. Me diz qual e-mail da CDNA deve receber esses acessos
+que eu peço para eles mandarem.
+
+4. Entrei no painel da Axon e a hospedagem já está cancelada. O pacote Axon-P500, de S$ 550/ano, aparece com vencimento em 30/09/2026 e status "Cancelled" — a conta não
+tem nenhum serviço ativo. A boa notícia é que a recomendação de não renovar já está executada, e ninguém vai pagar S$ 550 por um servidor que não serve mais nada.
+
+O que muda: o Amit ofereceu 1-2 semanas de rollback "enquanto a hospedagem estiver ativa". O prazo é até 30/09 então temos um prazo bom ainda. Se precisar, dá para pedir
+uma extensão curta da hospedagem em vez de renovar o ano inteiro; já perguntei o preço a eles.
+
+Agora vamos aguardar as respostas deles.
+
+Abraço,
+Ricardo
+
+[Texto das mensagens anteriores oculto]
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                            31 de agosto de 2026 às 23:46
+
+Para: devemdobro@gmail.com
+
+Cc: Maliha.Bathool@corporatednaconsulting.com, finance@corporatednaconsulting.com, gm@corporatednaconsulting.com, jp.pritchard@corporatednaconsulting.com,
+
+weidatay@eztech.com.sg, rhea.l@corporatednaconsulting.com, amit@axon.com.sg, spencer@axon.com.sg
+
+Good evening, Ricardo,
+
+Thank you for the thorough update. We have noted all five points and
+the confirmed cutover sequence.
+
+To ensure we give you accurate administrative and commercial
+information, we are now verifying:
+
+- whether the registrar requires prescribed wording or a specific
+letter template, where the signed request should be addressed, and
+whether a scanned signed PDF is sufficient;
+- whether a short hosting extension beyond 30 September 2026 is
+available and the applicable cost;
+- the current Google Search Console property ownership and access
+  before the correct invitation is issued; and                            1 de setembro de 2026 às 15:55
+  - the administrative-contact update, with Rhea Leckie as the primary
+  contact and Allison Vickery removed from future domain correspondence
+  once the authorised request is received.
+
+  For the cutover, we understand that your team will send the exact apex
+  and www record values together with the proposed date, time and
+  timezone before making the change. The MX, SPF, DKIM and DMARC records
+  must remain untouched. We have also noted that Cloudflare Under Attack
+  mode will remain enabled through the change and validation, then be
+  disabled for go-live when you confirm.
+
+  No DNS or hosting change will be made by Axon at this stage. We will
+  respond in this thread once the above administrative, hosting and
+  Search Console details have been verified.
+
+   [Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>
+Para: devemdobro <devemdobro@gmail.com>
+
+  Grande Ricardo! Tudo bem? Respostas abaixo... Abs
+
+www.CorporateDNAConsulting.com
+
+From: Dev em Dobro <devemdobro@gmail.com>
+Sent: Monday, August 31, 2026 9:58 PM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+Obrigado, já mandei pra eles os e-mails.
+
+Não sei se viu ali, mas a Axon respondeu duas vezes o mesmo e-mail — o Rico primeiro, e depois de umas horas o Amit — e as duas respostas não batem em três pontos.
+Eu te respondi só sobre a mensagem do Rico, e não dá do Amit, precisei analisar bastante coisa aqui pra mastigar melhor pra vocês, então vamos lá.
+
+Também já respondi aos dois pedindo que se alinhem, e recoloquei o Rico na cópia, porque o Amit tinha tirado ele. - BLZ!
+
+O que muda para vocês:
+
+1. O contato do domínio agora exige carta em papel timbrado, assinada por você ou pela Rhea como representante autorizada. Não é cobrado. Perguntei à Axon se eles têm um
+modelo próprio de carta.
+
+Para fechar a carta falta só um telefone com DDI. Pode me mandar? (+44 7919 100076 - esse numero e' da Carol ... mas so pra ter algum) Sugiro a linha principal do
+
+escritório, não o celular de ninguém.
+Os cargos eu já preenchi, coloquei: Rhea como Founder & CEO, você como CEO Corporate DNA Americas, Nitin como Regional Director e JP como Senior Facilitator.
+
+Sobre o cadastro: registrador normalmente tem só um campo de contato administrativo, e os outros entram como cópia. Pedi para deixarem a Rhea nesse campo. ok!
+
+2. Sobre o acesso ao WordPress, fui atrás do histórico e já está resolvido do nosso lado. Anteriormente tu me mandaste o login do billing.axonserver.com, na conta do finance@
+— mas aquilo é o portal de faturamento da Axon, não o WordPress. Na época o suporte deles avisou que o reset das senhas de cPanel e WordPress só sai se o cliente pedir por
+e-mail ao support@axon.com.sg. Ficou um texto pronto para você mandar e, pelo que consigo ver, ele nunca saiu. Me corrija se eu estiver errado. Já pedi agora, no e-mail para
+eles, com vocês em cópia — é a cópia que valida o pedido. (OK~ Endosso la)
+
+3. Eles mandaram uma conta de Google Analytics da CDNA, e já entrei. Não precisamos criar nada, é só instalar a tag dela no site novo e o histórico continua de onde parou.
+
+Uma coisa para não se assustar se o Amit insistir: ele escreveu que vocês "perderiam todo o histórico de analytics". Esse dado está na conta do Google, não no servidor dele.
+Desligar a hospedagem em 30/09 não apaga nada. Importante! Obrigado!
+
+Pedi também o Search Console, que é o que realmente guarda o histórico de busca e a verificação de propriedade. Me diz qual e-mail da CDNA deve receber esses acessos
+que eu peço para eles mandarem. pode ser o Nitin e a Carol
+
+4. Entrei no painel da Axon e a hospedagem já está cancelada. O pacote Axon-P500, de S$ 550/ano, aparece com vencimento em 30/09/2026 e status "Cancelled" — a conta não
+tem nenhum serviço ativo. A boa notícia é que a recomendação de não renovar já está executada, e ninguém vai pagar S$ 550 por um servidor que não serve mais nada. Boa!
+
+O que muda: o Amit ofereceu 1-2 semanas de rollback "enquanto a hospedagem estiver ativa". O prazo é até 30/09 então temos um prazo bom ainda. Se precisar, dá para pedir
+uma extensão curta da hospedagem em vez de renovar o ano inteiro; já perguntei o preço a eles. Perfeito! Obrigado!
+
+Agora vamos aguardar as respostas deles. Beleza! Vou reforcar la! Obrigado e me avisa qualquer coisa! Abs!
+
+Abraço,
+Ricardo
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                          1 de setembro de 2026 às 17:18
+Para: devemdobro <devemdobro@gmail.com>
+Fala, Ricardo!
+Muito obrigado por destrinchar tudo isso. Ficou super claro e fico muito mais tranquilo sabendo que vocês estão olhando a migração nesse nível de detalhe.
+Estou totalmente alinhado com a abordagem.
+1. Administrative contact do domínio: concordo em manter a Rhea como administrative contact principal e eu, Nitin e JP na notification list, conforme você
+propôs. Para a carta, vamos usar o telefone corporativo +44 7919 100076. Assim que a Axon confirmar template, endereço e se PDF assinado é suficiente,
+conseguimos preparar e assinar rapidamente.
+2. WordPress/backup: perfeito. Quero sim que tenhamos um backup completo do ambiente antigo antes de desligá-lo, mesmo que não seja utilizado na nova
+plataforma. Melhor preservar tudo do que descobrir depois que havia algum conteúdo ou mídia que deveríamos ter guardado.
+3. Ownership dos ativos digitais: gostaria de estabelecer desde já uma regra simples para evitarmos novamente dependência de pessoas ou fornecedores.
+Sempre que possível, o owner institucional das nossas plataformas digitais deve ser:
+singapore@corporatednaconsulting.com
+E gostaria que Nitin e Nicole fossem adicionados como administradores internos sempre que a plataforma permitir.
+Isso vale particularmente para Google Analytics, Google Search Console, Cloudflare, Vercel e demais contas relacionadas ao website. A Dev em Dobro
+naturalmente terá os acessos técnicos necessários para administrar a plataforma, mas a propriedade e os acessos principais devem permanecer com a
+Corporate DNA.
+No caso específico de GA4 e Search Console, por favor usem singapore@corporatednaconsulting.com como nossa conta institucional e adicionem Nitin e
+Nicole como administradores.
+4. Hosting: perfeito também. Não vejo razão para renovar o Axon-P500 por um ano. Mantemos o ambiente antigo disponível durante o cutover e a janela de
+rollback e, se por algum motivo precisarmos passar de 30/09, avaliamos apenas uma extensão curta.
+5. Cutover: totalmente alinhado em manter Under Attack durante a preparação/validação e retirá-lo no momento correto do go-live para não bloquear
+visitantes e search crawlers.
+Pode seguir dessa forma. Vou responder ao e-mail com Amit e Rico endossando formalmente os pedidos de vocês e incluindo essa definição de ownership.
+Obrigado mesmo pelo cuidado com tudo isso. Quero aproveitar essa migração também para deixar a governança dos nossos ativos digitais muito mais
+organizada daqui para frente: Corporate DNA owns; our partners manage.
+Abraço,
+Guilherme
+
+www.CorporateDNAConsulting.com
+From: Guilherme Mendes <gm@corporatednaconsulting.com>
+Sent: Tuesday, September 1, 2026 2:55 PM
+To: devemdobro <devemdobro@gmail.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+Grande Ricardo! Tudo bem? Respostas abaixo... Abs
+
+www.CorporateDNAConsulting.com
+From: Dev em Dobro <devemdobro@gmail.com>
+Sent: Monday, August 31, 2026 9:58 PM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+Obrigado, já mandei pra eles os e-mails.
+
+Não sei se viu ali, mas a Axon respondeu duas vezes o mesmo e-mail — o Rico primeiro, e depois de umas horas o Amit — e as duas respostas não batem em três pontos.
+Eu te respondi só sobre a mensagem do Rico, e não dá do Amit, precisei analisar bastante coisa aqui pra mastigar melhor pra vocês, então vamos lá.
+
+Também já respondi aos dois pedindo que se alinhem, e recoloquei o Rico na cópia, porque o Amit tinha tirado ele. - BLZ!
+
+O que muda para vocês:
+
+1. O contato do domínio agora exige carta em papel timbrado, assinada por você ou pela Rhea como representante autorizada. Não é cobrado. Perguntei à Axon se eles têm um
+modelo próprio de carta.
+
+Para fechar a carta falta só um telefone com DDI. Pode me mandar? (+44 7919 100076+44 7919 100076 - esse numero e' da Carol ... mas so pra ter algum) Sugiro a
+
+linha principal do escritório, não o celular de ninguém.
+
+[Texto das mensagens anteriores oculto]
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                                  1 de setembro de 2026 às 17:23
+
+Para: devemdobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>
+
+Cc: "rico.m@axon.com.sg" <rico.m@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Rhea Leckie <rhea.l@corporatednaconsulting.com>
+
+Hi Amit and Rico,
+
+Thank you both for your support with this transition.
+
+Just replying on behalf of Corporate DNA to formally confirm that Ricardo and the Dev em Dobro team are authorised by us to coordinate the technical
+migration of the Corporate DNA website and request the information and access required for that purpose.
+
+I fully endorse the requests Ricardo has outlined below.
+
+Could you please help us close the following outstanding items:
+
+       Confirm the required template/wording, delivery address and format for the signed letter updating the domain administrative contact.
+       Update the primary domain administrative contact to Rhea Leckie : rhea.l@corporatednaconsulting.com, with Guilherme Mendes, Nitin
+       Goil and Jon-Paul Pritchard included in the notification list where possible, and remove Allison Vickery from future domain correspondence.
+       Provide the requested access/backup of the existing WordPress environment so Corporate DNA retains a complete archive before the legacy hosting is
+       decommissioned.
+       Grant access to the existing Google Search Console property and confirm who currently holds administrative access.
+       Confirm whether a short extension of the current hosting beyond 30 September 2026 would be possible, if required purely for rollback purposes, and the
+       associated cost.
+
+I would also like to establish a clear ownership structure for our digital assets going forward.
+
+Wherever possible, please use the following as Corporate DNA’s institutional owner/account:
+
+singapore@corporatednaconsulting.com
+
+For Google Analytics and Google Search Console, please grant the appropriate ownership/administrative access to this account. We would also like Nitin Goil
+and Nicole to have administrator access so that ownership and control do not depend on a single individual or external provider.
+
+We intend to follow the same principle across the website infrastructure going forward: Corporate DNA retains ownership and administrative control of the
+accounts, while our technical partners receive the permissions required to manage them.
+
+For clarity, we are aligned with Dev em Dobro’s proposed cutover approach. They will manage the website DNS change directly through the Cloudflare access
+already provided, changing only the records required for the website and leaving Microsoft 365, email and the associated MX/SPF/DKIM/DMARC records
+untouched.
+
+We also agree that the existing hosting should remain available during the agreed rollback period. We do not intend to renew the legacy hosting for another
+full annual term unless there is an unforeseen reason to do so.
+
+Ricardo, please continue coordinating the technical details directly with Amit and Rico, keeping us copied so we maintain a complete record of the transition.
+
+Thank you again, Amit and Rico, for helping us make this a controlled and safe handover.
+
+Best regard, G
+www.CorporateDNAConsulting.com
+
+From: Dev em Dobro <devemdobro@gmail.com>
+Sent: Monday, August 31, 2026 9:57 PM
+To: Amit @ Axon 1ProIT <amit@axon.com.sg>
+Cc: rico.m@axon.com.sg <rico.m@axon.com.sg>; Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>; Finance <finance@
+corporatednaconsulting.com>; Guilherme Mendes <gm@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>;
+weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Rhea Leckie <rhea.l@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+[Texto das mensagens anteriores oculto]
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                                                  1 de setembro de 2026 às 17:37
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Cc: Dev em Dobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>
+
+Good afternoon, Guilherme,
+
+Thank you for formally confirming Corporate DNA’s authorisation for
+Ricardo and the Dev em Dobro team. We have recorded this authorisation
+and Corporate DNA’s requested ownership and administrative-control
+structure.
+
+We have noted the outstanding items:
+
+- the required wording, delivery address and acceptable format for the
+signed administrative-contact letter;
+- Rhea Leckie as the primary domain administrative contact, removal of
+Allison Vickery from future domain correspondence, and the additional
+notification contacts where supported;
+- access to, or a complete backup of, the existing WordPress
+environment before decommissioning;
+- verification of the current Google Search Console property ownership
+and the requested access for singapore@corporatednaconsulting.com; and
+- whether a short hosting extension beyond 30 September 2026 is
+available, together with the applicable cost.
+
+We are verifying the registrar, hosting and Search Console records
+before confirming these points. No domain-contact, DNS or hosting
+change has been made.
+
+For the requested Google Analytics and Search Console administrator
+access, please confirm Nicole’s full name and the Google account email
+address that should be used. Nitin’s address is already clear from
+this thread.
+
+Ricardo may continue coordinating the technical migration details with
+us in this thread, with Corporate DNA kept copied.
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                                                                                         1 de setembro de 2026 às 18:47
+
+Para: "rico.m@axon.com.sg" <rico.m@axon.com.sg>
+
+Cc: devemdobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Hi Rico,
+Thank you. All clear and much appreciated.
+Nicole’s details are:
+Nicole Phoon
+nicole.phoon@corporatednaconsulting.com
+
+Please proceed with the access accordingly.
+Thanks again for your support.
+Best, G
+www.CorporateDNAConsulting.com
+
+From: rico.m@axon.com.sg <rico.m@axon.com.sg>
+Sent: Tuesday, September 1, 2026 4:37 PM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Cc: devemdobro <devemdobro@gmail.com>; Amit @ Axon 1ProIT <amit@axon.com.sg>; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Finance <finance@
+corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Rhea Leckie
+<rhea.l@corporatednaconsulting.com>; Spencer @ Axon 1Pro <spencer@axon.com.sg>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+[You don't often get email from rico.m@axon.com.sg. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+
+[Texto das mensagens anteriores oculto]
+
+Rico @ Axon 1Pro <rico.m@axon.com.sg>                                                                                                       1 de setembro de 2026 às 19:35
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Cc: Dev em Dobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Good evening, Guilherme,
+
+Thank you for confirming Nicole’s details. We have recorded Nicole
+Phoon at nicole.phoon@corporatednaconsulting.com for the requested
+Google Analytics and Google Search Console administrator access.
+
+We will include this address when the verified account access is
+processed and will confirm in this thread once the invitations have
+been issued. No account-access change has been made yet.
+
+[Texto das mensagens anteriores oculto]
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                                                     1 de setembro de 2026 às 22:59
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Cc: Dev em Dobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Good morning, Guilherme,
+
+Thank you again for providing Nicole’s details.
+
+We attempted to add nicole.phoon@corporatednaconsulting.com as an
+administrator in Google Analytics, but Google was unable to register
+the user.
+
+To receive access to Google Analytics and Google Search Console, the
+email address must be associated with a Google Account. It does not
+have to be a Gmail address—Nicole may create a Google Account using
+her existing corporate email address. Alternatively, please send us a
+Gmail address or another email address already linked to a Google
+Account.
+
+Once we receive the appropriate Google-linked email address, we will
+proceed with granting the requested access.
+
+I have attached a screenshot of the message for reference.
+
+[Texto das mensagens anteriores oculto]
+
+                          GA4-user-registration-error.png
+                          102K
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                                                     1 de setembro de 2026 às 23:02
+
+Para: Dev em Dobro <devemdobro@gmail.com>
+
+Cc: Rhea Leckie <rhea.l@corporatednaconsulting.com>, Guilherme Mendes <gm@corporatednaconsulting.com>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Maliha Bathool
+
+<Maliha.Bathool@corporatednaconsulting.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>
+
+Good morning, Ricardo, Rhea and everyone,
+
+Further to our earlier email, we have now confirmed the following:
+1. Hosting extension for rollback
+
+A hosting extension beyond 30 September 2026 is possible if required
+for rollback purposes. However, hosting is renewed quarterly rather
+than monthly.
+
+The minimum extension is three months, from 1 October to 31 December
+2026, at SGD 150 for the quarter.
+
+Please confirm if you would like us to arrange this three-month
+extension, and we will update the billing system accordingly.
+
+2. Domain administrative contact
+
+The proposed administrative contact will be updated to:
+
+Rhea Leckie
+rhea.l@corporatednaconsulting.com
+
+As Amit knows Rhea from Singapore and can verify the request directly,
+Rhea’s confirmation by Reply-all will be sufficient for us to begin
+coordinating the update with the registrar.
+
+Rhea, please confirm that you authorise Axon to update the domain’s
+administrative contact to your name and the email address above, and
+to remove Allison Vickery’s mailbox from future domain correspondence.
+
+There will be no charge for this update. Although many registrars
+charge for administrative-contact changes, Axon provides up to three
+such updates free of charge.
+
+Once we receive Rhea’s confirmation, Amit will work with the registrar
+to update the details shortly, and we will confirm in this thread when
+completed.
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                                                         2 de setembro de 2026 às 12:32
+
+Para: "rico.m@axon.com.sg" <rico.m@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Cc: devemdobro <devemdobro@gmail.com>, "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance
+
+<finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>, "Spencer @ Axon 1Pro" <spencer@axon.com.sg>
+
+Thanks Rico!
+I will kindly ask @Nicole Phoon to follow up on this one with you directly.
+
+Please let me know iof you need any help from my side.
+
+Thanks and regards, G
+
+www.CorporateDNAConsulting.com
+
+From: rico.m@axon.com.sg <rico.m@axon.com.sg>
+Sent: Tuesday, September 1, 2026 9:59 PM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>
+Cc: devemdobro <devemdobro@gmail.com>; Amit @ Axon 1ProIT <amit@axon.com.sg>; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Finance <finance@
+corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Rhea Leckie
+<rhea.l@corporatednaconsulting.com>; Spencer @ Axon 1Pro <spencer@axon.com.sg>; Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+[Texto das mensagens anteriores oculto]
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                  3 de setembro de 2026 às 01:04
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>, Dev em Dobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, Nicole Phoon
+
+<nicole.phoon@corporatednaconsulting.com>
+
+Cc: "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-Paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, weidatay@eztech.com.sg, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, "Spencer @ Axon 1Pro"
+
+<spencer@axon.com.sg>
+
+Good morning, Guilherme, Ricardo, Rhea, Nicole and everyone,
+
+Just a gentle reminder regarding the remaining items for the
+corporatednaconsulting.com website transition.
+1. Hosting extension for rollback
+
+Please confirm whether Corporate DNA would like to extend the current
+hosting beyond 30 September 2026 for rollback purposes.
+
+Hosting cannot be extended monthly. The minimum extension is one quarter:
+
+- Period: 1 October to 31 December 2026
+- Cost: SGD 150 for the quarter
+
+If you would like the extension, please confirm by Reply-all and we
+will update the billing system accordingly. If it is not required,
+please also let us know so that we can proceed on the basis that the
+existing hosting will end on 30 September 2026.
+
+2. Google Analytics and Search Console
+
+We are still waiting for Nicole to provide an email address linked to
+a Google Account. Nicole may create a Google Account using her
+Corporate DNA email address; a Gmail address is not required.
+
+Once we receive the Google-linked address, we can complete the
+requested Google Analytics and Google Search Console access.
+
+3. Domain administrative contact
+
+Rhea, please confirm by Reply-all that you authorise Axon to update
+the domain administrative contact to:
+
+Rhea Leckie
+rhea.l@corporatednaconsulting.com
+
+This will also allow us to remove Allison Vickery's former mailbox
+from future domain correspondence.
+
+4. DNS cutover and backup
+
+Ricardo and the Dev em Dobro team already have the necessary access
+and would normally be able to handle the DNS cutover directly. Before
+making the change, please send the exact target DNS values together
+with the proposed date, time and timezone.
+
+As agreed, only the apex A record and the www record should be
+changed. The Microsoft 365 mail records, including MX, SPF, DKIM and
+DMARC, must remain unchanged.
+
+Please also confirm the arrangements for the complete backup of the
+existing WordPress files, database and media before the old hosting is
+retired.
+
+5. Optional Axon assistance
+
+If Corporate DNA would like Axon to assist with the backup, DNS
+settings, cutover checking or any related technical work beyond the
+Google access, we will be glad to help under the maintenance-credit
+arrangement.
+
+Maintenance credits can be purchased at:
+
+https://axon.com.sg
+
+Please click “Buy Credits.” One maintenance credit, equivalent to one
+hour, should normally be sufficient for a focused backup task or basic
+DNS assistance and verification, depending on the final scope.
+
+This assistance is optional, as the appointed developer already has
+full access and should normally be able to complete the migration and
+DNS work.
+
+Thank you, and please let us know if any other assistance is required.
+
+[Texto das mensagens anteriores oculto]
+
+Nicole Phoon <nicole.phoon@corporatednaconsulting.com>                       3 de setembro de 2026 às 03:39
+
+Para: "rico.m@axon.com.sg" <rico.m@axon.com.sg>, Guilherme Mendes <gm@corporatednaconsulting.com>, devemdobro <devemdobro@gmail.com>, Rhea Leckie
+
+<rhea.l@corporatednaconsulting.com>
+
+Cc: "Amit @ Axon 1ProIT" <amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, "Spencer @
+
+Axon 1Pro" <spencer@axon.com.sg>
+
+Hi all
+
+I’ve created a Google Account using nicole.phoon@corporatednaconsulting.com
+
+Thank you.
+Best regards
+Nicole
+
+From: rico.m@axon.com.sg <rico.m@axon.com.sg>
+Date: Thursday, 3 September 2026 at 12:04 PM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@
+corporatednaconsulting.com>; Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Cc: Amit @ Axon 1ProIT <amit@axon.com.sg>; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Finance <finance@corporatednaconsulting.com>;
+Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Maliha Bathool
+<Maliha.Bathool@corporatednaconsulting.com>; Spencer @ Axon 1Pro <spencer@axon.com.sg>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+[You don't often get email from rico.m@axon.com.sg. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+
+[Texto das mensagens anteriores oculto]
+
+Rico @ Axon 1Pro <rico.m@axon.com.sg>                                                                                               3 de setembro de 2026 às 04:07
+
+Para: nicole.phoon@corporatednaconsulting.com
+
+Cc: gm@corporatednaconsulting.com, devemdobro@gmail.com, rhea.l@corporatednaconsulting.com, amit@axon.com.sg, nitin.goil@corporatednaconsulting.com,
+
+finance@corporatednaconsulting.com, jp.pritchard@corporatednaconsulting.com, weidatay@eztech.com.sg, Maliha.Bathool@corporatednaconsulting.com, spencer@axon.com.sg
+
+Hi Nicole,
+
+Thank you for setting up the Google Account.
+
+We have now successfully added nicole.phoon@corporatednaconsulting.com as an administrator. Please accept the Google invitation so that you will have full access to the
+Google Analytics account.
+
+As mentioned previously, the existing tracking setup is a very old Google Analytics account. Google Analytics has since moved to GA4, so please pass these details to your new
+webmaster/developer. They should be able to review the existing setup and implement or configure the appropriate GA4 tracking for the new website.
+
+For additional information on current SEO practices, including AEO (Answer Engine Optimisation) and GEO (Generative Engine Optimisation), you may refer to:
+https://axon.com.sg/trending
+
+You can also review the visibility of the new Corporate DNA website using our visibility tool:
+https://visibility.axon.com.sg
+
+Thank you again for your continued support and cooperation during the transition. If Corporate DNA requires any assistance from Axon in the future — including analytics, DNS,
+website, SEO/AEO/GEO or related technical support — please feel free to reach out. We will be glad to assist under our maintenance support arrangement where required.
+
+Best regards,
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+
+On Thu, 3 Sep 2026 06:39:55 +0000, Nicole Phoon nicole.phoon@corporatednaconsulting.com wrote:
+
+         Hi all
+
+         I’ve created a
+         Google Account using
+         nicole.phoon@corporatednaconsulting.com
+
+         Thank you.
+
+         Best regards
+
+         Nicole
+
+         From: rico.m@axon.com.sg rico.m@axon.com.sg
+
+         Date: Thursday, 3 September 2026 at 12:04 PM
+
+         To: Guilherme Mendes gm@corporatednaconsulting.com; devemdobro devemdobro@gmail.com; Rhea Leckie rhea.l@corporatednaconsulting.com; Nicole Phoon
+         nicole.phoon@corporatednaconsulting.com
+
+         Cc: Amit @ Axon 1ProIT amit@axon.com.sg; Nitin Goil nitin.goil@corporatednaconsulting.com; Finance finance@corporatednaconsulting.com; Jon-paul Pritchard
+         jp.pritchard@corporatednaconsulting.com; weidatay@eztech.com.sg weidatay@eztech.com.sg;
+         Maliha Bathool Maliha.Bathool@corporatednaconsulting.com; Spencer @ Axon 1Pro spencer@axon.com.sg
+
+         Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+         [You don’t often get email from rico.m@axon.com.sg. Learn why this is important at
+         https://aka.ms/LearnAboutSenderIdentification ]
+
+         Good morning, Guilherme, Ricardo, Rhea, Nicole and everyone,
+
+         Just a gentle reminder regarding the remaining items for the
+
+         corporatednaconsulting.com website transition.
+
+               1. Hosting extension for rollback
+
+         Please confirm whether Corporate DNA would like to extend the current
+
+         hosting beyond 30 September 2026 for rollback purposes.
+
+         Hosting cannot be extended monthly. The minimum extension is one quarter:
+
+                  Period: 1 October to 31 December 2026
+
+                  Cost: SGD 150 for the quarter
+
+         If you would like the extension, please confirm by Reply-all and we
+
+         will update the billing system accordingly. If it is not required,
+
+         please also let us know so that we can proceed on the basis that the
+
+         existing hosting will end on 30 September 2026.
+
+               1. Google Analytics and Search Console
+
+         We are still waiting for Nicole to provide an email address linked to
+
+         a Google Account. Nicole may create a Google Account using her
+            Corporate DNA email address; a Gmail address is not required.                                                                       3 de setembro de 2026 às 16:39
+            Once we receive the Google-linked address, we can complete the
+            requested Google Analytics and Google Search Console access.
+
+                 1. Domain administrative contact
+            Rhea, please confirm by Reply-all that you authorise Axon to update
+            the domain administrative contact to:
+            Rhea Leckie
+            rhea.l@corporatednaconsulting.com
+            This will also allow us to remove Allison Vickery’s former mailbox
+            from future domain correspondence.
+
+                 1. DNS cutover and backup
+            Ricardo and the Dev em Dobro team already have the necessary access
+            and would normally be able to handle the DNS cutover directly. Before
+            making the change, please send the exact target DNS values together
+            with the proposed date, time and timezone.
+            As agreed, only the apex A record and the www record should be
+            changed. The Microsoft 365 mail records, including MX, SPF, DKIM and
+            DMARC, must remain unchanged.
+            Please also confirm the arrangements for the complete backup of the
+            existing WordPress files, database and media before the old hosting is
+            retired.
+
+                 1. Optional Axon assistance
+
+               [Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>
+Para: devemdobro <devemdobro@gmail.com>
+
+  Ric, como acha que devo respomder isso por favor? Me ajuda com o texto ai por favor. Obrigado!
+
+www.CorporateDNAConsulting.com
+
+From: rico.m@axon.com.sg <rico.m@axon.com.sg>
+Sent: Thursday, September 3, 2026 12:04 AM
+To: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@corporatednaconsulting.com>; Nicole
+Phoon <nicole.phoon@corporatednaconsulting.com>
+Cc: Amit @ Axon 1ProIT <amit@axon.com.sg>; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Finance <finance@corporatednaconsulting.com>; Jon-paul
+Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Maliha Bathool <Maliha.Bathool@
+corporatednaconsulting.com>; Spencer @ Axon 1Pro <spencer@axon.com.sg>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+[Texto das mensagens anteriores oculto]
+
+Dev em Dobro <devemdobro@gmail.com>                                                               15 de setembro de 2026 às 11:58
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Opa Guilherme, bom dia! Roberto aqui voltando das férias.
+
+Sobre as perguntas que tu pediu para o Cadu ajudar a responder, do último email que a Axon mandou, pra fecharmos em relação ao cutover, segue:
+
+1. Hospedagem: SGD 150 pelo trimestre de 01/10 a 31/12. Não existe extensão mensal, o mínimo é o trimestre. Nossa recomendação é comprar essa extensão, e o motivo é de
+calendário, o conteúdo de Team, Services e Approach ainda está em desenvolvimento, e a página 5H que o Guli desenhou ainda não foi aprovada. Fora as outras páginas que
+ainda não foram revisadas. Lançar dentro de setembro seria ou correndo, ou sem nenhuma janela de rollback — em 30/09 o servidor antigo termina e não teria como voltar atrás.
+Os SGD 150 compram o direito de escolher a data de lançamento pelo estado do trabalho e entregar com qualidade.
+Quem autoriza a compra é a Corporate DNA, então precisa de uma resposta da Rhea aprovando a extensão. Precisamos da resposta de vocês até dia 20/09 no máximo
+pra pedir pra eles fazerem a extensão.
+
+2. Da Rhea, falta a resposta autorizando a troca do contato administrativo do domínio para o e-mail e a saída da caixa da Allison, só confirmar com a Rhea se eles podem fazer a
+alteração do email para rhea.l@corporatednaconsulting.com
+
+3. Sobre o backup da hospedagem antiga, não foi permitido nos mandarem os acessos a hospedagem então precisaria contratar horas de suporte para que a axon faça o backup
+dos arquivos do projeto e do banco de dados, pra isso eles instruíram a entrar no painel e fazer a contratação em
+https://axon.com.sg
+
+Clicar em “Buy Credits.” e comprar uma hora de suporte pra eles fazerem o backup, acho que como temos o acesso a gente pode fazer essa compra, só
+precisamos do ok de vocês para comprar essa 1 hora e alinharmos com eles os backups.
+
+Tendo esses oks, a gente pode redigir o email de resposta para eles.
+
+Abraço,
+Roberto
+Dev em Dobro
+
+[Texto das mensagens anteriores oculto]
+
+Guilherme Mendes <gm@corporatednaconsulting.com>                                                       15 de setembro de 2026 às 14:27
+
+Para: "Rico @ Axon 1Pro" <rico.m@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Cc: devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, "amit@axon.com.sg" <amit@axon.com.sg>, Nitin Goil
+
+<nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>,
+
+"weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, "spencer@axon.com.sg" <spencer@axon.com.sg>
+
+Hi Rhea, Maliha and everyone,
+
+Thank you, Rico. Roberto and the Dev em Dobro team have reviewed the outstanding items. Rhea and Maliha, could you please help with the following so we
+can move forward?
+
+1. Hosting extension > approval needed by 20 September
+
+Rhea, please confirm by that you approve the SGD 150 extension for 1 October–31 December 2026. This is the minimum available extension.
+
+Roberto recommends proceeding because several pages are still being developed or awaiting review and approval. Keeping the existing hosting gives us time
+to complete the work and preserves the option to restore the current site if needed during the transition.
+
+2. Domain administrative contact
+
+Rhea, please also confirm by reply-all that you authorise Axon to update the domain administrative contact to Rhea Leckie >
+rhea.l@corporatednaconsulting.com, replacing Allison’s former mailbox for future domain correspondence.
+
+3. Backup of the existing website
+
+Roberto recommends purchasing one maintenance credit, equivalent to one hour of Axon support, to back up the existing WordPress files, database and media.
+
+Rico, could you confirm the price and whether one hour will cover the complete backup? Rhea, could you approve the purchase once the cost is confirmed, and
+Maliha, could you help coordinate payment with Finance? Roberto and the team can then coordinate the backup and handover with Axon.
+
+4. Google Analytics and Search Console
+
+Nicole, could you please provide an email address linked to a Google Account so Axon can complete the access setup? Your Corporate DNA address can be used
+if it is linked to a Google Account; a Gmail address is not required.
+
+For the website switchover, Roberto and the team can coordinate the exact DNS values and proposed date, time and timezone with Axon beforehand. As
+agreed, changes will be limited to the apex A record and the www record, with all Microsoft 365 mail records kept unchanged.
+
+Thank you all for helping close these items.
+
+Best,
+G
+
+www.CorporateDNAConsulting.com
+
+From: Rico @ Axon 1Pro <rico.m@axon.com.sg>
+Sent: Thursday, September 3, 2026 3:07 AM
+To: Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@corporatednaconsulting.com>;
+amit@axon.com.sg <amit@axon.com.sg>; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Finance <finance@corporatednaconsulting.com>; Jon-paul Pritchard
+<jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg <weidatay@eztech.com.sg>; Maliha Bathool <Maliha.Bathool@
+corporatednaconsulting.com>; spencer@axon.com.sg <spencer@axon.com.sg>
+
+[Texto das mensagens anteriores oculto]
+
+[Texto das mensagens anteriores oculto]
+Rico @ Axon 1Pro <rico.m@axon.com.sg>                                                                                                     15 de setembro de 2026 às 14:55
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Cc: Nicole Phoon <nicole.phoon@corporatednaconsulting.com>, devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, Amit
+
+<amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, Wei Da Tay <weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, Spencer
+
+<spencer@axon.com.sg>
+
+Good morning, Guilherme,
+
+One Axon maintenance credit is equivalent to one hour of remote
+support and is currently priced at USD 100.
+
+One hour should normally be sufficient for a focused, complete backup
+of the existing WordPress files, database and media, provided the
+current hosting access is working normally and there are no unusual
+size or technical complications. If we identify anything that would
+require additional time, we will advise the team and obtain approval
+before proceeding beyond the purchased credit.
+
+Credits can be purchased here:
+https://axon.com.sg/credit-top-up.html
+
+Once Rhea approves and the credit is purchased, we can coordinate the
+backup and handover with Roberto and the Dev em Dobro team.
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+
+[Texto das mensagens anteriores oculto]
+
+rico.m@axon.com.sg <rico.m@axon.com.sg>                                                                                                   15 de setembro de 2026 às 17:22
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>
+
+Cc: Nicole Phoon <nicole.phoon@corporatednaconsulting.com>, Dev em Dobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, Amit
+
+<amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>, Jon-paul Pritchard
+
+<jp.pritchard@corporatednaconsulting.com>, Wei Da Tay <weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, Spencer
+
+<spencer@axon.com.sg>
+
+Hi Guilherme, Rhea, Maliha and everyone,
+
+Regarding the website backup, one hour of Axon support will cover the
+complete backup of the existing WordPress files, database and media,
+provided the current hosting access is working normally and there are
+no unusual technical complications.
+
+The fee is USD 100 for one hour. Please visit:
+https://axon.com.sg/credit-top-up.html
+
+Alternatively, go to https://axon.com.sg, click “Buy Credits,” and
+select the one-hour option.
+
+Regarding the domain administrative contact, there is no issue and
+there will be no charge for changing it. However, for security and
+authorization purposes, Rhea must email us directly to confirm the
+requested change. Once we receive her confirmation, we can proceed
+with the update.
+
+[Texto das mensagens anteriores oculto]
+
+Finance <finance@corporatednaconsulting.com>                                                                                              16 de setembro de 2026 às 01:51
+
+Para: Guilherme Mendes <gm@corporatednaconsulting.com>, "Rico @ Axon 1Pro" <rico.m@axon.com.sg>
+
+Cc: devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, "amit@axon.com.sg" <amit@axon.com.sg>, Nitin Goil
+
+<nitin.goil@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Maliha Bathool
+
+<Maliha.Bathool@corporatednaconsulting.com>, "spencer@axon.com.sg" <spencer@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Hi Guilly,
+
+Re the hosting extension, Rhea had already approved it on 4 Sep and I’ve communicated it to Rico (Axon) that same day (and re-confirmed it on 11 Sep when it was asked
+again). You were copied in these emails, as well as in my subsequent emails with Rico as Axon’s invoice for the SGD 150 hosting extension had been sent to you too.
+
+I trust it is clear to everyone here (including @Rico @ Axon 1Pro) that item 1 below is not outstanding from Rhea/CDNA?
+
+@Rico @ Axon 1Pro we’ve communicated many times on the hosting extension, Axon had already invoiced CDNA for this and we’ve also re-confirmed its due and payment
+dates. May I clarify please, what exactly is the “confirmation” that is still pending / expected from our end?
+
+Thanks and regards,
+
+Yvonne
+www.CorporateDNAConsulting.com
+[Texto das mensagens anteriores oculto]
+
+      Customer Invoice.msg
+      1053K
+
+Rico @ Axon 1Pro <rico.m@axon.com.sg>                                                                                             16 de setembro de 2026 às 02:11
+
+Para: finance@corporatednaconsulting.com
+
+Cc: gm@corporatednaconsulting.com, devemdobro@gmail.com, rhea.l@corporatednaconsulting.com, amit@axon.com.sg, nitin.goil@corporatednaconsulting.com,
+
+jp.pritchard@corporatednaconsulting.com, weidatay@eztech.com.sg, Maliha.Bathool@corporatednaconsulting.com, spencer@axon.com.sg,
+
+nicole.phoon@corporatednaconsulting.com
+
+Good afternoon, Yvonne,
+
+Thank you for clarifying, and apologies for the repeated request.
+
+No further approval or confirmation for the hosting extension is
+pending from Rhea or Corporate DNA. Axon has recorded the earlier
+approval, and the SGD 150 invoice for the 1 October–31 December 2026
+extension has already been issued. The extension will be handled
+according to the existing invoice and the agreed due and payment
+dates.
+
+Guilherme’s latest summary repeated the hosting approval as an
+outstanding item, but your message resolves that point. We will treat
+the extension as confirmed and will not request the same approval
+again.
+
+Thank you for setting the record straight.
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+
+[Texto das mensagens anteriores oculto]
+
+Finance <finance@corporatednaconsulting.com>                                                                                      16 de setembro de 2026 às 02:15
+
+Para: "Rico @ Axon 1Pro" <rico.m@axon.com.sg>
+
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>, devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, "amit@axon.com.sg"
+
+<amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg"
+
+<weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, "spencer@axon.com.sg" <spencer@axon.com.sg>, Nicole Phoon
+
+<nicole.phoon@corporatednaconsulting.com>
+
+Thanks Rico. I would really appreciate that is not asked again, considering our emails for the past 2 weeks on the same.
+
+Thanks and regards,
+
+Yvonne
+
+www.CorporateDNAConsulting.com
+From: Rico @ Axon 1Pro <rico.m@axon.com.sg>
+Sent: Wednesday, 16 September 2026 1:12 pm
+To: Finance <finance@corporatednaconsulting.com>
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@corporatednaconsulting.com>; amit@axon.com.sg;
+Nitin Goil <nitin.goil@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg; Maliha Bathool <Maliha.Bathool@
+corporatednaconsulting.com>; spencer@axon.com.sg; Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+Good afternoon, Yvonne,
+
+[Texto das mensagens anteriores oculto]
+
+Finance <finance@corporatednaconsulting.com>                                                                                                     22 de setembro de 2026 às 04:46
+
+Para: "Rico @ Axon 1Pro" <rico.m@axon.com.sg>, "amit@axon.com.sg" <amit@axon.com.sg>
+
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>, devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, Nitin Goil
+
+<nitin.goil@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg" <weidatay@eztech.com.sg>, Maliha Bathool
+
+<Maliha.Bathool@corporatednaconsulting.com>, "spencer@axon.com.sg" <spencer@axon.com.sg>, Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+
+Hi Rico,
+
+Just to let you know despite your confirmation below, your system has continued to send us reminders prior to the due and agreed payment dates.
+
+At the same time, can you or @amit@axon.com.sg please confirm your bank account details for us to pay to? We are setting up a bank transfer and there are no account details
+on your invoices.
+
+Ps. I believe my colleague paid with his cc last year and the year before, we were informed by your office to pay to a 3rd party account.
+
+Thanks and regards,
+
+Yvonne
+
+www.CorporateDNAConsulting.com
+
+From: Rico @ Axon 1Pro <rico.m@axon.com.sg>
+Sent: Wednesday, 16 September 2026 1:12 pm
+To: Finance <finance@corporatednaconsulting.com>
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@corporatednaconsulting.com>; amit@axon.com.sg;
+Nitin Goil <nitin.goil@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg; Maliha Bathool <Maliha.Bathool@
+corporatednaconsulting.com>; spencer@axon.com.sg; Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+
+Good afternoon, Yvonne,
+
+[Texto das mensagens anteriores oculto]
+
+---------- Mensagem encaminhada ----------
+From: Axon - 1ProIT <accounts@axon.com.sg>
+To: "accounts@axon.com.sg" <accounts@axon.com.sg>, Guilherme Mendes <gm@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>
+Cc:
+Bcc:
+Date: Fri, 18 Sep 2026 08:00:22 +0000
+Subject: Invoice Payment Reminder
+
+Dear Rhea Leckie (Corporate DNA Consulting),
+This is a billing reminder that your invoice no. 120844 which was generated on Saturday, August 29th, 2026 is due on Tuesday, October 13th, 2026.
+Your payment method is: Secure Payments by Stripe
+Invoice: 120844
+Balance Due: S$ 22.00
+Due Date: Tuesday, October 13th, 2026
+You can login to your client area to view and pay the invoice at
+
+ Pay Now
+
+=========================
+Also visit our modern AI-driven website,
+built for the future of SEO, AEO and GEO:
+https://axon.com.sg
+==========================
+Axon 1Pro Client Billing Portal (Manage & Renew Services):
+https://billing.axonserver.com
+Username: < your email address>
+You can reset or login with your current password.
+
+If your browser or network block , then click on
+http://ai.axon.com.sg/payments
+please indicate your domain name and invoice number.
+
+AXON – 1proIT
+(Formerly known as Axon Consulting)
+Tech Support Partner: OnePro IT Solutions
+accounts@axon.com.sg
+axon.com.sg | 1ProIT.com | 1ProHost.com
+
+Online Support:
+WhatsApp Support | Axon AI Agent Support |
+Gcash Payment
+https://gcash.axon.com.sg
+
+Payment Notice:
+We have automated the system and all renewals and registrations are via online credit card only. WE DO NOT PROVIDE BANK TRANSFER OR CHEQUE PAYMENTS as we are
+unable to automate the system with manual banking.
+For Singapore customers, payment via PayNow (Stripe) is supported.
+Please visit: http://ai.axon.com.sg/payments
+
+Addresses:
+Established in Singapore - 2002 - axon.com.sg
+Axon – Pacdal Road, Baguio, 2600 Benguet
+OnePro IT Solutions – 208-G, B4, L5 Real St, Balibago, Angeles, 2009 Pampanga
+visit our website | log in to your account | get support
+Copyright © Axon - 1ProIT, All rights reserved.
+
+---------- Mensagem encaminhada ----------
+From: Axon - 1ProIT <accounts@axon.com.sg>
+To: Guilherme Mendes <gm@corporatednaconsulting.com>, Finance <finance@corporatednaconsulting.com>
+Cc:
+Bcc:
+Date: Sun, 20 Sep 2026 08:00:13 +0000
+Subject: Invoice Payment Due
+
+Hi Rhea Leckie (Corporate DNA Consulting),
+Payment for invoice #120844 is due on Sunday, September 27th, 2026.
+Invoice Date: Saturday, August 29th, 2026
+Invoice #120844
+Amount Due: S$ 22.00
+Due Date: Tuesday, October 13th, 2026
+Status: Unpaid
+
+Quick Pay/View Invoice without login
+https://1proit.com/viewinvoice.php?id=120844
+We cannot automatically process payment because you do not have a payment method on file. To add a payment method to your account or pay manually, log in at
+https://1proit.com/viewinvoice.php?id=120844.
+=========================
+Also visit our modern AI-driven website,
+built for the future of SEO, AEO and GEO:
+https://axon.com.sg
+==========================
+
+Axon 1Pro Client Billing Portal (Manage & Renew Services):
+https://billing.axonserver.com
+Username: < your email address>
+You can reset or login with your current password.
+
+If your browser or network block , then click on
+http://ai.axon.com.sg/payments
+please indicate your domain name and invoice number.
+
+AXON – 1proIT
+(Formerly known as Axon Consulting)
+Tech Support Partner: OnePro IT Solutions
+accounts@axon.com.sg
+axon.com.sg | 1ProIT.com | 1ProHost.com
+
+Online Support:
+WhatsApp Support | Axon AI Agent Support |
+Gcash Payment
+https://gcash.axon.com.sg
+
+Payment Notice:
+We have automated the system and all renewals and registrations are via online credit card only. WE DO NOT PROVIDE BANK TRANSFER OR CHEQUE PAYMENTS as we are
+unable to automate the system with manual banking.
+For Singapore customers, payment via PayNow (Stripe) is supported.
+Please visit: http://ai.axon.com.sg/payments
+
+Addresses:
+Established in Singapore - 2002 - axon.com.sg
+Axon – Pacdal Road, Baguio, 2600 Benguet
+OnePro IT Solutions – 208-G, B4, L5 Real St, Balibago, Angeles, 2009 Pampanga
+visit our website | log in to your account | get support
+Copyright © Axon - 1ProIT, All rights reserved.
+
+4 anexos
+
+Invoice-120844.pdf
+46K
+
+Invoice Payment Reminder.eml
+87K
+
+Invoice-120844.pdf
+46K
+
+         Invoice Payment Due.eml                                                                                                  22 de setembro de 2026 às 04:56
+rico.m8@7aKxon.com.sg <rico.m@axon.com.sg>
+Para: finance@corporatednaconsulting.com
+
+Cc: gm@corporatednaconsulting.com, devemdobro@gmail.com, rhea.l@corporatednaconsulting.com, amit@axon.com.sg, nitin.goil@corporatednaconsulting.com,
+
+jp.pritchard@corporatednaconsulting.com, weidatay@eztech.com.sg, Maliha.Bathool@corporatednaconsulting.com, spencer@axon.com.sg,
+
+nicole.phoon@corporatednaconsulting.com
+
+Good afternoon, Yvonne,
+
+Thank you for bringing this to our attention, and I apologise that automated reminders continued despite the agreed due and payment dates.
+
+We have recorded that Corporate DNA is not being asked to pay earlier than the dates already agreed. We are reviewing the billing reminder configuration for Invoice #120844 so
+that the schedule is corrected and the same premature reminders are not repeated.
+
+Regarding the bank transfer, we will first verify the correct Axon beneficiary and account details before sending them. Please do not use any third-party account details unless they
+are confirmed in writing by Amit or through an official Axon payment instruction.
+
+We will follow up with the verified payment details separately.
+
+Regards,
+
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+
+e: rico.m@axon.com.sg
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560
+View our YouTube channel: https://www.youtube.com/@NOHYPETECHbyAmit
+
+On Tue, 22 Sep 2026 07:46:12 +0000, Finance <finance@corporatednaconsulting.com> wrote:
+
+         Hi Rico,
+         Just to let you know despite your confirmation below, your system has continued to send us reminders prior to the due and agreed payment dates.
+         At the same time, can you or @amit@axon.com.sg<mailto:amit@axon.com.sg> please confirm your bank account details for us to pay to? We are setting up a bank
+         transfer and there are no account details on your invoices.
+         Ps. I believe my colleague paid with his cc last year and the year before, we were informed by your office to pay to a 3rd party account.
+         Thanks and regards,
+         Yvonne
+         www.CorporateDNAConsulting.com
+         [cid:image001.png@01DD4AA8.F7429540]
+         From: Rico @ Axon 1Pro <rico.m@axon.com.sg>
+         Sent: Wednesday, 16 September 2026 1:12 pm
+         To: Finance <finance@corporatednaconsulting.com>
+         Cc: Guilherme Mendes <gm@corporatednaconsulting.com>; devemdobro <devemdobro@gmail.com>; Rhea Leckie <rhea.l@corporatednaconsulting.com>;
+         amit@axon.com.sg; Nitin Goil <nitin.goil@corporatednaconsulting.com>; Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>; weidatay@eztech.com.sg;
+         Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>; spencer@axon.com.sg; Nicole Phoon <nicole.phoon@corporatednaconsulting.com>
+Subject: Re: corporatednaconsulting.com — domain, and how the cutover will run
+Good afternoon, Yvonne,
+Thank you for clarifying, and apologies for the repeated request.
+No further approval or confirmation for the hosting extension is pending from Rhea or Corporate DNA. Axon has recorded the earlier approval, and the SGD 150
+invoice for the 1 October–31 December 2026 extension has already been issued. The extension will be handled according to the existing invoice and the agreed due
+and payment dates.
+Guilherme’s latest summary repeated the hosting approval as an outstanding item, but your message resolves that point. We will treat the extension as confirmed
+and will not request the same approval again.
+Thank you for setting the record straight.
+Rico M.
+Support Engineer
+Axon 1Pro Solutions
+e: rico.m@axon.com.sg<mailto:rico.m@axon.com.sg>
+w: axon.com.sg | 1ProIT.com
+support: WhatsApp us — https://wa.me/639614044560 View our YouTube channel: https://www.youtube.com/@NOHYPETECHbyAmit
+
+Finance <finance@corporatednaconsulting.com>                                                           22 de setembro de 2026 às 05:07
+
+Para: "rico.m@axon.com.sg" <rico.m@axon.com.sg>
+
+Cc: Guilherme Mendes <gm@corporatednaconsulting.com>, devemdobro <devemdobro@gmail.com>, Rhea Leckie <rhea.l@corporatednaconsulting.com>, "amit@axon.com.sg"
+
+<amit@axon.com.sg>, Nitin Goil <nitin.goil@corporatednaconsulting.com>, Jon-paul Pritchard <jp.pritchard@corporatednaconsulting.com>, "weidatay@eztech.com.sg"
+
+<weidatay@eztech.com.sg>, Maliha Bathool <Maliha.Bathool@corporatednaconsulting.com>, "spencer@axon.com.sg" <spencer@axon.com.sg>, Nicole Phoon
+
+<nicole.phoon@corporatednaconsulting.com>
+
+Hi Rico,
+
+Noted your advice, I’ll wait for the verified account details to setup the payment for your invoices.
+Thanks and regards,
+Yvonne
+www.CorporateDNAConsulting.com
+
+[Texto das mensagens anteriores oculto]
+

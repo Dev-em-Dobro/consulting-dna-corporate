@@ -198,11 +198,9 @@ const differentiators = [
 // é o que ele sempre fez — melhor que um retângulo quebrado ou um logo
 // inventado. O cabeçalho do card já trata o caso.
 //
-// ⚠️ `heineken.png` NÃO ESTÁ no `clientLogoRows` do mural de logos (ver
-// `lib/logos.ts`, cuja lista é curada e depende de aprovação da CDNA). O
-// arquivo está em /public/logos e é usado aqui porque a Heineken já é citada
-// NOMINALMENTE neste card desde antes — o nome dela já está no ar; o logo não
-// acrescenta cliente novo à parede.
+// ✅ `heineken.png` ENTROU NO MURAL EM 24-09, com a pasta nova de clientes
+// reais (`lib/logos.ts`). Continua aqui porque o card já cita a Heineken
+// pelo nome — o arquivo é o mesmo.
 // ✅ O TEXTO DOS TRÊS CARDS MORA EM `lib/home-copy.ts` DESDE 23-09
 // (`impact.cases`), editável em /edit-home. O que fica aqui é só o que NÃO é
 // texto: o arquivo do logo, por posição. Se a cliente trocar o cliente do card

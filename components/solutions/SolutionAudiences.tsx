@@ -50,19 +50,80 @@ import type { ServiceAudience } from "@/lib/services";
  * evidência. Hoje um dos dez serviços tem o conteúdo; ver `audiences` em
  * `lib/services.ts`.
  */
-export default function SolutionAudiences({ items }: { items?: ServiceAudience[] }) {
-  const audiences = (items ?? []).filter((a) => a.label.trim() && a.title.trim());
+export default function SolutionAudiences({
+  items,
+  label,
+}: {
+  items?: ServiceAudience[];
+  /**
+   * O RÓTULO ACIMA DOS CARTÕES — 24-09, com o "Where we work" do Talent
+   * Development.
+   *
+   * ⚠️ NASCE VAZIO, e a caixa no topo deste arquivo explica por quê: o mockup
+   * de 21-09 não desenha rótulo nenhum sobre os três cartões do Senior
+   * Leadership Development, porque lá eles encostam no "What we do" e são lidos
+   * como parte dele. O layout novo põe a grade de ladrilhos entre os dois, e
+   * sem rótulo os cartões entrariam na página sem nada que os anuncie.
+   *
+   * ⚠️ O PADDING DE TOPO ANDA COM ELE, pela mesma razão do `SolutionSteps`: sem
+   * rótulo a faixa continua sendo o pé do bloco de cima, e um `pt` abriria um
+   * buraco entre o parágrafo e a primeira foto.
+   *
+   * ✅ E ELE DÁ NOME À `<section>`, que até aqui não tinha nenhum — a dívida de
+   * acessibilidade que a caixa no topo registrava como assumida. Quem tem
+   * rótulo passa a ter `aria-labelledby`; quem não tem segue como estava.
+   */
+  label?: string;
+}) {
+  /* ⚠️ O FILTRO É PELO TÍTULO desde 24-09, e era pelos dois. O layout do
+     Executive Coaching desenha os quatro cartões SEM o rótulo sobreposto — só
+     foto, título e parágrafo —, e exigir `label` ali obrigaria a inventar uma
+     palavra para pôr em cima da fotografia. Ver a caixa do campo em
+     `lib/services.ts`. */
+  const audiences = (items ?? []).filter((a) => a.title.trim());
   if (audiences.length === 0) return null;
 
+  const labelId = label?.trim() ? "audiences-label" : undefined;
+
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24">
+    <section className="bg-white" aria-labelledby={labelId}>
+      <div
+        className={`mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24 ${
+          labelId ? "pt-20 md:pt-24" : ""
+        }`}
+      >
+        {labelId ? (
+          <p
+            id={labelId}
+            className="mb-10 text-[14px] font-medium uppercase tracking-[1.3px] text-brand"
+          >
+            {label}
+          </p>
+        ) : null}
         {/* `sm:grid-cols-3` E NÃO `md:`: três cartões de texto curto já cabem a
             640px, e a alternativa (uma coluna até 768) empilhava três blocos
             quase idênticos numa rolagem longa em tablet retrato. */}
-        <Reveal className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {/* ⚠️ A CONTAGEM DECIDE A GRADE — 24-09, com o Talent Development.
+            Até aqui eram sempre TRÊS cartões e a grade era `sm:grid-cols-3`
+            cravado; o layout novo traz QUATRO públicos, e em três colunas o
+            quarto descia sozinho para uma segunda fileira, com 66% de vazio ao
+            lado. Com quatro, a escada é 1 → 2 → 4: dois cartões cabem a 640px
+            e os quatro só cabem a partir de `lg`, porque abaixo disso cada um
+            ficaria com ~180px e o rótulo sobreposto não cabe (a conta está na
+            caixa do rótulo, mais abaixo).
+
+            ⚠️ CINCO OU MAIS CAI NA REGRA DE TRÊS e volta a desalinhar. Não há
+            layout com cinco hoje; quem trouxer um acrescenta o degrau aqui, e
+            não no dado. */}
+        <Reveal
+          className={`grid grid-cols-1 gap-6 ${
+            audiences.length === 4
+              ? "sm:grid-cols-2 lg:grid-cols-4"
+              : "sm:grid-cols-3"
+          }`}
+        >
           {audiences.map((a) => (
-            <article key={a.label} className="flex flex-col bg-paper">
+            <article key={a.title} className="flex flex-col bg-paper">
               <div className="relative aspect-[2/1] w-full overflow-hidden bg-ink">
                 {a.image ? (
                   <Image
@@ -134,6 +195,11 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                     className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(38,36,37,.55)_0%,rgba(38,36,37,.12)_32%,rgba(38,36,37,.12)_58%,rgba(38,36,37,.62)_100%)]"
                   />
                 ) : null}
+                {/* ⚠️ SÓ COM `label` desde 24-09 — ver o filtro no topo: no
+                    layout do Executive Coaching a fotografia não tem texto em
+                    cima, e o nome do público é o título em serifa logo abaixo
+                    dela. */}
+                {a.label?.trim() ? (
                 <span
                   /* ⚠️ NÃO É MAIS `aria-hidden`, desde 21-09. Era, enquanto o
                      rótulo vermelho abaixo da foto repetia este texto; aquele
@@ -153,6 +219,7 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                 >
                   {a.label}
                 </span>
+                ) : null}
                 {a.credential && a.credential.length > 0 ? (
                   <span
                     /* `text-right` E ALINHADO À DIREITA: as linhas têm
@@ -223,6 +290,52 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                 <p className="mt-4 font-serif text-[16px] leading-[1.6] text-muted">
                   {a.body}
                 </p>
+
+                {/* ⬅ A LISTA "FOCUS ON" — 24-09, com o layout de Women’s
+                    Leadership Development. Os três cartões dele fecham com os
+                    temas que cada trilha trabalha, atrás de um filete vermelho.
+
+                    ⚠️ O RÓTULO É DO COMPONENTE E NÃO DO DADO. A palavra é a
+                    mesma nos três cartões do desenho, e pô-la no dado faria a
+                    cliente reescrevê-la três vezes — e abriria a chance de os
+                    cartões da mesma página dizerem coisas diferentes. Quem
+                    tiver um serviço que a escreva de outro jeito promove isto a
+                    prop; hoje não existe.
+
+                    ⚠️ OS PONTOS SÃO DESENHO E A LISTA É LISTA. No layout os
+                    temas correm numa frase separada por "•"; aqui são `<li>`,
+                    com o ponto `aria-hidden` entre eles. Uma string única com
+                    os pontos dentro faria o leitor de tela ler "bullet" sete
+                    vezes, e tiraria da cliente a chance de reordenar um item
+                    sem mexer na pontuação.
+
+                    `mt-auto` PARA OS TRÊS FILETES ALINHAREM: os parágrafos
+                    acima têm alturas diferentes, e sem isto cada bloco vermelho
+                    nasceria numa altura própria. */}
+                {a.focus && a.focus.length > 0 ? (
+                  <div className="mt-auto pt-6">
+                    {/* O FILETE COMEÇA NO RÓTULO, e por isso o respiro de cima
+                        fica na caixa de fora: com o `pt` dentro da borda, o
+                        traço vermelho subiria 24px acima da primeira letra. */}
+                    <div className="border-l-2 border-brand pl-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-[1.3px] text-brand">
+                        Focus on
+                      </p>
+                      <ul className="mt-2 flex flex-wrap gap-x-2 font-serif text-[14px] leading-[1.6] text-muted">
+                        {a.focus.map((f, i) => (
+                          <li key={f} className="flex gap-2">
+                            {i > 0 ? (
+                              <span aria-hidden className="text-brand/60">
+                                •
+                              </span>
+                            ) : null}
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </article>
           ))}
