@@ -117,6 +117,128 @@ export type ServiceEvidence = {
 export type ServiceTestimonial = { quote: string; attribution: string };
 
 /**
+ * ============================================================================
+ * A FAIXA DE EVIDÊNCIA DO LAYOUT DE 24-09 — MANCHETE, LINHA DE APOIO, LOGOS E
+ * NÚMEROS. NÃO É O BLOCO DE CASO.
+ * ============================================================================
+ *
+ * O layout novo (`docs/meetings/senior-leadership-development-24-09.jpeg`)
+ * refaz o pé da página de Senior Leadership Development: onde havia UM caso
+ * contado por extenso — cliente, parágrafo de 18 meses, foto e citação —,
+ * agora há uma AFIRMAÇÃO de resultado com dois logos de cliente e três medidas
+ * entre eles.
+ *
+ * ⚠️ ESTE CAMPO NÃO SUBSTITUI `evidence`, ELE CONCORRE COM ELE. Os outros
+ * serviços com case (Culture Transformation, High Performing Teams, Executive
+ * Coaching, Family Business Consulting) continuam no `SolutionEvidence` de
+ * sempre, que segue inteiro e sem uma linha mexida. Quem tem `evidenceSummary`
+ * desenha a faixa nova; quem tem `evidence` desenha a antiga. A conta está em
+ * `SolutionView`, e é a mesma forma do interruptor de `practices`.
+ *
+ * ⏳ UM DOS DEZ TEM. É o serviço que o layout desenha.
+ *
+ * ⚠️ FUNDO CLARO, E ISSO É MEDIDA DO ARQUIVO, NÃO GOSTO. No layout esta faixa
+ * mede #fefefe — branco —, contra o #f9f8f6 da faixa de "How we work" logo
+ * acima. A faixa antiga é `ink`. A troca importa por causa dos LOGOS: os PNG de
+ * `public/logos/` são as marcas em cores originais para fundo claro, e sobre
+ * `ink` exigiriam a plaqueta branca que `SolutionEvidence` registra como
+ * testada e descartada. Em fundo claro elas entram como são.
+ *
+ * ⚠️ O VERMELHO DOS NÚMEROS PASSA A SER O `brand` CHEIO, e não o `brand-light`
+ * da faixa antiga. É a regra de uma linha do `globals.css` — `brand` em fundo
+ * claro, `brand-light` em fundo escuro —, e inverter aqui reprovaria.
+ */
+/**
+ * ============================================================================
+ * AS PEÇAS DO LAYOUT DE MANAGER DEVELOPMENT — 24-09
+ * ============================================================================
+ *
+ * Desenhadas em `docs/meetings/manager-development-24-09.jpeg`. São TRÊS blocos
+ * que não existiam no template: as trilhas, a grade de momentos e os passos
+ * numerados.
+ *
+ * ⚠️ NENHUM DELES SUBSTITUI NADA. Cada um é um campo opcional, e serviço que
+ * não o tem simplesmente não desenha aquele bloco — a mesma guarda de
+ * `audiences`, `practices` e `evidenceSummary`. As nove páginas restantes não
+ * sentem esta rodada.
+ */
+
+/**
+ * UMA TRILHA — o cartão horizontal de foto à esquerda e conteúdo à direita.
+ *
+ * No layout são duas ("First-time managers" e "Mid-level managers"), e a
+ * estrutura de cada uma tem cinco partes: foto, rótulo vermelho em caixa alta,
+ * título em serifa, uma linha de apoio e a lista de itens com visto.
+ */
+export type ServicePathway = {
+  /** O rótulo vermelho em caixa alta. */
+  label: string;
+  /** O título curto em serifa, logo abaixo do rótulo. */
+  title: string;
+  /** A linha de apoio, um corpo antes da lista. */
+  body: string;
+  /**
+   * Os itens com visto. O layout os distribui em DUAS COLUNAS, com o filete
+   * entre elas — quem faz essa divisão é o componente, pela metade da lista, e
+   * não o dado: uma lista é uma lista.
+   */
+  items: string[];
+  /** A foto do cartão. Ausente = campo de cor, como nos outros cartões. */
+  image?: string;
+};
+
+/** A grade de caixas contornadas — "The manager moments that matter". */
+export type ServiceMoments = {
+  /** O rótulo da faixa, que no layout NOMEIA a grade em vez de ser genérico. */
+  label: string;
+  /** Uma caixa por item. O layout mostra dez, em duas fileiras de cinco. */
+  items: string[];
+};
+
+/**
+ * UM PASSO da fileira numerada de "How we work".
+ *
+ * ⚠️ NÃO É A MESMA COISA QUE `practices`. Aquela fileira é uma LISTA de
+ * práticas de igual peso, separada por filetes; esta é uma SEQUÊNCIA — número,
+ * ícone, título, descrição, e uma seta ligando cada passo ao seguinte. Os dois
+ * desenhos são diferentes e os dois estão no ar, em páginas diferentes.
+ */
+export type ServiceStep = {
+  /** O título curto, em negrito, abaixo do ícone. */
+  title: string;
+  /** A descrição de uma ou duas linhas. */
+  body: string;
+  /**
+   * A chave do ícone no mapa de `SolutionSteps`. Ausente = o passo sai só com o
+   * número, que continua legível.
+   */
+  icon?: string;
+};
+
+export type ServiceEvidenceSummary = {
+  /** A manchete em serifa, logo abaixo do rótulo "Evidence". */
+  headline: string;
+  /** A linha de apoio, um corpo abaixo da manchete. */
+  lead: string;
+  /**
+   * As marcas nas duas pontas da fileira — caminho em `public/logos/` e o nome
+   * do cliente para o `alt`.
+   *
+   * ⚠️ DUAS, UMA EM CADA PONTA, é o que o layout desenha, mas o componente não
+   * fixa o número: ele intercala logos e medidas numa fileira só, com os logos
+   * nas extremidades. Três marcas e dois números cairiam de pé.
+   *
+   * `caseSlug` SÓ QUANDO EXISTE PÁGINA DE CASO PARA LINKAR — a mesma regra do
+   * campo homônimo em `ServiceEvidence`, e pela mesma razão: link para case
+   * despublicado é 404 em cima de um logo de cliente. Sem ele a marca desenha
+   * igual, só não é clicável.
+   */
+  logos: { src: string; alt: string; caseSlug?: string }[];
+  /** As medidas entre as marcas. Mesmo `ServiceFact` da faixa antiga. */
+  facts: ServiceFact[];
+};
+
+/**
  * A CHAPA CINZA DA COLUNA DO MEIO, pedida em 17-09: *"the section Evidence
  * doesn't have the image and the quote, all pages in services should have it,
  * put a image and quote placeholder for now."* Até 16-09 a faixa de evidência
@@ -314,6 +436,31 @@ export type Service = {
   /** A "banner statement" do outline: uma frase, no herói, sob o nome. */
   banner: string;
   /**
+   * ⚠️ A FRASE DO HERÓI QUANDO ELA NÃO É A `banner` — 24-09.
+   *
+   * Até aqui o herói das dez páginas mostrava a `banner`, e havia uma caixa
+   * inteira no `SolutionView` explicando por que a frase do mockup de 21-09
+   * (*"For the leaders who shape what comes next."*) tinha sido RECUSADA: a
+   * `banner` é copy marcada como FINAL no `CDNA_03_Services.docx` e no
+   * `WEBSITE SERVICE COPY.xlsx`, e trocá-la por uma frase que só existia
+   * desenhada seria decidir copy no lugar da cliente.
+   *
+   * ✅ O QUE MUDOU: a frase voltou no layout de 24-09, que é material aprovado
+   * e posterior, e a decisão de usá-la foi tomada por escrito. Ou seja, não é
+   * mais frase solta de mockup — é a copy do herói desta página.
+   *
+   * ⚠️ A `banner` NÃO FOI APAGADA, e é isso que segura o resto de pé: ela
+   * continua alimentando o card desta página na `/services`, o card dela no
+   * "Related services" das outras nove e a `description` da metadata (o
+   * `og:description` e o snippet do Google). Ver `generateMetadata` em
+   * `app/services/[slug]/page.tsx` e o `ServiceCard`. Trocar a `banner` teria
+   * mudado os quatro lugares de uma vez; este campo muda um.
+   *
+   * ⏳ UM DOS DEZ TEM. Ausente = o herói segue mostrando a `banner`, como
+   * sempre — a mesma guarda de `whatWeDo`, `audiences` e `practices`.
+   */
+  heroSubtitle?: string;
+  /**
    * Bloco 2 — The Outcome. O que muda no negócio.
    *
    * O `**…**` é o negrito que a cliente marcou na planilha (`WEBSITE SERVICE
@@ -434,6 +581,54 @@ export type Service = {
   /** Bloco 6 — as três partes que o outline chama de "all thirty parts". */
   cta: { strapline: string; line: string; label: string };
   evidence?: ServiceEvidence;
+  /**
+   * A faixa de evidência do layout de 24-09 — ver a caixa de
+   * `ServiceEvidenceSummary`.
+   *
+   * ⚠️ EXCLUDENTE COM `evidence` NA PRÁTICA, ainda que o tipo permita os dois:
+   * as duas faixas têm o mesmo rótulo ("Evidence") e o mesmo lugar na página,
+   * então um serviço com os dois desenharia a palavra duas vezes. `SolutionView`
+   * dá precedência a este e o teste `tests/services.test.ts` fixa a regra.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  evidenceSummary?: ServiceEvidenceSummary;
+  /**
+   * ⚠️ O INTERRUPTOR DO ARRANJO DOS DOIS BLOCOS DE TEXTO — 24-09.
+   *
+   * O template desenha "What we do" e "How we work" em DUAS COLUNAS: manchete à
+   * esquerda, fio vertical, corpo à direita. O layout de Manager Development
+   * desenha os dois EMPILHADOS — rótulo, manchete de largura inteira, uma linha
+   * de apoio embaixo — porque o corpo ali é uma frase só, e uma frase só numa
+   * coluna de 60% ao lado de uma manchete de duas linhas deixa um buraco no
+   * meio da faixa.
+   *
+   * UM CAMPO PARA OS DOIS BLOCOS, e não um por bloco: no layout os dois mudam
+   * juntos, e dois campos dariam quatro combinações das quais duas ninguém
+   * pediu. Ver a prop `layout` de `SolutionSection`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  sectionLayout?: "split" | "stacked";
+  /**
+   * As duas trilhas do layout de 24-09 — ver `ServicePathway`. Ausente ou
+   * vazio = a faixa não renderiza.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  pathways?: ServicePathway[];
+  /** A grade de momentos — ver `ServiceMoments`. ⏳ UM DOS DEZ TEM. */
+  moments?: ServiceMoments;
+  /**
+   * A fileira numerada de "How we work" — ver `ServiceStep`.
+   *
+   * ⚠️ SUBSTITUI A FILEIRA DE `practices`/`pillars` no serviço que o tem: as
+   * duas ocupam o mesmo lugar, logo abaixo do bloco "How we work". A conta está
+   * em `SolutionView`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  steps?: ServiceStep[];
   testimonial?: ServiceTestimonial;
   /**
    * A imagem do card no índice `/services` — item 12 da daily de 14-09:
@@ -474,6 +669,31 @@ export type Service = {
    * card. Se o arquivo for trocado, esta conta é para refazer, não para herdar.
    */
   cardImage?: string;
+  /**
+   * ⚠️ A FOTO DO HERÓI QUANDO ELA NÃO É A DO CARD — 24-09.
+   *
+   * Desde 17-09 o herói da interna mostra a MESMA foto do card da listagem, e
+   * aquela decisão tem um argumento que não envelheceu: o leitor clica num card
+   * e chega a uma dobra que é a ampliação do que ele acabou de ver. Antes disso
+   * as dez internas dividiam uma foto genérica só, e as duas telas pareciam de
+   * sites diferentes.
+   *
+   * ⚠️ ESTE CAMPO DESFAZ ESSA CONTINUIDADE NO SERVIÇO QUE O USA, e é preciso
+   * dizer em voz alta em vez de descobrir na revisão: card e herói passam a ser
+   * fotos diferentes, que é exatamente o defeito que 17-09 consertou. Entrou
+   * assim porque o pedido de 24-09 é sobre o HERÓI — *"Hero: imagem da escada
+   * com pessoas"* —, e a foto do card da `/services` é material da cliente,
+   * escolhido por ela em 17-09, numa página que este pedido não menciona.
+   * Trocar as duas de uma vez mudaria em silêncio uma página que ninguém
+   * mandou mexer.
+   *
+   * ⏳ O CAMINHO SE ELA QUISER AS DUAS IGUAIS: apagar este campo e pôr o mesmo
+   * arquivo em `cardImage`. Uma linha, e a continuidade volta.
+   *
+   * Ausente = o herói segue mostrando o `cardImage`, e quem não tem nenhum dos
+   * dois cai na `service-hero-fallback.jpg`.
+   */
+  heroImage?: string;
 };
 
 /**
@@ -491,6 +711,32 @@ export const services: Service[] = [
        e o otimizador do Next serve imagem POR URL — nome novo é cache novo,
        gerado à toa. */
     cardImage: "/services/cards/top-150-leadership-development-client.jpg",
+    /* ✅ A FOTO DA ESCADA, 24-09 — *"Hero: imagem da escada com pessoas, que o
+       Guli já te mandou por e-mail"*. Chegou como PNG de 1897x829 e virou JPEG
+       q90 numa ÚNICA compressão (374 KB), que é o tratamento padrão deste repo.
+
+       ⚠️ ELA É 2,29:1 NUMA DOBRA QUE É MAIS QUADRADA QUE ISSO. O herói é
+       `84svh` de largura cheia: numa janela de 1440x900 a dobra sai a ~1,9:1, e
+       o `object-cover` escala pela ALTURA e come ~17% da largura, metade de cada
+       lado. A composição aguenta — a foto é um padrão denso de escadas e pessoas
+       do lado direito, sem assunto único a centralizar —, mas NO TELEFONE, que é
+       retrato, o corte é severo e sobra a faixa central. É o mesmo
+       comportamento das outras nove e está registrado na caixa do `imageUrl` no
+       `SolutionView`; se um dia incomodar, `imagePosition` existe no
+       `SolutionHero` para ancorar por página.
+
+       ⚠️ NÃO SUBSTITUI O `cardImage` ACIMA, de propósito — ver a caixa de
+       `heroImage` no tipo `Service`, que registra o que isso custa.
+
+       ⏳ 1897px DE LARGURA É POUCO PARA SANGRIA TOTAL: num laptop de 1440 com
+       tela retina o navegador pede ~2880px e a foto fica macia. A
+       `service-hero-fallback.jpg` tinha 3672px e era por isso que aguentava. É o
+       mesmo pedido de originais que já está aberto para as fotos dos cards.
+
+       ⚠️ TROCAR O NOME DO ARQUIVO SE O CONTEÚDO MUDAR — o otimizador do Next
+       serve imagem por URL e já entregou versão velha neste projeto por causa
+       disso. É por isso que a data está no nome. */
+    heroImage: "/services/heroes/sld-stairs-24-09.jpg",
     /* ✅ O NOME MUDOU EM 21-09, por email: *"Change top 150 leadership
        development to Senior Leadership Development"*. É o que aparece no card
        do índice, no submenu de Services, na migalha e no `h1` da página — o
@@ -515,6 +761,11 @@ export const services: Service[] = [
     title: "Senior Leadership Development",
     banner:
       "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
+    /* ✅ A FRASE DO HERÓI PASSOU A SER A DO LAYOUT em 24-09, por decisão escrita
+       — ver a caixa de `heroSubtitle` no tipo `Service`, que guarda por que ela
+       tinha sido recusada em 21-09 e o que mudou. A `banner` acima fica: ela
+       continua sendo o texto do card e da metadata. */
+    heroSubtitle: "For the leaders who shape what comes next.",
     /* ✅ AS DUAS ÚNICAS MANCHETES ESCRITAS PELA CLIENTE. Estão em letra no
        template `4. Services/ExCo Leadership Services Page.png`, que desenha
        justamente esta página. Copiadas à letra, sem reescrita. */
@@ -620,25 +871,54 @@ export const services: Service[] = [
        mais apertado), ou seja ninguém é cortado. Se um arquivo NOVO entrar aqui
        com composição diferente, refazer essa conta antes de confiar no centro —
        é exatamente o defeito que o carrossel da home tinha. */
+    /* ✅ OS TRÊS TÍTULOS E OS TRÊS PARÁGRAFOS SÃO OS DO LAYOUT DE 24-09,
+       transcritos de `docs/meetings/senior-leadership-development-24-09.jpeg`.
+       Os anteriores vinham do mockup de 21-09 e eram mais curtos; o pedido de
+       24-09 é explícito — *"Textos: atualizar com a versão nova. Nada dessas
+       páginas tinha sido atualizado ainda."*
+
+       O QUE SAIU, para quem comparar com a versão publicada: "Align. Decide.
+       Deliver." / "From functional to enterprise leadership." / "A stronger
+       leadership community.", com os parágrafos curtos correspondentes. O git
+       os tem.
+
+       ⚠️ OS TRAVESSÕES DO LAYOUT VIRARAM PONTUAÇÃO COMUM, e isso NÃO é
+       reescrita solta: é a regra de site inteiro pedida na daily de 23-09
+       (*"tirar o travessão do site todo nos textos pra nao parecer ia"*) e já
+       aplicada em `a37355f`, que passou 62 arquivos a limpo. As três frases
+       novas chegaram com travessão porque o layout foi desenhado antes daquele
+       pedido; escrevê-las com ele aqui seria reintroduzir, em copy nova,
+       exatamente o que foi tirado ontem.
+
+       A CONVERSÃO SEGUE O QUE `a37355f` FEZ, e não uma escolha nova: travessão
+       que ABRE explicação vira dois-pontos, travessão que FECHA aparte vira
+       vírgula. No terceiro cartão, que tem o par, o resultado é
+       "…of modern leadership: performance and people, …, speed and inclusion,
+       building the judgement…".
+
+       ⚠️ O MEIO-TRAÇO DAS FAIXAS NUMÉRICAS FICA ("1–2 day", "Top 100 – 150"):
+       ele é sinal de intervalo, não travessão, e o pedido de 23-09 é sobre o
+       travessão. Trocá-lo por hífen mudaria a tipografia dos números em toda a
+       página sem ninguém ter pedido. */
     audiences: [
       {
         label: "Executive teams",
-        title: "Align. Decide. Deliver.",
-        body: "We help Executive Teams build collective leadership, stronger decision quality and the capability to lead transformation together.",
+        title: "Aligning collective leadership identity at the top.",
+        body: "Focused 1–2 day interventions that strengthen how Executive Teams lead together: aligning around purpose, making critical decisions, navigating tensions and increasing their collective capacity to drive transformation.",
         image: "/services/audiences/sld-executive-teams.jpg",
         credential: ["Collective", "clarity", "Greater impact"],
       },
       {
         label: "SLT / ET-1",
-        title: "From functional to enterprise leadership.",
-        body: "We work with SLT and ET-1 leaders to move from functional excellence to enterprise leadership: leading across boundaries, influencing horizontally and translating strategy into execution.",
+        title: "From functional excellence to enterprise leadership.",
+        body: "We develop SLT and ET-1 leaders to step beyond functional or market leadership: strengthening their leadership identity, Inner and Outer Game, to lead across boundaries, influence horizontally and turn strategy into execution.",
         image: "/services/audiences/sld-slt-et1.jpg",
         credential: ["Bigger", "perspective", "Bolder leadership"],
       },
       {
         label: "Top 100 – 150 leaders",
-        title: "A stronger leadership community.",
-        body: "We build leadership communities with a shared language, stronger judgement and the habits required to lead consistently at scale.",
+        title: "Mastering the dualities and competing commitments of leadership.",
+        body: "Leadership journeys that equip senior leaders to navigate the competing commitments of modern leadership: performance and people, today and tomorrow, global and local, speed and inclusion, building the judgement and habits to lead consistently at scale.",
         image: "/services/audiences/sld-top-100-150.jpg",
         /* "JUDGEMENT" COM E, e a escolha é deliberada: o recorte que ela mandou
            em 21-09 escreve assim, e o PARÁGRAFO deste mesmo cartão já dizia
@@ -660,56 +940,117 @@ export const services: Service[] = [
       line: "Build a senior leadership community that improves decision quality, alignment and execution speed across functions, markets and geographies.",
       label: "Talk to us about your enterprise leaders",
     },
-    /* ⚠️ SEM `caseSlug` DESDE 17-09, e a pergunta que estava aqui morreu com
-       isso: o caso da Heineken foi despublicado no CMS junto com os outros cinco
-       legados (nenhum tem `Reviewed = Yes` na planilha dela), e `/cases/heineken`
-       responde 404. O link some porque `SolutionEvidence` esconde o "read the
-       full story" quando o campo falta — é um dos estados que ele já monta.
+    /* ============================================================================
+       ⛔ O BLOCO DE CASO SAIU DESTA PÁGINA EM 24-09 — E SÓ DESTA
+       ============================================================================
 
-       A observação de conteúdo fica registrada para quando o caso voltar: o
-       publicado contava OUTRO trabalho — 70+ sucessores HiPo na APAC, parceria
-       de 6 anos — e não esta jornada de 18 meses com os 150. Mesmo cliente,
-       engajamento diferente. Religar o link é devolver uma linha, e continua
-       sendo pergunta a fazer à cliente antes. */
-    evidence: {
-      client: "HEINEKEN",
-      title: "Top 150 leaders",
-      body: "An 18 month enterprise leadership journey bringing HEINEKEN’s senior leadership population together to strengthen the Inner and Outer Game of leadership.",
-      /* A divisão entre número e rótulo é só apresentação: o documento escreve
-         "150 senior leaders · 18 months · Enterprise wide, self and peer to
-         peer leadership", e nenhuma palavra foi acrescentada. */
-      facts: [
-        { value: "150", label: "senior leaders" },
-        { value: "18", label: "months" },
-        { value: "Enterprise wide", label: "self and peer to peer leadership" },
+       O layout novo troca a faixa de evidência inteira: onde havia o caso da
+       HEINEKEN contado por extenso, agora há manchete, linha de apoio, dois
+       logos de cliente e três medidas entre eles. Confirmado por escrito: o
+       parágrafo dos 18 meses, a foto e a citação saem os três. O que entra está
+       no `evidenceSummary`, logo abaixo.
+
+       O QUE SAIU, para quem precisar reverter (o git tem tudo):
+
+         • `evidence`, com `client: "HEINEKEN"`, `title: "Top 150 leaders"`, o
+           parágrafo da jornada de 18 meses, os três fatos ("150 senior
+           leaders", "18 months", "Enterprise wide / self and peer to peer
+           leadership") e a foto `heineken-sign.PLACEHOLDER.jpg`;
+         • `testimonial`, que era o placeholder escrito no próprio mockup de
+           21-09 — *"A quote from Dolf to be confirmed."*, atribuído a "Name,
+           Title: HEINEKEN". A frase real do Dolf nunca chegou; o pedido de
+           24-09 dispensa a coluna, então a pendência morre aqui em vez de ficar
+           esperando.
+
+       ✅ DUAS PENDÊNCIAS MORREM JUNTO, e vale dizer para que ninguém as procure:
+       a FOTO DE VERDADE da faixa de evidência, pedida na daily de 16-09 e nunca
+       entregue (o arquivo no ar era uma chapa com "PLACEHOLDER" no nome), e a
+       CITAÇÃO do Dolf. A faixa nova não tem foto nem citação. As duas seguem
+       pendentes nos OUTROS quatro serviços com case, onde o
+       `EVIDENCE_IMAGE_PLACEHOLDER` continua no ar — ver a caixa dele.
+
+       ⚠️ O DIVISOR "FEATURED CASE STUDY" SOME COM ISTO, e é o certo: ele
+       anunciava o bloco de baixo pelo nome, e o bloco de baixo deixou de ser um
+       case study. `SolutionView` já o condiciona a `service.evidence`, então
+       nada teve de mudar lá para ele sair — mas é bom saber que a causa é esta
+       e não um descuido.
+
+       ⚠️ E COM O DIVISOR, SOME TAMBÉM O `closing`. A assinatura de duas linhas
+       ("Different organisations. Different transformations.") divide o mesmo
+       slot com o divisor, e o template só a desenha em serviço SEM `practices`
+       — esta página tem. Ou seja: o campo `closing` abaixo continua sem chegar à
+       tela, exatamente como estava antes de 24-09. Não é regressão nova, é o
+       mesmo estado; `tests/services-copy.test.ts` guarda a regra.
+
+       ⚠️ O CASO DA HEINEKEN CONTINUA DESPUBLICADO NO CMS, e a observação de
+       conteúdo fica registrada porque sobrevive a esta mudança: o case que
+       existia em `/cases/heineken` contava OUTRO trabalho — 70+ sucessores HiPo
+       na APAC, parceria de 6 anos —, e não a jornada de 18 meses com os 150.
+       Mesmo cliente, engajamento diferente. Se alguém religar o link um dia, é
+       pergunta a fazer à cliente antes. */
+    /* ✅ A FAIXA DE EVIDÊNCIA NOVA — 24-09, "usar a versão nova, com o texto
+       exato". Manchete, linha de apoio e os três números estão escritos em letra
+       no layout e foram copiados como estão; nenhum travessão para converter.
+
+       ✅ OS DOIS LOGOS SÃO ARQUIVOS NOVOS, entregues em 24-09, e a dívida que
+       esta caixa registrava algumas horas antes morreu com eles. Os do mural de
+       clientes (`heineken.png`, 151x59, e `frasers_property.png`, 169x81) eram
+       pequenos demais para a medida que o layout pede — ~240px de largura —, e
+       a caixa dizia que originais maiores eram pedido barato à cliente. Foram.
+
+       O TRATAMENTO: chegaram como PNG 2172x724 com fundo transparente, foram
+       RECORTADOS pela caixa do canal alfa (o quadro original tem margem vazia
+       larga, e sem o recorte o `max-h` mediria a margem em vez da marca) e
+       reduzidos a 800px de largura — o dobro do que aparece na tela, que é o
+       que basta para ficar nítido em retina. Ficaram em ~92 KB cada, com a
+       transparência preservada: a faixa é branca, então não há plaqueta.
+
+       ⚠️ NOME NOVO, E NÃO SUBSTITUIÇÃO DOS ARQUIVOS DO MURAL. Os dois antigos
+       continuam em `public/logos/` e continuam em uso na `/our-clients`, no
+       `LogoMarquee` e no `CaseLine` — trocá-los por estes mudaria aquelas telas
+       sem ninguém ter pedido, e o otimizador do Next serve por URL, então
+       reaproveitar o endereço com conteúdo novo é como se serve versão velha.
+
+       ✅ OS LOGOS LEVAM AO CASE desde 24-09, a pedido — *"the logos should point
+       to the case page"* —, e só UM DOS DOIS pode:
+
+         • FRASERS PROPERTY tem DUAS páginas publicadas, e a escolha entre elas
+           não é arbitrária: `/cases/frasers-property-hrlt` é *"From HR
+           leadership team to enterprise leadership team"*, que é o case do
+           serviço de HRLT Effectiveness; `/cases/frasers-property-leadership` é
+           *"Building the next generation of leaders and talent for One
+           Frasers"*, que é desenvolvimento de liderança. É este que entra.
+
+         • HEINEKEN NÃO TEM. `/cases/heineken` responde 404 — o case foi
+           despublicado no CMS em 17-09 junto com os outros cinco legados
+           (nenhum tem `Reviewed = Yes` na planilha dela), e isso não mudou. A
+           marca fica na fileira sem link, que é o que o campo opcional permite.
+
+       ⏳ QUANDO O CASE DA HEINEKEN VOLTAR, é acrescentar `caseSlug: "heineken"`
+       na linha abaixo. Vale reler antes a observação registrada mais acima nesta
+       mesma entrada: o case publicado contava OUTRO trabalho — 70+ sucessores
+       HiPo na APAC, parceria de 6 anos —, e não a jornada com os 150. Mesmo
+       cliente, engajamento diferente, e é pergunta a fazer à cliente. */
+    evidenceSummary: {
+      headline: "Leadership shifts you can see in the business.",
+      lead: "Evidence of stronger enterprise leadership, greater readiness and sustained behaviour change.",
+      logos: [
+        {
+          src: "/logos/frasers-property-2026.png",
+          alt: "Frasers Property",
+          caseSlug: "frasers-property-leadership",
+        },
+        { src: "/logos/heineken-2026.png", alt: "HEINEKEN" },
       ],
-      /* ⏳ FOTO PROVISÓRIA, e o "PLACEHOLDER" está no nome do arquivo para que
-         ninguém a confunda com asset entregue pela cliente.
-
-         DUAS TROCAS NO MESMO DIA, e o registro importa porque a primeira versão
-         desta caixa descrevia a outra: entrou como recorte do mockup dela
-         (`4. Services/ExCo Leadership Services Page.png`), e algumas horas
-         depois foi substituída por uma fotografia da placa da HEINEKEN, vinda do
-         nosso lado. A segunda é 2:1 numa caixa 4:5, e é por isso que o
-         `object-right` existe em `SolutionEvidence` — ver a caixa de lá.
-
-         SAI no dia em que a cliente mandar a foto de verdade, pedida na daily de
-         16-09: é trocar este caminho e apagar esta caixa. ⚠️ TROCAR O NOME DO
-         ARQUIVO JUNTO — o otimizador do Next serve por URL e já entregou versão
-         velha uma vez hoje, por causa disso. */
-      image: "/services/evidence/heineken-sign.PLACEHOLDER.jpg",
-    },
-    /* ⏳ PLACEHOLDER DA PRÓPRIA MOCKUP — NÃO PODE IR PARA PRODUÇÃO ASSIM.
-       Não existe citação do Top 150 em documento nenhum da cliente, e o template
-       que ela mandou assume isso: no lugar do depoimento, o mockup escreve, em
-       letra, "A quote from Dolf to be confirmed." com a atribuição "Name, Title
-       / HEINEKEN". É esse texto, literal — inventar uma frase de cliente para
-       preencher a coluna seria pôr palavra na boca da HEINEKEN, e usar o
-       placeholder que ela mesma desenhou é auto-evidente para quem revisar.
-       Quando a frase real do Dolf chegar, é trocar as duas linhas abaixo. */
-    testimonial: {
-      quote: "A quote from Dolf to be confirmed.",
-      attribution: "Name, Title: HEINEKEN",
+      /* A divisão entre número e rótulo é a do layout: o numeral grande em
+         vermelho, o que ele conta embaixo, em duas linhas. Os três começam com
+         dígito, então `factIsMeasure` classifica os três como MEDIDA e eles
+         saem no `Counter` — que é o que o desenho mostra. */
+      facts: [
+        { value: "47%", label: "Promotion rate" },
+        { value: "85%", label: "Leadership habits applied" },
+        { value: "3x", label: "Greater enterprise exposure" },
+      ],
     },
   },
   {
@@ -801,10 +1142,117 @@ export const services: Service[] = [
     cardImage: "/services/cards/manager-development-client.jpg",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
+    /* ⚠️ O HERÓI NÃO MEXEU, a pedido de 24-09: *"pode manter o hero na
+       pagina"*. Sem `heroSubtitle` e sem `heroImage`, então ele segue mostrando
+       a `banner` acima e a foto do card, como nas outras oito. */
+    /* ============================================================================
+       ✅ A PÁGINA REFEITA PELO LAYOUT DE 24-09
+       ============================================================================
+
+       `docs/meetings/manager-development-24-09.jpeg`. Toda a copy abaixo está
+       escrita em letra no arquivo e foi transcrita, não reescrita.
+
+       ⚠️ O `outcome` E O `howWeHelp` CONTINUAM NO DADO, logo abaixo, e é de
+       propósito: eles são a copy do `CDNA_03_Services.docx`, que nunca deixou
+       de ser final, e o template cai neles por `??` em qualquer bloco que a copy
+       nova não cubra. Apagá-los para "limpar" tiraria o caminho de volta.
+
+       ⚠️ OS `pillars` TAMBÉM FICAM, pelo mesmo motivo e com uma razão extra: a
+       regra deste arquivo é que cada pilar é palavra LITERAL da frase de
+       `howWeHelp`, e `tests/services.test.ts` fixa a faixa em quatro a seis por
+       serviço. Eles saem da TELA porque `steps` tem precedência, não do dado.
+
+       ⚠️ TRAVESSÕES CONVERTIDOS. O layout foi desenhado antes do pedido de
+       23-09 de tirar o travessão do site todo, e traz um em "practical tools —
+       so managers can apply". Virou vírgula, seguindo o que `a37355f` fez. O
+       teste de travessão guarda isso.
+       ============================================================================ */
+    /* ⚠️ O `\n` É A QUEBRA DO LAYOUT, pedida em 24-09: *"aumenta a largura do
+       titulo ate quebrar em 'capability'"*. Sem ele a quebra dependia da
+       largura da janela e caía em "manager". Mesma mecânica do
+       `howWeWorkHeadline` logo abaixo; quem o transforma em quebra é o
+       `whitespace-pre-line` do `SolutionSection`. */
+    whatWeDoHeadline:
+      "Build practical manager capability\nat the moments that matter.",
+    whatWeDo: "Two targeted pathways, designed for real-world impact.",
     outcome:
       "Stronger **execution discipline, team performance and leadership capacity** where employees experience leadership every day. Better managers create clarity, accountability and the conditions for people to perform.",
+    howWeWorkHeadline: "Bite-sized. Practical.\nBuilt into the flow of work.",
+    howWeWork:
+      "Focused learning, real conversations and practical tools, so managers can apply what they learn immediately.",
     howWeHelp:
       "We build the practical capabilities managers need in the flow of work: **setting direction, making decisions, developing people, managing performance, navigating difficult conversations and leading through change**. Development is applied to real managerial challenges, not separated from them.",
+    /* ⚠️ EMPILHADO NOS DOIS BLOCOS — ver a caixa de `sectionLayout` no tipo
+       `Service`. Aqui o corpo de cada bloco é UMA FRASE, e ela na coluna da
+       direita do arranjo de duas colunas deixaria a faixa com um buraco. */
+    sectionLayout: "stacked",
+    /* ⏳ AS DUAS FOTOS SÃO RECORTE DO PRÓPRIO LAYOUT, e o `.FROM-LAYOUT.` no
+       nome do arquivo existe para que ninguém as confunda com asset entregue
+       pela cliente. Saíram de um JPEG de 1024px de largura, então o recorte tem
+       320x252 e 320x281 nativos — foram dobrados no salvamento e ainda assim
+       ficam macios numa tela retina.
+
+       SAEM no dia em que ela mandar as originais, que é pedido barato: é trocar
+       os dois caminhos. ⚠️ TROCAR O NOME DO ARQUIVO JUNTO — o otimizador do Next
+       serve por URL e já entregou versão velha neste projeto por causa disso. */
+    pathways: [
+      {
+        label: "First-time managers",
+        title: "From managing yourself to managing others.",
+        body: "We build the foundations to lead people with clarity and confidence.",
+        image: "/services/pathways/md-first-time-managers.FROM-LAYOUT.jpg",
+        items: [
+          "Stepping into the manager identity",
+          "Setting expectations",
+          "Delegating and empowering",
+          "Giving feedback",
+          "Managing difficult conversations",
+        ],
+      },
+      {
+        label: "Mid-level managers",
+        title: "From managing people to leading performance.",
+        body: "We strengthen the capability to lead through others, across functions and through complexity.",
+        image: "/services/pathways/md-mid-level-managers.FROM-LAYOUT.jpg",
+        items: [
+          "Leading through others",
+          "Coaching for performance",
+          "Accountability without micromanagement",
+          "Navigating competing priorities",
+          "Building high-performing teams",
+        ],
+      },
+    ],
+    /* ⚠️ O RÓTULO DESTA FAIXA NOMEIA A GRADE, e não é um rótulo genérico de
+       seção como "What we do" ou "Evidence" — é o que o layout escreve. Por
+       isso ele mora no dado e não no componente. */
+    moments: {
+      label: "The manager moments that matter",
+      items: [
+        "Setting direction",
+        "Delegating",
+        "Giving feedback",
+        "Coaching",
+        "Having difficult conversations",
+        "Managing performance",
+        "Building trust",
+        "Motivating others",
+        "Navigating conflict",
+        "Leading change",
+      ],
+    },
+    /* ⚠️ ESTA FILEIRA SUBSTITUI A DE `pillars` NA TELA, não no dado — ver a
+       caixa de `steps` no tipo `Service`. As chaves de `icon` casam com o mapa
+       em `SolutionSteps` e foram LIDAS DO DESENHO, uma a uma: pessoas, laptop,
+       balão de fala, documento, pessoas, telefone. */
+    steps: [
+      { icon: "people", title: "Short modules", body: "60–90 minute learning experiences" },
+      { icon: "laptop", title: "Manager sprints", body: "Targeted application over a few weeks" },
+      { icon: "speech", title: "Practice labs", body: "Real conversations, scenarios and peer learning" },
+      { icon: "document", title: "Manager toolkits", body: "Simple tools and conversation guides" },
+      { icon: "people", title: "Peer learning", body: "Learn from each other’s challenges and successes" },
+      { icon: "phone", title: "Habit nudges", body: "Small prompts that turn learning into everyday behaviour" },
+    ],
     pillars: [
       "Setting direction",
       "Making decisions",
@@ -813,6 +1261,46 @@ export const services: Service[] = [
       "Navigating difficult conversations",
       "Leading through change",
     ],
+    /* ✅ A FAIXA DE EVIDÊNCIA, do mesmo layout — mesma peça da Senior Leadership
+       Development, outra copy. Ver `ServiceEvidenceSummary`.
+
+       ⚠️ NENHUM DOS DOIS LOGOS LEVA A CASE, e a razão é diferente da de lá: aqui
+       os DOIS clientes têm página publicada (`/cases/bt` e `/cases/dp-world`),
+       mas nenhuma delas é de desenvolvimento de gestores — são os cases que já
+       estavam no acervo, de outros trabalhos. Apontar o logo para eles faria a
+       faixa prometer prova que a página de destino não entrega. É pergunta para
+       a cliente: qual case sustenta estes números?
+
+       ⚠️ AS DUAS MARCAS ESTÃO EM ESTADOS DIFERENTES, e vale saber qual é qual:
+       a DP World ganhou ORIGINAL GRANDE em 24-09 (`dp-world-2026.png`, 800x448
+       recortado do PNG 2172x724 entregue); a BT ainda é o arquivo pequeno do
+       mural de clientes (`bt.png`), e continua sendo pedido barato à cliente.
+
+       ⚠️ A DP WORLD É 1,79:1 E AS OUTRAS TRÊS DESTA FAIXA SÃO ~2,8:1 — ela é um
+       lockup EMPILHADO (globo em cima, nome embaixo), as outras são
+       horizontais. É por causa dela que o `EvidenceLogo` passou a ter teto de
+       ALTURA além do de largura: só com `max-w`, uma marca empilhada a 240px de
+       largura desenharia 134px de altura e dominaria a fileira.
+
+       ⚠️ O RECORTE DELA PRECISOU DE LIMIAR, e não do `getbbox()` do alfa: o
+       arquivo entregue tem alfa residual (1 a 2) espalhado pela moldura, e o
+       `getbbox()` trata qualquer alfa > 0 como conteúdo — o primeiro recorte
+       saiu 3:1, com a marca pequena no meio de uma faixa vazia. O limiar usado
+       foi alfa > 24. Se entrar outro arquivo dessa mesma origem, a conta é para
+       refazer, não para herdar. */
+    evidenceSummary: {
+      headline: "Building managers people want to work for.",
+      lead: "Nearly two decades of manager development across industries, geographies and organisational levels.",
+      logos: [
+        { src: "/logos/bt.png", alt: "BT" },
+        { src: "/logos/dp-world-2026.png", alt: "DP World" },
+      ],
+      facts: [
+        { value: "72%", label: "Manager confidence" },
+        { value: "85%", label: "Skills application" },
+        { value: "90%", label: "Engagement scores" },
+      ],
+    },
     cta: {
       strapline: "Big strategy. Everyday leadership.",
       line: "Build managers who translate business priorities into clarity, accountability and performance through the people they lead every day.",

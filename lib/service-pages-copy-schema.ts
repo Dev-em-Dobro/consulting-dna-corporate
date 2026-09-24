@@ -41,6 +41,11 @@ const ServiceCopySchema = z.object({
     body: str,
     facts: z.array(z.object({ value: str, label: str })).max(8),
   }),
+  evidenceSummary: z.object({
+    headline: str,
+    lead: str,
+    facts: z.array(z.object({ value: str, label: str })).max(8),
+  }),
   testimonial: z.object({ quote: str, attribution: str }),
   cta: z.object({ strapline: str, line: str, label: str }),
 });

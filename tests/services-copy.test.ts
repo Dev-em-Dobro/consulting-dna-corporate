@@ -140,6 +140,10 @@ test("a tela de cada serviço mostra só as seções que ele tem", () => {
        número, para o dia em que um serviço sem práticas ganhar uma. */
     assert.equal(ids.includes("closing"), Boolean(s.closing && !s.practices), s.slug);
     assert.equal(ids.includes("evidence"), Boolean(s.evidence), s.slug);
+    /* A faixa de evidência do layout de 24-09 é seção própria, e ela e a de
+       cima nunca aparecem na mesma tela — ver o teste do par excludente em
+       `tests/services.test.ts`. */
+    assert.equal(ids.includes("evidence-summary"), Boolean(s.evidenceSummary), s.slug);
   }
 });
 
@@ -175,6 +179,11 @@ test("apply não ressuscita bloco que o serviço não tem", () => {
     assert.equal(out.audiences === undefined, s.audiences === undefined, `${s.slug}: audiences`);
     assert.equal(out.closing === undefined, s.closing === undefined, `${s.slug}: closing`);
     assert.equal(out.evidence === undefined, s.evidence === undefined, `${s.slug}: evidence`);
+    assert.equal(
+      out.evidenceSummary === undefined,
+      s.evidenceSummary === undefined,
+      `${s.slug}: evidenceSummary`,
+    );
     assert.equal(out.testimonial === undefined, s.testimonial === undefined, `${s.slug}: testimonial`);
   }
 });
@@ -189,4 +198,26 @@ test("o texto editado vence o `??` do template nos nove que caem em outcome", ()
   const out = applyServiceCopy(s, copy);
   assert.equal(out.whatWeDo ?? out.outcome, "Texto novo.");
   assert.equal(out.howWeWork ?? out.howWeHelp, "Outro texto novo.");
+});
+
+/**
+ * COPY SALVA ANTES DO CAMPO EXISTIR NÃO PODE DERRUBAR A PÁGINA.
+ *
+ * O defeito que este teste guarda foi real e derrubou as onze rotas de serviço
+ * de uma vez, em 24-09, no primeiro render depois de `evidenceSummary` entrar.
+ * O `mergeCopy` preenche o campo novo a partir do padrão, então a leitura CRUA
+ * do Blob nunca chega aqui sem ele — mas entre a mescla e esta função há o
+ * `unstable_cache`, que guarda o resultado por um dia com uma chave que não
+ * sabe nada sobre a FORMA do objeto. Entrada gravada pela versão anterior volta
+ * sem a chave nova, o tipo garante que ela está lá, e o acesso direto estoura.
+ *
+ * O teste simula exatamente isso: a copy da versão anterior, sem o campo.
+ */
+test("copy de uma versão anterior, sem o campo novo, não quebra o apply", () => {
+  const s = services.find((x) => x.evidenceSummary)!;
+  const { evidenceSummary: _fora, ...antiga } = DEFAULT_SERVICE_PAGES_COPY.bySlug[s.slug];
+  const out = applyServiceCopy(s, antiga as never);
+  assert.equal(out.evidenceSummary?.headline, s.evidenceSummary!.headline);
+  assert.equal(out.evidenceSummary?.lead, s.evidenceSummary!.lead);
+  assert.deepEqual(out.evidenceSummary?.facts, s.evidenceSummary!.facts);
 });
