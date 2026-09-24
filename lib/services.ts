@@ -1819,11 +1819,11 @@ export const services: Service[] = [
       logoSize: "medium",
       logos: [
         {
-          src: "/logos/frasers-property-2026.png",
+          src: "/logos/client-logos/frasers-property.png",
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/heineken-2026.png", alt: "HEINEKEN" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN" },
       ],
       /* A divisão entre número e rótulo é a do layout: o numeral grande em
          vermelho, o que ele conta embaixo, em duas linhas. Os três começam com
@@ -2343,16 +2343,16 @@ export const services: Service[] = [
         lead: "For nearly two decades, we’ve worked with organisations to identify, accelerate and retain talent across global, regional, emerging-market and local populations, including:",
       },
       logos: [
-        { src: "/logos/heineken-2026.png", alt: "HEINEKEN" },
-        { src: "/logos/gsk.png", alt: "GSK" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN" },
+        { src: "/logos/client-logos/gsk.png", alt: "GSK" },
         {
-          src: "/logos/frasers-property-2026.png",
+          src: "/logos/client-logos/frasers-property.png",
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/kellanova.png", alt: "Kellanova" },
-        { src: "/logos/schroders.png", alt: "Schroders" },
-        { src: "/logos/vodafone.png", alt: "Vodafone" },
+        { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
+        { src: "/logos/client-logos/schroders.png", alt: "Schroders" },
+        { src: "/logos/client-logos/vodafone.png", alt: "Vodafone" },
       ],
       note: "Turn potential into readiness. And readiness into impact.",
     },
@@ -2523,8 +2523,8 @@ export const services: Service[] = [
       headline: "Building managers people want to work for.",
       lead: "Nearly two decades of manager development across industries, geographies and organisational levels.",
       logos: [
-        { src: "/logos/bt.png", alt: "BT" },
-        { src: "/logos/dp-world-2026.png", alt: "DP World" },
+        { src: "/logos/client-logos/bt.png", alt: "BT" },
+        { src: "/logos/client-logos/dp-world.png", alt: "DP World" },
       ],
       facts: [
         { value: "72%", label: "Manager confidence" },
@@ -2723,7 +2723,7 @@ export const services: Service[] = [
       lead: "Real results from our work with women across industries, geographies and organisational levels.",
       items: [
         {
-          logo: { src: "/logos/shell.png", alt: "Shell" },
+          logo: { src: "/logos/client-logos/shell.png", alt: "Shell" },
           client: "Shell",
           title: "Powering women",
           tagline: "Building the pipeline at scale.",
@@ -2737,7 +2737,7 @@ export const services: Service[] = [
         },
         {
           /* SEM `client`: o lockup da Kellanova já escreve o nome. */
-          logo: { src: "/logos/kellanova.png", alt: "Kellanova" },
+          logo: { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
           title: "Women of Kellanova Aspire",
           tagline: "Turning potential into progression.",
           facts: [
@@ -2749,7 +2749,7 @@ export const services: Service[] = [
           note: "Women stepping into next-level roles not as exceptions, but as visible role models for others.",
         },
         {
-          logo: { src: "/logos/aviva.png", alt: "Aviva" },
+          logo: { src: "/logos/client-logos/aviva.png", alt: "Aviva" },
           title: "Accelerating leadership from the inside out",
           tagline: "Building inclusive leadership at the top.",
           facts: [
@@ -2967,10 +2967,10 @@ export const services: Service[] = [
       lead: "Our work helps HR leadership teams build the capability and influence to drive real change.",
       logoSize: "small",
       logos: [
-        { src: "/logos/adidas.png", alt: "adidas" },
-        { src: "/logos/frasers_property.png", alt: "Frasers Property" },
-        { src: "/logos/dyson.png", alt: "dyson" },
-        { src: "/logos/maaden.png", alt: "Ma'aden" },
+        { src: "/logos/client-logos/adidas.png", alt: "adidas" },
+        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property" },
+        { src: "/logos/client-logos/dyson.png", alt: "dyson" },
+        { src: "/logos/client-logos/maaden.png", alt: "Ma'aden" },
       ],
       outcomes: [
         "Stronger strategic influence",
