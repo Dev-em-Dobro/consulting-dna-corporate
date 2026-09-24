@@ -196,6 +196,103 @@ export type ServiceMoments = {
 };
 
 /**
+ * ============================================================================
+ * O ECOSSISTEMA — A FAIXA ESCURA DE "HOW WE WORK" DO LAYOUT DE CULTURE, 24-09
+ * ============================================================================
+ *
+ * `docs/meetings/culture-transformation-24-09.jpeg` desenha, no lugar do bloco
+ * de duas colunas que as outras páginas têm, uma faixa `ink` de TRÊS COLUNAS: o
+ * texto à esquerda, o diagrama dos dez elementos no meio, e um bloco curto à
+ * direita atrás de um fio vertical.
+ *
+ * ⚠️ ISTO SUBSTITUI O "HOW WE WORK" PADRÃO, e não se soma a ele. As duas peças
+ * escrevem o mesmo rótulo e ocupam o mesmo lugar; um serviço com as duas
+ * desenharia "How we work" duas vezes. A conta está em `SolutionView`, e o
+ * teste em `tests/services.test.ts` fixa a regra.
+ *
+ * ⏳ O DIAGRAMA NÃO EXISTE AINDA — ver a caixa de `diagram`.
+ */
+export type ServiceEcosystem = {
+  /** A manchete em serifa ("The CDNA Culture Ecosystem"). */
+  headline: string;
+  /** O parágrafo abaixo dela, na coluna da esquerda. */
+  body: string;
+  /** O título curto do bloco da direita ("Ten planets. A stronger culture."). */
+  asideTitle: string;
+  /** O parágrafo do bloco da direita. */
+  asideBody: string;
+  /**
+   * O diagrama dos dez elementos, no meio da faixa.
+   *
+   * ⏳ AUSENTE HOJE, E DE PROPÓSITO. A daily de 24-09 diz, em letra: *"o
+   * diagrama do ecossistema elas vão redesenhar e mandar (ideia do sol no
+   * centro e planetas orbitando, sem cores infantis)"* — ou seja, o desenho que
+   * está no layout é justamente a versão que elas próprias recusaram. Redesenhá-
+   * lo aqui seria trabalho que nasce descartado, e copiá-lo seria publicar o que
+   * elas pediram para trocar.
+   *
+   * Sem arquivo, `SolutionEcosystem` desenha a chapa marcada PLACEHOLDER — o
+   * mesmo recurso de `EVIDENCE_IMAGE_PLACEHOLDER`, e pelo mesmo motivo: o furo
+   * fica VISÍVEL na revisão com a cliente em vez de passar por acabamento.
+   *
+   * ⚠️ Nome de arquivo NOVO quando a versão definitiva chegar, que o otimizador
+   * do Next serve por URL e já entregou versão velha por isso.
+   */
+  diagram?: string;
+  /**
+   * OS DEZ ELEMENTOS, TRANSCRITOS E NÃO RENDERIZADOS.
+   *
+   * Eles moram DENTRO do diagrama — são os rótulos em volta do centro —, então
+   * nenhum componente os lê hoje. Estão aqui porque a transcrição é o trabalho
+   * que se perde: se o arquivo delas vier sem rótulo legível, vier tarde, ou
+   * vier em idioma diferente, a copy já está no código e ninguém precisa voltar
+   * ao JPEG para lê-la com lupa.
+   *
+   * ⚠️ NÃO É LISTA PARA VIRAR FILEIRA. Transformá-los num `SolutionPillars`
+   * seria inventar um arranjo que o layout não desenha — o desenho afirma que os
+   * dez são um SISTEMA em órbita, e uma fileira os achataria numa lista de
+   * igual peso. É o mesmo argumento que separa `steps` de `pillars`.
+   */
+  elements: string[];
+};
+
+/**
+ * ============================================================================
+ * AS TRÊS PROVAS — O FECHO DO LAYOUT DE CULTURE, 24-09
+ * ============================================================================
+ *
+ * Três cartões escuros: ícone em círculo contornado, título em caixa alta,
+ * subtítulo em vermelho e um parágrafo.
+ *
+ * ⚠️ O QUE FOI CORTADO AQUI É PEDIDO EXPLÍCITO, e não recorte nosso. A daily de
+ * 24-09 diz *"apagar as partes em azul"* e *"no final, deixar só Behavior
+ * proof, Operating proof e Business proof"*. As partes riscadas a azul no
+ * layout são duas: a manchete "From culture intent to measurable organisational
+ * change" com o parágrafo ao lado dela, e a fileira "Our measurement journey"
+ * (BASELINE → 90 DAYS → 6 MONTHS → EMBED & SCALE).
+ *
+ * ⚠️ O RÓTULO FICOU. O traço azul passa POR BAIXO de "WE MAKE THE SHIFT
+ * VISIBLE" e corta a manchete, não ele — e sem rótulo os três cartões entrariam
+ * na página sem nada que os anuncie. Se a leitura certa for cortá-lo também, é
+ * apagar `label` daqui e o componente deixa de desenhá-lo.
+ */
+export type ServiceProof = {
+  /** O rótulo da faixa ("We make the shift visible"). */
+  label: string;
+  items: ServiceProofItem[];
+};
+
+export type ServiceProofItem = {
+  /** O título em caixa alta ("Behaviour proof"). */
+  title: string;
+  /** A linha em vermelho logo abaixo ("How people show up."). */
+  subtitle: string;
+  body: string;
+  /** A chave do ícone no mapa de `SolutionProof`. */
+  icon?: string;
+};
+
+/**
  * UM PASSO da fileira numerada de "How we work".
  *
  * ⚠️ NÃO É A MESMA COISA QUE `practices`. Aquela fileira é uma LISTA de
@@ -629,6 +726,24 @@ export type Service = {
    * ⏳ UM DOS DEZ TEM.
    */
   steps?: ServiceStep[];
+  /**
+   * A faixa escura de "How we work" do layout de Culture — ver
+   * `ServiceEcosystem`.
+   *
+   * ⚠️ SUBSTITUI o bloco de duas colunas "How we work" E a fileira de
+   * `steps`/`practices`/`pillars` que viria abaixo dele: no layout aquela faixa
+   * ocupa sozinha o lugar dos dois. A conta está em `SolutionView`.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  ecosystem?: ServiceEcosystem;
+  /**
+   * Os três cartões de prova do layout de Culture — ver `ServiceProof`.
+   * Ausente = a faixa não renderiza.
+   *
+   * ⏳ UM DOS DEZ TEM.
+   */
+  proof?: ServiceProof;
   testimonial?: ServiceTestimonial;
   /**
    * A imagem do card no índice `/services` — item 12 da daily de 14-09:
@@ -1059,11 +1174,137 @@ export const services: Service[] = [
     title: "Culture Transformation",
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
+    /* ✅ A LINHA DO HERÓI É A DO LAYOUT DE 24-09, e ela quase repete a `banner`:
+       onde o documento escreve *"leadership behaviour that changes how the
+       organisation actually operates"*, o desenho escreve *"the habits that
+       shape how the organisation actually operates"*. Duas palavras de
+       diferença, e elas mudam o que a página promete — "hábitos" é o assunto de
+       toda a copy nova abaixo ("everyday habits, choices and decisions", "the
+       moments that matter in the flow of work"), "comportamento de liderança"
+       era o recorte anterior.
+
+       ⚠️ A `banner` FICA NO AR e não foi apagada — ela alimenta o card desta
+       página na `/services`, o card no "Related services" das outras nove, a
+       `description` da metadata e o `og:description`. Mesmo precedente do
+       Senior Leadership Development; a caixa de `heroSubtitle` explica o
+       arranjo inteiro. */
+    heroSubtitle:
+      "Turn strategic intent into the habits that shape how the organisation actually operates.",
     outcome:
       "Greater **transformation readiness, organisational adaptability and execution discipline**. Culture becomes an accelerator of strategy rather than friction that slows it down.",
     howWeHelp:
       "We translate strategy and culture ambition into the **specific leadership behaviours, choices and habits** required to deliver it. We activate these through leaders, teams, organisational rituals and the flow of work, creating visible behavioural change that can be reinforced and scaled.",
+    /* ⚠️ `pillars` FICA, E NÃO SAI DA TELA POR ISSO. A fileira que ele alimenta
+       perdeu o lugar nesta página — o `ecosystem` ocupa sozinho a região de
+       "How we work" —, mas o campo continua sendo o caminho de volta e é ele
+       que mantém de pé a regra que `tests/services.test.ts` guarda: cada item
+       aparece literalmente na frase de `howWeHelp`, na ordem em que ela os
+       escreveu. Apagá-lo custaria o teste e não ganharia nada. */
     pillars: ["Leaders", "Teams", "Organisational rituals", "The flow of work"],
+    /* ============================================================================
+       A COPY DE 24-09 — `docs/meetings/culture-transformation-24-09.jpeg`
+       ============================================================================
+       Daqui até `proof`, tudo é transcrição do layout que a cliente mandou em
+       24-09. Os negritos são os do desenho, não ênfase nossa. */
+    whatWeDoHeadline: "We make culture real in the flow of work.",
+    whatWeDo:
+      "We work at **organisation, market and top-team levels** to translate intended culture, values and behaviours into the everyday habits, choices and decisions that determine how work actually gets done.\n\nEvery transformation starts with the **belief and business reason for change**. We then identify the moments where culture needs to show up differently and embed it through leaders, managers, teams and the operating rhythms of the organisation.\n\nFor us, **culture is the ecosystem** within which everything else sits, whether it’s leadership, talent, strategy or business performance. You can invest in great leaders and exceptional talent, but without the right culture, much of that value remains untapped.",
+    /* ✅ AS TRÊS FOTOGRAFIAS CHEGARAM EM 24-09, em arquivo separado, e é por
+       isso que estes cartões não passaram pelo campo de cor.
+
+       ⚠️ NÃO SE RECORTOU DO LAYOUT, e o registro importa porque a tentação
+       volta: com as trilhas do Manager Development, horas antes, o recorte do
+       JPEG funcionou. Aqui não funcionaria, por duas razões independentes —
+
+         • O TEXTO ESTÁ CHAPADO DENTRO DA FOTO. O layout é exportação
+           rasterizada, então "ORGANISATION-WIDE CULTURE" e as linhas do canto
+           inferior direito são PIXEL da imagem, não camada por cima. O recorte
+           traria esse texto junto, e ele sairia por baixo da sobreposição em
+           HTML que o componente desenha: a mesma frase duas vezes.
+
+         • A RESOLUÇÃO NÃO DAVA. No arquivo de 1284px cada foto mede ~403×136,
+           contra os 874 que o cartão pede em retina.
+
+       O TRATAMENTO: chegaram como PNG 2172×724 e foram reduzidas a 1600px de
+       largura (JPEG q86), que é quase o dobro do que o cartão mostra em retina
+       e o bastante para ficar nítido. Ficaram entre 63 e 138 KB.
+
+       ⚠️ ELAS SÃO 3:1 E O CARTÃO É 2:1, de propósito em vez de por descuido. O
+       layout desenha o quadro a ~2,96:1, mas os três cartões do Senior
+       Leadership Development — aprovados em 21-09 — são 2:1, e o `aspect` é do
+       COMPONENTE, não do dado: mudá-lo aqui mudaria aquela página também. O
+       `object-cover` recorta as laterais, e nas três o assunto está no meio (o
+       sol entre as torres, o pico central, a mesa com a janela ao fundo), então
+       o corte não come nada. Se um dia o desenho pedir 3:1 nas duas páginas, o
+       lugar de mexer é o `aspect-[2/1]` do `SolutionAudiences`. */
+    audiences: [
+      {
+        label: "Organisation-wide culture",
+        credential: ["One", "organisation", "a shared way", "of working"],
+        image: "/services/audiences/ct-organisation-wide.jpg",
+        title: "From stated culture to lived culture.",
+        body: "We translate enterprise purpose, strategy and values into a culture people can recognise and practise every day, embedding it through leadership, management, critical teams and the moments that matter across the organisation.",
+      },
+      {
+        label: "Market / function culture",
+        credential: ["Local", "relevance", "enterprise", "consistency"],
+        image: "/services/audiences/ct-market-function.jpg",
+        title: "Making culture meaningful where work gets done.",
+        body: "We help markets and functions translate enterprise culture into their own operating reality, creating shared habits around decisions, collaboration, performance, customers and talent while protecting what needs to remain consistent across the enterprise.",
+      },
+      {
+        label: "Top team / group culture",
+        credential: ["Set the tone", "drive the shift", "multiply the impact"],
+        image: "/services/audiences/ct-top-team.jpg",
+        title: "The culture at the top becomes the culture below.",
+        body: "We work with Executive Teams, Boards and senior leadership groups to define and role-model the culture required for what comes next, strengthening how they make decisions, challenge one another, collaborate, hold accountability and visibly set the tone for the organisation.",
+      },
+    ],
+    ecosystem: {
+      headline: "The CDNA Culture Ecosystem",
+      body: "We embed culture through ten interconnected elements: the moments that matter in the flow of work. When these work together, culture stops being a poster and becomes a lived reality.",
+      asideTitle: "Ten planets. A stronger culture.",
+      asideBody:
+        "These ten elements work together as an integrated ecosystem to create the conditions for culture to come alive at every level, in every part of the organisation.",
+      /* ⏳ SEM `diagram`: a chapa PLACEHOLDER fica no meio da faixa até o arquivo
+         delas chegar. O porquê inteiro está na caixa da prop, e o resumo é que o
+         diagrama do layout é justamente a versão que elas pediram para trocar. */
+      elements: [
+        "Leadership and Role Modelling",
+        "Ownership and Accountability",
+        "Radical Candour",
+        "Keep / Kill / Change Processes",
+        "Employee Experience",
+        "Critical Teams",
+        "Performance Differentiation",
+        "Meetings and Dialogue",
+        "Cross-Vertical Collaboration",
+        "Decision Speed and Escalation",
+      ],
+    },
+    proof: {
+      label: "We make the shift visible",
+      items: [
+        {
+          icon: "person",
+          title: "Behaviour proof",
+          subtitle: "How people show up.",
+          body: "Fearless honesty, accountability, ownership, role-modelling and the everyday habits that signal the culture is changing.",
+        },
+        {
+          icon: "process",
+          title: "Operating proof",
+          subtitle: "How work gets done.",
+          body: "Decision speed, escalation, meeting effectiveness, cross-functional collaboration, process simplicity and clarity of ownership.",
+        },
+        {
+          icon: "growth",
+          title: "Business proof",
+          subtitle: "What changes as a result.",
+          body: "Tangible outcomes owned by each critical team: speed, quality, customer outcomes, productivity, delivery and growth.",
+        },
+      ],
+    },
     cta: {
       strapline: "Strategy changes. Culture has to move with it.",
       line: "Turn strategic ambition into the behaviours, decisions and habits that increase organisational adaptability and make transformation happen.",

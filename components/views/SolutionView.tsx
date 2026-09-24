@@ -4,6 +4,8 @@ import SolutionAudiences from "@/components/solutions/SolutionAudiences";
 import SolutionPathways from "@/components/solutions/SolutionPathways";
 import SolutionMoments from "@/components/solutions/SolutionMoments";
 import SolutionSteps from "@/components/solutions/SolutionSteps";
+import SolutionEcosystem from "@/components/solutions/SolutionEcosystem";
+import SolutionProof from "@/components/solutions/SolutionProof";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
 import SolutionClosing from "@/components/solutions/SolutionClosing";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
@@ -329,20 +331,29 @@ export default function SolutionView({
           virou a tira de quatro células. "Ausente do enquadramento" nunca quis
           dizer "removido" — e é a armadilha óbvia de trabalhar com recorte de
           tela como especificação. */}
-      <SolutionSection
-        label="How we work"
-        headline={headlineOr(
-          service.howWeWorkHeadline ?? service.howWeHelpHeadline,
-        )}
-        html={paragraphs(service.howWeWork ?? service.howWeHelp)}
-        tone="paper"
-        layout={service.sectionLayout}
-        /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da largura e
-           o do bloco de cima cai quase no meio — medido no arquivo, ver a caixa
-           da prop `split` em `SolutionSection`. A manchete daqui tem duas linhas
-           e a de cima tem três; a divisão acompanha o conteúdo. */
-        split="body"
-      />
+      {/* ⚠️ O `ecosystem` APAGA ESTE BLOCO — 24-09, com o layout de Culture
+          Transformation. Lá a região inteira de "How we work" é UMA faixa
+          escura de três colunas que escreve o rótulo dentro de si, no lugar
+          desta caixa de duas colunas E da fileira que vem logo abaixo dela. Um
+          serviço com os dois desenharia "How we work" duas vezes na mesma
+          rolagem. Ver o cabeçalho do `SolutionEcosystem`, e o teste em
+          `tests/services.test.ts` que fixa a exclusão. */}
+      {!service.ecosystem && (
+        <SolutionSection
+          label="How we work"
+          headline={headlineOr(
+            service.howWeWorkHeadline ?? service.howWeHelpHeadline,
+          )}
+          html={paragraphs(service.howWeWork ?? service.howWeHelp)}
+          tone="paper"
+          layout={service.sectionLayout}
+          /* ⚠️ `body` SÓ AQUI. No mockup o fio deste bloco cai a 38% da largura
+             e o do bloco de cima cai quase no meio — medido no arquivo, ver a
+             caixa da prop `split` em `SolutionSection`. A manchete daqui tem
+             duas linhas e a de cima tem três; a divisão acompanha o conteúdo. */
+          split="body"
+        />
+      )}
 
       {/* A FILEIRA DE ÍCONES É UMA SÓ PARA OS DEZ, desde 21-09. Só a LISTA muda.
 
@@ -373,11 +384,26 @@ export default function SolutionView({
           O dado das três coexiste no serviço de propósito — é o caminho de
           volta, e no caso dos `pillars` também é o que mantém a regra que
           `tests/services.test.ts` guarda. */}
-      {service.steps?.length ? (
+      {/* ⚠️ QUATRO DESENHOS PARA O MESMO LUGAR DESDE 24-09, e `ecosystem` vence
+          os três: ele não é mais uma variação da fileira, é a faixa INTEIRA que
+          substitui a seção acima e a fileira aqui. Por isso entra antes na
+          escada, e por isso o `SolutionSection` logo acima tem a sua própria
+          guarda — as duas contas são a mesma decisão, escrita em dois lugares
+          porque os dois blocos são irmãos e não aninhados. */}
+      {service.ecosystem ? (
+        <SolutionEcosystem item={service.ecosystem} />
+      ) : service.steps?.length ? (
         <SolutionSteps items={service.steps} />
       ) : (
         <SolutionPillars items={service.practices?.items ?? service.pillars} />
       )}
+
+      {/* ⬅ NOVO EM 24-09, com o layout de Culture Transformation: os três
+          cartões de prova, em faixa BRANCA logo abaixo da faixa escura do
+          ecossistema. O que o layout tinha aqui e foi cortado a pedido — a
+          manchete e a fileira "Our measurement journey" — está registrado no
+          cabeçalho do componente. */}
+      <SolutionProof proof={service.proof} />
 
       {/* ⚠️ O MESMO SLOT, DUAS COISAS. Na primeira referência aqui morre o fecho
           de duas linhas ("Different organisations. Different transformations.");

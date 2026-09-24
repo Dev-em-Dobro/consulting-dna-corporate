@@ -76,38 +76,35 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                     sizes="(min-width: 640px) 33vw, 100vw"
                     className="object-cover object-center"
                   />
-                ) : (
-                  /* CAMPO DE COR PARA QUEM NÃO TEM FOTO — o recurso que o
-                     `ServiceCard` usa desde 12-09, e pelo mesmo motivo: não fica
-                     brega, não depende de arquivo que não existe, e é diferente
-                     em cada cartão de graça, porque o que preenche o quadro é o
-                     rótulo do público.
-
-                     ⚠️ HOJE NADA CAI AQUI. O Senior Leadership Development é o
-                     único serviço com `audiences`, e desde 21-09 os três
-                     cartões dele têm fotografia. O ramo fica porque é ele que
-                     permite publicar os outros nove sem esperar foto — ver
-                     `image` em `ServiceAudience`.
-
-                     `text-white/15` e `aria-hidden` pela mesma razão de lá: é
-                     marca d'água, e é a repetição de um texto que já está
-                     abaixo. */
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 flex items-end p-6 font-serif text-[26px] font-semibold uppercase leading-[1.05] tracking-[-0.3px] text-white/15"
-                  >
-                    {a.label}
-                  </span>
-                )}
+                ) : null}
 
                 {/* ⬅ AS DUAS SOBREPOSIÇÕES — 21-09, do recorte que ela mandou: o
                     rótulo no canto superior esquerdo e as três palavras no
                     inferior direito, brancas sobre a fotografia.
 
-                    ⚠️ SÓ COM FOTO. Sem `image` o quadro é o campo de cor, e ele
-                    JÁ escreve o rótulo como marca d'água — desenhar a
-                    sobreposição por cima dele seria o mesmo texto duas vezes no
-                    mesmo quadro, uma delas ilegível sobre a outra.
+                    ⚠️ ELAS DEIXARAM DE DEPENDER DA FOTO EM 24-09, e isto é a
+                    correção de um furo que o próprio arquivo previa. A versão
+                    anterior desenhava as duas SÓ com `image`, porque o campo de
+                    cor escrevia o rótulo como marca d'água e as duas coisas se
+                    atropelariam. A caixa da coluna de texto, mais abaixo, dizia
+                    em letra o que isso custava: *"deixou o cartão sem rótulo
+                    quando não há foto... hoje isso não acontece"*.
+
+                    EM 24-09 PASSOU A ACONTECER. A Culture Transformation tem os
+                    três cartões e não tem as três fotografias — as do layout não
+                    servem de recorte (texto chapado no pixel e ~403px de
+                    largura), e as originais não estão na pasta da cliente. Sem
+                    esta mudança os três sairiam sem nenhum rótulo legível e as
+                    linhas do canto ("One organisation / a shared way of
+                    working") sumiriam da página.
+
+                    ⛔ A MARCA D'ÁGUA SAIU JUNTO, e não é perda: ela morava no
+                    canto inferior esquerdo, que é de onde a credencial se
+                    aproxima, e era `text-white/15` — decorativa por definição.
+                    Sem ela o quadro sem foto vira um painel `ink` chapado com o
+                    nome do público em cima e as linhas embaixo: a MESMA
+                    composição dos cartões com fotografia, o que é exatamente o
+                    que se quer enquanto as fotos não chegam. Está no git.
 
                     O RÓTULO É `aria-hidden` E A CREDENCIAL NÃO, e a diferença é
                     de conteúdo, não de estilo: o rótulo se repete logo abaixo da
@@ -115,63 +112,65 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                     tela dizer "Executive teams, Executive teams". As três
                     palavras não existem em nenhum outro lugar do cartão —
                     escondê-las seria perder conteúdo. */}
+                {/* O ESCURECIMENTO É O QUE GARANTE O CONTRASTE, e ele nasce nas
+                    DUAS pontas porque é nas duas que há texto. O miolo fica
+                    limpo (`transparent` dos 32% aos 58%), que é onde moram os
+                    rostos das três fotos — um véu chapado sobre a imagem inteira
+                    apagaria justamente o que ela mostra.
+
+                    SEM ELE O BRANCO NÃO SE SUSTENTA em duas das três: o rótulo
+                    da sala de reunião cai sobre a janela ao pôr do sol, e a
+                    credencial da mulher falando cai sobre o ombro claro do homem
+                    à direita. No recorte dela essas duas linhas já são as mais
+                    fracas.
+
+                    ⚠️ SÓ COM FOTO, e agora isso é uma exceção em vez da regra: o
+                    campo de cor é `bg-ink` chapado, onde o branco já tem
+                    contraste de sobra. Um degradê por cima de um fundo liso não
+                    acrescentaria contraste nenhum e só sujaria o painel. */}
                 {a.image ? (
-                  <>
-                    {/* O ESCURECIMENTO É O QUE GARANTE O CONTRASTE, e ele nasce
-                        nas DUAS pontas porque é nas duas que há texto. O miolo
-                        fica limpo (`transparent` dos 32% aos 58%), que é onde
-                        moram os rostos das três fotos — um véu chapado sobre a
-                        imagem inteira apagaria justamente o que ela mostra.
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(38,36,37,.55)_0%,rgba(38,36,37,.12)_32%,rgba(38,36,37,.12)_58%,rgba(38,36,37,.62)_100%)]"
+                  />
+                ) : null}
+                <span
+                  /* ⚠️ NÃO É MAIS `aria-hidden`, desde 21-09. Era, enquanto o
+                     rótulo vermelho abaixo da foto repetia este texto; aquele
+                     bloco saiu a pedido (ver a caixa na coluna de texto), e este
+                     virou a ÚNICA ocorrência do nome do público no cartão.
+                     Escondê-lo agora seria apagar "Executive teams" para quem
+                     usa leitor de tela.
 
-                        SEM ELE O BRANCO NÃO SE SUSTENTA em duas das três: o
-                        rótulo da sala de reunião cai sobre a janela ao pôr do
-                        sol, e a credencial da mulher falando cai sobre o ombro
-                        claro do homem à direita. No recorte dela essas duas
-                        linhas já são as mais fracas. */}
-                    <span
-                      aria-hidden
-                      className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(38,36,37,.55)_0%,rgba(38,36,37,.12)_32%,rgba(38,36,37,.12)_58%,rgba(38,36,37,.62)_100%)]"
-                    />
-                    <span
-                      /* ⚠️ NÃO É MAIS `aria-hidden`, desde 21-09. Era, enquanto
-                         o rótulo vermelho abaixo da foto repetia este texto;
-                         aquele bloco saiu a pedido (ver a caixa na coluna de
-                         texto), e este virou a ÚNICA ocorrência do nome do
-                         público no cartão. Escondê-lo agora seria apagar
-                         "Executive teams" para quem usa leitor de tela.
-
-                         A MEDIDA VEM DO RECORTE: no desenho "EXECUTIVE TEAMS"
-                         ocupa ~45% da largura do cartão, o que a 437px (a medida
-                         do cartão a 1440) dá ~16px com 1,5px de entreletra.
-                         Abaixo de `lg` o cartão cai para ~181px e o rótulo mais
-                         longo ("Top 100 – 150 leaders", 21 caracteres) não cabe
-                         em 16px — daí os dois degraus. Ele pode quebrar em duas
-                         linhas nas telas estreitas, e quebrar é melhor que
-                         transbordar. */
-                      className="absolute left-0 top-0 p-4 text-[12px] font-bold uppercase leading-[1.25] tracking-[1.5px] text-white sm:text-[13px] lg:p-5 lg:text-[16px]"
-                    >
-                      {a.label}
-                    </span>
-                    {a.credential && a.credential.length > 0 ? (
-                      <span
-                        /* `text-right` E ALINHADO À DIREITA: as três linhas têm
-                           comprimentos bem diferentes ("Bigger" contra "Bolder
-                           leadership"), e é a borda direita comum que as faz ler
-                           como um bloco em vez de três frases soltas. */
-                        className="absolute bottom-0 right-0 p-4 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[1.5px] text-white lg:p-5 lg:text-[11px]"
-                      >
-                        {a.credential.map((line) => (
-                          /* Uma linha por `<span>` em bloco, e não `<br/>`: o
-                             leitor de tela lê as três como uma sequência, e a
-                             quebra continua sendo do desenho em vez de depender
-                             da largura disponível. */
-                          <span key={line} className="block">
-                            {line}
-                          </span>
-                        ))}
+                     A MEDIDA VEM DO RECORTE: no desenho "EXECUTIVE TEAMS" ocupa
+                     ~45% da largura do cartão, o que a 437px (a medida do cartão
+                     a 1440) dá ~16px com 1,5px de entreletra. Abaixo de `lg` o
+                     cartão cai para ~181px e o rótulo mais longo ("Top 100 – 150
+                     leaders", 21 caracteres) não cabe em 16px — daí os dois
+                     degraus. Ele pode quebrar em duas linhas nas telas estreitas,
+                     e quebrar é melhor que transbordar. */
+                  className="absolute left-0 top-0 p-4 text-[12px] font-bold uppercase leading-[1.25] tracking-[1.5px] text-white sm:text-[13px] lg:p-5 lg:text-[16px]"
+                >
+                  {a.label}
+                </span>
+                {a.credential && a.credential.length > 0 ? (
+                  <span
+                    /* `text-right` E ALINHADO À DIREITA: as linhas têm
+                       comprimentos bem diferentes ("Bigger" contra "Bolder
+                       leadership"), e é a borda direita comum que as faz ler
+                       como um bloco em vez de frases soltas. */
+                    className="absolute bottom-0 right-0 p-4 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[1.5px] text-white lg:p-5 lg:text-[11px]"
+                  >
+                    {a.credential.map((line) => (
+                      /* Uma linha por `<span>` em bloco, e não `<br/>`: o leitor
+                         de tela lê as linhas como uma sequência, e a quebra
+                         continua sendo do desenho em vez de depender da largura
+                         disponível. */
+                      <span key={line} className="block">
+                        {line}
                       </span>
-                    ) : null}
-                  </>
+                    ))}
+                  </span>
                 ) : null}
               </div>
 
@@ -200,13 +199,14 @@ export default function SolutionAudiences({ items }: { items?: ServiceAudience[]
                     escondido apagaria "Executive teams" para quem usa leitor de
                     tela. O `aria-hidden` de lá saiu no mesmo commit.
 
-                    ⚠️ E DEIXOU O CARTÃO SEM RÓTULO QUANDO NÃO HÁ FOTO. Hoje isso
-                    não acontece — o único serviço com `audiences` tem as três
-                    fotografias —, mas um serviço novo com `audiences` e sem
-                    `image` cairia no campo de cor, que escreve o rótulo como
-                    marca d'água a 15% de opacidade: decorativo, não legível. Se
-                    esse caso aparecer, o conserto é devolver o rótulo AQUI só
-                    para ele, não para os três. */}
+                    ⚠️ ISSO DEIXOU O CARTÃO SEM RÓTULO QUANDO NÃO HAVIA FOTO, e
+                    o caso apareceu em 24-09 com a Culture Transformation. O
+                    conserto NÃO foi devolver o rótulo aqui — como esta caixa
+                    chegou a prever —, e sim tirar a sobreposição de dentro da
+                    guarda de `image`, lá em cima: o nome do público passou a ser
+                    desenhado no quadro com foto E no campo de cor, que é onde
+                    ele já morava no layout. Devolvê-lo aqui teria posto o rótulo
+                    duas vezes nos cartões que TÊM fotografia. */}
 
                 {/* `h3` — ver a caixa no topo do arquivo sobre a escada de
                     cabeçalhos. 26px a 1440 é a medida do arquivo: as duas linhas

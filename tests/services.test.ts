@@ -95,6 +95,30 @@ test("nenhum serviço tem as duas faixas de evidência ao mesmo tempo", () => {
 });
 
 /**
+ * O `ecosystem` APAGA O "HOW WE WORK" PADRÃO, e o tipo também não consegue dizer
+ * isso. A faixa do layout de Culture Transformation escreve o rótulo "How we
+ * work" DENTRO de si e ocupa o lugar de duas peças: o `SolutionSection` de duas
+ * colunas e a fileira de `steps`/`practices`/`pillars` logo abaixo dele.
+ *
+ * Um serviço com `ecosystem` E com `steps` ou `practices` publicaria a faixa
+ * escura seguida da fileira órfã da outra composição — sem o rótulo dela, que a
+ * guarda do `SolutionSection` teria escondido. Não quebra a página; passa numa
+ * revisão rápida, que é pior.
+ *
+ * ⚠️ `pillars` NÃO ENTRA NESTA CONTA, de propósito. Ele é o estado-base dos dez
+ * serviços e as suas palavras são as da própria frase de `howWeHelp` — a
+ * Culture Transformation o mantém como caminho de volta, e é ele que sustenta o
+ * teste de `pillars` mais acima. Quem tem `ecosystem` simplesmente não o
+ * desenha.
+ */
+test("nenhum serviço tem ecosystem e a fileira de How we work ao mesmo tempo", () => {
+  const ambos = services
+    .filter((s) => s.ecosystem && (s.steps?.length || s.practices))
+    .map((s) => s.slug);
+  assert.deepEqual(ambos, [], "estes serviços desenhariam uma fileira órfã sob a faixa do ecossistema");
+});
+
+/**
  * O TRAVESSÃO NÃO VOLTA À COPY — a regra de site inteiro pedida na daily de
  * 23-09 (*"tirar o travessão do site todo nos textos pra nao parecer ia"*) e
  * aplicada em `a37355f`, que passou 62 arquivos a limpo.
@@ -135,6 +159,22 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
         (a, i): [string, string | undefined][] => [
           [`audiences.${i}.title`, a.title],
           [`audiences.${i}.body`, a.body],
+        ],
+      ),
+      /* ⬅ OS CAMPOS DO LAYOUT DE CULTURE, 24-09. Entraram aqui no mesmo commit
+         que os criou, e não depois: a caixa acima diz que o travessão volta
+         justamente por transcrição "à letra" de layout da cliente, e este
+         layout tem quatro deles. Três escaparam na primeira escrita. */
+      ["ecosystem.headline", s.ecosystem?.headline],
+      ["ecosystem.body", s.ecosystem?.body],
+      ["ecosystem.asideTitle", s.ecosystem?.asideTitle],
+      ["ecosystem.asideBody", s.ecosystem?.asideBody],
+      ["proof.label", s.proof?.label],
+      ...(s.proof?.items ?? []).flatMap(
+        (p, i): [string, string | undefined][] => [
+          [`proof.${i}.title`, p.title],
+          [`proof.${i}.subtitle`, p.subtitle],
+          [`proof.${i}.body`, p.body],
         ],
       ),
     ];
