@@ -70,6 +70,11 @@ type Award = {
    * campo para ela e o selo dá lugar ao logo, sem mexer em mais nada.
    */
   logo?: string;
+  /**
+   * LOGO NUMA CAIXA BRANCA — 24-09: a arte do "Top 15" é transparente com
+   * letra escura e sumia sobre a faixa. A caixa dá o fundo claro que ela pede.
+   */
+  logoOnWhite?: boolean;
 };
 
 /**
@@ -163,6 +168,7 @@ const awards: Award[] = [
     distinction: "",
     year: "2025",
     logo: "/awards/top-15-women-leader-middle-east.png",
+    logoOnWhite: true,
   },
 ];
 
@@ -314,7 +320,11 @@ export default function AwardsMentions({
                 data-award-row
                 className="flex flex-col items-center text-center"
               >
-                <div className="relative flex h-[84px] w-[84px] flex-none items-center justify-center sm:h-[96px] sm:w-[96px]">
+                <div
+                  className={`relative flex h-[84px] w-[84px] flex-none items-center justify-center sm:h-[96px] sm:w-[96px] ${
+                    a.logoOnWhite ? "overflow-hidden rounded-xl bg-white" : ""
+                  }`}
+                >
                   {a.logo ? (
                     /* `alt=""` — DECORATIVO DE PROPÓSITO. O nome do prêmio está
                        escrito logo abaixo, em texto de verdade; com alt o leitor
@@ -325,7 +335,7 @@ export default function AwardsMentions({
                       alt=""
                       fill
                       sizes="96px"
-                      className="object-contain"
+                      className={a.logoOnWhite ? "object-contain p-2" : "object-contain"}
                     />
                   ) : (
                     /* SELO TIPOGRÁFICO NO LUGAR DO LOGO QUE NÃO TEMOS.

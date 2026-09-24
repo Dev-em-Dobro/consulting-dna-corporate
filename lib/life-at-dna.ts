@@ -42,6 +42,8 @@ const dnaTime = (n: number) =>
  *                *"photo quality is not great"* de 21-09 — a versão pequena
  *                esticada existindo ao lado da grande.
  *
+ *   01           ⚠️ FOI PARA O FIM EM 24-09, a pedido: o carrossel abre na 02
+ *                e a 01 vira a última.
  * ⏳ O QUE AINDA FALTA, e não é código: `dna-time-03` (768x1024) e
  * `dna-time-11` (739x1131) são os dois arquivos mais baixos do acervo e não têm
  * original maior em /public. Numa moldura de 640px em retina os dois são
@@ -50,7 +52,8 @@ const dnaTime = (n: number) =>
  * resolve com o arquivo original, que é pedido para a CDNA.
  */
 export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
-  .filter((n) => n !== 5 && n !== 7 && n !== 8 && n !== 10 && n !== 14)
+  .filter((n) => n !== 1 && n !== 5 && n !== 7 && n !== 8 && n !== 10 && n !== 14)
+  .concat(1)
   .map(dnaTime);
 
 /**

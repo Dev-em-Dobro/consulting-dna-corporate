@@ -11,7 +11,8 @@ import LeaderCard from "@/components/team/LeaderCard";
    `public/team/team-standing-six.jpg` — é o retoque das seis na bancada, e a
    caixa da seção guarda a história dele por inteiro. Para desfazer a troca,
    este import volta junto com as três linhas de `<Image>`. */
-import teamHero from "@/public/team/team-hero-24-09.jpg";
+/* ⛔ A FOTO DO HERÓI SAIU EM 24-09 (hotfix): a /team ficou com a dobra lisa.
+   O arquivo continua em `public/team/team-hero-24-09.jpg`. */
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
@@ -234,8 +235,7 @@ export default async function OurTeamPage() {
              aqui. Um caractere não mudou — e isso responde de passagem a dúvida
              anotada em 17-09 sobre contar por país ou por região. */
           subtitle={copy.hero.subtitle}
-          imageUrl={teamHero}
-          imagePosition="object-top"
+          noImage
         />
         </div>
 

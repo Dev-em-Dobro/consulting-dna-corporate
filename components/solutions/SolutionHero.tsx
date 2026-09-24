@@ -38,6 +38,7 @@ export default function SolutionHero({
   subtitleAccent,
   body,
   imageUrl,
+  noImage = false,
   credential,
   tint = "none",
   imageFilter = "saturate-[.65] brightness-[.68]",
@@ -79,6 +80,12 @@ export default function SolutionHero({
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
+  /**
+   * SEM FOTO NENHUMA — 24-09, hotfix: a /team ficou com o herói liso. Não cai
+   * no `fallbackPhoto`: a dobra vira só o `bg-ink` da seção, e as camadas de
+   * cor e de escurecimento saem junto, porque sem foto não há o que tingir.
+   */
+  noImage?: boolean;
   /**
    * AS PALAVRAS NA BORDA DIREITA DA DOBRA — 24-09, com o layout de Women’s
    * Leadership Development: *"People / Perspective / Possibilities"*.
@@ -194,63 +201,67 @@ export default function SolutionHero({
        (título de três linhas no telefone), e 84svh é o PISO, não o teto.
        */
     <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
-      <Image
-        src={src}
-        alt=""
-        aria-hidden
-        fill
-        priority
-        sizes="100vw"
-        className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
-      />
+      {noImage ? null : (
+        <>
+          <Image
+            src={src}
+            alt=""
+            aria-hidden
+            fill
+            priority
+            sizes="100vw"
+            className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
+          />
 
-      {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
-          DOM para quem quiser reativar um duotone por página.
+          {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
+              DOM para quem quiser reativar um duotone por página.
 
-          O `multiply` fica aqui e não vira camada chapada porque é a única
-          mistura que serve a este lugar: chapado sobre foto escura vira lama,
-          já que clareia as sombras; o multiply mantém os pretos e tinge só o
-          que tem luz. Quem devolver um gradiente ao `tint` herda isso de graça. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-20 mix-blend-multiply"
-        style={{ backgroundImage: tint }}
-      />
+              O `multiply` fica aqui e não vira camada chapada porque é a única
+              mistura que serve a este lugar: chapado sobre foto escura vira lama,
+              já que clareia as sombras; o multiply mantém os pretos e tinge só o
+              que tem luz. Quem devolver um gradiente ao `tint` herda isso de graça. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-20 mix-blend-multiply"
+            style={{ backgroundImage: tint }}
+          />
 
-      {/* ESCURECIMENTO — a diferença entre as duas telas.
-          Desktop: vem da ESQUERDA, onde o texto mora, e abre para a direita,
-          deixando a foto respirar. É a composição que a variação 4 tinha. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 hidden md:block"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
-        }}
-      />
+          {/* ESCURECIMENTO — a diferença entre as duas telas.
+              Desktop: vem da ESQUERDA, onde o texto mora, e abre para a direita,
+              deixando a foto respirar. É a composição que a variação 4 tinha. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 hidden md:block"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
+            }}
+          />
 
-      {/* No TELEFONE o gradiente horizontal não serve: numa tela de 390px o
-          texto atravessa a largura inteira, então "escuro à esquerda, claro à
-          direita" deixaria o fim de cada linha sobre foto crua. Aqui ele é
-          VERTICAL e sobe da base, porque no telefone o texto foi ancorado
-          embaixo (`justify-end`) em vez de centralizado.
+          {/* No TELEFONE o gradiente horizontal não serve: numa tela de 390px o
+              texto atravessa a largura inteira, então "escuro à esquerda, claro à
+              direita" deixaria o fim de cada linha sobre foto crua. Aqui ele é
+              VERTICAL e sobe da base, porque no telefone o texto foi ancorado
+              embaixo (`justify-end`) em vez de centralizado.
 
-          ⚠️ A PRIMEIRA VERSÃO ERROU PARA O LADO ESCURO, e o erro só apareceu
-          medindo. Ela fechava o gradiente inteiro (.92/.86/.62/.80) para cobrir
-          o texto no centro, e o resultado dava 15:1 de contraste — três vezes
-          mais do que texto pequeno precisa — ao custo de apagar a foto por
-          completo. Contraste de sobra não é segurança, é imagem jogada fora.
+              ⚠️ A PRIMEIRA VERSÃO ERROU PARA O LADO ESCURO, e o erro só apareceu
+              medindo. Ela fechava o gradiente inteiro (.92/.86/.62/.80) para cobrir
+              o texto no centro, e o resultado dava 15:1 de contraste — três vezes
+              mais do que texto pequeno precisa — ao custo de apagar a foto por
+              completo. Contraste de sobra não é segurança, é imagem jogada fora.
 
-          Ancorar o texto embaixo desfaz o conflito: o escurecimento fica onde o
-          texto está e o terço de cima abre, então a foto volta a existir. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 md:hidden"
-        style={{
-          backgroundImage:
-            "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
-        }}
-      />
+              Ancorar o texto embaixo desfaz o conflito: o escurecimento fica onde o
+              texto está e o terço de cima abre, então a foto volta a existir. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 md:hidden"
+            style={{
+              backgroundImage:
+                "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
+            }}
+          />
+        </>
+      )}
 
       {/* A ENTRADA É A DA HOME, desde 11-09 — a escada de
           `lib/hero-timeline.ts`, a mesma que a /about roda. Este herói é o de
