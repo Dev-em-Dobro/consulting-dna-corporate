@@ -81,13 +81,13 @@ const PAINT_COVERAGE = false;
 // para 16:9: 880 / (405 × 1.22) ≈ 1.78. Os pinos usam o mesmo `project`, então
 // sobem junto com a costa. A janela continua cortando Antártida e o Pacífico
 // vazio; o que muda é a altura de cada grau de latitude.
-const LAT_SCALE = 1.42;
+const LAT_SCALE = 1.22;
 const W = 1000;
 const H = 500 * LAT_SCALE;
 
 // Visible window (crops empty Pacific sides + the polar oceans). Everything that
 // keeps labels on-screen references this so the bounds never drift from the crop.
-const VIEW = { x: 60, y: 4 * LAT_SCALE, w: 880, h: 405 * LAT_SCALE };
+const VIEW = { x: 60, y: 15 * LAT_SCALE, w: 880, h: 405 * LAT_SCALE };
 
 type Ring = number[][];
 type Geometry =

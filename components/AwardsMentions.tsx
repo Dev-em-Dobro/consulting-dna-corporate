@@ -144,18 +144,7 @@ const awards: Award[] = [
     distinction: "2×",
     showDistinction: true,
     year: "",
-  },
-  {
-    name: "Brand People",
-    distinction: "2×",
-    showDistinction: true,
-    year: "",
-  },
-  {
-    name: "Top 15 Books",
-    distinction: "Award",
-    showDistinction: true,
-    year: "",
+    logo: "/awards/corporate-vision.png",
   },
   {
     name: "Women of the Future Awards",
@@ -170,17 +159,10 @@ const awards: Award[] = [
     logo: "/awards/british-indian-awards.png",
   },
   {
-    name: "Women Entrepreneur",
-    distinction: "Top 10 Indian women leader in the UK",
-    year: "2021",
-    logo: "/awards/women-entrepreneur-india.png",
-  },
-  {
-    name: "Corporate Excellence",
-    distinction: "2×",
-    showDistinction: true,
-    year: "2022",
-    logo: "/awards/corporate-excellence-awards.png",
+    name: "Top 15 woman leader in the Middle East",
+    distinction: "",
+    year: "2025",
+    logo: "/awards/top-15-women-leader-middle-east.png",
   },
 ];
 

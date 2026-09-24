@@ -334,7 +334,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
         path: "purpose.titleNowrap",
         label: "Heading (last words)",
         kind: "text",
-        hint: "These words are kept together on one line.",
+        hint: "Starts on its own line under the heading, and wraps with the width of the title.",
       },
       { path: "purpose.quote", label: "Quote", kind: "textarea", hint: BOLD_HINT },
       { path: "purpose.attribution", label: "Who said it", kind: "text" },

@@ -168,7 +168,7 @@ export const leaders: Leader[] = [
        e num quadro 4:5 ele saía encostado na borda. O corte é 870×1088 a partir
        de x=0, que põe o rosto no meio. Continua sendo a foto ANTIGA: a oficial
        dele é uma das duas que a Maliha anunciou para 10-09 e ainda não chegaram. */
-    portrait: "/team/guilherme-mendes.jpg",
+    portrait: "/team/guilherme-mendes-24-09.jpg",
   },
   {
     name: "Mike Jackson",
