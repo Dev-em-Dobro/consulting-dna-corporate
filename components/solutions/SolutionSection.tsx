@@ -95,6 +95,8 @@ export default function SolutionSection({
   html,
   tone = "white",
   split = "even",
+  rule = "thin",
+  layout = "split",
 }: {
   /** "What we do" / "How we work" — o rótulo pequeno no alto da faixa. */
   label: string;
@@ -106,6 +108,50 @@ export default function SolutionSection({
   headline: string;
   /** O corpo, em HTML já processado (o `**negrito**` da planilha dela). */
   html: string;
+  /**
+   * A ESPESSURA DO FIO VERTICAL — 1px (`thin`) ou 2px (`thick`).
+   *
+   * ⚠️ EXISTE PORQUE OS DOIS BLOCOS DIVERGIRAM EM 24-09, e não por gosto de
+   * configurar. A história, curta: o fio ficou mais grosso nos DOIS a pedido
+   * ("a linha que separa pode ser um pouco mais grossa, e em how we work tbm"),
+   * e horas depois o "How we work" voltou inteiro ao estado anterior, também a
+   * pedido — a cliente quer aquela seção como ela estava. Sem esta prop, uma das
+   * duas decisões teria de ser desfeita.
+   *
+   * ⚠️ `thin` É O PADRÃO, e é de propósito: ele é o estado ANTERIOR, o que as
+   * dez páginas tinham. Quem quer o fio grosso pede — hoje só o "What we do",
+   * no `SolutionView`. Assim, acrescentar um bloco novo não herda em silêncio
+   * uma decisão que valeu para um bloco só.
+   *
+   * ⏳ SE A CLIENTE QUISER OS DOIS GROSSOS DE NOVO: é passar `rule="thick"` no
+   * segundo `SolutionSection` também, e aí esta prop pode voltar a ser uma
+   * classe fixa.
+   */
+  rule?: "thin" | "thick";
+  /**
+   * DUAS COLUNAS (`split`) OU EMPILHADO (`stacked`).
+   *
+   * ⚠️ O ARRANJO EMPILHADO ENTROU EM 24-09 com o layout de Manager Development,
+   * e ele NÃO é o de duas colunas quebrando em tela estreita — é um desenho
+   * diferente em qualquer largura: rótulo, manchete de largura inteira, linha
+   * de apoio embaixo, sem fio vertical.
+   *
+   * POR QUE ELE EXISTE: naquele layout o corpo dos dois blocos é UMA FRASE
+   * ("Two targeted pathways, designed for real-world impact."). Uma frase só na
+   * coluna direita, ao lado de uma manchete de duas linhas, deixa a faixa com
+   * um buraco no meio — o arranjo de duas colunas pressupõe um corpo de dois
+   * parágrafos, que é o que os outros nove serviços têm.
+   *
+   * ⚠️ `split` É O PADRÃO, e é o estado das nove páginas que não pediram nada.
+   * Quem quer empilhado pede, por `sectionLayout` no dado — ver a caixa daquele
+   * campo em `lib/services.ts`.
+   *
+   * ⚠️ `rule` E `split` NÃO TÊM EFEITO NO EMPILHADO, porque não há fio nem
+   * colunas para dividir. Ficam ignorados em silêncio em vez de o tipo os
+   * proibir: proibi-los daria uma união de props que complica a chamada para
+   * evitar um erro que não tem consequência na tela.
+   */
+  layout?: "split" | "stacked";
   /**
    * ⚠️ OS DOIS TONS ATRAVESSARAM OS DOIS DESENHOS INTACTOS: `white` no primeiro
    * bloco, `paper` no segundo. No mockup de 21-09 isso foi CONFERIDO PIXEL A
@@ -190,6 +236,48 @@ export default function SolutionSection({
             EMPILHA ABAIXO DE `lg` porque a manchete é longa: a 768px, metade da
             largura dá ~330px e a frase do Senior Leadership Development
             quebraria em seis linhas. */}
+        {/* ⚠️ O RAMO EMPILHADO — 24-09. Ver a caixa da prop `layout`. Note que
+            ele NÃO reaproveita a grade abaixo com `lg:grid-cols-1`: aquela
+            carrega o fio, os paddings assimétricos das duas colunas e um corpo
+            dimensionado para dividir a largura. Aqui a manchete usa a faixa
+            inteira e o corpo é uma linha de apoio, num corpo maior que o da
+            coluna — são medidas diferentes, não a mesma peça mais estreita. */}
+        {layout === "stacked" ? (
+          <div className="mt-6 md:mt-8">
+            {/* ⚠️ SEM TETO DE LARGURA, a pedido de 24-09 — vale para os DOIS
+                blocos empilhados ("o titulo da How we work pode ocupar toda a
+                largura", e o de cima pela mesma conversa). Havia um
+                `max-w-[24ch]`, a medida de linha confortável para manchete, e
+                era ele que quebrava as frases antes da hora.
+
+                ⚠️ QUEM DECIDE A QUEBRA AGORA É A COPY, pelo `\n` —
+                `whitespace-pre-line` já estava aqui e é o que o transforma em
+                quebra de verdade. É por isso que tirar o teto não deixa a
+                manchete solta: a de "What we do" quebra depois de
+                "capability" e a de "How we work" depois de "Practical.",
+                porque as duas trazem o `\n` escrito em `lib/services.ts`.
+                Teto de largura decidiria a quebra pela LARGURA DA JANELA, que é
+                o que fazia a primeira quebrar em "manager". */}
+            <h2 className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.12] tracking-[-0.4px] text-ink md:text-[42px] lg:text-[50px]">
+              {headline}
+            </h2>
+            {/* `RichText` COMO NO RAMO DE DUAS COLUNAS, e não um `<div>` com
+                `dangerouslySetInnerHTML` próprio: o corpo chega como HTML já
+                processado (o `**negrito**` da planilha dela virou `<strong>`),
+                e é o `RichText` que limpa parágrafo vazio e carrega os estilos
+                de `<strong>`, `<a>` e lista. Duplicar aquilo aqui era como as
+                duas metades divergiriam na primeira vez que alguém mexesse numa
+                delas.
+
+                O CORPO É MAIOR QUE O DA COLUNA (18/20 contra 17/18): aqui o
+                texto é uma LINHA DE APOIO logo abaixo da manchete, não um bloco
+                de leitura ao lado dela. */}
+            <RichText
+              html={html}
+              className="mt-4 max-w-[68ch] font-serif text-[18px] leading-[1.55] text-ink/75 md:text-[20px]"
+            />
+          </div>
+        ) : (
         <div
           className={`mt-8 grid gap-y-6 md:mt-10 lg:gap-y-0 ${
             split === "body" ? "lg:grid-cols-[1fr_1.6fr]" : "lg:grid-cols-[1fr_1.05fr]"
@@ -206,7 +294,15 @@ export default function SolutionSection({
             {headline}
           </h2>
 
-          <div className="lg:border-l lg:border-line lg:pl-12">
+          {/* ⚠️ A ESPESSURA VEM DA PROP `rule`, e a caixa dela conta por que os
+              dois blocos desta página divergem desde 24-09. A COR não muda nos
+              dois casos: só a espessura foi pedida, e o token `--color-line`
+              (#ece9e6) é usado no site inteiro. */}
+          <div
+            className={`lg:border-line lg:pl-12 ${
+              rule === "thick" ? "lg:border-l-2" : "lg:border-l"
+            }`}
+          >
             {/* O CORPO ENCOLHEU DE 21/25px PARA 17/18px, e é o que o template
                 pede: lá a manchete é o dobro do corpo, e no arranjo antigo o
                 parágrafo era quase do tamanho de um título porque não havia
@@ -219,8 +315,9 @@ export default function SolutionSection({
               html={html}
               className="font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]"
             />
+            </div>
           </div>
-        </div>
+        )}
       </Reveal>
     </section>
   );

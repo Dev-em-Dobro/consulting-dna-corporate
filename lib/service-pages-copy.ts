@@ -39,6 +39,22 @@ export type ServiceEvidenceCopy = {
   body: string;
   facts: { value: string; label: string }[];
 };
+/**
+ * A faixa de evidência do layout de 24-09 — ver `ServiceEvidenceSummary` em
+ * `lib/services.ts`. É OUTRA COISA que o `ServiceEvidenceCopy` acima: aquele
+ * edita um case (cliente, o que o trabalho foi, o texto), este edita uma
+ * afirmação de resultado.
+ *
+ * ⚠️ OS LOGOS NÃO ENTRAM, pela mesma régua que já deixa de fora `cardImage` e
+ * as fotos dos cartões de público: o editor troca TEXTO. Escolher qual marca
+ * aparece é mudar o que a página afirma sobre clientes, e isso continua sendo
+ * trabalho de código.
+ */
+export type ServiceEvidenceSummaryCopy = {
+  headline: string;
+  lead: string;
+  facts: { value: string; label: string }[];
+};
 
 /**
  * A FORMA É UNIFORME NAS DEZ, mesmo que nove não tenham audiences, closing nem
@@ -63,6 +79,7 @@ export type ServiceCopy = {
   audiences: ServiceAudienceCopy[];
   closing: { lead: string; accent: string };
   evidence: ServiceEvidenceCopy;
+  evidenceSummary: ServiceEvidenceSummaryCopy;
   testimonial: { quote: string; attribution: string };
   cta: { strapline: string; line: string; label: string };
 };
@@ -89,6 +106,11 @@ const copyOf = (s: Service): ServiceCopy => ({
     title: s.evidence?.title ?? "",
     body: s.evidence?.body ?? "",
     facts: (s.evidence?.facts ?? []).map((f) => ({ value: f.value, label: f.label ?? "" })),
+  },
+  evidenceSummary: {
+    headline: s.evidenceSummary?.headline ?? "",
+    lead: s.evidenceSummary?.lead ?? "",
+    facts: (s.evidenceSummary?.facts ?? []).map((f) => ({ value: f.value, label: f.label ?? "" })),
   },
   testimonial: { quote: s.testimonial?.quote ?? "", attribution: s.testimonial?.attribution ?? "" },
   cta: { ...s.cta },
@@ -148,6 +170,44 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
           },
         }
       : {}),
+    /* ⚠️ `?.` E FALLBACK NO CAMPO DO SERVIÇO, e isto é CORREÇÃO DE DEFEITO — não
+       defensividade decorativa. O `ServiceCopy` é tipado como tendo
+       `evidenceSummary` sempre, e o `mergeCopy` de fato o preenche a partir do
+       padrão. Mas ENTRE OS DOIS há um cache: `unstable_cache` guarda o resultado
+       da mescla por um dia, com chave que NÃO inclui a forma do objeto. Uma
+       entrada gravada antes de este campo existir volta sem ele, o tipo diz que
+       ele está lá, e `copy.evidenceSummary.headline` estoura a página inteira
+       com `Cannot read properties of undefined`.
+
+       ACONTECEU AQUI, no dev, no primeiro render depois de o campo entrar: as
+       DEZ internas e a `/services` deram 500 de uma vez, porque as três leem
+       esta mesma função. Em produção o risco é o mesmo em qualquer campo NOVO,
+       enquanto houver entrada de cache da versão anterior.
+
+       O FALLBACK É O DADO DE CÓDIGO, que é a resposta certa: copy salva que não
+       conhece o campo não tem opinião sobre ele, então vale o que está em
+       `lib/services.ts`. Vale a mesma régua para qualquer bloco que se
+       acrescente daqui para a frente. */
+    ...(service.evidenceSummary
+      ? {
+          evidenceSummary: {
+            ...service.evidenceSummary,
+            headline: copy.evidenceSummary?.headline || service.evidenceSummary.headline,
+            lead: copy.evidenceSummary?.lead || service.evidenceSummary.lead,
+            /* CASADO POR POSIÇÃO com o que está em `lib/services.ts`, como os
+               números do case e os cartões de público: o editor troca o texto
+               de cada medida, não quantas medidas existem. */
+            ...(copy.evidenceSummary?.facts
+              ? {
+                  facts: copy.evidenceSummary.facts.map((f) => ({
+                    value: f.value,
+                    label: f.label || undefined,
+                  })),
+                }
+              : {}),
+          },
+        }
+      : {}),
     ...(service.testimonial ? { testimonial: copy.testimonial } : {}),
     cta: copy.cta,
   };
@@ -197,6 +257,11 @@ const audienceFields = (i: number, name: string): EditorField[] => [
 const factFields = (i: number, n: string): EditorField[] => [
   { path: `bySlug.SLUG.evidence.facts.${i}.value`, label: `${n} — the number`, kind: "text" },
   { path: `bySlug.SLUG.evidence.facts.${i}.label`, label: `${n} — what it means`, kind: "text" },
+];
+
+const summaryFactFields = (i: number, n: string): EditorField[] => [
+  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.value`, label: `${n} — the number`, kind: "text" },
+  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.label`, label: `${n} — what it means`, kind: "text" },
 ];
 
 /** Troca o marcador `SLUG` pelo slug de verdade, em todos os caminhos. */
@@ -314,6 +379,27 @@ export function sectionsFor(slug: string): EditorSection[] {
       fields: forSlug(slug, [
         { path: "bySlug.SLUG.closing.lead", label: "First line", kind: "text" },
         { path: "bySlug.SLUG.closing.accent", label: "Second line", kind: "text" },
+      ]),
+    });
+  }
+
+  /* A FAIXA DE EVIDÊNCIA DO LAYOUT DE 24-09 — a de manchete, logos e números.
+     É seção PRÓPRIA e não um caso a mais da de baixo: os campos são outros
+     (manchete e linha de apoio, em vez de cliente e "o que o trabalho foi"), e
+     os dois blocos nunca convivem na mesma página. Ver `evidenceSummary` em
+     `lib/services.ts`.
+
+     ⚠️ O TÍTULO DA SEÇÃO NÃO DIZ "case study", ao contrário do de baixo: esta
+     faixa não conta um caso, e a tela da cliente não deve prometer que conta. */
+  if (service.evidenceSummary) {
+    out.push({
+      id: "evidence-summary",
+      title: "Evidence",
+      anchor: at,
+      fields: forSlug(slug, [
+        { path: "bySlug.SLUG.evidenceSummary.headline", label: "Heading", kind: "text" },
+        { path: "bySlug.SLUG.evidenceSummary.lead", label: "Supporting text", kind: "textarea" },
+        ...copy.evidenceSummary.facts.flatMap((_, i) => summaryFactFields(i, `Number ${i + 1}`)),
       ]),
     });
   }

@@ -18,7 +18,6 @@ const mainLinks = [
   ...siteNav
     .filter((item): item is { label: string; href: string } => typeof item.href === "string")
     .map((item) => ({ label: item.label, href: item.href })),
-  { label: "Our Impact", href: "/our-impact" },
 ];
 
 const utilityLinks = [

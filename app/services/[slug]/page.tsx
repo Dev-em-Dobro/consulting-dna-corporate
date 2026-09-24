@@ -81,6 +81,42 @@ export default async function SolutionDetailPage({
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <JsonLd data={jsonLd} />
+        {/* ⛔ O DESVIO POR SLUG SAIU EM 24-09, e com ele a última exceção: as DEZ
+            páginas são o mesmo template de novo, que é o que o título desta
+            caixa sempre prometeu.
+
+            A branch `feature/paginas-servicos-menu-herois` trouxe três páginas
+            escritas à mão — HRLT, Manager Development e Culture Transformation —
+            e um ternário aqui mandava cada slug para a sua. Culture e Manager
+            saíram no merge do mesmo dia, porque as duas já tinham sido refeitas
+            pelos layouts de 24-09 dentro do template; a HRLT saiu logo depois, a
+            pedido: *"faz ela seguir o mesmo layout das outras paginas de
+            serviços"*. A copy dela virou dado em `lib/services.ts` — ver a caixa
+            na entrada `hrlt-effectiveness`, que lista o que a implementação
+            própria media de diferente.
+
+            ⛔ A PASTA `components/solutions/layouts/` DEIXOU DE EXISTIR: as três
+            páginas e o `ServiceClose` que duas delas usavam foram apagados, a
+            pedido (*"pode usar as minhas paginas"*). Estão no git, no commit
+            `0ca1e73` e na branch `feature/paginas-servicos-menu-herois`.
+
+            ⏳ O QUE SE PERDEU DE CONTEÚDO, para quem precisar recuperar: a
+            Culture dele fechava com uma frase que a nossa não tem — *"Culture
+            isn't what is written on the wall. / It's what happens when the real
+            work begins."* Ela não está no layout arquivado em `docs/meetings/`,
+            que vem cortado na fileira "Our measurement journey"; ele devia ter
+            uma versão mais alta do arquivo. Se um dia ela for pedida, o campo
+            que a desenha já existe (`closing`, como no Senior Leadership
+            Development) e não precisa de componente novo.
+
+            ⚠️ SE UMA PÁGINA PRECISAR DE UM BLOCO QUE O TEMPLATE NÃO TEM, o
+            caminho é o que Culture e Manager usaram em 24-09 — um componente em
+            `components/solutions/` com o seu campo em `lib/services.ts`, que
+            NÃO renderiza para quem não tem o campo —, e não um ramo aqui. A
+            diferença não é de estilo: um bloco novo fica disponível para os
+            outros nove no dia em que a cliente pedir o mesmo; uma página à parte
+            começa a divergir em largura, ícone e espaçamento no primeiro ajuste
+            que alguém fizer só de um lado. Foi exatamente o que aconteceu. */}
         <SolutionView service={service} all={all} />
       </SiteShell>
     </div>

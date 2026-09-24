@@ -56,7 +56,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           <img
             src="/cdna-logo-full-light.png"
             alt="CorporateDNA Consulting"
-            className="h-8 w-auto xl:h-10"
+            className="h-[38px] w-auto xl:h-12"
           />
         </Link>
 

@@ -2,6 +2,7 @@ import "server-only";
 import { del, list, put } from "@vercel/blob";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
+import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { ZodType } from "zod";
@@ -169,7 +170,48 @@ export function createCopyStore<T>({
 
   /* As duas camadas de cache, de fora para dentro: `cache()` junta as chamadas
      do mesmo render; `unstable_cache` guarda entre renders, até a tag cair. */
-  const readCached = unstable_cache(readFresh, [tag], {
+  /**
+   * ⚠️⚠️ A IMPRESSÃO DOS PADRÕES ENTRA NA CHAVE DO CACHE — 24-09, CORREÇÃO DE
+   * DEFEITO, e de um que custou meia manhã antes de ser entendido.
+   *
+   * O DEFEITO: quando NÃO HÁ NADA SALVO — que é o estado de cinco das seis
+   * lojas hoje —, `readFresh()` devolve os `defaults`, ou seja a copy que mora
+   * em `lib/services.ts`, `lib/about-copy.ts` e companhia. O `unstable_cache`
+   * guardava isso por um dia sob a chave `[tag]`, que não sabe nada sobre o
+   * CONTEÚDO dos padrões. Resultado: trocar uma frase no código NÃO MUDAVA A
+   * PÁGINA até o prazo vencer.
+   *
+   * COMO ISSO SE PARECE NA MESA, e é por isso que enganou três vezes no mesmo
+   * dia: a página responde 200, metade do texto novo aparece (o que o template
+   * lê direto do `Service`) e a outra metade não (o que passa por
+   * `applyServiceCopy`). Parece bug de merge, de guarda, de precedência — é
+   * cache. O contorno era apagar `.next` e reiniciar o servidor, o que também
+   * "consertava" e reforçava o diagnóstico errado.
+   *
+   * ⚠️ NÃO É SÓ PROBLEMA DE DESENVOLVIMENTO. Na Vercel o Data Cache sobrevive a
+   * deploy, então um deploy que só mexe em copy de código podia subir e o site
+   * continuar publicando a frase velha.
+   *
+   * O CONSERTO: um resumo de oito caracteres do JSON dos padrões entra na chave.
+   * Padrão mudou, chave nova, leitura nova — automático, sem ninguém ter de
+   * lembrar de invalidar.
+   *
+   * ⚠️ O QUE ISSO CUSTA, e por que a conta continua fechando: a chave nova
+   * significa um `list()` no Blob (a operação cara) por loja cujos padrões
+   * mudaram, uma vez por deploy. É exatamente o custo que a caixa "A LEITURA É
+   * CACHEADA" já orçava em ~14 operações por deploy — a diferença é que agora
+   * ele acontece por um motivo certo, e não por acaso quando o cache expira.
+   *
+   * ⚠️ O `revalidateTag` DO SALVAMENTO CONTINUA SENDO O CAMINHO PRINCIPAL. Este
+   * resumo cobre o outro lado, que é a copy vinda de CÓDIGO; ele não substitui a
+   * invalidação por tag, que é o que faz a cliente ver o que acabou de salvar.
+   */
+  const shape = createHash("sha1")
+    .update(JSON.stringify(defaults))
+    .digest("hex")
+    .slice(0, 8);
+
+  const readCached = unstable_cache(readFresh, [tag, shape], {
     tags: [tag],
     revalidate: READ_CACHE_SECONDS,
   });
