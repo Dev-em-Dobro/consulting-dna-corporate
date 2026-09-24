@@ -35,7 +35,16 @@ export type HomeCopy = {
   solve: { label: string; title: string; subtitle: string; purposeTitle: string; purposeAccent: string; reals: string[] };
   credibility: { label: string; statLabels: string[] };
   impact: { label: string; title: string; challengeLabel: string; readMore: string; cases: HomeCase[] };
-  people: { label: string; title: string; subtitle: string; intro: string; pillars: HomePillar[]; partnersLabel: string };
+  people: {
+    label: string;
+    title: string;
+    subtitle: string;
+    intro: string;
+    designTitle: string;
+    designBody: string;
+    pillars: HomePillar[];
+    partnersLabel: string;
+  };
   book: { kicker: string; headline: string; body: string[] };
   contact: { title: string; subtitle: string };
 };
@@ -109,6 +118,9 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
     subtitle:
       "A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.",
     intro: "With our “One DNA TEAM” principle, we execute as one collaborative team.",
+    designTitle: "Different by design",
+    designBody:
+      "There is no single mould for a DNA facilitator/coach.\n\nOur people come from different countries, cultures, careers, disciplines and life experiences. Some have led businesses. Some are psychologists, coaches or behavioural scientists. Some have spent their careers inside organisations; others have advised them. What connects us is curiosity, character, generosity and the confidence to bring our whole selves to the work.",
     pillars: [
       {
         title: "The DNA Experience",
@@ -163,7 +175,7 @@ const caseFields = (i: number, name: string): EditorField[] => [
 ];
 
 const pillarFields = (i: number, n: string): EditorField[] => [
-  { path: `people.pillars.${i}.title`, label: `${n} — heading`, kind: "text" },
+  { path: `people.pillars.${i}.title`, label: `${n} — heading`, kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
   { path: `people.pillars.${i}.body`, label: `${n} — text`, kind: "textarea" },
 ];
 
@@ -224,9 +236,11 @@ export const EDITOR_SECTIONS: EditorSection[] = [
     anchor: "/#people",
     fields: [
       { path: "people.label", label: "Small label", kind: "text" },
-      { path: "people.title", label: "Heading", kind: "text" },
-      { path: "people.subtitle", label: "Supporting text", kind: "textarea" },
-      { path: "people.intro", label: "Intro line", kind: "textarea" },
+      { path: "people.title", label: "Heading", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
+      { path: "people.subtitle", label: "Supporting text", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
+      { path: "people.intro", label: "Intro line", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
+      { path: "people.designTitle", label: "Different by design — heading", kind: "textarea" },
+      { path: "people.designBody", label: "Different by design — text", kind: "textarea", hint: "Press Enter for a line break. A blank line starts a new paragraph." },
       ...pillarFields(0, "Block 1"),
       ...pillarFields(1, "Block 2"),
       ...pillarFields(2, "Block 3"),

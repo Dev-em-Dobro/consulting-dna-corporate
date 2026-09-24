@@ -794,13 +794,10 @@ export default async function Home() {
       <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
           <TypeLabel>{copy.people.label}</TypeLabel>
-          <h2 className="mb-3 max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
+          <h2 className="mb-3 max-w-[40rem] whitespace-pre-line text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
             {copy.people.title}
           </h2>
-          <p
-            className="mb-12 max-w-[640px] text-[19px] leading-[1.65] text-muted"
-            style={{ fontFamily: "var(--font-serif-v2)" }}
-          >
+          <p className="mb-12 max-w-[40rem] whitespace-pre-line text-[19px] leading-[1.65] text-muted">
             {copy.people.subtitle}
           </p>
           {/* The DNA experience — copy on the left, life-at-DNA carousel on the
@@ -808,10 +805,16 @@ export default async function Home() {
 
               SEM `mt-14`: a grade de retratos que vinha antes é que abria este
               vão. Agora o vizinho de cima é o parágrafo, que já traz `mb-12`. */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
-            <div>
-              <p className="text-lg font-medium leading-[1.55] text-ink">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="mx-auto w-full max-w-[36rem] lg:mx-0">
+              <p className="whitespace-pre-line text-lg font-medium leading-[1.55] text-ink">
                 {copy.people.intro}
+              </p>
+              <h3 className="mb-3 mt-8 whitespace-pre-line text-[24px] font-medium leading-[1.2] text-brand md:text-[26px]">
+                {copy.people.designTitle}
+              </h3>
+              <p className="whitespace-pre-line text-[15px] leading-[1.6] text-muted">
+                {copy.people.designBody}
               </p>
               {/* OS TRÊS TÍTULOS DESTE BLOCO SÃO VERMELHOS DESDE 21-09 —
                   e-mail: *"Add some colour to headers (red)"*; anotação: *"top
@@ -842,18 +845,20 @@ export default async function Home() {
               <div className="mt-8 space-y-6">
                 {copy.people.pillars.map((p) => (
                   <div key={p.title}>
-                    <h3 className="mb-2 text-[24px] md:text-[26px] font-medium leading-[1.2] text-brand">
+                    <h3 className="mb-2 whitespace-pre-line text-[24px] font-medium leading-[1.2] text-brand md:text-[26px]">
                       {p.title}
                     </h3>
-                    <p className="text-[15px] leading-[1.6] text-muted">{p.body}</p>
+                    <p className="whitespace-pre-line text-[15px] leading-[1.6] text-muted">{p.body}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <PhotoCarousel
-              images={LIFE_AT_DNA}
-              positions={LIFE_AT_DNA_FRAMING}
-            />
+            <div className="mx-auto w-full max-w-[520px]">
+              <PhotoCarousel
+                images={LIFE_AT_DNA}
+                positions={LIFE_AT_DNA_FRAMING}
+              />
+            </div>
           </div>
           {/* A faixa "In partnership with" saiu daqui em 23-09 e virou a
               seção seguinte. Até então era o painel escuro no pé deste bloco. */}

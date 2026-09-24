@@ -54,6 +54,8 @@ export const HomeCopySchema: z.ZodType<HomeCopy> = z.object({
     title: str,
     subtitle: str,
     intro: str,
+    designTitle: str,
+    designBody: str,
     pillars: z.array(z.object({ title: str, body: str })).length(3),
     partnersLabel: str,
   }),

@@ -442,7 +442,7 @@ function splitLastWord(text: string): [string, string] {
    juntos. Para calibrar: suba o valor se o assunto estiver baixo demais na
    janela, desça se estiver alto demais. */
 const REGION_IMAGES = [
-  { src: "/team/mock/miami.jpg", y: "15%" },
+  { src: "/about/regions/americas.jpg", y: "50%" },
   { src: "/team/mock/london.jpg", y: "0%" },
   { src: "/team/mock/dubai.jpg", y: "40%" },
   { src: "/about/regions/singapore.jpg", y: "50%" },
@@ -712,7 +712,7 @@ export default async function AboutV2Page() {
             pior — 1581px, quase três telas.) O que o anular resolve é só o
             texto em cima da foto; o resto é a faixa de números não caber, que é
             decisão de conteúdo e está anotada mais abaixo. */}
-        <div className="absolute inset-x-0 bottom-0 top-[412px] -z-10 w-full overflow-hidden min-[360px]:top-[344px] md:inset-y-0 md:left-auto md:right-0 md:top-0 md:h-auto md:w-[72%]">
+        <div className="absolute inset-x-0 bottom-0 top-[412px] -z-10 w-full overflow-hidden min-[360px]:top-[344px] md:inset-y-0 md:left-auto md:right-0 md:top-0 md:h-auto md:w-[62%]">
           {/* O wrapper do zoom. Só existe no telefone: em `md` ele volta a ser
               do tamanho da caixa (`md:top-0 md:h-full`) e o desktop continua
               exatamente como estava — sangria de 72% à direita, arquivo inteiro,
@@ -737,7 +737,7 @@ export default async function AboutV2Page() {
                  Cravar 72vw sub-pediria a imagem justamente nas janelas mais
                  altas. Sobra-pedir custa bytes, sub-pedir custa nitidez. */
               sizes="(max-width: 767px) 287vw, 100vw"
-              className="object-cover object-center"
+              className="object-cover object-left md:object-[0%_42%]"
             />
           </div>
         </div>
@@ -787,7 +787,7 @@ export default async function AboutV2Page() {
           className="absolute inset-0 -z-10 hidden md:block"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgb(55,50,52) 0%, rgb(55,50,52) 28%, rgba(55,50,52,.82) 36%, rgba(55,50,52,.5) 45%, rgba(55,50,52,.2) 53%, rgba(55,50,52,0) 60%)",
+              "linear-gradient(to right, rgb(55,50,52) 0%, rgb(55,50,52) 30%, rgba(55,50,52,.72) 36%, rgba(55,50,52,.28) 42%, rgba(55,50,52,0) 48%)",
           }}
         />
         {/* ⚠️ AS DUAS CAMADAS DO TELEFONE FORAM SEPARADAS EM 10-09, e essa é a
@@ -972,7 +972,7 @@ export default async function AboutV2Page() {
                 espacejamento encolhe a linha e trabalha contra a presença que a
                 comparação está pedindo. */}
             <h1 className="h-title font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
-              {copy.hero.title}
+              {copy.hero.title.replace(/\.+$/, "")}
             </h1>
             {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
                 frase só com `max-width` deixando o navegador decidir: o pedido
@@ -1508,7 +1508,7 @@ export default async function AboutV2Page() {
               trusts us…") foram para o cartão Keeping Leadership Real, no
               bloco da foto. */}
           <blockquote className="mt-8 text-center">
-            <p className="text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
+            <p className="whitespace-pre-line text-[18px] leading-[1.7] text-white/85 md:text-[20px]">
               <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
                 “
               </span>
@@ -1536,12 +1536,38 @@ export default async function AboutV2Page() {
 
           <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
 
-          <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
-            {copy.purpose.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+          <div className="mt-10 space-y-6 text-center text-[18px] leading-[1.7] text-white/80 md:text-[20px]">
+            {copy.purpose.body.flatMap((p, i) => {
+              const at = p.search(/context[.!?]?\s+/i);
+              if (at < 0) return [<p key={i} className="whitespace-pre-line">{p}</p>];
+              const cut = p.indexOf(" ", at + "context".length);
+              const head = (cut < 0 ? p : p.slice(0, cut)).trim();
+              const tail = (cut < 0 ? "" : p.slice(cut)).trim();
+              return [
+                <p key={`${i}-a`} className="whitespace-pre-line">{head}</p>,
+                tail ? <p key={`${i}-b`} className="whitespace-pre-line">{tail}</p> : null,
+              ];
+            })}
           </div>
         </Reveal>
+      </section>
+
+      <section aria-label="How we work" className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-14">
+          <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {copy.identity.pillars.map((p) => (
+              <div
+                key={p.heading}
+                className="rounded-xl border border-line bg-white p-6 shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)]"
+              >
+                <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
+                  {p.heading}
+                </h3>
+                <p className="mt-3 text-[15px] leading-[1.6] text-ink/80">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── Block 4 · Our Promise ─────────────────────────────────────
@@ -1810,7 +1836,7 @@ export default async function AboutV2Page() {
                       parágrafos não são assinados. A aspa de fecho continua na
                       última linha, com `leading-[0]` para o glifo de 44px não
                       esticar o parágrafo. */}
-                  <div className="space-y-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
+                  <div className="space-y-6 whitespace-pre-line text-[18px] leading-[1.7] text-ink/80 md:text-[21px]">
                     {copy.identity.quote.map((p, i) => {
                       if (i < copy.identity.quote.length - 1) return <p key={i}>{p}</p>;
                       /* A ASPA DE FECHAMENTO gruda na última palavra — ver
@@ -1894,7 +1920,7 @@ export default async function AboutV2Page() {
             branco — que é a razão pela qual ele existiu aqui em 09-09. O card
             fica como está (branco, borda, sombra), porque é especificação
             escrita do cliente. */}
-        <div id="identity-pillars" className="bg-paper">
+        <div id="identity-pillars" className="hidden">
           <Reveal className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {copy.identity.pillars.map((p) => (

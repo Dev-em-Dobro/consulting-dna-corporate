@@ -11,7 +11,7 @@ import LeaderCard from "@/components/team/LeaderCard";
    `public/team/team-standing-six.jpg` — é o retoque das seis na bancada, e a
    caixa da seção guarda a história dele por inteiro. Para desfazer a troca,
    este import volta junto com as três linhas de `<Image>`. */
-import teamHero from "@/public/team/team-stairs-landscape-six.jpg";
+import teamHero from "@/public/team/team-hero-24-09.jpg";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
@@ -341,7 +341,7 @@ export default async function OurTeamPage() {
                 quebrariam a árvore de cabeçalhos para quem navega por leitor de
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
-              <h3 className="font-serif mb-10 max-w-[720px] text-[22px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink sm:text-[26px] md:text-[30px]">
+              <h3 className="mb-10 max-w-[40rem] whitespace-pre-line text-[22px] font-semibold leading-[1.25] tracking-[-0.3px] text-ink sm:text-[26px] md:text-[30px]">
                 {copy.leadership.managersTitle}
               </h3>
               <PeopleRoster people={programmeManagers} size="lg" />
@@ -575,7 +575,7 @@ export default async function OurTeamPage() {
             {/* O `id` do wrapper isola o CABEÇALHO da seção para o print do
                 editor: a seção inteira traz os 23 da faculty e não se lê na
                 coluna de 440px. */}
-            <p className="mt-6 max-w-[720px] font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
+            <p className="mt-6 max-w-[40rem] whitespace-pre-line text-[18px] leading-[1.7] text-muted md:text-[20px]">
               {copy.faculty.intro}
             </p>
             </div>
@@ -631,7 +631,7 @@ export default async function OurTeamPage() {
                       {group.region}
                     </h3>
                   )}
-                  <PeopleRoster people={group.people} />
+                  <PeopleRoster people={group.people} mono />
                 </div>
               ))}
             </div>

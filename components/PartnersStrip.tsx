@@ -126,6 +126,12 @@ const PARTNER_ROWS: PartnerLogo[][] = [
       className: "h-[26px] md:h-[30px]",
       onLight: { src: "/logos/explore_performance.png", className: "h-[64px] md:h-[72px]" },
     },
+    {
+      src: "/logos/partners/imeld-ai.jpg",
+      alt: "Imeld AI",
+      className: "h-[34px] md:h-[40px]",
+      onLight: { src: "/logos/partners/imeld-ai.jpg", className: "h-[40px] md:h-[48px]" },
+    },
   ],
 ];
 

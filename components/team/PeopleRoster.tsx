@@ -22,6 +22,7 @@ import type { RosterPerson } from "@/lib/team";
 export default function PeopleRoster({
   people,
   size = "sm",
+  mono = false,
 }: {
   people: RosterPerson[];
   /**
@@ -72,6 +73,8 @@ export default function PeopleRoster({
    * a refazer.
    */
   size?: "sm" | "lg";
+  /** Faculty fica em preto e branco. Associates e liderança, não. */
+  mono?: boolean;
 }) {
   if (people.length === 0) return null;
 
@@ -103,7 +106,7 @@ export default function PeopleRoster({
                   ? "(min-width: 1024px) 15vw, (min-width: 768px) 30vw, 50vw"
                   : "(min-width: 1280px) 17vw, (min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
               }
-              className="object-cover object-top"
+              className={`object-contain object-center${mono ? " grayscale" : ""}`}
             />
             {/* A RÉGUA VERMELHA NO PÉ é o mesmo objeto do `PeopleGrid`, e é o
                 que amarra estas duas grades novas às que já existiam na página.
