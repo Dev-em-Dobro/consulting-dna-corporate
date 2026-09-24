@@ -1337,6 +1337,7 @@ export const services: Service[] = [
   },
   {
     slug: "talent-development",
+    heroImage: "/hero/talent-high-potentials.jpeg",
     cardImage: "/services/cards/talent-development-client.jpg",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
@@ -1550,6 +1551,7 @@ export const services: Service[] = [
   },
   {
     slug: "women-in-leadership",
+    heroImage: "/hero/women-leadership.jpeg",
     cardImage: "/services/cards/women-in-leadership-client.jpg",
     title: "Women in Leadership",
     banner:
@@ -1572,6 +1574,7 @@ export const services: Service[] = [
   },
   {
     slug: "high-performing-teams",
+    heroImage: "/hero/hpt-f1.jpeg",
     cardImage: "/services/cards/high-performing-teams-client.jpg",
     title: "High Performing Teams",
     banner:
@@ -1614,9 +1617,8 @@ export const services: Service[] = [
   {
     slug: "hrlt-effectiveness",
     cardImage: "/services/cards/hrlt-effectiveness-client.jpg",
-    title: "HRLT Effectiveness",
-    banner:
-      "Build an HR leadership team with the strategic influence and collective authority to shape the business, not simply support it.",
+    title: "HR Leadership Teams (HRLT)",
+    banner: "Stronger HR leadership teams. A greater impact on the business.",
     outcome:
       "Greater **strategic influence, organisational connectivity and transformation readiness**, with HR operating as an enterprise leadership function capable of accelerating business and people performance.",
     howWeHelp:

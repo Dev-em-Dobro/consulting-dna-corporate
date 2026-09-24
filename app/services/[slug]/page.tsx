@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionView from "@/components/views/SolutionView";
+import HrltPage from "@/components/solutions/layouts/HrltPage";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { serviceLd, breadcrumbLd } from "@/lib/seo/jsonld";
 import JsonLd from "@/components/JsonLd";
@@ -81,7 +82,29 @@ export default async function SolutionDetailPage({
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <JsonLd data={jsonLd} />
-        <SolutionView service={service} all={all} />
+        {/* ⚠️ SÓ A HRLT SAI DO TEMPLATE, e o merge de 24-09 é o motivo desta
+            lista ser menor do que era.
+
+            A branch `feature/paginas-servicos-menu-herois` trouxe TRÊS páginas
+            escritas à mão — HRLT, Manager Development e Culture Transformation —
+            e mandava as três para cá. As duas últimas já tinham sido refeitas
+            pelos layouts de 24-09 DENTRO do template (`SolutionView` mais os
+            blocos novos: `pathways`, `moments`, `steps`, `ecosystem`, `proof`),
+            e a decisão no merge foi ficar com essas. Então os dois ramos saíram
+            daqui e os dois serviços voltaram a cair no `SolutionView`.
+
+            ⏳ `ManagerDevelopmentPage` E `CultureTransformationPage` CONTINUAM
+            NO REPOSITÓRIO SEM NINGUÉM AS CHAMAR. Ficaram de propósito, para a
+            decisão ser revista com quem as escreveu em vez de desfeita por um
+            merge — mas enquanto estiverem aí são uma armadilha: são o arquivo
+            errado para editar quando alguém for mexer nessas duas páginas. O
+            lugar certo é `lib/services.ts` mais os componentes de
+            `components/solutions/`. */}
+        {slug === "hrlt-effectiveness" ? (
+          <HrltPage />
+        ) : (
+          <SolutionView service={service} all={all} />
+        )}
       </SiteShell>
     </div>
   );

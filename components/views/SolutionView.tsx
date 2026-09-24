@@ -171,11 +171,17 @@ export default function SolutionView({
            da foto. Se um serviço específico pedir outra âncora, `imagePosition`
            existe no `SolutionHero` para isso — é uma prop por página, não uma
            mudança no componente. */
-        /* ⚠️ `heroImage` PRIMEIRO, `cardImage` COMO BASE. Nove serviços não têm
-           o primeiro e seguem mostrando a foto do card, que é a continuidade
-           card → herói decidida em 17-09 e explicada na caixa logo acima. O
-           décimo tem foto própria desde 24-09, e o que isso custa está na caixa
-           de `heroImage` em `lib/services.ts`. */
+        /* ⚠️ `heroImage` PRIMEIRO, `cardImage` COMO BASE. Quem não tem o
+           primeiro segue mostrando a foto do card, que é a continuidade card →
+           herói decidida em 17-09 e explicada na caixa logo acima. O que cada
+           `heroImage` custa a essa continuidade está na caixa do campo, em
+           `lib/services.ts`.
+
+           ⚠️ ERAM NOVE SEM E UM COM, até o merge da branch
+           `feature/paginas-servicos-menu-herois` em 24-09, que deu herói próprio
+           ao Talent Development, ao Women in Leadership e ao High Performing
+           Teams. Hoje são QUATRO com foto própria e seis sem — não vale contar
+           por esta caixa, vale contar por `grep heroImage lib/services.ts`. */
         imageUrl={service.heroImage ?? service.cardImage}
       />
 
