@@ -1,0 +1,630 @@
+{
+  "bySlug": {
+    "senior-leadership-development": {
+      "title": "Senior Leadership Development",
+      "banner": "Build enterprise leaders who lead beyond their function and geography into collective leadership at scale.",
+      "whatWeDoHeadline": "We develop leaders at the levels where transformation gets real.",
+      "whatWeDoBody": "We work with **Executive Teams, SLT/ET-1 leaders** and **Top 100–150 leadership populations** to build the leadership capability their organisation needs for what comes next.\n\nEvery journey starts with your **business transformation**, not a standard curriculum. Whether you are scaling, integrating, reshaping culture, accelerating performance or navigating disruption, we identify the leadership shifts required and design a tailored journey to meet them.",
+      "howWeWorkHeadline": "Real development.\nIn the flow of work.",
+      "howWeWorkBody": "We develop the **Inner Game and Outer Game** of leadership: how leaders think, judge and show up, and how they translate that into the way they lead people, make decisions, collaborate and deliver performance. Real business challenges, everyday decisions, critical conversations and leadership habits become the practice ground, so development is not something leaders attend. **It changes how they lead every day.**",
+      "pillars": [
+        "Immersions",
+        "Live business challenges",
+        "Mastery Labs",
+        "Coaching",
+        "Peer learning",
+        "Leadership experiments",
+        "Everyday habits",
+        "Measurement"
+      ],
+      "audiences": [
+        {
+          "label": "Executive teams",
+          "title": "Aligning collective leadership identity at the top.",
+          "body": "Focused 1–2 day interventions that strengthen how Executive Teams lead together: aligning around purpose, making critical decisions, navigating tensions and increasing their collective capacity to drive transformation.",
+          "credential": [
+            "Collective",
+            "clarity",
+            "Greater impact"
+          ]
+        },
+        {
+          "label": "SLT / ET-1",
+          "title": "From functional excellence to enterprise leadership.",
+          "body": "We develop SLT and ET-1 leaders to step beyond functional or market leadership: strengthening their leadership identity, Inner and Outer Game, to lead across boundaries, influence horizontally and turn strategy into execution.",
+          "credential": [
+            "Bigger",
+            "perspective",
+            "Bolder leadership"
+          ]
+        },
+        {
+          "label": "Top 100 – 150 leaders",
+          "title": "Mastering the dualities and competing commitments of leadership.",
+          "body": "Leadership journeys that equip senior leaders to navigate the competing commitments of modern leadership: performance and people, today and tomorrow, global and local, speed and inclusion, building the judgement and habits to lead consistently at scale.",
+          "credential": [
+            "Greater",
+            "judgement",
+            "Lasting impact"
+          ]
+        }
+      ],
+      "closing": {
+        "lead": "Different organisations. Different transformations.",
+        "accent": "Leadership that makes it happen."
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "Leadership shifts you can see in the business.",
+        "lead": "Evidence of stronger enterprise leadership, greater readiness and sustained behaviour change.",
+        "facts": [
+          {
+            "value": "47%",
+            "label": "Promotion rate"
+          },
+          {
+            "value": "85%",
+            "label": "Leadership habits applied"
+          },
+          {
+            "value": "3x",
+            "label": "Greater enterprise exposure"
+          }
+        ]
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "Individual accountability. Collective enterprise performance.",
+        "line": "Build a senior leadership community that improves decision quality, alignment and execution speed across functions, markets and geographies.",
+        "label": "Talk to us about your enterprise leaders"
+      }
+    },
+    "culture-transformation": {
+      "title": "Culture Transformation",
+      "banner": "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
+      "whatWeDoHeadline": "We make culture real in the flow of work.",
+      "whatWeDoBody": "We work at **organisation, market and top-team levels** to translate intended culture, values and behaviours into the everyday habits, choices and decisions that determine how work actually gets done.\n\nEvery transformation starts with the **belief and business reason for change**. We then identify the moments where culture needs to show up differently and embed it through leaders, managers, teams and the operating rhythms of the organisation.\n\nFor us, **culture is the ecosystem** within which everything else sits, whether it’s leadership, talent, strategy or business performance. You can invest in great leaders and exceptional talent, but without the right culture, much of that value remains untapped.",
+      "howWeWorkHeadline": "",
+      "howWeWorkBody": "We translate strategy and culture ambition into the **specific leadership behaviours, choices and habits** required to deliver it. We activate these through leaders, teams, organisational rituals and the flow of work, creating visible behavioural change that can be reinforced and scaled.",
+      "pillars": [
+        "Leaders",
+        "Teams",
+        "Organisational rituals",
+        "The flow of work"
+      ],
+      "audiences": [
+        {
+          "label": "Organisation-wide culture",
+          "title": "From stated culture to lived culture.",
+          "body": "We translate enterprise purpose, strategy and values into a culture people can recognise and practise every day, embedding it through leadership, management, critical teams and the moments that matter across the organisation.",
+          "credential": [
+            "One",
+            "organisation",
+            "a shared way",
+            "of working"
+          ]
+        },
+        {
+          "label": "Market / function culture",
+          "title": "Making culture meaningful where work gets done.",
+          "body": "We help markets and functions translate enterprise culture into their own operating reality, creating shared habits around decisions, collaboration, performance, customers and talent while protecting what needs to remain consistent across the enterprise.",
+          "credential": [
+            "Local",
+            "relevance",
+            "enterprise",
+            "consistency"
+          ]
+        },
+        {
+          "label": "Top team / group culture",
+          "title": "The culture at the top becomes the culture below.",
+          "body": "We work with Executive Teams, Boards and senior leadership groups to define and role-model the culture required for what comes next, strengthening how they make decisions, challenge one another, collaborate, hold accountability and visibly set the tone for the organisation.",
+          "credential": [
+            "Set the tone",
+            "drive the shift",
+            "multiply the impact"
+          ]
+        }
+      ],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "GSK MEXICO",
+        "title": "From leadership team to organisation",
+        "body": "Culture transformation started with the Country CEO and Leadership Team, before cascading through the Management Team and N-1 leadership layers. The focus: translate the desired culture into the behaviours, relationships and leadership practices people experience every day, creating alignment from the top while building momentum through the organisation.",
+        "facts": [
+          {
+            "value": "CEO led",
+            "label": ""
+          },
+          {
+            "value": "LT aligned",
+            "label": ""
+          },
+          {
+            "value": "Management activated",
+            "label": ""
+          },
+          {
+            "value": "N-1 embedded",
+            "label": ""
+          }
+        ]
+      },
+      "evidenceSummary": {
+        "headline": "",
+        "lead": "",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "A quote from GSK MEXICO to be confirmed.",
+        "attribution": "Name, Title: GSK MEXICO"
+      },
+      "cta": {
+        "strapline": "Strategy changes. Culture has to move with it.",
+        "line": "Turn strategic ambition into the behaviours, decisions and habits that increase organisational adaptability and make transformation happen.",
+        "label": "Talk to us about the culture your strategy needs"
+      }
+    },
+    "talent-development": {
+      "title": "Talent Development",
+      "banner": "Build the leadership pipeline before the business needs it.",
+      "whatWeDoHeadline": "",
+      "whatWeDoBody": "Greater **bench strength, successor readiness and talent velocity**, reducing dependency on external hiring and strengthening the organisation’s capacity to grow.",
+      "howWeWorkHeadline": "Talent development starts with the business imperative, and ends with measurable value creation.",
+      "howWeWorkBody": "We identify critical transitions and build targeted development journeys that accelerate high-potential talent towards bigger, more complex roles. Assessment, stretch experiences, coaching, business challenges and deliberate practice build **readiness, not simply potential**.",
+      "pillars": [
+        "Assessment",
+        "Stretch experiences",
+        "Coaching",
+        "Business challenges",
+        "Deliberate practice"
+      ],
+      "audiences": [
+        {
+          "label": "Global Top Talent",
+          "title": "Building the next generation of enterprise leaders",
+          "body": "Accelerating talent for the organisation’s most significant future roles, with a focus on enterprise leadership, strategic judgement and readiness for complexity.",
+          "credential": []
+        },
+        {
+          "label": "Regional & Emerging Market Talent",
+          "title": "Accelerating readiness across markets and boundaries",
+          "body": "Building leadership capability, visibility and influence across different cultures, markets and organisational contexts.",
+          "credential": []
+        },
+        {
+          "label": "Functional & Critical-Role Talent",
+          "title": "Turning deep expertise into broader leadership impact",
+          "body": "Helping high-value specialists broaden their identity, influence and enterprise contribution as their scope increases.",
+          "credential": []
+        },
+        {
+          "label": "Early & Mid-Career High Potentials",
+          "title": "Creating the runway for what comes next",
+          "body": "Developing the capabilities, experiences and confidence required to make successful transitions into larger leadership roles.",
+          "credential": []
+        }
+      ],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "Talent acceleration should change the pipeline, not just the participant experience.",
+        "lead": "",
+        "facts": [
+          {
+            "value": "35%",
+            "label": "Higher Productivity"
+          },
+          {
+            "value": "70%",
+            "label": "Promotion Readiness"
+          },
+          {
+            "value": "80%",
+            "label": "Expanded Role Moves"
+          },
+          {
+            "value": "2x",
+            "label": "Discretionary Effort"
+          }
+        ]
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "Global ambition. Local talent realities.",
+        "line": "Build a talent runway that identifies what your people need here and now, while preparing them for what the business will need next.",
+        "label": "Talk to us about your talent pipeline"
+      }
+    },
+    "manager-development": {
+      "title": "Manager Development",
+      "banner": "Build managers who turn strategy into performance through people.",
+      "whatWeDoHeadline": "Build practical manager capability\nat the moments that matter.",
+      "whatWeDoBody": "Two targeted pathways, designed for real-world impact.",
+      "howWeWorkHeadline": "Bite-sized. Practical.\nBuilt into the flow of work.",
+      "howWeWorkBody": "Focused learning, real conversations and practical tools, so managers can apply what they learn immediately.",
+      "pillars": [
+        "Setting direction",
+        "Making decisions",
+        "Developing people",
+        "Managing performance",
+        "Navigating difficult conversations",
+        "Leading through change"
+      ],
+      "audiences": [],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "Building managers people want to work for.",
+        "lead": "Nearly two decades of manager development across industries, geographies and organisational levels.",
+        "facts": [
+          {
+            "value": "72%",
+            "label": "Manager confidence"
+          },
+          {
+            "value": "85%",
+            "label": "Skills application"
+          },
+          {
+            "value": "90%",
+            "label": "Engagement scores"
+          }
+        ]
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "Big strategy. Everyday leadership.",
+        "line": "Build managers who translate business priorities into clarity, accountability and performance through the people they lead every day.",
+        "label": "Talk to us about your manager capability"
+      }
+    },
+    "women-in-leadership": {
+      "title": "Women’s Leadership Development",
+      "banner": "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
+      "whatWeDoHeadline": "Different organisational needs. Three pathways for women to lead at a higher level.",
+      "whatWeDoBody": "Every organisation has different needs at different stages. We create three distinct pathways, each designed to meet the real challenges women face, and the opportunities ahead.",
+      "howWeWorkHeadline": "Development in the flow of work.",
+      "howWeWorkBody": "We combine proven methodologies with practical tools and support, so learning is applied where it matters most: in the real roles, relationships and moments women are navigating every day.",
+      "pillars": [
+        "Leadership identity",
+        "Enterprise influence",
+        "Strategic networks",
+        "Readiness for bigger roles"
+      ],
+      "audiences": [
+        {
+          "label": "Early career women",
+          "title": "Build the foundations early.",
+          "body": "For organisations wanting to strengthen confidence, voice, networks and leadership identity earlier in the pipeline.",
+          "credential": []
+        },
+        {
+          "label": "Mid-career women",
+          "title": "Accelerate the critical middle.",
+          "body": "For organisations wanting to strengthen progression, sponsorship and readiness for bigger, broader leadership roles.",
+          "credential": []
+        },
+        {
+          "label": "Senior women",
+          "title": "Increase impact at the top.",
+          "body": "For organisations wanting to accelerate women into enterprise, ExCo and Board-level leadership and amplify their influence once there.",
+          "credential": []
+        }
+      ],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "",
+        "lead": "",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "Lower the ceiling. Raise the floor.",
+        "line": "Develop the woman. Strengthen the environment around her. Create the conditions for progression to continue.",
+        "label": "Talk to us about accelerating women in your pipeline"
+      }
+    },
+    "high-performing-teams": {
+      "title": "High Performing Teams",
+      "banner": "Turn groups of strong individuals into leadership teams that perform collectively.",
+      "whatWeDoHeadline": "",
+      "whatWeDoBody": "Better **decision quality, execution speed, collective accountability and cross-functional effectiveness**. Less organisational friction. More leadership capacity directed at the priorities that matter most.",
+      "howWeWorkHeadline": "",
+      "howWeWorkBody": "We work with real teams on their real work, strengthening **trust, constructive challenge, decision rights, accountability, alignment and execution**. Rather than generic team building, we identify what is helping and hindering collective performance and embed new ways of working.",
+      "pillars": [
+        "Trust",
+        "Constructive challenge",
+        "Decision rights",
+        "Accountability",
+        "Alignment",
+        "Execution"
+      ],
+      "audiences": [],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "ADIDAS",
+        "title": "South East Asia leadership",
+        "body": "A regional team transformation designed to align diverse leadership behaviours, create a unified identity and shift the team from siloed execution to shared decision-making and collective ownership. The work connected the team’s Inner Game of identity and behavioural cohesion with its Outer Game of activating three critical transformation streams.",
+        "facts": [
+          {
+            "value": "92%",
+            "label": "NPS"
+          },
+          {
+            "value": "93%",
+            "label": "immersion impact"
+          },
+          {
+            "value": "150+",
+            "label": "senior executives"
+          }
+        ]
+      },
+      "evidenceSummary": {
+        "headline": "",
+        "lead": "",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "A quote from ADIDAS to be confirmed.",
+        "attribution": "Name, Title: ADIDAS"
+      },
+      "cta": {
+        "strapline": "Strong individuals don’t automatically make a strong team.",
+        "line": "Reduce friction, strengthen decision-making and collective accountability, and increase the speed at which teams turn priorities into performance.",
+        "label": "Talk to us about your team’s performance"
+      }
+    },
+    "hrlt-effectiveness": {
+      "title": "HR Leadership Teams (HRLT)",
+      "banner": "Stronger HR leadership teams. A greater impact on the business.",
+      "whatWeDoHeadline": "Build HR leadership teams that shape the business, from the inside out.",
+      "whatWeDoBody": "We help CHROs and their HR Leadership Teams strengthen their collective identity, capability and ways of working, so they can lead people, performance and transformation in a more connected, strategic and impactful way.",
+      "howWeWorkHeadline": "A focused, practical journey. Built around your context.",
+      "howWeWorkBody": "We combine insight, experience and real-world application to help HRLTs make progress that sticks.",
+      "pillars": [
+        "Business judgement",
+        "Strategic alignment",
+        "Horizontal working",
+        "Influence",
+        "Execution"
+      ],
+      "audiences": [],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "Stronger HRLTs. Greater business impact.",
+        "lead": "Our work helps HR leadership teams build the capability and influence to drive real change.",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "A seat at the table isn’t the same as influence at the table.",
+        "line": "Build an HRLT with the commercial judgement, collective authority and transformation capability to shape the business, not simply support it.",
+        "label": "Talk to us about your HRLT"
+      }
+    },
+    "judgement-in-ai": {
+      "title": "Judgement in AI",
+      "banner": "Build the human judgement required to make better decisions in an AI-augmented world.",
+      "whatWeDoHeadline": "",
+      "whatWeDoBody": "Higher **decision quality and decision velocity** without surrendering accountability to technology. Leaders know when to trust AI, when to challenge it and where distinctly human judgement creates value.",
+      "howWeWorkHeadline": "",
+      "howWeWorkBody": "We build the capabilities leaders need to operate alongside AI: **critical thinking, judgement, curiosity, sense-making, ethical reasoning and decision-making under uncertainty**. Leaders practise on real business dilemmas and learn to combine human experience and intuition with AI-enabled insight.",
+      "pillars": [
+        "Critical thinking",
+        "Judgement",
+        "Curiosity",
+        "Sense-making",
+        "Ethical reasoning",
+        "Decision-making under uncertainty"
+      ],
+      "audiences": [],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "",
+        "lead": "",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "More intelligence. Better decisions? Not necessarily.",
+        "line": "Strengthen the human judgement, critical thinking and decision quality leaders need to use AI without outsourcing accountability to it.",
+        "label": "Talk to us about leadership judgement in AI"
+      }
+    },
+    "executive-coaching": {
+      "title": "Executive Coaching",
+      "banner": "Strengthen judgement and leadership performance when the stakes are highest.",
+      "whatWeDoHeadline": "Coaching that goes beneath the surface.",
+      "whatWeDoBody": "Our coaching combines deep personal insight with real-world leadership experience. We work with the whole leader – their identity, context, relationships and performance – connecting the inner game with the outer game to drive sustained impact.",
+      "howWeWorkHeadline": "A structured, personalised journey from insight to impact.",
+      "howWeWorkBody": "",
+      "pillars": [
+        "Complexity",
+        "Transition",
+        "Relationships",
+        "Performance",
+        "Leadership scale"
+      ],
+      "audiences": [
+        {
+          "label": "",
+          "title": "Executive teams and ELT minus one",
+          "body": "Navigate complex challenges and lead with greater impact.",
+          "credential": []
+        },
+        {
+          "label": "",
+          "title": "Regional & functional leaders",
+          "body": "Broaden perspective, strengthen influence and drive performance across geographies and functions.",
+          "credential": []
+        },
+        {
+          "label": "",
+          "title": "Directors & VPs",
+          "body": "Step into bigger, broader roles with greater confidence and clarity.",
+          "credential": []
+        },
+        {
+          "label": "",
+          "title": "Managers & emerging leaders",
+          "body": "Build leadership foundations, resilience and the confidence to lead through others.",
+          "credential": []
+        }
+      ],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "Measurable impact for leaders and their organisations.",
+        "lead": "",
+        "facts": [
+          {
+            "value": "80%",
+            "label": "Higher resilience"
+          },
+          {
+            "value": "75%",
+            "label": "Stronger role integration"
+          },
+          {
+            "value": "70%",
+            "label": "New role success"
+          },
+          {
+            "value": "3x",
+            "label": "Greater team effectiveness"
+          }
+        ]
+      },
+      "testimonial": {
+        "quote": "The coaching gave me the space to think differently, and the support to turn insight into action.",
+        "attribution": "Global Business Unit Head, FTSE 100 client"
+      },
+      "cta": {
+        "strapline": "Deeper insight. Bigger impact.",
+        "line": "Helping leaders and their teams turn insight into lasting performance.",
+        "label": "Talk to us about your executive coaching needs"
+      }
+    },
+    "family-business-consulting": {
+      "title": "Family Business Consulting",
+      "banner": "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
+      "whatWeDoHeadline": "",
+      "whatWeDoBody": "Greater **succession readiness, governance clarity, decision quality and organisational continuity**, enabling the business to evolve without losing what made it successful.",
+      "howWeWorkHeadline": "We work with the family system and the business system together.",
+      "howWeWorkBody": "We work across the **family, ownership and business systems** to clarify governance, decision rights, leadership transitions and succession. We help founders, next-generation leaders and professional executives navigate the human and organisational complexity of moving from founder-led success to an enduring institution.",
+      "pillars": [
+        "Governance",
+        "Decision rights",
+        "Leadership transitions",
+        "Succession"
+      ],
+      "audiences": [],
+      "closing": {
+        "lead": "",
+        "accent": ""
+      },
+      "evidence": {
+        "client": "",
+        "title": "",
+        "body": "",
+        "facts": []
+      },
+      "evidenceSummary": {
+        "headline": "",
+        "lead": "",
+        "facts": []
+      },
+      "testimonial": {
+        "quote": "",
+        "attribution": ""
+      },
+      "cta": {
+        "strapline": "Protect what built the business. Prepare for what comes next.",
+        "line": "Strengthen governance, succession readiness and decision-making across family, ownership and business as leadership moves between generations.",
+        "label": "Talk to us about your family’s next chapter"
+      }
+    }
+  }
+}

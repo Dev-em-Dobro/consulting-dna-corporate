@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "eyebrow": "Clients & Impact",
+    "title": "Leadership change, measured where it matters.",
+    "subtitle": "From energy and pharma to luxury and financial services, advisory delivered where the stakes are highest."
+  },
+  "logos": {
+    "label": "Trusted by global organisations"
+  },
+  "numbers": {
+    "label": "By the numbers",
+    "kicker": "Real change, a broader reach.",
+    "rowLabel": "Our scale"
+  },
+  "cases": {
+    "label": "Case studies",
+    "kicker": "Real stories. Lasting change.",
+    "empty": "No case studies published yet."
+  },
+  "voices": {
+    "label": "What our clients say",
+    "kicker": "Real partnerships. Lasting perspectives."
+  },
+  "social": {
+    "title": "A force for good, beyond the boardroom.",
+    "body": "CorporateDNA is committed to being a force for good in the world. Our mission is to make transformative impact through humanity, honesty, and purpose. In acting on our deeply held values of social awareness, sustainability, and boldness, we have partnered with TERRAGRN, an organisation dedicated to sustainable community-led agroforestry.",
+    "ctaLabel": "Learn more"
+  },
+  "footprint": {
+    "label": "Global footprint",
+    "kicker": "Where our clients create change.",
+    "statLabels": [
+      "Regions",
+      "Clients",
+      "Published case studies"
+    ]
+  },
+  "cta": {
+    "strapline": "Let’s create real change, together.",
+    "line": "Speak to our team about how we can support your organisation.",
+    "ctaLabel": "Get in touch"
+  }
+}

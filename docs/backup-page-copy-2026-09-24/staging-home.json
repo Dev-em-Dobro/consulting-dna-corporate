@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "title": "Keeping Leadership Real",
+    "subtitle": "We help CEOs, CHROs & CLOs build real leadership when the stakes are high, through real conversations, real choices and real decisions that deliver in the moments that matter.",
+    "primaryCta": "Discuss a leadership challenge",
+    "secondaryCta": "See the work"
+  },
+  "solve": {
+    "label": "What we solve",
+    "title": "The leadership challenges that determine enterprise performance.",
+    "subtitle": "We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.",
+    "purposeTitle": "Our purpose is to make leadership",
+    "purposeAccent": "real.",
+    "reals": [
+      "pressures",
+      "politics",
+      "choices",
+      "judgement",
+      "people",
+      "consequences"
+    ]
+  },
+  "credibility": {
+    "label": "Trusted by leadership teams at",
+    "statLabels": [
+      "Work sponsored by Chairman / CXO",
+      "Years advising senior leaders",
+      "Regions of global delivery",
+      "Faculty of senior practitioners"
+    ]
+  },
+  "impact": {
+    "label": "Client impact",
+    "title": "Results, not promises. Measured where it matters.",
+    "challengeLabel": "Challenge",
+    "readMore": "read more here",
+    "cases": [
+      {
+        "client": "Heineken",
+        "sector": "FMCG",
+        "challenge": "Accelerate the readiness and advancement of high-potential leaders across the group.",
+        "metric": "45%",
+        "metricLabel": "higher promotion rate for programme participants"
+      },
+      {
+        "client": "Coca-Cola",
+        "sector": "FMCG",
+        "challenge": "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.",
+        "metric": "43",
+        "metricLabel": "leaders transformed across APAC & Japan"
+      },
+      {
+        "client": "Shell",
+        "sector": "Energy",
+        "challenge": "Scale women's leadership development across a global engineering workforce.",
+        "metric": "6,300",
+        "metricLabel": "women leaders impacted across the programme"
+      }
+    ]
+  },
+  "people": {
+    "label": "Our people",
+    "title": "Senior advisors who have sat where our clients sit.",
+    "subtitle": "A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.",
+    "intro": "With our “One DNA TEAM” principle, we execute as one collaborative team.",
+    "pillars": [
+      {
+        "title": "The DNA Experience",
+        "body": "We blend our individual talents with the collective expertise of our global pool of 75 members across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time."
+      },
+      {
+        "title": "Trusted Relationships",
+        "body": "Relationships are at the core of who we are. We build long-term, deep relationships with our people and become part of each other’s stories. We are part of a family who care about each other, stay close and grow, laugh and unmask together."
+      },
+      {
+        "title": "Inclusion & Diversity",
+        "body": "Our best-in-class people are full of great character and personality, representing a range of backgrounds in the behavioural sciences and business; coming from different markets around the world, and representing a wide range of social identities."
+      }
+    ],
+    "partnersLabel": "In partnership with"
+  },
+  "book": {
+    "kicker": "The book behind the method",
+    "headline": "CorporateDNA: How Great Companies Build What Competitors Can't Copy and clients want to emulate",
+    "body": [
+      "What if the greatest competitive advantage isn't your strategy, products or technology, but your organisational DNA?",
+      "Drawing on nearly two decades of advising CEOs and executive teams around the world, Rhea Leckie reveals the principles behind organisations that consistently outperform, adapt and endure.",
+      "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
+      "For leaders who want to build companies that thrive through uncertainty, not just survive it. This is a blueprint for creating a legacy that lasts."
+    ]
+  },
+  "contact": {
+    "title": "What is changing, and where does leadership need to go?",
+    "subtitle": "Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch."
+  }
+}
