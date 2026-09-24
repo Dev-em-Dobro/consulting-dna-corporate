@@ -5,8 +5,8 @@
  * exactly how they drift, and the brief asks for the wall to carry immediate
  * credibility on both.
  *
- * Files live in /public/logos. The order is deliberate — the largest and most
- * globally recognisable names lead.
+ * Files live in /public/logos/client-logos. The order is deliberate — the largest
+ * and most globally recognisable names lead.
  *
  * ============================================================================
  * ⚠️ LISTA DE 24-09 — SÓ CLIENTES DE VERDADE
@@ -23,19 +23,19 @@
 export const clientLogos = [
   "microsoft.png",
   "shell.png",
-  "coca_cola.png",
+  "coca-cola.png",
   "unilever.png",
   "hsbc.png",
   "adidas.png",
   "heineken.png",
-  "bank_of_england.png",
-  "aston_martin.png",
-  "dp_world.png",
-  "dubai_holding.png",
-  "frasers_property.png",
-  "hbo_max.png",
-  "bain_capital.png",
-  "collins_aerospace.png",
+  "bank-of-england.png",
+  "aston-martin.png",
+  "dp-world.png",
+  "dubai-holding.png",
+  "frasers-property.png",
+  "hbo-max.png",
+  "bain-capital.png",
+  "collins-aerospace.png",
   "kedaara.png",
   "schroders.png",
   "singtel.png",

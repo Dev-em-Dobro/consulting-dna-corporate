@@ -84,9 +84,9 @@ const CLIENTS = [
   { name: "Heineken", file: "heineken.png" },
   { name: "Unilever", file: "unilever.png" },
   { name: "Shell", file: "shell.png" },
-  { name: "Morgan Stanley", file: "morgan_stanley.png" },
+  { name: "Morgan Stanley", file: "morgan-stanley.png" },
   { name: "Aviva", file: "aviva.png" },
-  { name: "Coca-Cola", file: "coca_cola.png" },
+  { name: "Coca-Cola", file: "coca-cola.png" },
   { name: "Levi’s", file: "levis.png" },
 ];
 
@@ -425,7 +425,7 @@ export default async function FiveHFrameworkPage() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`/logos/${c.file}`}
+                  src={`/logos/client-logos/${c.file}`}
                   alt={c.name}
                   loading="lazy"
                   className="h-10 w-auto max-w-[120px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
