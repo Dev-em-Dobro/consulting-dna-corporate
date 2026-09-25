@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "eyebrow": "Our Services",
+    "title": "Real impact for individuals, leaders, teams and organisations.",
+    "subtitle": "Ten ways in. Everyone starts with what is at stake for the business."
+  },
+  "whatWeDo": {
+    "label": "What we do"
+  },
+  "partners": {
+    "label": "Partners",
+    "title": "The work is ours. The partners are chosen.",
+    "body": [
+      "Most work is designed and delivered by our own faculty. Where a bespoke programme calls for more, we bring partners in by design rather than by default.",
+      "Harvard Business Impact for faculty research and a digital delivery spine that scales. Imperial College London for applied innovation and customised executive education. Each joins where the programme needs what they bring, and not otherwise."
+    ]
+  },
+  "cta": {
+    "strapline": "Ready to start the conversation?",
+    "line": "",
+    "ctaLabel": "Start a Conversation"
+  }
+}
