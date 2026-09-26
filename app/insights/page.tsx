@@ -12,6 +12,34 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getInsightListEntries } from "@/lib/cms/map";
 import { books } from "@/lib/books";
+import { Download } from "lucide-react";
+
+const thoughtLeadership = [
+  {
+    title: "Scaling Leadership Without Losing Its Humanity",
+    description:
+      "A founder’s reflection on 19 years of building CorporateDNA, and what it has taught me about leadership, growth and the impact that lasts.",
+    author: "Rhea Leckie",
+    pages: 6,
+    href: "/resources/thought-leadership/scaling-leadership.pdf",
+  },
+  {
+    title: "5 Signals Your Leadership Team May Be Underperforming",
+    description:
+      "A collection of high-performing individuals does not automatically create a high-performing leadership team.",
+    author: "Mike Jackson",
+    pages: 6,
+    href: "/resources/thought-leadership/five-signals-leadership-team.pdf",
+  },
+  {
+    title: "When the Executive Team Changes, the System Changes",
+    description:
+      "A CDNA insight paper on the psychological, social, cultural and identity transitions at the top table.",
+    author: "CorporateDNA Insights",
+    pages: 9,
+    href: "/resources/thought-leadership/executive-transition.pdf",
+  },
+] as const;
 
 /**
  * ⚠️ O TÍTULO E A DESCRIÇÃO GANHARAM OS LIVROS EM 21-09, junto com o conteúdo:
@@ -75,6 +103,53 @@ export default async function InsightsPage() {
             página ganhar a sua. */}
         <SolutionHero eyebrow="Insights" title="Let’s share some insights." />
 
+        <section id="thought-leadership" className="bg-paper">
+          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
+            <TypeLabel>Thought Leadership</TypeLabel>
+            <h2 className="font-serif mt-5 max-w-[720px] text-[34px] font-semibold leading-[1.04] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
+              Ideas for the moments that shape leadership.
+            </h2>
+
+            <div className="mt-12 grid gap-px bg-line md:mt-16 md:grid-cols-3">
+              {thoughtLeadership.map((resource, index) => (
+                <Reveal key={resource.href}>
+                  <article className="group flex h-full min-h-[420px] flex-col bg-white p-7 transition-colors duration-300 hover:bg-ink md:p-9">
+                    <div className="flex items-start justify-between gap-6">
+                      <span className="text-[12px] font-semibold tracking-[1.8px] text-brand">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
+                        PDF · {resource.pages} pages
+                      </span>
+                    </div>
+
+                    <h3 className="font-serif mt-16 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">
+                      {resource.title}
+                    </h3>
+                    <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">
+                      {resource.description}
+                    </p>
+
+                    <div className="mt-auto pt-10">
+                      <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
+                        By {resource.author}
+                      </p>
+                      <a
+                        href={resource.href}
+                        download
+                        className="inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.8px] text-ink transition-colors hover:text-brand group-hover:text-white group-hover:hover:text-brand"
+                      >
+                        Download PDF
+                        <Download aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+                      </a>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ⚠️ A BIBLIOTECA FOI PARA 1440px EM 12-09, e isto REVERTE o que eu
             tinha escrito aqui em 11-09. O argumento era "1440 é medida de grade
             e isto é uma lista para ler, a 1440 as linhas ficariam longas
@@ -94,11 +169,15 @@ export default async function InsightsPage() {
             começa em 40px. */}
         <section id="library" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+            <TypeLabel>Articles</TypeLabel>
+            <h2 className="sr-only">Articles</h2>
+            <div className="mt-10">
             {insights.length === 0 ? (
               <EmptyNotice>No insights published yet.</EmptyNotice>
             ) : (
               <InsightsLibrary insights={insights} />
             )}
+            </div>
           </div>
         </section>
 
