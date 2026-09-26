@@ -1,0 +1,28 @@
+{
+  "blobPath": "services-index-copy/0001790246831053.json",
+  "savedAt": "2026-09-24T10:47:11.053Z",
+  "copy": {
+    "hero": {
+      "eyebrow": "Our Services",
+      "title": "Our core service.",
+      "subtitle": "Different audiences. One focus. Shared Impact. "
+    },
+    "whatWeDo": {
+      "label": "What we do"
+    },
+    "partners": {
+      "label": "Partners",
+      "title": "Our work. Amplified by the right partners. ",
+      "body": [
+        "Our client relationships, thinking and roadmaps are led by CorporateDNA. We selectively work with a small group of trusted strategic partners when their expertise can add another dimension to the experience — whether through world-class thought leadership, research, simulations, specialist techniques, executive education or technology.",
+        "These are relationships we have built over time, not an outsourced layer of delivery. We work closely with each partner to integrate their expertise into the wider roadmap, ensuring one seamless experience for the client, with CorporateDNA remaining at the centre of the relationship, design and delivery.",
+        "The principle is simple: we bring in the best of what others do to amplify the best of what we do."
+      ]
+    },
+    "cta": {
+      "strapline": "Ready to start the conversation?",
+      "line": "",
+      "ctaLabel": "Start a Conversation"
+    }
+  }
+}

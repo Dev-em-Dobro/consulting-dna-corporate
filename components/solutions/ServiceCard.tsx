@@ -89,6 +89,11 @@ export default function ServiceCard({
    */
   className?: string;
 }) {
+  /* ⚠️ A FOTO DO HERÓI PRIMEIRO, desde 24-09, a pedido: *"as imagens da lista
+     estão antigas, pega as imagens dos heros"*. É a mesma escada do
+     `SolutionView` (`heroImage ?? cardImage`), então card e dobra mostram a
+     mesma foto nos dez. */
+  const image = service.heroImage ?? service.cardImage;
   return (
     <Link
       href={`/services/${service.slug}`}
@@ -99,9 +104,9 @@ export default function ServiceCard({
           bordas e o quadro branco começa abaixo dela. Por isso o `p-8` saiu do
           <Link> e foi para o <div> de texto. */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
-        {service.cardImage ? (
+        {image ? (
           <Image
-            src={service.cardImage}
+            src={image}
             alt=""
             fill
             /* `alt=""` — a foto é ATMOSFERA, não informação. O que identifica o

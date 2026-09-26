@@ -1,0 +1,181 @@
+{
+  "blobPath": "about-copy/0001790243031489.json",
+  "savedAt": "2026-09-24T09:43:51.489Z",
+  "copy": {
+    "hero": {
+      "label": "About",
+      "title": "Keeping Leadership Real.",
+      "subtitleLines": [
+        "Our purpose. Our promise.",
+        "Our beliefs. Our impact."
+      ]
+    },
+    "stats": [
+      {
+        "value": "19 years",
+        "label": "of leadership consulting work, since London, 2007"
+      },
+      {
+        "value": "4 regions",
+        "label": "of global programme delivery"
+      },
+      {
+        "value": "10,000+",
+        "label": "leaders coached and teams developed"
+      },
+      {
+        "value": "5 of the top 10",
+        "label": "FTSE 100 companies are long standing clients"
+      }
+    ],
+    "purpose": {
+      "label": "Why Corporate DNA exists.",
+      "title": "Our purpose is to keep leadership real.",
+      "titleNowrap": "Before our clients experience our work, they experience our people. ",
+      "quote": "CorporateDNA began with a simple belief: a consultant’s obligation is to bring integrity and value to the word consulting, cut through complexity, connect the threads, and surface the truth. Keeping leadership real means getting beneath the language that can hide the real issues, understanding our clients' lived reality, and creating change rooted in impact, honesty, courage, and authenticity.",
+      "attribution": "Rhea Leckie, Founder & CEO",
+      "body": [
+        "Before our clients experience our work, they experience our people. Keeping leadership real starts with us—in how we listen, challenge, add value, and navigate the conversations and decisions that matter. We bring judgement, care, candour, experience and our own personality to every relationship."
+      ]
+    },
+    "promise": {
+      "label": "What we promise.",
+      "lead": "To keep our craft real: honest with ourselves, true to our clients.",
+      "accent": "We invite you to experience the DNA Partnership.",
+      "body": [
+        "We do not hide behind language to sound more intelligent. We do not build layers that clients have to climb over to reach us. We listen as much as we talk. We hold the space for our clients to be their real, unedited selves, and meet us in true partnership.",
+        "Boldness lives in duality with humility. Our designs, ideas and methods of challenging are bold enough to nudge traditional comfort zones, and incubated through humility so the results are sustainable. We are confident, but never arrogant."
+      ]
+    },
+    "identity": {
+      "label": "REMOVE ",
+      "quote": [
+        "REMOVE"
+      ],
+      "pillars": [
+        {
+          "heading": "We invest in Identity beyond role.",
+          "body": "When leaders shift Identity (Who am I), they accelerate skills faster."
+        },
+        {
+          "heading": "We lead with care and candour.",
+          "body": "We empower leaders by balancing compassion and action."
+        },
+        {
+          "heading": "We tackle root causes, not symptoms.",
+          "body": "We achieve success through robust discovery and laser focus."
+        },
+        {
+          "heading": "We earn the right as your trusted ally.",
+          "body": "By Keeping It Real, we develop Talent and build relationships."
+        }
+      ]
+    },
+    "values": {
+      "label": "What we believe, and how we work.",
+      "intro": "**Our values** are deeply human centric, and always in service of a client’s greatness. We do not compromise on them, however complex the circumstances.",
+      "items": [
+        {
+          "name": "Creative Flow",
+          "body": "Our creativity lives in the big ideas and equally in the details and frameworks that hold them together. Execution should feel like flow."
+        },
+        {
+          "name": "Bold Humility",
+          "body": "Boldness lives in duality with humility. Bold enough to move people beyond their comfort zones, humble enough to be sustainable. Confident, never arrogant."
+        },
+        {
+          "name": "Relationship Centricity",
+          "body": "We believe in mutually empowered relationships where we learn from each other. Clients should always feel us as deeply invested in their present and their future."
+        },
+        {
+          "name": "Real Results",
+          "body": "Our relentless quest for excellence is anchored in real issues and real results: engagement up, performance up, collaboration up."
+        },
+        {
+          "name": "Trust & Truth",
+          "body": "Trust and truth live in one cycle. We help our clients with the hard right rather than the easy wrong, and hold ourselves accountable for breakthrough results."
+        }
+      ]
+    },
+    "regions": {
+      "label": "Where we work.",
+      "intro": "Global reach. \nLocal context. \nPatterns that travel.\n\nOur delivery footprint across 36 countries gives us more than just global scale. It gives us contextual intelligence. What works in Japan may be different in Dubai, and/or London versus Mongolia. Leadership, trust, culture, challenge and decision-making show up differently across cultures, so we never simply lift and shift an approach from one market to another.\n\nBut we also connect and transfer what we learn across markets. We let insight travel.  A breakthrough with a team in Asia can inform a conversation in Europe; an insight from the Middle East can challenge thinking in the Americas. Our senior faculty brings these stories, patterns and perspectives across borders, combining deep local understanding with the collective intelligence of a global practice.",
+      "items": [
+        {
+          "name": "Americas",
+          "offices": "Miami",
+          "descriptor": "Driving leadership impact across North and South America."
+        },
+        {
+          "name": "UK & Europe",
+          "offices": "London",
+          "descriptor": "Partnering with organisations to build resilient leaders across Europe."
+        },
+        {
+          "name": "Middle East & North Africa",
+          "offices": "Dubai and Riyadh",
+          "descriptor": "Supporting transformation across the Middle East and North Africa."
+        },
+        {
+          "name": "Asia",
+          "offices": "Singapore",
+          "descriptor": "Developing leaders for a fast-changing Asia."
+        }
+      ]
+    },
+    "offices": [
+      {
+        "city": "London",
+        "address": [
+          "60 St Martin’s Lane, Covent Garden",
+          "London WC2N 4JS"
+        ],
+        "tel": "+44 20 3755 5329",
+        "email": "london@corporatednaconsulting.com"
+      },
+      {
+        "city": "Singapore",
+        "address": [
+          "1 Raffles Place, Level 24",
+          "Tower 1, Singapore 048616"
+        ],
+        "tel": "+65 6408 0636",
+        "email": "singapore@corporatednaconsulting.com"
+      },
+      {
+        "city": "Dubai",
+        "address": [
+          "Sheikh Rashid Tower, 4th Floor",
+          "Dubai World Trade Centre, Dubai"
+        ],
+        "tel": "+971 58 141 2901",
+        "email": "dubai@corporatednaconsulting.com"
+      },
+      {
+        "city": "Riyadh",
+        "address": [
+          "2888 King Fahd Road, Saudi Journalists",
+          "Association Building, 2nd Floor, Al Sahafah",
+          "Dist. 13671, Riyadh 13321, RASA6101"
+        ],
+        "tel": "",
+        "email": "riyadh@corporatednaconsulting.com"
+      },
+      {
+        "city": "Miami",
+        "address": [
+          "1221 Brickell Ave, Suite 900",
+          "Miami, FL 33131"
+        ],
+        "tel": "",
+        "email": "miami@corporatednaconsulting.com"
+      }
+    ],
+    "people": {
+      "label": "The people behind it",
+      "title": "Identity is what the team does under pressure.",
+      "body": "Our leadership, our global faculty and the regions we deliver from now have an area of their own.",
+      "cta": "Meet the team"
+    }
+  }
+}

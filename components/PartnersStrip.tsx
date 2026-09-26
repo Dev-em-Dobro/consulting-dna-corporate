@@ -60,7 +60,7 @@ type PartnerLogo = {
  * couber, que é o que se espera; o que a estrutura garante é que HBI e Imperial
  * nunca dividam linha com as outras três.
  *
- * Os arquivos em `public/logos/partners/` são DERIVADOS dos que a cliente
+ * Os arquivos em `public/logos/partner-logos/` são DERIVADOS dos que a cliente
  * mandou na pasta `4. Services` do Drive. Três das cinco precisaram ser tratadas
  * para viver sobre fundo escuro, e isso fica anotado porque é alteração de marca
  * de terceiro:
@@ -95,36 +95,42 @@ const PARTNER_ROWS: PartnerLogo[][] = [
      56/68 eles ganham a massa que a posição pede sem estourar a coluna. */
   [
     {
-      src: "/logos/partners/harvard-business-impact.png",
+      src: "/logos/partner-logos/harvard-business-impact.png",
       alt: "Harvard Business Impact",
       className: "h-[56px] md:h-[68px]",
-      onLight: { src: "/logos/harvard_business_impact.png", className: "h-[88px] md:h-[104px]" },
+      onLight: { src: "/logos/partner-logos/harvard_business_impact.png", className: "h-[96px] md:h-[112px]" },
     },
     {
-      src: "/logos/partners/imperial-college-london.png",
+      src: "/logos/partner-logos/imperial-college-london.png",
       alt: "Imperial College London",
       className: "h-[56px] md:h-[68px]",
-      onLight: { src: "/logos/partners/imperial-college-london.png", className: "h-[88px] md:h-[104px]" },
+      onLight: { src: "/logos/partner-logos/imperial-college-london.png", className: "h-[96px] md:h-[112px]" },
     },
   ],
   [
     {
-      src: "/logos/partners/clo100.png",
+      src: "/logos/partner-logos/clo100.png",
       alt: "CLO100",
       className: "h-[34px] md:h-[40px]",
-      onLight: { src: "/logos/partners/clo100.png", className: "h-[36px] md:h-[42px]", invert: true },
+      onLight: { src: "/logos/partner-logos/clo100.png", className: "h-[40px] md:h-[48px]", invert: true },
     },
     {
-      src: "/logos/partners/ypo.png",
+      src: "/logos/partner-logos/ypo.png",
       alt: "YPO",
       className: "h-[34px] md:h-[40px]",
-      onLight: { src: "/logos/partners/ypo.png", className: "h-[44px] md:h-[52px]", invert: true },
+      onLight: { src: "/logos/partner-logos/ypo.png", className: "h-[44px] md:h-[52px]", invert: true },
     },
     {
-      src: "/logos/partners/explore-performance.png",
+      src: "/logos/partner-logos/explore-performance.png",
       alt: "Explore Performance",
       className: "h-[26px] md:h-[30px]",
-      onLight: { src: "/logos/explore_performance.png", className: "h-[64px] md:h-[72px]" },
+      onLight: { src: "/logos/partner-logos/explore-performance.png", className: "h-[48px] md:h-[56px]", invert: true },
+    },
+    {
+      src: "/logos/partner-logos/imeld-ai.jpg",
+      alt: "Imeld AI",
+      className: "h-[34px] md:h-[40px]",
+      onLight: { src: "/logos/partner-logos/imeld-ai.jpg", className: "h-[52px] md:h-[60px]" },
     },
   ],
 ];
@@ -192,7 +198,7 @@ export default function PartnersStrip({
           mesmas alturas, mesmos arquivos. */}
       <div
         className={[
-          featured ? "mt-10 flex flex-col gap-5" : "flex flex-col items-center gap-y-8",
+          featured ? "mx-auto mt-10 flex max-w-[1180px] flex-col items-center gap-10" : "flex flex-col items-center gap-y-8",
           !featured && label ? "mt-8" : "",
           /* `rounded-xl` porque é o raio que o resto do site usa; um valor novo
              aqui seria um canto que não combina com nenhum outro cartão. */
@@ -207,7 +213,7 @@ export default function PartnersStrip({
             key={row[0].src}
             className={
               featured
-                ? `grid grid-cols-1 gap-5 ${row.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`
+                ? "flex flex-wrap items-center justify-center gap-x-10 gap-y-6"
                 : "flex flex-wrap items-center justify-center gap-x-10 gap-y-8"
             }
           >
@@ -217,9 +223,7 @@ export default function PartnersStrip({
                 <li
                   key={l.src}
                   className={
-                    featured
-                      ? "flex min-h-[148px] items-center justify-center rounded-xl border border-line bg-white px-8 py-8"
-                      : undefined
+                    featured ? "flex items-center justify-center" : undefined
                   }
                 >
                   {/* SEM `next/image`, mesmo critério do mural de clientes: são

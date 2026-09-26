@@ -1,0 +1,28 @@
+Geral
+tirar o travesão do site todo nos textos pra nao parecer ia
+
+home page
+na seção "Client impact" dos 3 cases mudar o layout, trocando o cabeçalho que tem a parte escrito heineken e o logo, deixar mais visual, talvez colocar uma cor de fundo no header diferente em cada card pra destacar mais   
+
+na seção "In partnership with" eles pediram pra dar um destaque maior tbm, talvez tirar o fundo escuro e trocar por 
+
+tirar o epsçaço de todos textos Corporate DNA e deixar "CorporateDNA"
+
+voltar a imagem do hero para a que estava antes da rhea em pé no palco
+
+no carrossel na home e na página team tirar imagem com as pessoas bebendo drinks
+
+about 
+trocar o texto para 4 regions não 5 na tela de about
+o mapa parece achatado, ve com a ai se tem como deixar ele mais proporcional 
+na seção que tem as 4 regiões voltar as imagens que tinham antes 
+
+services
+trocar a imagem  do hero para essa que a rhea mandou
+o texto dos cards tem que ser os textos que elea mandou nas imagens do whatsapp
+
+clients and impact
+trocar a imagem da hero pra imagem que a rhea mandou, pode colocar na ia e pedir pra tirar os textos, só ve se vai ficar bom a qualidade, senão pede pra ia criar uma iamge parecida mas em 1920 de largura
+
+team
+tentar fazer essa modificação nos rostos que a rhea pediu, menos a do guilherme que eles vao mandar

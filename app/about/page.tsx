@@ -442,7 +442,7 @@ function splitLastWord(text: string): [string, string] {
    juntos. Para calibrar: suba o valor se o assunto estiver baixo demais na
    janela, desça se estiver alto demais. */
 const REGION_IMAGES = [
-  { src: "/team/mock/miami.jpg", y: "15%" },
+  { src: "/about/regions/americas.jpg", y: "50%" },
   { src: "/team/mock/london.jpg", y: "0%" },
   { src: "/team/mock/dubai.jpg", y: "40%" },
   { src: "/about/regions/singapore.jpg", y: "50%" },
@@ -972,7 +972,7 @@ export default async function AboutV2Page() {
                 espacejamento encolhe a linha e trabalha contra a presença que a
                 comparação está pedindo. */}
             <h1 className="h-title font-serif max-w-[900px] text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
-              {copy.hero.title}
+              {copy.hero.title.replace(/\.+$/, "")}
             </h1>
             {/* A QUEBRA É MANUAL, e por isso são dois <span> em vez de uma
                 frase só com `max-width` deixando o navegador decidir: o pedido
@@ -1495,9 +1495,11 @@ export default async function AboutV2Page() {
                 junto com o título que ele protege. A Maliha pediu o texto
                 anterior a 21-09 ("Our purpose is to keep leadership real.").
                 Sem a trava, "real." desce sozinho quando a linha quebra. */}
-            <h2 className="font-serif max-w-[820px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              {copy.purpose.title}{" "}
-              <span className="whitespace-nowrap">{copy.purpose.titleNowrap}</span>
+            <h2 className="font-serif max-w-[820px] whitespace-pre-line text-[28px] font-semibold leading-[1.2] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+              {copy.purpose.title}
+              {copy.purpose.titleNowrap ? (
+                <span className="mt-3 block">{copy.purpose.titleNowrap}</span>
+              ) : null}
             </h2>
           </div>
 
@@ -1508,7 +1510,7 @@ export default async function AboutV2Page() {
               trusts us…") foram para o cartão Keeping Leadership Real, no
               bloco da foto. */}
           <blockquote className="mt-8 text-center">
-            <p className="text-[17px] leading-[1.65] text-white/85 md:text-[18px]">
+            <p className="whitespace-pre-line text-[18px] leading-[1.7] text-white/85 md:text-[20px]">
               <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
                 “
               </span>
@@ -1536,12 +1538,38 @@ export default async function AboutV2Page() {
 
           <div aria-hidden className="mx-auto mt-10 h-[2px] w-14 bg-brand-light" />
 
-          <div className="mt-10 space-y-5 text-center text-[17px] leading-[1.65] text-white/75 md:text-[18px]">
-            {copy.purpose.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+          <div className="mt-10 space-y-6 text-center text-[18px] leading-[1.7] text-white/80 md:text-[20px]">
+            {copy.purpose.body.flatMap((p, i) => {
+              const at = p.search(/context[.!?]?\s+/i);
+              if (at < 0) return [<p key={i} className="whitespace-pre-line">{p}</p>];
+              const cut = p.indexOf(" ", at + "context".length);
+              const head = (cut < 0 ? p : p.slice(0, cut)).trim();
+              const tail = (cut < 0 ? "" : p.slice(cut)).trim();
+              return [
+                <p key={`${i}-a`} className="whitespace-pre-line">{head}</p>,
+                tail ? <p key={`${i}-b`} className="whitespace-pre-line">{tail}</p> : null,
+              ];
+            })}
           </div>
         </Reveal>
+      </section>
+
+      <section aria-label="How we work" className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-14">
+          <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {copy.identity.pillars.map((p) => (
+              <div
+                key={p.heading}
+                className="rounded-xl border border-line bg-white p-6 shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)]"
+              >
+                <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
+                  {p.heading}
+                </h3>
+                <p className="mt-3 text-[15px] leading-[1.6] text-ink/80">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── Block 4 · Our Promise ─────────────────────────────────────
@@ -1688,155 +1716,6 @@ export default async function AboutV2Page() {
             existe porque o editor mostra a citação e os quatro cartões em
             telas separadas, cada uma com o seu print — num print só, na
             coluna de 440px desta tela, não se lê nada. */}
-        <div id="identity-quote">
-        <Reveal className="mx-auto max-w-[1440px] px-6 pt-12 md:px-10 md:pt-16">
-          {/* A CITAÇÃO ENCAVALA A FOTO — referência de 09-09 (`ref
-              testimonial.png`): foto de um lado, card do depoimento montado por
-              cima da borda dela, deslocado na vertical.
-
-              ⚠️ A SOBREPOSIÇÃO AQUI É CURTA DE PROPÓSITO, e é a única coisa que
-              muda em relação à referência. Lá o card cobre cerca de um quarto da
-              foto, e funciona porque é o retrato de UMA pessoa: o card entra
-              pelo fundo, ao lado do rosto. A nossa é uma foto de GRUPO, e um
-              quarto da largura significa duas ou três pessoas tapadas. São 64px,
-              ~8% da largura da foto num container de 1440 — o suficiente para o
-              olho ler "um está por cima do outro", pouco o bastante para caber
-              na margem da fotografia.
-
-              A SOMBRA existe porque o card é branco sobre seção branca: nas três
-              bordas que não encostam na foto não haveria nada desenhando o card.
-              É o segundo uso de sombra no site (o primeiro é o painel do submenu
-              na nav), e por isso ela é larga, baixa e quase transparente — para
-              dizer "isto está por cima" sem virar um estilo novo.
-
-              CANTO RETO, ao contrário da referência. Mesma decisão já registrada
-              no topo do arquivo sobre os cards arredondados da imagem da Maliha:
-              o que se aproveita da referência é o arranjo, não a linguagem.
-
-              NO TELEFONE não há lado nenhum para encavalar, então o card sobe
-              32px por cima da BASE da foto e recolhe 16px de cada margem. A base
-              é a parte mais segura de uma foto de grupo (é onde ficam os
-              troncos, não os rostos), e o recuo lateral é o que faz a coisa ler
-              como card sobreposto em vez de bloco de texto encostado. */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-0">
-            {/* ✅ A FOTO DO TIME CHEGOU EM 15-09 — o time sentado na escada, que
-                é a que a Maliha procurava na própria call de 14-09 ("do you guys
-                already have the one of the teams sitting on the stairs?"). Ela
-                veio na pasta `1.About Page` do Drive e com o nome
-                `About page.jpeg`, ou seja endereçada a ESTA página.
-
-                ⚠️ É O RETOQUE COM SEIS DESDE 17-09, e não mais a foto original.
-                Na daily ela apontou esta imagem como "muito distorcida" e pediu
-                para deixá-la "do tamanho real".
-
-                MEDIDO ANTES DE MEXER, porque a queixa não se sustentava como
-                estava escrita: o arquivo antigo era 1066x1333, a caixa é 4:5 e
-                `object-cover` não deforma nada — a comparação contra o original
-                2:3 bateu com um recorte centrado (diferença média de 1,85 num
-                canal de 255, ou seja, o mesmo arquivo). Não havia distorção
-                geométrica em lugar nenhum. O QUE HAVIA era uma foto DESATUALIZADA:
-                a /team já rodava o retoque com seis pessoas desde 16-09 (as duas
-                da fileira da frente foram trocadas por dois homens de terno) e
-                esta página tinha ficado para trás com a versão anterior. É a
-                diferença que ela viu.
-
-                O RECORTE É NOSSO E ESTÁ ANOTADO para quem for refazê-lo: o
-                retoque nasce PAISAGEM (`team/team-stairs-landscape-six.jpg`,
-                2400x1600, 3:2) e o slot é retrato 4:5, então saem 1280x1600
-                a partir de `left: 608` — a janela mais larga que cabe na altura
-                cheia, centrada no grupo. Ninguém é cortado: sobram ~110px de
-                margem na mulher de blazer creme, à esquerda, e ~90px no homem de
-                camisa azul, à direita. Mexer no `left` sem refazer essa conta
-                come alguém numa das duas pontas.
-
-                ⚠️ O NOME DO ARQUIVO MUDOU JUNTO (`team-stairs-about-six.jpg`),
-                e isso não é cosmético: o otimizador do Next serve por URL e já
-                entregou versão velha neste projeto por causa de troca de imagem
-                com nome mantido.
-
-                ⚠️ A MESMA FOTO RODA NA /team, em recorte diferente (lá ela vai
-                paisagem, inteira). O `CDNA_04_Team.docx` avisa que usar a mesma
-                fotografia nas duas páginas "is visible", e isso continua sendo
-                verdade — foi decisão consciente de preencher os dois slots
-                agora, com recortes que não leem como o mesmo arquivo repetido.
-                A segunda foto continua valendo a pena pedir. */}
-            <div className="relative aspect-[4/5] self-center">
-              <Image
-                src={teamStairs}
-                alt="The CorporateDNA team on the office stairs"
-                fill
-                sizes="(min-width: 1024px) 54vw, 100vw"
-                className="object-cover object-center"
-              />
-            </div>
-
-            <div className="relative z-10 mx-4 -mt-8 bg-white px-7 py-9 shadow-[0_18px_50px_-14px_rgba(55,50,52,0.28)] sm:mx-10 lg:mx-0 lg:-ml-16 lg:mt-0 lg:px-12 lg:py-12">
-                <TypeLabel>{copy.identity.label}</TypeLabel>
-                {/* AS ASPAS FICAM AO LADO DO TEXTO, não por cima dele — corrigido
-                    em 08-09 contra a referência.
-
-                    Como estava: a aspa de abertura era `absolute -left-1 -top-6`,
-                    ou seja, pendurada ACIMA da primeira linha e quase colada na
-                    margem. Na referência ela está na mesma altura da primeira
-                    linha, recuada num vão à esquerda, e o texto todo começa depois
-                    dela. É a diferença entre "aspa flutuando sobre a citação" e
-                    "citação recuada com a aspa na margem", que é o desenho certo.
-
-                    Por isso o `pl-9` no <blockquote>: ele abre o vão de 36px onde
-                    a aspa mora, e todo o corpo passa a se alinhar à direita dela,
-                    inclusive as linhas seguintes e a assinatura. Sem o padding a
-                    aspa `absolute` cairia por cima da primeira palavra.
-
-                    `aria-hidden` nas duas: quem usa leitor de tela já recebe a
-                    citação pelo <blockquote>, e "aspas duplas" lido em voz alta é
-                    ruído. */}
-                <blockquote className="relative pl-9">
-                  <span
-                    aria-hidden
-                    className="absolute left-0 top-0 select-none font-serif text-[44px] leading-[0.9] text-brand"
-                  >
-                    “
-                  </span>
-                  {/* Corpo — Source Serif 4 400 a 18px, entrelinha 1,65, que é
-                      a linha "texto corrido" da grade quase sem ajuste: já
-                      estava em 1,65, só a família e o corpo mudaram. A serifa
-                      tem altura de x menor que a Poppins, então 18px aqui lê
-                      com mais ou menos o mesmo tamanho aparente dos 17,5px de
-                      antes — a mudança que se vê é o desenho, não a escala. */}
-                  {/* 22-09: o corpo que estava em "Why Corporate DNA exists"
-                      ("When a client trusts us…") veio para cá. A fala "Keeping
-                      It Real isn’t a slogan" e a assinatura da Rhea saíram com
-                      ele — aquele crédito era da citação, e estes quatro
-                      parágrafos não são assinados. A aspa de fecho continua na
-                      última linha, com `leading-[0]` para o glifo de 44px não
-                      esticar o parágrafo. */}
-                  <div className="space-y-5 text-[17px] leading-[1.65] text-ink/80 md:text-[18px]">
-                    {copy.identity.quote.map((p, i) => {
-                      if (i < copy.identity.quote.length - 1) return <p key={i}>{p}</p>;
-                      /* A ASPA DE FECHAMENTO gruda na última palavra — ver
-                         `splitLastWord`, lá em cima. */
-                      const [head, last] = splitLastWord(p);
-                      return (
-                        <p key={i}>
-                          {head}
-                          <span className="whitespace-nowrap">
-                            {last}
-                            <span
-                              aria-hidden
-                              className="ml-1.5 inline-block translate-y-[0.36em] select-none font-serif text-[44px] leading-[0] text-brand"
-                            >
-                              ”
-                            </span>
-                          </span>
-                        </p>
-                      );
-                    })}
-                  </div>
-                </blockquote>
-            </div>
-          </div>
-        </Reveal>
-        </div>
 
         {/* Quatro pilares, largura cheia, como o outline descreve.
             `items-stretch` dá altura igual aos quatro.
@@ -1894,7 +1773,7 @@ export default async function AboutV2Page() {
             branco — que é a razão pela qual ele existiu aqui em 09-09. O card
             fica como está (branco, borda, sombra), porque é especificação
             escrita do cliente. */}
-        <div id="identity-pillars" className="bg-paper">
+        <div id="identity-pillars" className="hidden">
           <Reveal className="mx-auto max-w-[1440px] px-6 pb-10 pt-8 md:px-10 md:pb-20 md:pt-16">
           <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {copy.identity.pillars.map((p) => (
@@ -2226,7 +2105,7 @@ export default async function AboutV2Page() {
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
                 60+ é, aliás, de número EXATO para PISO — ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
-            <p className="max-w-[620px] text-[20px] leading-[1.4] text-ink md:text-[22px]">
+            <p className="max-w-[620px] whitespace-pre-line text-[20px] font-normal leading-[1.55] text-ink/80 md:text-[22px]">
               {copy.regions.intro}
             </p>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
@@ -2384,7 +2263,7 @@ export default async function AboutV2Page() {
                     );
                   })}
                 </div>
-                <p className="mt-5 text-[14px] leading-[1.6] text-muted">
+                <p className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted">
                   {r.descriptor}
                 </p>
                 </div>

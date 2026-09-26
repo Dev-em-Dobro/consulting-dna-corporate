@@ -1,0 +1,83 @@
+{
+  "hero": {
+    "eyebrow": "Practitioners first. Consultants second",
+    "title": "We’ve led. We’ve learned. We bring both",
+    "subtitle": "A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries."
+  },
+  "leadership": {
+    "label": "Leadership",
+    "title": "The team behind the work.",
+    "managersTitle": "Supported by a team of senior program managers."
+  },
+  "leaders": [
+    {
+      "role": "CEO, Founder, Author, Head of MENA",
+      "region": "UAE",
+      "quote": "With executive teams and top 100 leaders, there’s a certain science to creating magic in the room. It’s finding the optimal blend of ‘care and dare’, then bringing judgement, curiosity, maturity and trust together so people can go further than they thought they would."
+    },
+    {
+      "role": "CEO Americas",
+      "region": "Americas",
+      "quote": "You rarely shift resistance by pushing harder. I’ve found you earn the right to challenge by understanding what people are protecting first."
+    },
+    {
+      "role": "Head of UKEE",
+      "region": "UK",
+      "quote": "After years in senior rooms, I’ve learned to listen as closely to what isn’t being said as to what is. That’s often where the real work is."
+    },
+    {
+      "role": "Head of Asia",
+      "region": "Australia",
+      "quote": "Some of the most important moments in my work have started with a room going quiet and tension rising. If you can hold that moment and give it language, rather than rescue it, something more honest usually emerges."
+    },
+    {
+      "role": "Head of Thought Leadership & Innovation",
+      "region": "Asia",
+      "quote": "When smart people keep repeating a pattern they say they want to change, I look for the commitment underneath it. Surface that, and resistance starts to make sense."
+    },
+    {
+      "role": "Senior Principal",
+      "region": "Asia",
+      "quote": "I’ve seen brilliant strategies die in flat rooms. Part of the craft is knowing when to challenge, when to change the energy, and when to get out of the way."
+    }
+  ],
+  "oneTeam": {
+    "label": "One team",
+    "lines": [
+      "Different perspectives.",
+      "A shared purpose."
+    ]
+  },
+  "faculty": {
+    "label": "Global faculty",
+    "title": "A faculty of 60+ senior practitioners across 36 countries.",
+    "intro": "Our facilitators and coaches come from the behavioural sciences, organisation development, psychology and business. They span over twenty nationalities and a wide range of social identities. They are senior enough to have sat where our clients sit."
+  },
+  "dna": {
+    "label": "The DNA experience",
+    "title": "With our “One DNA TEAM” principle, we execute as one collaborative team.",
+    "strands": [
+      {
+        "title": "One DNA TEAM",
+        "body": "A community of curious, courageous and caring people."
+      },
+      {
+        "title": "The DNA Experience",
+        "body": "We blend our individual talents with the collective expertise of our global pool of 75 members across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time."
+      },
+      {
+        "title": "Trusted Relationships",
+        "body": "Relationships are at the core of who we are. We build long-term, deep relationships with our people and become part of each other’s stories. We are part of a family who care about each other, stay close and grow, laugh and unmask together."
+      },
+      {
+        "title": "Inclusion & Diversity",
+        "body": "Our best-in-class people are full of great character and personality, representing a range of backgrounds in the behavioural sciences and business; coming from different markets around the world, and representing a wide range of social identities."
+      }
+    ]
+  },
+  "cta": {
+    "strapline": "Ready to make leadership real?",
+    "line": "We partner with organisations to unlock real people, cultures and performance.",
+    "ctaLabel": "Get in touch"
+  }
+}

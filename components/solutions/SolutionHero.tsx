@@ -35,7 +35,11 @@ export default function SolutionHero({
   eyebrow,
   title,
   subtitle,
+  subtitleAccent,
+  body,
   imageUrl,
+  noImage = false,
+  credential,
   tint = "none",
   imageFilter = "saturate-[.65] brightness-[.68]",
   imagePosition = "object-center",
@@ -46,6 +50,21 @@ export default function SolutionHero({
   title: string;
   /** A "banner statement" do outline de 09-09 — uma frase, não um parágrafo. */
   subtitle?: string;
+  /**
+   * A SEGUNDA LINHA DA FRASE DE APOIO, EM VERMELHO — 24-09, com o layout de
+   * Family Business Consulting, que escreve a manchete em duas cores.
+   *
+   * ⚠️ MESMA MEDIDA DO `subtitle`, e só a cor muda: no desenho as duas linhas
+   * são a MESMA manchete partida em duas, e dar-lhe corpo diferente a
+   * transformaria numa segunda frase subordinada à primeira.
+   *
+   * ⚠️ `brand-light` E NÃO `brand`: sobre a foto escurecida o vermelho cheio dá
+   * 2,87:1 e não passa na régua. É a regra de uma linha do `globals.css` —
+   * `brand` em fundo claro, `brand-light` em fundo escuro.
+   */
+  subtitleAccent?: string;
+  /** Os parágrafos abaixo da frase de apoio — ver a caixa na marcação. */
+  body?: string[];
   /**
    * A foto do herói.
    *
@@ -61,6 +80,28 @@ export default function SolutionHero({
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
+  /**
+   * SEM FOTO NENHUMA — 24-09, hotfix: a /team ficou com o herói liso. Não cai
+   * no `fallbackPhoto`: a dobra vira só o `bg-ink` da seção, e as camadas de
+   * cor e de escurecimento saem junto, porque sem foto não há o que tingir.
+   */
+  noImage?: boolean;
+  /**
+   * AS PALAVRAS NA BORDA DIREITA DA DOBRA — 24-09, com o layout de Women’s
+   * Leadership Development: *"People / Perspective / Possibilities"*.
+   *
+   * ⚠️ UM ARRAY PORQUE AS QUEBRAS SÃO DO DESENHO, exatamente como o
+   * `credential` dos cartões de público: as três palavras empilham em três
+   * linhas, e uma string única com `text-balance` as distribuiria pela largura
+   * disponível.
+   *
+   * ⚠️ SÓ NO DESKTOP. No telefone o texto do herói é ancorado embaixo e ocupa a
+   * dobra inteira — não há coluna livre à direita onde pôr isto sem cair em
+   * cima do título.
+   *
+   * ⏳ UM DOS DEZ TEM. Ausente = a dobra segue como sempre.
+   */
+  credential?: string[];
   /**
    * `object-position` da foto, em classe do Tailwind. Padrão `object-center`.
    *
@@ -160,63 +201,67 @@ export default function SolutionHero({
        (título de três linhas no telefone), e 84svh é o PISO, não o teto.
        */
     <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
-      <Image
-        src={src}
-        alt=""
-        aria-hidden
-        fill
-        priority
-        sizes="100vw"
-        className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
-      />
+      {noImage ? null : (
+        <>
+          <Image
+            src={src}
+            alt=""
+            aria-hidden
+            fill
+            priority
+            sizes="100vw"
+            className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
+          />
 
-      {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
-          DOM para quem quiser reativar um duotone por página.
+          {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
+              DOM para quem quiser reativar um duotone por página.
 
-          O `multiply` fica aqui e não vira camada chapada porque é a única
-          mistura que serve a este lugar: chapado sobre foto escura vira lama,
-          já que clareia as sombras; o multiply mantém os pretos e tinge só o
-          que tem luz. Quem devolver um gradiente ao `tint` herda isso de graça. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-20 mix-blend-multiply"
-        style={{ backgroundImage: tint }}
-      />
+              O `multiply` fica aqui e não vira camada chapada porque é a única
+              mistura que serve a este lugar: chapado sobre foto escura vira lama,
+              já que clareia as sombras; o multiply mantém os pretos e tinge só o
+              que tem luz. Quem devolver um gradiente ao `tint` herda isso de graça. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-20 mix-blend-multiply"
+            style={{ backgroundImage: tint }}
+          />
 
-      {/* ESCURECIMENTO — a diferença entre as duas telas.
-          Desktop: vem da ESQUERDA, onde o texto mora, e abre para a direita,
-          deixando a foto respirar. É a composição que a variação 4 tinha. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 hidden md:block"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
-        }}
-      />
+          {/* ESCURECIMENTO — a diferença entre as duas telas.
+              Desktop: vem da ESQUERDA, onde o texto mora, e abre para a direita,
+              deixando a foto respirar. É a composição que a variação 4 tinha. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 hidden md:block"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
+            }}
+          />
 
-      {/* No TELEFONE o gradiente horizontal não serve: numa tela de 390px o
-          texto atravessa a largura inteira, então "escuro à esquerda, claro à
-          direita" deixaria o fim de cada linha sobre foto crua. Aqui ele é
-          VERTICAL e sobe da base, porque no telefone o texto foi ancorado
-          embaixo (`justify-end`) em vez de centralizado.
+          {/* No TELEFONE o gradiente horizontal não serve: numa tela de 390px o
+              texto atravessa a largura inteira, então "escuro à esquerda, claro à
+              direita" deixaria o fim de cada linha sobre foto crua. Aqui ele é
+              VERTICAL e sobe da base, porque no telefone o texto foi ancorado
+              embaixo (`justify-end`) em vez de centralizado.
 
-          ⚠️ A PRIMEIRA VERSÃO ERROU PARA O LADO ESCURO, e o erro só apareceu
-          medindo. Ela fechava o gradiente inteiro (.92/.86/.62/.80) para cobrir
-          o texto no centro, e o resultado dava 15:1 de contraste — três vezes
-          mais do que texto pequeno precisa — ao custo de apagar a foto por
-          completo. Contraste de sobra não é segurança, é imagem jogada fora.
+              ⚠️ A PRIMEIRA VERSÃO ERROU PARA O LADO ESCURO, e o erro só apareceu
+              medindo. Ela fechava o gradiente inteiro (.92/.86/.62/.80) para cobrir
+              o texto no centro, e o resultado dava 15:1 de contraste — três vezes
+              mais do que texto pequeno precisa — ao custo de apagar a foto por
+              completo. Contraste de sobra não é segurança, é imagem jogada fora.
 
-          Ancorar o texto embaixo desfaz o conflito: o escurecimento fica onde o
-          texto está e o terço de cima abre, então a foto volta a existir. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 md:hidden"
-        style={{
-          backgroundImage:
-            "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
-        }}
-      />
+              Ancorar o texto embaixo desfaz o conflito: o escurecimento fica onde o
+              texto está e o terço de cima abre, então a foto volta a existir. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 md:hidden"
+            style={{
+              backgroundImage:
+                "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
+            }}
+          />
+        </>
+      )}
 
       {/* A ENTRADA É A DA HOME, desde 11-09 — a escada de
           `lib/hero-timeline.ts`, a mesma que a /about roda. Este herói é o de
@@ -273,6 +318,80 @@ export default function SolutionHero({
           <p className="h-sub mt-6 max-w-[560px] text-[19px] leading-[1.45] text-white/80 md:text-[21px]">
             {subtitle}
           </p>
+        )}
+
+        {/* ⬅ A SEGUNDA LINHA DA MANCHETE, EM VERMELHO — ver a prop
+            `subtitleAccent`. `mt-2` e não `mt-6`: as duas linhas são a MESMA
+            frase partida em duas, e o respiro de parágrafo entre elas as
+            separaria em afirmações independentes. */}
+        {subtitleAccent && (
+          <p className="h-sub mt-2 max-w-[560px] text-[19px] leading-[1.45] text-brand-light md:text-[21px]">
+            {subtitleAccent}
+          </p>
+        )}
+
+        {/* ⬅ OS PARÁGRAFOS DO HERÓI — 24-09, com o layout do Talent
+            Development, que é o primeiro dos dez a escrever corpo dentro do
+            herói em vez de só a frase de apoio.
+
+            ⚠️ NÃO É UM SEGUNDO `subtitle`, e a diferença de medida é o que
+            impede que vire um: a frase de apoio é 19/21px em `white/80` e
+            carrega a afirmação da página; estes são 15/16px em `white/70` e
+            são explicação. Postos na mesma medida, o herói passaria a ter três
+            blocos de texto do mesmo peso e a manchete perderia o lugar.
+
+            ⚠️ O TETO DE LARGURA É MAIOR QUE O DA FRASE DE APOIO (620 contra
+            560) porque o corpo é menor: mantida a medida de lá, um parágrafo de
+            duas linhas ali vira quatro linhas aqui, e a coluna fica alta demais
+            para a altura fixa do herói (`84svh`) no telefone.
+
+            ⏳ UM DOS DEZ TEM. Ausente = o herói termina na frase de apoio, como
+            sempre. */}
+        {body && body.length > 0 && (
+          <div className="h-sub mt-6 max-w-[620px] space-y-3">
+            {body.map((line) => (
+              <p
+                key={line}
+                className="text-[15px] leading-[1.55] text-white/70 md:text-[16px]"
+              >
+                {line}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {/* ⬅ AS TRÊS PALAVRAS DA BORDA DIREITA — ver a prop `credential`.
+
+            A CAIXA DE FORA CARREGA O DESLOCAMENTO E A DE DENTRO A ANIMAÇÃO, e
+            isso não é aninhamento à toa: a entrada do herói anima `y` via
+            transform, e o `-translate-y-1/2` que centra o bloco é transform
+            também — na mesma tag, o GSAP sobrescreveria a centralização e as
+            palavras cairiam para o topo da dobra.
+
+            O `max-w-[1440px] px-6/px-10` repete o do <HeroIntro> pela razão da
+            seta de rolagem: é o que faz o texto nascer na mesma margem do
+            título em telas mais largas que 1440. */}
+        {credential && credential.length > 0 && (
+          <div className="absolute inset-x-0 top-1/2 hidden -translate-y-1/2 md:block">
+            <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">
+              <p className="h-sub ml-auto w-fit text-right text-[12px] font-semibold uppercase leading-[2] tracking-[3px] text-white/90">
+                {credential.map((word) => (
+                  /* Uma linha por `<span>` em bloco, e não `<br/>`: o leitor de
+                     tela lê as três como sequência e a quebra continua sendo do
+                     desenho. */
+                  <span key={word} className="block">
+                    {word}
+                  </span>
+                ))}
+                {/* A RÉGUA DO PÉ é a mesma do rótulo lá em cima, virada para a
+                    direita — é ela que fecha o bloco contra a borda. */}
+                <span
+                  aria-hidden
+                  className="ml-auto mt-3 block h-0.5 w-9 bg-brand-light"
+                />
+              </p>
+            </div>
+          </div>
         )}
 
         {/* A SETA DE ROLAGEM — mora aqui dentro, e não ao lado do <HeroIntro>,

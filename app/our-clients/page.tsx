@@ -16,10 +16,10 @@ import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats, getFirmStats } from "@/lib/stats";
 import { getClientsCopy } from "@/lib/clients-copy-server";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
-/* 23-09: a Rhea mandou o paredão de logos (`clients-impact.jpeg`). O título
-   que vinha gravado na arte saiu, porque o herói já escreve o h1 por cima.
-   O arquivo limpo mora em `public/hero`. */
-import clientsHero from "@/public/hero/clients-impact.jpeg";
+/* 24-09 (hotfix): o herói passou a usar a foto que era do herói da /team, que
+   ficou sem imagem. O paredão de logos da Rhea (`clients-impact.jpeg`, sem o
+   título gravado na arte) continua em `public/hero` — é trocar o import. */
+import clientsHero from "@/public/team/team-hero-24-09.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -198,7 +198,7 @@ export default async function ClientsAndImpactPage() {
           title={copy.hero.title}
           subtitle={copy.hero.subtitle}
           imageUrl={clientsHero}
-          imagePosition="object-[62%_center]"
+          imagePosition="object-top"
         />
         </div>
 

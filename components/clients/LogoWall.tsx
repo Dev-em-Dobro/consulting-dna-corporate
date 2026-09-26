@@ -39,7 +39,7 @@ export default function LogoWall({ logos }: { logos: string[] }) {
           className="flex items-center justify-center bg-white px-4 py-7 md:px-6 md:py-8"
         >
           <Image
-            src={`/logos/${file}`}
+            src={`/logos/client-logos/${file}`}
             alt={label(file)}
             width={150}
             height={60}

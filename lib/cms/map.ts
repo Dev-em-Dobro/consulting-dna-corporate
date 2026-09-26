@@ -73,17 +73,18 @@ function mapResources(refs?: S.ResourceRefRaw[]): ResourceLink[] | undefined {
 }
 
 /**
- * Client brand logos live in `public/logos/<name>.png`, named as the slugified
- * client (e.g. "Shell" → shell.png, "Coca Cola" → coca_cola.png). Read the
- * folder once and match a slugified client name to a file; return the public
- * URL, or undefined when no logo exists (the case band then stays dark, no image).
+ * Client brand logos live in `public/logos/client-logos/<name>.png`, named as the
+ * slugified client with hyphens (e.g. "Shell" → shell.png, "Coca Cola" →
+ * coca-cola.png). Read the folder once and match a slugified client name to a
+ * file; return the public URL, or undefined when no logo exists (the case band
+ * then stays dark, no image).
  */
 let logoSet: Set<string> | null = null;
 function logoBasenames(): Set<string> {
   if (logoSet) return logoSet;
   logoSet = new Set();
   try {
-    const dir = path.join(process.cwd(), "public", "logos");
+    const dir = path.join(process.cwd(), "public", "logos", "client-logos");
     for (const f of fs.readdirSync(dir)) {
       if (f.toLowerCase().endsWith(".png")) logoSet.add(f.slice(0, -4).toLowerCase());
     }
@@ -113,9 +114,11 @@ const LOGO_ALIASES: Record<string, string> = {
 export function resolveClientLogo(client: string): { url?: string; color?: string } {
   if (!client) return {};
   const slug = LOGO_ALIASES[logoSlug(client)] ?? logoSlug(client);
-  if (!logoBasenames().has(slug)) return {};
+  const file = slug.replace(/_/g, "-");
+  if (!logoBasenames().has(file)) return {};
   // Predominant brand colour is baked by scripts/gen-logo-colors.ts.
-  return { url: `/logos/${slug}.png`, color: LOGO_COLORS[slug] };
+  // Keys there still use underscores (`coca_cola`), the files use hyphens.
+  return { url: `/logos/client-logos/${file}.png`, color: LOGO_COLORS[slug] };
 }
 
 // ---- View models -----------------------------------------------------------

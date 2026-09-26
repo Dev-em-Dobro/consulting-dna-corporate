@@ -86,7 +86,7 @@ export default function LogoMarquee({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/logos/${file}`}
+              src={`/logos/client-logos/${file}`}
               alt={label(file)}
               loading="lazy"
               className="max-h-[52px] w-auto max-w-full object-contain"

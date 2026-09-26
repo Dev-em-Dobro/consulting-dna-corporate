@@ -90,7 +90,17 @@ test("ênfase aninhada corrompe em silêncio (comportamento conhecido, não supo
  * quebraria a página — ele passaria numa revisão rápida, que é pior.
  */
 test("nenhum serviço tem as duas faixas de evidência ao mesmo tempo", () => {
-  const ambos = services.filter((s) => s.evidence && s.evidenceSummary).map((s) => s.slug);
+  /* ⬅ SÃO TRÊS DESDE 24-09: `evidenceCases` (os cartões de cliente do layout de
+     Women’s Leadership Development) entra na mesma conta, e pela mesma razão —
+     ela escreve "Evidence" e ocupa este lugar. Duas quaisquer das três na mesma
+     página publicam o rótulo duas vezes. */
+  const ambos = services
+    .filter(
+      (s) =>
+        [s.evidence, s.evidenceSummary, s.evidenceCases].filter(Boolean)
+          .length > 1,
+    )
+    .map((s) => s.slug);
   assert.deepEqual(ambos, [], "estes serviços desenhariam o rótulo Evidence duas vezes");
 });
 
@@ -185,6 +195,62 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
           o,
         ],
       ),
+      /* ⬅ OS CAMPOS DO LAYOUT DE TALENT DEVELOPMENT, 24-09. Entraram aqui no
+         mesmo commit que os criou, pela razão que a caixa acima explica: a copy
+         nova chega por layout desenhado ANTES do pedido de 23-09, e é a
+         transcrição "à letra" que reintroduz o caractere. Este layout não tem
+         nenhum travessão — o teste existe para o próximo serviço que copiar
+         estes campos de um que tenha. */
+      ...(s.heroBody ?? []).map(
+        (p, i): [string, string | undefined] => [`heroBody.${i}`, p],
+      ),
+      ["inflectionPoints.headline", s.inflectionPoints?.headline],
+      ["inflectionPoints.lead", s.inflectionPoints?.lead],
+      ...(s.inflectionPoints?.items ?? []).map(
+        (p, i): [string, string | undefined] => [`inflectionPoints.${i}`, p],
+      ),
+      ["capabilitiesHeader.headline", s.capabilitiesHeader?.headline],
+      ["capabilitiesHeader.lead", s.capabilitiesHeader?.lead],
+      ...(s.commonOutcome?.items ?? []).map(
+        (p, i): [string, string | undefined] => [`commonOutcome.${i}`, p],
+      ),
+      /* ⚠️ A FAIXA DE FLUXO TEM SETAS (→) E ISSO NÃO É TRAVESSÃO, mas ela é
+         justamente o campo onde alguém teclaria um por engano ao escrever a
+         frase à mão. */
+      ["stepsFlow", s.stepsFlow],
+      ...(s.shifts?.items ?? []).flatMap(
+        (p, i): [string, string | undefined][] => [
+          [`shifts.${i}.from`, p.from],
+          [`shifts.${i}.to`, p.to],
+        ],
+      ),
+      ["evidenceSummary.note", s.evidenceSummary?.note],
+      /* ⬅ OS CAMPOS DO LAYOUT DE WOMEN’S LEADERSHIP DEVELOPMENT, 24-09. Entram
+         aqui no mesmo commit que os criou: aquele desenho tem QUATRO traços de
+         pontuação, e transcrevê-lo "à letra" reintroduziria o caractere que o
+         pedido de 23-09 mandou tirar. */
+      ["ambition", s.ambition],
+      ["stepsNote", s.stepsNote],
+      ...(s.audiences ?? []).flatMap((a, i): [string, string | undefined][] =>
+        (a.focus ?? []).map((f, j) => [`audiences.${i}.focus.${j}`, f]),
+      ),
+      ["evidenceCases.headline", s.evidenceCases?.headline],
+      ["evidenceCases.lead", s.evidenceCases?.lead],
+      ...(s.evidenceCases?.items ?? []).flatMap(
+        (c, i): [string, string | undefined][] => [
+          [`evidenceCases.${i}.client`, c.client],
+          [`evidenceCases.${i}.title`, c.title],
+          [`evidenceCases.${i}.tagline`, c.tagline],
+          [`evidenceCases.${i}.note`, c.note],
+          ...c.facts.map(
+            (f, j): [string, string | undefined] => [
+              `evidenceCases.${i}.facts.${j}`,
+              f.label,
+            ],
+          ),
+        ],
+      ),
+      ["evidenceSummary.experience.lead", s.evidenceSummary?.experience?.lead],
       ["ecosystem.headline", s.ecosystem?.headline],
       ["ecosystem.body", s.ecosystem?.body],
       ["ecosystem.asideTitle", s.ecosystem?.asideTitle],
@@ -197,6 +263,48 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
           [`proof.${i}.body`, p.body],
         ],
       ),
+      /* ⬅ OS CAMPOS DO LAYOUT DE FAMILY BUSINESS CONSULTING, 24-09. Entram aqui
+         no mesmo commit que os criou, pela razão de sempre: a copy nova chega
+         por layout desenhado ANTES do pedido de 23-09, e é a transcrição "à
+         letra" que reintroduz o caractere. Aquele layout não tem nenhum
+         travessão — tem MEIOS-TRAÇOS ("founder-led", "High-Performing"), que
+         não são alvo. */
+      ["heroSubtitleAccent", s.heroSubtitleAccent],
+      ...(s.heroCredential ?? []).map(
+        (w, i): [string, string | undefined] => [`heroCredential.${i}`, w],
+      ),
+      ...(
+        [
+          ["family", s.twoSystems?.family],
+          ["business", s.twoSystems?.business],
+        ] as const
+      ).flatMap(([lado, painel]): [string, string | undefined][] => [
+        [`twoSystems.${lado}.lead`, painel?.lead],
+        [`twoSystems.${lado}.body`, painel?.body],
+        ...(painel?.items ?? []).flatMap(
+          (it, i): [string, string | undefined][] => [
+            [`twoSystems.${lado}.${i}.label`, it.label],
+            [`twoSystems.${lado}.${i}.body`, it.body],
+          ],
+        ),
+      ]),
+      ["twoSystems.venn.note", s.twoSystems?.venn.note],
+      ...(s.entryPoints?.items ?? []).map(
+        (p, i): [string, string | undefined] => [`entryPoints.${i}`, p],
+      ),
+      ["entryPoints.noteLead", s.entryPoints?.noteLead],
+      ["entryPoints.noteAccent", s.entryPoints?.noteAccent],
+      ["outcomeSummary.headline", s.outcomeSummary?.headline],
+      ...(s.outcomeSummary?.items ?? []).map(
+        (p, i): [string, string | undefined] => [`outcomeSummary.${i}`, p],
+      ),
+      ...(s.outcomeSummary?.note ?? []).map(
+        (p, i): [string, string | undefined] => [
+          `outcomeSummary.note.${i}`,
+          p,
+        ],
+      ),
+      ["outcomeSummary.experience.body", s.outcomeSummary?.experience?.body],
     ];
     for (const [campo, texto] of campos) {
       assert.ok(

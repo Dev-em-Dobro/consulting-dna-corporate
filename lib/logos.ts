@@ -5,20 +5,41 @@
  * exactly how they drift, and the brief asks for the wall to carry immediate
  * credibility on both.
  *
- * Files live in /public/logos. The order is deliberate — the largest and most
- * globally recognisable names lead, with Aramco first.
+ * Files live in /public/logos/client-logos. The order is deliberate — the largest
+ * and most globally recognisable names lead.
+ *
+ * ============================================================================
+ * ⚠️ LISTA DE 24-09 — SÓ CLIENTES DE VERDADE
+ * ============================================================================
+ * A daily pediu para tirar do banner as empresas que ainda são só negociação e
+ * refazer a esteira com a pasta nova de logos. São estes dezenove arquivos,
+ * importados de `Desktop/logos` no mesmo dia: recortados pela caixa do alfa e
+ * reduzidos a 800px no lado maior, o mesmo tratamento dos arquivos de evidência.
  *
  * Every name here is already published on the live site. Adding one is a CDNA
  * approval matter, not a code change: the brief is explicit that no client name
  * or logo reaches production without sign-off.
  */
 export const clientLogos = [
-  "aramco.png", "alphabet.png", "microsoft.png", "visa.png", "shell.png",
-  "nestle.png", "coca_cola.png", "unilever.png", "bp.png", "hsbc.png",
-  "disney.png", "pfizer.png", "novartis.png", "sanofi.png", "rio_tinto.png",
-  "anglo_american.png", "goldman_sachs.png", "morgan_stanley.png", "citi.png", "standard_chartered.png",
-  "chanel.png", "rolls_royce.png", "aston_martin.png", "mclaren.png", "lego.png",
-  "adidas.png", "dyson.png",
+  "microsoft.png",
+  "shell.png",
+  "coca-cola.png",
+  "unilever.png",
+  "hsbc.png",
+  "adidas.png",
+  "heineken.png",
+  "bank-of-england.png",
+  "aston-martin.png",
+  "dp-world.png",
+  "dubai-holding.png",
+  "frasers-property.png",
+  "hbo-max.png",
+  "bain-capital.png",
+  "collins-aerospace.png",
+  "kedaara.png",
+  "schroders.png",
+  "singtel.png",
+  "swarovski.png",
 ];
 
 /**

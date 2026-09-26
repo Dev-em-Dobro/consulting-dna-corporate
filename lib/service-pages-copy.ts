@@ -95,7 +95,9 @@ const copyOf = (s: Service): ServiceCopy => ({
   howWeWorkBody: s.howWeWork ?? s.howWeHelp,
   pillars: s.practices?.items ?? s.pillars ?? [],
   audiences: (s.audiences ?? []).map((a) => ({
-    label: a.label,
+    /* `?? ""` desde 24-09: o rótulo sobreposto virou opcional (o layout do
+       Executive Coaching não o desenha), e a forma da copy continua uniforme. */
+    label: a.label ?? "",
     title: a.title,
     body: a.body,
     credential: a.credential ?? [],
@@ -197,11 +199,36 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
             /* CASADO POR POSIÇÃO com o que está em `lib/services.ts`, como os
                números do case e os cartões de público: o editor troca o texto
                de cada medida, não quantas medidas existem. */
+            /* ⚠️ O `icon` VOLTA DO CÓDIGO, E NÃO DA COPY SALVA — 24-09, com as
+               quatro medidas do Talent Development. Ele não é texto: é o campo
+               que decide EM QUE ARRANJO a medida desenha (grade de ícones acima
+               dos logos, ou a fileira intercalada com eles — a conta está em
+               `SolutionEvidenceSummary`). Reconstruir o `ServiceFact` só com
+               `value` e `label`, como esta linha fazia, apagava o ícone de toda
+               página com copy salva e derrubava as quatro medidas na fileira
+               antiga, espremidas entre seis logos.
+
+               ⚠️ NÃO BASTA ACRESCENTÁ-LO AO `ServiceCopy`: ele não é editável e
+               não deve ser. O editor troca as PALAVRAS de cada medida; qual
+               glifo acompanha cada uma é decisão de layout, e o mapa que a
+               resolve é fechado por rótulo (ver `SolutionPillars`).
+
+               O pareamento é POR POSIÇÃO, como o do resto deste bloco. */
             ...(copy.evidenceSummary?.facts
               ? {
-                  facts: copy.evidenceSummary.facts.map((f) => ({
+                  facts: copy.evidenceSummary.facts.map((f, i) => ({
                     value: f.value,
                     label: f.label || undefined,
+                    icon: service.evidenceSummary?.facts?.[i]?.icon,
+                    /* ⚠️ O `body` VOLTA DO CÓDIGO PELA MESMA RAZÃO DO `icon` —
+                       24-09, com as quatro medidas do Executive Coaching. Ele
+                       TAMBÉM decide arranjo (medida com descrição sai alinhada à
+                       esquerda, com filete), então reconstruir o fato sem ele
+                       apagaria as quatro descrições e devolveria a grade
+                       centrada na primeira vez que alguém salvasse copy.
+                       Diferença para o `icon`: este é texto, e pode virar campo
+                       do editor no dia em que a cliente pedir. */
+                    body: service.evidenceSummary?.facts?.[i]?.body,
                   })),
                 }
               : {}),
@@ -288,7 +315,16 @@ export function sectionsFor(slug: string): EditorSection[] {
         { path: "bySlug.SLUG.banner", label: "Sub-headline", kind: "textarea", hint: "Also shown on the card." },
       ]),
     },
-    {
+  ];
+
+  /* ⚠️ A SEÇÃO SÓ EXISTE SE O BLOCO DESENHA — 24-09, com o Talent Development,
+     que perdeu o "What we do" a pedido (`hideWhatWeDo`). Os dois campos
+     continuam no padrão, porque a forma da copy é uniforme nos dez; o que sai é
+     a TELA. Oferecê-los daria dois campos que não chegam a lugar nenhum — a
+     mesma régua dos cartões de público e da assinatura de fecho, e
+     `tests/services-copy.test.ts` casa as duas coisas. */
+  if (!service.hideWhatWeDo) {
+    out.push({
       id: "what-we-do",
       title: "What we do",
       anchor: at,
@@ -306,8 +342,8 @@ export function sectionsFor(slug: string): EditorSection[] {
           hint: "Leave an empty line between paragraphs. Put **two asterisks** around words to make them bold.",
         },
       ]),
-    },
-  ];
+    });
+  }
 
   if (service.audiences?.length) {
     out.push({

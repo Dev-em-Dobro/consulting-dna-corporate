@@ -1,0 +1,51 @@
+Home
+Banner de clientes: tirar as empresas que ainda não são clientes (são só negociações). Nova pasta com logos aqui
+Refazer o banner com os logos
+
+Home page - Our people section additional text to add 
+Different by design
+There is no single mould for a DNA facilitator/coach.
+Our people come from different countries, cultures, careers, disciplines and life experiences. Some have led businesses. Some are psychologists, coaches or behavioural scientists. Some have spent their careers inside organisations; others have advised them. What connects us is curiosity, character, generosity and the confidence to bring our whole selves to the work.
+
+Our People:
+realinhar por causa do texto novo; aqui a IA vai ter que ver por que alguns textos e titulos não estão respeitando a formatação de quebra de linha do /edit
+centralizar melhor o carrossel;
+padronizar a fonte, porque tem trecho com fonte diferente (veio de copiar e colar);
+resolver o espaço vazio ao lado do bloco alinhado à esquerda, em harmonia com o carrossel.
+
+In partnership with: colocar mais esse https://drive.google.com/file/d/1Z_P3cASQN0qk1cUmMr0QnYLlgFkhl6Y1/view?usp=drive_link. O texto já foi atualizado por elas.
+
+Awards and mentions:
+renomear para só "Awards";
+usar os prêmios do overview deck: Corporate Vision 2x, Brand People 2x, Corporate Excellence 2x, Top 15 Books e os demais;
+remover HSBC.
+
+Livro: trocar por essa imagem https://drive.google.com/file/d/1XG0wfLRJnYvEoA4VOvKm8FsW9OwRfeSz/view?usp=drive_link. O texto já foi atualizado.
+
+About
+Hero: mover a imagem para a direita e expandir a área cinza, para os 5 países aparecerem e Londres começar mais para dentro. Antes, checar se a imagem suporta.
+Ponto final: remover o ponto final que elas não conseguem editar.
+Bloco de texto: o conteúdo está ok, só melhorar a formatação e o tamanho da fonte.
+Why Corporate DNA exists: formatar a frase estendida que elas adicionaram.
+Os 4 boxes (We invest in identity, We lead with care…): subir para dentro do bloco do purpose statement. Se não couber, logo abaixo dele.
+
+Texto novo: quebrar em parágrafos, um depois de "context" e outro antes da palavra indicada.
+Mapa: a parte de cima parece achatada.
+Americas TROCAR POR ESSA IMAGEM https://drive.google.com/file/d/10dD6uTLswnypre0MmAs-atoW341gUaqi/view?usp=drive_link
+
+Team
+Layout: ajustar o layout com o texto novo.
+nOVA IMAGEM DO HERO https://drive.google.com/file/d/1ZmH4TsfLwI5EB1sOVRABcLhK6YsqYd5F/view?usp=drive_link
+
+Fotos da liderança em cor, JÁ TINHAMOS ESSas imagens da pra ver se tem como voltar para a versao das imagens coloridas
+colocar foto nova do guli 
+
+a faculty provavelmente continua P&B.
+Remover PMO e formatar a seção de texto.
+Associates: o mesmo título embaixo de todos Sr. faculty / coach
+Fotos desproporcionais:
+trocar a imagem da amy pra essa https://drive.google.com/file/d/1HVBzPgi4BYle1Nop4EbJ4Y_EkF5UJg4G/view?usp=drive_link e da nicole pre essa https://drive.google.com/file/d/1um2YvTL40Qyku-rpDIoUxuCkW0QgeZDC/view?usp=drive_link
+o código está esticando as imagens pequenas.
+Services
+Geral:
+os mesmos ícones para os mesmos conceitos em todas as páginas;

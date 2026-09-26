@@ -1,15 +1,23 @@
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionSection from "@/components/solutions/SolutionSection";
 import SolutionAudiences from "@/components/solutions/SolutionAudiences";
+import SolutionAmbition from "@/components/solutions/SolutionAmbition";
+import SolutionInflectionPoints from "@/components/solutions/SolutionInflectionPoints";
+import SolutionShifts from "@/components/solutions/SolutionShifts";
+import SolutionTwoSystems from "@/components/solutions/SolutionTwoSystems";
+import SolutionEntryPoints from "@/components/solutions/SolutionEntryPoints";
+import SolutionOutcome from "@/components/solutions/SolutionOutcome";
 import SolutionPathways from "@/components/solutions/SolutionPathways";
 import SolutionMoments from "@/components/solutions/SolutionMoments";
 import SolutionSteps from "@/components/solutions/SolutionSteps";
+import SolutionStandouts from "@/components/solutions/SolutionStandouts";
 import SolutionEcosystem from "@/components/solutions/SolutionEcosystem";
 import SolutionProof from "@/components/solutions/SolutionProof";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
 import SolutionClosing from "@/components/solutions/SolutionClosing";
 import SolutionEvidence from "@/components/solutions/SolutionEvidence";
 import SolutionEvidenceSummary from "@/components/solutions/SolutionEvidenceSummary";
+import SolutionEvidenceCases from "@/components/solutions/SolutionEvidenceCases";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/solutions/ServiceCard";
@@ -121,7 +129,11 @@ export default function SolutionView({
            em 08-09 chama a área de Services, e o índice abre com o mesmo rótulo.
            A rota segue `/solutions` de propósito — ver a caixa em `lib/nav.ts`
            sobre por que os caminhos não foram renomeados atrás dos rótulos. */
-        eyebrow="Our Services"
+        /* ⚠️ O PADRÃO NÃO MUDOU — "Our Services" continua sendo o rótulo das
+           dez páginas, e o `??` é a exceção de UMA: o layout de Family Business
+           Consulting escreve "FAMILY-LED BUSINESS CONSULTING" ali. Ver a caixa
+           de `heroEyebrow` em `lib/services.ts`. */
+        eyebrow={service.heroEyebrow ?? "Our Services"}
         title={service.title}
         /* ✅ A LINHA DE APOIO É A DO LAYOUT DE 24-09 NESTA PÁGINA, e a `banner`
            nas outras nove. A conta está no `??`, e a história vale registrar
@@ -183,6 +195,16 @@ export default function SolutionView({
            Teams. Hoje são QUATRO com foto própria e seis sem — não vale contar
            por esta caixa, vale contar por `grep heroImage lib/services.ts`. */
         imageUrl={service.heroImage ?? service.cardImage}
+        /* ⬅ OS PARÁGRAFOS DENTRO DA DOBRA — 24-09, com o Talent Development.
+           Ausente nos outros nove, e lá o herói termina na frase de apoio como
+           sempre. Ver `heroBody` em `lib/services.ts`. */
+        body={service.heroBody}
+        /* ⬅ A SEGUNDA METADE DA MANCHETE, EM VERMELHO — 24-09, com o layout de
+           Family Business Consulting. Ausente nos outros nove, e lá a frase de
+           apoio termina onde sempre terminou. */
+        subtitleAccent={service.heroSubtitleAccent}
+        /* ⬅ A COLUNA DE PALAVRAS NO CANTO DA DOBRA, do mesmo layout. */
+        credential={service.heroCredential}
       />
 
       {/* SEM IMAGEM NOS DOIS BLOCOS, e isto é a decisão de 12-09 — não um slot
@@ -282,6 +304,15 @@ export default function SolutionView({
           mockup mostra a copy nova; quem não tem continua mostrando a do
           `CDNA_03_Services.docx`, que nunca deixou de ser publicável. Ver as
           caixas de `whatWeDo` e `howWeWork` em `lib/services.ts`. */}
+      {/* ⚠️ O BLOCO PODE NÃO EXISTIR, desde 24-09 — `hideWhatWeDo`, a pedido, no
+          Talent Development. É a PRIMEIRA vez que uma das dez páginas perde uma
+          das duas faixas de duas colunas, e vale saber o que isso implica: o
+          que vier logo abaixo passa a ser a primeira coisa depois do herói, e
+          as faixas daqui de baixo nasceram todas sem padding no topo, porque
+          foram desenhadas para CONTINUAR este bloco. Quem tirar o bloco de
+          outro serviço confere isso antes. Ver a caixa do campo em
+          `lib/services.ts`. */}
+      {!service.hideWhatWeDo && (
       <SolutionSection
         label="What we do"
         headline={headlineOr(service.whatWeDoHeadline ?? service.outcomeHeadline)}
@@ -296,13 +327,50 @@ export default function SolutionView({
            ver a caixa dele em `lib/services.ts`. Nove serviços não o têm e caem
            no arranjo de duas colunas de sempre. */
         layout={service.sectionLayout}
+        /* ⬅ 24-09: os diferenciais do Executive Coaching À DIREITA do bloco —
+           ver `capabilitiesBeside` em `lib/services.ts`. Com ele, a fileira de
+           `capabilities` mais abaixo não desenha. */
+        aside={
+          service.capabilitiesBeside && service.capabilities?.length ? (
+            <SolutionStandouts
+              label={service.capabilitiesHeader?.label}
+              items={service.capabilities}
+            />
+          ) : undefined
+        }
       />
+      )}
+
+      {/* ⬅ NOVO EM 24-09, com o layout do Talent Development: a grade de oito
+          ladrilhos dos momentos em que o talento emperra.
+
+          ⚠️ ENTRA ANTES DOS CARTÕES DE PÚBLICO, que é a ordem do layout — ele
+          pergunta "quando" antes de "com quem". O preço está logo abaixo: os
+          cartões deixam de encostar no "What we do" e por isso ganharam rótulo
+          próprio. Os outros nove não têm o campo e a página segue direto. */}
+      <SolutionInflectionPoints item={service.inflectionPoints} />
 
       {/* ⬅ NOVO EM 21-09. Divide a faixa BRANCA com o bloco acima, sem emenda —
           no mockup os três cartões pertencem visivelmente ao "What we do". Nos
-          nove serviços sem `audiences` isto não renderiza e a página segue
-          direto do primeiro bloco para o segundo, como antes. */}
-      <SolutionAudiences items={service.audiences} />
+          oito serviços sem `audiences` isto não renderiza e a página segue
+          direto do primeiro bloco para o segundo, como antes.
+
+          ⚠️ COM `audiencesLabel` A FAIXA DEIXA DE SER CONTINUAÇÃO e passa a ter
+          rótulo e respiro no topo — é o caso do Talent Development, onde a
+          grade de ladrilhos entrou entre ela e o bloco de cima. Ver a prop no
+          componente. */}
+      <SolutionAudiences items={service.audiences} label={service.audiencesLabel} />
+
+      {/* ⬅ NOVO EM 24-09, com o layout de Women’s Leadership Development: a
+          faixa rosa de uma linha que amarra as três trilhas de público numa
+          ambição só. Divide a faixa BRANCA com os cartões acima, sem emenda —
+          no desenho ela pertence a eles, e é o `pb` daqui que abre o degrau
+          até a faixa `paper` do "How we work".
+
+          ⚠️ NÃO É O `closing` NEM O `stepsFlow`, e os três podem conviver sem
+          se atropelar: são lugares diferentes da página. Ver a caixa de
+          `ambition` em `lib/services.ts`. */}
+      <SolutionAmbition line={service.ambition} />
 
       {/* ⬅ NOVO EM 24-09, com o layout de Manager Development. Divide a faixa
           BRANCA com o "What we do", sem emenda, pela mesma razão dos cartões de
@@ -324,11 +392,53 @@ export default function SolutionView({
           `sequence={false}` é o que os separa dos `steps`: mesma anatomia, sem
           seta e em `<ul>`, porque a ordem dos cinco não afirma nada. Ver a prop
           no `SolutionSteps`. */}
-      <SolutionSteps items={service.capabilities} sequence={false} tone="white" />
+      {/* ⚠️ O CABEÇALHO É O QUE SEPARA OS DOIS USOS DESTA FILEIRA. Sem ele (a
+          HRLT) ela continua o bloco branco de cima, colada nele. Com ele (os
+          aceleradores do Talent Development) ela é faixa autônoma, com rótulo,
+          manchete e padding no topo — a conta está no próprio `SolutionSteps`. */}
+      <SolutionSteps
+        items={service.capabilitiesBeside ? undefined : service.capabilities}
+        sequence={false}
+        tone="white"
+        label={service.capabilitiesHeader?.label}
+        headline={service.capabilitiesHeader?.headline}
+        lead={service.capabilitiesHeader?.lead}
+        /* ⬅ 24-09: o glifo à esquerda do texto, com filete entre as células —
+           ver `capabilitiesLayout` em `lib/services.ts`. Sem o campo, o arranjo
+           é o de sempre. */
+        variant={service.capabilitiesLayout}
+      />
+
+      {/* ⬅ NOVO EM 24-09, com o Talent Development: a fileira "Common outcome",
+          entre os aceleradores e o "How we work".
+
+          ⚠️ É A MESMA PEÇA DOS `pillars`, e os dois NÃO colidem nesta página
+          porque a fileira do pé é decidida mais abaixo por `steps`, que tem
+          precedência sobre `pillars`. Um serviço que tivesse `commonOutcome` e
+          caísse nos `pillars` desenharia a mesma fileira duas vezes — é a razão
+          de `ServiceCommonOutcome` ser um tipo separado de `ServicePractices`, e
+          está registrada na caixa dele. */}
+      <SolutionPillars
+        items={service.commonOutcome?.items}
+        label={service.commonOutcome?.label}
+      />
 
       {/* ⬅ NOVO EM 24-09. Faixa PRÓPRIA, com rótulo próprio vindo do dado — ao
           contrário das trilhas, ela não pertence ao bloco de cima. */}
       <SolutionMoments moments={service.moments} />
+
+      {/* ⬅ NOVO EM 24-09, com o layout de Family Business Consulting: a faixa
+          "Two systems. One future.", com os dois painéis e o diagrama de Venn
+          entre eles. Divide a faixa BRANCA com o "What we do", como os cartões
+          de público e as trilhas — no desenho ela é a primeira coisa depois da
+          dobra, e tem rótulo próprio. Os outros nove não têm o campo. */}
+      <SolutionTwoSystems item={service.twoSystems} />
+
+      {/* ⬅ NOVO EM 24-09, do mesmo layout: a faixa rosa dos oito gatilhos, com
+          o fecho de duas linhas à direita. É o ÚNICO campo de cor lavado da
+          página, e cai entre a faixa branca acima e a `paper` do "How we work"
+          logo abaixo — três degraus claros em vez de dois iguais encostados. */}
+      <SolutionEntryPoints item={service.entryPoints} />
 
       {/* ✅ ESTE BLOCO VOLTOU EM 21-09, e o erro que o tirou vale mais registrado
           do que escondido.
@@ -409,10 +519,41 @@ export default function SolutionView({
       {service.ecosystem ? (
         <SolutionEcosystem item={service.ecosystem} />
       ) : service.steps?.length ? (
-        <SolutionSteps items={service.steps} />
+        <SolutionSteps
+          items={service.steps}
+          flow={service.stepsFlow}
+          /* ⬅ O DISCO NUMERADO VOLTA POR DADO — ver `stepsNumbered` em
+              `lib/services.ts` e a prop `numbered` no componente. Ausente =
+              `false`, que é o pedido de 24-09 sobre a Manager Development. */
+          numbered={service.stepsNumbered}
+          plainIcons={service.stepsPlainIcons}
+          /* ⬅ A LINHA DE NOTA ABAIXO DA FILEIRA — 24-09, com o layout de
+             Women’s Leadership Development. Ausente = a fileira termina nos
+             ícones, como nas outras páginas. Ver `stepsNote` em
+             `lib/services.ts`. */
+          note={service.stepsNote}
+        />
       ) : (
         <SolutionPillars items={service.practices?.items ?? service.pillars} />
       )}
+
+      {/* ⬅ NOVO EM 24-09, com o Talent Development: os pares "de → para", em
+          faixa `paper` própria logo abaixo da fileira de passos — as duas são o
+          mesmo assunto, e um degrau de fundo entre elas as separaria em blocos
+          sem relação. No layout esta lista é uma COLUNA ao lado dos passos; o
+          que se ganhou e o que se perdeu com a troca está no cabeçalho do
+          componente. */}
+      <SolutionShifts item={service.shifts} />
+
+      {/* ⬅ NOVO EM 24-09, com o layout de Family Business Consulting: o fecho
+          "The outcome" e o "Our experience" ao lado dele. Faixa BRANCA contra a
+          `paper` do "What shifts" logo acima — o mesmo degrau que separa as
+          provas do ecossistema na Culture Transformation.
+
+          ⚠️ NÃO É O `proof`, que desenha três cartões ESCUROS e é o fecho de
+          outra página. Os dois podem empilhar sem colidir; hoje nenhum serviço
+          tem os dois. */}
+      <SolutionOutcome item={service.outcomeSummary} />
 
       {/* ⬅ NOVO EM 24-09, com o layout de Culture Transformation: os três
           cartões de prova, em faixa BRANCA logo abaixo da faixa escura do
@@ -473,13 +614,36 @@ export default function SolutionView({
           caixa de abertura deste arquivo. */}
       {service.evidenceSummary && (
         <SolutionEvidenceSummary
+          /* ⚠️ O RÓTULO É COPY DESDE 24-09: o layout do Talent Development chama
+             esta faixa de "The impact". Ausente, o componente escreve
+             "Evidence", que é como os outros dois a escrevem — e o que a caixa
+             logo acima, sobre o divisor "Featured case study", continua a
+             descrever. */
+          label={service.evidenceSummary.label}
           headline={service.evidenceSummary.headline}
           lead={service.evidenceSummary.lead}
           logos={service.evidenceSummary.logos}
+          logoSize={service.evidenceSummary.logoSize}
           facts={service.evidenceSummary.facts}
           outcomes={service.evidenceSummary.outcomes}
+          experience={service.evidenceSummary.experience}
+          note={service.evidenceSummary.note}
         />
       )}
+
+      {/* ⬅ A TERCEIRA FAIXA DE EVIDÊNCIA — 24-09, com o layout de Women’s
+          Leadership Development: três cartões de cliente, um por prova, em faixa
+          BRANCA.
+
+          ⚠️ AS TRÊS SÃO EXCLUDENTES e ocupam este mesmo lugar, escrevendo o
+          mesmo rótulo. A ordem em que estão escritas aqui é a precedência —
+          `evidenceSummary`, depois esta, depois `evidence` — e nenhum serviço
+          tem duas hoje: o teste em `tests/services.test.ts` guarda a regra.
+
+          ⚠️ O DIVISOR "FEATURED CASE STUDY" NÃO ANUNCIA ESTA FAIXA, pela mesma
+          conta da faixa acima: ele segue condicionado a `service.evidence` e
+          nomeia o bloco de caso, que isto não é. */}
+      <SolutionEvidenceCases item={service.evidenceCases} />
 
       {service.evidence && (
         <SolutionEvidence

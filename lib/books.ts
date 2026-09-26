@@ -67,7 +67,7 @@ export const books: Book[] = [
       "More than a leadership book, this is the story of how a boutique consultancy scaled through financial crises, wars and a global pandemic by intentionally building a CorporateDNA that clients now seek to emulate. Blending real-world leadership stories with a practical framework, the book explores how culture, leadership, decision-making and human behaviour become an organisation's greatest source of resilience and growth.",
       "For leaders who want to build companies that thrive through uncertainty, not just survive it. This is a blueprint for creating a legacy that lasts.",
     ],
-    cover: "/book-cover.png",
+    cover: "/book-cover-24-09.jpg",
     buyUrl: "https://www.amazon.com/Leadership-Its-Your-Rhea-Duttagupta/dp/1408168340",
   },
 ];

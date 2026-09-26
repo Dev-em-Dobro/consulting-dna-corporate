@@ -153,7 +153,7 @@ export const leaders: Leader[] = [
     /* 23-09, vídeo da Rhea: o enquadramento mostrava mais corpo que rosto.
        Recorte do mesmo arquivo, sem redesenhar o rosto. O anterior fica em
        `rhea-leckie-4x5-bw.jpg`. */
-    portrait: "/team/rhea-leckie-face-bw.jpg",
+    portrait: "/team/rhea-leckie-face.jpg",
   },
   {
     name: "Guilherme Mendes",
@@ -168,7 +168,7 @@ export const leaders: Leader[] = [
        e num quadro 4:5 ele saía encostado na borda. O corte é 870×1088 a partir
        de x=0, que põe o rosto no meio. Continua sendo a foto ANTIGA: a oficial
        dele é uma das duas que a Maliha anunciou para 10-09 e ainda não chegaram. */
-    portrait: "/team/guilherme-mendes-bw.jpg",
+    portrait: "/team/guilherme-mendes-24-09.jpg",
   },
   {
     name: "Mike Jackson",
@@ -183,7 +183,7 @@ export const leaders: Leader[] = [
     /* 23-09, vídeo da Rhea: esta foto deveria voltar ao retrato profissional
        anterior (terno), no mesmo tamanho de rosto de Genevieve e Nitin. O
        close da camiseta preta fica em `mike-jackson-2-bw.jpg`. */
-    portrait: "/team/mike-jackson-3-bw.jpg",
+    portrait: "/team/mike-jackson-face.jpg",
   },
   {
     name: "Genevieve James",
@@ -196,7 +196,7 @@ export const leaders: Leader[] = [
     /* TROCADO EM 18-09 pelo retrato novo da cliente — ver a caixa da `leaders`.
        O anterior (`/team/genevieve-james-bw.jpg`, 1024×1536) era o que a Rhea
        tinha reprovado. */
-    portrait: "/team/genevieve-james-2-bw.jpg",
+    portrait: "/team/genevieve-james.png",
     /* ⏸️ O `portraitPosition` SAIU EM 18-09 junto com a troca do arquivo — a
        própria nota abaixo avisava: "se o arquivo trocar, este número não vale
        mais". O novo já vem recortado em 3:4 no arquivo, então o `object-cover`
@@ -227,7 +227,7 @@ export const leaders: Leader[] = [
     /* 23-09, vídeo da Rhea: o rosto estava pequeno e o corpo grande, ao
        contrário de Genevieve e Nitin. Recorte do mesmo arquivo, sem
        redesenhar o rosto. O anterior fica em `jon-paul-pritchard-bw.jpg`. */
-    portrait: "/team/jon-paul-pritchard-2-bw.jpg",
+    portrait: "/team/jon-paul-pritchard-face.jpg",
   },
   {
     name: "Nitin Goil",
@@ -241,7 +241,7 @@ export const leaders: Leader[] = [
        praticamente o 4:5 do quadro — o `cover` corta 39px de altura, tirados de
        BAIXO (`position: top`) porque a margem acima da cabeça já é a certa e é
        o ombro que sobra. Normalizado para 1024x1280 como os outros. */
-    portrait: "/team/nitin-goil-bw.jpg",
+    portrait: "/team/nitin-goil.jpg",
   },
 ];
 
@@ -547,9 +547,9 @@ export type RosterPerson = {
  * para rótulo de público é uma linha cada, e é pergunta para a próxima daily.
  */
 export const programmeManagers: RosterPerson[] = [
-  { name: "Maliha Bathool", meta: "MENA", portrait: "/team/programme-managers/maliha-bathool.jpg" },
-  { name: "Carol Medcalf", meta: "UKEE", portrait: "/team/programme-managers/carol-medcalf.jpg" },
-  { name: "Nicole Phoon", meta: "Asia", portrait: "/team/programme-managers/nicole-phoon.jpg" },
+  { name: "Maliha Bathool", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/maliha-bathool.jpg" },
+  { name: "Carol Medcalf", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/carol-medcalf.jpg" },
+  { name: "Nicole Phoon", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/nicole-phoon.jpg" },
 ];
 
 /**
@@ -659,7 +659,11 @@ export const facultyByRegion: FacultyRegionGroup[] = (() => {
     const group = bucket
       ? groups.find((g) => g.region === bucket)
       : unlabeled;
-    group?.people.push({ name: person.name, portrait: person.portrait });
+    group?.people.push({
+      name: person.name,
+      portrait: person.portrait,
+      meta: "Sr. faculty / coach",
+    });
   }
 
   const filled = groups.filter((g) => g.people.length > 0);
