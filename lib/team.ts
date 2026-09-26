@@ -497,6 +497,10 @@ export type RosterPerson = {
   /** A linha de baixo: cargo nos programme managers, região na faculty. */
   meta?: string;
   portrait: string;
+  /** Cargo visível quando a `meta` é a região usada no agrupamento. */
+  title?: string;
+  /** Liderança na grade de delivery fica em cor. A faculty continua em P&B. */
+  color?: boolean;
 };
 
 /**
@@ -547,9 +551,9 @@ export type RosterPerson = {
  * para rótulo de público é uma linha cada, e é pergunta para a próxima daily.
  */
 export const programmeManagers: RosterPerson[] = [
-  { name: "Maliha Bathool", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/maliha-bathool.jpg" },
-  { name: "Carol Medcalf", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/carol-medcalf.jpg" },
-  { name: "Nicole Phoon", meta: "Sr. faculty / coach", portrait: "/team/programme-managers/nicole-phoon.jpg" },
+  { name: "Maliha Bathool", meta: "Program Manager", portrait: "/team/programme-managers/maliha-bathool.jpg" },
+  { name: "Carol Medcalf", meta: "Program Manager", portrait: "/team/programme-managers/carol-medcalf.jpg" },
+  { name: "Nicole Phoon", meta: "Program Manager", portrait: "/team/programme-managers/nicole-phoon.jpg" },
 ];
 
 /**
@@ -602,7 +606,11 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Amy Scialdone", meta: "Americas", portrait: "/team/faculty/amy-scialdone.jpg" },
   { name: "Lisa Kaplin", meta: "Americas", portrait: "/team/faculty/lisa-kaplin.jpg" },
   { name: "Gemma McFall", meta: "Middle East", portrait: "/team/faculty/gemma-mcfall.jpg" },
-  { name: "Bret Freeman", meta: "UK & Europe", portrait: "/team/faculty/bret-freeman.jpg" },
+  { name: "Bret Freeman", meta: "Middle East", portrait: "/team/faculty/bret-freeman.jpg" },
+  { name: "Mauricio Tasca", meta: "Americas", portrait: "/team/faculty/mauricio-tasca.png", title: "Sr. faculty / coach" },
+  { name: "Aroldo Couto", meta: "Americas", portrait: "/team/faculty/aroldo-couto.png", title: "Sr. faculty / coach" },
+  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli.jpg", title: "Sr. faculty / coach" },
+  { name: "Susana Azevedo", meta: "Americas", portrait: "/team/faculty/susana-azevedo.jpg", title: "Sr. faculty / coach" },
   { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
   { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
 ];
@@ -662,8 +670,19 @@ export const facultyByRegion: FacultyRegionGroup[] = (() => {
     group?.people.push({
       name: person.name,
       portrait: person.portrait,
-      meta: "Sr. faculty / coach",
+      meta: person.title ?? "Faculty Coach",
     });
+  }
+
+  const deliveryLeaders: { region: string; person: RosterPerson }[] = [
+    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas", color: true } },
+    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE", color: true } },
+    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA", color: true } },
+    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation", color: true } },
+    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia", color: true } },
+  ];
+  for (const entry of deliveryLeaders) {
+    groups.find((g) => g.region === entry.region)?.people.unshift(entry.person);
   }
 
   const filled = groups.filter((g) => g.people.length > 0);

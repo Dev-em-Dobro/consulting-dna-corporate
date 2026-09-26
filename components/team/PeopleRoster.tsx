@@ -106,7 +106,7 @@ export default function PeopleRoster({
                   ? "(min-width: 1024px) 15vw, (min-width: 768px) 30vw, 50vw"
                   : "(min-width: 1280px) 17vw, (min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
               }
-              className={`object-cover object-[center_22%]${mono ? " grayscale" : ""}`}
+              className={`object-cover object-[center_22%]${mono && !p.color ? " grayscale" : ""}`}
             />
             {/* A RÉGUA VERMELHA NO PÉ é o mesmo objeto do `PeopleGrid`, e é o
                 que amarra estas duas grades novas às que já existiam na página.
