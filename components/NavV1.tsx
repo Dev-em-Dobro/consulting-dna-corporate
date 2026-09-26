@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
 
 function Chevron({ className = "" }: { className?: string }) {
@@ -23,12 +24,30 @@ function Chevron({ className = "" }: { className?: string }) {
   );
 }
 
-export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
+export default function NavV1({
+  items = siteNav,
+  theme = "brand",
+}: {
+  items?: NavItem[];
+  theme?: "brand" | "light";
+}) {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const pathname = usePathname();
+  const light = theme === "light";
+
+  const isActive = (href?: string) => {
+    if (!href || href.includes("#")) return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
-    <header className="sticky top-0 z-50 bg-brand text-white">
+    <header
+      className={`sticky top-0 z-50 border-b ${
+        light ? "border-line bg-white text-ink" : "border-transparent bg-brand text-white"
+      }`}
+    >
       {/* 1440px, e não os 1200px históricos, desde 08-09.
           O conteúdo da /about-v2 subiu para 1440 e o logo ficava 120px à direita
           da borda do título numa tela de 1600 — a barra e o conteúdo têm de
@@ -40,7 +59,11 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           outro lado, e some quando o resto do site migrar para 1440.
           O painel do menu no telefone (mais abaixo) segue em 1200 de propósito:
           ele só aparece abaixo de `lg`, onde nem 1200 nem 1440 chegam a valer. */}
-      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
+      <div
+        className={`mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10 ${
+          light ? "h-[56px]" : "h-[76px]"
+        }`}
+      >
         <Link
           href="/"
           className="flex flex-none items-center gap-3"
@@ -54,9 +77,9 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               logo em `h-8`. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo-full-light.png"
+            src={light ? "/cdna-logo-full.png" : "/cdna-logo-full-light.png"}
             alt="CorporateDNA Consulting"
-            className="h-[38px] w-auto xl:h-12"
+            className={light ? "h-[34px] w-auto" : "h-[38px] w-auto xl:h-12"}
           />
         </Link>
 
@@ -66,7 +89,7 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
             overflow was clipped rather than scrolled, so the item that vanished
             was the last one — the Contact button. A hamburger on a tablet beats
             a CTA that is silently not there. */}
-        <nav className="hidden items-center justify-end gap-[30px] lg:flex">
+        <nav className={`hidden items-center justify-end lg:flex ${light ? "gap-[26px]" : "gap-[30px]"}`}>
           {items.map((item) =>
             item.cta ? (
               // Outline and not a filled block: this bar is already solid brand
@@ -76,7 +99,11 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
-                className="inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand"
+                className={`inline-flex items-center whitespace-nowrap rounded-full border px-5 py-3 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] transition-colors duration-200 ${
+                  light
+                    ? "border-brand bg-brand text-white hover:border-brand-dark hover:bg-brand-dark"
+                    : "border-white/70 text-white hover:border-white hover:bg-white hover:text-brand"
+                }`}
               >
                 {item.label}
               </Link>
@@ -85,7 +112,14 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
                 <Link
                   href={item.href ?? "#"}
                   aria-haspopup="true"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap border-b-2 pb-1 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] underline-offset-[6px] transition-colors duration-200 ${
+                    light
+                      ? isActive(item.href)
+                        ? "border-brand text-ink"
+                        : "border-transparent text-ink hover:border-brand"
+                      : "border-transparent text-white group-hover:underline"
+                  }`}
                 >
                   {item.label}
                   <Chevron className="transition-transform duration-200 group-hover:rotate-180" />
@@ -110,7 +144,14 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
               <Link
                 key={item.label}
                 href={item.href ?? "#"}
-                className="inline-flex items-center whitespace-nowrap text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] text-white underline-offset-[6px] transition-colors duration-200 hover:underline"
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={`inline-flex items-center whitespace-nowrap border-b-2 pb-1 text-[11.5px] font-semibold uppercase leading-none tracking-[0.6px] underline-offset-[6px] transition-colors duration-200 ${
+                  light
+                    ? isActive(item.href)
+                      ? "border-brand text-ink"
+                      : "border-transparent text-ink hover:border-brand"
+                    : "border-transparent text-white hover:underline"
+                }`}
               >
                 {item.label}
               </Link>
@@ -125,7 +166,9 @@ export default function NavV1({ items = siteNav }: { items?: NavItem[] }) {
           aria-expanded={open}
           aria-controls="v1-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white lg:hidden"
+          className={`-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center lg:hidden ${
+            light ? "text-ink" : "text-white"
+          }`}
         >
           <svg
             width="26"

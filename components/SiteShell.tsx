@@ -6,10 +6,14 @@ import { buildSiteNav } from "@/lib/nav-server";
 /** Site chrome (sticky nav + footer) wrapping a page's content. */
 export default async function SiteShell({
   children,
+  className = "",
   footerTopBorder = false,
   floatingNav = false,
+  lightNav = false,
+  style,
 }: {
   children: React.ReactNode;
+  className?: string;
   footerTopBorder?: boolean;
   /**
    * Troca a barra vermelha (NavV1) pelo menu transparente que flutua sobre o
@@ -29,14 +33,17 @@ export default async function SiteShell({
    * ela se prenderia ao documento inteiro em vez desta árvore.
    */
   floatingNav?: boolean;
+  /** Light header used by pages whose approved layout starts on white. */
+  lightNav?: boolean;
+  style?: React.CSSProperties;
 }) {
   const nav = await buildSiteNav();
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    <div className={`relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white ${className}`} style={style}>
       {floatingNav ? (
         <NavV2 items={nav} maxWidthClass="max-w-[1440px]" outlined />
       ) : (
-        <NavV1 items={nav} />
+        <NavV1 items={nav} theme={lightNav ? "light" : "brand"} />
       )}
       <main className="flex-1">{children}</main>
       <SiteFooter topBorder={footerTopBorder} />
