@@ -208,14 +208,12 @@ const differentiators = [
 //
 // SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
 //
-// A COR DO CABEÇALHO entrou em 23-09 (main): cada card leva a cor do próprio
-// cliente (verde, vermelho, amarelo) para os três se separarem. Ela vem de
-// `lib/logo-colors.ts`, e `onLight` é o texto escuro de quem tem fundo claro —
-// o amarelo da Shell. Arte, como o logo, então mora aqui e não na copy.
-const caseArt: { logo?: string; headerBg: string; onLight?: boolean }[] = [
-  { logo: "heineken.png", headerBg: LOGO_COLORS.heineken },
-  { logo: "coca-cola.png", headerBg: LOGO_COLORS.coca_cola },
-  { logo: "shell.png", headerBg: LOGO_COLORS.shell, onLight: true },
+// Os tons suaves distinguem os três cartões sem transformar a marca em uma
+// faixa saturada. A cor original da Coca-Cola segue na métrica do segundo card.
+const caseArt: { logo?: string; headerBg: string; cardTint: string; metricAccent?: boolean }[] = [
+  { logo: "heineken.png", headerBg: LOGO_COLORS.heineken, cardTint: "#effaf4" },
+  { logo: "coca-cola.png", headerBg: LOGO_COLORS.coca_cola, cardTint: "#fff5f5", metricAccent: true },
+  { logo: "shell.png", headerBg: LOGO_COLORS.shell, cardTint: "#fffbea" },
 ];
 
 
@@ -663,67 +661,45 @@ export default async function Home() {
           {/* `bg-white` nos cards continua sendo estrutural, não decoração: com
               a faixa em `paper`, é o preenchimento branco que os destaca do
               fundo. Guli: "os cards continuam com fundo branco." */}
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {cases.map((c) => (
-              <article key={c.client} className="flex flex-col border border-line bg-white">
-                {/* O LOGO DO CLIENTE ENTROU NO CABEÇALHO DO CARD — 21-09,
-                    *"Add company logos to client metrics"*.
-
-                    NUMA PLACA BRANCA, e isso não é enfeite. Os arquivos de
-                    /public/logos são marcas coloridas ou escuras sobre fundo
-                    transparente, feitas para papel branco: a Heineken é verde,
-                    a Coca-Cola é vermelha, a Shell é a concha vermelha e
-                    amarela. Jogadas direto sobre a cor do cabeçalho, as duas
-                    primeiras somem. É a mesma placa que o `LogoMarquee`
-                    desenha na esteira da home, que corre sobre o mesmo ink e
-                    pelo mesmo motivo.
-
-                    À DIREITA, e o nome fica onde estava. O nome escrito é que
-                    sustenta o card para quem não reconhece a marca e para quem
-                    usa leitor de tela; o logo é o reforço visual. Por isso ele
-                    também é `alt=""` — o nome já está na linha ao lado, e com
-                    alt o leitor anunciaria "Heineken" duas vezes seguidas.
-
-                    `<img>` e não `<Image>` do Next: são PNGs pequenos de
-                    largura fixa, servidos como estão. Mesma escolha, e mesma
-                    razão, do `LogoMarquee`. */}
-                {/* 23-09: cada cabeçalho leva a cor do próprio cliente (verde,
-                    vermelho, amarelo) para os três cards se separarem. A placa
-                    branca do logo fica — a marca some se sentar na mesma cor. */}
-                <div
-                  className={`flex items-center gap-5 px-7 py-6 ${
-                    c.onLight ? "text-ink" : "text-white"
-                  }`}
-                  style={{ backgroundColor: c.headerBg }}
-                >
+              <article
+                key={c.client}
+                className="flex flex-col overflow-hidden rounded-[22px] border border-[#e7e9e9] bg-white shadow-[0_14px_34px_rgba(30,38,45,0.08),0_2px_7px_rgba(30,38,45,0.04)]"
+                style={{ backgroundImage: `linear-gradient(135deg, #fff 58%, ${c.cardTint} 100%)` }}
+              >
+                {/* O nome identifica o cliente; o logo à direita é decorativo
+                    (`alt=""`) e fica numa placa branca para preservar as cores
+                    originais dos arquivos. */}
+                <div className="flex items-start gap-4 px-7 pb-5 pt-7 text-ink">
                   <div className="min-w-0 flex-1">
-                    <div className="text-[22px] font-bold leading-none tracking-[0.3px]">{c.client}</div>
-                    <div className="mt-2 text-[11px] font-semibold uppercase tracking-[1px]">{c.sector}</div>
+                    <div className="text-[22px] font-bold leading-tight tracking-[-0.4px]">{c.client}</div>
+                    <div className="mt-2 inline-block rounded-full bg-brand/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[1px] text-muted">{c.sector}</div>
                   </div>
                   {c.logo ? (
-                    <span className="flex h-[60px] w-[108px] flex-none items-center justify-center rounded-xl bg-white px-3">
+                    <span className="flex h-14 w-28 flex-none items-center justify-center rounded-full border border-line bg-white px-2 shadow-sm sm:w-32">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`/logos/client-logos/${c.logo}`}
                         alt=""
                         loading="lazy"
-                        className="max-h-[42px] w-auto max-w-full object-contain"
+                        className="max-h-10 w-auto max-w-full object-contain"
                       />
                     </span>
                   ) : null}
                 </div>
-                <div className="flex flex-1 flex-col px-[26px] py-7">
+                <div className="flex flex-1 flex-col px-7 pb-7 pt-3">
                   <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.impact.challengeLabel}</p>
-                  <p className="mb-[22px] text-[15px] leading-[1.55] text-[#4a4548]">{c.challenge}</p>
-                  <div className="mt-auto pt-[22px]">
-                    <span className="mb-[18px] block h-[3px] w-9 bg-brand" />
-                    <div className="text-[40px] md:text-[52px] font-bold leading-none tracking-[-1.5px] text-brand">
+                  <p className="mb-8 text-[15px] leading-[1.6] text-[#5c5f65]">{c.challenge}</p>
+                  <div className="mt-auto pt-5">
+                    <span className="mb-5 block h-px w-full bg-[#e6e9e8]" />
+                    <div className="text-[42px] font-bold leading-none tracking-[-1.5px] text-ink md:text-[52px]" style={c.metricAccent ? { color: c.headerBg } : undefined}>
                       <Counter value={c.metric} />
                     </div>
-                    <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
+                    <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-muted">{c.metricLabel}</div>
                     <a
                       href="/cases"
-                      className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
+                      className="mt-7 block text-right text-[14px] font-semibold text-brand transition-colors hover:text-brand-dark"
                     >
                       {copy.impact.readMore}
                     </a>

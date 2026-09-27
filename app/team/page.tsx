@@ -341,7 +341,7 @@ export default async function OurTeamPage() {
                 quebrariam a árvore de cabeçalhos para quem navega por leitor de
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
-          <p className="mb-10 max-w-[40rem] whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:text-[18px]">
+          <p className="mb-10 w-full whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:text-[18px]">
             {copy.leadership.managersTitle}
           </p>
               <PeopleRoster people={programmeManagers} size="lg" />
