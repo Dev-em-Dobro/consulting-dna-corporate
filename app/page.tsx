@@ -208,12 +208,12 @@ const differentiators = [
 //
 // SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
 //
-// Os tons suaves distinguem os três cartões sem transformar a marca em uma
-// faixa saturada. A cor original da Coca-Cola segue na métrica do segundo card.
-const caseArt: { logo?: string; headerBg: string; cardTint: string; metricAccent?: boolean }[] = [
-  { logo: "heineken.png", headerBg: LOGO_COLORS.heineken, cardTint: "#effaf4" },
-  { logo: "coca-cola.png", headerBg: LOGO_COLORS.coca_cola, cardTint: "#fff5f5", metricAccent: true },
-  { logo: "shell.png", headerBg: LOGO_COLORS.shell, cardTint: "#fffbea" },
+// Os tons suaves distinguem os três cartões. As métricas acompanham as cores
+// das marcas, com o laranja escolhido para a métrica da Shell.
+const caseArt: { logo?: string; cardTint: string; metricColor: string }[] = [
+  { logo: "heineken.png", cardTint: "#effaf4", metricColor: LOGO_COLORS.heineken },
+  { logo: "coca-cola.png", cardTint: "#fff5f5", metricColor: LOGO_COLORS.coca_cola },
+  { logo: "shell.png", cardTint: "#fffbea", metricColor: "#f15d00" },
 ];
 
 
@@ -693,7 +693,7 @@ export default async function Home() {
                   <p className="mb-8 text-[15px] leading-[1.6] text-[#5c5f65]">{c.challenge}</p>
                   <div className="mt-auto pt-5">
                     <span className="mb-5 block h-px w-full bg-[#e6e9e8]" />
-                    <div className="text-[42px] font-bold leading-none tracking-[-1.5px] text-ink md:text-[52px]" style={c.metricAccent ? { color: c.headerBg } : undefined}>
+                    <div className="text-[42px] font-bold leading-none tracking-[-1.5px] md:text-[52px]" style={{ color: c.metricColor }}>
                       <Counter value={c.metric} />
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-muted">{c.metricLabel}</div>
