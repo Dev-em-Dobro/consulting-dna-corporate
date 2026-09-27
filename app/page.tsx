@@ -247,7 +247,7 @@ export default async function Home() {
   // A copy editável (23-09): rótulos dos números por posição (os VALORES seguem
   // do CMS), o livro com o texto da home por cima do módulo, e os cards.
   const stats = cmsStats.map((s, i) => ({ ...s, label: copy.credibility.statLabels[i] ?? s.label }));
-  const homeBook = { ...book, ...copy.book };
+  const homeBook = { ...book, ...copy.book, cover: "/book-cover-home-transparent.png" };
   const cases = copy.impact.cases.map((c, i) => ({ ...c, ...caseArt[i] }));
   const reals = copy.solve.reals;
 
@@ -329,7 +329,7 @@ export default async function Home() {
             author: "Rhea Leckie",
             path: "/#book",
             description: homeBook.body[1] ?? homeBook.body[0],
-            image: `${SITE_URL}/book-cover.jpg`,
+            image: `${SITE_URL}${homeBook.cover}`,
           }),
         ]}
       />
@@ -886,7 +886,7 @@ export default async function Home() {
 
               Os endossos continuam DENTRO do cartão, recuperados da antiga
               /book-endorsements, que redireciona para cá. */}
-          <BookCard book={homeBook}>
+          <BookCard book={homeBook} coverShadow={false}>
             <BookEndorsements />
           </BookCard>
         </Reveal>

@@ -18,10 +18,12 @@ import type { Book } from "@/lib/books";
 export default function BookCard({
   book,
   headingLevel = "h3",
+  coverShadow = true,
   children,
 }: {
   book: Book;
   headingLevel?: "h2" | "h3";
+  coverShadow?: boolean;
   /** Os endossos, na home. Entram DENTRO do cartão para ler como um bloco só. */
   children?: React.ReactNode;
 }) {
@@ -39,7 +41,7 @@ export default function BookCard({
         </Heading>
 
         <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
-          <div className="relative aspect-square w-full overflow-hidden shadow-xl">
+          <div className={`relative aspect-square w-full overflow-hidden${coverShadow ? " shadow-xl" : ""}`}>
             {/* A capa é a foto DO LIVRO, então quem a nomeia é o livro — não a
                 linha de posicionamento do bloco. */}
             <Image

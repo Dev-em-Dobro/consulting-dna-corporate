@@ -152,8 +152,8 @@ export default function FiveHShowcase() {
 
   return (
     <section ref={rootRef} id="the-five-h" className="overflow-clip border-y border-black/5 bg-[#dedede]">
-      <div className="mx-auto max-w-[1180px] px-6 pb-0 pt-12 md:px-10 md:pt-20">
-        <h2 className="max-w-[720px] font-serif text-[36px] font-semibold leading-[1.18] tracking-[-0.75px] text-ink sm:text-[46px] lg:text-[54px]">
+      <div className="mx-auto max-w-[1440px] px-6 pb-0 pt-12 md:px-10 md:pt-20">
+        <h2 className="max-w-[720px] font-serif text-[36px] font-semibold leading-[1.18] tracking-[-0.75px] text-ink sm:text-[46px] lg:max-w-none lg:text-[54px]">
           Five intelligences. One whole leader.
         </h2>
 

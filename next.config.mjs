@@ -24,15 +24,8 @@ const legacyDottedRedirects = [
   ["/way-values.html", "/about#values"],
   ["/our-way-head.html", "/approach"],
   ["/ten-ingredients.html", "/approach"],
-  // ⚠️ DESTINO ATUALIZADO DUAS VEZES. Era `/#book`, a seção da home; em 11-09
-  // virou `/books`, quando a página de livros passou a existir — o leitor que
-  // procurava endossos cai onde eles estão, e não numa home de onde precisa
-  // rolar até achar. Em 21-09 a página de livros virou seção da /insights, e
-  // este destino foi REPONTADO DIRETO para lá. Não é firula: apontar para
-  // `/books` daria 308 → 308, e a nota do `/our_team.html` aqui em cima vale
-  // igual — a corrente funciona, mas cada salto é um round-trip e buscador
-  // trata cadeia como sinal fraco.
-  ["/book-endorsement.html", "/insights#books"],
+  // Os endossos agora acompanham o livro na home.
+  ["/book-endorsement.html", "/#book"],
   ["/our-impact.html", "/our-impact"],
   ["/Impact-and-global-reach.html", "/services/regions"],
   ["/our-news.html", "/insights"],
@@ -151,14 +144,9 @@ const legacyExtensionlessRedirects = [
   ["/10-dna-ingredients", "/approach"],
   // Rota interna antiga do 5H (ficou pública durante o desenvolvimento).
   ["/solutions/5h-framework", "/approach"],
-  // Livro → a seção de livros da /insights.
-  // O destino destes dois já mudou duas vezes: até 11-09 eram a âncora da home
-  // (`/#book`), porque não havia página de livros; de 11-09 a 21-09 foram
-  // `/books`; desde 21-09 são `/insights#books`, que é onde os livros passaram
-  // a morar. Repontados DIRETO, e não encadeados via `/books` — ver a nota do
-  // `/book-endorsement.html` lá em cima sobre 308 → 308.
-  ["/our-book", "/insights#books"],
-  ["/book-endorsements", "/insights#books"],
+  // Livro e endossos → o livro que permanece na home.
+  ["/our-book", "/#book"],
+  ["/book-endorsements", "/#book"],
   // Impacto / Alcance — /our-impact agora é página real, não âncora da home
   ["/our-impact/return-on-investment", "/our-impact"],
   ["/our-way/our-impact-and-global-reach", "/services/regions"],
@@ -255,26 +243,8 @@ const splitAreaRedirects = [
     destination: "/services/senior-leadership-development",
     permanent: true,
   },
-  // 21-09: `/books` É O MOVIMENTO CONTRÁRIO ao dos quatro acima — não é uma área
-  // partida em duas nem uma rota renomeada, é uma tela ABSORVIDA por outra.
-  // *"insights and books e a seção de book vai pra tela de insights"* (anotação
-  // da reunião de 21-09). `app/books/page.tsx` foi removida no mesmo commit e o
-  // conteúdo dela vive na seção `#books` da /insights.
-  //
-  // A LINHA NÃO É OPCIONAL, e é o caso mais exposto deste bloco depois do
-  // `/our-team`: `/books` está no menu EM PRODUÇÃO desde 11-09 e no sitemap
-  // entregue aos buscadores. Sem ela, a rota que hoje responde 200 dá 404 no dia
-  // do deploy — e um 404 é exatamente o que a instrução da reunião não pede.
-  //
-  // COM O `#books`, e não só `/insights`: quem clicou em "Books" procurava o
-  // livro, e a biblioteca editorial ocupa a tela inteira antes dele. O fragmento
-  // viaja no `Location` do 308 e o navegador rola sozinho.
-  //
-  // ⚠️ O REDIRECT PASSA NA FRENTE DO FILESYSTEM (são avaliados antes), então
-  // recriar `app/books/` sem tirar esta linha dá uma página inalcançável — é a
-  // mesma armadilha anotada no `/our-clients` e no `/contact`, em
-  // `legacyExtensionlessRedirects`.
-  { source: "/books", destination: "/insights#books", permanent: true },
+  // A página antiga de livros aponta para o livro que permanece na home.
+  { source: "/books", destination: "/#book", permanent: true },
 ];
 
 // Retired locale prefixes (pt/es were never translated). Strip the prefix and

@@ -11,6 +11,8 @@ import SolutionPathways from "@/components/solutions/SolutionPathways";
 import SolutionMoments from "@/components/solutions/SolutionMoments";
 import SolutionSteps from "@/components/solutions/SolutionSteps";
 import SolutionStandouts from "@/components/solutions/SolutionStandouts";
+import SolutionJudgementOverview from "@/components/solutions/SolutionJudgementOverview";
+import SolutionDecisionLenses from "@/components/solutions/SolutionDecisionLenses";
 import SolutionEcosystem from "@/components/solutions/SolutionEcosystem";
 import SolutionProof from "@/components/solutions/SolutionProof";
 import SolutionPillars from "@/components/solutions/SolutionPillars";
@@ -134,7 +136,7 @@ export default function SolutionView({
            Consulting escreve "FAMILY-LED BUSINESS CONSULTING" ali. Ver a caixa
            de `heroEyebrow` em `lib/services.ts`. */
         eyebrow={service.heroEyebrow ?? "Our Services"}
-        title={service.title}
+        title={service.heroTitle ?? service.title}
         /* ✅ A LINHA DE APOIO É A DO LAYOUT DE 24-09 NESTA PÁGINA, e a `banner`
            nas outras nove. A conta está no `??`, e a história vale registrar
            porque ela já foi decidida ao contrário.
@@ -195,6 +197,7 @@ export default function SolutionView({
            Teams. Hoje são QUATRO com foto própria e seis sem — não vale contar
            por esta caixa, vale contar por `grep heroImage lib/services.ts`. */
         imageUrl={service.heroImage ?? service.cardImage}
+        imagePosition={service.heroImagePosition}
         /* ⬅ OS PARÁGRAFOS DENTRO DA DOBRA — 24-09, com o Talent Development.
            Ausente nos outros nove, e lá o herói termina na frase de apoio como
            sempre. Ver `heroBody` em `lib/services.ts`. */
@@ -312,7 +315,13 @@ export default function SolutionView({
           foram desenhadas para CONTINUAR este bloco. Quem tirar o bloco de
           outro serviço confere isso antes. Ver a caixa do campo em
           `lib/services.ts`. */}
-      {!service.hideWhatWeDo && (
+      {service.formats?.length ? (
+        <SolutionJudgementOverview
+          headline={service.whatWeDoHeadline ?? service.title}
+          body={service.whatWeDo ?? service.outcome}
+          formats={service.formats}
+        />
+      ) : !service.hideWhatWeDo && (
       <SolutionSection
         label="What we do"
         headline={headlineOr(service.whatWeDoHeadline ?? service.outcomeHeadline)}
@@ -399,7 +408,7 @@ export default function SolutionView({
       <SolutionSteps
         items={service.capabilitiesBeside ? undefined : service.capabilities}
         sequence={false}
-        tone="white"
+        tone={service.capabilitiesTone ?? "white"}
         label={service.capabilitiesHeader?.label}
         headline={service.capabilitiesHeader?.headline}
         lead={service.capabilitiesHeader?.lead}
@@ -408,6 +417,8 @@ export default function SolutionView({
            é o de sempre. */
         variant={service.capabilitiesLayout}
       />
+
+      <SolutionDecisionLenses items={service.decisionLenses} />
 
       {/* ⬅ NOVO EM 24-09, com o Talent Development: a fileira "Common outcome",
           entre os aceleradores e o "How we work".

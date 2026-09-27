@@ -2,22 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteShell from "@/components/SiteShell";
-import PageHero from "@/components/PageHero";
+import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import EmptyNotice from "@/components/EmptyNotice";
-import Counter from "@/components/Counter";
-import Reveal from "@/components/Reveal";
-import AwardsMentions from "@/components/AwardsMentions";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { getSiteStats } from "@/lib/stats";
 import { getCaseListEntries } from "@/lib/cms/map";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Our Impact | CorporateDNA",
     description:
-      "The measured outcomes of CorporateDNA's work, firm-level figures and the results behind individual client engagements.",
+      "The measured outcomes of CorporateDNA's work, from individual client engagements to social impact.",
     alternates: localeAlternates("/our-impact"),
   };
 }
@@ -27,8 +23,8 @@ export const revalidate = 300;
  * Our Impact (27-08 brief, item 9).
  *
  * The second half of the `Client Impact` split: Our Clients carries the wall and
- * the stories, this page carries the proof — firm-level statistics and the
- * per-engagement numbers already published on the cases.
+ * the stories, this page carries the proof — per-engagement numbers already
+ * published on the cases, alongside our social impact.
  *
  * Two deliberate omissions:
  *
@@ -57,10 +53,7 @@ const TERRAGRN_PHOTOS = Array.from({ length: 10 }, (_, i) =>
 );
 
 export default async function OurImpactPage() {
-  const [stats, cases] = await Promise.all([
-    getSiteStats(),
-    getCaseListEntries(),
-  ]);
+  const cases = await getCaseListEntries();
   // Only engagements that actually carry a published figure — a proof page that
   // renders blank metrics proves nothing.
   const measured = cases.filter((c) => c.metricValue);
@@ -68,36 +61,12 @@ export default async function OurImpactPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
     <SiteShell footerTopBorder floatingNav>
-      <PageHero
+      <SolutionHero
         eyebrow="Our Impact"
         title="Leadership change, measured where it matters."
-        subtitle="The figures behind the firm, and the results behind individual engagements."
+        subtitle="The results behind individual engagements, and our wider social impact."
+        imageUrl="/impact/terragon/07.jpeg"
       />
-
-      {/* ── Firm-level figures (editable statistics, from the CMS) ────── */}
-      <section id="figures" className="bg-ink text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <TypeLabel onDark>By the numbers</TypeLabel>
-          <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.15] tracking-[-0.4px] sm:text-[36px] md:text-[40px]">
-            Eighteen years of senior leadership advisory.
-          </h2>
-          <Reveal className="mt-12 grid max-w-[860px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-start gap-5">
-                <span className="mt-[38px] h-[3px] w-8 flex-none bg-brand md:mt-[50px]" />
-                <div>
-                  <div className="text-[44px] font-bold leading-none tracking-[-1.5px] text-brand md:text-[56px]">
-                    <Counter value={s.value} />
-                  </div>
-                  <div className="mt-2 text-[16px] font-medium leading-snug text-white/80">
-                    {s.label}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
 
       {/* ── Our clients say: held, not filled (see the file header) ────── */}
       <section id="testimonials" className="bg-brand text-white">
@@ -195,13 +164,6 @@ export default async function OurImpactPage() {
         </div>
       </section>
 
-      {/* ── Our Awards ────────────────────────────────────────────────────
-          Guli moved the awards band here from the homepage: "por último aqui no
-          site tem o awards, também puxei o awards pra cá, na mesma disposição
-          que a gente já tinha" (17:07). It still renders on the homepage too —
-          the brief wants proof early there (item 2), and he never showed a
-          homepage mock. Worth confirming whether they want it in both places. */}
-      <AwardsMentions />
     </SiteShell>
     </div>
   );

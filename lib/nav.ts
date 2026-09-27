@@ -63,29 +63,14 @@ export const siteNav: NavItem[] = [
   { label: "Team", href: "/team" },
   { label: "Clients", href: "/our-clients" },
   { label: "Impact", href: "/our-impact" },
-  // `/insights` carrega DUAS coisas desde 21-09: a biblioteca editorial e os
-  // livros (*"insights and books e a seção de book vai pra tela de insights"*).
-  //
-  // O LABEL PASSOU A DIZER AS DUAS no mesmo dia, a pedido — *"só o nome do menu
-  // tem que ser insights & books"*. A primeira versão manteve "Insights" com o
-  // argumento de que o item continuava sendo o mesmo endereço, e o argumento
-  // estava certo sobre a ROTA e errado sobre a NAVEGAÇÃO: o menu perdeu a
-  // palavra "Books" na mesma tarde (a vaga virou "Events"), então quem procura
-  // os livros deixou de ter por onde chegar sem adivinhar que eles moram dentro
-  // de Insights. O 308 de `/books` só socorre quem já tem a URL antiga.
-  //
-  // É exatamente o caso que a caixa de abertura descreve: label é copy e muda,
-  // rota é endereço e fica. A rota segue `/insights`.
-  //
-  // `&` E NÃO "and", como em "Clients & Impact" logo acima — é string de dado,
-  // não JSX, então o caractere entra cru e o React escapa na renderização.
+  // O livro permanece na home; esta rota reúne os artigos e materiais editoriais.
   { label: "Insights", href: "/insights" },
   // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }` — *"mudar book para
   // events"* (anotação da reunião de 21-09). A troca É de rota, e isso precisa
   // ficar claro contra a regra lá em cima ("labels são copy, rotas são
   // endereço, não se renomeia rota para perseguir label"): aqui NÃO é o mesmo
-  // item ganhando outro nome. O destino antigo deixou de existir — os livros
-  // foram para a /insights e `/books` virou 308 —, então isto é um item
+  // item ganhando outro nome. O destino antigo deixou de existir e `/books`
+  // redireciona para o livro na home; então isto é um item
   // APOSENTADO e outro NASCENDO na vaga dele. A regra continua valendo: o que
   // se proíbe é mexer na rota quando só a palavra mudou, e não é o caso.
   //

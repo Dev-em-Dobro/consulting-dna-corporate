@@ -345,6 +345,21 @@ export type ServiceStep = {
   icon?: string;
 };
 
+export type ServiceFormat = {
+  audience: string;
+  title: string;
+  tagline: string;
+  body: string;
+  focus: string[];
+  image: string;
+};
+
+export type ServiceDecisionLens = {
+  title: string;
+  question: string;
+  icon: string;
+};
+
 /**
  * A GRADE DE LADRILHOS DO "THE INFLECTION POINTS" — layout do Talent
  * Development, 24-09. Ver `SolutionInflectionPoints`.
@@ -916,6 +931,16 @@ export type ServiceOutcomeSummary = {
 export type Service = {
   slug: string;
   title: string;
+  /** Optional page headline when the service name remains different in navigation. */
+  heroTitle?: string;
+  /** Image crop for this service's hero. */
+  heroImagePosition?: string;
+  /** Formats shown beside the What we do introduction. */
+  formats?: ServiceFormat[];
+  /** The six questions in the leadership decision canvas. */
+  decisionLenses?: ServiceDecisionLens[];
+  /** Background for the capabilities section; other services keep white. */
+  capabilitiesTone?: "white" | "paper";
   /** A "banner statement" do outline: uma frase, no herói, sob o nome. */
   banner: string;
   /**
@@ -3002,12 +3027,78 @@ export const services: Service[] = [
     slug: "judgement-in-ai",
     cardImage: "/services/cards/judgement-in-ai-client.jpg",
     title: "Judgement in AI",
+    heroTitle: "Leadership Judgement",
+    heroImage: "/services/heroes/judgement-leadership-hero-20260926.png",
+    heroImagePosition: "object-[70%_center] md:object-center",
+    heroSubtitle: "Clearer thinking. Braver calls.",
+    heroBody: [
+      "Judgement development for leaders making high-stakes calls in the age of AI, from the ExCo table to the teams leading transformation.",
+    ],
     banner:
       "Build the human judgement required to make better decisions in an AI-augmented world.",
+    whatWeDoHeadline: "When AI gives everyone answers, judgement is the human edge.",
+    whatWeDo:
+      "AI now produces answers, options and polished output on demand. It cannot own a decision. We help leaders interrogate AI-generated thinking, trust the quiet signal that something is off, and make clean calls they will put their name to. Every format works on a real decision, so the change shows up in the business within 30 days.",
+    formats: [
+      {
+        audience: "CEO groups & forums",
+        title: "Pulse Session · 60–90 min",
+        tagline: "Sharpen the calls at the top.",
+        body: "A provocative keynote and peer dialogue that stress-tests the private judgement behind senior decisions, before blind spots scale with authority.",
+        focus: ["Judgement & discernment", "Critical thinking", "Risk appetite", "Accountability"],
+        image: "/services/audiences/sld-top-100-150.jpg",
+      },
+      {
+        audience: "Top 50–100 leaders",
+        title: "Inner Game Masterclass · 2–3 hrs",
+        tagline: "Challenge AI without slowing down.",
+        body: "An interactive workshop with diagnostics and tools. Leaders work a live dilemma and decide what AI should do and what must stay human.",
+        focus: ["Critical thinking", "Sensemaking", "Scenario planning", "Navigating complexity"],
+        image: "/hero/manager-development.jpeg",
+      },
+      {
+        audience: "ExCos & top teams",
+        title: "Leadership Lab · ½ day or full day",
+        tagline: "Decide the real issue, together.",
+        body: "A deep intervention on one real decision, pressure-tested through Head, Heart and Hunch for a better outcome than AI or instinct alone.",
+        focus: ["Accelerated decisioning", "Courage", "Insightfulness", "Ownership"],
+        image: "/services/audiences/sld-executive-teams.jpg",
+      },
+    ],
+    ambition: "One ambition: AI directed by judgement, not deferred to.",
+    capabilitiesHeader: { label: "Why our approach stands out" },
+    capabilitiesTone: "paper",
+    capabilities: [
+      { icon: "mindset", title: "Inner game first", body: "We work on the thinking, feeling and instinct behind a decision, not only the analysis around it." },
+      { icon: "target", title: "Real decisions, live", body: "Leaders bring a live decision, not a case study, and leave with it sharpened." },
+      { icon: "people", title: "Human + AI, together", body: "Leaders practise exactly where machine signal meets human sense-making." },
+      { icon: "chart", title: "Proof in 30 days", body: "Every session ends with one commitment and an indicator the business can track." },
+    ],
+    decisionLenses: [
+      { title: "Data", question: "What do the numbers show?", icon: "chart" },
+      { title: "AI", question: "What does the model suggest?", icon: "cpu" },
+      { title: "Experience", question: "What have we learned before?", icon: "book" },
+      { title: "Hunch", question: "What signal are we sensing?", icon: "mindset" },
+      { title: "Courage", question: "What decision needs ownership?", icon: "shield" },
+      { title: "Action", question: "What will move in 30 days?", icon: "target" },
+    ],
     outcome:
       "Higher **decision quality and decision velocity** without surrendering accountability to technology. Leaders know when to trust AI, when to challenge it and where distinctly human judgement creates value.",
     howWeHelp:
       "We build the capabilities leaders need to operate alongside AI: **critical thinking, judgement, curiosity, sense-making, ethical reasoning and decision-making under uncertainty**. Leaders practise on real business dilemmas and learn to combine human experience and intuition with AI-enabled insight.",
+    sectionLayout: "stacked",
+    howWeWorkHeadline: "Built around a real decision.",
+    howWeWork:
+      "A structured flow that takes leaders from provocation to a decision they own, with practical tools they apply straight away.",
+    stepsNumbered: true,
+    steps: [
+      { icon: "lightbulb", title: "Provocation", body: "What AI changes about judgement, and what it does not." },
+      { icon: "search", title: "Diagnostic", body: "Where are we strong, exposed or avoiding the work?" },
+      { icon: "people", title: "Live dilemma", body: "A real decision from the leaders in the room." },
+      { icon: "cog", title: "Challenge the AI", body: "Interrogate the output. Bring in Head, Heart and Hunch." },
+      { icon: "document_check", title: "Commit", body: "Agree the call and who owns what." },
+      { icon: "growth", title: "30 day action", body: "Turn the decision into visible progress." },
+    ],
     pillars: [
       "Critical thinking",
       "Judgement",
@@ -3017,9 +3108,9 @@ export const services: Service[] = [
       "Decision-making under uncertainty",
     ],
     cta: {
-      strapline: "More intelligence. Better decisions? Not necessarily.",
-      line: "Strengthen the human judgement, critical thinking and decision quality leaders need to use AI without outsourcing accountability to it.",
-      label: "Talk to us about leadership judgement in AI",
+      strapline: "Better decisions build bolder futures.",
+      line: "Develop the judgement to lead with confidence in the age of AI.",
+      label: "Talk to us",
     },
   },
   {

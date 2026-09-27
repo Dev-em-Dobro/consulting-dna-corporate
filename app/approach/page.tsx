@@ -203,7 +203,7 @@ export default async function ApproachPage() {
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
               <span aria-hidden="true" className="h-px w-10 bg-brand-light" /> Our approach
             </p>
-            <h1 className="mt-5 max-w-[900px] font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px]">
+            <h1 className="mt-5 max-w-[900px] font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
               Lead with 5H<R />
             </h1>
             <p className="mt-6 max-w-[620px] text-[19px] leading-[1.4] text-white/78 md:text-[22px]">
@@ -214,11 +214,11 @@ export default async function ApproachPage() {
       </section>
 
       <div className="bg-white">
-        <section className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
-          <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
+        <section className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
+          <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:max-w-none lg:text-[48px]">
             Developing the whole self in leadership
           </h2>
-          <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-0 lg:text-[17px]">
+          <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-5 lg:space-y-0 lg:text-[17px]">
             <p>
               The 5H<R /> gives you more than a single point measurement. It reveals all of a leader&apos;s faculties and how those interact and work together under real pressure.
             </p>
@@ -235,12 +235,12 @@ export default async function ApproachPage() {
         </section>
 
         <section className="mx-auto max-w-[1440px] px-6 pb-12 md:px-10 md:pb-20">
-          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,680px)] lg:items-center lg:gap-16">
-            <h2 className="max-w-[760px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
+          <div>
+            <h2 className="max-w-[760px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:mx-auto lg:max-w-none lg:text-center lg:text-[48px]">
               Two games. Every leader is playing both.
             </h2>
 
-          <div className="relative -mx-4 mt-10 w-[calc(100%+32px)] max-w-[680px] px-[4%] py-[7%] sm:mx-auto sm:w-full sm:px-[5%] lg:mt-0">
+          <div className="relative -mx-4 mt-10 w-[calc(100%+32px)] max-w-[680px] px-[4%] py-[7%] sm:mx-auto sm:w-full sm:px-[5%] lg:mt-12">
             <Image
               src="/approach-two-games-arrow.svg"
               alt=""
@@ -274,19 +274,19 @@ export default async function ApproachPage() {
           </div>
 
           <div className="mx-auto max-w-[980px]">
-          <div className="mt-8 grid grid-cols-3 gap-4">
+          <div className="mt-8 grid grid-cols-3 gap-4 lg:mx-auto lg:mt-12 lg:max-w-[720px] lg:gap-10">
             {[
               { label: "Self-assessment", Icon: UserRoundCheck },
               { label: "360 assessment", Icon: UsersRound },
               { label: "Situational assessment", Icon: ListChecks },
             ].map(({ label, Icon }) => (
               <div key={label} className="text-center">
-                <div className="flex aspect-square items-center justify-center bg-[#f5f4f2]">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 sm:h-20 sm:w-20">
-                    <Icon aria-hidden size={28} strokeWidth={1.5} className="text-brand sm:size-10" />
+                <div className="flex h-14 items-center justify-center sm:h-20 lg:h-16">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 sm:h-20 sm:w-20 lg:size-16">
+                    <Icon aria-hidden size={28} strokeWidth={1.5} className="text-brand sm:size-10 lg:size-8" />
                   </span>
                 </div>
-                <p className="mt-3 text-[13px] font-medium leading-[1.25] text-muted sm:text-[18px] lg:text-[22px]">{label}</p>
+                <p className="mt-2 text-[13px] font-medium leading-[1.25] text-muted sm:text-[18px] lg:text-[17px]">{label}</p>
               </div>
             ))}
           </div>
@@ -310,24 +310,24 @@ export default async function ApproachPage() {
         </div>
 
         <section className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20">
-            <div>
-              <h2 className="max-w-[620px] text-center font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-left lg:text-[46px]">
-                What happens underneath drives the outcome.
-              </h2>
-              <p className="mx-auto mt-7 max-w-[560px] text-center text-[12px] leading-[1.6] text-muted sm:text-[13px] lg:mx-0 lg:max-w-[520px] lg:text-left lg:text-[16px]">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
+            <h2 className="text-center font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-left lg:text-[46px]">
+              What happens underneath drives the outcome.
+            </h2>
+            <div className="lg:mt-9 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20">
+              <p className="mx-auto mt-7 max-w-[560px] text-center text-[12px] leading-[1.6] text-muted sm:text-[13px] lg:mx-0 lg:mt-0 lg:max-w-[520px] lg:text-left lg:text-[16px]">
                 Five connected forms of intelligence, centred on the values, beliefs and drivers that shape how a leader shows up.
               </p>
-            </div>
-            <div className="mt-9 lg:mt-0">
-              <Image
-                src="/approach-5h-wheel.svg"
-                alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
-                width={932}
-                height={908}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="mx-auto h-auto w-full max-w-[680px]"
-              />
+              <div className="mt-9 lg:mt-0">
+                <Image
+                  src="/approach-5h-wheel.svg"
+                  alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
+                  width={932}
+                  height={908}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="mx-auto h-auto w-full max-w-[680px]"
+                />
+              </div>
             </div>
           </div>
           <p className="px-6 pb-12 pt-4 text-center text-[14px] leading-[1.5] text-[#777] md:pb-16 md:pt-0">
@@ -337,61 +337,62 @@ export default async function ApproachPage() {
       </div>
 
       <section id="dna-360-profiler" className="bg-[#353132] text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
-          <div>
-          <h2 className="font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
+        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
+          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand-light">The DNA 360 Profiler</p>
+          <h2 className="mt-3 font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
             The 5H, as an assessment.
           </h2>
-          <div className="mt-7 max-w-[720px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:text-[17px]">
-            <p>
-              The 5H was the catalyst for building the DNA 360™ Profiler with Dr Nigel Guenole, our Head of Assessments, and his team of PhD researchers.
-            </p>
-            <p>
-              The result is a situational psychometric assessment using over 125 organisational scenarios, measuring a leader&apos;s ability to flex between inner and outer game behaviours according to the situation in front of them.
-            </p>
-          </div>
-          </div>
-
-          <div className="mt-10 grid gap-7 border-t border-white/15 pt-8 sm:grid-cols-2 sm:gap-10 lg:mt-0 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-14 lg:pt-0">
-            <div>
-              <strong className="block text-[40px] font-bold leading-none text-brand">125+</strong>
-              <span className="mt-2 block max-w-[260px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78">
-                organisational scenarios<br />in one assessment
-              </span>
+          <div className="lg:mt-9 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
+            <div className="mt-7 max-w-[720px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[17px]">
+              <p>
+                The 5H was the catalyst for building the DNA 360™ Profiler with Dr Nigel Guenole, our Head of Assessments, and his team of PhD researchers.
+              </p>
+              <p>
+                A situational psychometric assessment using over 125 organisational scenarios, measuring a leader&apos;s ability to flex between inner and outer game behaviours according to the situation in front of them.
+              </p>
             </div>
-            <div>
-              <strong className="block text-[35px] font-bold leading-none text-brand">PhD led</strong>
-              <span className="mt-2 block max-w-[300px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78">
-                Built in house with<br />Dr Nigel Guenole, Head of Assessments
-              </span>
+
+            <div className="mt-10 grid gap-7 border-t border-white/15 pt-8 sm:grid-cols-2 sm:gap-10 lg:mt-0 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-14 lg:pt-0">
+              <div>
+                <strong className="block text-[40px] font-bold leading-none text-brand">125+</strong>
+                <span className="mt-2 block max-w-[260px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78">
+                  organisational scenarios<br />in one assessment
+                </span>
+              </div>
+              <div>
+                <strong className="block text-[35px] font-bold leading-none text-brand">PhD led</strong>
+                <span className="mt-2 block max-w-[300px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78">
+                  Built in house with<br />Dr Nigel Guenole, Head of Assessments
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20 lg:grid lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Frequently asked questions</p>
-            <h2 className="mt-3 max-w-[360px] font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[44px]">A clearer view of the 5H.</h2>
+            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">From intent to action</p>
+            <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
+              Making the learning <span className="text-brand">real.</span>
+            </h2>
+            <p className="mt-4 text-[15px] leading-[1.6] text-muted">Body copy to be confirmed (max 500 characters).</p>
           </div>
-          <div className="mt-8 space-y-3 lg:mt-0">
-            {FAQS.map((faq, index) => (
-              <details key={faq.question} open={index === 1} className="group bg-[#f0f0ef] px-5 py-4 sm:px-6">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-serif text-[17px] font-semibold leading-[1.3] text-ink marker:hidden sm:text-[19px]">
-                  {faq.question}
-                  <Plus aria-hidden="true" className="h-5 w-5 flex-none text-brand transition-transform group-open:rotate-45" />
-                </summary>
-                <p className="max-w-[61ch] pb-1 pt-4 text-[13px] leading-[1.65] text-muted sm:text-[14px]">{faq.answer}</p>
-              </details>
-            ))}
+          <div className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">Frequently asked questions</p>
+            <div className="space-y-3">
+              {FAQS.map((faq, index) => (
+                <details key={faq.question} open={index === 1} className="group bg-[#f0f0ef] px-5 py-4 sm:px-6">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-serif text-[17px] font-semibold leading-[1.3] text-ink marker:hidden sm:text-[19px]">
+                    {faq.question}
+                    <Plus aria-hidden="true" className="h-5 w-5 flex-none text-brand transition-transform group-open:rotate-45" />
+                  </summary>
+                  <p className="max-w-[61ch] pb-1 pt-4 text-[13px] leading-[1.65] text-muted sm:text-[14px]">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
-        </div>
-
-        <div className="mx-auto max-w-[1440px] border-t border-line px-6 py-11 md:px-10 md:py-16">
-          <h2 className="font-serif text-[30px] font-semibold leading-tight tracking-[-0.45px] text-ink sm:text-[38px] lg:text-[48px]">
-            Making the learning <span className="text-brand">real.</span>
-          </h2>
         </div>
       </section>
 

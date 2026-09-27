@@ -52,10 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // para cá; `/home-v1` é o arquivo da home antiga e fica FORA, com
     // `noindex`. `/home-v3` segue proposta, `noindex`, e também fora.
     // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
-    // `/books` SAIU EM 21-09: os livros passaram a ser a seção `#books` da
-    // /insights e a rota virou 308 permanente (next.config.mjs). Sitemap que
-    // entrega URL redirecionada é sinal contraditório — o buscador é mandado
-    // para um endereço que a própria resposta diz não ser o definitivo.
+    // `/books` redireciona para o livro na home e fica fora do sitemap.
     // `/events` NÃO entra: nasceu vazia na mesma data, esperando conteúdo da
     // cliente, e carrega `noindex` — mesma regra de `/our-partnerships` e
     // `/interviews` logo acima.

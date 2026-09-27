@@ -499,8 +499,6 @@ export type RosterPerson = {
   portrait: string;
   /** Cargo visível quando a `meta` é a região usada no agrupamento. */
   title?: string;
-  /** Liderança na grade de delivery fica em cor. A faculty continua em P&B. */
-  color?: boolean;
 };
 
 /**
@@ -675,11 +673,11 @@ export const facultyByRegion: FacultyRegionGroup[] = (() => {
   }
 
   const deliveryLeaders: { region: string; person: RosterPerson }[] = [
-    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas", color: true } },
-    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE", color: true } },
-    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA", color: true } },
-    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation", color: true } },
-    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia", color: true } },
+    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas" } },
+    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE" } },
+    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA" } },
+    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation" } },
+    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia" } },
   ];
   for (const entry of deliveryLeaders) {
     groups.find((g) => g.region === entry.region)?.people.unshift(entry.person);

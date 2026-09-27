@@ -51,8 +51,7 @@ export type HomeCopy = {
 
 /**
  * Os padrões — a copy que estava inline na home em 23-09, sem alteração. O
- * livro vem de `lib/books.ts` porque a /insights mostra o mesmo cartão; o
- * editor da home só sobrepõe o texto NA HOME, o de lá segue o módulo.
+ * livro vem de `lib/books.ts`; o editor da home sobrepõe esse texto na página.
  */
 export const DEFAULT_HOME_COPY: HomeCopy = {
   hero: {
