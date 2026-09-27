@@ -304,31 +304,27 @@ export default async function ApproachPage() {
         <FiveHShowcase />
 
         <div className="bg-white px-6 pb-4 pt-14 text-center md:pt-16">
-          <p className="mx-auto max-w-[720px] text-[16px] font-semibold leading-[1.4] text-ink sm:text-[19px]">
+          <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
             (Most leadership development stops at the Head)
           </p>
         </div>
 
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-            <h2 className="text-center font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-left lg:text-[46px]">
+            <h2 className="text-center font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
               What happens underneath drives the outcome.
             </h2>
-            <div className="lg:mt-9 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20">
-              <p className="mx-auto mt-7 max-w-[560px] text-center text-[12px] leading-[1.6] text-muted sm:text-[13px] lg:mx-0 lg:mt-0 lg:max-w-[520px] lg:text-left lg:text-[16px]">
-                Five connected forms of intelligence, centred on the values, beliefs and drivers that shape how a leader shows up.
-              </p>
-              <div className="mt-9 lg:mt-0">
-                <Image
-                  src="/approach-5h-wheel.svg"
-                  alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
-                  width={932}
-                  height={908}
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="mx-auto h-auto w-full max-w-[680px]"
-                />
-              </div>
-            </div>
+            <p className="mx-auto mt-7 max-w-[760px] text-center text-[12px] leading-[1.6] text-muted sm:text-[13px] lg:mt-9 lg:text-[16px]">
+              Five connected forms of intelligence, centred on the values, beliefs and drivers that shape how a leader shows up.
+            </p>
+            <Image
+              src="/approach-5h-wheel.svg"
+              alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
+              width={932}
+              height={908}
+              sizes="(min-width: 1024px) 680px, 100vw"
+              className="mx-auto mt-9 h-auto w-full max-w-[680px] lg:mt-12"
+            />
           </div>
           <p className="px-6 pb-12 pt-4 text-center text-[14px] leading-[1.5] text-[#777] md:pb-16 md:pt-0">
             The 5H© Framework. © 2026 Corporate DNA Consulting. All rights reserved.
