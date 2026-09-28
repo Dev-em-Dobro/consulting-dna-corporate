@@ -52,7 +52,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
 export async function getEvents(): Promise<LeadershipEvent[]> {
   const result = await getList<CmsEvent>("events", { pageSize: 100 });
   const managed = result?.items.map(mapEvent).filter((event): event is LeadershipEvent => event !== null) ?? [];
-  return result ? managed : staticEvents;
+  return managed.length > 0 ? managed : staticEvents;
 }
 
 export async function getEvent(slug: string): Promise<LeadershipEvent | undefined> {
