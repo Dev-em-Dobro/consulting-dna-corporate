@@ -26,6 +26,8 @@ function affectedPaths(type: string, slug: string): string[] | null {
       return ["/", "/services", `/services/${slug}`];
     case "region":
       return ["/services", "/services/regions", `/services/regions/${slug}`];
+    case "event":
+      return ["/events", `/events/${slug}`];
     case "page_5h":
       return ["/approach"];
     case "page_book":

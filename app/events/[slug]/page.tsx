@@ -6,7 +6,8 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import EventMeta from "@/components/events/EventMeta";
-import { events, getEventBySlug } from "@/lib/events";
+import { events } from "@/lib/events";
+import { getEvent } from "@/lib/events-content";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { localeAlternates } from "@/lib/seo/alternates";
 
@@ -18,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getEvent(slug);
   if (!event) notFound();
   return {
     title: `${event.title} | Events | CorporateDNA`,
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EventPage({ params }: Props) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getEvent(slug);
   if (!event) notFound();
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -48,11 +49,20 @@ export default async function EventPage({ params }: Props) {
                 <ul className="mt-5 max-w-[720px] divide-y divide-line border-y border-line">
                   {event.topics.map((topic, index) => <li key={topic} className="flex items-start gap-5 py-5 text-[15px] leading-[1.6] text-ink"><span aria-hidden="true" className="text-[12px] font-semibold text-brand-dark">{String(index + 1).padStart(2, "0")}</span>{topic}</li>)}
                 </ul>
+                {event.links && event.links.length > 0 && (
+                  <div className="mt-8 flex flex-col gap-3">
+                    {event.links.map((link) => (
+                      <a key={link.href} href={link.href} className="text-[15px] font-semibold text-brand underline underline-offset-4" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
               <aside aria-label="Event information" className="self-start border-t-2 border-brand bg-paper p-7 sm:p-9">
                 <h2 className="font-serif mb-7 text-[26px] font-semibold text-ink">Event details</h2>
                 <EventMeta event={event} />
-                <p className="mt-7 border-t border-line pt-6 text-[14px] leading-[1.65] text-muted">The full programme and further details will be announced here.</p>
+                {event.status !== "past" && <p className="mt-7 border-t border-line pt-6 text-[14px] leading-[1.65] text-muted">The full programme and further details will be announced here.</p>}
               </aside>
             </div>
           </div>

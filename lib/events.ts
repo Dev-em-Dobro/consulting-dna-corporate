@@ -14,6 +14,7 @@ export type LeadershipEvent = {
   image?: string | StaticImageData;
   imageAlt?: string;
   featured?: boolean;
+  status?: "past" | "upcoming";
 };
 
 // Provisional editorial examples for the Events layout. Replace with the

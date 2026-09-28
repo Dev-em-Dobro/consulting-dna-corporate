@@ -4,7 +4,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import Reveal from "@/components/Reveal";
 import TypeLabel from "@/components/TypeLabel";
 import EventCard from "@/components/events/EventCard";
-import { events } from "@/lib/events";
+import { getEvents } from "@/lib/events-content";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { localeAlternates } from "@/lib/seo/alternates";
 
@@ -18,9 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function EventsPage() {
-  const featured = events.find((event) => event.featured);
-  const upcoming = events.filter((event) => !event.featured);
+export default async function EventsPage() {
+  const events = await getEvents();
+  const featured = events.find((event) => event.featured)
+    ?? events.find((event) => event.status !== "past");
+  const upcoming = events.filter(
+    (event) => event.status !== "past" && event.slug !== featured?.slug,
+  );
+  const past = events.filter((event) => event.status === "past");
 
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -45,8 +50,22 @@ export default function EventsPage() {
             <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
               {upcoming.map((event) => <Reveal key={event.slug} className="h-full"><EventCard event={event} /></Reveal>)}
             </div>
+            {upcoming.length === 0 && (
+              <p className="mt-8 max-w-[40rem] text-[16px] leading-[1.7] text-muted">No upcoming events have been announced yet.</p>
+            )}
           </div>
         </section>
+        {past.length > 0 && (
+          <section id="past-events" aria-labelledby="past-heading" className="bg-paper">
+            <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
+              <TypeLabel>Already held</TypeLabel>
+              <h2 id="past-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">Past events</h2>
+              <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
+                {past.map((event) => <Reveal key={event.slug} className="h-full"><EventCard event={event} /></Reveal>)}
+              </div>
+            </div>
+          </section>
+        )}
       </SiteShell>
     </div>
   );
