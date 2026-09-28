@@ -12,6 +12,7 @@ export type LeadershipEvent = {
   topics: string[];
   image?: string | StaticImageData;
   imageAlt?: string;
+  gallery?: { src: string; alt: string }[];
   links?: { label: string; href: string }[];
   status: "past" | "upcoming";
 };
@@ -41,19 +42,6 @@ export const events: LeadershipEvent[] = [
     status: "past",
   },
   {
-    slug: "executive-series-2026-06-11",
-    title: "Executive Series",
-    category: "cDNA",
-    kind: "Past event",
-    dateLabel: "11 June 2026",
-    summary: "",
-    overview: [],
-    topics: [],
-    image: "/events/executive-series-2026-06-11.jpg",
-    imageAlt: "Executive Series, 11 June 2026",
-    status: "past",
-  },
-  {
     slug: "chro-nexus-forum-2026-09-07",
     title: "CHRO Nexus Forum",
     category: "Nitin",
@@ -65,8 +53,6 @@ export const events: LeadershipEvent[] = [
       "It was great to be back in KL meeting clients. This visit was more special as Nitin was invited to attend the 3rd edition of the CHRO Nexus Forum, a gathering of top CHROs from the region.",
     ],
     topics: [],
-    image: "/events/nitin-goil.jpg",
-    imageAlt: "Nitin Goil",
     links: [{ label: "Read the note", href: "https://lnkd.in/p/gQZEfbdg" }],
     status: "past",
   },
@@ -82,8 +68,6 @@ export const events: LeadershipEvent[] = [
       "In today's world, everyone's building a hybrid workplace. But almost nobody's building a hybrid talent strategy. 39% of core workplace skills are expected to change by 2030, and 6 in 10 employees will need reskilling within just three years.",
     ],
     topics: [],
-    image: "/events/nitin-goil.jpg",
-    imageAlt: "Nitin Goil",
     links: [{ label: "Read the note", href: "https://lnkd.in/p/gcbQ2YZm" }],
     status: "past",
   },
@@ -99,8 +83,6 @@ export const events: LeadershipEvent[] = [
       "Yesterday, HR's mandate was digital transformation. Today, that has expanded to AI transformation. Tomorrow, the mandate shifts again, to Human-AI transformation, where ethics and bias will need to be addressed in every decision. That is building efficiency with meaning.",
     ],
     topics: [],
-    image: "/events/nitin-goil.jpg",
-    imageAlt: "Nitin Goil",
     links: [{ label: "Read the note", href: "https://lnkd.in/p/g3QheTXF" }],
     status: "past",
   },
@@ -116,8 +98,6 @@ export const events: LeadershipEvent[] = [
       "The session explored how HR has transitioned from efficiency with systems, to efficiency with people, and efficiency with meaning.",
     ],
     topics: [],
-    image: "/events/nitin-goil.jpg",
-    imageAlt: "Nitin Goil",
     links: [
       {
         label: "Read the note",
@@ -138,8 +118,6 @@ export const events: LeadershipEvent[] = [
       "The keynote explored how courage is HR's new leadership currency, how ownership rebuilds trust, and how accountability anchors leadership impact.",
     ],
     topics: [],
-    image: "/events/nitin-goil.jpg",
-    imageAlt: "Nitin Goil",
     links: [
       {
         label: "Read the note",
@@ -159,6 +137,10 @@ export const events: LeadershipEvent[] = [
     topics: [],
     image: "/events/mike-jackson-1.jpg",
     imageAlt: "Speaker event, 23 September 2026",
+    gallery: [
+      { src: "/events/mike-jackson-2.jpg", alt: "Mike presenting at the CLO100 event" },
+      { src: "/events/mike-jackson-3.jpg", alt: "Participants attending Mike's CLO100 session" },
+    ],
     status: "past",
   },
 ];

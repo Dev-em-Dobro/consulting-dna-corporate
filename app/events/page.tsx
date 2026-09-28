@@ -35,7 +35,7 @@ export default async function EventsPage() {
             {upcoming.length === 0 ? (
               <p className="mt-8 max-w-[40rem] text-[18px] leading-[1.7] text-muted">{copy.upcoming.body}</p>
             ) : (
-              <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
+              <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 xl:grid-cols-4">
                 {upcoming.map((event) => (
                   <Reveal key={event.slug} className="h-full">
                     <EventCard event={event} />
@@ -51,7 +51,7 @@ export default async function EventsPage() {
             <h2 id="past-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
               Past events
             </h2>
-            <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
+            <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 xl:grid-cols-4">
               {past.map((event) => (
                 <Reveal key={event.slug} className="h-full">
                   <EventCard event={event} />
