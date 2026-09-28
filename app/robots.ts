@@ -32,6 +32,7 @@ export default function robots(): MetadataRoute.Robots {
           "/edit-impact",
           "/edit-approach",
           "/edit-insights",
+          "/edit-events",
           "/api/",
         ],
       },

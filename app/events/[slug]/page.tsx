@@ -43,16 +43,33 @@ export default async function EventPage({ params }: Props) {
               <div>
                 <TypeLabel>{event.category}</TypeLabel>
                 <h2 className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.6px] text-ink sm:text-[42px]">About the event</h2>
-                <div className="mt-7 max-w-[720px] space-y-5 text-[16px] leading-[1.75] text-muted">{event.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-                <h3 className="font-serif mt-12 text-[27px] font-semibold text-ink">In the conversation</h3>
-                <ul className="mt-5 max-w-[720px] divide-y divide-line border-y border-line">
-                  {event.topics.map((topic, index) => <li key={topic} className="flex items-start gap-5 py-5 text-[15px] leading-[1.6] text-ink"><span aria-hidden="true" className="text-[12px] font-semibold text-brand-dark">{String(index + 1).padStart(2, "0")}</span>{topic}</li>)}
-                </ul>
+                {event.overview.length > 0 && (
+                  <div className="mt-7 max-w-[720px] space-y-5 text-[16px] leading-[1.75] text-muted">{event.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+                )}
+                {event.topics.length > 0 && (
+                  <>
+                    <h3 className="font-serif mt-12 text-[27px] font-semibold text-ink">In the conversation</h3>
+                    <ul className="mt-5 max-w-[720px] divide-y divide-line border-y border-line">
+                      {event.topics.map((topic, index) => <li key={topic} className="flex items-start gap-5 py-5 text-[15px] leading-[1.6] text-ink"><span aria-hidden="true" className="text-[12px] font-semibold text-brand-dark">{String(index + 1).padStart(2, "0")}</span>{topic}</li>)}
+                    </ul>
+                  </>
+                )}
+                {event.links && event.links.length > 0 && (
+                  <div className="mt-8 flex flex-col gap-3">
+                    {event.links.map((link) => (
+                      <a key={link.href} href={link.href} className="text-[15px] font-semibold text-brand underline underline-offset-4" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
               <aside aria-label="Event information" className="self-start border-t-2 border-brand bg-paper p-7 sm:p-9">
                 <h2 className="font-serif mb-7 text-[26px] font-semibold text-ink">Event details</h2>
                 <EventMeta event={event} />
-                <p className="mt-7 border-t border-line pt-6 text-[14px] leading-[1.65] text-muted">The full programme and further details will be announced here.</p>
+                {event.status === "upcoming" && (
+                  <p className="mt-7 border-t border-line pt-6 text-[14px] leading-[1.65] text-muted">The full programme and further details will be announced here.</p>
+                )}
               </aside>
             </div>
           </div>

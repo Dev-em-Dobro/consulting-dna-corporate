@@ -112,12 +112,12 @@ export default async function ApproachPage() {
 
       <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
         <Image
-          src="/hero-bk-1.jpeg"
-          alt="CorporateDNA leaders gathered in a city setting"
+          src="/approach/approach-hero.png"
+          alt="A magnifying glass over the 5H competency profile"
           fill
           priority
           sizes="100vw"
-          className="-z-20 object-cover object-center grayscale"
+          className="-z-20 object-cover object-center"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#1f1c1d]/88 via-[#1f1c1d]/60 to-[#1f1c1d]/20" />
         <div className="w-full">

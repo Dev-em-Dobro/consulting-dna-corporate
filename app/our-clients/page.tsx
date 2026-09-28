@@ -2,18 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import EmptyNotice from "@/components/EmptyNotice";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import SectionHead from "@/components/clients/SectionHead";
 import LogoMarquee from "@/components/LogoMarquee";
 import CaseLine from "@/components/clients/CaseLine";
-import WorldCoverageMap from "@/components/WorldCoverageMap";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { clientLogos, clientLogoRows, logoRowDuration } from "@/lib/logos";
-import { getSiteStats, getFirmStats } from "@/lib/stats";
+import { clientLogoRows, logoRowDuration } from "@/lib/logos";
+import { getFirmStats } from "@/lib/stats";
 import { getClientsCopy } from "@/lib/clients-copy-server";
 import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
 /* 24-09 (hotfix): o herói passou a usar a foto que era do herói da /team, que
@@ -33,8 +31,15 @@ export const revalidate = 300;
 
 /** Quantos cases a grade mostra antes de mandar para a biblioteca inteira. */
 const TILE_COUNT = 12;
-/** Quantas vozes de cliente entram na faixa de depoimentos. */
-const VOICE_COUNT = 3;
+const CLIENT_FILMS = [
+  { role: "CEO, Vodafone Americas", name: "Andrew Morawski", href: "https://www.youtube.com/watch?v=xEgl5TdON20" },
+  { role: "Former Chief DEI Officer, Shell", name: "Lyn Lee", href: "https://www.youtube.com/watch?v=VDylL7Isexw" },
+  { role: "Chief People Officer, Heineken", name: "Yolanda Talamo", href: "https://www.youtube.com/watch?v=GwFhWZs8FfU" },
+  { role: "Chief Human Resources Officer, Kellanova", name: "Sonali Roychowdhury", href: "https://www.youtube.com/watch?v=3LBXTFCFtx0" },
+  { role: "Managing Director, Heineken Asia Pacific", name: "Kenneth Choo", href: "https://www.youtube.com/watch?v=dyuIM3VHEbo" },
+  { role: "SVP, Global Therapy Area Head & Digital Lead, GSK", name: "James Strenner", href: "https://www.youtube.com/watch?v=qiQkc5RbR4c" },
+  { role: "Managing Director, Adidas Asia Pacific", name: "Frederic Serrant", href: "https://www.youtube.com/watch?v=nE1fFizK0Gk" },
+];
 
 /**
  * ============================================================================
@@ -102,9 +107,8 @@ export default async function ClientsAndImpactPage() {
   /* `copy` vem de `/edit-clients`; `firmStats` vem de `/edit-about`, porque
      os quatro números desta página são os mesmos da faixa de lá desde 18-09
      — ver `lib/clients-copy.ts`. */
-  const [cases, stats, firmStats, copy] = await Promise.all([
+  const [cases, firmStats, copy] = await Promise.all([
     getCaseListEntries(),
-    getSiteStats(),
     getFirmStats(),
     getClientsCopy(),
   ]);
@@ -138,10 +142,6 @@ export default async function ClientsAndImpactPage() {
 
      Truncar era a outra saída e foi descartada: cortar a fala de um CEO nomeado
      no meio de uma frase é pior que não mostrá-la. */
-  const voices = cases
-    .filter((c) => c.quote && c.quoter)
-    .sort((a, b) => (a.quote?.length ?? 0) - (b.quote?.length ?? 0))
-    .slice(0, VOICE_COUNT);
 
   /* ⚠️ "REAL OUTCOMES" FOI RETIRADA EM 17-09 — *"tirar real outcomes"* —, um
      dia depois de entrar. Era a segunda fileira da faixa de números: as três
@@ -181,11 +181,6 @@ export default async function ClientsAndImpactPage() {
      ⚠️ O `find` CONTINUA CASANDO PELO RÓTULO DE `lib/stats.ts`, e NÃO por
      este daqui: aquele é o rótulo do CMS, este é o que esta página escreve.
      Trocar "Regions" no editor não pode desligar a busca. */
-  const footprint = [
-    { value: stats.find((s) => s.label.includes("Regions"))?.value ?? "5", label: copy.footprint.statLabels[0] },
-    { value: `${clientLogos.length}`, label: copy.footprint.statLabels[1] },
-    { value: `${cases.length}`, label: copy.footprint.statLabels[2] },
-  ];
 
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -458,51 +453,26 @@ export default async function ClientsAndImpactPage() {
 
             A ESTRUTURA DO CARTÃO É A DA REFERÊNCIA: retrato à esquerda, citação
             à direita, atribuição embaixo e uma régua vermelha curta no pé. */}
-        {voices.length > 0 && (
-          <section id="voices" className="bg-paper">
-            <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-              <SectionHead label={copy.voices.label} kicker={copy.voices.kicker} />
-              <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                {voices.map((c) => (
-                  <figure
-                    key={c.slug}
-                    className="flex h-full gap-5 border border-line bg-white px-5 py-6"
-                  >
-                    <div className="flex w-[84px] shrink-0 flex-col">
-                      {/* ⚠️ NENHUM DEPOIMENTO TEM RETRATO. A referência desenha
-                          o rosto de quem fala, e nós não temos essas fotos — ela
-                          ficou de mandar os depoimentos que faltam e as imagens
-                          são dela. O SLOT TRACEJADO é o recurso que o site já
-                          usa para isso: mostra a composição real, deixa claro
-                          que falta arquivo e não finge com foto de banco de
-                          imagens, que num depoimento de cliente nomeado seria
-                          pior que o vazio. */}
-                      <ImagePlaceholder
-                        label="Photo"
-                        className="aspect-[3/4] w-full"
-                      />
-                      {/* A régua fica ABAIXO DO RETRATO e presa ao pé do
-                          cartão, como na referência. */}
-                      <span className="mt-auto block h-0.5 w-7 bg-brand" />
-                    </div>
-
-                    <div className="flex grow flex-col">
-                      {/* A citação em SERIFA: é a única voz da página que não é
-                          a nossa, e a troca de família marca isso sem precisar
-                          de aspas decorativas. */}
-                      <blockquote className="font-serif text-[15.5px] leading-[1.5] tracking-[-0.1px] text-ink md:text-[16px]">
-                        “{unquote(c.quote)}”
-                      </blockquote>
-                      <figcaption className="mt-auto pt-5 text-[12.5px] leading-[1.45] text-muted">
-                        {c.quoter}
-                      </figcaption>
-                    </div>
-                  </figure>
-                ))}
-              </Reveal>
-            </div>
-          </section>
-        )}
+        <section id="voices" className="bg-paper">
+          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+            <SectionHead label={copy.voices.label} kicker={copy.voices.kicker} />
+            <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {CLIENT_FILMS.map((film) => (
+                <a
+                  key={film.href}
+                  href={film.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-full flex-col border border-line bg-white px-6 py-6 transition-colors hover:border-brand"
+                >
+                  <p className="text-[12px] font-semibold uppercase tracking-[1.2px] text-brand">{film.role}</p>
+                  <p className="mt-3 font-serif text-[22px] font-semibold leading-[1.25] text-ink">{film.name}</p>
+                  <span className="mt-auto pt-6 text-[14px] font-semibold text-brand">Watch</span>
+                </a>
+              ))}
+            </Reveal>
+          </div>
+        </section>
 
         {/* ── A force for good ─────────────────────────────────────────────
             ⚠️ REFEITA EM 16-09. A primeira versão repetia a forma das outras
@@ -559,56 +529,6 @@ export default async function ClientsAndImpactPage() {
           </div>
         </section>
 
-        {/* ── Global footprint ─────────────────────────────────────────────
-            ⚠️ É O `WorldCoverageMap`, E NÃO O `LocationsBlock`. A versão
-            anterior desta página usava o segundo, e ele está certo para o que
-            fazia lá — mapa do Leaflet, tira de cidades e os ENDEREÇOS dos
-            escritórios. Só que o desenho dela pede outra coisa: um planisfério
-            com os países onde há trabalho, ao lado dos números. Com o Leaflet
-            aberto em Covent Garden e um alfinete, a seção respondia "onde fica
-            nosso escritório de Londres" numa página cujo assunto é alcance.
-
-            `eyebrow`/`title` em `null` porque o cabeçalho é o `SectionHead`
-            desta página; sem isso a seção abriria dois títulos. `bare` entrega o
-            SVG cru para a grade daqui posicionar. */}
-        <section id="footprint" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label={copy.footprint.label} kicker={copy.footprint.kicker} />
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_260px] lg:items-center lg:gap-16">
-              <WorldCoverageMap eyebrow={null} title={null} tone="white" bare />
-              {/* OS NÚMEROS REPETEM os da faixa de cima de propósito: é o mesmo
-                  fato dito em dois registros — a tabela e o mapa —, e é o que o
-                  desenho dela faz. Sai daqui quem não tem fonte: "leaders
-                  reached" é do mockup e não está aprovado. */}
-              {/* ⚠️ GRADE DE TRÊS NO TELEFONE, e não `flex-wrap` — 16-09. Com
-                  o wrap, os três entravam como 2 + 1: "36" e "27" dividiam a
-                  linha e "15" caía sozinho embaixo, porque o rótulo
-                  "PUBLISHED CASE STUDIES" é o dobro dos outros dois e estourava
-                  a medida. Grade de colunas iguais resolve na origem: a largura
-                  deixa de depender do comprimento do rótulo.
-
-                  A ESCALA CAI JUNTO no telefone (26px contra 40px) — em três
-                  colunas de ~106px, o corpo de desktop empurraria o número para
-                  fora da célula. */}
-              <dl className="grid grid-cols-3 gap-x-4 gap-y-6 lg:flex lg:flex-col lg:gap-8">
-                {footprint.map((f) => (
-                  <div key={f.label}>
-                    <dt className="sr-only">{f.label}</dt>
-                    <dd>
-                      <span className="block text-[26px] font-semibold leading-none tracking-[-1px] text-ink sm:text-[34px] lg:text-[40px]">
-                        {f.value}
-                      </span>
-                      <span className="mt-2 block text-[10.5px] font-semibold uppercase leading-[1.3] tracking-[1px] text-muted sm:text-[11.5px] sm:tracking-[1.2px]">
-                        {f.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        </section>
-
         <div id="clients-cta">
         <SolutionCta
           strapline={copy.cta.strapline}
@@ -650,19 +570,3 @@ function RowLabel({ children, onDark = false }: { children: React.ReactNode; onD
   );
 }
 
-/**
- * Tira as aspas que já vêm no valor gravado, para não somarem com as
- * tipográficas que o cartão desenha em volta.
- *
- * ⚠️ POR QUE NÃO É NO `lib/cms/map.ts`. Lá seria o lugar natural de normalizar,
- * mas a `CaseView` imprime a citação CRUA, sem aspas próprias — tirá-las na
- * origem deixaria a página de case com a fala solta, sem marca nenhuma de que
- * é citação. Enquanto as duas telas discordarem sobre quem desenha as aspas, o
- * conserto é de quem as desenha.
- *
- * O CMS tem os dois tipos: a planilha da cliente veio com aspas tipográficas
- * (“ ”) e os cases antigos, com as retas ("). Os dois casos entram aqui.
- */
-function unquote(text?: string): string {
-  return (text ?? "").trim().replace(/^["“”']+|["“”']+$/g, "").trim();
-}

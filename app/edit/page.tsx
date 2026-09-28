@@ -69,6 +69,12 @@ const PAGES = [
     body: "Headline, thought leadership resources, download labels and the article library headings.",
     note: "Articles and their authors are managed in the CMS; resource PDF files remain unchanged.",
   },
+  {
+    href: "/edit-events",
+    title: "Events page",
+    body: "The upcoming events notice.",
+    note: "Past events are published from the programme already supplied.",
+  },
 ];
 
 export default function EditIndexPage() {

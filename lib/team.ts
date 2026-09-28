@@ -499,6 +499,11 @@ export type RosterPerson = {
   portrait: string;
   /** Cargo visível quando a `meta` é a região usada no agrupamento. */
   title?: string;
+  /** Liderança na grade de delivery fica em cor. A faculty continua em P&B. */
+  color?: boolean;
+  /** Linha curta acima da frase, nos programme managers. */
+  focus?: string;
+  quote?: string;
 };
 
 /**
@@ -549,9 +554,27 @@ export type RosterPerson = {
  * para rótulo de público é uma linha cada, e é pergunta para a próxima daily.
  */
 export const programmeManagers: RosterPerson[] = [
-  { name: "Maliha Bathool", meta: "Program Manager", portrait: "/team/programme-managers/maliha-bathool.jpg" },
-  { name: "Carol Medcalf", meta: "Program Manager", portrait: "/team/programme-managers/carol-medcalf.jpg" },
-  { name: "Nicole Phoon", meta: "Program Manager", portrait: "/team/programme-managers/nicole-phoon.jpg" },
+  {
+    name: "Maliha Bathool",
+    meta: "Program Manager",
+    focus: "Planning, roadmaps & tracking",
+    quote: "A strong roadmap makes the promise real. We plan backwards from the outcome, track the detail and keep every moving part connected, so everyone knows where we are, what comes next and what needs attention.",
+    portrait: "/team/programme-managers/maliha-bathool.jpg",
+  },
+  {
+    name: "Carol Medcalf",
+    meta: "Program Manager",
+    focus: "Proactive client communication & risk",
+    quote: "Great client communication is proactive. We don't wait for a problem to become a problem. We stay close, anticipate what's coming, flag risks early and have the conversations that keep delivery moving.",
+    portrait: "/team/programme-managers/carol-medcalf.jpg",
+  },
+  {
+    name: "Nicole Phoon",
+    meta: "Program Manager",
+    focus: "Shared success & partnership",
+    quote: "The best programmes feel like one team, not client and consultant. Shared success means staying connected to the client, faculty and outcomes throughout, adapting as we learn and taking ownership together for what lands.",
+    portrait: "/team/programme-managers/nicole-phoon.jpg",
+  },
 ];
 
 /**
@@ -673,11 +696,11 @@ export const facultyByRegion: FacultyRegionGroup[] = (() => {
   }
 
   const deliveryLeaders: { region: string; person: RosterPerson }[] = [
-    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas" } },
-    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE" } },
-    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA" } },
-    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation" } },
-    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia" } },
+    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas", color: true } },
+    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE", color: true } },
+    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA", color: true } },
+    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation", color: true } },
+    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia", color: true } },
   ];
   for (const entry of deliveryLeaders) {
     groups.find((g) => g.region === entry.region)?.people.unshift(entry.person);
