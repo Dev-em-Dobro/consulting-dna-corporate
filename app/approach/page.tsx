@@ -1,13 +1,19 @@
 import { Fragment } from "react";
 import { getApproachCopy } from "@/lib/approach-copy-server";
+import type { ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Geist, Source_Serif_4 } from "next/font/google";
 import {
   ListChecks,
+  ChartNoAxesColumn,
+  Compass,
+  Dna,
   Play,
   Plus,
+  Star,
+  Target,
   UserRoundCheck,
   UsersRound,
 } from "lucide-react";
@@ -47,6 +53,32 @@ function R() {
 function RegisteredText({ text }: { text: string }) {
   const parts = text.split("®");
   return <>{parts.map((part, index) => <Fragment key={index}>{part}{index < parts.length - 1 && <R />}</Fragment>)}</>;
+}
+
+const TOOLKIT_ICONS = [Dna, UsersRound, ChartNoAxesColumn, Compass, Star, UsersRound, Target];
+
+function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"] }) {
+  return (
+    <div className="lg:border-l lg:border-line lg:pl-10">
+      <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.label}</p>
+      <h3 className="mt-3 whitespace-pre-line text-[28px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[34px]">{copy.heading}</h3>
+      <p className="mt-4 max-w-[560px] text-[14px] leading-[1.65] text-muted sm:text-[15px]">{copy.body}</p>
+      <div className="mt-7 grid grid-cols-12 gap-y-7">
+        {copy.items.map((item, index) => {
+          const Icon = TOOLKIT_ICONS[index];
+          return (
+            <div key={index} className={`min-w-0 px-1 text-center ${index < 3 ? "col-span-4" : "col-span-3"}`}>
+              <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-brand/15 bg-[#fcf6f2] sm:size-16">
+                <Icon aria-hidden="true" className={`size-6 sm:size-7 ${index === 5 ? "text-muted" : "text-brand"}`} strokeWidth={1.5} />
+              </span>
+              <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title}</h4>
+              <p className="mt-1 whitespace-pre-line text-[10px] leading-[1.4] text-muted sm:text-[12px]">{item.description}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default async function ApproachPage() {
@@ -104,6 +136,32 @@ export default async function ApproachPage() {
       </section>
 
       <div className="bg-white">
+        <section id="framework" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
+          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.framework.label}</p>
+          <h2 className="mt-3 font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
+            {copy.framework.heading}
+          </h2>
+          <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
+            {copy.framework.body}
+          </p>
+          <div className="mt-9 grid items-center gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <Image
+                src="/approach-5h-wheel.svg"
+                alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
+                width={932}
+                height={908}
+                sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
+                className="h-auto w-full max-w-[648px]"
+              />
+              <p className="mt-4 text-center text-[14px] leading-[1.5] text-[#777]">
+                {copy.framework.copyright}
+              </p>
+            </div>
+            <DiagnosticToolkit copy={copy.framework.toolkit} />
+          </div>
+        </section>
+
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:max-w-none lg:text-[48px]">
             {copy.introduction.heading}
@@ -188,27 +246,6 @@ export default async function ApproachPage() {
           </p>
         </div>
 
-        <section id="framework" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-            <h2 className="text-center font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
-              {copy.framework.heading}
-            </h2>
-            <p className="mx-auto mt-7 max-w-[760px] text-center text-[12px] leading-[1.6] text-muted sm:text-[13px] lg:mt-9 lg:text-[16px]">
-              {copy.framework.body}
-            </p>
-            <Image
-              src="/approach-5h-wheel.svg"
-              alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
-              width={932}
-              height={908}
-              sizes="(min-width: 1024px) 680px, 100vw"
-              className="mx-auto mt-9 h-auto w-full max-w-[680px] lg:mt-12"
-            />
-          </div>
-          <p className="px-6 pb-12 pt-4 text-center text-[14px] leading-[1.5] text-[#777] md:pb-16 md:pt-0">
-            {copy.framework.copyright}
-          </p>
-        </section>
       </div>
 
       <section id="dna-360-profiler" className="bg-[#353132] text-white">
@@ -247,7 +284,9 @@ export default async function ApproachPage() {
             <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
               {copy.learning.heading} <span className="text-brand">{copy.learning.accent}</span>
             </h2>
-            <p className="mt-4 text-[15px] leading-[1.6] text-muted">{copy.learning.body}</p>
+            {copy.learning.body.trim() && copy.learning.body.trim() !== "Body copy to be confirmed (max 500 characters)." && (
+              <p className="mt-4 text-[15px] leading-[1.6] text-muted">{copy.learning.body}</p>
+            )}
           </div>
           <div className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.faq.label}</p>

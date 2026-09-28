@@ -112,16 +112,33 @@ export const DEFAULT_APPROACH_COPY = {
     "note": "(Most leadership development stops at the Head)"
   },
   "framework": {
-    "heading": "What happens underneath drives the outcome.",
-    "body": "Five connected forms of intelligence, centred on the values, beliefs and drivers that shape how a leader shows up.",
+    "label": "The 5H framework",
+    "heading": "Five intelligences. One integrated leader.",
+    "body": "The 5H framework is CDNA’s proprietary model, bringing together the human dimensions of leadership that drive insight, behaviour and lasting change.",
+    "toolkit": {
+      "label": "Our diagnostic toolkit",
+      "heading": "Multiple lenses.\nA richer picture.",
+      "body": "We use a carefully selected suite of leadership diagnostics to understand the individual, the team and the system around them. Each assessment gives a different lens — together, they create a richer picture of strengths, behaviours, motivations, judgement, relationships and impact.",
+      "items": [
+        { "title": "CDNA\nDNA 360 PROFILER", "description": "Leadership\nimpact" },
+        { "title": "SDI", "description": "Motives &\nrelationships" },
+        { "title": "Hogan", "description": "Personality &\nderailers" },
+        { "title": "Values &\nSaboteurs", "description": "Beliefs &\ndrivers" },
+        { "title": "Strengths", "description": "Natural\ntalent" },
+        { "title": "Team Climate", "description": "Team\nenvironment" },
+        { "title": "Judgement Index", "description": "Judgement &\ndecision-making" }
+      ]
+    },
     "copyright": "The 5H© Framework. © 2026 Corporate DNA Consulting. All rights reserved."
   },
   "profiler": {
     "label": "The DNA 360 Profiler",
     "heading": "The 5H, as an assessment.",
     "paragraphs": [
-      "The 5H was the catalyst for building the DNA 360™ Profiler with Dr Nigel Guenole, our Head of Assessments, and his team of PhD researchers.",
-      "A situational psychometric assessment using over 125 organisational scenarios, measuring a leader's ability to flex between inner and outer game behaviours according to the situation in front of them."
+      "Dr Nigel Guenole, a globally respected expert in leadership assessment, behavioural science and people analytics, played a pivotal role in the development and validation of CDNA's 5H™ Leadership Framework.",
+      "Working closely with CDNA, Nigel brought scientific rigour to the framework, helping us test and validate the five dimensions of Head, Heart, Hunch, Hands and Habits, ensuring the model was grounded in robust behavioural and assessment science.",
+      "Nigel previously led a team of behavioural scientists at IBM, working at the intersection of behavioural science, AI and Human Resources. His work has been featured in Harvard Business Review, Forbes, European CEO and European Business Review, and he co-authored the bestselling book The Power of People. He is also an elected Fellow of the Society for Industrial and Organizational Psychology.",
+      "His contribution helped us bridge what has always been central to CDNA: the science of leadership with the reality of how leaders actually think, feel, judge, act and build habits in the flow of work."
     ],
     "facts": [
       {
@@ -138,7 +155,7 @@ export const DEFAULT_APPROACH_COPY = {
     "label": "From intent to action",
     "heading": "Making the learning",
     "accent": "real.",
-    "body": "Body copy to be confirmed (max 500 characters)."
+    "body": ""
   },
   "faq": {
     "label": "Frequently asked questions",
@@ -177,6 +194,11 @@ export const EDITOR_SECTIONS: EditorSection[] = [
     "anchor": "/approach"
   },
   {
+    "id": "framework",
+    "title": "The 5H framework",
+    "anchor": "/approach#framework"
+  },
+  {
     "id": "introduction",
     "title": "Whole leadership introduction",
     "anchor": "/approach#whole-leader"
@@ -190,11 +212,6 @@ export const EDITOR_SECTIONS: EditorSection[] = [
     "id": "fiveH",
     "title": "Five intelligences",
     "anchor": "/approach#the-five-h"
-  },
-  {
-    "id": "framework",
-    "title": "The 5H framework",
-    "anchor": "/approach#framework"
   },
   {
     "id": "profiler",
