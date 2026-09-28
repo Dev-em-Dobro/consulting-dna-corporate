@@ -2,6 +2,7 @@
 
 import { DEFAULT_APPROACH_COPY, type ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -111,9 +112,9 @@ export default function FiveHShowcase({
   };
 
   return (
-    <section ref={rootRef} id="the-five-h" className="overflow-clip border-y border-black/5 bg-[#dedede]">
+    <section ref={rootRef} id="the-five-h" className="overflow-clip border-b border-black/5 bg-[#dedede]">
       <div className="mx-auto max-w-[1440px] px-6 pb-0 pt-12 md:px-10 md:pt-20">
-        <h2 className="max-w-[720px] font-serif text-[36px] font-semibold leading-[1.18] tracking-[-0.75px] text-ink sm:text-[46px] lg:max-w-none lg:text-[54px]">
+        <h2 className="max-w-[720px] font-serif text-[30px] font-semibold leading-[1.18] tracking-[-0.55px] text-ink sm:text-[38px] lg:max-w-none lg:text-[42px]">
           {heading}
         </h2>
 
@@ -140,12 +141,12 @@ export default function FiveHShowcase({
                     zIndex: initiallySelected ? 3 : 1,
                   }}
                 >
-                  <div className="h-7" style={{ backgroundColor: faculty.color }} />
-                  <div aria-hidden={slot !== 0} className="px-5 pb-7 pt-5 text-center sm:px-10 sm:pb-8">
-                    <h3 className="text-[23px] font-bold uppercase leading-none text-ink">{faculty.name}</h3>
-                    <p className="mt-3 text-[15px] font-normal uppercase leading-none text-ink sm:text-[16px]">{faculty.intelligence}</p>
-                    <p className="mx-auto mt-7 max-w-[420px] text-[15px] leading-[1.85] text-ink sm:text-[16px]">{faculty.description}</p>
-                    <p className="mx-auto mt-5 max-w-[440px] text-[14px] font-normal leading-[2.05] sm:text-[16px]" style={{ color: faculty.color }}>
+                  <div className="h-5" style={{ backgroundColor: faculty.color }} />
+                  <div aria-hidden={slot !== 0} className="px-5 pb-6 pt-4 text-center sm:px-10 sm:pb-7">
+                    <h3 className="text-[19px] font-bold uppercase leading-none text-ink sm:text-[20px]">{faculty.name}</h3>
+                    <p className="mt-2 text-[13px] font-normal uppercase leading-none text-ink sm:text-[14px]">{faculty.intelligence}</p>
+                    <p className="mx-auto mt-5 max-w-[420px] text-[14px] leading-[1.65] text-ink sm:text-[15px]">{faculty.description}</p>
+                    <p className="mx-auto mt-4 max-w-[440px] text-[12px] font-normal leading-[1.8] sm:text-[13px]" style={{ color: faculty.color }}>
                       {faculty.dimensions.slice(0, 3).join(" · ")}<br className="hidden sm:block" /> {faculty.dimensions.slice(3).join(" · ")}
                     </p>
                   </div>
@@ -162,13 +163,29 @@ export default function FiveHShowcase({
             })}
           </div>
 
-          <div className="relative z-20 mx-auto -mt-7 h-[90px] overflow-hidden sm:-mt-9 sm:h-[110px]">
+          <div className="relative z-20 mx-auto -mt-7 h-[104px] overflow-hidden sm:-mt-9 sm:h-[126px]">
             <div className="absolute inset-x-0 top-0 flex justify-center">
-              <div ref={wheelRef} className="h-[220px] w-[220px] flex-none will-change-transform sm:h-[270px] sm:w-[270px]">
+              <div ref={wheelRef} className="h-[240px] w-[240px] flex-none will-change-transform sm:h-[290px] sm:w-[290px]">
                 <Image aria-hidden="true" alt="" src="/approach-5h-ring.png" width={636} height={636} className="h-full w-full" />
               </div>
             </div>
           </div>
+          <button
+            type="button"
+            aria-label={`Show previous 5H intelligence: ${FACULTIES[(active + FACULTIES.length - 1) % FACULTIES.length].name}`}
+            onClick={() => selectCard((active + FACULTIES.length - 1) % FACULTIES.length)}
+            className="absolute left-0 top-[42%] z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-white/90 text-ink shadow-sm transition-colors hover:bg-white sm:size-10"
+          >
+            <ChevronLeft aria-hidden="true" className="size-5" />
+          </button>
+          <button
+            type="button"
+            aria-label={`Show next 5H intelligence: ${FACULTIES[(active + 1) % FACULTIES.length].name}`}
+            onClick={() => selectCard((active + 1) % FACULTIES.length)}
+            className="absolute right-0 top-[42%] z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-white/90 text-ink shadow-sm transition-colors hover:bg-white sm:size-10"
+          >
+            <ChevronRight aria-hidden="true" className="size-5" />
+          </button>
           <span className="sr-only" aria-live="polite">{FACULTIES[active].name} selected</span>
         </div>
       </div>

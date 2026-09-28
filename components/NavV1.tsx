@@ -79,7 +79,7 @@ export default function NavV1({
           <img
             src={light ? "/cdna-logo-full.png" : "/cdna-logo-full-light.png"}
             alt="CorporateDNA Consulting"
-            className={light ? "h-[41px] w-auto" : "h-[46px] w-auto xl:h-[58px]"}
+            className={light ? "h-[33px] w-auto" : "h-[37px] w-auto xl:h-[47px]"}
           />
         </Link>
 

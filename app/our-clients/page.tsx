@@ -457,19 +457,33 @@ export default async function ClientsAndImpactPage() {
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             <SectionHead label={copy.voices.label} kicker={copy.voices.kicker} />
             <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {CLIENT_FILMS.map((film) => (
-                <a
+              {CLIENT_FILMS.map((film) => {
+                const videoId = new URL(film.href).searchParams.get("v");
+                return (
+                <article
                   key={film.href}
-                  href={film.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-full flex-col border border-line bg-white px-6 py-6 transition-colors hover:border-brand"
+                  className="flex h-full flex-col border border-line bg-white p-3"
                 >
-                  <p className="text-[12px] font-semibold uppercase tracking-[1.2px] text-brand">{film.role}</p>
-                  <p className="mt-3 font-serif text-[22px] font-semibold leading-[1.25] text-ink">{film.name}</p>
-                  <span className="mt-auto pt-6 text-[14px] font-semibold text-brand">Watch</span>
-                </a>
-              ))}
+                  {videoId && (
+                    <div className="relative aspect-video w-full overflow-hidden bg-ink">
+                      <iframe
+                        className="absolute inset-0 h-full w-full"
+                        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                        title={`${film.name} — ${film.role}`}
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    </div>
+                  )}
+                  <div className="px-3 pb-3 pt-4">
+                    <p className="text-[12px] font-semibold uppercase tracking-[1.2px] text-brand">{film.role}</p>
+                    <p className="mt-2 font-serif text-[22px] font-semibold leading-[1.25] text-ink">{film.name}</p>
+                  </div>
+                </article>
+                );
+              })}
             </Reveal>
           </div>
         </section>

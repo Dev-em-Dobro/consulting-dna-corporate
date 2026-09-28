@@ -63,11 +63,11 @@ function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"
       <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.label}</p>
       <h3 className="mt-3 whitespace-pre-line text-[28px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[34px]">{copy.heading}</h3>
       <p className="mt-4 max-w-[560px] text-[14px] leading-[1.65] text-muted sm:text-[15px]">{copy.body}</p>
-      <div className="mt-7 grid grid-cols-12 gap-y-7">
+      <div className="mt-12 grid grid-cols-4 gap-y-7">
         {copy.items.map((item, index) => {
           const Icon = TOOLKIT_ICONS[index];
           return (
-            <div key={index} className={`min-w-0 px-1 text-center ${index < 3 ? "col-span-4" : "col-span-3"}`}>
+            <div key={index} className="min-w-0 px-1 text-center">
               <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-brand/15 bg-[#fcf6f2] sm:size-16">
                 <Icon aria-hidden="true" className={`size-6 sm:size-7 ${index === 5 ? "text-muted" : "text-brand"}`} strokeWidth={1.5} />
               </span>
@@ -112,7 +112,7 @@ export default async function ApproachPage() {
 
       <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
         <Image
-          src="/approach/approach-hero.png"
+          src="/approach/approach-hero-landscape.png"
           alt="A magnifying glass over the 5H competency profile"
           fill
           priority
@@ -144,7 +144,7 @@ export default async function ApproachPage() {
           <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
             {copy.framework.body}
           </p>
-          <div className="mt-9 grid items-center gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
+          <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <Image
                 src="/approach-5h-wheel.svg"
@@ -154,64 +154,58 @@ export default async function ApproachPage() {
                 sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full max-w-[648px]"
               />
-              <p className="mt-4 text-center text-[14px] leading-[1.5] text-[#777]">
-                {copy.framework.copyright}
-              </p>
             </div>
             <DiagnosticToolkit copy={copy.framework.toolkit} />
           </div>
+          <p className="mt-8 text-center text-[14px] leading-[1.5] text-[#777] lg:mt-10">
+            {copy.framework.copyright}
+          </p>
         </section>
 
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-          <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:max-w-none lg:text-[48px]">
+          <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+          <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
             {copy.introduction.heading}
           </h2>
-          <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-5 lg:space-y-0 lg:text-[17px]">
+          <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:text-[17px]">
             {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}><RegisteredText text={paragraph} /></p>)}
           </div>
-        </section>
-
-        <section id="two-games" className="mx-auto max-w-[1440px] px-6 pb-12 md:px-10 md:pb-20">
-          <div>
-            <h2 className="max-w-[760px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:mx-auto lg:max-w-none lg:text-center lg:text-[48px]">
-              {copy.games.heading}
-            </h2>
-
-          <div className="relative -mx-4 mt-10 w-[calc(100%+32px)] max-w-[680px] px-[4%] py-[7%] sm:mx-auto sm:w-full sm:px-[5%] lg:mt-12">
+          </div>
+          <div id="two-games" className="min-w-0">
+          <div className="relative mx-auto w-full max-w-[480px] px-[5%] py-[7%]">
             <Image
               src="/approach-two-games-arrow.svg"
               alt=""
               aria-hidden="true"
               fill
-              sizes="(min-width: 768px) 680px, 100vw"
-              className="pointer-events-none object-fill"
+              sizes="(min-width: 528px) 480px, 100vw"
+              className="pointer-events-none scale-110 animate-[spin_40s_linear_infinite] object-fill motion-reduce:animate-none"
             />
 
             <div className="relative grid grid-cols-2 gap-[5%]">
               <article className="flex min-w-0 flex-col overflow-hidden rounded-[10px] bg-[#e9e9e9] shadow-[0_3px_8px_rgba(0,0,0,0.27)]">
-                <h3 className="bg-[#383838] px-1 py-[14px] text-center text-[clamp(16px,4.6vw,24px)] font-bold leading-[1.5] text-white sm:py-[17px]">{copy.games.inner.heading}</h3>
-                <div className="flex min-h-[clamp(290px,72vw,365px)] flex-1 flex-col items-center px-2 pb-8 pt-7 text-center sm:px-5 md:min-h-[430px] md:pb-10 md:pt-9">
-                  <p className="max-w-[240px] text-[clamp(14px,3.8vw,20px)] leading-[1.5] text-[#595959]">{copy.games.inner.body}</p>
-                  <div className="mt-auto flex w-full max-w-[134px] flex-col gap-[3px] pt-8 md:max-w-[170px]">
-                    {copy.games.inner.labels.map((name, index) => [name, ["#693274", "#df3f38", "#e5bd0b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[clamp(14px,4vw,23px)] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
+                <h3 className="bg-[#383838] px-1 py-3 text-center text-[16px] font-bold leading-[1.4] text-white sm:text-[20px]">{copy.games.inner.heading}</h3>
+                <div className="flex min-h-[260px] flex-1 flex-col items-center px-3 pb-6 pt-5 text-center sm:min-h-[300px] sm:px-4">
+                  <p className="max-w-[200px] text-[14px] sm:text-[16px] leading-[1.5] text-[#595959]">{copy.games.inner.body}</p>
+                  <div className="mt-auto grid w-full max-w-[134px] grid-rows-3 gap-[3px] pt-6">
+                    {copy.games.inner.labels.map((name, index) => [name, ["#693274", "#df3f38", "#e5bd0b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[14px] sm:text-[18px] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
                   </div>
                 </div>
               </article>
               <article className="flex min-w-0 flex-col overflow-hidden rounded-[10px] bg-[#e9e9e9] shadow-[0_3px_8px_rgba(0,0,0,0.27)]">
-                <h3 className="bg-[#383838] px-1 py-[14px] text-center text-[clamp(16px,4.6vw,24px)] font-bold leading-[1.5] text-white sm:py-[17px]">{copy.games.outer.heading}</h3>
-                <div className="flex min-h-[clamp(290px,72vw,365px)] flex-1 flex-col items-center px-2 pb-8 pt-7 text-center sm:px-5 md:min-h-[430px] md:pb-10 md:pt-9">
-                  <p className="max-w-[240px] text-[clamp(14px,3.8vw,20px)] leading-[1.5] text-[#595959]">{copy.games.outer.body}</p>
-                  <div className="mt-auto flex w-full max-w-[134px] flex-col gap-[3px] pt-8 md:max-w-[170px]">
-                    {copy.games.outer.labels.map((name, index) => [name, ["#2e4794", "#08764b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[clamp(14px,4vw,23px)] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
+                <h3 className="bg-[#383838] px-1 py-3 text-center text-[16px] font-bold leading-[1.4] text-white sm:text-[20px]">{copy.games.outer.heading}</h3>
+                <div className="flex min-h-[260px] flex-1 flex-col items-center px-3 pb-6 pt-5 text-center sm:min-h-[300px] sm:px-4">
+                  <p className="max-w-[200px] text-[14px] sm:text-[16px] leading-[1.5] text-[#595959]">{copy.games.outer.body}</p>
+                  <div className="mt-auto grid w-full max-w-[134px] grid-rows-3 gap-[3px] pt-6">
+                    {copy.games.outer.labels.map((name, index) => [name, ["#2e4794", "#08764b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[14px] sm:text-[18px] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
                   </div>
                 </div>
               </article>
             </div>
           </div>
-          </div>
-
-          <div className="mx-auto max-w-[980px]">
-          <div className="mt-8 grid grid-cols-3 gap-4 lg:mx-auto lg:mt-12 lg:max-w-[720px] lg:gap-10">
+          <div className="mx-auto max-w-[980px] px-5 py-10 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-3 gap-4 lg:mx-auto lg:max-w-[720px] lg:gap-10">
             {[
               { label: copy.games.assessmentLabels[0], Icon: UserRoundCheck },
               { label: copy.games.assessmentLabels[1], Icon: UsersRound },
@@ -219,22 +213,27 @@ export default async function ApproachPage() {
             ].map(({ label, Icon }) => (
               <div key={label} className="text-center">
                 <div className="flex h-14 items-center justify-center sm:h-20 lg:h-16">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 sm:h-20 sm:w-20 lg:size-16">
-                    <Icon aria-hidden size={28} strokeWidth={1.5} className="text-brand sm:size-10 lg:size-8" />
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f0f0ef] sm:h-16 sm:w-16 lg:size-14">
+                    <Icon aria-hidden size={24} strokeWidth={1.5} className="text-ink sm:size-8 lg:size-7" />
                   </span>
                 </div>
-                <p className="mt-2 text-[13px] font-medium leading-[1.25] text-muted sm:text-[18px] lg:text-[17px]">{label}</p>
+                <p className="mt-2 text-[12px] font-medium leading-[1.25] text-muted sm:text-[14px]">{label}</p>
               </div>
             ))}
           </div>
 
-          <div className="relative mt-8 aspect-[1.58/1] overflow-hidden lg:mt-7">
-            <Image src="/clients-bottom-banner.jpg" alt="CorporateDNA leaders together" fill sizes="(min-width: 760px) 680px, 100vw" className="object-cover grayscale" />
+          </div>
+          </div>
+          </div>
+        </section>
+
+        <section id="approach-video" aria-label="CorporateDNA leaders" className="bg-[#373234] px-6 py-12 md:px-10 md:py-20">
+          <div className="relative mx-auto aspect-[1.58/1] max-w-[980px] overflow-hidden">
+            <Image src="/clients-bottom-banner.jpg" alt="CorporateDNA leaders together" fill sizes="(min-width: 1060px) 980px, 100vw" className="object-cover grayscale" />
             <div className="absolute inset-0 bg-black/10" />
             <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-black/45 text-white shadow-xl">
               <Play aria-hidden="true" className="ml-1 h-6 w-6 fill-current" />
             </span>
-          </div>
           </div>
         </section>
 
@@ -254,12 +253,11 @@ export default async function ApproachPage() {
           <h2 className="mt-3 font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
             {copy.profiler.heading}
           </h2>
-          <div className="lg:mt-9 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
-            <div className="mt-7 max-w-[720px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[17px]">
+          <div className="lg:mt-9 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
+            <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[16px]">
               {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
-
-            <div className="mt-10 grid gap-7 border-t border-white/15 pt-8 sm:grid-cols-2 sm:gap-10 lg:mt-0 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-14 lg:pt-0">
+            <div className="mt-10 grid gap-7 border-t border-white/15 pt-8 sm:grid-cols-2 sm:gap-10 lg:mt-0 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
               <div>
                 <strong className="block text-[40px] font-bold leading-none text-brand">{copy.profiler.facts[0].value}</strong>
                 <span className="mt-2 block max-w-[260px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78 whitespace-pre-line">
