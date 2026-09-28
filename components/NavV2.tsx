@@ -267,7 +267,7 @@ export default function NavV2({
           <img
             src="/cdna-logo-full-light.png"
             alt="CorporateDNA Consulting"
-            className="h-[38px] w-auto xl:h-12"
+            className="h-[41px] w-auto xl:h-[52px]"
           />
         </Link>
 

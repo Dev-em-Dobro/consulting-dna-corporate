@@ -35,7 +35,7 @@ export default function EventCard({ event, featured = false }: { event: Leadersh
         >
           <Link href={href} className="transition-colors hover:text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">{event.title}</Link>
         </h3>
-        <p className="mt-5 text-[15px] leading-[1.7] text-muted sm:text-[16px]">{event.summary}</p>
+        {event.summary ? <p className="mt-5 text-[15px] leading-[1.7] text-muted sm:text-[16px]">{event.summary}</p> : null}
         <div className="mt-7 border-t border-line pt-6"><EventMeta event={event} /></div>
         <div className="mt-auto pt-8"><HoverFillButton label="Read more" href={href} className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand" /></div>
       </div>

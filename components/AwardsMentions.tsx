@@ -158,12 +158,6 @@ const awards: Award[] = [
     logo: "/awards/women-of-the-future.png",
   },
   {
-    name: "British Indian Awards",
-    distinction: "Finalist",
-    year: "2008",
-    logo: "/awards/british-indian-awards.png",
-  },
-  {
     name: "Top 15 woman leader in the Middle East",
     distinction: "",
     year: "2025",

@@ -156,6 +156,12 @@ export default function PeopleRoster({
           {p.meta && (
             <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>
           )}
+          {p.focus && (
+            <p className="mt-2 text-[13px] font-medium leading-snug text-ink">{p.focus}</p>
+          )}
+          {p.quote && (
+            <p className="mt-2 text-[14px] leading-[1.55] text-muted">“{p.quote}”</p>
+          )}
         </li>
       ))}
     </ul>

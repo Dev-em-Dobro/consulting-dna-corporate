@@ -56,7 +56,7 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           <img
             src="/cdna-logo-full.png"
             alt="CorporateDNA Consulting"
-            className="h-12 w-auto"
+            className="h-[58px] w-auto"
           />
         </Link>
 

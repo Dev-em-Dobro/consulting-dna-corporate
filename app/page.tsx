@@ -53,6 +53,7 @@ import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
 import { getHomeCopy } from "@/lib/home-copy-server";
+import { getCaseListEntries } from "@/lib/cms/map";
 import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 // Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
@@ -241,7 +242,12 @@ export default async function Home() {
   // porquê daquele `map` (o CMS guarda a leva ANTIGA de retratos; os oficiais de
   // 09-09 moram em `lib/team.ts`, e quem não tem oficial fica nas iniciais em vez
   // de republicar a foto velha) está no commit de 11-09 e continua valendo.
-  const [nav, cmsStats, copy] = await Promise.all([buildSiteNav(), getSiteStats(), getHomeCopy()]);
+  const [nav, cmsStats, copy, publishedCases] = await Promise.all([
+    buildSiteNav(),
+    getSiteStats(),
+    getHomeCopy(),
+    getCaseListEntries(),
+  ]);
   // A copy editável (23-09): rótulos dos números por posição (os VALORES seguem
   // do CMS), o livro com o texto da home por cima do módulo, e os cards.
   const stats = cmsStats.map((s, i) => ({ ...s, label: copy.credibility.statLabels[i] ?? s.label }));
@@ -698,7 +704,7 @@ export default async function Home() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-muted">{c.metricLabel}</div>
                     <a
-                      href="/cases"
+                      href={caseHref(c.client, publishedCases)}
                       className="mt-7 block text-right text-[14px] font-semibold text-brand transition-colors hover:text-brand-dark"
                     >
                       {copy.impact.readMore}
@@ -772,13 +778,13 @@ export default async function Home() {
           <TypeLabel>{copy.people.label}</TypeLabel>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,640px)] lg:gap-16">
             <div className="w-full max-w-[40rem]">
-              <h2 className="mb-3 whitespace-pre-line text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+              <h2 className="mb-6 whitespace-pre-line font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink sm:text-[34px] md:text-[40px]">
                 {copy.people.title}
               </h2>
-              <p className="whitespace-pre-line text-[19px] font-normal leading-[1.65] text-ink">
+              <p className="whitespace-pre-line text-[18px] font-medium leading-[1.55] text-ink md:text-[20px]">
                 {copy.people.subtitle}
               </p>
-              <p className="mt-6 whitespace-pre-line text-[18px] font-normal leading-[1.55] text-ink">
+              <p className="mt-8 whitespace-pre-line text-[16px] font-normal leading-[1.7] text-muted md:text-[17px]">
                 {copy.people.intro}
               </p>
             </div>
@@ -793,23 +799,30 @@ export default async function Home() {
               Título e corpo usam a mesma medida em todos, para nenhum bloco
               parecer um cabeçalho dos outros. 24px no título mantém o vermelho
               da marca dentro do contraste de texto grande. */}
-          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
-            <div>
-              <h3 className="mb-2 whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
-                {copy.people.designTitle}
-              </h3>
-              <p className="whitespace-pre-line text-[16px] font-semibold leading-[1.6] text-ink">
-                {copy.people.designBody}
-              </p>
-            </div>
-            {copy.people.pillars.map((p) => (
-              <div key={p.title}>
-                <h3 className="mb-2 whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
-                  {p.title}
-                </h3>
-                <p className="whitespace-pre-line text-[16px] font-semibold leading-[1.6] text-ink">{p.body}</p>
-              </div>
-            ))}
+          <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { title: copy.people.designTitle, body: copy.people.designBody },
+              ...copy.people.pillars,
+            ].map((block) => {
+              const { subtitle, text } = leadSentence(block.body);
+              return (
+                <div key={block.title}>
+                  <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
+                    {block.title}
+                  </h3>
+                  {subtitle && (
+                    <p className="mt-4 whitespace-pre-line text-[16px] font-medium leading-[1.5] text-ink">
+                      {subtitle}
+                    </p>
+                  )}
+                  {text && (
+                    <p className="mt-3 whitespace-pre-line text-[16px] font-normal leading-[1.65] text-muted">
+                      {text}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
           </div>
           {/* A faixa "In partnership with" saiu daqui em 23-09 e virou a
               seção seguinte. Até então era o painel escuro no pé deste bloco. */}
@@ -929,4 +942,21 @@ export default async function Home() {
       <SiteFooter />
     </div>
   );
+}
+
+function caseHref(client: string, published: { slug: string; client: string }[]) {
+  const key = client.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const hit = published.find((entry) => {
+    const name = entry.client.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const slug = entry.slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return name.includes(key) || slug.includes(key);
+  });
+  return hit ? `/cases/${hit.slug}` : "/cases";
+}
+
+function leadSentence(body: string) {
+  const trimmed = body.trim();
+  const match = trimmed.match(/^([\s\S]*?[.!?])(?:\s+|$)([\s\S]*)$/);
+  if (!match) return { subtitle: trimmed, text: "" };
+  return { subtitle: match[1].trim(), text: match[2].trim() };
 }

@@ -2105,7 +2105,7 @@ export default async function AboutV2Page() {
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
                 60+ é, aliás, de número EXATO para PISO — ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
-            <p className="max-w-[620px] whitespace-pre-line text-[20px] font-normal leading-[1.55] text-ink/80 md:text-[22px]">
+            <p className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink">
               {copy.regions.intro}
             </p>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />

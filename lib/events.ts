@@ -1,5 +1,4 @@
 import type { StaticImageData } from "next/image";
-import eventPhoto from "@/public/solutions/service-hero-fallback.jpg";
 
 export type LeadershipEvent = {
   slug: string;
@@ -7,63 +6,161 @@ export type LeadershipEvent = {
   category: string;
   kind: string;
   dateLabel: string;
-  location: string;
+  location?: string;
   summary: string;
   overview: string[];
   topics: string[];
   image?: string | StaticImageData;
   imageAlt?: string;
   featured?: boolean;
-  status?: "past" | "upcoming";
+  links?: { label: string; href: string }[];
+  status: "past" | "upcoming";
 };
 
-// Provisional editorial examples for the Events layout. Replace with the
-// approved programme before publishing; no dates, venues or speakers are claimed.
 export const events: LeadershipEvent[] = [
   {
-    slug: "leadership-in-a-changing-world",
-    title: "Leadership in a changing world.",
-    category: "Leadership",
-    kind: "Leadership forum",
-    dateLabel: "Date to be announced",
-    location: "Location to be announced",
-    summary: "A conversation about leading with clarity, humanity and purpose when the world around us is changing.",
+    slug: "executive-series-collective-judgement-2026-09-18",
+    title: "Executive Series",
+    category: "cDNA",
+    kind: "Past event",
+    dateLabel: "18 September 2026",
+    summary:
+      "Our focus was collective judgement in the AI era: what happens to executive judgement when AI becomes another voice in the room.",
     overview: [
-      "Explore the questions that matter to leaders today: how to make sense of complexity, create shared direction and turn intention into meaningful action.",
-      "This forum brings the inner and outer dimensions of leadership into one conversation, connecting personal perspective with the needs of teams and organisations.",
+      "Together, we explored three questions that are becoming increasingly important for leadership teams.",
+      "What stood out was that the most valuable conversations did not come from immediate agreement. They came from challenge, different perspectives and working through disagreement together.",
+      "In the AI era, judgement is not simply an individual leadership strength. It is becoming a collective capability for executive teams and boards. We also shared our insights paper, Collective Executive Judgement in the AI Era, drawing on conversations with 150+ senior leaders and our work with executive teams and boards.",
     ],
-    topics: ["Leading through complexity and change", "Connecting purpose with everyday decisions", "Building the conditions for lasting impact"],
-    image: eventPhoto,
-    imageAlt: "Leaders gathered for a conversation",
-    featured: true,
+    topics: [
+      "Who wins when AI and your gut disagree?",
+      "What is your judgement default, and what might you be missing?",
+      "Why might disagreement produce better judgement than agreement?",
+    ],
+    image: "/events/executive-series-2026-09-18.jpg",
+    imageAlt: "Executive Series, 18 September 2026",
+    links: [{ label: "Insights paper", href: "/events/collective-executive-judgement.pdf" }],
+    status: "past",
   },
   {
-    slug: "leading-as-one",
-    title: "Leading as one.",
-    category: "Executive teams",
-    kind: "Leadership roundtable",
-    dateLabel: "Date to be announced",
-    location: "Location to be announced",
-    summary: "Explore what helps an executive team move beyond individual performance towards shared direction and collective impact.",
-    overview: [
-      "Strong individual leaders are only the beginning. Collective leadership depends on the quality of the relationships, conversations and decisions between them.",
-      "This roundtable explores how executive teams build trust, navigate different perspectives and align around the work that matters most.",
-    ],
-    topics: ["Trust and productive challenge at the top table", "Shared direction and collective accountability", "Turning team alignment into organisational impact"],
+    slug: "executive-series-2026-06-11",
+    title: "Executive Series",
+    category: "cDNA",
+    kind: "Past event",
+    dateLabel: "11 June 2026",
+    summary: "",
+    overview: [],
+    topics: [],
+    image: "/events/executive-series-2026-06-11.jpg",
+    imageAlt: "Executive Series, 11 June 2026",
+    status: "past",
   },
   {
-    slug: "the-whole-leader",
-    title: "The whole leader.",
-    category: "The 5H® Framework",
-    kind: "Leadership conversation",
-    dateLabel: "Date to be announced",
-    location: "Location to be announced",
-    summary: "A fresh perspective on leadership through Head, Heart, Hunch, Hands and Habits — and how they work together under pressure.",
+    slug: "chro-nexus-forum-2026-09-07",
+    title: "CHRO Nexus Forum",
+    category: "Nitin",
+    kind: "Speaker event",
+    dateLabel: "7 September 2026",
+    summary:
+      "Nitin joined the 3rd edition of the CHRO Nexus Forum in Kuala Lumpur, organised by UOA Academy.",
     overview: [
-      "Leadership asks more of us than knowledge alone. The 5H® Framework connects five forms of intelligence to develop the whole self in leadership.",
-      "This conversation explores the relationship between the inner and outer game, and how awareness becomes consistent action in the moments that matter.",
+      "It was great to be back in KL meeting clients. This visit was more special as Nitin was invited to attend the 3rd edition of the CHRO Nexus Forum, a gathering of top CHROs from the region.",
     ],
-    topics: ["The five connected leadership intelligences", "Understanding the inner and outer game", "Developing habits that make learning real"],
+    topics: [],
+    image: "/events/nitin-goil.jpg",
+    imageAlt: "Nitin Goil",
+    links: [{ label: "Read the note", href: "https://lnkd.in/p/gQZEfbdg" }],
+    status: "past",
+  },
+  {
+    slug: "talent-4-conference-2026-08",
+    title: "Marcus Evans Talent 4.0 Conference",
+    category: "Nitin",
+    kind: "Speaker event",
+    dateLabel: "4-5 August 2026",
+    summary:
+      "Opening keynote in Kuala Lumpur on hybrid leadership with AI.",
+    overview: [
+      "In today's world, everyone's building a hybrid workplace. But almost nobody's building a hybrid talent strategy. 39% of core workplace skills are expected to change by 2030, and 6 in 10 employees will need reskilling within just three years.",
+    ],
+    topics: [],
+    image: "/events/nitin-goil.jpg",
+    imageAlt: "Nitin Goil",
+    links: [{ label: "Read the note", href: "https://lnkd.in/p/gcbQ2YZm" }],
+    status: "past",
+  },
+  {
+    slug: "economic-times-singapore-2026-07-24",
+    title: "Economic Times Conference",
+    category: "Nitin",
+    kind: "Speaker event",
+    dateLabel: "24 July 2026",
+    location: "Singapore",
+    summary: "Masterclass: The Chief Human-AI Officer: Redefining the CHRO Role.",
+    overview: [
+      "Yesterday, HR's mandate was digital transformation. Today, that has expanded to AI transformation. Tomorrow, the mandate shifts again, to Human-AI transformation, where ethics and bias will need to be addressed in every decision. That is building efficiency with meaning.",
+    ],
+    topics: [],
+    image: "/events/nitin-goil.jpg",
+    imageAlt: "Nitin Goil",
+    links: [{ label: "Read the note", href: "https://lnkd.in/p/g3QheTXF" }],
+    status: "past",
+  },
+  {
+    slug: "economic-times-philippines-2026-06-05",
+    title: "Economic Times Conference",
+    category: "Nitin",
+    kind: "Speaker event",
+    dateLabel: "5 June 2026",
+    location: "Philippines",
+    summary: "Masterclass on the rise of the Chief Human-AI Officer.",
+    overview: [
+      "The session explored how HR has transitioned from efficiency with systems, to efficiency with people, and efficiency with meaning.",
+    ],
+    topics: [],
+    image: "/events/nitin-goil.jpg",
+    imageAlt: "Nitin Goil",
+    links: [
+      {
+        label: "Read the note",
+        href: "https://www.linkedin.com/posts/nitingoil_it-was-great-to-be-back-in-the-philippines-activity-7469047315383627777-1szf",
+      },
+    ],
+    status: "past",
+  },
+  {
+    slug: "hr-tech-conference-singapore-2026-05-06",
+    title: "HR Tech Conference",
+    category: "Nitin",
+    kind: "Speaker event",
+    dateLabel: "6 May 2026",
+    location: "Singapore",
+    summary: "Keynote: Chief Courage Officer: Why HR must lead with courage in a human centred organisation.",
+    overview: [
+      "The keynote explored how courage is HR's new leadership currency, how ownership rebuilds trust, and how accountability anchors leadership impact.",
+    ],
+    topics: [],
+    image: "/events/nitin-goil.jpg",
+    imageAlt: "Nitin Goil",
+    links: [
+      {
+        label: "Read the note",
+        href: "https://www.linkedin.com/posts/nitingoil_humanness-activity-7457784641911967744-YTgC",
+      },
+    ],
+    status: "past",
+  },
+  {
+    slug: "speaker-event-2026-09-23",
+    title: "Speaker event",
+    category: "Mike",
+    kind: "Speaker event",
+    dateLabel: "23 September 2026",
+    summary: "",
+    overview: [],
+    topics: [],
+    image: "/events/mike-jackson-1.jpg",
+    imageAlt: "Speaker event, 23 September 2026",
+    status: "past",
   },
 ];
 
