@@ -69,7 +69,7 @@ function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"
           return (
             <div key={index} className="min-w-0 px-1 text-center">
               <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-brand/15 bg-[#fcf6f2] sm:size-16">
-                <Icon aria-hidden="true" className={`size-6 sm:size-7 ${index === 5 ? "text-muted" : "text-brand"}`} strokeWidth={1.5} />
+                <Icon aria-hidden="true" className="size-6 text-brand sm:size-7" strokeWidth={1.5} />
               </span>
               <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title}</h4>
               <p className="mt-1 whitespace-pre-line text-[10px] leading-[1.4] text-muted sm:text-[12px]">{item.description}</p>
@@ -239,7 +239,7 @@ export default async function ApproachPage() {
 
         <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
 
-        <div className="bg-white px-6 pb-4 pt-14 text-center md:pt-16">
+        <div className="bg-white px-6 py-14 text-center md:py-16">
           <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
             {copy.fiveH.note}
           </p>
