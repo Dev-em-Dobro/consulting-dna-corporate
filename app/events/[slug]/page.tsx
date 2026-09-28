@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import SiteShell from "@/components/SiteShell";
@@ -7,6 +8,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import EventMeta from "@/components/events/EventMeta";
 import { events } from "@/lib/events";
+import EventVisual from "@/components/events/EventVisual";
 import { getEvent } from "@/lib/events-content";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { localeAlternates } from "@/lib/seo/alternates";
@@ -40,6 +42,9 @@ export default async function EventPage({ params }: Props) {
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
             <Link href="/events" className="inline-flex min-h-11 items-center gap-3 text-[12px] font-semibold uppercase tracking-[1px] text-ink transition-colors hover:text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> All events</Link>
+              <div className="relative mt-8 aspect-[4/3] overflow-hidden bg-paper md:aspect-[16/9]">
+                <EventVisual image={event.image} alt={event.imageAlt ?? event.title} sizes="(min-width: 1440px) 1360px, 100vw" contain />
+              </div>
             <div className="mt-10 grid gap-12 lg:grid-cols-[1.4fr_0.6fr] lg:gap-24">
               <div>
                 <TypeLabel>{event.category}</TypeLabel>
@@ -73,6 +78,15 @@ export default async function EventPage({ params }: Props) {
                 )}
               </aside>
             </div>
+            {event.gallery && event.gallery.length > 0 && (
+              <div aria-label="Event photos" className="mt-12 grid gap-6 md:grid-cols-2">
+                {event.gallery.map((photo) => (
+                  <div key={photo.src} className="relative aspect-[4/3] overflow-hidden bg-paper">
+                    <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 45vw, 100vw" className="object-contain" />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </SiteShell>

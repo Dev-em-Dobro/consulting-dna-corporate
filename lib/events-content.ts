@@ -42,6 +42,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     topics: strings(item.topics),
     image: text(item.imageUrl) || undefined,
     imageAlt: text(item.imageAlt) || undefined,
+    gallery: staticEvents.find((event) => event.slug === slug)?.gallery,
     links,
     status: item.status === "past" ? "past" : "upcoming",
     featured: item.featured === true,
