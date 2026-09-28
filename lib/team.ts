@@ -573,7 +573,7 @@ export const programmeManagers: RosterPerson[] = [
     meta: "Program Manager",
     focus: "Shared success & partnership",
     quote: "The best programmes feel like one team, not client and consultant. Shared success means staying connected to the client, faculty and outcomes throughout, adapting as we learn and taking ownership together for what lands.",
-    portrait: "/team/programme-managers/nicole-phoon.jpg",
+    portrait: "/team/programme-managers/nicole-phoon-portrait.jpg",
   },
 ];
 
