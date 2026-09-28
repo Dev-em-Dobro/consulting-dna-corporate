@@ -5,9 +5,29 @@ todos os textos da home… uma página dedicada, sem login, bem visual, salva e
 reflete no site; passa para o CMS depois"*, e depois, uma de cada vez, a About,
 a Team, os serviços e a Clients & Impact.
 
-**`/edit`** é o índice. Dele saem seis telas — `/edit-home`, `/edit-about`,
-`/edit-team`, `/edit-services`, `/edit-clients` — e mais **dez**, uma por
-página interna de serviço, em `/edit-services/<serviço>`.
+**`/edit`** é o índice. Dele saem oito telas — `/edit-home`, `/edit-about`,
+`/edit-team`, `/edit-services`, `/edit-clients`, `/edit-impact`, `/edit-approach`
+e `/edit-insights` — e mais **dez**, uma por página interna de serviço, em
+`/edit-services/<serviço>`.
+
+Atualização de 27-09-2026:
+
+- Clients (`/our-clients`) e Impact (`/our-impact`) têm editores e chaves de salvamento separados.
+- Approach edita a introdução, Inner/Outer Game, as cinco inteligências do carrossel,
+  o DNA 360 Profiler, as FAQs, o convite final e os metadados.
+- Insights edita o hero, os três recursos de thought leadership, rótulos de download,
+  a biblioteca e os metadados. PDFs e artigos do CMS continuam nas suas fontes atuais.
+- Cada serviço expõe seus próprios blocos, incluindo formatos, passos, trilhas,
+  ecossistema, evidências e sistemas de família/negócio quando presentes. Campos
+  de blocos substituídos pelo layout não são oferecidos.
+- O editor de serviço salva em `/api/service-pages-copy/<slug>`; o servidor
+  incorpora só aquele serviço na versão atual, preservando as outras páginas.
+- O armazenamento atual é `page_copy_versions` no Supabase, com histórico por
+  `page_key`; sem configuração do Supabase, os arquivos ficam em `.data/`.
+  As três novas páginas usam a mesma tabela, sem migração de banco.
+- `structured.ts` gera campos de texto preservando imagens, ícones e configurações
+  de layout. `structured-schema.ts` valida os campos específicos de cada página.
+  O formato e o salvamento das versões anteriores continuam compatíveis.
 
 ---
 

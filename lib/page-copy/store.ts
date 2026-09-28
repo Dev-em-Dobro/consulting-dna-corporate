@@ -47,10 +47,12 @@ export function createCopyStore<T>({
   key,
   defaults,
   schema,
+  mergeArrayObjects = false,
 }: {
   key: string;
   defaults: T;
   schema: ZodType<T>;
+  mergeArrayObjects?: boolean;
 }): CopyStore<T> {
   const localFile = path.join(process.cwd(), ".data", `${key}-copy.json`);
 
@@ -69,18 +71,22 @@ export function createCopyStore<T>({
 
   const readFresh = async (): Promise<T> => {
     const saved = await readSaved();
-    return saved ? mergeCopy(defaults, schema, saved) : defaults;
+    return saved ? mergeCopy(defaults, schema, saved, mergeArrayObjects) : defaults;
   };
 
   /* A impressão dos padrões entra na chave do cache: trocar uma frase no
      código muda a chave e força leitura nova, em vez de o padrão velho ficar
      servido até o prazo vencer (defeito de 24-09, ver o histórico do git). */
   const shape = createHash("sha1").update(JSON.stringify(defaults)).digest("hex").slice(0, 8);
+  // Local verification and the configured Supabase project must not share data.
+  const backend = supabaseCopyTableFromEnv()
+    ? `supabase:${createHash("sha1").update(process.env.SUPABASE_URL!).digest("hex").slice(0, 12)}`
+    : `local:${createHash("sha1").update(process.cwd()).digest("hex").slice(0, 12)}`;
 
   /* "supabase" na chave: o Data Cache da Vercel sobrevive a deploy, e sem ela
      o primeiro deploy depois do Blob herdaria o padrão que o Blob bloqueado
      deixou guardado, por até um dia. Trocar a origem da leitura = trocar aqui. */
-  const readCached = unstable_cache(readFresh, [tag, shape, "supabase"], {
+  const readCached = unstable_cache(readFresh, [tag, shape, backend, String(mergeArrayObjects)], {
     tags: [tag],
     revalidate: READ_CACHE_SECONDS,
   });

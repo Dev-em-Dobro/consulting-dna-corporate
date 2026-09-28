@@ -26,13 +26,13 @@ const isPlain = (v: unknown): v is Plain =>
  * em que o vazio seria uma escolha legítima — o telefone de um escritório, por
  * exemplo. Onde isso pesa, o campo leva `hint` dizendo o que o vazio faz.
  */
-export function mergeCopy<T>(defaults: T, schema: ZodType<T>, saved: unknown): T {
-  const merged = deepMerge(defaults as unknown as Plain, saved);
+export function mergeCopy<T>(defaults: T, schema: ZodType<T>, saved: unknown, mergeArrayObjects = false): T {
+  const merged = deepMerge(defaults as unknown as Plain, saved, mergeArrayObjects);
   const parsed = schema.safeParse(merged);
   return parsed.success ? parsed.data : defaults;
 }
 
-export function deepMerge(base: Plain, over: unknown): Plain {
+export function deepMerge(base: Plain, over: unknown, mergeArrayObjects = false): Plain {
   if (!isPlain(over)) return base;
   const out: Plain = { ...base };
   for (const key of Object.keys(base)) {
@@ -40,9 +40,11 @@ export function deepMerge(base: Plain, over: unknown): Plain {
     const o = over[key];
     if (o === undefined || o === null) continue;
     if (isPlain(b)) {
-      out[key] = deepMerge(b, o);
+      out[key] = deepMerge(b, o, mergeArrayObjects);
     } else if (Array.isArray(b)) {
-      if (Array.isArray(o)) out[key] = o;
+      if (Array.isArray(o)) out[key] = mergeArrayObjects
+        ? o.map((item, index) => isPlain(b[index]) && isPlain(item) ? deepMerge(b[index], item, true) : item)
+        : o;
     } else if (typeof b === "string") {
       if (typeof o === "string" && o.trim() !== "") out[key] = o;
     }

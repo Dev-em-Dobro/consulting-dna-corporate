@@ -4,13 +4,13 @@ import { DEFAULT_CLIENTS_COPY, EDITOR_SECTIONS } from "@/lib/clients-copy";
 import { getClientsCopy } from "@/lib/clients-copy-server";
 
 /**
- * `/edit-clients` — a tela da Clients & Impact.
+ * `/edit-clients` — a tela de Clients. Impact tem seu próprio editor.
  *
  * ⚠️ OS QUATRO NÚMEROS DA FAIXA ESCURA NÃO ESTÃO AQUI: são os mesmos da About e
  * se editam em `/edit-about`. Ver a caixa em `lib/clients-copy.ts`.
  */
 export const metadata: Metadata = {
-  title: "Edit Clients & Impact page text | Corporate DNA",
+  title: "Edit Clients page text | Corporate DNA",
   robots: { index: false, follow: false },
 };
 
@@ -26,7 +26,7 @@ export default async function EditClientsPage() {
       apiPath="/api/clients-copy"
       guideDir="edit-clients-guide"
       siteHref="/our-clients"
-      title="Clients & Impact page text"
+      title="Clients page text"
       note="The four numbers in the dark band are the same four as on the About page — edit them in About, and both pages change together. The case studies and quotes come from the CMS."
     />
   );

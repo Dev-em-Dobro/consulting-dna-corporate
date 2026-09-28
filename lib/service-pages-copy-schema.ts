@@ -19,6 +19,7 @@
 import { z } from "zod";
 import { DEFAULT_SERVICE_PAGES_COPY, type ServicePagesCopy } from "./service-pages-copy.ts";
 import { mergeCopy } from "./page-copy/merge.ts";
+import { schemaForCopy } from "./page-copy/structured-schema.ts";
 
 const str = z.string().max(4000);
 const list = z.array(str).max(24);
@@ -51,8 +52,14 @@ const ServiceCopySchema = z.object({
 });
 
 export const ServicePagesCopySchema: z.ZodType<ServicePagesCopy> = z.object({
-  bySlug: z.record(z.string(), ServiceCopySchema),
+  bySlug: z.object(Object.fromEntries(Object.entries(DEFAULT_SERVICE_PAGES_COPY.bySlug)
+    .map(([slug, copy]) => [slug, ServiceCopySchema.extend({ layout: schemaForCopy(copy.layout) })]))),
 });
+
+export function serviceCopySchemaFor(slug: string) {
+  const defaults = DEFAULT_SERVICE_PAGES_COPY.bySlug[slug];
+  return defaults ? ServiceCopySchema.extend({ layout: schemaForCopy(defaults.layout) }) : undefined;
+}
 
 export function mergeServicePagesCopy(saved: unknown): ServicePagesCopy {
   return mergeCopy(DEFAULT_SERVICE_PAGES_COPY, ServicePagesCopySchema, saved);

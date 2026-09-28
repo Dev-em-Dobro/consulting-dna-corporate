@@ -48,10 +48,12 @@ export default async function EditServicePage({
 
   return (
     <CopyEditor
-      initial={copy}
-      defaults={DEFAULT_SERVICE_PAGES_COPY}
-      sections={sections}
-      apiPath="/api/service-pages-copy"
+      initial={copy.bySlug[slug]}
+      defaults={DEFAULT_SERVICE_PAGES_COPY.bySlug[slug]}
+      sections={sections.map((section) => ({ ...section, fields: section.fields.map((field) => ({
+        ...field, path: field.path.replace(`bySlug.${slug}.`, ""),
+      })) }))}
+      apiPath={`/api/service-pages-copy/${slug}`}
       siteHref={`/services/${slug}`}
       title={`${name} — page text`}
       note="This service’s name and sub-headline also appear on its card on the Services page and in “Related services” at the foot of the other service pages."

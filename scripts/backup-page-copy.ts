@@ -21,6 +21,9 @@ import { DEFAULT_TEAM_COPY } from "../lib/team-copy.ts";
 import { DEFAULT_SERVICES_INDEX_COPY } from "../lib/services-index-copy.ts";
 import { DEFAULT_CLIENTS_COPY } from "../lib/clients-copy.ts";
 import { DEFAULT_SERVICE_PAGES_COPY } from "../lib/service-pages-copy.ts";
+import { DEFAULT_APPROACH_COPY } from "../lib/approach-copy.ts";
+import { DEFAULT_IMPACT_COPY } from "../lib/impact-copy.ts";
+import { DEFAULT_INSIGHTS_COPY } from "../lib/insights-copy.ts";
 
 const DEFAULTS: Record<string, unknown> = {
   home: DEFAULT_HOME_COPY,
@@ -29,6 +32,9 @@ const DEFAULTS: Record<string, unknown> = {
   "services-index": DEFAULT_SERVICES_INDEX_COPY,
   clients: DEFAULT_CLIENTS_COPY,
   "service-pages": DEFAULT_SERVICE_PAGES_COPY,
+  approach: DEFAULT_APPROACH_COPY,
+  impact: DEFAULT_IMPACT_COPY,
+  insights: DEFAULT_INSIGHTS_COPY,
 };
 
 const [base, label] = process.argv.slice(2);

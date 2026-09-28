@@ -31,6 +31,7 @@
  */
 import { services, type Service } from "./services.ts";
 import type { EditorField, EditorSection } from "./page-copy/fields.ts";
+import { applyTextCopy, fieldsForCopy, textCopyOf, type TextObject } from "./page-copy/structured.ts";
 
 export type ServiceAudienceCopy = { label: string; title: string; body: string; credential: string[] };
 export type ServiceEvidenceCopy = {
@@ -69,6 +70,7 @@ export type ServiceEvidenceSummaryCopy = {
  * dois campos na tela para um texto só.
  */
 export type ServiceCopy = {
+  layout: TextObject;
   title: string;
   banner: string;
   whatWeDoHeadline: string;
@@ -87,6 +89,7 @@ export type ServiceCopy = {
 export type ServicePagesCopy = { bySlug: Record<string, ServiceCopy> };
 
 const copyOf = (s: Service): ServiceCopy => ({
+  layout: layoutCopyOf(s),
   title: s.title,
   banner: s.banner,
   whatWeDoHeadline: s.whatWeDoHeadline ?? s.outcomeHeadline ?? "",
@@ -140,6 +143,7 @@ export const DEFAULT_SERVICE_PAGES_COPY: ServicePagesCopy = {
  */
 export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service {
   if (!copy) return service;
+  service = applyTextCopy(service, copy.layout);
   const facts = copy.evidence.facts.map((f) => ({ value: f.value, label: f.label || undefined }));
   return {
     ...service,
@@ -392,6 +396,17 @@ export function sectionsFor(slug: string): EditorSection[] {
     },
   );
 
+  // Culture uses its ecosystem instead of the generic How we work block;
+  // sequences also replace the old phrase strip. Hide controls that cannot render.
+  if (service.ecosystem) {
+    const index = out.findIndex((section) => section.id === "how-we-work");
+    if (index >= 0) out.splice(index, 1);
+  }
+  if (service.ecosystem || service.steps?.length) {
+    const index = out.findIndex((section) => section.id === "pillars");
+    if (index >= 0) out.splice(index, 1);
+  }
+
   /* ⚠️ A ASSINATURA DE FECHO (`closing`) NÃO ENTRA, e a condição é dupla de
      propósito. O template só a desenha quando o serviço NÃO tem `practices`:
 
@@ -471,6 +486,13 @@ export function sectionsFor(slug: string): EditorSection[] {
     ]),
   });
 
+  const extraSections = Object.entries(copy.layout).map(([key, value]) => ({
+    id: `layout-${key}`,
+    title: LAYOUT_LABELS[key] ?? key,
+    anchor: at,
+    fields: fieldsForCopy(value, `bySlug.${slug}.layout.${key}`, LAYOUT_LABELS[key] ?? key),
+  })).filter((section) => section.fields.length);
+  out.splice(out.length - 1, 0, ...extraSections);
   return out;
 }
 
@@ -478,16 +500,43 @@ export function sectionsFor(slug: string): EditorSection[] {
 export const EDITABLE_SERVICES = services.map((s) => ({ slug: s.slug, title: s.title }));
 
 /**
- * ⏸️ AS DEZ TELAS DE SERVIÇO ESTÃO ESCONDIDAS — 23-09, a pedido, e por
- * enquanto. A cliente recebeu seis editores de uma vez; as dez internas em cima
- * disso são tela demais para a primeira semana.
- *
- * O QUE "ESCONDIDO" QUER DIZER: só os LINKS somem — a lista no pé de
- * `/edit-services` e a menção a ela no índice `/edit`. As rotas
- * `/edit-services/<slug>` continuam de pé e funcionando, então um link antigo
- * que alguém tenha guardado ainda abre, e nada do que já foi salvo se perde.
- *
- * PARA TRAZER DE VOLTA: trocar por `true`. Não há mais nada a fazer — os dois
- * lugares que mostram a lista leem daqui.
+ * Os editores individuais estão disponíveis desde 27-09, a pedido.
+ * Cada tela inclui somente os campos dos blocos usados por aquele serviço.
  */
-export const SHOW_SERVICE_PAGE_EDITORS = false;
+export const SHOW_SERVICE_PAGE_EDITORS = true;
+
+const LAYOUT_LABELS: Record<string, string> = {
+  heroEyebrow: "Hero label", heroTitle: "Hero heading", heroSubtitle: "Hero supporting line",
+  heroSubtitleAccent: "Hero accent line", heroBody: "Hero paragraphs", heroCredential: "Hero words",
+  audiencesLabel: "Audience heading", ambition: "Shared ambition", formats: "Programme formats",
+  decisionLenses: "Decision lenses", pathways: "Development pathways", moments: "Leadership moments",
+  capabilities: "Capabilities", capabilitiesHeader: "Capabilities heading", inflectionPoints: "Talent inflection points",
+  commonOutcome: "Common outcome", steps: "How we work steps", stepsFlow: "Steps closing line",
+  stepsNote: "Steps note", shifts: "What shifts", ecosystem: "Culture ecosystem", proof: "Proof of change",
+  twoSystems: "Family and business systems", entryPoints: "Entry points", outcomeSummary: "Outcomes and experience",
+  evidenceCases: "Evidence case studies", audiences: "Audience focus", evidenceSummary: "Evidence details",
+};
+
+function layoutCopyOf(service: Service): TextObject {
+  const keys: (keyof Service)[] = [
+    "heroEyebrow", "heroTitle", "heroSubtitle", "heroSubtitleAccent", "heroBody", "heroCredential",
+    "audiencesLabel", "ambition", "formats", "decisionLenses", "pathways", "moments", "capabilities",
+    "capabilitiesHeader", "inflectionPoints", "commonOutcome", "steps", "stepsFlow", "stepsNote",
+    "shifts", "ecosystem", "proof", "twoSystems", "entryPoints", "outcomeSummary", "evidenceCases",
+  ];
+  const selected: Record<string, unknown> = Object.fromEntries(keys
+    .filter((key) => service[key] !== undefined).map((key) => [key, service[key]]));
+  if (service.capabilitiesBeside && service.capabilitiesHeader) {
+    selected.capabilitiesHeader = { label: service.capabilitiesHeader.label };
+  }
+  if (service.audiences?.some((audience) => audience.focus)) {
+    selected.audiences = service.audiences.map((audience) => audience.focus ? { focus: audience.focus } : {});
+  }
+  if (service.evidenceSummary) {
+    const { label, outcomes, note, experience, facts } = service.evidenceSummary;
+    selected.evidenceSummary = { label, outcomes, note, experience,
+      ...(facts?.some((fact) => fact.body) ? { facts: facts.map((fact) => fact.body ? { body: fact.body } : {}) } : {}),
+    };
+  }
+  return textCopyOf(selected) as TextObject;
+}

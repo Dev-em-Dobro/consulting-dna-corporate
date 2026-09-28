@@ -8,47 +8,22 @@ import TypeLabel from "@/components/TypeLabel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getInsightListEntries } from "@/lib/cms/map";
+import { INSIGHTS_RESOURCE_FILES } from "@/lib/insights-copy";
+import { getInsightsCopy } from "@/lib/insights-copy-server";
 import { Download } from "lucide-react";
 
-const thoughtLeadership = [
-  {
-    title: "Scaling Leadership Without Losing Its Humanity",
-    description:
-      "A founder’s reflection on 19 years of building CorporateDNA, and what it has taught me about leadership, growth and the impact that lasts.",
-    author: "Rhea Leckie",
-    pages: 6,
-    href: "/resources/thought-leadership/scaling-leadership.pdf",
-  },
-  {
-    title: "5 Signals Your Leadership Team May Be Underperforming",
-    description:
-      "A collection of high-performing individuals does not automatically create a high-performing leadership team.",
-    author: "Mike Jackson",
-    pages: 6,
-    href: "/resources/thought-leadership/five-signals-leadership-team.pdf",
-  },
-  {
-    title: "When the Executive Team Changes, the System Changes",
-    description:
-      "A CDNA insight paper on the psychological, social, cultural and identity transitions at the top table.",
-    author: "CorporateDNA Insights",
-    pages: 9,
-    href: "/resources/thought-leadership/executive-transition.pdf",
-  },
-] as const;
-
 export async function generateMetadata(): Promise<Metadata> {
+  const copy = await getInsightsCopy();
   return {
-    title: "Insights | CorporateDNA",
-    description:
-      "Perspectives on leadership, executive-team alignment, succession and enterprise transformation from CorporateDNA's senior advisory faculty.",
+    title: copy.metadata.title,
+    description: copy.metadata.description,
     alternates: localeAlternates("/insights"),
   };
 }
 export const revalidate = 300;
 
 export default async function InsightsPage() {
-  const insights = await getInsightListEntries();
+  const [insights, copy] = await Promise.all([getInsightListEntries(), getInsightsCopy()]);
 
   return (
     /* A LINGUAGEM NOVA CHEGA AQUI em 11-09, a pedido: menu flutuante, herói de
@@ -78,25 +53,25 @@ export default async function InsightsPage() {
             escrito no componente: uma foto repetida lê como identidade, um slot
             vazio lê como site inacabado — e ela some sozinha no dia em que esta
             página ganhar a sua. */}
-        <SolutionHero eyebrow="Insights" title="Let’s share some insights." />
+        <SolutionHero eyebrow={copy.hero.eyebrow} title={copy.hero.title} />
 
         <section id="thought-leadership" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
-            <TypeLabel>Thought Leadership</TypeLabel>
+            <TypeLabel>{copy.thoughtLeadership.label}</TypeLabel>
             <h2 className="font-serif mt-5 max-w-[720px] text-[34px] font-semibold leading-[1.04] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
-              Ideas for the moments that shape leadership.
+              {copy.thoughtLeadership.heading}
             </h2>
 
             <div className="mt-12 grid gap-px bg-line md:mt-16 md:grid-cols-3">
-              {thoughtLeadership.map((resource, index) => (
-                <Reveal key={resource.href}>
+              {copy.thoughtLeadership.resources.map((resource, index) => (
+                <Reveal key={INSIGHTS_RESOURCE_FILES[index]}>
                   <article className="group flex h-full min-h-[420px] flex-col bg-white p-7 transition-colors duration-300 hover:bg-ink md:p-9">
                     <div className="flex items-start justify-between gap-6">
                       <span className="text-[12px] font-semibold tracking-[1.8px] text-brand">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
-                        PDF · {resource.pages} pages
+                        PDF · {resource.pagesLabel}
                       </span>
                     </div>
 
@@ -109,14 +84,14 @@ export default async function InsightsPage() {
 
                     <div className="mt-auto pt-10">
                       <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
-                        By {resource.author}
+                        {copy.thoughtLeadership.authorPrefix} {resource.author}
                       </p>
                       <a
-                        href={resource.href}
+                        href={INSIGHTS_RESOURCE_FILES[index]}
                         download
                         className="inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.8px] text-ink transition-colors hover:text-brand group-hover:text-white group-hover:hover:text-brand"
                       >
-                        Download PDF
+                        {copy.thoughtLeadership.downloadLabel}
                         <Download aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
                       </a>
                     </div>
@@ -146,13 +121,13 @@ export default async function InsightsPage() {
             começa em 40px. */}
         <section id="library" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <TypeLabel>Articles</TypeLabel>
-            <h2 className="sr-only">Articles</h2>
+            <TypeLabel>{copy.library.label}</TypeLabel>
+            <h2 className="sr-only">{copy.library.label}</h2>
             <div className="mt-10">
             {insights.length === 0 ? (
-              <EmptyNotice>No insights published yet.</EmptyNotice>
+              <EmptyNotice>{copy.library.empty}</EmptyNotice>
             ) : (
-              <InsightsLibrary insights={insights} />
+              <InsightsLibrary insights={insights} labels={copy.library} />
             )}
             </div>
           </div>

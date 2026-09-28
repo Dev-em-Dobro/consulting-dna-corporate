@@ -12,9 +12,7 @@ import { EDITABLE_SERVICES, SHOW_SERVICE_PAGE_EDITORS } from "@/lib/service-page
  * lista delas fica abaixo do editor, porque é daqui que a cliente chega nelas
  * (o índice `/edit` também as lista).
  *
- * ⏸️ ESSA LISTA ESTÁ ESCONDIDA desde 23-09 — ver `SHOW_SERVICE_PAGE_EDITORS`,
- * em `lib/service-pages-copy.ts`, que também diz como trazê-la de volta. As
- * rotas continuam funcionando; o que sai daqui é o caminho até elas.
+ * Cada editor oferece os campos do layout daquele serviço.
  */
 export const metadata: Metadata = {
   title: "Edit Services page text | Corporate DNA",

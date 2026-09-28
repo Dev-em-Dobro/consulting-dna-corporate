@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { InsightListEntry } from "@/lib/cms/map";
+import type { InsightsCopy } from "@/lib/insights-copy";
 import InsightCard from "./InsightCard";
 
 type Sort = "newest" | "oldest";
@@ -15,8 +16,10 @@ type Sort = "newest" | "oldest";
  */
 export default function InsightsLibrary({
   insights,
+  labels,
 }: {
   insights: InsightListEntry[];
+  labels: InsightsCopy["library"];
 }) {
   const [author, setAuthor] = useState("all");
   const [sort, setSort] = useState<Sort>("newest");
@@ -52,10 +55,10 @@ export default function InsightsLibrary({
           <select
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            aria-label="Filter by content"
+            aria-label={labels.filterAriaLabel}
             className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
           >
-            <option value="all">content</option>
+            <option value="all">{labels.filterLabel}</option>
             {authorOptions.map((a) => (
               <option key={a} value={a}>
                 {a}
@@ -69,18 +72,18 @@ export default function InsightsLibrary({
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
-            aria-label="Sort by date"
+            aria-label={labels.sortAriaLabel}
             className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
           >
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
+            <option value="newest">{labels.newestLabel}</option>
+            <option value="oldest">{labels.oldestLabel}</option>
           </select>
           <SelectChevron />
         </div>
       </div>
 
       {results.length === 0 ? (
-        <p className="text-[14px] text-muted">No insights match your filters.</p>
+        <p className="text-[14px] text-muted">{labels.noMatches}</p>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((i) => (

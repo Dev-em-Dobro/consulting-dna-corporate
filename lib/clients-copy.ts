@@ -33,7 +33,7 @@ export type ClientsCopy = {
 
 export const DEFAULT_CLIENTS_COPY: ClientsCopy = {
   hero: {
-    eyebrow: "Clients & Impact",
+    eyebrow: "Our Clients",
     title: "Leadership change, measured where it matters.",
     subtitle:
       "From energy and pharma to luxury and financial services, advisory delivered where the stakes are highest.",

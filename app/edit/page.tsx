@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SHOW_SERVICE_PAGE_EDITORS } from "@/lib/service-pages-copy";
+import { EDITABLE_SERVICES } from "@/lib/service-pages-copy";
 
 /**
  * `/edit` — o índice das telas de edição de texto.
@@ -32,7 +32,7 @@ const PAGES = [
     href: "/edit-about",
     title: "About page",
     body: "Headline, the four numbers, our purpose and promise, the values, the regions and the offices.",
-    note: "The four numbers also appear on the Clients & Impact page — editing them here changes both.",
+    note: "The four numbers also appear on the Clients page — editing them here changes both.",
   },
   {
     href: "/edit-team",
@@ -43,21 +43,31 @@ const PAGES = [
   {
     href: "/edit-services",
     title: "Services page",
-    /* ⏸️ AS DEZ INTERNAS SAÍRAM DAQUI em 23-09 — ver `SHOW_SERVICE_PAGE_EDITORS`
-       em `lib/service-pages-copy.ts`. Enquanto a bandeira estiver desligada,
-       este cartão fala só da listagem, que é o que a cliente alcança. */
-    body: SHOW_SERVICE_PAGE_EDITORS
-      ? "Headline, the “What we do” label, the Partners block and the closing band — plus a way in to each of the ten service pages."
-      : "Headline, the “What we do” label, the Partners block and the closing band.",
-    note: SHOW_SERVICE_PAGE_EDITORS
-      ? "Each service page has its own screen, listed at the foot of that one."
-      : "The ten individual service pages are not editable yet — send us those changes.",
+    body: "Headline, the “What we do” label, the Partners block and the closing band.",
+    note: "Each individual service has its own editor and fields, listed below.",
   },
   {
     href: "/edit-clients",
-    title: "Clients & Impact page",
+    title: "Clients page",
     body: "Headline, the heading of every section, the “A force for good” block, the footprint labels and the closing band.",
     note: "The four numbers in the dark band are edited on the About page; the case studies and quotes come from the CMS.",
+  },
+  {
+    href: "/edit-impact",
+    title: "Impact page",
+    body: "Headline, testimonials section, TERRAGRN social impact paragraphs and measured outcomes headings.",
+    note: "Measured case results come from the CMS. This editor is separate from Clients.",
+  },
+  {
+    href: "/edit-approach",
+    title: "Approach page",
+    body: "The 5H introduction, inner and outer game, the five intelligences, DNA 360 Profiler, frequently asked questions and closing invitation.",
+  },
+  {
+    href: "/edit-insights",
+    title: "Insights page",
+    body: "Headline, thought leadership resources, download labels and the article library headings.",
+    note: "Articles and their authors are managed in the CMS; resource PDF files remain unchanged.",
   },
 ];
 
@@ -90,6 +100,18 @@ export default function EditIndexPage() {
                 </span>
                 <span className="mt-1.5 block text-[14px] leading-relaxed text-muted">{p.body}</span>
                 {p.note && <span className="mt-2 block text-[13px] leading-relaxed text-brand">{p.note}</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <h2 className="mt-12 text-[21px] font-semibold">Individual service pages</h2>
+        <p className="mt-3 text-[14px] leading-relaxed text-muted">Each editor contains only the fields used by that service’s layout.</p>
+        <ul className="mt-6 space-y-3">
+          {EDITABLE_SERVICES.map((service) => (
+            <li key={service.slug}>
+              <Link href={`/edit-services/${service.slug}`} className="flex items-center justify-between gap-5 border border-line bg-white px-6 py-5 transition-colors hover:border-brand">
+                <span className="text-[16px] font-semibold">{service.title}</span>
+                <span aria-hidden className="text-[14px] text-brand">Edit →</span>
               </Link>
             </li>
           ))}

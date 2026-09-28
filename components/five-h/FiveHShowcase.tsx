@@ -1,5 +1,6 @@
 "use client";
 
+import { DEFAULT_APPROACH_COPY, type ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
 import { useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import gsap from "gsap";
@@ -7,68 +8,27 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
-type Faculty = {
-  name: string;
-  intelligence: string;
-  description: string;
-  dimensions: string[];
-  color: string;
-};
-
-// Clockwise order in the supplied wheel image.
-const FACULTIES: Faculty[] = [
-  {
-    name: "Head",
-    intelligence: "Cognitive intelligence",
-    description: "The clarity to think critically, reason strategically and make sense of complexity.",
-    dimensions: ["Critical Thinking", "Risk Appetite", "Growth Mindset", "Scenario Planning", "Navigating Complexity"],
-    color: "#6d3474",
-  },
-  {
-    name: "Hands",
-    intelligence: "Execution intelligence",
-    description: "The drive to take action, own outcomes and deliver real results.",
-    dimensions: ["Resourcefulness", "Role Modelling", "Accountability", "Stakeholder Centricity", "Action Oriented"],
-    color: "#292c69",
-  },
-  {
-    name: "Habits",
-    intelligence: "Behavioural intelligence",
-    description: "The discipline to show up consistently, lead by example and build lasting trust.",
-    dimensions: ["Listening & Questioning", "Leading with Why", "Consistency", "Ownership", "Transparency"],
-    color: "#0b773e",
-  },
-  {
-    name: "Hunch",
-    intelligence: "Intuitive intelligence",
-    description: "The instinct to sense patterns, stay curious and make timely, wise decisions.",
-    dimensions: ["Judgement & Discernment", "Curiosity", "Sensing & Sensemaking", "Insightfulness", "Accelerated Decisioning"],
-    color: "#e7bf09",
-  },
-  {
-    name: "Heart",
-    intelligence: "Emotional intelligence",
-    description: "The courage to lead with empathy, authenticity and emotional connection.",
-    dimensions: ["Courage & Resilience", "Empathy", "Authentic Energy", "Interpersonal Savvy", "Connection & Collaboration"],
-    color: "#d84238",
-  },
-];
+const FACULTY_COLORS = ["#6d3474", "#292c69", "#0b773e", "#e7bf09", "#d84238"];
 
 function slotFor(index: number, active: number) {
-  const distance = (index - active + FACULTIES.length) % FACULTIES.length;
-  return distance > 2 ? distance - FACULTIES.length : distance;
+  const distance = (index - active + FACULTY_COLORS.length) % FACULTY_COLORS.length;
+  return distance > 2 ? distance - FACULTY_COLORS.length : distance;
 }
 
 // The image has unequal slices. These angles put each slice's midpoint at 12 o'clock.
 const WHEEL_ANGLES = [0, -75, -165, -240, -300];
 
 function wheelRotationForStep(step: number) {
-  const index = ((step % FACULTIES.length) + FACULTIES.length) % FACULTIES.length;
-  const turns = Math.floor(step / FACULTIES.length);
+  const index = ((step % FACULTY_COLORS.length) + FACULTY_COLORS.length) % FACULTY_COLORS.length;
+  const turns = Math.floor(step / FACULTY_COLORS.length);
   return WHEEL_ANGLES[index] - turns * 360;
 }
 
-export default function FiveHShowcase() {
+export default function FiveHShowcase({
+  heading = DEFAULT_APPROACH_COPY.fiveH.heading,
+  faculties = DEFAULT_APPROACH_COPY.fiveH.faculties,
+}: { heading?: string; faculties?: ApproachCopy["fiveH"]["faculties"] }) {
+  const FACULTIES = faculties.map((faculty, index) => ({ ...faculty, color: FACULTY_COLORS[index] }));
   const [active, setActive] = useState(0);
   const rootRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
@@ -139,7 +99,7 @@ export default function FiveHShowcase() {
     if (Math.abs(distanceX) < 45 || Math.abs(distanceX) < Math.abs(distanceY) * 1.2) return;
 
     suppressClickUntilRef.current = Date.now() + 450;
-    const nextIndex = (activeRef.current + (distanceX < 0 ? 1 : -1) + FACULTIES.length) % FACULTIES.length;
+    const nextIndex = (activeRef.current + (distanceX < 0 ? 1 : -1) + FACULTY_COLORS.length) % FACULTY_COLORS.length;
     selectCard(nextIndex);
   };
 
@@ -154,7 +114,7 @@ export default function FiveHShowcase() {
     <section ref={rootRef} id="the-five-h" className="overflow-clip border-y border-black/5 bg-[#dedede]">
       <div className="mx-auto max-w-[1440px] px-6 pb-0 pt-12 md:px-10 md:pt-20">
         <h2 className="max-w-[720px] font-serif text-[36px] font-semibold leading-[1.18] tracking-[-0.75px] text-ink sm:text-[46px] lg:max-w-none lg:text-[54px]">
-          Five intelligences. One whole leader.
+          {heading}
         </h2>
 
         <div
@@ -171,7 +131,7 @@ export default function FiveHShowcase() {
               const initiallySelected = index === 0;
               return (
                 <article
-                  key={faculty.name}
+                  key={index}
                   ref={(node) => { cardRefs.current[index] = node; }}
                   className="relative col-start-1 row-start-1 w-[80%] justify-self-center overflow-hidden rounded-[10px] bg-[#f8f8f8] shadow-[0_1px_0_rgba(55,50,52,0.03)] will-change-transform"
                   style={{

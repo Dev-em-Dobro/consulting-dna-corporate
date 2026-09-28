@@ -23,7 +23,7 @@ import clientsHero from "@/public/team/team-hero-24-09.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Clients & Impact | CorporateDNA",
+    title: "Our Clients | CorporateDNA",
     description:
       "The organisations CorporateDNA advises, the breadth of work behind each name, and what changed, measured.",
     alternates: localeAlternates("/our-clients"),
