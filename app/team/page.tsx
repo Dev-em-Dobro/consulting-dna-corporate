@@ -8,7 +8,7 @@ import TypeLabel from "@/components/TypeLabel";
 import LeaderCard from "@/components/team/LeaderCard";
 /* ⛔ `teamStanding` SAIU DO IMPORT EM 21-09, quando o carrossel tomou o lugar
    da fotografia na seção "One team". O ARQUIVO FICA em
-   `public/team/team-standing-six.jpg`  -  é o retoque das seis na bancada, e a
+   `public/team/team-standing-six.jpg` — é o retoque das seis na bancada, e a
    caixa da seção guarda a história dele por inteiro. Para desfazer a troca,
    este import volta junto com as três linhas de `<Image>`. */
 /* ⛔ A FOTO DO HERÓI SAIU EM 24-09 (hotfix): a /team ficou com a dobra lisa.
@@ -25,14 +25,14 @@ import { getTeamCopy } from "@/lib/team-copy-server";
    vazio de cada cartão. */
 /* `facultyMembers` SAIU DA LISTA EM 21-09 e deu lugar ao `facultyByRegion`: a
    seção passou a sair agrupada, a pedido, e quem monta os grupos é o próprio
-   `lib/team.ts`  -  a lista crua continua exportada de lá, é dela que os grupos
+   `lib/team.ts` — a lista crua continua exportada de lá, é dela que os grupos
    nascem. */
 /* `dnaLead` e `dnaStrands` saíram deste import em 23-09: o texto deles passou
    a chegar por `copy.dna`, que os tem como PADRÃO (ver `lib/team-copy.ts`). Eles
    continuam escritos em `lib/team.ts`, com a procedência anotada lá. */
 import { leaders, programmeManagers, facultyByRegion } from "@/lib/team";
 import PeopleRoster from "@/components/team/PeopleRoster";
-/* O CARROSSEL DA HOME, trazido em 21-09  -  ver a caixa dele na DNA experience.
+/* O CARROSSEL DA HOME, trazido em 21-09 — ver a caixa dele na DNA experience.
    O componente é o mesmo arquivo que a home usa, sem uma linha de diferença. */
 import PhotoCarousel from "@/components/PhotoCarousel";
 import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
@@ -47,29 +47,29 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Our Team  -  reconstruída em 11-09 sobre o outline de Team (09-09).
+ * Our Team — reconstruída em 11-09 sobre o outline de Team (09-09).
  *
  * O QUE MUDOU. A página existia desde o brief de 27-08, na linguagem antiga
  * (PageHero em Poppins, grade do CMS, três caixas de "pendente"). O outline do
  * cliente trouxe copy FINAL para o herói e para a faculty, e uma frase de cada
- * pessoa  -  conteúdo que o CMS não tem onde guardar. Então ela passa a ler de
+ * pessoa — conteúdo que o CMS não tem onde guardar. Então ela passa a ler de
  * `lib/team.ts` e ganha a tipografia editorial da About e da Services.
  *
  * O QUE CONTINUA VINDO DE ANTES: as âncoras `#leadership` e `#faculty`.
  * A terceira, `#presence`, e o mapa de escritórios que ela marcava saíram em
- * 14-09 a pedido da cliente  -  a caixa no pé do arquivo tem o porquê e a
+ * 14-09 a pedido da cliente — a caixa no pé do arquivo tem o porquê e a
  * conferência de quem apontava para lá.
  *
  * A ROTA MUDOU EM 11-09: `/our-team` → `/team`, a pedido. O endereço antigo
  * está no menu em produção e é destino de quatro redirects do WordPress, então
- * ele continua vivo por 308 em `next.config.mjs`  -  e os quatro legados passaram
+ * ele continua vivo por 308 em `next.config.mjs` — e os quatro legados passaram
  * a apontar direto para cá, sem escala.
  *
- * ✅ O BLOCO 4 TEM FOTO DESDE 15-09  -  a do time na escada, do pacote do Drive.
+ * ✅ O BLOCO 4 TEM FOTO DESDE 15-09 — a do time na escada, do pacote do Drive.
  * Ele passou 11-09 a 15-09 como slot VISÍVEL, e essa decisão fica registrada
  * porque o raciocínio vale para o próximo HOLD: a primeira versão escondia o
  * bloco sem foto, para a página ler como completa, e isso estava errado por
- * causa de quem revisa  -  é o próprio cliente, que escreveu os HOLD e sabe o que
+ * causa de quem revisa — é o próprio cliente, que escreveu os HOLD e sabe o que
  * deve. Esconder o bloco tirava dele a única decisão que a revisão existia para
  * tomar: se o layout funciona. Placeholder dimensionado e rotulado pelo que vai
  * receber, nunca aviso de pendência.
@@ -79,23 +79,23 @@ export async function generateMetadata(): Promise<Metadata> {
  *
  * ⏸️ O BLOCO 3 (PERSPECTIVES) FOI CONSTRUÍDO E RETIRADO NO MESMO DIA. Eram duas
  * faixas escuras intercaladas na grade, com a frase de uma pessoa ampliada sobre
- * o slot de fotografia candid. Funcionava  -  está nas capturas de 11-09  -  e saiu
+ * o slot de fotografia candid. Funcionava — está nas capturas de 11-09 — e saiu
  * por um motivo que não é de desenho: ninguém conversou com o cliente sobre O
  * QUE o bloco 3 é. O documento pede frases NOVAS, resposta a uma pergunta
  * específica ("what do you believe about leadership that most people in this
  * industry get wrong?"), e o que a faixa mostrava era a frase do bloco 2 em
  * corpo maior. Mostrar isso como se fosse o bloco 3 pronto responde a pergunta
- * errada numa revisão. Volta depois da conversa  -  a montagem inteira está no
+ * errada numa revisão. Volta depois da conversa — a montagem inteira está no
  * commit desta data, é copiar de volta.
  *
  * ⏳ SEGUE SEM SLOT o mosaico por região do bloco 5 (slot 06): ele é UMA imagem
- * por região atrás de cinco tiles que já existem e já leem bem em texto  -  pôr
+ * por região atrás de cinco tiles que já existem e já leem bem em texto — pôr
  * cinco caixas tracejadas ali muda o desenho do bloco em vez de mostrá-lo.
  */
 export default async function OurTeamPage() {
   /* ⚠️ A PÁGINA VOLTOU A TOCAR O CMS EM 15-09, e só por isto: o pop-up de perfil
      que o botão "+" de cada card abre. O texto da página continua todo em
-     `lib/team.ts`  -  nome, cargo, região e a quote do bloco 2  - , porque o CMS não
+     `lib/team.ts` — nome, cargo, região e a quote do bloco 2 —, porque o CMS não
      tem campo de citação em `person`. O que vem de lá é a BIO e os campos
      estruturados do perfil, que o Word não tem.
 
@@ -104,10 +104,10 @@ export default async function OurTeamPage() {
      caixa do campo em `lib/team.ts` tem o resto.
 
      SE O CMS NÃO RESPONDER, `getPeople()` devolve lista vazia, o `find` devolve
-     `undefined`, e os seis cards saem sem o "+"  -  a página inteira continua de
+     `undefined`, e os seis cards saem sem o "+" — a página inteira continua de
      pé, porque nada do que se lê nela depende desta chamada. É a diferença entre
      enriquecer com o CMS e depender dele. */
-  /* A COPY DA PÁGINA VEM DO EDITOR desde 23-09  -  `/edit-team`. O padrão
+  /* A COPY DA PÁGINA VEM DO EDITOR desde 23-09 — `/edit-team`. O padrão
      continua sendo o que está escrito em `lib/team.ts` e nas props daqui;
      o que a cliente salvar entra por cima. Ver `lib/team-copy.ts`. */
   const [cmsPeople, copy] = await Promise.all([getPeople(), getTeamCopy()]);
@@ -116,7 +116,7 @@ export default async function OurTeamPage() {
 
   /* CARGO, REGIÃO E FRASE VÊM DA COPY; nome, retrato, recorte e `cmsSlug`
      continuam em `lib/team.ts`. O casamento é POR POSIÇÃO, e o schema trava
-     a lista em seis para que ele não escorregue  -  ver
+     a lista em seis para que ele não escorregue — ver
      `lib/team-copy-schema.ts`. */
   const leadershipCards = leaders.map((p, i) => ({ ...p, ...copy.leaders[i] }));
 
@@ -124,7 +124,7 @@ export default async function OurTeamPage() {
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         {/* ✅ HERÓI PRÓPRIO DESDE 15-09. A página deixou de dividir a foto
-            padrão das rotas de serviço  -  é uma fotografia real de sessão da
+            padrão das rotas de serviço — é uma fotografia real de sessão da
             CDNA, com o grupo todo em volta da tela.
 
             ⚠️ O ARQUIVO É 4:3 (1600x1200) E A DOBRA É ~1,9:1, então o
@@ -135,12 +135,12 @@ export default async function OurTeamPage() {
             quase todo o forro de madeira.
 
             O 78% NO EIXO X NÃO FAZ NADA NO DESKTOP e é para o TELEFONE. Numa
-            dobra de 0,46:1 o corte inverte  -  passa a ser horizontal, e sobram
+            dobra de 0,46:1 o corte inverte — passa a ser horizontal, e sobram
             34% da largura. Centrado (`50%`), o que restava na tela era
             justamente a TELA da sala, com a chamada de vídeo no meio do herói.
             Em `78%` o recorte vai para o grupo da direita e a tela fica de fora.
 
-            ⚠️ A TELA AO FUNDO MOSTRA UMA REUNIÃO DE CLIENTE  -  participantes
+            ⚠️ A TELA AO FUNDO MOSTRA UMA REUNIÃO DE CLIENTE — participantes
             identificáveis e a marca deles nos fundos virtuais. No desktop ela
             cai na faixa onde o escurecimento lateral ainda mede 24–66% e o
             `brightness-[.68]` do herói soma por cima, então ela sai bem apagada;
@@ -150,11 +150,11 @@ export default async function OurTeamPage() {
         {/* SEM O DUOTONE, a pedido em 11-09: cinza como na home. Esta página foi
             a primeira, e passava `tint="none"` com o filtro da home escrito aqui.
             As páginas de serviço pediram o mesmo no mesmo dia, e aí os dois
-            valores viraram o PADRÃO do `SolutionHero`  -  o raciocínio inteiro
+            valores viraram o PADRÃO do `SolutionHero` — o raciocínio inteiro
             (por que `none`, por que o `brightness` não é enfeite) mora agora nas
             props de lá. Repetir aqui só criaria dois lugares para ajustar. */}
         {/* ✅ HERÓI TROCADO EM 16-09 pela foto do time na escada EM LANDSCAPE
-            (2400x1600)  -  a que o Guli ficou de entregar na daily, e a primeira
+            (2400x1600) — a que o Guli ficou de entregar na daily, e a primeira
             fotografia desta página com largura de dobra de verdade.
 
             ⚠️ SEGUNDA VERSÃO NO MESMO DIA: `…-landscape-six.jpg`, o retoque com
@@ -163,7 +163,7 @@ export default async function OurTeamPage() {
             O ARQUIVO GANHOU NOME NOVO EM VEZ DE SER SOBRESCRITO, mesma decisão
             da foto da Heineken em 15-09: o `next/image` serve a imagem otimizada
             por uma URL derivada do caminho, e o CDN guarda aquela URL. Trocar o
-            conteúdo mantendo o nome entrega a foto antiga por tempo indefinido  - 
+            conteúdo mantendo o nome entrega a foto antiga por tempo indefinido —
             e é o tipo de defeito que só aparece no celular de quem já visitou.
 
             O PNG DE ORIGEM TEM 4,1 MB e virou JPEG q90 de 540 KB numa única
@@ -173,21 +173,21 @@ export default async function OurTeamPage() {
 
             ⚠️ ANCORADO NO TOPO (`object-top`), e não centrado. O
             `object-[78%_78%]` existia para a foto anterior, cujo assunto estava
-            no canto inferior direito. Centrar aqui parecia certo  -  as oito
-            pessoas ocupam o meio do quadro  -  e não era: a fileira de cima está a
+            no canto inferior direito. Centrar aqui parecia certo — as oito
+            pessoas ocupam o meio do quadro — e não era: a fileira de cima está a
             4% do topo da imagem, e o `object-cover` tira altura DOS DOIS LADOS.
 
             A CONTA, que é o que decide: a imagem é 3:2 (1,50) e o herói é
             `100svh`. Numa janela de 1440x950 a dobra dá 1,52 e sobra corte
-            nenhum  -  foi por isso que a captura inicial parecia boa. Num laptop
+            nenhum — foi por isso que a captura inicial parecia boa. Num laptop
             de 1440x800 a dobra vai a 1,80: o `cover` escala pela largura, a
             altura renderizada passa de 800 para 960 e os 160px que sobram saem
-            60/60 do topo e do pé. Sessenta pixels de tela são 100 do original  - 
+            60/60 do topo e do pé. Sessenta pixels de tela são 100 do original —
             e a 4% de 1600 as cabeças estão a 64. Elas somem.
 
             Ancorar no topo tira os 160px todos DO PÉ, que é degrau vazio e
             piso tátil. Nada de gente se perde em nenhuma altura de janela. */}
-        {/* ⚠️ O TEXTO DO HERÓI É O DELA DESDE 21-09  -  *"Change Hero text too"*,
+        {/* ⚠️ O TEXTO DO HERÓI É O DELA DESDE 21-09 — *"Change Hero text too"*,
             com as três linhas escritas no email:
 
               We’ve led. We’ve learned. We bring both
@@ -197,7 +197,7 @@ export default async function OurTeamPage() {
 
             TRÊS LINHAS, TRÊS SLOTS. O `SolutionHero` tem exatamente rótulo,
             título e subtítulo, e a terceira linha JÁ ERA o subtítulo, palavra
-            por palavra  -  ou seja, o que ela mudou de verdade foi o título (era
+            por palavra — ou seja, o que ela mudou de verdade foi o título (era
             "The people who sit where our clients sit.") e acrescentou a linha
             do meio. Só sobrou o rótulo para recebê-la.
 
@@ -214,7 +214,7 @@ export default async function OurTeamPage() {
             cliente por conta própria é o que este repositório não faz. Como
             rótulo a frase fica inteira, como ela mandou.
 
-            Se ela quiser "Our Team" de volta ao revisar, é trocar duas props  - 
+            Se ela quiser "Our Team" de volta ao revisar, é trocar duas props —
             e aí a linha do meio ganha o ponto final, que passa a ser
             consequência do lugar e não correção nossa. */}
         {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
@@ -232,7 +232,7 @@ export default async function OurTeamPage() {
 
              ✅ E O EMAIL DE 21-09 CONFIRMA O NÚMERO: a terceira linha do herói
              novo é esta frase, com o "60+" e os "36 countries" que já estavam
-             aqui. Um caractere não mudou  -  e isso responde de passagem a dúvida
+             aqui. Um caractere não mudou — e isso responde de passagem a dúvida
              anotada em 17-09 sobre contar por país ou por região. */
           subtitle={copy.hero.subtitle}
           noImage
@@ -268,11 +268,11 @@ export default async function OurTeamPage() {
 
                 A REFERÊNCIA DELA ANDA EM ~20, e as linhas dali são mesmo curtas
                 ("Leadership isn't", "about having"). Ou seja 1280 é estreito mas
-                está dentro do desenho; 1024 não está  -  ali a coluna cai para 11
+                está dentro do desenho; 1024 não está — ali a coluna cai para 11
                 caracteres.
 
                 ⏸️ O LIMIAR ERA 1440 ATÉ 15-09, e isso deixava a página em DUAS
-                colunas em qualquer laptop de 1366  -  que é onde ela foi revisada.
+                colunas em qualquer laptop de 1366 — que é onde ela foi revisada.
                 O pedido foi "duas linhas de três pessoas". Como são seis, três
                 por linha é o que entrega isso.
 
@@ -284,7 +284,7 @@ export default async function OurTeamPage() {
                    vão entre fileiras 27px na ref  → 36  → `gap-y-9`  (36)
 
                 O `gap-y` tinha subido para 72px quando o card ganhou a ficha e o
-                cartão claro  -  foi estimativa, e ficou o dobro do que a
+                cartão claro — foi estimativa, e ficou o dobro do que a
                 referência usa. O `gap-x` era 32.
 
                 ⚠️ O VÃO DE DENTRO DO CARD É MENOR QUE O DE FORA, e isso é
@@ -293,7 +293,7 @@ export default async function OurTeamPage() {
                 soltas. Mora no `LeaderCard`, que é quem desenha o par.
 
                 ⚠️ `sm:auto-rows-fr` DESDE 18-09, junto com a proporção fixa do
-                retrato no `LeaderCard`  -  pedido da daily: *"the images on
+                retrato no `LeaderCard` — pedido da daily: *"the images on
                 section 'Leadership' should be the same height"*. Com o retrato
                 em 3:4 fixo, as fotos já saem iguais; o que ainda variava era o
                 CARTÃO DE QUOTE, esticado até a fileira, e cada fileira tinha a
@@ -326,14 +326,14 @@ export default async function OurTeamPage() {
                 alterna fundos (branco → ink na "One team" → paper na faculty), e
                 uma seção nova aqui obrigaria a inventar um quarto degrau entre
                 dois brancos. Como sub-bloco, ela herda o branco da liderança e a
-                régua acima é quem faz a divisa  -  que é o que a hierarquia diz de
+                régua acima é quem faz a divisa — que é o que a hierarquia diz de
                 qualquer jeito: é apoio à liderança, não um terceiro time.
 
                 ⚠️ "PROGRAM" E NÃO "PROGRAMME", porque é o texto dela à letra. O
                 resto do site é inglês britânico ("programmes delivered, across
                 five regions" na /about, "Manager Development"), então esta é a
                 única grafia americana da página. Não corrigimos texto de cliente
-                por conta própria  -  mas é uma pergunta de uma linha na próxima
+                por conta própria — mas é uma pergunta de uma linha na próxima
                 daily, e a resposta muda uma palavra.
 
                 O h3 É `h3` E NÃO `h2`: o h2 desta seção é "The team behind the
@@ -351,14 +351,14 @@ export default async function OurTeamPage() {
 
         {/* ── Bloco 4 · Group photograph ───────────────────────────────── */}
         {/* ✅ TROCADA EM 17-09 PELO RETOQUE DAS SEIS NA BANCADA
-            (`team-standing-six.jpg`), 1644x957  -  a pedido, no lugar da foto do
+            (`team-standing-six.jpg`), 1644x957 — a pedido, no lugar da foto do
             time em pé que entrou em 16-09. Mesma composição, mesma seção; o que
             muda é o arquivo.
 
             ⚠️ É RETOQUE GERADO, não arquivo de câmera: chegou como
             `ChatGPT Image 17 de set. de 2026, 11_06_58.png` e foi convertido numa
             única compressão (PNG de 1,6 MB → JPEG q90 de 223 KB). A 100% de zoom
-            as MÃOS sobre a bancada mostram o artefato do gerador  -  o punho se
+            as MÃOS sobre a bancada mostram o artefato do gerador — o punho se
             funde à manga sem costura e a palma fica larga demais. No tamanho em
             que a seção serve a foto (~790px de largura num laptop) aquela faixa
             tem uns 20px de altura e não se lê; fica anotado porque a cliente já
@@ -366,22 +366,22 @@ export default async function OurTeamPage() {
             distorted"), e é isso que ela vê se abrir o arquivo inteiro.
 
             O RECORTE CABE. A fonte é 1,72 e o slot é 3:2, então `object-cover`
-            come 6,3% de cada lado  -  104px. A pessoa mais à esquerda começa depois
+            come 6,3% de cada lado — 104px. A pessoa mais à esquerda começa depois
             disso: ninguém é cortado. Verificado recortando o 3:2 na mão.
 
             ⚠️ A ANTERIOR FICOU SEM USO NENHUM (`team/team-standing.jpg`). Foi
             mantida no repositório pelo mesmo motivo da escada em retrato, logo
-            abaixo  -  se a troca for desfeita, é ela que volta. A /about NÃO a usa:
+            abaixo — se a troca for desfeita, é ela que volta. A /about NÃO a usa:
             lá é `team-stairs-about-six.jpg`, cópia própria.
 
             --- histórico, da troca de 16-09 ---
             ✅ TROCADA EM 16-09 PELA FOTO DO TIME EM PÉ (`team-standing.jpg`), a
-            que a Maliha ficou de mandar na daily  -  seis pessoas atrás da mesa,
+            que a Maliha ficou de mandar na daily — seis pessoas atrás da mesa,
             no escritório, 1600x1066.
 
             ⚠️ A TROCA VIROU A COMPOSIÇÃO DE VOLTA PARA A DO MOCKUP DELA. A
             anterior era RETRATO (2:3) e por isso a foto morava na coluna
-            ESTREITA, com o texto ocupando a larga  -  o inverso do desenho. Esta é
+            ESTREITA, com o texto ocupando a larga — o inverso do desenho. Esta é
             PAISAGEM (3:2), então a imagem volta a ser o elemento largo
             (1.35fr contra 1fr) e o texto o estreito, que é o que
             `docs/mockup-team-maliha-14-09-2026.png` mostra.
@@ -389,7 +389,7 @@ export default async function OurTeamPage() {
             A FOTO DA ESCADA CONTINUA NO REPOSITÓRIO (`team/team-stairs.jpg`),
             sem uso nesta página. Ela não foi apagada porque o pedido do Guli na
             daily era uma escada em LANDSCAPE, e se aquela chegar é ela que
-            disputa este slot  -  ou o da /about, que hoje usa uma cópia própria.
+            disputa este slot — ou o da /about, que hoje usa uma cópia própria.
 
             ⚠️ ISSO DESFAZ A REPETIÇÃO COM A /about, que era o efeito colateral
             anotado abaixo: as duas páginas usavam a mesma fotografia em
@@ -397,7 +397,7 @@ export default async function OurTeamPage() {
             Agora cada uma tem a sua.
 
             --- histórico, de quando a foto da escada entrou em 15-09 ---
-            ✅ A FOTO CHEGOU EM 15-09  -  o time sentado na escada, que a própria
+            ✅ A FOTO CHEGOU EM 15-09 — o time sentado na escada, que a própria
             Maliha procurava na call de 14-09. O slot esperava desde 11-09.
 
             ⚠️ O SLOT DE 16:9 NÃO SERVIA. Ele foi dimensionado para "uma foto de
@@ -409,11 +409,11 @@ export default async function OurTeamPage() {
             (`docs/mockup-team-maliha-14-09-2026.png`): a foto de um lado e, do
             outro, sobre escuro, o rótulo "ONE TEAM" com "Different
             perspectives. A shared purpose." Ali a foto é paisagem e ocupa dois
-            terços; aqui ela é retrato, então as proporções invertem  -  a imagem
+            terços; aqui ela é retrato, então as proporções invertem — a imagem
             fica na coluna mais estreita e o texto ganha ar. O objeto é o mesmo.
 
             A COPY É DELA, do mesmo mockup, e não nossa. Ela NÃO está no
-            `CDNA_04_Team.docx`, que para o bloco 4 só diz "HOLD, slot 04"  -  ou
+            `CDNA_04_Team.docx`, que para o bloco 4 só diz "HOLD, slot 04" — ou
             seja, é conteúdo novo que apareceu no desenho. Fica anotado porque,
             se o cliente revisar o texto da página contra o Word, estas duas
             linhas não vão estar lá.
@@ -429,7 +429,7 @@ export default async function OurTeamPage() {
             vazios; a segunda foto continua valendo a pena pedir. */}
         <section id="one-team" className="bg-ink text-white">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-16 md:px-10 md:py-20">
-            {/* ✅ O CARROSSEL DA HOME NO LUGAR DA FOTOGRAFIA ÚNICA  -  21-09:
+            {/* ✅ O CARROSSEL DA HOME NO LUGAR DA FOTOGRAFIA ÚNICA — 21-09:
                 *"na seção One team da página /team tem que trocar a imagem pelo
                 carrossel de imagens da home"*.
 
@@ -437,14 +437,14 @@ export default async function OurTeamPage() {
                 `PhotoCarousel` da `#people`, e a lista e o enquadramento vêm de
                 `lib/life-at-dna.ts`, que nasceu neste mesmo dia justamente para
                 as duas telas não manterem duas listas. O que a home consertou
-                em 21-09  -  a foto duplicada que saiu e os seis enquadramentos que
-                salvam rostos cortados  -  vale aqui de graça.
+                em 21-09 — a foto duplicada que saiu e os seis enquadramentos que
+                salvam rostos cortados — vale aqui de graça.
 
                 ⚠️ A FOTO QUE SAIU CONTINUA NO REPOSITÓRIO
                 (`team/team-standing-six.jpg`), e a caixa acima é a história
                 inteira dela: as duas trocas de 16-09 e 17-09, o artefato do
                 gerador nas mãos e a conta do recorte 3:2. Nada disso foi apagado
-                porque a foto é o caminho de volta se o carrossel não convencer  - 
+                porque a foto é o caminho de volta se o carrossel não convencer —
                 são três linhas de JSX.
 
                 A MOLDURA MUDA DE PROPORÇÃO, e é consequência, não escolha: o slot
@@ -476,7 +476,7 @@ export default async function OurTeamPage() {
                   </Fragment>
                 ))}
               </p>
-              {/* O FILETE VERMELHO FECHA O BLOCO, como no mockup  -  lá ele
+              {/* O FILETE VERMELHO FECHA O BLOCO, como no mockup — lá ele
                   aparece sob a frase, curto e à esquerda. É a mesma marca que o
                   `TypeLabel` traz em cima, repetida embaixo para emoldurar as
                   duas linhas. */}
@@ -489,7 +489,7 @@ export default async function OurTeamPage() {
         </section>
 
         {/* ── Global faculty ───────────────────────────────────────────── */}
-        {/* `ink`  -  a única cor de fundo não-clara que o projeto tem para uma
+        {/* `ink` — a única cor de fundo não-clara que o projeto tem para uma
             seção. O `ink-2` existe, mas é um degrau de 8 pontos que só se nota
             lado a lado, e está reservado ao mapa escuro da home; e o vermelho
             como ÁREA foi desfeito de propósito em 10-09 ("o acento nunca vira
@@ -500,19 +500,19 @@ export default async function OurTeamPage() {
             dá espinha à rolagem e separa a liderança da DNA experience sem
             filete nenhum. */}
         {/* A IMAGEM DE FUNDO É DO CLIENTE, gerada e escolhida por ele em 11-09.
-            Ela NÃO é o slot 06 do documento  -  aquele pede uma imagem POR REGIÃO
+            Ela NÃO é o slot 06 do documento — aquele pede uma imagem POR REGIÃO
             atrás dos cinco quadros, e continua em aberto. Esta é a seção
             inteira ganhando fundo, o que é outra coisa e não ocupa o lugar
             daquilo: quando as cinco chegarem, elas entram nos quadros e este
             fundo continua onde está.
 
             `bg-ink` FICA NA SEÇÃO por baixo de tudo. É o que se vê enquanto o
-            JPEG carrega e é para onde a seção volta se ele falhar  -  sem isso, o
+            JPEG carrega e é para onde a seção volta se ele falhar — sem isso, o
             primeiro paint é texto branco sobre branco.
 
             DUAS CAMADAS DE ESCURECIMENTO, e as duas são necessárias por motivos
             diferentes. A uniforme (`ink/60`) segura o pior caso da foto, que são
-            as luzes das cidades  -  laranja quase branco, bem embaixo da coluna
+            as luzes das cidades — laranja quase branco, bem embaixo da coluna
             de texto. A horizontal (`ink` → `ink/20`) faz o lado esquerdo, onde
             vivem o título e o parágrafo, ficar mais escuro que o direito, onde
             não há texto e a imagem pode aparecer. Medições no rodapé do bloco.
@@ -524,13 +524,13 @@ export default async function OurTeamPage() {
             seção quando os cinco quadros eram só nome, e ali era o assunto
             visual do bloco. Quando eles ganharam fotografia a conta virou: seis
             imagens na mesma seção, e a de fundo passou a competir com as cinco
-            que carregam a informação. Escurecê-lo resolvia pela metade  -  ele
+            que carregam a informação. Escurecê-lo resolvia pela metade — ele
             parava de disputar e também parava de somar.
 
             Onde ele está agora ganha as duas coisas: o bloco 6 é texto em
             cartões, não tinha imagem nenhuma, e o globo volta a ser o assunto.
             A seção aqui fica `ink` liso, e quem faz o trabalho visual é o
-            mosaico  -  que é o que o documento pede que ele faça. */}
+            mosaico — que é o que o documento pede que ele faça. */}
         <section id="faculty" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             {/* `onDark` troca o #d84339 pelo tom claro: o vermelho cheio mede
@@ -539,7 +539,7 @@ export default async function OurTeamPage() {
             {/* ⚠️ A SEÇÃO FICOU CLARA EM 12-09, e é correção de ritmo, não de gosto.
                 Quando o globo veio para cá ela virou `ink`; quando ele foi para
                 o bloco 6 ela continuou escura, e a página passou a correr
-                escuro por TRÊS seções seguidas  -  esta, a DNA experience e o
+                escuro por TRÊS seções seguidas — esta, a DNA experience e o
                 mapa. Três massas escuras em fila não têm divisa entre si: o
                 leitor perde onde um assunto acaba e o outro começa.
 
@@ -561,11 +561,11 @@ export default async function OurTeamPage() {
                 existe para abrir o título dos cartões; entre título e texto
                 corrido ele viraria um buraco. O respiro fica no `mt-6` do
                 parágrafo, que já estava certo. */}
-            {/* ⚠️ ERAM 75 ATÉ 17-09  -  *"na seção 'Global faculty' trocar 75
+            {/* ⚠️ ERAM 75 ATÉ 17-09 — *"na seção 'Global faculty' trocar 75
                 por 60+ - a faculty of 60+."* O número encolheu e GANHOU UM "+",
                 que é a parte que importa: 75 era uma contagem exata de um
                 documento sem data, e `60+` é um piso que não envelhece a cada
-                entrada e saída de facilitador. O `36 countries` fica  -  ela não
+                entrada e saída de facilitador. O `36 countries` fica — ela não
                 o mencionou aqui, e trocá-lo por conta própria colidiria com a
                 faixa da About, que desde hoje conta por REGIÃO e não por país.
                 ⏳ Alinhar as duas unidades é pergunta para a próxima daily. */}
@@ -587,15 +587,15 @@ export default async function OurTeamPage() {
                 região. Ela está em `facultyMembers`, em `lib/team.ts`, com a
                 procedência e as três pendências de conteúdo que sobraram.
 
-                ⚠️ O QUE SAIU DAQUI ERAM CINCO CARTÕES DE REGIÃO  -  Americas, UK
-                & Europe, GCC & Middle East, Asia, India  - , cada um com a foto
+                ⚠️ O QUE SAIU DAQUI ERAM CINCO CARTÕES DE REGIÃO — Americas, UK
+                & Europe, GCC & Middle East, Asia, India —, cada um com a foto
                 de uma cidade, dois escurecimentos medidos e um véu `brand` em
                 `soft-light`. Foram refeitos em 11-09 sobre uma referência de
                 cartão de destino e ajustados de novo em 12-09, quando a seção
                 passou de escura para clara. Nada disso se perdeu: os cinco
                 seguem em `facultyRegions` e o bloco inteiro está no git.
 
-                E ELES ERAM UM PLACEHOLDER O TEMPO TODO  -  é o que torna a troca
+                E ELES ERAM UM PLACEHOLDER O TEMPO TODO — é o que torna a troca
                 barata em vez de destrutiva. O slot 06 do `CDNA_04_Team.docx`
                 pede, em letra, *"a representative selection or mosaic image per
                 region… HOLD"*, e as cinco fotos que estavam ali vinham de
@@ -608,7 +608,7 @@ export default async function OurTeamPage() {
                 ⚠️ A REGIÃO NÃO SE PERDEU NA TROCA, e isso importa porque era o
                 argumento inteiro dos cartões: ela virou a segunda linha de cada
                 pessoa. Em vez de cinco quadros dizendo "atuamos na Ásia", são 23
-                rostos dos quais quatro dizem "Asia Pacific"  -  a mesma afirmação,
+                rostos dos quais quatro dizem "Asia Pacific" — a mesma afirmação,
                 com nome e cara por trás.
 
                 ⏳ GCC E ÍNDIA SUMIRAM DO MAPA DA SEÇÃO, e é consequência do
@@ -623,7 +623,7 @@ export default async function OurTeamPage() {
             <div className="mt-12 space-y-14">
               {facultyByRegion.map((group) => (
                 <div key={group.region || "sem-regiao"}>
-                  {/* Sem cabeçalho quando não há região  -  o balde neutro do
+                  {/* Sem cabeçalho quando não há região — o balde neutro do
                       `facultyByRegion`, hoje vazio. Um título inventado ali
                       afirmaria algo que ninguém nos disse. */}
                   {group.region && (
@@ -641,7 +641,7 @@ export default async function OurTeamPage() {
         {/* ── Bloco 6 · The DNA experience ─────────────────────────────── */}
         {/* O CARTÃO DA "CLIENT IMPACT" DA HOME, a pedido em 11-09: três lado a
             lado, `border-line`, faixa `ink` no topo com o título e o corpo
-            embaixo. As medidas vêm de lá inteiras  -  `gap-7` entre os cartões,
+            embaixo. As medidas vêm de lá inteiras — `gap-7` entre os cartões,
             26px de recuo lateral, 22px na faixa, 28px no corpo.
 
             O CONTEÚDO da seção continua o da home ("moved here from the
@@ -662,7 +662,7 @@ export default async function OurTeamPage() {
             `ink`, a divisa é a própria virada de cor.
 
             ✅ RESPONDIDA EM 21-09 A PERGUNTA QUE ESTAVA AQUI. Ela era: "o
-            carrossel de 25 fotos candid que acompanha a seção na home  -  o
+            carrossel de 25 fotos candid que acompanha a seção na home — o
             outline move os strands e não diz uma palavra sobre ele: se vem
             junto, se fica lá, se some". A resposta foi *"put the carousel da
             home na pagina"*, e ele vem JUNTO: está no pé desta seção, logo
@@ -674,13 +674,13 @@ export default async function OurTeamPage() {
 
             O QUE NÃO MUDOU, E É O PONTO: os cartões continuam brancos. Sobre a
             imagem eles leem como peças pousadas em cima dela, que é mais forte
-            do que eram sobre o cinza  -  e não exigiu redesenhar nada, porque o
+            do que eram sobre o cinza — e não exigiu redesenhar nada, porque o
             cartão já era branco com faixa `ink` no topo. A sombra deles vira
             quase invisível no escuro; fica, porque ainda trabalha nas partes
             claras da foto.
 
             OS DOIS ESCURECIMENTOS SÃO OS MESMOS que a faculty usava, com os
-            mesmos números  -  o plano de 75% para segurar as luzes das cidades, e
+            mesmos números — o plano de 75% para segurar as luzes das cidades, e
             o horizontal fechando em `ink/45`, que mantém a esquerda (onde o
             título mora) mais escura que a direita. */}
         <section id="dna-experience" className="relative isolate overflow-hidden bg-ink">
@@ -699,7 +699,7 @@ export default async function OurTeamPage() {
 
                ⚠️ O `brightness` SAIU COM O GLOBO. O filtro do herói é
                `saturate(.65) brightness(.68)`, e o segundo valor existe lá para
-               uma foto de sala com luz tungstênio  -  e existia aqui para as luzes
+               uma foto de sala com luz tungstênio — e existia aqui para as luzes
                de cidade do globo. Sobre uma imagem que já é preta em 90% da área
                ele não domava nada: só apagava a hélice, que é a única coisa que
                a imagem tem para mostrar. O `saturate` FICA, e aí ele trabalha:
@@ -709,14 +709,14 @@ export default async function OurTeamPage() {
                O `brightness` é a peça que se esquece ao copiar só o gradiente:
                no herói ele existe porque `multiply` escurecia por definição e,
                quando o duotone saiu, a foto ficou com um brilho que os
-               escurecimentos laterais não previam. Aqui vale igual  -  é ele que
+               escurecimentos laterais não previam. Aqui vale igual — é ele que
                deixa o gradiente trabalhar sobre uma base já assentada, em vez
                de sozinho contra a imagem cheia. */
-            /* ⚠️ 70% NA VERTICAL, E O NÚMERO NÃO É ESTÉTICO SOZINHO  -  12-09,
+            /* ⚠️ 70% NA VERTICAL, E O NÚMERO NÃO É ESTÉTICO SOZINHO — 12-09,
                pedido de subir a hélice. O eixo horizontal não tem folga aqui: a
                imagem escalada dá exatamente a largura do container, então
                `object-position` só age na vertical, e a conta é contraintuitiva
-                -  para a hélice SUBIR na tela, a janela de recorte tem de DESCER
+               — para a hélice SUBIR na tela, a janela de recorte tem de DESCER
                na origem, ou seja, a porcentagem aumenta.
 
                `bottom` (100%) foi testado e sobe demais: a hélice passa a cruzar
@@ -727,25 +727,25 @@ export default async function OurTeamPage() {
           />
           {/* ⚠️ ABERTO EM 12-09, a pedido: a imagem aparece mais. Os números
               vieram de 75% no plano e `ink/45` na ponta direita, que eram os da
-              Global faculty  -  e lá eles existiam para segurar CINCO cartões e um
+              Global faculty — e lá eles existiam para segurar CINCO cartões e um
               texto longo por cima. Aqui por cima há três cartões brancos, que
               trazem o próprio fundo, e duas linhas de cabeçalho. Sobra imagem
               para mostrar.
 
               O que NÃO afrouxou foi a esquerda: o `from-ink` continua cheio, e é
               ele que sustenta o rótulo e o título. O que abriu foi o miolo e a
-              direita  -  55% no plano, e o horizontal indo a `ink/25`  - , que é
+              direita — 55% no plano, e o horizontal indo a `ink/25` —, que é
               justamente onde não há texto. */}
           {/* ⚠️ O `from-25%` NÃO É ENFEITE DE SINTAXE, é o que salvou o rótulo.
               Abrir o fundo derrubou o "Global faculty"… quer dizer, o "The DNA
               experience": medido depois da abertura, o `brand-light` do rótulo
               caiu para 3,78:1, abaixo dos 4,5 que texto de 14px em caixa alta
-              exige. O título passou folgado (7,5:1) porque é branco e grande  - 
+              exige. O título passou folgado (7,5:1) porque é branco e grande —
               quem reprova é sempre o rótulo, que é pequeno e colorido.
 
               Segurar o degradê em `ink` cheio até os primeiros 25% da largura
               mantém escura exatamente a coluna onde o rótulo e o título vivem,
-              e deixa os outros 75% abertos  -  que é onde a imagem aparece e onde
+              e deixa os outros 75% abertos — que é onde a imagem aparece e onde
               não há texto nenhum. Fechar tudo de novo teria desfeito o pedido. */}
           {/* ⚠️ UM VÉU UNIFORME, E NÃO MAIS O GRADIENTE DO HERÓI. Pedido de
               12-09 ("deixar a opacidade mais uniforme… um pouco mais forte para
@@ -757,7 +757,7 @@ export default async function OurTeamPage() {
               pontos da direita rebaixados, porque a hélice sumia; depois o platô
               esticado até 55%, porque o TÍTULO reprovava. Quatro ajustes para
               fazer uma curva horizontal servir a um bloco cujo texto atravessa
-              a tela  -  e mesmo assim o pior pixel do título ficava em 2,80:1.
+              a tela — e mesmo assim o pior pixel do título ficava em 2,80:1.
 
               A RAZÃO DE O GRADIENTE NÃO SERVIR AQUI é a diferença entre esta
               imagem e a do herói. Lá a foto é uniforme e o texto mora à
@@ -775,7 +775,7 @@ export default async function OurTeamPage() {
           <div aria-hidden className="absolute inset-0 -z-10 bg-ink/[0.62]" />
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel onDark>{copy.dna.label}</TypeLabel>
-            {/* A escala do h2 da Client impact, inteira  -  28/34/40, peso 600,
+            {/* A escala do h2 da Client impact, inteira — 28/34/40, peso 600,
                 tracking -0,5px, `mb-[52px]` até os cartões. A serifa não é
                 desvio: a home força `[&_h2]:font-serif` no wrapper, então o
                 título de lá também é serifa. O que muda é a família (Source
@@ -785,13 +785,13 @@ export default async function OurTeamPage() {
             <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
               {copy.dna.title}
             </h2>
-            {/* A SOMBRA DOS CARTÕES É ADIÇÃO NOSSA  -  a home não tem. Dois
+            {/* A SOMBRA DOS CARTÕES É ADIÇÃO NOSSA — a home não tem. Dois
                 planos: um contato curto de 2px, que assenta o cartão na
                 superfície, e um difuso de 30px com raio negativo, que projeta
                 sem borrar a borda. Alfas baixos (4% e 22%) e na cor `ink`, não
                 em preto puro: sombra preta sobre `paper` esverdeia o cinza. */}
             {/* ⚠️ QUATRO COLUNAS DESDE 15-09, e não três: a vertente "One DNA
-                TEAM" faltava  -  ver a caixa de `dnaStrands` em `lib/team.ts`.
+                TEAM" faltava — ver a caixa de `dnaStrands` em `lib/team.ts`.
 
                 `md:grid-cols-2 lg:grid-cols-4` e não `md:grid-cols-4` direto: a
                 1024 quatro cartões com o corpo longo das três vertentes antigas
@@ -805,11 +805,11 @@ export default async function OurTeamPage() {
                   className="flex flex-col border border-line bg-white shadow-[0_2px_4px_rgba(35,31,33,0.04),0_14px_30px_-18px_rgba(35,31,33,0.22)]"
                 >
                   {/* ⏸️ O VERMELHO FOI TESTADO EM 12-09 E DESCARTADO no mesmo
-                      dia  -  a faixa chegou a ser `bg-brand` e voltou a `ink` a
+                      dia — a faixa chegou a ser `bg-brand` e voltou a `ink` a
                       pedido. Fica registrado porque o teste tem um número útil:
                       branco sobre `brand` dá 4,39:1, o que PASSA para um título
                       de 20px semibold (mínimo 3,0). Ou seja, não foi o contraste
-                      que reprovou, foi a composição  -  três faixas de vermelho
+                      que reprovou, foi a composição — três faixas de vermelho
                       cheio sobre a foto puxavam mais atenção que o título da
                       seção, e a decisão de 10-09 sobre o acento não virar área
                       continua valendo. */
@@ -840,7 +840,7 @@ export default async function OurTeamPage() {
                 EXATAMENTE o deles (One DNA TEAM, The DNA Experience, Trusted
                 Relationships, Inclusion & Diversity). O `CDNA_04_Team.docx`
                 mandou o texto para cá ("moved here from the homepage") e deixou
-                o carrossel para trás  -  a pergunta anotada no topo desta seção
+                o carrossel para trás — a pergunta anotada no topo desta seção
                 desde 11-09.
 
                 ELE NÃO VOLTA AQUI ENQUANTO ESTIVER LÁ EM CIMA. São as mesmas 25
@@ -859,7 +859,7 @@ export default async function OurTeamPage() {
             embrulhava (`tone="paper"`, `maxWidthClass="max-w-[1440px]"`,
             `typeLabel`, `align="center"`). A montagem inteira, com o porquê de
             cada prop e o histórico do `dark` → `paper` de 12-09, está no commit
-            anterior a este  -  é copiar de volta se ela mudar de ideia.
+            anterior a este — é copiar de volta se ela mudar de ideia.
 
             A ÂNCORA `#presence` MORRE JUNTO, e isso foi conferido antes de
             apagar: os quatro redirects legados do WordPress que chegam nesta
@@ -871,7 +871,7 @@ export default async function OurTeamPage() {
 
             O QUE FECHA A PÁGINA agora é a faixa de convite logo abaixo, que
             entrou em 15-09 e é `brand`. A DNA experience, que é `ink`, deixou de
-            ser a última seção  -  e a sequência escuro → vermelho → rodapé branco
+            ser a última seção — e a sequência escuro → vermelho → rodapé branco
             é a mesma das dez páginas de serviço. */}
 
         {/* ── Bloco 7 · Let's talk ──────────────────────────────────────── */}
@@ -881,26 +881,26 @@ export default async function OurTeamPage() {
             Só agora foi construída.
 
             ELA NÃO ESTÁ NO `CDNA_04_Team.docx`. O documento fecha a página em
-            seis blocos e o sexto é a DNA experience  -  não há bloco 7 ali. Quem
+            seis blocos e o sexto é a DNA experience — não há bloco 7 ali. Quem
             pede esta faixa é o MOCKUP, que termina exatamente assim: rótulo
             "LET'S TALK", "Ready to make leadership real?", uma linha de apoio e
             o botão "Get in touch" sobre um skyline.
 
             A COPY É DELA, do mockup, palavra por palavra. Mesma procedência do
             "Different perspectives. A shared purpose." do bloco 4 e da linha da
-            vertente "One DNA TEAM"  -  e a mesma ressalva: quem conferir o texto
+            vertente "One DNA TEAM" — e a mesma ressalva: quem conferir o texto
             desta página contra o Word não vai achar estas frases lá.
 
             ⚠️ SEM O SKYLINE DE FUNDO que o mockup mostra. O `SolutionCta` é
             `bg-brand` chapado, e é a faixa que as dez páginas de serviço usam.
             Pôr fotografia só nesta criaria duas faixas de convite diferentes no
-            mesmo site por causa de um desenho  -  e o skyline que temos já é o
+            mesmo site por causa de um desenho — e o skyline que temos já é o
             herói da /about e da /services, então ele apareceria uma terceira
             vez. Se ela pedir a versão com foto, é prop nova no componente e vale
             para todas.
 
             É O MESMO COMPONENTE DAS PÁGINAS DE SERVIÇO, e o rótulo "Let's talk"
-            já é o padrão dele  -  não precisou de prop. O que muda são as três
+            já é o padrão dele — não precisou de prop. O que muda são as três
             partes escritas por ela. */}
         {/* Wrapper com `id` pelo mesmo motivo do herói: o <SolutionCta> não
             recebe um, e o guia visual precisa do alvo. */}

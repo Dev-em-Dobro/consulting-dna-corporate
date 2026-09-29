@@ -73,7 +73,7 @@ export const HomeCopySchema: z.ZodType<HomeCopy> = z.object({
 /**
  * A MESCLA saiu daqui em 23-09 para `lib/page-copy/merge.ts`, palavra por
  * palavra: a About usa a mesma, mudando só o padrão e o schema que ela fecha
- * por cima. A função abaixo é o que sobrou  -  os dois argumentos da home.
+ * por cima. A função abaixo é o que sobrou — os dois argumentos da home.
  */
 export function mergeHomeCopy(saved: unknown): HomeCopy {
   return mergeCopy(DEFAULT_HOME_COPY, HomeCopySchema, saved);

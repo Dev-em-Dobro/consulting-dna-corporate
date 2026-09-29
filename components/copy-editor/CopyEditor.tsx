@@ -11,7 +11,7 @@ import {
 } from "@/lib/page-copy/fields";
 
 /**
- * O EDITOR DE TEXTOS DE UMA PÁGINA  -  uma coluna de seções, na ordem da página,
+ * O EDITOR DE TEXTOS DE UMA PÁGINA — uma coluna de seções, na ordem da página,
  * cada uma com seus campos; barra fixa no topo com o estado e o botão de salvar.
  *
  * DIRIGIDO POR DADOS: a lista de campos é o `EDITOR_SECTIONS` da página
@@ -25,7 +25,7 @@ import {
  * inteira.
  *
  * ⚠️ `defaults` E `sections` ATRAVESSAM A FRONTEIRA SERVIDOR→CLIENTE. Os dois
- * são JSON puro de propósito  -  string, número, array e objeto simples. Um
+ * são JSON puro de propósito — string, número, array e objeto simples. Um
  * `EDITOR_SECTIONS` com função dentro (um `label` calculado, por exemplo) não
  * serializa e quebra a página inteira em tempo de render.
  *
@@ -47,7 +47,7 @@ export default function CopyEditor<T>({
 }: {
   /** A copy em vigor (padrão + salvo), vinda do servidor para a tela abrir cheia. */
   initial: T;
-  /** Os padrões em código  -  é contra eles que o "Restore original" compara. */
+  /** Os padrões em código — é contra eles que o "Restore original" compara. */
   defaults: T;
   sections: EditorSection[];
   /** A rota que faz GET/POST desta copy, ex.: `/api/about-copy`. */
@@ -134,20 +134,20 @@ export default function CopyEditor<T>({
   return (
     <div className="min-h-screen bg-paper text-ink">
       {/* O banner de cookies e o botão do WhatsApp vêm do layout raiz e não
-          fazem sentido numa tela de trabalho  -  o banner ainda cobria o botão
+          fazem sentido numa tela de trabalho — o banner ainda cobria o botão
           de salvar do rodapé. Escondidos só aqui, por atributo. */}
       <style>{`[aria-label="Cookie consent"],[aria-label="Chat with us on WhatsApp"]{display:none!important}`}</style>
       {/* Barra do topo */}
       <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
         {/* A BARRA QUEBRA EM DUAS LINHAS NO TELEFONE, e não é enfeite: com o
             botão de voltar somado ao que já havia, num iPhone de 390px sobravam
-            ~40px para o título  -  ele sumia e o rótulo da marca escrevia por cima
+            ~40px para o título — ele sumia e o rótulo da marca escrevia por cima
             do estado. Com `flex-wrap`, o estado desce para uma linha só dele
             (`basis-full` abaixo de `md`) e a primeira linha fica com voltar,
             título e salvar, que é a ordem em que ela lê. */}
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4">
           {/* VOLTAR PARA O ÍNDICE. Com duas páginas editáveis, a cliente precisa
-              de um caminho de volta na própria tela  -  o botão de voltar do
+              de um caminho de volta na própria tela — o botão de voltar do
               navegador serve, mas com mudança pendente ele dispara o aviso de
               saída, que parece erro em vez de navegação.
 
@@ -274,7 +274,7 @@ export default function CopyEditor<T>({
                         className="w-full border border-line bg-paper"
                       />
                       <figcaption className="mt-2 text-[12px] leading-snug text-muted">
-                        How this section looks on the site. The picture does not update as you type  -  save and open
+                        How this section looks on the site. The picture does not update as you type — save and open
                         the site to see your changes.
                       </figcaption>
                     </figure>
@@ -318,7 +318,7 @@ function StatusPill({
     text = status.message ?? "Could not save";
     tone = "text-brand";
   } else if (status.kind === "saved" && !dirty) {
-    text = "Saved  -  the site updates in a few seconds";
+    text = "Saved — the site updates in a few seconds";
     tone = "text-emerald-700";
   } else if (dirty) {
     text = "Unsaved changes";

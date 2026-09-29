@@ -8,7 +8,7 @@ import type { CaseArticle, CaseListEntry } from "@/lib/cms/map";
 /**
  * O case tem o modelo de conteúdo de 16-09?
  *
- * A pergunta não é "tem challenge?"  -  os cases antigos também têm, herdados do
+ * A pergunta não é "tem challenge?" — os cases antigos também têm, herdados do
  * modelo legado. O que separa os dois é o que só a planilha da cliente escreve:
  * manchete por seção, figuras separadas em impacto e escala, fecho. Basta UM
  * desses para a página nova valer a pena, porque o layout dela degrada bem (cada
@@ -74,7 +74,7 @@ function MutedVideo({ url, title }: { url: string; title: string }) {
  *
  * ⚠️ VIROU UM DESVIO EM 16-09. Os nove cases aprovados pela cliente naquele dia
  * têm o modelo de conteúdo do template da adidas e são renderizados pela
- * `CaseStory`. Os seis antigos continuam exatamente como estavam  -  corpo em
+ * `CaseStory`. Os seis antigos continuam exatamente como estavam — corpo em
  * rich text, faixa de fatos, citação escura. Os dois layouts convivem porque os
  * dois conteúdos convivem no CMS; quando os antigos forem reescritos no modelo
  * novo, este desvio e tudo abaixo dele saem juntos.
@@ -89,7 +89,7 @@ export default function CaseView({
 }) {
   if (hasStoryModel(c)) return <CaseStory c={c} related={related} />;
 
-  // Legacy structured sections  -  only used when a case has no single `text` body.
+  // Legacy structured sections — only used when a case has no single `text` body.
   const legacyBody = [
     { label: "Challenge", value: c.body.challenge },
     { label: "Approach", value: c.body.approach },
@@ -109,8 +109,8 @@ export default function CaseView({
               ))}
             </div>
           )}
-          {/* Guli's mock leads the case on its outcome  -  "SHELL Discovery
-              Journey registered 200 millions in savings for the company"  - 
+          {/* Guli's mock leads the case on its outcome — "SHELL Discovery
+              Journey registered 200 millions in savings for the company" —
               rather than on the client's name. That is the `headline` field.
               `title` stays the client name because it also resolves the logo and
               the brand colour of the band (see lib/cms/map.ts), so a case with
@@ -118,7 +118,7 @@ export default function CaseView({
           <h1 className="text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
             {c.headline || c.title}
           </h1>
-          {/* Header band  -  the 27-08 brief (item 7) asks every case to open with
+          {/* Header band — the 27-08 brief (item 7) asks every case to open with
               Countries → Participants/Leaders → Reach/Scale → Intervention →
               Impact, and only then the story. Evidence before prose. Rendered on
               the existing bordered-grid pattern; the visual treatment is Guli's

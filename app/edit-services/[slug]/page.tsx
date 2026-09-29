@@ -9,12 +9,12 @@ import {
 import { getServicePagesCopy } from "@/lib/service-pages-copy-server";
 
 /**
- * `/edit-services/<serviço>`  -  uma tela por serviço.
+ * `/edit-services/<serviço>` — uma tela por serviço.
  *
  * SÃO DEZ TELAS E UM OBJETO SÓ: cada uma mostra os campos daquele slug e salva
  * a copy das dez de volta. Ver a caixa em `lib/service-pages-copy.ts`.
  *
- * ⚠️ SEM PRINT DO GUIA aqui (`guideDir` ausente)  -  decidido com o cliente em
+ * ⚠️ SEM PRINT DO GUIA aqui (`guideDir` ausente) — decidido com o cliente em
  * 23-09: o template das dez é o mesmo, e o "See on site ↗" de cada seção abre a
  * página real.
  *
@@ -55,7 +55,7 @@ export default async function EditServicePage({
       })) }))}
       apiPath={`/api/service-pages-copy/${slug}`}
       siteHref={`/services/${slug}`}
-      title={`${name}  -  page text`}
+      title={`${name} — page text`}
       note="This service’s name and sub-headline also appear on its card on the Services page and in “Related services” at the foot of the other service pages."
     />
   );

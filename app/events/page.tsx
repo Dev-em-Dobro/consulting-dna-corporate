@@ -36,10 +36,10 @@ export default async function EventsPage() {
             {upcoming.length === 0 ? (
               <p className="mt-8 max-w-[40rem] text-[18px] leading-[1.7] text-muted">{copy.upcoming.body}</p>
             ) : (
-              <div className="mt-10 grid gap-8 md:mt-14">
+              <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 xl:grid-cols-4">
                 {upcoming.map((event) => (
                   <Reveal key={event.slug} className="h-full">
-                    <EventCard event={event} featured />
+                    <EventCard event={event} />
                   </Reveal>
                 ))}
               </div>

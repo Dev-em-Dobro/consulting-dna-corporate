@@ -17,23 +17,23 @@ import TypeLabel from "@/components/TypeLabel";
  *
  * Pedido da daily: *"trocar o estilo do mapa pelo que ela mandou na pasta do
  * drive"*, e a arte de referência é `1.About Page/Map Image.png`. Ela foi MEDIDA
- * pixel a pixel, não olhada  -  os valores estão em `REF` abaixo, e é de lá que
+ * pixel a pixel, não olhada — os valores estão em `REF` abaixo, e é de lá que
  * saem as cores daqui.
  *
  * O QUE O MAPA DEIXOU DE FAZER, e esta é a parte que importa: ele PINTAVA cada
  * país de atuação com uma cor própria, de uma paleta de oito, e escrevia o nome
- * dos grandes por cima em branco. A referência dela não pinta país nenhum  -  a
+ * dos grandes por cima em branco. A referência dela não pinta país nenhum — a
  * terra inteira é de UM cinza-azulado só, e quem diz onde a firma atua são os
  * alfinetes, sozinhos.
  *
  * ⚠️ ISSO CONTRARIA O FR-608–612, que pede os países de atuação pintados. Não é
  * descuido: é a arte que a cliente mandou, e a leitura dela é melhor para esta
  * página. Oito cores saturadas numa faixa `paper` faziam o mapa gritar mais alto
- * que a seção inteira, e a paleta era ARBITRÁRIA  -  a cor não significava nada,
+ * que a seção inteira, e a paleta era ARBITRÁRIA — a cor não significava nada,
  * era só `PALETTE[i % 8]` sobre a lista ordenada, então Canadá roxo e Brasil
  * azul não diziam coisa alguma ao leitor que tentasse decodificá-los.
  *
- * ⏳ COMO VOLTAR ATRÁS: `PAINT_COVERAGE = true`, uma linha. Nada foi apagado  - 
+ * ⏳ COMO VOLTAR ATRÁS: `PAINT_COVERAGE = true`, uma linha. Nada foi apagado —
  * a paleta, a lista de países cobertos e o cálculo dos rótulos de país seguem
  * aqui inteiros, exatamente porque esta página já inverteu decisões em dias
  * seguidos e a peça pronta é mais barata que a reescrita.
@@ -41,7 +41,7 @@ import TypeLabel from "@/components/TypeLabel";
  * ⚠️ OS ALFINETES SÃO OS DO CMS, e a referência dela tem MUITO mais: ela desenha
  * umas cinquenta cidades (Estocolmo, Cairo, Ulaanbaatar, Lagos, Joanesburgo,
  * Auckland…) e o CMS publica as regiões de escritório, que são bem menos. O
- * pedido foi de ESTILO, e dado é outra conversa  -  encher o mapa de cidades que o
+ * pedido foi de ESTILO, e dado é outra conversa — encher o mapa de cidades que o
  * CMS não tem seria escrever alcance à mão numa página de prova. Se ela quiser
  * as cinquenta, é publicá-las como região no CMS e elas aparecem sozinhas.
  */
@@ -50,7 +50,7 @@ import TypeLabel from "@/components/TypeLabel";
  * As três cores da arte de referência, amostradas do PNG (`Map Image.png`,
  * 5530x2953, fundo transparente):
  *
- *   terra   `#abb3c1` com alfa 128  -  ou seja, METADE deste cinza sobre o fundo
+ *   terra   `#abb3c1` com alfa 128 — ou seja, METADE deste cinza sobre o fundo
  *           da página. É por isso que `landFill` abaixo é calculado por `tone`
  *           em vez de sair daqui direto: a mistura tem de acontecer contra o
  *           branco ou contra o `paper`, e não contra um só dos dois.
@@ -61,7 +61,7 @@ import TypeLabel from "@/components/TypeLabel";
  * arte é um vizinho do `brand` (#d84339) e o preto é um vizinho do `ink`
  * (#373234); adotá-los literalmente colocaria no site um segundo vermelho e um
  * segundo preto, a três casas decimais dos que já existem, e a diferença não
- * seria vista por ninguém  -  só herdada por quem viesse depois. O que se copia da
+ * seria vista por ninguém — só herdada por quem viesse depois. O que se copia da
  * referência é a DECISÃO (pino vermelho, rótulo escuro, terra neutra), não o
  * código hexadecimal.
  */
@@ -69,14 +69,14 @@ const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
 
 /**
  * `false` = terra toda de um cinza só, como a arte dela. `true` devolve a
- * pintura por país de atuação e os nomes de país por cima  -  ver o ⏳ no
+ * pintura por país de atuação e os nomes de país por cima — ver o ⏳ no
  * cabeçalho. Vale para as duas rotas que renderizam este mapa (/about e
  * /our-clients), que é o que mantém as duas iguais.
  */
 const PAINT_COVERAGE = false;
 
 // Equirectangular into a 1000×500 canvas, then latitude drawn 1.22× taller.
-// At 2:1 the continents read as a strip  -  "achatado", o pedido de 23-09 na
+// At 2:1 the continents read as a strip — "achatado", o pedido de 23-09 na
 // /about. 1.22 é a conta que leva a MESMA janela geográfica (o VIEW abaixo)
 // para 16:9: 880 / (405 × 1.22) ≈ 1.78. Os pinos usam o mesmo `project`, então
 // sobem junto com a costa. A janela continua cortando Antártida e o Pacífico
@@ -272,7 +272,7 @@ export default async function WorldCoverageMap({
    * an intro paragraph the map has no slot for, and a second eyebrow directly
    * under the first reads as two sections instead of one.
    *
-   * Optional and off by default  -  the three homepages render this component
+   * Optional and off by default — the three homepages render this component
    * with its header and must not change.
    */
   eyebrow?: string | null;
@@ -280,7 +280,7 @@ export default async function WorldCoverageMap({
   /**
    * Ground the map sits on. `paper` exists for /about, where the whole "Where
    * we work" block (this map + the offices below it) shares one band so the two
-   * halves read as one section  -  see the note at the call site.
+   * halves read as one section — see the note at the call site.
    *
    * A prop rather than a change to the component, for the same reason
    * LocationsBlock has one: the three homepages render this map on white and
@@ -307,7 +307,7 @@ export default async function WorldCoverageMap({
    */
   typeLabel?: boolean;
   /**
-   * Devolve só o conteúdo (rótulo/título, se houver, e o SVG)  -  sem
+   * Devolve só o conteúdo (rótulo/título, se houver, e o SVG) — sem
    * `<section>`, sem container centralizado e sem padding.
    *
    * Existe para a /about (item 3 da call de 14-09): lá o mapa deixou de ser uma
@@ -421,7 +421,7 @@ export default async function WorldCoverageMap({
      ~250 polígonos encostados, e cada um precisa de `stroke` da própria cor para
      as bordas não deixarem fios claros de antialiasing entre eles. Com meia
      opacidade, os traços vizinhos se sobrepõem e a costura fica mais ESCURA que
-     o miolo  -  uma malha de fronteiras desenhada exatamente onde a referência não
+     o miolo — uma malha de fronteiras desenhada exatamente onde a referência não
      tem nenhuma. Opaco, o traço sobreposto é idêntico ao miolo. */
   const mix = (c: number, g: number) => Math.round(c * REF.landAlpha + g * (1 - REF.landAlpha));
   const groundRgb = tone === "paper" ? [243, 243, 243] : [255, 255, 255];
@@ -457,7 +457,7 @@ export default async function WorldCoverageMap({
         {features.map((f, i) => {
           const d = featurePath(f.geometry);
           if (!d) return null;
-          /* ⚠️ COM `PAINT_COVERAGE` DESLIGADO, TODO PAÍS RECEBE A MESMA COR  -  e
+          /* ⚠️ COM `PAINT_COVERAGE` DESLIGADO, TODO PAÍS RECEBE A MESMA COR — e
              o `stroke` passa a ser a própria cor da terra, não o fundo da
              página. Enquanto os países eram coloridos, traçar a borda no tom do
              fundo era o que os recortava um do outro; agora não há o que
@@ -468,7 +468,7 @@ export default async function WorldCoverageMap({
               ? (colorFor[f.id] ?? "#d84339")
               : emptyFill
             : landFill;
-          // Key by index  -  some GeoJSON features share id "-99" (disputed
+          // Key by index — some GeoJSON features share id "-99" (disputed
           // territories), which would otherwise collide.
           return (
             <path
@@ -506,13 +506,13 @@ export default async function WorldCoverageMap({
         {/* Pin markers (tip on the city). */}
         {pins.map((p, i) => (
           <g key={`m${i}`} transform={`translate(${p.x}, ${p.y}) scale(${PIN_SCALE})`}>
-            {/* ⚠️ VERMELHO DESDE 17-09  -  era `#373234`, o `ink`. É a marca mais
+            {/* ⚠️ VERMELHO DESDE 17-09 — era `#373234`, o `ink`. É a marca mais
                 visível da arte dela: alfinete vermelho sobre terra neutra. Com a
                 pintura por país desligada, é o ÚNICO vermelho do mapa, e era
                 justamente por competir com os oito tons de país que ele tinha
                 nascido escuro.
 
-                `brand` E NÃO O `#e72e32` DA ARTE  -  ver a caixa do `REF`. */}
+                `brand` E NÃO O `#e72e32` DA ARTE — ver a caixa do `REF`. */}
             <path
               d="M0 0 c-4.2 -6 -6.4 -9.2 -6.4 -12.8 a6.4 6.4 0 1 1 12.8 0 c0 3.6 -2.2 6.8 -6.4 12.8 z"
               fill="#d84339"

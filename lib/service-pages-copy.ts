@@ -1,5 +1,5 @@
 /**
- * OS TEXTOS EDITÁVEIS DAS DEZ PÁGINAS INTERNAS DE SERVIÇO  -  o que a cliente
+ * OS TEXTOS EDITÁVEIS DAS DEZ PÁGINAS INTERNAS DE SERVIÇO — o que a cliente
  * pode trocar em `/edit-services/<serviço>`. Mesma máquina das outras;
  * ver `docs/edit-paginas.md`.
  *
@@ -11,19 +11,19 @@
  *
  * ⚠️ O TÍTULO E O BANNER DE UM SERVIÇO APARECEM EM TRÊS LUGARES: a dobra da
  * própria página interna, o card dele na `/services` e o card dele no "Related
- * services" das outras nove. Editar aqui muda os três  -  que é o certo, e é o
+ * services" das outras nove. Editar aqui muda os três — que é o certo, e é o
  * motivo de a rota revalidar `/services` e as dez internas.
  *
  * ⚠️ OS PADRÕES SÃO DERIVADOS DE `lib/services.ts`, e não copiados. Aquele
  * arquivo é a copy FINAL do cliente, transcrita dos dez documentos, com a
  * procedência de cada campo anotada no ponto de uso; este lê de lá. Mesma
- * decisão da Team  -  ver `lib/team-copy.ts`.
+ * decisão da Team — ver `lib/team-copy.ts`.
  *
  * ⚠️ NADA DE `fs`, `blob`, zod OU `@/` AQUI: este arquivo é carregado pelos
  * testes do Node, que exigem extensão `.ts` explícita nos imports relativos e
  * não resolvem o alias.
  *
- * O QUE FICOU DE FORA, de propósito: o `slug` (é a URL  -  renomear um serviço
+ * O QUE FICOU DE FORA, de propósito: o `slug` (é a URL — renomear um serviço
  * no editor muda o título, não o endereço), as imagens (`cardImage`, a foto de
  * cada audience, a do case), o `caseSlug` que liga o bloco de evidência ao case
  * no CMS, e o rótulo "Our Services" da dobra, que é o mesmo nas dez e vive no
@@ -41,7 +41,7 @@ export type ServiceEvidenceCopy = {
   facts: { value: string; label: string }[];
 };
 /**
- * A faixa de evidência do layout de 24-09  -  ver `ServiceEvidenceSummary` em
+ * A faixa de evidência do layout de 24-09 — ver `ServiceEvidenceSummary` em
  * `lib/services.ts`. É OUTRA COISA que o `ServiceEvidenceCopy` acima: aquele
  * edita um case (cliente, o que o trabalho foi, o texto), este edita uma
  * afirmação de resultado.
@@ -130,7 +130,7 @@ export const DEFAULT_SERVICE_PAGES_COPY: ServicePagesCopy = {
  * com a copy salva por cima.
  *
  * ⚠️ NÃO RESSUSCITA BLOCO QUE NÃO EXISTE. `audiences`, `closing`, `evidence` e
- * `testimonial` só voltam se o serviço JÁ os tinha  -  a forma uniforme acima
+ * `testimonial` só voltam se o serviço JÁ os tinha — a forma uniforme acima
  * guarda strings vazias para os nove que não têm, e devolvê-las como objeto
  * faria a página desenhar um bloco em branco. Acrescentar um bloco novo a um
  * serviço continua sendo trabalho de código, e é assim de propósito: o editor
@@ -176,7 +176,7 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
           },
         }
       : {}),
-    /* ⚠️ `?.` E FALLBACK NO CAMPO DO SERVIÇO, e isto é CORREÇÃO DE DEFEITO  -  não
+    /* ⚠️ `?.` E FALLBACK NO CAMPO DO SERVIÇO, e isto é CORREÇÃO DE DEFEITO — não
        defensividade decorativa. O `ServiceCopy` é tipado como tendo
        `evidenceSummary` sempre, e o `mergeCopy` de fato o preenche a partir do
        padrão. Mas ENTRE OS DOIS há um cache: `unstable_cache` guarda o resultado
@@ -203,10 +203,10 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
             /* CASADO POR POSIÇÃO com o que está em `lib/services.ts`, como os
                números do case e os cartões de público: o editor troca o texto
                de cada medida, não quantas medidas existem. */
-            /* ⚠️ O `icon` VOLTA DO CÓDIGO, E NÃO DA COPY SALVA  -  24-09, com as
+            /* ⚠️ O `icon` VOLTA DO CÓDIGO, E NÃO DA COPY SALVA — 24-09, com as
                quatro medidas do Talent Development. Ele não é texto: é o campo
                que decide EM QUE ARRANJO a medida desenha (grade de ícones acima
-               dos logos, ou a fileira intercalada com eles  -  a conta está em
+               dos logos, ou a fileira intercalada com eles — a conta está em
                `SolutionEvidenceSummary`). Reconstruir o `ServiceFact` só com
                `value` e `label`, como esta linha fazia, apagava o ícone de toda
                página com copy salva e derrubava as quatro medidas na fileira
@@ -224,7 +224,7 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
                     value: f.value,
                     label: f.label || undefined,
                     icon: service.evidenceSummary?.facts?.[i]?.icon,
-                    /* ⚠️ O `body` VOLTA DO CÓDIGO PELA MESMA RAZÃO DO `icon`  - 
+                    /* ⚠️ O `body` VOLTA DO CÓDIGO PELA MESMA RAZÃO DO `icon` —
                        24-09, com as quatro medidas do Executive Coaching. Ele
                        TAMBÉM decide arranjo (medida com descrição sai alinhada à
                        esquerda, com filete), então reconstruir o fato sem ele
@@ -245,13 +245,13 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
 }
 
 /* ------------------------------------------------------------------------- */
-/* O MAPA DO EDITOR  -  montado POR SERVIÇO, porque cada tela edita um slug.     */
+/* O MAPA DO EDITOR — montado POR SERVIÇO, porque cada tela edita um slug.     */
 /*                                                                            */
 /* AS SEÇÕES VARIAM: só a Senior Leadership Development tem "Who we work with" */
 /* e a assinatura de fecho, e seis das dez têm bloco de case. Seção que o      */
 /* serviço não tem não aparece na tela dele.                                   */
 /*                                                                            */
-/* ⚠️ SEM PRINT DO GUIA nestas telas  -  decidido com o cliente em 23-09. O      */
+/* ⚠️ SEM PRINT DO GUIA nestas telas — decidido com o cliente em 23-09. O      */
 /* template das dez é o mesmo, então a foto mostraria a mesma forma dez vezes  */
 /* e custaria ~70 JPEGs versionados. O "See on site ↗" de cada seção abre a    */
 /* página real. Ver a prop `guideDir` do `CopyEditor`.                         */
@@ -261,38 +261,38 @@ export function applyServiceCopy(service: Service, copy?: ServiceCopy): Service 
  * O aviso do título de seção, e ele SÓ APARECE ONDE O CAMPO ESTÁ VAZIO.
  *
  * A `headlineOr()` de `lib/services.ts` publica "Headline to be confirmed."
- * quando o título falta  -  e nove dos dez serviços estão nessa situação nas DUAS
+ * quando o título falta — e nove dos dez serviços estão nessa situação nas DUAS
  * seções de texto. Expor o campo é o que tira esse texto do ar.
  *
  * ⚠️ CONDICIONAL, e não fixo: a Senior Leadership Development TEM os dois
  * títulos escritos, e um aviso dizendo "vazio hoje" ao lado de um campo cheio é
- * pior que aviso nenhum  -  ensina a cliente a não ler os avisos.
+ * pior que aviso nenhum — ensina a cliente a não ler os avisos.
  */
 const headlineHint = (current: string) =>
   current.trim()
     ? undefined
-    : "Empty today, so the page shows “Headline to be confirmed.”  -  type something to replace it.";
+    : "Empty today, so the page shows “Headline to be confirmed.” — type something to replace it.";
 
 const audienceFields = (i: number, name: string): EditorField[] => [
-  { path: `bySlug.SLUG.audiences.${i}.label`, label: `${name}  -  small label`, kind: "text" },
-  { path: `bySlug.SLUG.audiences.${i}.title`, label: `${name}  -  heading`, kind: "text" },
-  { path: `bySlug.SLUG.audiences.${i}.body`, label: `${name}  -  text`, kind: "textarea" },
+  { path: `bySlug.SLUG.audiences.${i}.label`, label: `${name} — small label`, kind: "text" },
+  { path: `bySlug.SLUG.audiences.${i}.title`, label: `${name} — heading`, kind: "text" },
+  { path: `bySlug.SLUG.audiences.${i}.body`, label: `${name} — text`, kind: "textarea" },
   {
     path: `bySlug.SLUG.audiences.${i}.credential`,
-    label: `${name}  -  the words beside it`,
+    label: `${name} — the words beside it`,
     kind: "lines",
     hint: "One per line.",
   },
 ];
 
 const factFields = (i: number, n: string): EditorField[] => [
-  { path: `bySlug.SLUG.evidence.facts.${i}.value`, label: `${n}  -  the number`, kind: "text" },
-  { path: `bySlug.SLUG.evidence.facts.${i}.label`, label: `${n}  -  what it means`, kind: "text" },
+  { path: `bySlug.SLUG.evidence.facts.${i}.value`, label: `${n} — the number`, kind: "text" },
+  { path: `bySlug.SLUG.evidence.facts.${i}.label`, label: `${n} — what it means`, kind: "text" },
 ];
 
 const summaryFactFields = (i: number, n: string): EditorField[] => [
-  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.value`, label: `${n}  -  the number`, kind: "text" },
-  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.label`, label: `${n}  -  what it means`, kind: "text" },
+  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.value`, label: `${n} — the number`, kind: "text" },
+  { path: `bySlug.SLUG.evidenceSummary.facts.${i}.label`, label: `${n} — what it means`, kind: "text" },
 ];
 
 /** Troca o marcador `SLUG` pelo slug de verdade, em todos os caminhos. */
@@ -321,10 +321,10 @@ export function sectionsFor(slug: string): EditorSection[] {
     },
   ];
 
-  /* ⚠️ A SEÇÃO SÓ EXISTE SE O BLOCO DESENHA  -  24-09, com o Talent Development,
+  /* ⚠️ A SEÇÃO SÓ EXISTE SE O BLOCO DESENHA — 24-09, com o Talent Development,
      que perdeu o "What we do" a pedido (`hideWhatWeDo`). Os dois campos
      continuam no padrão, porque a forma da copy é uniforme nos dez; o que sai é
-     a TELA. Oferecê-los daria dois campos que não chegam a lugar nenhum  -  a
+     a TELA. Oferecê-los daria dois campos que não chegam a lugar nenhum — a
      mesma régua dos cartões de público e da assinatura de fecho, e
      `tests/services-copy.test.ts` casa as duas coisas. */
   if (!service.hideWhatWeDo) {
@@ -414,7 +414,7 @@ export function sectionsFor(slug: string): EditorSection[] {
            ? service.evidence && <SolutionClosing label="Featured case study" />
            : <SolutionClosing closing={service.closing} />
 
-     Hoje o único serviço que TEM `closing` é a Senior Leadership Development  - 
+     Hoje o único serviço que TEM `closing` é a Senior Leadership Development —
      e ela também tem `practices`, então a assinatura dela nunca chega à tela
      (conferido no HTML publicado: zero ocorrências de "Different organisations.
      Different transformations."). Expor o campo daria à cliente dois controles
@@ -434,7 +434,7 @@ export function sectionsFor(slug: string): EditorSection[] {
     });
   }
 
-  /* A FAIXA DE EVIDÊNCIA DO LAYOUT DE 24-09  -  a de manchete, logos e números.
+  /* A FAIXA DE EVIDÊNCIA DO LAYOUT DE 24-09 — a de manchete, logos e números.
      É seção PRÓPRIA e não um caso a mais da de baixo: os campos são outros
      (manchete e linha de apoio, em vez de cliente e "o que o trabalho foi"), e
      os dois blocos nunca convivem na mesma página. Ver `evidenceSummary` em

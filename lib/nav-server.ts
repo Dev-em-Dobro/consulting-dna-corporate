@@ -5,7 +5,7 @@
  * passou a ser um jeito de a home e o menu discordarem das páginas: o CMS
  * publica a taxonomia antiga (nove entradas, dois nomes que saíram, um
  * duplicado), enquanto as páginas de serviço são os dez do outline de 09-09. Um
- * menu listando serviço que não existe mais é link para 404  -  ou para um 301, na
+ * menu listando serviço que não existe mais é link para 404 — ou para um 301, na
  * melhor das hipóteses.
  *
  * Continua async porque é isso que `SiteShell` espera, e porque a volta ao CMS
@@ -22,8 +22,8 @@ export async function buildSiteNav(): Promise<NavItem[]> {
 
   // Matched on `href`, not on the label: labels are copy and get renamed by the
   // client (the 27-08 brief turned "Solutions" into "Our Solutions"), while the
-  // route is stable. A label match fails silently  -  the submenu just stops
-  // appearing, with no error  -  which is exactly what happened after that rename.
+  // route is stable. A label match fails silently — the submenu just stops
+  // appearing, with no error — which is exactly what happened after that rename.
   return siteNav.map((item) =>
     item.href === "/services"
       ? { ...item, children: [...(item.children ?? []), ...solutionChildren] }

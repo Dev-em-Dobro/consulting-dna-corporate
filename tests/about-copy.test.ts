@@ -27,7 +27,7 @@ test("lista salva substitui a lista inteira", () => {
 });
 
 /**
- * O telefone é o campo em que o vazio é uma ESCOLHA, e não engano  -  Riyadh e
+ * O telefone é o campo em que o vazio é uma ESCOLHA, e não engano — Riyadh e
  * Miami não publicam nenhum. Ele sobrevive porque mora dentro de uma lista, e
  * lista é substituída inteira em vez de mesclada campo a campo.
  */
@@ -72,7 +72,7 @@ test("os id das seções do editor são únicos", () => {
 
 test("os quatro números e os cinco valores casam com os ícones por posição", () => {
   // O schema trava os tamanhos; isto guarda os números contra uma edição no
-  // padrão que passasse despercebida  -  os ícones vivem em outro arquivo.
+  // padrão que passasse despercebida — os ícones vivem em outro arquivo.
   assert.equal(DEFAULT_ABOUT_COPY.stats.length, 4);
   assert.equal(DEFAULT_ABOUT_COPY.values.items.length, 5);
   assert.equal(DEFAULT_ABOUT_COPY.identity.pillars.length, 4);

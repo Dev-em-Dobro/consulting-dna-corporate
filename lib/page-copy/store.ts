@@ -9,15 +9,15 @@ import { mergeCopy } from "./merge.ts";
 import { supabaseCopyTableFromEnv } from "./supabase.ts";
 
 /**
- * ONDE O QUE A CLIENTE SALVA FICA GUARDADO  -  uma tabela para todas as páginas.
+ * ONDE O QUE A CLIENTE SALVA FICA GUARDADO — uma tabela para todas as páginas.
  *
  * ⚠️ SAIU DO VERCEL BLOB EM 24-09. O `list()` do Blob é uma operação avançada,
  * de cota apertada, e a cota estourou. Agora cada salvamento é uma linha nova
  * em `page_copy_versions`, no Supabase do CMS (`lib/page-copy/supabase.ts`,
  * SQL em `docs/sql/2026-09-24-page-copy-versions.sql`). A mais nova por página
- * é a publicada; as outras são o histórico, sem poda  -  são ~33 KB por versão.
+ * é a publicada; as outras são o histórico, sem poda — são ~33 KB por versão.
  *
- * Sem `SUPABASE_URL`/`SUPABASE_SECRET_KEY`  -  na máquina de quem desenvolve  - 
+ * Sem `SUPABASE_URL`/`SUPABASE_SECRET_KEY` — na máquina de quem desenvolve —
  * cai num arquivo local em `.data/`, que está no .gitignore.
  */
 
@@ -48,15 +48,11 @@ export function createCopyStore<T>({
   defaults,
   schema,
   mergeArrayObjects = false,
-  migrateSaved,
-  migrationVersion = "0",
 }: {
   key: string;
   defaults: T;
   schema: ZodType<T>;
   mergeArrayObjects?: boolean;
-  migrateSaved?: (saved: unknown) => unknown;
-  migrationVersion?: string;
 }): CopyStore<T> {
   const localFile = path.join(process.cwd(), ".data", `${key}-copy.json`);
 
@@ -75,10 +71,7 @@ export function createCopyStore<T>({
 
   const readFresh = async (): Promise<T> => {
     const saved = await readSaved();
-    const alreadyMigrated = saved && typeof saved === "object" &&
-      (saved as Record<string, unknown>).__copyRevision === migrationVersion;
-    const current = saved && migrateSaved && !alreadyMigrated ? migrateSaved(saved) : saved;
-    return current ? mergeCopy(defaults, schema, current, mergeArrayObjects) : defaults;
+    return saved ? mergeCopy(defaults, schema, saved, mergeArrayObjects) : defaults;
   };
 
   /* A impressão dos padrões entra na chave do cache: trocar uma frase no
@@ -93,19 +86,19 @@ export function createCopyStore<T>({
   /* "supabase" na chave: o Data Cache da Vercel sobrevive a deploy, e sem ela
      o primeiro deploy depois do Blob herdaria o padrão que o Blob bloqueado
      deixou guardado, por até um dia. Trocar a origem da leitura = trocar aqui. */
-  const readCached = unstable_cache(readFresh, [tag, shape, backend, String(mergeArrayObjects), migrationVersion], {
+  const readCached = unstable_cache(readFresh, [tag, shape, backend, String(mergeArrayObjects)], {
     tags: [tag],
     revalidate: READ_CACHE_SECONDS,
   });
 
   /**
-   * ⚠️⚠️ FALHA DE LEITURA CAI NO PADRÃO, MAS NÃO ENTRA NO CACHE  -  24-09.
+   * ⚠️⚠️ FALHA DE LEITURA CAI NO PADRÃO, MAS NÃO ENTRA NO CACHE — 24-09.
    *
    * Com o Blob, o erro era engolido DENTRO do `unstable_cache`: o padrão era
    * guardado como se fosse a resposta certa, por até um dia, e a edição da
    * cliente sumia do site sem nenhum aviso. Agora o erro atravessa o
    * `unstable_cache` (que não guarda o que lança) e é aqui fora que a página
-   * cai no padrão  -  só nesta renderização. A próxima tenta o banco de novo.
+   * cai no padrão — só nesta renderização. A próxima tenta o banco de novo.
    */
   const read = cache(async (): Promise<T> => {
     try {
@@ -121,15 +114,12 @@ export function createCopyStore<T>({
     read,
     async save(input: unknown) {
       const copy = schema.parse(input);
-      const persisted = migrationVersion !== "0" && copy && typeof copy === "object"
-        ? { ...copy, __copyRevision: migrationVersion }
-        : copy;
       const table = supabaseCopyTableFromEnv();
       if (table) {
-        await table.append(key, persisted);
+        await table.append(key, copy);
       } else {
         await mkdir(path.dirname(localFile), { recursive: true });
-        await writeFile(localFile, JSON.stringify(persisted, null, 2), "utf8");
+        await writeFile(localFile, JSON.stringify(copy, null, 2), "utf8");
       }
       return copy;
     },

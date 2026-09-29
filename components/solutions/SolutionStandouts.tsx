@@ -2,7 +2,7 @@ import { stepIcon } from "@/components/solutions/SolutionSteps";
 import type { ServiceStep } from "@/lib/services";
 
 /**
- * "WHY OUR COACHING STANDS OUT"  -  os quatro diferenciais que o layout do
+ * "WHY OUR COACHING STANDS OUT" — os quatro diferenciais que o layout do
  * Executive Coaching (24-09) desenha À DIREITA do "What we do", na mesma faixa
  * branca: rótulo vermelho, e uma fileira de quatro células com disco rosa,
  * título em caixa alta e descrição, separadas por filetes.

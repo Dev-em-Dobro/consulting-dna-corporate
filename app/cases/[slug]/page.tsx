@@ -49,7 +49,7 @@ export default async function CasePage({
   if (!c) notFound();
 
   /* OS RELACIONADOS DO BLOCO 05, na régua do desenho: *"explore more client
-     stories in consumer goods & retail"*  -  mesma família, não "os dois mais
+     stories in consumer goods & retail"* — mesma família, não "os dois mais
      recentes". Sem classificação de setor no CMS (`facets.industry` está vazio
      nos quinze), a família disponível é o SERVIÇO, que é a ligação que a
      planilha dela realmente escreve.
@@ -57,7 +57,7 @@ export default async function CasePage({
      Dois passos, e o segundo importa: primeiro os cases do mesmo serviço; se
      não fecharem dois, completa com os demais. Um bloco "related" que aparece
      com um card só, ou que some quando o serviço é único, dá a impressão de
-     biblioteca vazia  -  e ela não está. */
+     biblioteca vazia — e ela não está. */
   const todos = (await getCaseListEntries()).filter((e) => e.slug !== slug);
   const mesmoServico = todos.filter((e) => e.service && e.service === c.story.service);
   const related = [...mesmoServico, ...todos.filter((e) => !mesmoServico.includes(e))]
@@ -86,7 +86,7 @@ export default async function CasePage({
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       {/* ⚠️ `floatingNav` SÓ NO LAYOUT NOVO. A nav flutuante existe para pousar
           sobre o herói ESCURO de sangria total; nos seis cases antigos o topo é
-          branco, e ali ela some  -  o menu fica branco sobre branco e sobra o logo
+          branco, e ali ela some — o menu fica branco sobre branco e sobra o logo
           com o botão Contact, que foi exatamente o que apareceu na Shell quando
           a prop entrou para todos. */}
       <SiteShell footerTopBorder floatingNav={hasStoryModel(c)}>

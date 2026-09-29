@@ -1,5 +1,5 @@
 /**
- * O MAPA DO EDITOR e os utilitários de caminho  -  o que é IGUAL para toda página
+ * O MAPA DO EDITOR e os utilitários de caminho — o que é IGUAL para toda página
  * editável (`/edit-home`, `/edit-about`).
  *
  * Saiu de `lib/home-copy.ts` em 23-09, quando a About pediu o mesmo editor. O
@@ -9,7 +9,7 @@
  * aqui.
  *
  * ⚠️ ESTE ARQUIVO É NEUTRO DE PÁGINA E DE AMBIENTE. Nada de `fs`, `blob`, zod
- * ou variável de ambiente  -  ele é importado pelo servidor, pelos testes do Node
+ * ou variável de ambiente — ele é importado pelo servidor, pelos testes do Node
  * e (por tipo) pelo editor no cliente.
  */
 
@@ -26,7 +26,7 @@ export type FieldKind = "text" | "textarea" | "lines" | "paragraphs";
 export type EditorField = { path: string; label: string; kind: FieldKind; hint?: string };
 
 /**
- * Uma seção do editor. `anchor` é o link "See on site"  -  caminho e âncora da
+ * Uma seção do editor. `anchor` é o link "See on site" — caminho e âncora da
  * página real. `id` casa com o print do guia (`public/<guideDir>/<id>.jpg`).
  */
 export type EditorSection = { id: string; title: string; anchor: string; fields: EditorField[] };
@@ -39,7 +39,7 @@ export function getAtPath(obj: unknown, path: string): unknown {
   }, obj);
 }
 
-/** Devolve uma CÓPIA do objeto com `a.b.0.c` trocado  -  nunca muta o original. */
+/** Devolve uma CÓPIA do objeto com `a.b.0.c` trocado — nunca muta o original. */
 export function setAtPath<T>(obj: T, path: string, value: unknown): T {
   const keys = path.split(".");
   const clone = (node: unknown, i: number): unknown => {

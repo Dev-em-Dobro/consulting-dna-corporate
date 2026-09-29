@@ -1,21 +1,21 @@
 /**
- * ⚠️ PÁGINA DESCARTÁVEL  -  a fusão das duas seções da home, em fundo claro.
+ * ⚠️ PÁGINA DESCARTÁVEL — a fusão das duas seções da home, em fundo claro.
  *
  * Terceira rodada. A primeira comparou cinco fusões possíveis; a escolhida foi a
- * DISPOSIÇÃO da B  -  o bloco "What we solve" à esquerda e o ciclo animado à direita. A segunda rodada refez a B mantendo a animação como está na home.
+ * DISPOSIÇÃO da B — o bloco "What we solve" à esquerda e o ciclo animado à direita. A segunda rodada refez a B mantendo a animação como está na home.
  * Esta explora só o FUNDO CLARO, com a disposição já fechada.
  *
  * O QUE ESTÁ SENDO FUNDIDO:
- *   `#real`   -  "Our purpose is to make leadership real." + a segunda linha onde
+ *   `#real`  — "Our purpose is to make leadership real." + a segunda linha onde
  *              uma palavra é reescrita a cada 55ms.
- *   `#solve`  -  rótulo "What we solve", o título sobre desafios de liderança, e
+ *   `#solve` — rótulo "What we solve", o título sobre desafios de liderança, e
  *              a linha em serifa sobre como a CDNA começa.
  *
  * A ESCURA FICA NO TOPO como referência, para a comparação ser justa: é a que
  * já foi aprovada em disposição, e o que muda daqui para baixo é só o fundo.
  *
  * ⚠️ NO CLARO O `RealCycle` VOLTA AO PADRÃO. A prop `onDark` só existe por causa
- * da versão escura  -  em fundo claro o "Real" fixo é `ink` e a palavra que cicla
+ * da versão escura — em fundo claro o "Real" fixo é `ink` e a palavra que cicla
  * é `brand` (#d84339), que é o vermelho cheio da marca e só é legível assim
  * sobre claro. Passar `onDark` aqui daria vermelho claro sobre branco: 2,3:1.
  */
@@ -71,7 +71,7 @@ function PurposeColumn({ onDark = false }: { onDark?: boolean }) {
         {PURPOSE}{" "}
         <span className={onDark ? "text-brand-light" : "text-brand"}>real.</span>
       </h2>
-      {/* Fora do `h2`  -  a palavra é reescrita a cada 55ms, e um heading que se
+      {/* Fora do `h2` — a palavra é reescrita a cada 55ms, e um heading que se
           reescreve é hostil a leitor de tela e sem sentido para um crawler. O
           RealCycle é `aria-hidden` e carrega o próprio nome acessível. */}
       <p className="mt-4 font-serif text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] md:text-[48px]">
@@ -81,7 +81,7 @@ function PurposeColumn({ onDark = false }: { onDark?: boolean }) {
   );
 }
 
-/** O bloco COMPLETO da `#solve`  -  rótulo, título e a serifa. Vive à ESQUERDA. */
+/** O bloco COMPLETO da `#solve` — rótulo, título e a serifa. Vive à ESQUERDA. */
 function SolveColumn({ onDark = false }: { onDark?: boolean }) {
   return (
     <div>
@@ -108,11 +108,11 @@ function SolveColumn({ onDark = false }: { onDark?: boolean }) {
  * O invólucro comum.
  *
  * `lg:items-center` e não `items-start`: uma coluna é duas linhas de título
- * grande e a outra são três blocos de tamanhos diferentes  -  alinhadas pelo topo,
+ * grande e a outra são três blocos de tamanhos diferentes — alinhadas pelo topo,
  * uma termina muito abaixo da outra e o par lê como desequilibrado.
  *
  * ⚠️ AS COLUNAS FORAM INVERTIDAS em 10-09: o "What we solve" à esquerda, o
- * propósito e o ciclo à direita. A proporção acompanhou a troca  -  a fração
+ * propósito e o ciclo à direita. A proporção acompanhou a troca — a fração
  * maior (1,15fr) segue o propósito, porque é ele que carrega o título de 48px e
  * a linha animada, que precisa da largura reservada da palavra mais longa.
  */
@@ -150,7 +150,7 @@ export default function HomeTestsPage() {
         <Tag id="2">paper (#f3f3f3), o cinza que o site já usa</Tag>
         <Shell bg="bg-paper" />
 
-        {/* 3  -  divisória vertical entre as colunas. O device que a faixa de
+        {/* 3 — divisória vertical entre as colunas. O device que a faixa de
             números da /about usa, girado: separa as duas ideias sem precisar de
             fundo diferente para cada uma. */}
         <Tag id="3">branco com divisória vertical entre as colunas</Tag>
@@ -165,7 +165,7 @@ export default function HomeTestsPage() {
           </div>
         </section>
 
-        {/* 4  -  a direita num painel branco sobre `paper`. É a única que dá
+        {/* 4 — a direita num painel branco sobre `paper`. É a única que dá
             "peso" diferente às duas colunas em vez de tratá-las como iguais. */}
         <Tag id="4">paper com a coluna direita num painel branco</Tag>
         <section className="bg-paper">
@@ -179,7 +179,7 @@ export default function HomeTestsPage() {
           </div>
         </section>
 
-        {/* 5  -  régua vermelha grossa abrindo o bloco inteiro, à esquerda. Traz
+        {/* 5 — régua vermelha grossa abrindo o bloco inteiro, à esquerda. Traz
             o acento da marca sem depender de fundo colorido. */}
         <Tag id="5">branco com régua vermelha abrindo o bloco</Tag>
         <section className="bg-white">

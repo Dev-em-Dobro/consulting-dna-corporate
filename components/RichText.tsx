@@ -1,6 +1,6 @@
 /**
  * Renders CMS-authored HTML body fields (`body`, `summary`, `problemStatement`).
- * Content is first-party  -  authored by trusted editors behind the CMS admin auth  -  so it is
+ * Content is first-party — authored by trusted editors behind the CMS admin auth — so it is
  * rendered directly. If untrusted authorship ever becomes a concern, swap in a sanitiser
  * (e.g. isomorphic-dompurify) here without touching call sites.
  */
@@ -13,7 +13,7 @@ export default function RichText({
 }) {
   if (!html) return null;
   // Editors leave empty `<p><br></p>` paragraphs as blank lines. With `space-y`
-  // spacing between blocks, those add a full extra line of gap  -  so drop any
+  // spacing between blocks, those add a full extra line of gap — so drop any
   // paragraph that holds nothing but whitespace / <br> / &nbsp;.
   const clean = html.replace(
     /<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi,

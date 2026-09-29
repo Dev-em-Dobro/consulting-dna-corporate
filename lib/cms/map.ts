@@ -12,7 +12,6 @@ import type { Social } from "./schemas";
 import { plainText, plainTextList } from "./text";
 import { countriesToIso3 } from "../coverage";
 import { LOGO_COLORS } from "../logo-colors";
-import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-cases";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -132,7 +131,7 @@ export type PersonVM = {
    * nomes divergem: o CMS grava "Jon-Paul (JP) Pritchard" contra o nosso "Jon
    * Paul Pritchard", e "Nitin Goil " com espaço no fim. Casar por nome
    * normalizado funcionaria hoje e quebraria em silêncio na primeira edição
-   * feita pelo admin  -  o slug é estável e é a chave de verdade da entrada.
+   * feita pelo admin — o slug é estável e é a chave de verdade da entrada.
    */
   slug: string;
   name: string; role: string; img?: string; bio: string[]; bioHtml?: string;
@@ -161,7 +160,7 @@ export type CaseListEntry = {
    * campos convivem. Aqueles DOIS são uma derivação: `splitMetric` pega a célula
    * "Impact" (ou o `measurableResult` antigo) e quebra a string num número em
    * destaque mais o resto. É UMA figura, e escolhida por heurística. Estas são
-   * as figuras que a cliente AUTOROU, uma a uma, em `story.impactFigures`  -  no
+   * as figuras que a cliente AUTOROU, uma a uma, em `story.impactFigures` — no
    * Vodafone são três, e a listagem mostrava só a primeira.
    *
    * SAI DE GRAÇA: `getCaseListEntries` já busca o artigo inteiro de cada case
@@ -169,32 +168,32 @@ export type CaseListEntry = {
    * sendo descartado. Não há uma requisição a mais.
    *
    * ⏳ OS DOIS DERIVADOS FICAM porque nem todo case tem `impactFigures`: os
-   * autorados no modelo antigo têm só `measurableResult`. Quem consome decide  - 
+   * autorados no modelo antigo têm só `measurableResult`. Quem consome decide —
    * `CaseLine` usa as figuras quando existem e cai nos derivados quando não.
    */
   impactFigures?: CaseFigure[];
-  publishedAt: string;   // ISO  -  for date sort
+  publishedAt: string;   // ISO — for date sort
   logoUrl?: string;      // /logos/<client>.png when a brand logo exists
   logoColor?: string;    // predominant logo colour (hex) for the band tint
-  /** The case's own outcome headline  -  what the card grid leads each tile with. */
+  /** The case's own outcome headline — what the card grid leads each tile with. */
   headline?: string;
   /** The `lib/services.ts` service this case evidences, for the breadth matrix. */
   service?: string;
-  /** The client's own words, when the case carries them  -  feeds "What our clients say". */
+  /** The client's own words, when the case carries them — feeds "What our clients say". */
   quote?: string;
   quoter?: string;
 };
 export type CaseArticle = {
   slug: string; tags: string[];
-  /** The client's name  -  also the key that resolves the logo and brand colour. */
+  /** The client's name — also the key that resolves the logo and brand colour. */
   title: string;
   /** The case's own headline, when authored; the page falls back to `title`. */
   headline?: string;
   /** /logos/<client>.png when the client has a brand mark in the repo. */
   logoUrl?: string;
-  intro?: string;            // introduction  -  rich text (HTML)
+  intro?: string;            // introduction — rich text (HTML)
   quote?: string; quoter?: string;
-  text?: string;             // main body  -  rich text (HTML)
+  text?: string;             // main body — rich text (HTML)
   videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string;
   resources?: ResourceLink[];
   // Header band shown before the story (27-08 brief, item 7). Only the filled
@@ -203,7 +202,7 @@ export type CaseArticle = {
   // Legacy structured body, rendered only when a case has no single `text`.
   body: { challenge?: string; approach?: string; outcome?: string; measurableResult?: string };
   /**
-   * The story as the client authors it in her spreadsheet  -  the numbered
+   * The story as the client authors it in her spreadsheet — the numbered
    * sections of the case layout she sent. `body` above holds the same prose;
    * what lives here is everything that layout needs and the old model had no
    * field for: the section titles, the closing line and the figures split into
@@ -268,7 +267,7 @@ export type CmsPage = { key?: string; data: Record<string, unknown> };
 export async function getPeople(): Promise<PersonVM[]> {
   const res = await getList("people");
   if (!res) return [];
-  // The list endpoint returns COMPACT items (title/summary/coverUrl  -  no `data`),
+  // The list endpoint returns COMPACT items (title/summary/coverUrl — no `data`),
   // so parse those, then fetch each person's detail entry for the richer profile
   // (name, role, photo, bio HTML) shown in the modal. Same N+1 shape as
   // getRegionLocations. A person whose detail fails to load still renders from
@@ -314,31 +313,22 @@ export function splitMetric(text?: string): { value?: string; label?: string } {
   // (e.g. "90%") yields just the value, no label.
   const m = t.match(/^(\S*\d\S*)(?:\s+([\s\S]*))?$/);
   if (m) {
-    const label = m[2]?.replace(/^[\s - –:-]+/, "").trim();
+    const label = m[2]?.replace(/^[\s—–:-]+/, "").trim();
     return { value: m[1], label: label || undefined };
   }
   return { label: t };
 }
 
 export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Promise<CaseCard[]> {
-  const local = LOCAL_CASES.map((c) => ({
-    slug: c.slug,
-    title: c.title,
-    summary: c.headline,
-    coverUrl: c.coverUrl,
-    tags: c.tags,
-  }));
   const res = await getCases(facets);
-  if (!res) return local;
-  const cms = parseItems<S.CaseListItem>(res.items, S.caseListItem).map((c) => ({
+  if (!res) return [];
+  return parseItems<S.CaseListItem>(res.items, S.caseListItem).map((c) => ({
     slug: c.slug,
     title: plainText(c.title) ?? "",
     summary: plainText(c.summary),
     coverUrl: c.coverUrl,
     tags: caseTags(c.facets),
   }));
-  const slugs = new Set(local.map((c) => c.slug));
-  return [...local, ...cms.filter((c) => !slugs.has(c.slug))];
 }
 
 /**
@@ -430,8 +420,6 @@ function caseFigures(raw?: { value?: string; label?: string }[]): CaseFigure[] {
 }
 
 export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseArticle | null> {
-  const local = localCaseArticle(slug);
-  if (local) return local;
   const raw = await getEntry("cases", slug, locale);
   return raw ? mapCase(raw) : null;
 }
@@ -465,11 +453,10 @@ function challengeExcerpt(html?: string, max = 300): string | undefined {
  * fails to load still appears, just without challenge/metric.
  */
 export async function getCaseListEntries(): Promise<CaseListEntry[]> {
-  const local = localCaseListEntries();
   const res = await getCases();
-  if (!res) return local;
+  if (!res) return [];
   const items = parseItems<S.CaseListItem>(res.items, S.caseListItem);
-  const cms = await Promise.all(
+  return Promise.all(
     items.map(async (it) => {
       const art = await getCaseArticle(it.slug);
       // The 27-08 brief made the case header band the canonical place for a
@@ -499,15 +486,13 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
         quote: art?.quote,
         quoter: art?.quoter,
         // The service the breadth matrix plots this client against. The facet
-        // is the fallback for cases authored before `serviceLabel` existed  - 
+        // is the fallback for cases authored before `serviceLabel` existed —
         // and those carry the previous generation's vocabulary, which no longer
         // matches `lib/services.ts`, so most of them simply will not plot.
         service: art?.story.service ?? it.facets?.service?.[0],
       };
     }),
   );
-  const slugs = new Set(local.map((c) => c.slug));
-  return [...local, ...cms.filter((c) => !slugs.has(c.slug))];
 }
 
 // ---- Solutions -------------------------------------------------------------
@@ -524,7 +509,7 @@ export async function getSolutionCards(): Promise<SolutionCard[]> {
  * One Solution on the index, led by its outcome (27-08 brief, item 5): the
  * listing should say what changes for the client, not just name the service.
  *
- * `outcome` is the block authored on the Solution page, reduced to plain text  - 
+ * `outcome` is the block authored on the Solution page, reduced to plain text —
  * the index needs one line, not a rich-text body. `problemStatement` comes
  * along as the fallback lead for solutions authored before the field existed.
  *
@@ -596,8 +581,8 @@ export async function getPartnerships(): Promise<PartnershipVM[]> {
 }
 
 /**
- * Ticker entries, newest first. Rendered straight from the list projection  - 
- * no per-entry fetch  -  because the CMS surfaces category/date/link on the list
+ * Ticker entries, newest first. Rendered straight from the list projection —
+ * no per-entry fetch — because the CMS surfaces category/date/link on the list
  * item. Items are sorted by the authored event `date` (falling back to the
  * publication date) and, per the brief, anything before 2023 is dropped.
  */
@@ -650,7 +635,7 @@ export async function getTestimonialVideos(): Promise<TestimonialVideoVM[]> {
 /**
  * Map the CMS `proofRefs` array to the view model. The CMS ships blank/partial
  * placeholder rows (e.g. `{}` or all-empty strings), so drop any ref without a
- * quote  -  a proof block only renders when there is something to quote.
+ * quote — a proof block only renders when there is something to quote.
  */
 function mapProofRefs(refs?: S.ProofRefRaw[]): ProofRef[] | undefined {
   if (!refs?.length) return undefined;
@@ -671,9 +656,9 @@ function mapSolution(raw: unknown): SolutionVM | null {
   return {
     slug: r.data.slug,
     title: plainText(d.title) ?? "",
-    // Plain-text slot (hero subtitle)  -  strip any rich-text markup the CMS emits.
+    // Plain-text slot (hero subtitle) — strip any rich-text markup the CMS emits.
     problemStatement: plainText(d.problemStatement),
-    // outcome / howWeHelp / body are rendered via <RichText>  -  keep HTML intact.
+    // outcome / howWeHelp / body are rendered via <RichText> — keep HTML intact.
     outcome: d.outcome,
     howWeHelp: d.howWeHelp,
     flagshipCaseSlug: plainText(d.flagshipCaseSlug)?.trim() || undefined,
@@ -715,7 +700,7 @@ const CORPORATE_AUTHOR = "CorporateDNA";
  * Resolve an insight's published byline (correcao-06-08 item 10 / status review
  * §10). An individual's name is only shown once CDNA has explicitly approved it
  * (`authorApprovalStatus === "approved"`). With no author, or any non-approved
- * status, the piece is attributed to the firm as "Corporate DNA"  -  never to an
+ * status, the piece is attributed to the firm as "Corporate DNA" — never to an
  * unapproved individual. The byline is therefore always present.
  */
 function insightAuthor(d: Record<string, unknown>): string {
@@ -780,7 +765,7 @@ export async function getInsightListEntries(): Promise<InsightListEntry[]> {
 
 // ---- Regions ---------------------------------------------------------------
 export async function getRegionCards(): Promise<RegionCard[]> {
-  // pageSize 100 (the CMS cap) so all offices are returned  -  the list endpoint
+  // pageSize 100 (the CMS cap) so all offices are returned — the list endpoint
   // defaults to 20, which would silently drop regions once there are more.
   const res = await getList("regions", { pageSize: 100 });
   if (!res) return [];
@@ -849,7 +834,7 @@ export type CoverageRegion = { slug: string; city?: string; country?: string };
 /**
  * Published regions reduced to what the coverage map needs: `country` (which
  * country to paint) and `city` (geocoded to a pin). Unlike getRegionLocations,
- * this does NOT require an address  -  a region needs only country/city to appear
+ * this does NOT require an address — a region needs only country/city to appear
  * on the map. Returns [] when the CMS has no regions.
  */
 export async function getCoverageRegions(): Promise<CoverageRegion[]> {
@@ -875,7 +860,7 @@ export async function getCmsPage(key: string, locale = "en"): Promise<CmsPage | 
  * Fetch + map a DRAFT entry for the preview route. Reuses the same mappers as
  * the published pages, so a preview renders identically to the live page. The
  * `type` accepts either the plural segment (solutions) or the raw type
- * (solution)  -  whichever the CMS put in the preview link.
+ * (solution) — whichever the CMS put in the preview link.
  */
 export type PreviewResult =
   | { kind: "solution"; vm: SolutionVM }

@@ -39,8 +39,8 @@ const labelCls =
  * `LocationsBlock`: o formulário é compartilhado pelas três homes e elas não têm
  * o mesmo fundo, então quem sabe qual botão cabe é a página.
  *
- *  • `flat` (padrão)  -  o botão chapado de sempre. É o que a `/home-v1` usa.
- *  • `hover-fill`  -  em teste desde 10-09, só na home. Ver `HoverFillSubmit`.
+ *  • `flat` (padrão) — o botão chapado de sempre. É o que a `/home-v1` usa.
+ *  • `hover-fill` — em teste desde 10-09, só na home. Ver `HoverFillSubmit`.
  */
 export default function ContactForm({
   submit = "flat",
@@ -138,7 +138,7 @@ export default function ContactForm({
       onSubmit={onSubmit}
       className="flex flex-col gap-4 bg-white p-[34px]"
     >
-      {/* Honeypot  -  visually hidden, off the tab order; must stay empty. */}
+      {/* Honeypot — visually hidden, off the tab order; must stay empty. */}
       <input
         type="text"
         name="company_website"

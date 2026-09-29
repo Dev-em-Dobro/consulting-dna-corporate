@@ -4,7 +4,7 @@ import { DEFAULT_HOME_COPY, EDITOR_SECTIONS } from "@/lib/home-copy";
 import { getHomeCopy } from "@/lib/home-copy-server";
 
 /**
- * `/edit-home`  -  a tela em que a cliente edita os textos da home.
+ * `/edit-home` — a tela em que a cliente edita os textos da home.
  *
  * Sem login, por pedido (23-09). `noindex` e fora do sitemap; o `robots.ts`
  * também a exclui. A copy inicial vem do servidor para a tela abrir já

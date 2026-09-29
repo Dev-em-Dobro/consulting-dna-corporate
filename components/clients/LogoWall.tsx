@@ -15,15 +15,15 @@ import Image from "next/image";
  * iguais: mesma fonte de dados (`lib/logos.ts`), papéis diferentes.
  *
  * ⚠️ EM CORES E SEM HOVER, a pedido dela em 16-09. A primeira versão era o
- * tratamento usual de paredão de logos  -  escala de cinza a 60% de opacidade,
- * cor voltando no hover  - , com o argumento de que 27 paletas diferentes numa
+ * tratamento usual de paredão de logos — escala de cinza a 60% de opacidade,
+ * cor voltando no hover —, com o argumento de que 27 paletas diferentes numa
  * grade brigam pela atenção e o olho pula para o vermelho da Coca-Cola em vez
  * de varrer a fileira.
  *
  * O PEDIDO VENCE, e o raciocínio dela é melhor para ESTA página: o paredão é o
  * argumento de credibilidade, e logo apagado parece cliente antigo. A cor cheia
  * é como cada marca se apresenta, e é assim que o visitante reconhece a própria.
- * Sem hover porque não há para onde clicar  -  um estado de foco que não leva a
+ * Sem hover porque não há para onde clicar — um estado de foco que não leva a
  * lugar nenhum promete interação que não existe.
  */
 export default function LogoWall({ logos }: { logos: string[] }) {
@@ -60,7 +60,7 @@ export default function LogoWall({ logos }: { logos: string[] }) {
  * "morgan_stanley.png" → "morgan stanley", para o `alt`.
  *
  * O texto alternativo importa aqui: sem ele, um leitor de tela anuncia 27
- * imagens sem nome e a prova social  -  que é a razão de o bloco existir  -  não
+ * imagens sem nome e a prova social — que é a razão de o bloco existir — não
  * chega a quem navega por áudio.
  */
 const label = (file: string) =>

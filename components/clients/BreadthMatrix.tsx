@@ -3,11 +3,11 @@ import type { CaseListEntry } from "@/lib/cms/map";
 import { services } from "@/lib/services";
 
 /**
- * "Breadth by service"  -  a matriz cliente × serviço da imagem 1 do drive.
+ * "Breadth by service" — a matriz cliente × serviço da imagem 1 do drive.
  *
  * O QUE ELA PROVA, e por isso está aqui: o paredão de logos mostra QUANTOS
  * clientes; esta grade mostra QUANTA COISA fazemos para o mesmo cliente. É o
- * argumento de profundidade da página, e é o que ela descreveu na call  - 
+ * argumento de profundidade da página, e é o que ela descreveu na call —
  * *"this will be the kind of layout we want, where we've got the breadth by
  * service"*.
  *
@@ -19,15 +19,15 @@ import { services } from "@/lib/services";
  * ⚠️ POR ISSO ELA AINDA ESTÁ RALA, e a causa não é o componente. Os nove cases
  * aprovados em 16-09 trazem o rótulo certo; os seis antigos (shell, aviva,
  * levis, coca-cola, unilever, heineken) carregam o vocabulário da geração
- * passada  -  "Leadership & Culture Transformation", "Talent & Succession"  -  que
+ * passada — "Leadership & Culture Transformation", "Talent & Succession" — que
  * não bate com serviço nenhum de hoje e por isso não plota. Retaguear esses
  * seis é o que enche a grade, e é pedido aberto com a cliente.
  *
  * ⚠️ O MOCKUP TEM PONTO CINZA ALÉM DO ESCURO, sugerindo um segundo nível de
  * engajamento. Ficou de fora de propósito: não existe no conteúdo nada que
  * distinga "fizemos" de "fizemos um pouco", e inventar o grau enfraqueceria o
- * ponto cheio, que é o que carrega a prova. Quando ela mandar a informação  - 
- * ela ficou de mandar  - , é uma terceira condição no `dot`.
+ * ponto cheio, que é o que carrega a prova. Quando ela mandar a informação —
+ * ela ficou de mandar —, é uma terceira condição no `dot`.
  *
  * SÓ AS COLUNAS COM ALGUM PONTO. Dos dez serviços, a grade mostra os que têm ao
  * menos um case: uma coluna inteiramente vazia não informa "não fazemos", só
@@ -35,7 +35,7 @@ import { services } from "@/lib/services";
  */
 export default function BreadthMatrix({ entries }: { entries: CaseListEntry[] }) {
   // Cliente → serviços evidenciados. O mesmo cliente pode ter mais de um case
-  // (a Frasers Property tem dois), e na grade ele é UMA linha  -  o logo repetido
+  // (a Frasers Property tem dois), e na grade ele é UMA linha — o logo repetido
   // em duas fileiras leria como erro de dados.
   const byClient = new Map<string, { logoUrl?: string; services: Set<string> }>();
   for (const e of entries) {
@@ -53,7 +53,7 @@ export default function BreadthMatrix({ entries }: { entries: CaseListEntry[] })
   const rows = [...byClient.entries()]
     // ⚠️ SÓ QUEM PLOTA ALGUM PONTO. Filtrar as colunas vazias não basta: um
     // cliente cujo único serviço é do vocabulário antigo ("Talent & Succession")
-    // não bate com nenhuma coluna e sairia como uma FILEIRA INTEIRA EM BRANCO  - 
+    // não bate com nenhuma coluna e sairia como uma FILEIRA INTEIRA EM BRANCO —
     // que é pior que a ausência, porque afirma visualmente que não fizemos nada
     // para aquele cliente. Enquanto os seis cases antigos não forem retagueados,
     // eles ficam fora da grade; continuam na grade de cases logo abaixo.
@@ -66,7 +66,7 @@ export default function BreadthMatrix({ entries }: { entries: CaseListEntry[] })
 
   return (
     /* ROLAGEM HORIZONTAL NO TELEFONE. Uma matriz não cabe em 390px sem virar
-       ilegível, e a alternativa usual  -  empilhar em cartões por cliente  -  perde
+       ilegível, e a alternativa usual — empilhar em cartões por cliente — perde
        exatamente o que a matriz faz, que é comparar linhas entre si. */
     <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
       <table className="w-full min-w-[720px] border-collapse text-left">

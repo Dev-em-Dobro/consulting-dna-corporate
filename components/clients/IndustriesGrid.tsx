@@ -2,21 +2,21 @@ import Image from "next/image";
 import type { Industry } from "@/lib/industries";
 
 /**
- * "Industries we work in"  -  oito blocos escuros, ícone de traço e o nome do
+ * "Industries we work in" — oito blocos escuros, ícone de traço e o nome do
  * setor, como na imagem 2 do drive.
  *
  * ELA PEDIU ESTE BLOCO EM LETRA na daily de 16-09: *"the industries we work in
  * (…) just literally it can be exactly like this"*. É o único pedaço da imagem
- * 2 que entra na página  -  o resto da Clients & Impact segue a imagem 1.
+ * 2 que entra na página — o resto da Clients & Impact segue a imagem 1.
  *
  * ⚠️ SEM AS FOTOGRAFIAS, POR ENQUANTO. No desenho cada bloco tem uma foto do
  * setor por trás; elas são dela (*"that's my job"*) e ainda não chegaram. Até
- * lá o bloco cai no CAMPO DE COR  -  o mesmo recurso dos cards de serviço desde
+ * lá o bloco cai no CAMPO DE COR — o mesmo recurso dos cards de serviço desde
  * 12-09: `ink` com um leve degradê e a inicial do setor em marca d'água. Não
  * fica um buraco cinza, não depende de arquivo inexistente, e o dia em que as
  * fotos chegarem é um caminho por item em `lib/industries.ts`, sem tocar aqui.
  *
- * NÃO SÃO LINKS. No desenho dela o bloco não leva a lugar nenhum  -  não existe
+ * NÃO SÃO LINKS. No desenho dela o bloco não leva a lugar nenhum — não existe
  * página de setor, e a biblioteca de cases ainda não filtra por indústria
  * (`facets.industry` está vazio nos nove cases de 16-09). Um bloco clicável que
  * não vai a lugar nenhum é pior que um bloco parado.
@@ -67,7 +67,7 @@ export default function IndustriesGrid({ items }: { items: Industry[] }) {
 /**
  * Ícones de traço, desenhados aqui e não trazidos de uma biblioteca: são oito,
  * cada um é meia dúzia de linhas, e um pacote de ícones inteiro no bundle para
- * isso não se paga. Todos no mesmo quadro de 24 e na mesma espessura de 1,5  - 
+ * isso não se paga. Todos no mesmo quadro de 24 e na mesma espessura de 1,5 —
  * é o que faz oito desenhos diferentes lerem como um conjunto.
  */
 function IndustryIcon({ name }: { name: Industry["icon"] }) {

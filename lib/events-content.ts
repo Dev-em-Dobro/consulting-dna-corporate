@@ -52,23 +52,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
 export async function getEvents(): Promise<LeadershipEvent[]> {
   const result = await getList<CmsEvent>("events", { pageSize: 100 });
   const managed = result?.items.map(mapEvent).filter((event): event is LeadershipEvent => event !== null) ?? [];
-  if (managed.length === 0) return staticEvents;
-
-  const staticBySlug = new Map(staticEvents.map((event) => [event.slug, event]));
-  const merged = managed.map((event) => {
-    const local = staticBySlug.get(event.slug);
-    if (!local) return event;
-    return {
-      ...event,
-      summary: event.summary || local.summary,
-      location: event.location || local.location,
-      image: event.image || local.image,
-      imageAlt: event.imageAlt || local.imageAlt,
-      overview: event.overview.length > 0 ? event.overview : local.overview,
-    };
-  });
-  const seen = new Set(merged.map((event) => event.slug));
-  return [...staticEvents.filter((event) => !seen.has(event.slug)), ...merged];
+  return managed.length > 0 ? managed : staticEvents;
 }
 
 export async function getEvent(slug: string): Promise<LeadershipEvent | undefined> {

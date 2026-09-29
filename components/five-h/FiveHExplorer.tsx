@@ -15,7 +15,7 @@ import { FIVE_H } from "./five-h-data";
  * **Why the panel can't reflow.** Once the buttons are underneath, any height
  * change in the panel moves them out from under the cursor: "se esse container
  * de cima começa a balançar, o botão se perde" (01:56). So every variant of the
- * copy  -  five descriptions, twenty-five dimension names  -  is rendered stacked in
+ * copy — five descriptions, twenty-five dimension names — is rendered stacked in
  * a single grid cell and faded between. The block is sized by its tallest state
  * at every breakpoint, with no magic pixel height to drift.
  *
@@ -24,7 +24,7 @@ import { FIVE_H } from "./five-h-data";
  * visitor takes control, three seconds after (04:53). Guli knows a second is not
  * long enough to read and chose it deliberately: "não vamos nos importar tanto
  * com o tempo de leitura no momento, vamos atiçar a curiosidade" (04:43). The
- * active dot is the same size as the rest  -  the fill changes, not the scale
+ * active dot is the same size as the rest — the fill changes, not the scale
  * (04:14). None of it links anywhere; asked, he said "não pensei nisso, pensei
  * só no sistema de cards" (06:00).
  *
@@ -35,12 +35,12 @@ import { FIVE_H } from "./five-h-data";
 
 /** Milliseconds per dimension before the visitor has touched anything. */
 const IDLE_MS = 1000;
-/** And after  -  a readable pace, once they have shown they are reading. */
+/** And after — a readable pace, once they have shown they are reading. */
 const ENGAGED_MS = 3000;
 
 /**
  * Row height. Every other measurement in the selector is a ratio of it, taken
- * from `docs/design-guli-29-08/SPEC-5h-explorer.md`  -  the swatch is a square of
+ * from `docs/design-guli-29-08/SPEC-5h-explorer.md` — the swatch is a square of
  * exactly this size, so the two cannot drift apart.
  */
 const ROW_H = 56;
@@ -50,11 +50,11 @@ const GAP_AFTER_SWATCH = Math.round(ROW_H * 0.53);
 const PAD_RIGHT = Math.round(ROW_H * 0.53);
 const DOT_GAP = Math.round(ROW_H * 0.32);
 const DOT_IDLE = Math.round(ROW_H * 0.08);
-/** The selected dot is more than twice the others  -  and matches the card's. */
+/** The selected dot is more than twice the others — and matches the card's. */
 const DOT_ACTIVE = Math.round(ROW_H * 0.18);
 const BULLET = Math.round(ROW_H * 0.21);
 
-/** Card and inactive rows share this fill  -  read off the Figma inspector (03:10). */
+/** Card and inactive rows share this fill — read off the Figma inspector (03:10). */
 const SURFACE = "#353334";
 
 function GameRail({
@@ -77,7 +77,7 @@ function GameRail({
         {label}
       </span>
       {/* Solid for the game the selected faculty belongs to, dotted for the
-          other  -  and the two swap as soon as Hands or Habits is picked (02:58). */}
+          other — and the two swap as soon as Hands or Habits is picked (02:58). */}
       <span
         aria-hidden
         className="self-stretch border-l-2 transition-colors"
@@ -159,12 +159,12 @@ export default function FiveHExplorer() {
           partir do momento que o usuário clica, a gente deixa em 3 segundos"
           (04:50–05:02). The pause entered through our own plan documents
           (RELATORIO-guli-29-08.md:162, PLANO-design-guli-29-08.md:159) with an
-          engineering rationale  -  "senão é timer rodando à toa"  -  attached to a
+          engineering rationale — "senão é timer rodando à toa" — attached to a
           design decision it had no business making.
 
           It cost twice. On the selector it produced the freeze fixed in c6efc36:
           click a faculty, leave the cursor where it landed, nothing moves again.
-          Moved here, it produced the 31-08 report  -  Guli put his cursor on the
+          Moved here, it produced the 31-08 report — Guli put his cursor on the
           panel he was reading, the rotation stopped, and he filed the section as
           broken. Two homes, two "it's frozen" reports, from a behaviour nobody
           asked for and which duplicates what the click already does.
@@ -226,7 +226,7 @@ export default function FiveHExplorer() {
                   style={{ color: h.color, opacity: showing ? 1 : 0 }}
                 >
                   {/* White, and the same size as the selected dot in the row
-                      below  -  the pairing Guli asked for at 04:14. */}
+                      below — the pairing Guli asked for at 04:14. */}
                   <span
                     className="flex-none rounded-full bg-white"
                     style={{ width: BULLET, height: BULLET }}
@@ -306,7 +306,7 @@ export default function FiveHExplorer() {
                 {h.label}
               </span>
               {/* Five indicators. The selected one is more than twice the size
-                  of the rest, not merely brighter  -  measured off the print. */}
+                  of the rest, not merely brighter — measured off the print. */}
               <span
                 aria-hidden
                 className="flex flex-none items-center"

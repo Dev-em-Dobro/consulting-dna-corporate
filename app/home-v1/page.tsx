@@ -1,5 +1,5 @@
 /**
- * /home-v1  -  ARQUIVO. Esta foi a home do site até 10-09, quando a `/home-v2`
+ * /home-v1 — ARQUIVO. Esta foi a home do site até 10-09, quando a `/home-v2`
  * (a proposta saída da referência que a Rhea mandou em 03-09) foi escolhida e
  * subiu para `/`.
  *
@@ -7,7 +7,7 @@
  * com `noindex`. Duas páginas com o mesmo assunto disputando busca é o problema
  * que se evita, e entre a home e o arquivo quem perde é o arquivo.
  *
- * É a única página que ainda usa a `HeroV1`  -  e, com ela, a intro em vídeo:
+ * É a única página que ainda usa a `HeroV1` — e, com ela, a intro em vídeo:
  * a sequência de 239 frames no telefone e o `hero-intro.mp4` no desktop. O
  * `Preloader` aquece esses assets por PATHNAME, e desde 10-09 a lista dele é
  * exatamente esta rota. Se este arquivo mudar de endereço, a guarda de lá muda
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description: SITE_DESCRIPTION,
     // Sem `alternates`: o canonical de "/" é da home, que agora é a V2. Este é
-    // o arquivo e não pode reivindicá-lo  -  era exatamente esta linha, ao
+    // o arquivo e não pode reivindicá-lo — era exatamente esta linha, ao
     // contrário, que a V2 carregava enquanto era proposta.
     robots: { index: false, follow: false },
     openGraph: { title, description: SITE_DESCRIPTION },
@@ -60,7 +60,7 @@ const [logoRow1, logoRow2] = clientLogoRows;
 
 const book = {
   /**
-   * The section's headline  -  a positioning line, NOT the book's name. Kept as
+   * The section's headline — a positioning line, NOT the book's name. Kept as
    * authored (CDNA confirmed on 01-09 that it is the same book, and that this
    * heading is deliberately not the title).
    */
@@ -97,10 +97,10 @@ const challenges = [
  *
  * The e-mail writes them as "real pressures, real politics…". The word "real" is
  * dropped here because `RealCycle` supplies it once and holds it fixed while
- * these cycle  -  printing it on each term would put it back on screen six times,
+ * these cycle — printing it on each term would put it back on screen six times,
  * which is the thing Guli's 01-09 treatment exists to stop.
  *
- * Lower case, as the brief writes them. The line reads "Real pressures."  -  one
+ * Lower case, as the brief writes them. The line reads "Real pressures." — one
  * sentence with one capital, not two words each starting upper. Capitalising
  * here also broke the `sr-only` sentence, which joins the six into "Real
  * pressures, politics, choices…" and would have carried a capital mid-clause.
@@ -158,7 +158,7 @@ export default async function HomeV1() {
       {/* NAV */}
       <NavV1 items={nav} />
 
-      {/* TICKER  -  directly under the nav, where the old CDNA site carried it
+      {/* TICKER — directly under the nav, where the old CDNA site carried it
           (27-08 brief, item 17). Renders nothing until the CMS has 2023+ entries,
           so it costs no vertical space while the content is still being written. */}
       <RunningTicker entries={ticker} />
@@ -166,25 +166,25 @@ export default async function HomeV1() {
       {/* HERO */}
       <HeroV1 />
 
-      {/* WHAT "REAL" MEANS  -  27-08 brief, item 1: "Precisamos explicar Keeping
+      {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
           real politics, real choices, real judgement, real people and real
           consequences."
 
-          The six terms are his, verbatim, and nothing else is written here  - 
+          The six terms are his, verbatim, and nothing else is written here —
           no invented copy. The heading is not ours either: on the old site,
           "Our Purpose... is to make leadership REAL" is the first section
           BELOW THE HERO, which is this exact slot. So the line is not being
           borrowed from somewhere else and dropped in; it is being kept where
           CDNA already had it, and the six terms become the concrete answer to
-          it  -  purpose stated, then the six conditions it has to survive.
+          it — purpose stated, then the six conditions it has to survive.
 
           Two earlier attempts were worse and are worth not repeating.
           "Keeping Leadership Real" as an eyebrow repeats the hero H1 word for
           word; "When the stakes are high, leadership must become real" repeats
           the hero sub-line. This one still echoes the hero's "Making
-          Leadership Real" CTA  -  the hero says "real" five times before this
-          section starts, so no heading can avoid an echo  -  but it is one echo
+          Leadership Real" CTA — the hero says "real" five times before this
+          section starts, so no heading can avoid an echo — but it is one echo
           instead of two, and "Our Purpose" itself appears nowhere above.
 
           What is deliberately NOT carried over: the two paragraphs that follow
@@ -194,7 +194,7 @@ export default async function HomeV1() {
           text, not more. The heading is the part that earns its place.
 
           Not approved this cycle. Same category as the closing line on Our
-          Clients, which Guli also took from the old site  -  both need CDNA to
+          Clients, which Guli also took from the old site — both need CDNA to
           confirm they stay.
 
           Placed between the hero and the wall on purpose. Item 2 warns against
@@ -205,8 +205,8 @@ export default async function HomeV1() {
 
           Note there are two lists of "reals" in the e-mail and they are not
           interchangeable: the seven in the opening are about the experience of
-          the whole site; these six are harder  -  pressures, politics,
-          consequences  -  and are the ones item 1 attaches to the homepage. */}
+          the whole site; these six are harder — pressures, politics,
+          consequences — and are the ones item 1 attaches to the homepage. */}
       <section id="real" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
           {/* One heading, no eyebrow. The old site splits the line as "Our
@@ -216,7 +216,7 @@ export default async function HomeV1() {
 
               "REAL" is all-caps on the old site. Here it takes the brand colour
               instead, the device the hero's own CTA uses for "Results, Not
-              Promises."  -  no shout on a page with no other all-caps headline.
+              Promises." — no shout on a page with no other all-caps headline.
 
               `stagger={false}`: the grid below is already staggering. */}
           {/* One block, not a heading with a caption under it. Asked whether to
@@ -229,7 +229,7 @@ export default async function HomeV1() {
                   Real pressures.
 
               So both lines carry the same size, weight and tracking, with no
-              margin between them  -  the cycling line is the sentence continuing,
+              margin between them — the cycling line is the sentence continuing,
               not a subtitle. `stagger={false}` because the reveal has two
               children that must appear together, not in sequence.
 
@@ -245,7 +245,7 @@ export default async function HomeV1() {
               <br className="sm:hidden" /> leadership{" "}
               {/* The stop is inside the span. Guli's mock sets "real." in one
                   colour; outside, it printed a dark dot hanging off the red
-                  word  -  and the cycling line below ends in a red stop too, so
+                  word — and the cycling line below ends in a red stop too, so
                   the two lines have to punctuate the same way. */}
               <span className="text-brand">real.</span>
             </h2>
@@ -260,7 +260,7 @@ export default async function HomeV1() {
         </div>
       </section>
 
-      {/* CREDIBILITY  -  proof, before any explanation.
+      {/* CREDIBILITY — proof, before any explanation.
           The brief's ordering principle is "Claim → Proof → Explanation, e não
           long explanation antes de proof" (item 2), so the logo wall and the
           statistics now sit between the hero and "What we solve", which used to
@@ -292,7 +292,7 @@ export default async function HomeV1() {
         </div>
       </section>
 
-      {/* WHAT WE SOLVE  -  the explanation, now that the proof is above it. */}
+      {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
       <section id="solve" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
           <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
@@ -308,7 +308,7 @@ export default async function HomeV1() {
         </Reveal>
       </section>
 
-      {/* CHALLENGES  -  hidden for now (set the guard to true to restore) */}
+      {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="challenges" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 pb-24 pt-4">
@@ -325,7 +325,7 @@ export default async function HomeV1() {
       </section>
       )}
 
-      {/* WHY CDNA  -  hidden for now (set the guard to true to restore) */}
+      {/* WHY CDNA — hidden for now (set the guard to true to restore) */}
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -357,11 +357,11 @@ export default async function HomeV1() {
           of the 27-08 brief removes it from the public site: "Remover o compiled
           testimonial video atual do public website. Em vez disso, criar uma
           estrutura modular para individual client testimonial videos." That
-          structure exists  -  the `testimonial_video` content type and its read
-          layer  -  and stays empty until CDNA supplies the individual films.
+          structure exists — the `testimonial_video` content type and its read
+          layer — and stays empty until CDNA supplies the individual films.
           `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
-      {/* CLIENT IMPACT  -  brand red, Guli's fix of 31-08.
+      {/* CLIENT IMPACT — brand red, Guli's fix of 31-08.
 
           The reorder left this section and "What we solve" both pure white and
           adjacent, with the alignment switching from centred to left mid-scroll;
@@ -371,7 +371,7 @@ export default async function HomeV1() {
           proof band the loudest thing between the hero and the book.
 
           The eyebrow rule turns white here. It is `bg-brand` everywhere else on
-          the page, which on red would be invisible  -  the rule marks the eyebrow,
+          the page, which on red would be invisible — the rule marks the eyebrow,
           so it has to be the one colour the ground is not. */}
       <section id="impact" className="bg-brand text-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -416,7 +416,7 @@ export default async function HomeV1() {
         </Reveal>
       </section>
 
-      {/* 5H FRAMEWORK  -  hidden for now (set the guard to true to restore) */}
+      {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
@@ -447,7 +447,7 @@ export default async function HomeV1() {
       </section>
       )}
 
-      {/* PEOPLE  -  hidden until the CMS has published people */}
+      {/* PEOPLE — hidden until the CMS has published people */}
       {people.length > 0 && (
         <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -462,7 +462,7 @@ export default async function HomeV1() {
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
           <PeopleGrid people={people} />
-          {/* The DNA experience  -  copy on the left, life-at-DNA carousel on the
+          {/* The DNA experience — copy on the left, life-at-DNA carousel on the
               right. Stacks on mobile (text first, then the images). */}
           <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
             <div>
@@ -543,7 +543,7 @@ export default async function HomeV1() {
               <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
                 <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
                   {/* The cover is a picture of the book, so it is named by the
-                    book  -  not by the section headline. */}
+                    book — not by the section headline. */}
                 <Image src="/book-cover.png" alt={book.name} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
                 </div>
               </figure>
@@ -570,16 +570,16 @@ export default async function HomeV1() {
         </Reveal>
       </section>
 
-      {/* OFFICES / REGIONS  -  interactive locations map + carousel (feature 003).
+      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003).
           `tone="dark"` is Guli's 31-08 fix: this block and the book block above
-          were both light grey and touching. Homepage only  -  the same block runs
+          were both light grey and touching. Homepage only — the same block runs
           light on Our Clients and Our Team, which have different neighbours. */}
       <LocationsBlock tone="dark" />
 
-      {/* GLOBAL COVERAGE  -  world map of countries served (feature 008) */}
+      {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />
 
-      {/* AWARDS & MENTIONS  -  spec 009, design docs/Group 2.png */}
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png */}
       <AwardsMentions />
 
       {/* CONTACT */}

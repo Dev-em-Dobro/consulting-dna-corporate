@@ -1,5 +1,5 @@
 /**
- * OS TEXTOS EDITÁVEIS DA LISTAGEM DE SERVIÇOS (`/services`)  -  o que a cliente
+ * OS TEXTOS EDITÁVEIS DA LISTAGEM DE SERVIÇOS (`/services`) — o que a cliente
  * pode trocar em `/edit-services`. Ver `docs/edit-paginas.md`.
  *
  * ⚠️ OS DEZ CARDS NÃO ESTÃO AQUI. O que cada card escreve é o nome e o
@@ -8,12 +8,12 @@
  * interna. Duplicá-los aqui daria duas telas para o mesmo texto.
  *
  * ⚠️ A FAIXA DE FECHO usa o `SolutionCta` SEM PROP NENHUMA hoje, ou seja, os
- * padrões do componente  -  que também servem a outras rotas. Por isso ela entra
+ * padrões do componente — que também servem a outras rotas. Por isso ela entra
  * no editor com os padrões TRANSCRITOS abaixo: assim que a cliente salvar, esta
  * página passa a mandar as props, e as outras rotas seguem com os padrões do
  * componente, sem mudar. Editar aqui muda só a `/services`.
  *
- * ⚠️ Nada de `fs`, `blob`, zod ou `@/`  -  carregado pelos testes do Node.
+ * ⚠️ Nada de `fs`, `blob`, zod ou `@/` — carregado pelos testes do Node.
  */
 import type { EditorSection } from "./page-copy/fields.ts";
 
@@ -41,7 +41,7 @@ export const DEFAULT_SERVICES_INDEX_COPY: ServicesIndexCopy = {
       "Harvard Business Impact for faculty research and a digital delivery spine that scales. Imperial College London for applied innovation and customised executive education. Each joins where the programme needs what they bring, and not otherwise.",
     ],
   },
-  /* Os padrões do `SolutionCta`, transcritos  -  ver a caixa acima. O "Let’s
+  /* Os padrões do `SolutionCta`, transcritos — ver a caixa acima. O "Let’s
      talk" que aparece por cima do título NÃO é isto: é um rótulo fixo dentro do
      componente, compartilhado com as outras rotas, e fica de fora.
 
@@ -104,7 +104,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
         path: "cta.line",
         label: "Supporting text",
         kind: "textarea",
-        hint: "Empty today  -  the page shows no line under the heading. Type something to add one.",
+        hint: "Empty today — the page shows no line under the heading. Type something to add one.",
       },
       { path: "cta.ctaLabel", label: "Button", kind: "text" },
     ],

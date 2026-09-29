@@ -7,12 +7,12 @@ import { BAND_DARK, brandPanelColor } from "@/lib/brand-band";
  * One flagship client on Our Clients (27-08 brief, item 8), in Guli's 29-08
  * reading.
  *
- * The band *is* the whole card  -  no challenge, no metric, no body. The row is
+ * The band *is* the whole card — no challenge, no metric, no body. The row is
  * one link into the case, which is what "Find out more" points at.
  *
  * Height is measured off the mock rather than chosen: its bands are 36px on a
  * 120px card, so height is 0.30 of the width and the gap between them is 0.22 of
- * the height. Ours were at 0.37  -  the bands were the thing running tall, not the
+ * the height. Ours were at 0.37 — the bands were the thing running tall, not the
  * gaps running wide, which is why the list read loose.
  *
  * **The dissolve.** Guli's mock does not put a logo on a gradient; it fades a
@@ -25,8 +25,8 @@ import { BAND_DARK, brandPanelColor } from "@/lib/brand-band";
  *    once, then holds flat colour. A mask over a solid panel gives that, and
  *    keeps the ramp independent of the card's width.
  * 2. The mark is knocked out at render: `invert` turns the white plate black and
- *    the ink light, then `screen` drops the black  -  black is `screen`'s identity
- *     -  leaving a white mark on the panel. `isolate` on the card keeps that blend
+ *    the ink light, then `screen` drops the black — black is `screen`'s identity
+ *    — leaving a white mark on the panel. `isolate` on the card keeps that blend
  *    from reaching the page behind it.
  *
  * The knockout is monochrome, so it loses a brand's second colour (Heineken's
@@ -61,7 +61,7 @@ export default function ClientBandCard({ entry }: { entry: CaseListEntry }) {
           //
           // The tag line below is capped at 56% to land inside the solid black
           // on both. It used to be unbounded, so on wide screens it ran into the
-          // dissolve and finished over the brand colour  -  white on GSK's orange,
+          // dissolve and finished over the brand colour — white on GSK's orange,
           // which is the worst pairing in the set.
           className="absolute inset-y-0 right-0 w-[58%] md:w-[40%]"
           style={{

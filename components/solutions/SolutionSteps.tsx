@@ -36,7 +36,7 @@ import Reveal from "@/components/Reveal";
 import type { ServiceStep } from "@/lib/services";
 
 /**
- * A FILEIRA DE PASSOS DE "HOW WE WORK"  -  o percurso de seis etapas do layout de
+ * A FILEIRA DE PASSOS DE "HOW WE WORK" — o percurso de seis etapas do layout de
  * Manager Development (`docs/meetings/manager-development-24-09.jpeg`, 24-09).
  *
  * Cada passo é: um disco rosa claro com o ícone, o título em negrito e a
@@ -48,7 +48,7 @@ import type { ServiceStep } from "@/lib/services";
  * canto superior esquerdo do disco do ícone, como o layout desenha.
  *
  * ⚠️ O `<ol>` FICA, e isto não é descuido. A lista continua sendo uma
- * SEQUÊNCIA  -  é o que as setas dizem visualmente, e é o que o `<ol>` diz a quem
+ * SEQUÊNCIA — é o que as setas dizem visualmente, e é o que o `<ol>` diz a quem
  * usa leitor de tela ("item 1 de 6"). Tirar o numeral tirou a marcação VISUAL
  * da ordem; trocar para `<ul>` tiraria a ordem de vez, para quem só tem o
  * texto. O numeral era `aria-hidden` justamente porque o `<ol>` já dizia aquilo.
@@ -72,7 +72,7 @@ import type { ServiceStep } from "@/lib/services";
 const STEP_ICONS: Record<string, LucideIcon> = {
   /* AS CHAVES SÃO GENÉRICAS ("people", "laptop") e não o nome do passo, ao
      contrário do mapa de `SolutionPillars`, que casa pelo rótulo exato. A razão
-     é que aqui o dado JÁ diz qual ícone quer  -  os passos do layout não têm
+     é que aqui o dado JÁ diz qual ícone quer — os passos do layout não têm
      relação óbvia entre título e glifo ("Habit nudges" é um telefone), então
      derivar do texto seria adivinhar. */
   people: Users,
@@ -85,12 +85,12 @@ const STEP_ICONS: Record<string, LucideIcon> = {
   document: FileText,
   phone: Smartphone,
 
-  /* ⬅ OS SETE DA HRLT  -  24-09, quando aquela página saiu de uma implementação
+  /* ⬅ OS SETE DA HRLT — 24-09, quando aquela página saiu de uma implementação
      própria e passou a usar este componente.
 
      ⚠️ AS CHAVES SÃO O VOCABULÁRIO COMUM QUE A DAILY PEDIU: *"o mesmo ícone
      para o mesmo conceito em todas as páginas"*. Por isso `growth` é a mesma
-     seta que sobe que o `SolutionProof` usa para "Business proof"  -  o conceito
+     seta que sobe que o `SolutionProof` usa para "Business proof" — o conceito
      ali e aqui é o mesmo (o que muda como resultado), e duas setas diferentes
      para ele seriam a divergência que o pedido quer acabar.
 
@@ -108,19 +108,19 @@ const STEP_ICONS: Record<string, LucideIcon> = {
   growth: TrendingUp,
   globe: Globe,
 
-  /* Os aceleradores e dois passos do Talent Development  -  24-09. Lidos do
+  /* Os aceleradores e dois passos do Talent Development — 24-09. Lidos do
      layout, um a um: montanha, alvo com flecha, olho, e o troféu do sétimo
      passo. "Accountability" e "Talent Identification" caem em `people`, que já
-     existia  -  mesmo conceito, mesmo glifo, que é a regra da daily. */
+     existia — mesmo conceito, mesmo glifo, que é a regra da daily. */
   mountain: Mountain,
   target: Target,
   eye: Eye,
   trophy: Trophy,
 
-  /* Os quatro diferenciais e dois passos do Executive Coaching  -  24-09, lidos
+  /* Os quatro diferenciais e dois passos do Executive Coaching — 24-09, lidos
      do layout. `mindset` é o cérebro do lucide no lugar da cabeça com coração
      que o desenho traz (não existe equivalente no conjunto), e `network` é o
-     mesmo glifo que `SolutionPillars` já usa para "Strategic networks"  -  mesmo
+     mesmo glifo que `SolutionPillars` já usa para "Strategic networks" — mesmo
      conceito, mesmo símbolo, que é a regra da daily. */
   mindset: Brain,
   network: Network,
@@ -130,7 +130,7 @@ const STEP_ICONS: Record<string, LucideIcon> = {
      divisas de `forward`. */
   fast_forward: FastForward,
 
-  /* ⬅ OS DOIS QUE FALTAVAM PARA OS SEIS PASSOS DA FAMILY BUSINESS CONSULTING  - 
+  /* ⬅ OS DOIS QUE FALTAVAM PARA OS SEIS PASSOS DA FAMILY BUSINESS CONSULTING —
      24-09, lidos do layout: a lâmpada do "Prepare" e a engrenagem do "Build".
      Os outros quatro daquela sequência (`search`, `document`, `people`,
      `chart`) já estavam aqui, que é o vocabulário comum da daily funcionando.
@@ -141,7 +141,7 @@ const STEP_ICONS: Record<string, LucideIcon> = {
   lightbulb: Lightbulb,
   cog: Cog,
 
-  /* ⬅ OS DOIS QUE FALTAVAM PARA A FILEIRA DE Women’s Leadership Development  - 
+  /* ⬅ OS DOIS QUE FALTAVAM PARA A FILEIRA DE Women’s Leadership Development —
      24-09, lidos do layout: o calendário da duração e a bússola dos mentores
      externos. Os outros cinco daquela fileira (`people`, `peers`, `laptop`,
      `speech`, `network`) já estavam aqui.
@@ -150,12 +150,12 @@ const STEP_ICONS: Record<string, LucideIcon> = {
      function" e que o `SolutionSteps` da HRLT já usa como `globe`? NÃO: `globe`
      é o mundo e este é a bússola, que o mapa de pilares usa para ORIENTAÇÃO
      ("Setting direction"). Mentor externo é quem aponta a direção de fora, e é
-     esse o sentido  -  a regra da daily de um glifo por conceito. */
+     esse o sentido — a regra da daily de um glifo por conceito. */
   calendar: CalendarDays,
   compass: Compass,
 };
 
-/** O glifo de uma chave do mapa acima  -  para quem desenha a mesma anatomia fora
+/** O glifo de uma chave do mapa acima — para quem desenha a mesma anatomia fora
  *  deste componente (os diferenciais ao lado do "What we do"). */
 export function stepIcon(key?: string): LucideIcon | undefined {
   return key ? STEP_ICONS[key] : undefined;
@@ -164,10 +164,10 @@ export function stepIcon(key?: string): LucideIcon | undefined {
 export default function SolutionSteps({
   items,
   /**
-   * ⚠️ ESTA FILEIRA É UMA SEQUÊNCIA?  -  24-09, com a migração da HRLT.
+   * ⚠️ ESTA FILEIRA É UMA SEQUÊNCIA? — 24-09, com a migração da HRLT.
    *
    * `true` (o padrão) é o que este arquivo sempre foi: `<ol>`, seta ligando
-   * cada item ao anterior, e a ordem AFIRMA alguma coisa  -  "Discover" vem antes
+   * cada item ao anterior, e a ordem AFIRMA alguma coisa — "Discover" vem antes
    * de "Embed" porque o trabalho acontece nessa ordem.
    *
    * `false` é uma LISTA de itens de igual peso com a mesma anatomia (disco,
@@ -176,7 +176,7 @@ export default function SolutionSteps({
    * uma progressão que não existe.
    *
    * ⚠️ POR QUE UMA PROP E NÃO UM COMPONENTE NOVO. A régua deste projeto separa
-   * peças quando elas diferem em SIGNIFICADO *e* em anatomia  -  é o argumento da
+   * peças quando elas diferem em SIGNIFICADO *e* em anatomia — é o argumento da
    * caixa acima sobre `SolutionPillars`, que é ícone nu com filetes e não disco
    * com descrição. Aqui as duas partilham tudo menos a seta e o elemento de
    * lista; um segundo arquivo seria a cópia que este repositório já apagou uma
@@ -190,13 +190,13 @@ export default function SolutionSteps({
    */
   sequence = true,
   /**
-   * O DISCO VERMELHO COM O NÚMERO, sobre o disco do ícone  -  24-09, com o layout
+   * O DISCO VERMELHO COM O NÚMERO, sobre o disco do ícone — 24-09, com o layout
    * do Executive Coaching.
    *
    * ⚠️ ELE SAIU EM 24-09 E VOLTA AQUI COMO EXCEÇÃO, não como reversão. A daily
    * daquele dia mandou tirar a numeração *no Manager Development* (*"as setas
    * já mostram a progressão"*), e é por isso que o padrão é `false`. O layout do
-   * Executive Coaching desenha os sete passos numerados  -  dois desenhos
+   * Executive Coaching desenha os sete passos numerados — dois desenhos
    * diferentes para a mesma fileira, e o dado é que decide qual sai.
    *
    * ⚠️ SÓ FAZ SENTIDO COM `sequence`: numerar uma lista sem ordem afirmaria uma
@@ -204,7 +204,7 @@ export default function SolutionSteps({
    */
   numbered = false,
   /**
-   * O GLIFO NU, EM TINTA, SEM O DISCO ROSA  -  24-09, com o layout do Executive
+   * O GLIFO NU, EM TINTA, SEM O DISCO ROSA — 24-09, com o layout do Executive
    * Coaching, onde o número vermelho fica no canto de cima e o ícone escuro
    * logo abaixo dele. Só vale no arranjo `stacked`; o Family Business, que
    * também é numerado, continua com o disco.
@@ -214,7 +214,7 @@ export default function SolutionSteps({
    * O fundo da faixa. `paper` (padrão) é o de sempre: a fileira continua o bloco
    * "How we work", que também é paper, sem emenda entre os dois.
    *
-   * `white` existe para a fileira que pertence ao "What we do"  -  os
+   * `white` existe para a fileira que pertence ao "What we do" — os
    * `capabilities` da HRLT dividem a faixa BRANCA com aquele bloco, pela mesma
    * razão que os cartões de público e as trilhas dividem: no desenho eles são
    * parte dele, não uma seção nova.
@@ -233,12 +233,12 @@ export default function SolutionSteps({
   plainIcons?: boolean;
   tone?: "paper" | "white";
   /**
-   * O RÓTULO, A MANCHETE E A LINHA DE APOIO ACIMA DA FILEIRA  -  24-09, com os
+   * O RÓTULO, A MANCHETE E A LINHA DE APOIO ACIMA DA FILEIRA — 24-09, com os
    * aceleradores do Talent Development.
    *
    * ⚠️ OS TRÊS NASCEM VAZIOS DE PROPÓSITO. Nas duas páginas que já usavam este
    * componente a fileira vem COLADA num `SolutionSection` que acabou de
-   * escrever rótulo e manchete  -  dar cabeçalho próprio a ela ali escreveria a
+   * escrever rótulo e manchete — dar cabeçalho próprio a ela ali escreveria a
    * segunda manchete do mesmo assunto a 40px da primeira. O caso novo é o
    * oposto: os aceleradores são faixa autônoma, sem bloco de duas colunas por
    * cima, e sem isto entrariam na página sem nada que os anuncie.
@@ -247,7 +247,7 @@ export default function SolutionSteps({
   headline?: string;
   lead?: string;
   /**
-   * A FAIXA VERMELHA DO PÉ  -  a linha de fluxo que o layout desenha abaixo dos
+   * A FAIXA VERMELHA DO PÉ — a linha de fluxo que o layout desenha abaixo dos
    * sete passos: *"From business need → to talent bet → to readiness → to
    * measurable value."*
    *
@@ -257,7 +257,7 @@ export default function SolutionSteps({
    */
   flow?: string;
   /**
-   * A LINHA DE NOTA ABAIXO DA FILEIRA  -  24-09, com o layout de Women’s
+   * A LINHA DE NOTA ABAIXO DA FILEIRA — 24-09, com o layout de Women’s
    * Leadership Development: *"Learning is deliberately connected to the real
    * roles, relationships, career moments and organisational systems women are
    * navigating every day."*
@@ -270,7 +270,7 @@ export default function SolutionSteps({
    */
   note?: string;
   /**
-   * COMO CADA ITEM SE ARRUMA DENTRO DA CÉLULA  -  24-09, a pedido, com os
+   * COMO CADA ITEM SE ARRUMA DENTRO DA CÉLULA — 24-09, a pedido, com os
    * aceleradores do Talent Development: *"pode deixar mais parecido com o
    * layout com os icones a esquerda e o titulo e texto a [direita], com uma
    * linha dividindo cada um"*.
@@ -286,7 +286,7 @@ export default function SolutionSteps({
    * ⚠️ POR QUE UMA PROP E NÃO UM COMPONENTE NOVO: a régua deste projeto separa
    * peças quando elas diferem em SIGNIFICADO *e* em anatomia. Aqui o
    * significado é o mesmo (uma lista de itens de igual peso, com ícone, título
-   * e descrição) e as partes são as mesmas  -  muda o eixo em que elas se
+   * e descrição) e as partes são as mesmas — muda o eixo em que elas se
    * empilham. É o mesmo argumento da prop `sequence`, logo acima.
    *
    * ⚠️ O DISCO ROSA SAI NO `aside`, e é leitura do layout, não economia: ali o
@@ -342,7 +342,7 @@ export default function SolutionSteps({
           </p>
         ) : null}
 
-        {/* ⚠️ DUAS GRADES, E A DIFERENÇA NÃO É SÓ O NÚMERO DE COLUNAS  -  ver a
+        {/* ⚠️ DUAS GRADES, E A DIFERENÇA NÃO É SÓ O NÚMERO DE COLUNAS — ver a
             prop `variant`. No `aside` cada célula tem um bloco de texto ao lado
             do ícone, então ela precisa de MUITO mais largura: `minmax(150px…)`
             poria quatro aceleradores em quatro colunas de 150px com o título
@@ -350,7 +350,7 @@ export default function SolutionSteps({
             dá as quatro numa fileira e a 1024 as põe em duas.
 
             ⚠️ OS FILETES SÓ EXISTEM A PARTIR DE `lg`, e andam com `lg:gap-x-0`:
-            é a mesma dupla do `SolutionPillars`, pelas mesmas duas razões  -  com
+            é a mesma dupla do `SolutionPillars`, pelas mesmas duas razões — com
             calha o traço nasce colado na borda de um dos itens em vez de ficar
             no meio, e em grade de duas linhas a borda esquerda desenha um
             filete órfão no começo da linha de baixo. */}
@@ -376,7 +376,7 @@ export default function SolutionSteps({
                     primeiro.
 
                     ⚠️ `top-7` E NÃO `top-1/2`: ela se alinha ao CENTRO do disco
-                    do ícone, que mede 56px e começa no topo da célula  -  28px é
+                    do ícone, que mede 56px e começa no topo da célula — 28px é
                     a metade dele. Centrada na CÉLULA a seta desceria para o
                     meio da descrição, e como as descrições têm uma, duas ou
                     três linhas, as cinco setas sairiam em alturas diferentes.
@@ -384,8 +384,8 @@ export default function SolutionSteps({
                     ⚠️ ERA `top-9` ATÉ O NUMERAL SAIR, em 24-09: o disco do
                     ícone começava 8px abaixo, empurrado pelo disco do número.
                     Tirar o numeral sem mexer aqui deixaria as setas 8px baixas
-                     -  a conta anda junto com a altura do que está acima. */}
-                {/* ⚠️ `sequence &&`  -  ver a prop. Sem ordem a afirmar, a seta
+                    — a conta anda junto com a altura do que está acima. */}
+                {/* ⚠️ `sequence &&` — ver a prop. Sem ordem a afirmar, a seta
                     sai junto com o `<ol>`: as duas são a mesma marcação da
                     progressão, uma para o olho e outra para o leitor de tela. */}
                 {sequence && i > 0 ? (
@@ -400,7 +400,7 @@ export default function SolutionSteps({
                 {/* ⚠️ O `relative` SAIU COM O NUMERAL: ele existia só para
                     ancorar o disco do número, que era `absolute`. A seta, que
                     também é `absolute`, se ancora no `<li>` e não aqui. */}
-                {/* ⬅ O GLIFO NU DO `aside`  -  ver a prop `variant`. `mt-1`
+                {/* ⬅ O GLIFO NU DO `aside` — ver a prop `variant`. `mt-1`
                     porque ele se alinha à PRIMEIRA LINHA do título ao lado, e
                     não ao topo da caixa: sem isso, um título de duas linhas
                     deixaria o ícone visivelmente alto. `shrink-0` porque o
@@ -419,7 +419,7 @@ export default function SolutionSteps({
                   {/* ⚠️ `aria-hidden`: o `<ol>` já diz a ordem, e anunciá-la de
                       novo faria o leitor de tela ler "1, item 1 de 7". O disco
                       MORDE o do ícone (`-left-1 -top-1`) em vez de ficar acima
-                      dele, que é o que o layout desenha  -  e é o que mantém a
+                      dele, que é o que o layout desenha — e é o que mantém a
                       seta em `top-7`, alinhada ao centro do ícone. */}
                   {sequence && numbered ? (
                     <span
@@ -433,7 +433,7 @@ export default function SolutionSteps({
                   ) : null}
                   {/* O DISCO DO ÍCONE é rosa muito claro (`brand/10`) com o
                       glifo em `brand`. No layout ele é um círculo de fundo
-                      lavado  -  o mesmo recurso do visto das trilhas, invertido:
+                      lavado — o mesmo recurso do visto das trilhas, invertido:
                       lá o disco é cheio e o glifo é branco. */}
                   {plainIcons ? (
                     <span className="flex h-14 w-14 items-center justify-center">
@@ -454,7 +454,7 @@ export default function SolutionSteps({
                 {/* ⚠️ O TÍTULO TROCA DE TRATAMENTO NO `aside`, e é leitura do
                     layout: lá ele é VERMELHO EM CAIXA ALTA, e não o texto
                     escuro dos passos. A caixa alta é do desenho e mora aqui,
-                    não no dado  -  em `lib/services.ts` os quatro estão escritos
+                    não no dado — em `lib/services.ts` os quatro estão escritos
                     "Grit", "Impact & Identity"…, que é como se lê e como o
                     editor de copy os mostra. `uppercase` no CSS mantém as duas
                     coisas verdadeiras ao mesmo tempo.
@@ -489,13 +489,13 @@ export default function SolutionSteps({
           })}
         </List>
 
-        {/* ⬅ A FAIXA DE FLUXO  -  ver a prop `flow`.
+        {/* ⬅ A FAIXA DE FLUXO — ver a prop `flow`.
 
             ⚠️ AS SETAS SÃO TEXTO AQUI, e não o glifo do lucide que liga os
             passos logo acima. Não é descuido nem inconsistência: lá a seta é um
             ELEMENTO GRÁFICO entre duas células de uma grade, e é `aria-hidden`
             porque o `<ol>` já diz a ordem. Aqui ela está DENTRO de uma frase
-            corrida escrita no dado  -  "from business need → to talent bet" é uma
+            corrida escrita no dado — "from business need → to talent bet" é uma
             frase só, e partir a string para injetar um ícone entre os pedaços
             faria o leitor de tela ler quatro fragmentos soltos.
 
@@ -503,13 +503,13 @@ export default function SolutionSteps({
             layout mostra, e funciona porque a faixa é uma LINHA: um campo de
             cor de uma linha não disputa com o clímax de cor do pé da página,
             marca o fim da sequência. */}
-        {/* ⚠️ A FAIXA É UMA SETA, e não um retângulo  -  24-09, a pedido: *"o
+        {/* ⚠️ A FAIXA É UMA SETA, e não um retângulo — 24-09, a pedido: *"o
             vermelho é uma seta apontando pra direita"*. No layout ela termina
             em PONTA, como uma flâmula: o campo vermelho é a própria seta, e é
             isso que faz a sequência "terminar" à direita em vez de só acabar.
 
             ⚠️ É `clip-path` E NÃO UM TRIÂNGULO EM `::after`, porque a ponta
-            precisa acompanhar a ALTURA da faixa  -  no telefone a frase quebra em
+            precisa acompanhar a ALTURA da faixa — no telefone a frase quebra em
             duas linhas e um triângulo de altura fixa deixaria um degrau na
             emenda. Com o recorte, a ponta é sempre metade da altura, qualquer
             que ela seja.
@@ -526,7 +526,7 @@ export default function SolutionSteps({
           </p>
         ) : null}
 
-        {/* ⬅ A NOTA DE RODAPÉ  -  ver a prop `note`. Filete vermelho à esquerda,
+        {/* ⬅ A NOTA DE RODAPÉ — ver a prop `note`. Filete vermelho à esquerda,
             corpo pequeno, largura de leitura: no layout ela fecha a fileira sem
             competir com ela. */}
         {note?.trim() ? (

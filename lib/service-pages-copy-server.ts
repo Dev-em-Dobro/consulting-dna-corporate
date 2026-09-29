@@ -23,14 +23,14 @@ export const saveServicePagesCopy = store.save;
 export const servicePagesCopyStore = store;
 
 /**
- * OS DEZ SERVIÇOS COM A COPY APLICADA  -  a lista que as páginas devem renderizar.
+ * OS DEZ SERVIÇOS COM A COPY APLICADA — a lista que as páginas devem renderizar.
  *
  * ⚠️ USE ESTA, E NÃO O `services` DE `lib/services.ts`, em qualquer lugar que
  * DESENHE texto de serviço: a dobra da interna, o card da `/services` e o card
  * do "Related services". A constante continua sendo a fonte do PADRÃO, não do
  * que está publicado.
  *
- * Uma leitura só do Blob serve as três  -  por isso a lista inteira, e não um
+ * Uma leitura só do Blob serve as três — por isso a lista inteira, e não um
  * serviço de cada vez.
  */
 export async function getServicesWithCopy(): Promise<Service[]> {

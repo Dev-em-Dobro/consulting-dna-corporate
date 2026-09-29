@@ -17,14 +17,14 @@ export default async function SiteShell({
   footerTopBorder?: boolean;
   /**
    * Troca a barra vermelha (NavV1) pelo menu transparente que flutua sobre o
-   * herói (NavV2)  -  o mesmo da home e da /about.
+   * herói (NavV2) — o mesmo da home e da /about.
    *
    * É OPT-IN, e não o novo padrão, porque as duas barras convivem de propósito
    * enquanto a migração não termina: 21 rotas ainda são NavV1 + Poppins, e
    * trocar o padrão aqui mudaria todas de uma vez sem ninguém ter pedido.
    *
    * ⚠️ AS DUAS OCUPAM ESPAÇO DIFERENTE, e quem liga isto precisa saber. A NavV1
-   * é `sticky` e come 76px do fluxo; a NavV2 é `absolute` e não ocupa nada  - 
+   * é `sticky` e come 76px do fluxo; a NavV2 é `absolute` e não ocupa nada —
    * ela flutua POR CIMA da primeira seção. Ligar esta prop sem acertar o topo
    * do herói faz o conteúdo nascer debaixo do menu. A convenção que a /about
    * usa e que o <SolutionHero> segue: `min-h-svh` cheio mais `pt-[76px]`.

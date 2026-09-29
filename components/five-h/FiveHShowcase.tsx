@@ -3,7 +3,7 @@
 import { DEFAULT_APPROACH_COPY, type ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
+import { useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -83,14 +83,6 @@ export default function FiveHShowcase({
       timeline.to(wheelRef.current, { rotation: wheelRotationForStep(wheelStepsRef.current) }, 0);
     }
   });
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      if (document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      selectCard((activeRef.current + 1) % FACULTY_COLORS.length);
-    }, 5000);
-    return () => window.clearInterval(timer);
-  }, [selectCard]);
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "touch" || !event.isPrimary) return;

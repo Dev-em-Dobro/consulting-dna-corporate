@@ -10,7 +10,7 @@ export type Book = {
    */
   name: string;
   /**
-   * A linha de posicionamento que abre o bloco  -  NÃO é o nome do livro. Mantida
+   * A linha de posicionamento que abre o bloco — NÃO é o nome do livro. Mantida
    * como foi escrita (a CDNA confirmou em 01-09 que é o mesmo livro e que o
    * título do bloco é deliberadamente outro).
    */
@@ -19,7 +19,7 @@ export type Book = {
   kicker: string;
   body: string[];
   cover: string;
-  /** Ausente enquanto não houver onde comprar  -  aí o botão não sai. */
+  /** Ausente enquanto não houver onde comprar — aí o botão não sai. */
   buyUrl?: string;
 };
 

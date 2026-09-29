@@ -3,7 +3,7 @@
  *
  * Guli's mock dissolves a brand-coloured panel into the dark band and knocks the
  * client's mark out of it in white. Our logo files are colour-on-white with no
- * alpha, so the mark is knocked out at render time  -  which means the panel has
+ * alpha, so the mark is knocked out at render time — which means the panel has
  * to be dark enough for white to read on it.
  *
  * That is not a given: `LOGO_COLORS` derives each panel from the logo's own
@@ -12,7 +12,7 @@
  * until white clears a legibility floor, and leaves already-dark brands alone.
  */
 
-/** The dark end of the band  -  the colour a panel is deepened toward. */
+/** The dark end of the band — the colour a panel is deepened toward. */
 export const BAND_DARK = "#141414";
 
 /** WCAG relative luminance of a `#rrggbb`, 0 (black) → 1 (white). */
@@ -45,7 +45,7 @@ export function deepen(hex: string, amount: number): string {
 
 /**
  * Minimum contrast for the knocked-out mark. Below AA's 4.5 on purpose: the
- * logo is decorative  -  the client's name sits beside it as real text  -  so this
+ * logo is decorative — the client's name sits beside it as real text — so this
  * is a "clearly visible" floor, not a text-legibility one. Pushing to 4.5 would
  * drag every warm brand to near-black and cost the band its colour.
  */

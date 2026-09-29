@@ -25,7 +25,7 @@ export default function PageHero({
   /**
    * Shorter band and smaller title, for pages whose job is to get out of the
    * way of what follows. Guli's Our Clients mock opens on a title and a single
-   * line  -  roughly a quarter of the height this band takes by default  -  and the
+   * line — roughly a quarter of the height this band takes by default — and the
    * 27-08 brief asks to cut "endless scrolling" and "excessive white space"
    * (item 16). Opt-in rather than the new default: the pages that lead with a
    * statement still want the full band.
@@ -77,7 +77,7 @@ export default function PageHero({
               : "text-[38px] sm:text-[48px] md:text-[60px] leading-[1.03] tracking-[-1.5px]"
           }`}
         >
-          {typeof title === "string" ? title.replace(/\.$/, "") : title}
+          {title}
         </h1>
         {subtitle && (
           <p

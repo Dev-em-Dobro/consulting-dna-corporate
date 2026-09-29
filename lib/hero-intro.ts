@@ -2,7 +2,7 @@
  * Shared bits for the hero intro (Preloader + HeroV1).
  *
  * PHONE_MEDIA_QUERY: "is this a phone/tablet?" must NOT rely on viewport width
- * alone  -  iOS Safari's "Request Desktop Website" (and Android's "Desktop site")
+ * alone — iOS Safari's "Request Desktop Website" (and Android's "Desktop site")
  * reports a ~980px viewport on a real phone, which used to push handsets down
  * the desktop code path (no height pin, gesture-gated autoplay, video kept as
  * backdrop). A touch-primary device (hover: none + pointer: coarse) is a phone
@@ -31,7 +31,7 @@ export function isTouchDevice(): boolean {
  * (Re)applies the `js` / `touch` classes on <html> that all intro CSS keys
  * off. The inline <head> script sets them before first paint, but in-app
  * browsers (WhatsApp, Instagram, ...) inject code that breaks React
- * hydration (error #418)  -  React then re-renders <html> with its own
+ * hydration (error #418) — React then re-renders <html> with its own
  * className, WIPING both classes and silently killing every html.js/.touch
  * rule (observed on the user's iPhone: the canvas played invisibly behind
  * the poster). Called from post-hydration effects so the classes always
@@ -44,11 +44,11 @@ export function applyEnvClasses(): void {
 }
 
 /**
- * The phone intro is a GSAP-driven image sequence drawn onto a <canvas>  - 
+ * The phone intro is a GSAP-driven image sequence drawn onto a <canvas> —
  * plain JavaScript, so no autoplay policy applies (iOS Low Power Mode blocks
  * <video> autoplay and stutters large animated images). Frames are extracted
  * from hero-intro.mp4 with ffmpeg at 12fps / 720px WebP (~2.7MB total, 239
- * frames ≈ 19.9s  -  the full clip).
+ * frames ≈ 19.9s — the full clip).
  */
 export const HERO_FRAME_COUNT = 239;
 export const HERO_FRAME_FPS = 12;
@@ -59,7 +59,7 @@ export const heroFramePath = (i: number) =>
   `/videos/hero-frames/f-${String(i + 1).padStart(3, "0")}.webp`;
 
 /**
- * Downloads every intro frame (bounded concurrency  -  phone radios choke on a
+ * Downloads every intro frame (bounded concurrency — phone radios choke on a
  * 239-request burst) and materializes each as a loaded <img>. Images are kept
  * compressed in memory (~2.7MB); decoding happens per-draw with a small
  * decode-ahead window in HeroV1, so we never hold ~280MB of raw bitmaps.

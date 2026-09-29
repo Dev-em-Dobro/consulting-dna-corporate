@@ -5,7 +5,7 @@ import heroPhoto from "@/public/solutions/service-hero-fallback.jpg";
  * A hélice de DNA sobre a Terra à noite, mandada em 11-09. É a primeira imagem
  * deste projeto que NÃO é fotografia de evento: não tem rosto, não tem marca de
  * terceiro na parede, não insinua relação com cliente nenhum. Por isso ela pode
- * repetir-se nas dez páginas sem o problema que tirou as fotos daqui  -  repetição
+ * repetir-se nas dez páginas sem o problema que tirou as fotos daqui — repetição
  * de ilustração lê como identidade; repetição de fotografia lê como falta de
  * material.
  *
@@ -16,7 +16,7 @@ import heroPhoto from "@/public/solutions/service-hero-fallback.jpg";
  * SUPERIOR; o globo e as luzes de cidade ocupam os dois terços de baixo, com o
  * ponto mais brilhante embaixo à esquerda. O espaço realmente escuro e vazio é o
  * alto ao centro-direita, entre as voltas da hélice. Texto claro só é legível ali
- * ou sobre escurecimento  -  e é isso que separa as versões 7 e 8 abaixo.
+ * ou sobre escurecimento — e é isso que separa as versões 7 e 8 abaixo.
  */
 import dnaEarth from "@/public/solutions/dna-earth.jpg";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * ⚠️ PÁGINA DESCARTÁVEL  -  seis tratamentos para os blocos 2 e 3 do template de
+ * ⚠️ PÁGINA DESCARTÁVEL — seis tratamentos para os blocos 2 e 3 do template de
  * serviço ("The Outcome" e "How CorporateDNA Helps"). Some quando um for
  * escolhido, como sumiu a `/hero-tests`.
  *
@@ -41,18 +41,18 @@ export const metadata: Metadata = {
  * foto saiu em 11-09 porque era import fixo, a MESMA nas dez páginas, e portanto
  * a única coisa da página que o cliente não poderia trocar ao assumir o conteúdo
  * (`solutionSchema` tem um campo de imagem só, o do herói). Com a foto foi
- * embora a alternância, que existia para dar ritmo entre fotos  -  e o ritmo
+ * embora a alternância, que existia para dar ritmo entre fotos — e o ritmo
  * passou a depender só da troca de fundo. É exatamente o que não está bastando.
  *
  * AS DUAS REFERÊNCIAS MANDADAS EM 11-09 dizem coisas diferentes, e as duas
  * cabem aqui:
- *   • `ref service 1` (Prisma)  -  cena fotográfica em sangria total, tipo
+ *   • `ref service 1` (Prisma) — cena fotográfica em sangria total, tipo
  *     enorme por cima, texto curto no canto oposto. Atmosfera vinda de FOTO.
- *   • `ref service 2` (cosmos)  -  quase nada de imagem: um traço de luz em
+ *   • `ref service 2` (cosmos) — quase nada de imagem: um traço de luz em
  *     diagonal sobre preto, e a tipografia fazendo o trabalho. Atmosfera vinda
  *     de GRADIENTE.
  * A segunda importa mais do que parece: ela mostra que dá para ter presença sem
- * fotografia  -  e fotografia por serviço é justamente o que não existe e o que
+ * fotografia — e fotografia por serviço é justamente o que não existe e o que
  * foi pedido ao cliente. As versões 3 e 6 saem hoje sem depender de arquivo
  * nenhum; a 4 e a 5 dependem de material que ainda não chegou.
  *
@@ -97,7 +97,7 @@ function Divider({ n, name, note }: { n: number; name: string; note: string }) {
    O que resolve: as duas silhuetas deixam de ser iguais, então a troca de
    assunto fica visível antes de ler.
    O limite: continua sendo texto sobre fundo chapado. Se o problema for
-   "falta presença", isto não resolve  -  resolve só a repetição.
+   "falta presença", isto não resolve — resolve só a repetição.
    ───────────────────────────────────────────────────────────────────────── */
 function V1() {
   return (
@@ -135,7 +135,7 @@ function V1() {
    peso só, e o leitor não sabe onde começar. A primeira frase sobe para
    serifa grande, o resto fica em corpo de leitura.
    O que resolve: hierarquia dentro do bloco, e um "gancho" escaneável.
-   O limite: só funciona quando a primeira frase se sustenta sozinha  -  no
+   O limite: só funciona quando a primeira frase se sustenta sozinha — no
    Outcome ela é a frase inteira, então o bloco fica sem corpo.
    ───────────────────────────────────────────────────────────────────────── */
 function V2() {
@@ -175,7 +175,7 @@ function V2() {
    Zero fotografia: o fundo é `ink` com um gradiente diagonal em vermelho de
    marca, do canto para o meio. É a leitura da referência do cosmos, onde a
    "imagem" é só luz.
-   O que resolve: presença de verdade, e sem depender de arquivo nenhum  - 
+   O que resolve: presença de verdade, e sem depender de arquivo nenhum —
    pode ir para produção hoje.
    O limite: dois blocos escuros seguidos numa página que já tem herói escuro
    e faixa de evidência escura. Provavelmente só UM dos dois pode ser assim.
@@ -237,7 +237,7 @@ function V3() {
    O que resolve: é o tratamento de maior presença dos seis.
    ⚠️ O LIMITE É REAL E NÃO É DE DESENHO: a foto aqui é a mesma do herói,
    porque é a única sem marca de terceiro à vista. Usada assim, a página abre
-   com ela e repete ela duas vezes  -  lê como falta de material, que é o que é.
+   com ela e repete ela duas vezes — lê como falta de material, que é o que é.
    Este tratamento só vale a partir do dia em que existir foto POR SERVIÇO, e
    é o argumento mais forte do pedido de fotografia de 11-09.
    ───────────────────────────────────────────────────────────────────────── */
@@ -344,8 +344,8 @@ function V5() {
 
 /* ─────────────────────────────────────────────────────────────────────────
    6 · NUMERADA, COM O NÚMERO COMO GRÁFICO
-   O "01/02" vira o elemento visual  -  grande, em vermelho, na coluna estreita
-    - , e a alternância é de lado. Sem imagem.
+   O "01/02" vira o elemento visual — grande, em vermelho, na coluna estreita
+   —, e a alternância é de lado. Sem imagem.
    O que resolve: dá aos dois blocos uma relação de SEQUÊNCIA (primeiro o que
    muda, depois como), que hoje não está dita em lugar nenhum.
    O limite: numerar sugere um método de N passos, e são só dois blocos.
@@ -388,12 +388,12 @@ function V6() {
 /* ─────────────────────────────────────────────────────────────────────────
    7 · A HÉLICE AO FUNDO, TEXTO CENTRADO
    A imagem cobre a seção inteira e o texto vai para o meio, em coluna curta.
-   O escurecimento é PAREJO  -  um véu de cima a baixo  -  porque texto centrado
+   O escurecimento é PAREJO — um véu de cima a baixo — porque texto centrado
    cruza a largura toda e não existe um lado seguro para deixar limpo.
    O que resolve: presença máxima com uma imagem que pode repetir nas dez
    páginas sem parecer falta de material.
    O limite: véu parejo é o que mais apaga a imagem. Ela vira textura, não
-   assunto  -  e aqui ela TEM assunto (é a marca desenhada).
+   assunto — e aqui ela TEM assunto (é a marca desenhada).
    ───────────────────────────────────────────────────────────────────────── */
 function V7() {
   return (
@@ -418,7 +418,7 @@ function V7() {
             className={`-z-20 object-cover ${b.pos}`}
           />
           {/* SUBIU DE .62/.78/.62 PARA .76/.86/.76. Texto centrado não tem lado
-              seguro  -  ele cruza a largura inteira, então passa por cima da
+              seguro — ele cruza a largura inteira, então passa por cima da
               hélice, do limbo aceso do globo e das luzes de cidade no mesmo
               parágrafo. O véu tem de servir ao PIOR pedaço, e o pior pedaço
               aqui é claro. Esta versão paga isso apagando mais a imagem; é o
@@ -453,7 +453,7 @@ function V7() {
    parejo, ele é LATERAL e para na metade. O texto encosta num lado e a
    imagem fica limpa no outro.
    Na primeira linha o texto vai para a DIREITA, que é onde o céu é escuro e
-   vazio entre as voltas da hélice  -  e aí o globo aceso sobra livre à
+   vazio entre as voltas da hélice — e aí o globo aceso sobra livre à
    esquerda, que é a parte que vale a pena mostrar. Na segunda linha inverte.
    O que resolve: a imagem deixa de ser papel de parede e vira metade da
    composição, sem custar legibilidade.
@@ -482,7 +482,7 @@ function V8() {
           {/* O PLATÔ ESCURO COBRE A COLUNA DE TEXTO INTEIRA e só então cai.
               A coluna tem 560px encostada numa borda de um container de 1440,
               ou seja, ela vive nos primeiros ~42% da largura contados a partir
-              daquele lado  -  por isso o platô vai até 44% e não até 30%. A
+              daquele lado — por isso o platô vai até 44% e não até 30%. A
               primeira versão começava a clarear no meio do parágrafo, e era ali
               que a leitura quebrava, não na borda.
 
@@ -493,7 +493,7 @@ function V8() {
               o pior pixel sob o texto fica em 4,5:1 contra branco, que é a régua
               de AA para corpo de texto.
 
-              A QUEDA CONTINUA RÁPIDA depois do platô  -  44% → 88%  -  porque é ela
+              A QUEDA CONTINUA RÁPIDA depois do platô — 44% → 88% — porque é ela
               que preserva o ponto desta versão: a metade sem texto fica com a
               imagem crua. Aumentar opacidade alargando o véu resolveria a
               leitura e mataria a ideia.
@@ -503,8 +503,8 @@ function V8() {
               em 11-09: sem ele a metade limpa ficava com a foto em brilho
               total, mais acesa que qualquer outra faixa do site, e a seção lia
               como banner e não como parte da página. A de cima é o gradiente
-              lateral de sempre. Camada de CSS composita sozinha  -  a primeira
-              listada fica por cima  - , então sob o texto o alfa efetivo é
+              lateral de sempre. Camada de CSS composita sozinha — a primeira
+              listada fica por cima —, então sob o texto o alfa efetivo é
               1-(1-.95)(1-.30) = .965, quase preto, e do lado limpo é .30.
               Ou seja: a imagem inteira desce um degrau e o texto continua
               ganhando o seu próprio escuro por cima disso. */}
@@ -545,12 +545,12 @@ function V8() {
    imagem do outro, e o que separa os dois não é uma borda reta: é um corte
    inclinado, que alarga o painel de cima para baixo.
    O que resolve: a diagonal é o elemento gráfico que faltava. Ela dá direção
-   e movimento sem depender de escurecer nada  -  e mantém o texto em preto
+   e movimento sem depender de escurecer nada — e mantém o texto em preto
    sobre claro, que é onde ele lê melhor e é o resto da página.
    A alternância aqui é a diagonal ESPELHADA, não só o lado trocado, então os
    dois blocos formam um "vai e volta" em vez de duas fatias iguais.
    O limite: corte diagonal é gesto forte e data rápido. E ele come um pedaço
-   da imagem  -  com foto de pessoa isso seria problema; com esta ilustração,
+   da imagem — com foto de pessoa isso seria problema; com esta ilustração,
    que não tem assunto num canto só, não é.
    ───────────────────────────────────────────────────────────────────────── */
 function V9() {
@@ -603,8 +603,8 @@ function V9() {
                   {b.label}
                 </p>
                 {/* A RÉGUA VEM DA REFERÊNCIA, onde ela separa o título do texto
-                    de apoio. Aqui ela usa a medida que o site já tem  -  36×2, a
-                    mesma do rótulo do herói  -  em vez de um traço novo. */}
+                    de apoio. Aqui ela usa a medida que o site já tem — 36×2, a
+                    mesma do rótulo do herói — em vez de um traço novo. */}
                 <span className="mt-7 block h-0.5 w-9 bg-brand" />
                 <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
                   {b.text}
@@ -636,13 +636,13 @@ function V9() {
 /* ─────────────────────────────────────────────────────────────────────────
    10 · UMA TELA CHEIA POR BLOCO, LADOS ALTERNADOS
    Onde a série chegou depois de quatro rodadas, e o que sobrou é menos do
-   que começou  -  na ordem certa.
+   que começou — na ordem certa.
    A 9 tinha o corte diagonal nas laterais internas dos painéis. O defeito
    não era o ângulo: era que em cima e embaixo o corte continuava reto, então
    entre um bloco e outro passava uma LINHA HORIZONTAL que fatiava as duas
    diagonais pela metade e deixava dois trapézios se encarando. A correção
    foi mover o ângulo para a EMENDA, e ela funcionava.
-   Aí cada bloco ganhou uma tela inteira  -  e com uma tela inteira a diagonal
+   Aí cada bloco ganhou uma tela inteira — e com uma tela inteira a diagonal
    deixou de ser necessária. O que ela resolvia era dizer onde um bloco
    termina e o outro começa; a altura cheia já diz isso sozinha, e diz sem um
    gesto que data. Saiu a pedido, e o argumento dela tinha acabado antes.
@@ -655,9 +655,9 @@ function V9() {
 function V10() {
   return (
     <div className="relative">
-      {/* BLOCO 1  -  texto à esquerda, imagem à direita. */}
+      {/* BLOCO 1 — texto à esquerda, imagem à direita. */}
       <section className="bg-white">
-        {/* ⚠️ `svh` E NÃO `vh`, sempre  -  a mesma regra do `SolutionHero`. No
+        {/* ⚠️ `svh` E NÃO `vh`, sempre — a mesma regra do `SolutionHero`. No
             telefone `100vh` conta a tela COM a barra de endereço retraída, e a
             base do bloco fica escondida atrás do navegador até a pessoa rolar.
 
@@ -666,7 +666,7 @@ function V10() {
             "ocupe a altura toda". Posta na seção, a imagem continuaria com a
             altura do texto e sobraria fundo embaixo dela.
 
-            `lg:` porque no telefone as duas colunas empilham  -  duas telas
+            `lg:` porque no telefone as duas colunas empilham — duas telas
             cheias uma sobre a outra viram quatro, e aí o visitante rola quatro
             telas para ler dois parágrafos. */}
         <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:flex-row lg:items-stretch">
@@ -694,16 +694,16 @@ function V10() {
         </div>
       </section>
 
-      {/* BLOCO 2  -  imagem à esquerda, texto à direita.
+      {/* BLOCO 2 — imagem à esquerda, texto à direita.
           `paper` CONTRA O BRANCO DE CIMA, e é o que separa as duas telas agora
           que a diagonal saiu. Sem a troca de tom, duas seções de altura cheia
           com a imagem em lados opostos ainda leriam como uma só rolagem
-          contínua  -  a cor é o que marca a virada.
+          contínua — a cor é o que marca a virada.
 
           ⚠️ SEM `-mt` E SEM COMPENSAÇÃO DE ALTURA. Enquanto havia emenda
           diagonal esta seção subia 90px sob a anterior e precisava de
           `calc(100svh+90px)` para a parte visível dar uma tela. Tirado o
-          corte, `100svh` é exatamente uma tela e as duas linhas saíram juntas  - 
+          corte, `100svh` é exatamente uma tela e as duas linhas saíram juntas —
           deixar a compensação para trás daria 90px de sobra sem motivo. */}
       <section className="bg-paper">
         <div className="mx-auto flex max-w-[1440px] flex-col lg:min-h-svh lg:flex-row-reverse lg:items-stretch">

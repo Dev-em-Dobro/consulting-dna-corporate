@@ -1,11 +1,11 @@
 /**
- * Praise for the book  -  recovered from the legacy /book-endorsements page
+ * Praise for the book — recovered from the legacy /book-endorsements page
  * (Wayback snapshot 2015-08-16), which now redirects to the home `#book`
  * section. Quotes are reproduced verbatim from that page, including the
  * original "crucible earning moments" wording.
  *
  * Rendered inside the dark book card so it reads as part of that block rather
- * than as a section of its own  -  hence the on-ink colour treatment.
+ * than as a section of its own — hence the on-ink colour treatment.
  */
 
 type Endorsement = {

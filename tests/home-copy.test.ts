@@ -57,7 +57,7 @@ test("todo campo do editor aponta para um valor existente no padrão", () => {
 test("setAtPath não muta o original e troca dentro de arrays", () => {
   const next = setAtPath(DEFAULT_HOME_COPY, "impact.cases.1.client", "Acme");
   assert.equal(next.impact.cases[1].client, "Acme");
-  assert.equal(DEFAULT_HOME_COPY.impact.cases[1].client, "Frasers");
+  assert.equal(DEFAULT_HOME_COPY.impact.cases[1].client, "Coca-Cola");
   assert.equal(next.impact.cases[0], DEFAULT_HOME_COPY.impact.cases[0]);
 });
 

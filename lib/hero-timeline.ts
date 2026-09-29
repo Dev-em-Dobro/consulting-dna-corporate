@@ -1,10 +1,10 @@
 /**
- * A entrada do herói  -  a timeline que a home roda no `load`, agora em um lugar
+ * A entrada do herói — a timeline que a home roda no `load`, agora em um lugar
  * só para que outras páginas possam rodar a MESMA.
  *
  * De onde ela vem: estava dentro de `HeroV2.tsx`, escrita ali desde a V1. Saiu
  * daqui em 11-09, quando a /about pediu a mesma entrada. As curvas, as
- * distâncias e as sobreposições são as de lá, sem um número mudado  -  o ponto da
+ * distâncias e as sobreposições são as de lá, sem um número mudado — o ponto da
  * extração é exatamente que não haja dois conjuntos de números para ajustar.
  *
  * ⚠️ OS ALVOS NASCEM ESCONDIDOS, e isto é o que torna a função obrigatória e
@@ -12,14 +12,14 @@
  * `.h-title`, `.h-sub`, `.h-cta` e `.h-cue` sob `html.js`, para que nada pisque montado
  * antes de o GSAP assumir. Quem põe uma dessas classes numa página e NÃO roda
  * esta timeline publica um bloco invisível. Por isso quem chama precisa de um
- * disparo garantido  -  ver o `gate` em `HeroIntro.tsx` e em `HeroV2.tsx`, os dois
+ * disparo garantido — ver o `gate` em `HeroIntro.tsx` e em `HeroV2.tsx`, os dois
  * com prazo de segurança.
  *
  * POR QUE `root` E NÃO SELETOR SOLTO: a versão anterior passava as strings
  * direto para o GSAP e contava com o escopo do `gsap.context`. Funciona, mas
  * amarra a função a ser chamada dentro de um contexto, e faz o GSAP reclamar no
  * console ("target not found") em toda página que não tenha os cinco elementos
- *  -  a /about, por exemplo, não tem `.h-bar` nem `.h-cta`. Consultando o `root`
+ * — a /about, por exemplo, não tem `.h-bar` nem `.h-cta`. Consultando o `root`
  * dá para simplesmente não criar o tween que não tem alvo.
  */
 import { gsap } from "gsap";
@@ -28,7 +28,7 @@ import { gsap } from "gsap";
  * Monta a entrada PAUSADA e devolve. Quem chama decide quando tocar.
  *
  * `fromTo` e não `from`: os alvos começam escondidos pelo CSS, então o estado
- * final visível tem de ser dito por extenso  -  com `from`, o GSAP leria o valor
+ * final visível tem de ser dito por extenso — com `from`, o GSAP leria o valor
  * escondido como destino e animaria de escondido para escondido.
  */
 export function buildHeroIntro(root: HTMLElement): gsap.core.Timeline {
@@ -87,7 +87,7 @@ export function buildHeroIntro(root: HTMLElement): gsap.core.Timeline {
       tl.duration() ? "-=0.5" : 0,
     );
   }
-  // A seta de rolagem é sempre a ÚLTIMA, e entra quase sem sobreposição  - 
+  // A seta de rolagem é sempre a ÚLTIMA, e entra quase sem sobreposição —
   // diferente dos outros, ela não faz parte da frase. Primeiro a página se
   // apresenta; só então ela diz que há mais. Ela também é o único alvo que vive
   // colado na base da dobra, longe do bloco de texto, então subir 10px (e não

@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 import type { ServicePathway } from "@/lib/services";
 
 /**
- * AS TRILHAS  -  os cartões horizontais de "What we do" no layout de Manager
+ * AS TRILHAS — os cartões horizontais de "What we do" no layout de Manager
  * Development (`docs/meetings/manager-development-24-09.jpeg`, 24-09).
  *
  * Cada cartão é foto à esquerda e conteúdo à direita, sobre um campo claro:
@@ -15,7 +15,7 @@ import type { ServicePathway } from "@/lib/services";
  * ⚠️ ISTO NÃO É O `SolutionAudiences`, E A DIFERENÇA NÃO É SÓ DE FORMA
  * ============================================================================
  * Os cartões de público da Senior Leadership Development são TRÊS, verticais,
- * com a foto em cima e o nome do público sobreposto nela  -  eles respondem "a
+ * com a foto em cima e o nome do público sobreposto nela — eles respondem "a
  * quem o serviço se destina". Estes são DOIS, horizontais, e respondem "o que
  * você recebe": a lista de itens é o conteúdo da trilha, e ela não existe
  * naquele componente.
@@ -25,7 +25,7 @@ import type { ServicePathway } from "@/lib/services";
  * peças (sobreposição na foto contra lista com visto). São dois.
  *
  * ⚠️ O FUNDO É `paper` SOBRE BRANCO, como os cartões de público. No layout o
- * campo dos cartões é um rosa muito claro, mais quente que o nosso `paper`  -  a
+ * campo dos cartões é um rosa muito claro, mais quente que o nosso `paper` — a
  * razão de não termos trocado o token por causa de um desenho está na caixa de
  * `tone`, em `SolutionSection`, e vale igual aqui.
  *
@@ -33,7 +33,7 @@ import type { ServicePathway } from "@/lib/services";
  * mais nada. Os cartões pertencem visivelmente ao bloco de cima, e é por isso
  * que dividem a faixa branca com ele em vez de ganharem fundo próprio.
  *
- * Lista vazia (ou ausente) não renderiza nada  -  a mesma guarda dos pilares e da
+ * Lista vazia (ou ausente) não renderiza nada — a mesma guarda dos pilares e da
  * evidência.
  */
 export default function SolutionPathways({ items }: { items?: ServicePathway[] }) {
@@ -44,7 +44,7 @@ export default function SolutionPathways({ items }: { items?: ServicePathway[] }
     <section className="bg-white">
       {/* ⚠️ O `pb` ENCOLHEU EM 24-09, a pedido: *"o espaço da secao The manager
           moments that matter e da de cima ficou muito grande"*. Era `pb-20
-          md:pb-24`, e SOMAVA com o `pt` da faixa de momentos logo abaixo  -  as
+          md:pb-24`, e SOMAVA com o `pt` da faixa de momentos logo abaixo — as
           duas são brancas, então o leitor via um vão de 144 a 176px entre o
           último cartão e o rótulo seguinte, contra os ~40px do layout.
 
@@ -65,7 +65,7 @@ export default function SolutionPathways({ items }: { items?: ServicePathway[] }
             return (
               <article
                 key={p.label}
-                /* ⚠️ 40% / 60%, a pedido de 24-09  -  antes a foto era uma coluna
+                /* ⚠️ 40% / 60%, a pedido de 24-09 — antes a foto era uma coluna
                    FIXA de 320px, o que a 1440 dava 22% e a 900 dava 36%: a
                    proporção mudava com a janela. `2fr_3fr` é 40% em qualquer
                    largura, que é o que foi pedido. */
@@ -74,7 +74,7 @@ export default function SolutionPathways({ items }: { items?: ServicePathway[] }
                 {p.image ? (
                   /* `aspect` SÓ ABAIXO DE `md`: empilhada, a foto precisa de uma
                      altura própria ou colapsa; ao lado do texto ela deve ter a
-                     altura da COLUNA DE TEXTO, que muda com o número de itens  - 
+                     altura da COLUNA DE TEXTO, que muda com o número de itens —
                      daí `md:h-full` com `fill`, que é o que o layout mostra
                      (as duas fotos têm alturas diferentes, acompanhando os
                      cartões). */
@@ -120,7 +120,7 @@ export default function SolutionPathways({ items }: { items?: ServicePathway[] }
                     /* O FILETE ENTRE AS COLUNAS É `divide-x`, e o `md:gap-x-0`
                        anda junto com ele pela mesma razão do `SolutionPillars`:
                        com calha, a borda nasce colada à borda esquerda da
-                       segunda coluna e a calha inteira fica de um lado só  -  o
+                       segunda coluna e a calha inteira fica de um lado só — o
                        traço deixa de estar ENTRE as duas. O respiro vem do
                        `md:px-6` de cada coluna. */
                     <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-0 sm:grid-cols-2 md:gap-x-0 md:divide-x md:divide-line">

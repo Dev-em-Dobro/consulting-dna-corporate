@@ -34,7 +34,7 @@ function Chevron({ className = "" }: { className?: string }) {
  * com o herói quando a página rola.
  *
  * De onde vem: a Rhea não falou "tirem a barra", falou sobre caixas empilhadas
- * antes da imagem  -  o Guilherme traduziu na call interna `[02:52]`: "você tinha
+ * antes da imagem — o Guilherme traduziu na call interna `[02:52]`: "você tinha
  * o de cima com os menus, depois o de baixo com o que tá passando, depois vem a
  * imagem. Ela quer que você tenha tudo aberto pra ver a imagem, sem nenhuma
  * caixinha em volta". Tirar só o ticker resolve metade; a outra caixa é esta.
@@ -54,7 +54,7 @@ function Chevron({ className = "" }: { className?: string }) {
  * e nenhuma delas pode mudar por causa desta proposta.
  */
 /**
- * `wide`  -  larga a barra até as bordas da janela, em vez de prendê-la no
+ * `wide` — larga a barra até as bordas da janela, em vez de prendê-la no
  * container de 1200px.
  *
  * Existe para a /home-v3 (07-09). Naquela referência o conteúdo encosta nas
@@ -64,7 +64,7 @@ function Chevron({ className = "" }: { className?: string }) {
  *
  * Opcional e desligado por padrão de propósito: a /home-v2 usa o mesmo
  * componente e não pode mudar. Prop em vez de um NavV3 copiado porque a
- * diferença é uma classe  -  duplicar 160 linhas por causa disso criaria dois
+ * diferença é uma classe — duplicar 160 linhas por causa disso criaria dois
  * menus para manter em sincronia.
  *
  * Só o cabeçalho muda. O painel do menu no telefone continua em 1200px: ele
@@ -72,7 +72,7 @@ function Chevron({ className = "" }: { className?: string }) {
  * grande piora a leitura em vez de melhorar.
  */
 /**
- * `maxWidthClass`  -  a largura do container quando `wide` está desligado.
+ * `maxWidthClass` — a largura do container quando `wide` está desligado.
  *
  * Nasceu em 08-09 para a /about-v2, que levou o conteúdo para 1440px e pediu
  * este menu transparente: com o padrão de 1200 o logo ficaria 120px à direita
@@ -84,12 +84,12 @@ function Chevron({ className = "" }: { className?: string }) {
  * about e desalinharia a home no mesmo commit.
  */
 /**
- * `outlined`  -  o menu na tipografia do teste de 09-09, com o Contact virando
+ * `outlined` — o menu na tipografia do teste de 09-09, com o Contact virando
  * botão vermelho sólido e os demais itens ganhando uma régua vermelha no hover.
  *
  * Pedido de 09-09 para a /about-v2, junto com o teste de tipografia: o menu em
  * caixa alta 11,5px é parte do que a Rhea chama de "quadrado demais". Aqui ele
- * vira Geist 400 em caixa baixa, 16px  -  os valores medidos no menu da própria
+ * vira Geist 400 em caixa baixa, 16px — os valores medidos no menu da própria
  * Explore, e não os da grade escrita. Ver o comentário de `linkType`.
  *
  * ⚠️ O NOME DA PROP FICOU MAIOR QUE A COISA. Ela nasceu para dar CONTORNO
@@ -99,12 +99,12 @@ function Chevron({ className = "" }: { className?: string }) {
  * Se o teste for aprovado e isto virar o menu de verdade, o nome muda junto.
  *
  * O CONTACT É O ÚNICO SÓLIDO, e é o que sustenta a hierarquia: os outros sete
- * não têm fundo nenhum, então o vermelho cheio marca a ação primária sozinho  - 
+ * não têm fundo nenhum, então o vermelho cheio marca a ação primária sozinho —
  * era o que o contorno branco fazia antes, com menos ênfase.
  *
  * Prop, e não um NavV3 copiado, pela mesma razão que `wide` e `maxWidthClass`:
  * a diferença é um punhado de classes, e a /home-v2 e a /home-v3 usam este
- * arquivo. Desligado por padrão  -  quem não pedir continua com o menu de antes.
+ * arquivo. Desligado por padrão — quem não pedir continua com o menu de antes.
  *
  * Só o cabeçalho de desktop muda. O painel do telefone abre sobre `bg-brand`
  * sólido, onde régua vermelha é invisível por definição.
@@ -129,7 +129,7 @@ export default function NavV2({
    * cita ("quando estiver na página about, marcar o menu"). A página declara o
    * que ela representa, em vez de a nav adivinhar.
    *
-   * Sem a prop, vale a rota real  -  então quando isto virar a /about de verdade
+   * Sem a prop, vale a rota real — então quando isto virar a /about de verdade
    * o comportamento continua certo e a prop simplesmente sai.
    */
   activeHref?: string;
@@ -142,7 +142,7 @@ export default function NavV2({
   /**
    * Um item está ativo se a rota atual é a dele ou vive debaixo dela.
    *
-   * As duas exclusões não são detalhe  -  sem elas o menu marca a coisa errada em
+   * As duas exclusões não são detalhe — sem elas o menu marca a coisa errada em
    * toda página do site:
    *
    *   • HREF COM `#` nunca casa. "Books" aponta para `/#book` e "Contact" para
@@ -166,27 +166,27 @@ export default function NavV2({
      a referência da Explore Performance não tem.
 
      PESO 400, e não os 500 da grade de 09-09. A grade escreve "Botões, menu,
-     links de navegação  -  Geist 500, 16px, espaçamento 0,5px"; medido no menu da
+     links de navegação — Geist 500, 16px, espaçamento 0,5px"; medido no menu da
      própria Explore, que é a referência de onde a grade saiu, os itens são
      **Platform Web 400, 16px, `letter-spacing: normal`**. A grade endureceu os
-     dois valores no caminho. Aqui vale a medida, não a transcrição  -  e por isso
+     dois valores no caminho. Aqui vale a medida, não a transcrição — e por isso
      o espacejamento de 0,5px também caiu junto.
 
      400 é o mais leve que dá para usar sem mexer no carregamento: a Geist é
      baixada nesta página com 400/500/600/700. Ela tem 100–300, mas cada peso é
      um arquivo a mais na primeira dobra, e 300 em corpo de 15px sobre foto já
-     começa a sumir  -  o menu é branco sobre imagem, não preto sobre branco.
+     começa a sumir — o menu é branco sobre imagem, não preto sobre branco.
 
      A família não é declarada aqui: a página envolve a árvore inteira com a
      Geist trocando o `--font-sans` local, então este componente continua
      dizendo apenas `font-sans` e serve às duas páginas sem saber de fonte.
 
-     16px EM TODA A FAIXA, sem degrau responsivo  -  e isso só passou a caber por
+     16px EM TODA A FAIXA, sem degrau responsivo — e isso só passou a caber por
      causa do peso. Medido: a 500 o menu dava 893px a 16px e estourava o tablet
      de 1024, onde o espaço livre (container menos o logo de 67px e o vão de
      24px) é de 853px; a solução na época foi cair para 14,5px de 1024 a 1279.
      A 400 o mesmo menu mede 748px. Sobram 105px em 1024, com folga de sobra
-     para a seta de ~18px que o item Services ganha quando o CMS responde  -  o
+     para a seta de ~18px que o item Services ganha quando o CMS responde — o
      que o teste local, com o CMS fora do ar, esconde.
 
      Ou seja: aliviar o peso pagou o corpo de letra. É por isso que o degrau
@@ -195,7 +195,7 @@ export default function NavV2({
     ? "font-serif text-[16px] font-normal"
     : "text-[11.5px] font-semibold uppercase tracking-[0.6px]";
 
-  /* O BOTÃO É UM DEGRAU MAIS PESADO QUE OS LINKS  -  500 contra 400, mesmo corpo.
+  /* O BOTÃO É UM DEGRAU MAIS PESADO QUE OS LINKS — 500 contra 400, mesmo corpo.
      Não é escolha nossa: medido no header da Explore, os itens são peso 400 e o
      "Get In Touch" é 500. É a hierarquia sendo dita duas vezes, pelo fundo cheio
      e pelo peso, que é o que faz um botão continuar lendo como botão mesmo
@@ -222,7 +222,7 @@ export default function NavV2({
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          {/* ⚠️ O LOGO DE VERDADE ENTROU EM 15-09  -  item 1 da lista que foi para
+          {/* ⚠️ O LOGO DE VERDADE ENTROU EM 15-09 — item 1 da lista que foi para
               a Maliha, e o "placeholder at the top" que ela mandou substituir era
               este: o `cdna-logo-light.svg` é só o LETREIRO ("corporate / DNA /
               consulting"), sem o símbolo da hélice. O arquivo dela
@@ -230,7 +230,7 @@ export default function NavV2({
               círculo vermelho e a hélice à esquerda do letreiro.
 
               PNG E NÃO SVG porque foi PNG que ela mandou; não existe vetor no
-              pacote. Vale pedir o `.ai`/`.svg` a ela  -  um logo de header é o
+              pacote. Vale pedir o `.ai`/`.svg` a ela — um logo de header é o
               lugar onde vetor mais se paga. O arquivo aqui está em 1079x432,
               que é 3x a altura de render (48px no `xl`), então em tela densa
               ainda sobra resolução. Fundo transparente, letreiro branco: é a
@@ -238,7 +238,7 @@ export default function NavV2({
 
               ⚠️ A ALTURA É MENOR QUE A DO LETREIRO ANTIGO, E A CONTA IMPORTA.
               A marca completa é 2,5:1 contra 1,39:1 do letreiro sozinho, ou
-              seja ela ocupa mais LARGURA na mesma altura  -  e esta barra tem
+              seja ela ocupa mais LARGURA na mesma altura — e esta barra tem
               orçamento apertado a 1024, que é onde o menu de desktop começa.
               Medido, com o `md:px-10` desta faixa:
                  1024 − 80 de padding      = 944 de container
@@ -252,13 +252,13 @@ export default function NavV2({
               ⚠️ BAIXOU PARA `h-8 xl:h-10` EM 15-09, a pedido: com a marca
               completa o logo ficou grande demais na barra. O `h-8` põe a
               pegada dele em 80px, que é 13px a mais que os 67px do letreiro
-              antigo em `h-12`  -  ou seja, o cabeçalho volta a ter praticamente
+              antigo em `h-12` — ou seja, o cabeçalho volta a ter praticamente
               o mesmo peso de antes, agora com o símbolo.
 
               O QUE ISSO CUSTA, e é o limite de quanto dá para encolher: a
               altura do LETREIRO cai junto com a do símbolo, e "consulting" já
               é a linha mais fina da marca. A 32px ela fica em ~3px de altura
-              de letra  -  legível como forma, não como palavra. Abaixo disso o
+              de letra — legível como forma, não como palavra. Abaixo disso o
               honesto é usar só o símbolo, não encolher a marca inteira.
 
               O `alt` MUDOU de "Corporate DNA" para o nome completo: é o que a
@@ -271,7 +271,7 @@ export default function NavV2({
           />
         </Link>
 
-        {/* desktop nav  -  `lg`, same reason as NavV1: the 08-09 menu is 773px
+        {/* desktop nav — `lg`, same reason as NavV1: the 08-09 menu is 773px
             wide and gets clipped from the right on a `md` tablet, taking the
             Contact button with it.
 
@@ -286,7 +286,7 @@ export default function NavV2({
         >
           {items.map((item) =>
             item.cta ? (
-              // Contorno branco no padrão  -  um botão que funciona tanto sobre a
+              // Contorno branco no padrão — um botão que funciona tanto sobre a
               // faixa vermelha quanto sobre a foto, que é justamente por que ele
               // é contorno e não preenchimento (mesmo tratamento da NavV1).
               // Em `outlined` ele vira vermelho SÓLIDO: com os sete vizinhos
@@ -305,7 +305,7 @@ export default function NavV2({
                 {item.label}
               </Link>
             ) : item.children ? (
-              // ALINHAMENTO DO ITEM COM SETA  -  corrigido em 09-09, medido.
+              // ALINHAMENTO DO ITEM COM SETA — corrigido em 09-09, medido.
               //
               // Ele nascia 3px acima dos vizinhos, e eram duas causas somadas:
               //
@@ -317,14 +317,14 @@ export default function NavV2({
               //        24px`, enquanto o link dentro dele tem 16px. Sendo o
               //        wrapper o item flex da barra, o link ficava ancorado na
               //        LINHA DE BASE dessa caixa de 24px em vez de centrado
-              //        nela  -  os vizinhos são links de 16px direto, sem caixa
+              //        nela — os vizinhos são links de 16px direto, sem caixa
               //        intermediária.
               //
               // `flex items-center` no wrapper elimina a caixa de linha: o link
               // passa a ser filho flex e é alinhado pelo mesmo algoritmo que
               // posiciona os outros oito. Medido depois: diferença 0,0px.
               //
-              // Vale para as três páginas que usam esta barra  -  /about-v2,
+              // Vale para as três páginas que usam esta barra — /about-v2,
               // /home-v2 e /home-v3.
               <div
                 key={item.label}
@@ -348,7 +348,7 @@ export default function NavV2({
                   {item.label}
                   <Chevron className="transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
-                {/* dropdown  -  opacity + pointer-events (not `invisible`) so the
+                {/* dropdown — opacity + pointer-events (not `invisible`) so the
                     links stay focusable for keyboard nav and reveal on focus */}
                 <div className="pointer-events-none absolute right-0 top-full pt-4 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                   <div className="min-w-[248px] border border-line bg-white py-2 text-ink shadow-xl">
@@ -422,12 +422,12 @@ export default function NavV2({
       </div>
 
       {/* ── Painel do telefone ────────────────────────────────────────
-          ABERTURA SUAVE  -  09-09. Antes era `{open && (...)}`: montagem
+          ABERTURA SUAVE — 09-09. Antes era `{open && (...)}`: montagem
           condicional, sem transição possível. O painel aparecia e sumia de um
           quadro para o outro, e no telefone isso lê como a página tendo pulado.
 
           Agora ele fica SEMPRE MONTADO e o que muda é o estado. A altura anima
-          pelo truque de grade  -  `grid-rows-[0fr]` para `grid-rows-[1fr]`, com
+          pelo truque de grade — `grid-rows-[0fr]` para `grid-rows-[1fr]`, com
           `overflow-hidden` no filho. É a única forma de animar até "a altura do
           conteúdo" sem medir nada em JS nem cravar um `max-height` chutado, que
           é o defeito clássico deste componente: chuta baixo e corta o menu,
@@ -437,18 +437,18 @@ export default function NavV2({
           `invisible` acompanha o fechado, e não é enfeite: sem ele o painel
           continua no fluxo de foco, e quem navega por teclado ou leitor de tela
           entra em oito links invisíveis depois do botão do menu. Com
-          `visibility` na transição, ele só some DEPOIS da animação  -  daí o
+          `visibility` na transição, ele só some DEPOIS da animação — daí o
           `transition-[grid-template-rows,opacity,visibility]`.
 
           O `aria-hidden` segue o mesmo estado, para leitor de tela e foco
           contarem a mesma história.
 
-          ⚠️ CURVA ASSIMÉTRICA  -  a duração e a easing moram DENTRO das strings de
+          ⚠️ CURVA ASSIMÉTRICA — a duração e a easing moram DENTRO das strings de
           cada estado, e não na classe comum, de propósito.
 
           A primeira versão usava `ease-out` nos dois sentidos e o fechamento
           ficou travado. `ease-out` é `cubic-bezier(0, 0, 0.2, 1)`: começa rápido
-          e tem cauda longa. Entrando isso é o certo  -  o conteúdo chega depressa
+          e tem cauda longa. Entrando isso é o certo — o conteúdo chega depressa
           e assenta devagar. Saindo é o defeito: o painel colapsa quase todo no
           primeiro terço e o último pedaço se arrasta enquanto o dedo já saiu do
           botão. A saída pede o contrário, `ease-in`, e menos tempo: 200ms contra
@@ -494,14 +494,14 @@ export default function NavV2({
                   </button>
                   {/* Mesmo truque de grade do painel, e pela mesma razão: aqui
                       são oito filhos de altura variável, então qualquer
-                      `max-height` seria chute. 250ms contra os 300 do painel  - 
+                      `max-height` seria chute. 250ms contra os 300 do painel —
                       é um movimento menor, dentro de outro que já está
                       acontecendo, e igualar os dois faria o submenu parecer
                       atrasado.
 
                       CURVA ASSIMÉTRICA, como no painel: `ease-out` para entrar,
                       `ease-in` e mais curto para sair. Ver a explicação lá em
-                      cima  -  a mesma cauda que trava o fechamento do painel
+                      cima — a mesma cauda que trava o fechamento do painel
                       travava o deste submenu. */}
                   <div
                     className={`grid transition-[grid-template-rows] ${

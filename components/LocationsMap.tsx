@@ -9,7 +9,7 @@ import type { Office } from "@/lib/offices";
 // Replaced CARTO Voyager on 2026-08-30: CARTO closed its keyless endpoint and
 // now burns "API KEY REQUIRED" into the tile image server-side, so the stamp
 // reached every environment including the review site. Verified by fetching a
-// tile over plain HTTP with and without a site Referer  -  byte-identical, and
+// tile over plain HTTP with and without a site Referer — byte-identical, and
 // already stamped, so no domain allowlist was going to fix it.
 //
 // Axis order is {z}/{y}/{x} here, inverted against CARTO's {z}/{x}/{y}. Swap
@@ -23,12 +23,12 @@ const ATTRIBUTION =
 // The service advertises levels up to 23, but its cache stops at 16: past that
 // every request returns HTTP 200 carrying a grey "Map data not yet available"
 // placeholder, which Leaflet cannot detect as a failure. Offices sit at zoom 16
-// (lib/offices.ts), so this only guards future ones  -  above 16 Leaflet upscales
+// (lib/offices.ts), so this only guards future ones — above 16 Leaflet upscales
 // the level-16 tile instead of asking for a level that would come back blank.
 const MAX_NATIVE_ZOOM = 16;
 
 /**
- * Imperative Leaflet wrapper (feature 003). Holds no app state  -  it reflects the
+ * Imperative Leaflet wrapper (feature 003). Holds no app state — it reflects the
  * active `office`: a fully non-interactive map with a single brand pin that
  * `flyTo`s (or jumps under reduced motion) between offices. See
  * specs/003-interactive-locations-map/contracts/components.md.
@@ -59,7 +59,7 @@ export default function LocationsMap({
       const map = L.map(containerRef.current, {
         center: [office.coords.lat, office.coords.lng],
         zoom: office.zoom,
-        // Lock out ALL user interaction  -  the carousel is the only way to navigate.
+        // Lock out ALL user interaction — the carousel is the only way to navigate.
         zoomControl: false,
         dragging: false,
         touchZoom: false,
@@ -83,7 +83,7 @@ export default function LocationsMap({
       mapRef.current = map;
       onReady?.();
 
-      // The map mounts lazily into a flex container  -  keep Leaflet's size in sync
+      // The map mounts lazily into a flex container — keep Leaflet's size in sync
       // so tiles always fill the box (avoids a half-rendered / grey map).
       ro = new ResizeObserver(() => mapRef.current?.invalidateSize());
       ro.observe(containerRef.current);
@@ -163,7 +163,7 @@ export default function LocationsMap({
 }
 
 /** Custom map pin image (public/pin.png). The `.pin-inner` wrapper is what
- *  fades/bounces  -  Leaflet controls the outer element's position. */
+ *  fades/bounces — Leaflet controls the outer element's position. */
 function pinIcon(): L.DivIcon {
   return L.divIcon({
     className: "",

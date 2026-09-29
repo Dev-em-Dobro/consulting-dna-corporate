@@ -18,23 +18,23 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * A página de contato  -  rota própria desde 11-09.
+ * A página de contato — rota própria desde 11-09.
  *
  * ATÉ HOJE CONTACT SÓ EXISTIA COMO SEÇÃO DA HOME (`#contact`), e `/contact` era
  * um 308 para lá. Isso tinha um custo concreto: é a página que as pessoas
  * procuram pelo nome, é a que entra em assinatura de e-mail e em diretório, e
- * não havia endereço para mandar  -  só a home com âncora no fim. A seção da home
+ * não havia endereço para mandar — só a home com âncora no fim. A seção da home
  * FICA: ela é ponto de conversão no fim daquela leitura, e as duas conviverem é
  * normal. O que muda é que agora existe destino.
  *
  * ⚠️ O REDIRECT TINHA DE SAIR DO `next.config.mjs` ANTES DESTA PÁGINA EXISTIR.
  * `["/contact", "/#contact"]` estava lá, e redirect é avaliado ANTES do
- * filesystem  -  com ele no lugar, este arquivo nunca seria alcançado e a rota
+ * filesystem — com ele no lugar, este arquivo nunca seria alcançado e a rota
  * continuaria pulando para a home. É a mesma armadilha que a caixa do
  * `/our-clients` já descreve naquele arquivo.
  *
  * REFERÊNCIA: a /contact da Explore Performance, pedida em 11-09. O que veio de
- * lá é a ESTRUTURA  -  abrir com a conversa, o formulário com respiro próprio, e
+ * lá é a ESTRUTURA — abrir com a conversa, o formulário com respiro próprio, e
  * os escritórios como contato direto em vez de só um endereço de e-mail. O que
  * NÃO veio: a faixa de números com selos de prêmio, os dois cards de produto
  * ("Book an Everest Experience", "Request a Programme Demo") e o depoimento com
@@ -42,11 +42,11 @@ export async function generateMetadata(): Promise<Metadata> {
  * de números repetiria o que a /our-impact já faz.
  *
  * ⚠️ FALTA A SEÇÃO "O QUE ACONTECE DEPOIS QUE VOCÊ ESCREVE", e a ausência é
- * decisão. É a melhor ideia da página da Explore  -  três passos numerados que
+ * decisão. É a melhor ideia da página da Explore — três passos numerados que
  * respondem "no que eu estou me metendo" antes de a pessoa enviar. Mas são três
  * blocos de copy nova, e o pedido do Guli em 29-08 foi parar de gerar copy com
  * IA. Escrever aqui seria exatamente isso. A frase que a home já tem ("a
- * considered, confidential point of view  -  not a sales pitch") é a semente, e
+ * considered, confidential point of view — not a sales pitch") é a semente, e
  * está no herói; os três passos precisam das palavras deles.
  *
  * TODA A COPY DESTA PÁGINA JÁ EXISTIA. O título e a linha de apoio do herói são
@@ -71,7 +71,7 @@ export default function ContactPage() {
             ⚠️ COLUNA DE 820px CENTRADA, e não os 1440 do herói. A primeira
             versão deixou o card na grade larga e o resultado foi um formulário
             de 720px sozinho com meia página vazia à direita. 1440 é MEDIDA DE
-            GRADE  -  serve aos cinco cards de escritório logo abaixo  - , e isto
+            GRADE — serve aos cinco cards de escritório logo abaixo —, e isto
             aqui é um campo para PREENCHER. É o mesmo critério, e a mesma
             medida, que a /insights e a /cases já usam para conteúdo de coluna
             única; o rótulo desce junto para dentro da coluna, então o bloco
@@ -88,18 +88,18 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* OS ESCRITÓRIOS COMO CONTATO DIRETO  -  endereço, telefone e e-mail
+        {/* OS ESCRITÓRIOS COMO CONTATO DIRETO — endereço, telefone e e-mail
             para copiar, e não o mapa.
 
             ⚠️ DE PROPÓSITO NÃO É O `LocationsBlock`. O mapa interativo com
             carrossel já é uma seção da HOME; repeti-lo aqui seria a mesma peça
-            duas vezes. E ele responde outra pergunta  -  "onde vocês estão no
-            mundo"  -  enquanto quem abre /contact quer o dado para AGIR: discar,
+            duas vezes. E ele responde outra pergunta — "onde vocês estão no
+            mundo" — enquanto quem abre /contact quer o dado para AGIR: discar,
             mandar e-mail, colar num convite de calendário. Por isso `tel:` e
             `mailto:` de verdade em vez de texto solto.
 
             DUBAI E RIYADH SAEM SEM TELEFONE porque `lib/offices.ts` tem `tel:
-            null` nos dois. A linha some em vez de virar traço ou " - ": campo
+            null` nos dois. A linha some em vez de virar traço ou "—": campo
             vazio anunciado é pior que campo ausente numa página de contato. */}
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
@@ -122,7 +122,7 @@ export default function ContactPage() {
                   </address>
                   <div className="mt-5 flex flex-col gap-1.5 text-[15px] leading-[1.5]">
                     {o.tel && (
-                      /* `tel:` sem espaço nem hífen  -  o formato de exibição é
+                      /* `tel:` sem espaço nem hífen — o formato de exibição é
                          para ler, o do href é para o telefone discar. */
                       <a
                         href={`tel:${o.tel.replace(/[^+\d]/g, "")}`}

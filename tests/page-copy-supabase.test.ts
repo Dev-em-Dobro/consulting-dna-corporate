@@ -36,7 +36,7 @@ test("latest devolve null quando a página nunca foi salva", async () => {
   assert.equal(await createSupabaseCopyTable({ ...cfg, fetch: f }).latest("team"), null);
 });
 
-test("latest lança quando o Supabase responde erro  -  erro não pode virar 'nada salvo'", async () => {
+test("latest lança quando o Supabase responde erro — erro não pode virar 'nada salvo'", async () => {
   const { f } = fakeFetch(() => new Response("boom", { status: 500 }));
   await assert.rejects(createSupabaseCopyTable({ ...cfg, fetch: f }).latest("home"), /500/);
 });

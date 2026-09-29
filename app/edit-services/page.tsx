@@ -6,7 +6,7 @@ import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
 import { EDITABLE_SERVICES, SHOW_SERVICE_PAGE_EDITORS } from "@/lib/service-pages-copy";
 
 /**
- * `/edit-services`  -  a tela da LISTAGEM de serviços.
+ * `/edit-services` — a tela da LISTAGEM de serviços.
  *
  * As dez páginas internas têm cada uma a sua, em `/edit-services/<slug>`; a
  * lista delas fica abaixo do editor, porque é daqui que a cliente chega nelas
@@ -35,8 +35,8 @@ export default async function EditServicesPage() {
         title="Services page text"
         note={
           SHOW_SERVICE_PAGE_EDITORS
-            ? "The ten cards on this page take their name and sub-headline from each service’s own page  -  edit those below."
-            : "The ten cards on this page take their name and sub-headline from each service’s own page  -  send us those changes for now."
+            ? "The ten cards on this page take their name and sub-headline from each service’s own page — edit those below."
+            : "The ten cards on this page take their name and sub-headline from each service’s own page — send us those changes for now."
         }
       />
       {/* FORA DO <CopyEditor> de propósito: ele é a tela de um objeto de copy, e

@@ -6,7 +6,7 @@ import { offices as defaultOffices, type Office } from "@/lib/offices";
 import LocationsCarousel from "./LocationsCarousel";
 import TypeLabel from "./TypeLabel";
 
-// Keep Leaflet out of the initial homepage bundle  -  it only loads when the
+// Keep Leaflet out of the initial homepage bundle — it only loads when the
 // section scrolls into view (see the IntersectionObserver below).
 const LocationsMap = dynamic(() => import("./LocationsMap"), { ssr: false });
 
@@ -40,7 +40,7 @@ export default function LocationsBlock({
    *
    * Prop com o padrão antigo, e não uma troca do número aqui dentro, porque o
    * bloco também roda na /our-clients, na /team e na /home-v3, que seguem
-   * em 1200  -  mudar a constante alinharia a home e desalinharia as outras três.
+   * em 1200 — mudar a constante alinharia a home e desalinharia as outras três.
    * Mesmo padrão do `maxWidthClass` da NavV2.
    *
    * Só o cabeçalho e o fallback mudam: o mapa e o carrossel são presos em
@@ -57,7 +57,7 @@ export default function LocationsBlock({
    */
   typeLabel?: boolean;
   /**
-   * Alinhamento do cabeçalho  -  o rótulo e o parágrafo de contexto.
+   * Alinhamento do cabeçalho — o rótulo e o parágrafo de contexto.
    *
    * O CORPO DESTE BLOCO SEMPRE FOI CENTRADO: o mapa é preso em 560px com
    * `mx-auto`, e a régua de cidades, o carrossel e o endereço vivem na mesma
@@ -65,14 +65,14 @@ export default function LocationsBlock({
    * na largura da página. Com `center` o bloco inteiro passa a ter um eixo só.
    *
    * `left` por padrão porque é o que /our-clients e /home-v3 têm hoje, e
-   * porque na home o cabeçalho alinha com as seções vizinhas  -  mesmo critério
+   * porque na home o cabeçalho alinha com as seções vizinhas — mesmo critério
    * de `maxWidthClass` e `typeLabel`.
    */
   align?: "left" | "center";
   /**
    * Ground the block sits on. `dark` is Guli's 31-08 fix for the homepage,
    * where this block and the book block above it were both light grey and
-   * adjacent  -  the same collision he solved on Client Impact with red.
+   * adjacent — the same collision he solved on Client Impact with red.
    *
    * A prop rather than a change to the component, because the block also runs
    * on Our Clients and Our Team, where it has different neighbours (a
@@ -85,12 +85,12 @@ export default function LocationsBlock({
    */
   tone?: "paper" | "dark";
   /**
-   * O mapa Leaflet no topo do bloco. `false` deixa só a "faixa de baixo"  -  a
+   * O mapa Leaflet no topo do bloco. `false` deixa só a "faixa de baixo" — a
    * régua de cidades, o carrossel e o endereço da cidade ativa.
    *
    * EXISTE PARA A /about, 14-09. Pedido da Maliha na daily (item 4): *"I did
    * like on the original landing page that it was scrolling for the addresses
-   *  -  without the map, if we can have just the bottom bit."* Ela estava
+   * — without the map, if we can have just the bottom bit."* Ela estava
    * olhando a home, onde este bloco roda inteiro.
    *
    * PROP E NÃO COMPONENTE NOVO porque o que ela quer é ESTE bloco menos uma
@@ -102,12 +102,12 @@ export default function LocationsBlock({
    * O QUE O `false` DESLIGA JUNTO, e é de graça: o `next/dynamic` do Leaflet
    * nunca é chamado, então a /about não baixa o mapa nem os tiles. O
    * `IntersectionObserver` que existia só para adiar esse import continua
-   * rodando e não custa nada  -  e volta a servir no dia em que alguém ligar o
+   * rodando e não custa nada — e volta a servir no dia em que alguém ligar o
    * mapa aqui.
    *
    * ⚠️ O SWIPE LATERAL MORA NO MAPA. Sem ele, no telefone a troca de cidade
    * fica com os controles do próprio carrossel e com a régua de cidades, que
-   * são botões de verdade  -  não é regressão de acessibilidade, o swipe sempre
+   * são botões de verdade — não é regressão de acessibilidade, o swipe sempre
    * foi o atalho e nunca o único caminho.
    */
   showMap?: boolean;
@@ -122,7 +122,7 @@ export default function LocationsBlock({
    *
    * `false` POR PADRÃO de propósito. A home, a /our-clients e a /home-v3
    * rodam este bloco há semanas sem e-mail por cidade, e ligar isso para as
-   * três de uma vez seria mudar três páginas por causa de uma quarta  -  o mesmo
+   * três de uma vez seria mudar três páginas por causa de uma quarta — o mesmo
    * critério de `maxWidthClass`, `typeLabel` e `align`.
    */
   showEmail?: boolean;
@@ -130,7 +130,7 @@ export default function LocationsBlock({
    * `static` troca o carrossel por todos os escritórios abertos ao mesmo tempo,
    * lado a lado numa linha só.
    *
-   * EXISTE PARA A /about, 21-09. O pedido veio nas duas línguas da mesma call  - 
+   * EXISTE PARA A /about, 21-09. O pedido veio nas duas línguas da mesma call —
    * por e-mail *"Have offices static - 5 horizontal static."* e na anotação
    * *"na parte dos offices colocar eles abertos sempre"*. É o oposto do que a
    * Maliha pediu para esta página em 14-09 (*"I did like… that it was scrolling
@@ -143,12 +143,12 @@ export default function LocationsBlock({
    *
    * O QUE O `static` DESLIGA JUNTO: o auto-avanço, a régua de cidades (todo
    * mundo já está aberto, não há o que selecionar), o painel de endereço com
-   * altura reservada  -  e o mapa, que num layout sem cidade ativa não teria
+   * altura reservada — e o mapa, que num layout sem cidade ativa não teria
    * câmera para onde ir. O `showMap` deixa de ter efeito aqui, e o `showEmail`
    * continua valendo: ele decide se o e-mail de cada cidade aparece na coluna.
    *
    * ⚠️ OS "5 NA HORIZONTAL" SÃO DE `lg` PARA CIMA. No telefone as cinco colunas
-   * dariam ~66px cada, e num tablet de 768 dariam ~140px  -  menos que o endereço
+   * dariam ~66px cada, e num tablet de 768 dariam ~140px — menos que o endereço
    * mais longo pede. A escada é `1 → 2 (sm) → 5 (lg)`, a mesma dos valores e dos
    * tiles de região da /about, que são as outras grades largas daquela página.
    */
@@ -172,18 +172,18 @@ export default function LocationsBlock({
    * A ALTURA RESERVADA PARA O PAINEL DE ENDEREÇO, em pixels.
    *
    * ⚠️ ISTO É O CONSERTO DO "RODAPÉ QUE DANÇA", e já era o propósito do
-   * `min-h-[128px]` que estava aqui  -  ele só tinha virado um número velho. 128
+   * `min-h-[128px]` que estava aqui — ele só tinha virado um número velho. 128
    * menos os 32 do `pt-8` deixam 96px de conteúdo, e quatro linhas a 15px com
    * entrelinha 1,7 medem 102. Ou seja: as cidades de quatro linhas ESTOURAVAM a
-   * reserva e a caixa crescia, enquanto Miami  -  duas linhas de endereço, sem
-   * telefone  -  cabia dentro dela. Trocar de cidade mexia a página inteira, e na
+   * reserva e a caixa crescia, enquanto Miami — duas linhas de endereço, sem
+   * telefone — cabia dentro dela. Trocar de cidade mexia a página inteira, e na
    * /about, onde este bloco fecha a seção, isso puxa o rodapé para cima.
    *
    * ⚠️ O NÚMERO NÃO PODE SER FIXO PORQUE A LISTA NÃO É. Este bloco roda com
    * três conjuntos diferentes: a /about passa a lista do documento do cliente
    * (Riade tem três linhas, Riade e Miami não têm telefone) e liga o e-mail; a
    * /our-clients e a /home-v3 passam `lib/offices.ts` e não ligam. Um literal
-   * serve a um dos três e desalinha os outros dois  -  foi exatamente o que
+   * serve a um dos três e desalinha os outros dois — foi exatamente o que
    * aconteceu com o 128.
    *
    * Então ele é MEDIDO A PARTIR DOS DADOS, pelo pior caso da lista recebida:
@@ -196,7 +196,7 @@ export default function LocationsBlock({
    * O PIOR CASO É A COMBINAÇÃO, não a cidade mais alta: reserva-se o máximo de
    * linhas de endereço MAIS telefone MAIS e-mail, ainda que nenhuma cidade tenha
    * as três coisas ao mesmo tempo. É o que garante que acrescentar um telefone
-   * que falta  -  o de Dubai e o de Riade estão pendentes com o cliente  -  não
+   * que falta — o de Dubai e o de Riade estão pendentes com o cliente — não
    * volte a fazer a página pular.
    *
    * ⚠️ A CONTA PRESSUPÕE QUE NADA QUEBRA EM DUAS LINHAS. Conferido nos dados de
@@ -298,7 +298,7 @@ export default function LocationsBlock({
           {context ? (
             /* `mx-auto` MAIS `text-center`: o primeiro centra a CAIXA de 640px
                na página, o segundo centra as linhas dentro dela. Só o primeiro
-               deixaria um parágrafo alinhado à esquerda no meio da tela  -  que é
+               deixaria um parágrafo alinhado à esquerda no meio da tela — que é
                o desalinhamento de sempre, movido de lugar. */
             <p
               className={`mt-4 max-w-[640px] text-[15px] leading-[1.6] md:text-[16px] ${
@@ -312,7 +312,7 @@ export default function LocationsBlock({
         ) : null}
 
         {layout === "static" ? (
-          /* Os escritórios abertos, todos ao mesmo tempo  -  ver a caixa da prop
+          /* Os escritórios abertos, todos ao mesmo tempo — ver a caixa da prop
              `layout`. Vai na largura da PÁGINA (`maxWidthClass`), e não nos
              560px em que o carrossel e o mapa vivem: cinco colunas numa coluna
              de 560px dariam 100px cada. */
@@ -328,7 +328,7 @@ export default function LocationsBlock({
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            {/* Map  -  full-bleed on mobile (no side gaps), centered + contained on
+            {/* Map — full-bleed on mobile (no side gaps), centered + contained on
                 desktop. Fixed height avoids layout shift when it lazily mounts.
                 Horizontal swipe changes office; `touch-pan-y` keeps the page
                 scrolling vertically. */}
@@ -368,7 +368,7 @@ export default function LocationsBlock({
             <div
               className={`mx-auto max-w-[560px] px-6 ${showMap ? "mt-8" : ""}`}
             >
-              {/* All-office index strip + divider  -  mirrors the legacy "our
+              {/* All-office index strip + divider — mirrors the legacy "our
                   offices" header so every city is visible at a glance, not just
                   the active one in the carousel. Each name selects its office. */}
               <div
@@ -420,7 +420,7 @@ export default function LocationsBlock({
                   strip, so the active city name sits framed between two lines.
 
                   A ALTURA RESERVADA vem de `addressMinHeight`, medida a partir
-                  da lista recebida  -  a caixa dele, lá em cima, tem a conta e o
+                  da lista recebida — a caixa dele, lá em cima, tem a conta e o
                   histórico do número fixo que ela substitui.
 
                   `style` E NÃO CLASSE porque o valor é calculado: a Tailwind gera
@@ -453,7 +453,7 @@ export default function LocationsBlock({
                   </p>
                 )}
                 {showEmail && (
-                  /* VERMELHO, como todo endereço de e-mail clicável do site  -  é
+                  /* VERMELHO, como todo endereço de e-mail clicável do site — é
                      a única linha deste painel que é ação, e não dado.
 
                      O `<wbr>` depois do @ vem da lista da /about, de onde este
@@ -483,7 +483,7 @@ export default function LocationsBlock({
 }
 
 /**
- * Os cinco escritórios abertos lado a lado  -  o `layout="static"` da /about.
+ * Os cinco escritórios abertos lado a lado — o `layout="static"` da /about.
  *
  * POR QUE NÃO É O `OfficeGrid` LOGO ABAIXO, que também é uma lista estática: os
  * dois fazem trabalhos diferentes e um deles não pode mudar. O `OfficeGrid` é o
@@ -492,12 +492,12 @@ export default function LocationsBlock({
  * colunas esse filete é o defeito: as cidades têm 2, 3 e 4 linhas de endereço,
  * então cinco filetes de rodapé cairiam em cinco alturas diferentes numa linha
  * só. Com o filete no TOPO as cinco marcas alinham num eixo, que é como os
- * tiles de região e os cinco valores da /about já são desenhados  -  a mesma
+ * tiles de região e os cinco valores da /about já são desenhados — a mesma
  * página, o mesmo device.
  *
  * `font-serif` no nome da cidade pelo mesmo motivo: é o tratamento de título de
  * tile daquela página. Fora dela a classe cai na serifa do tema, o que degrada
- * sem quebrar  -  mas hoje só a /about pede `layout="static"`.
+ * sem quebrar — mas hoje só a /about pede `layout="static"`.
  */
 function OfficeColumns({
   offices,
@@ -562,7 +562,7 @@ function OfficeColumns({
   );
 }
 
-/** Static fallback used when the map can't load  -  mirrors the previous grid. */
+/** Static fallback used when the map can't load — mirrors the previous grid. */
 function OfficeGrid({ offices, dark }: { offices: Office[]; dark: boolean }) {
   return (
     <div className="grid grid-cols-1 gap-x-20 gap-y-4 sm:grid-cols-2">

@@ -1,5 +1,5 @@
 /**
- * Corporate DNA offices  -  the fixed source of truth for the homepage locations
+ * Corporate DNA offices — the fixed source of truth for the homepage locations
  * map + carousel (feature 003). Addresses are carried over verbatim from the
  * previous static "Our offices" grid; `coords`/`zoom` drive the Leaflet camera.
  * Order here defines the carousel order.

@@ -51,9 +51,9 @@ import {
 import Reveal from "@/components/Reveal";
 
 /**
- * A faixa de pilares sob o bloco "How we work"  -  hoje, a FILEIRA DE ÍCONES
+ * A faixa de pilares sob o bloco "How we work" — hoje, a FILEIRA DE ÍCONES
  * SEPARADOS POR FILETES do mockup de 21-09 (`docs/meetings/nova-pagina-interna-
- * servicoes.jpg`), pedido por email: *"Services internal  -  Re-layout the
+ * servicoes.jpg`), pedido por email: *"Services internal — Re-layout the
  * internal with the image nova-pagina-interna-servicoes.jpg inside meetings
  * folder"*.
  *
@@ -63,7 +63,7 @@ import Reveal from "@/components/Reveal";
  * A faixa já era ícone + rótulo centrados sobre `paper`, e continua sendo. O
  * que mudou é que os itens deixaram de flutuar numa grade solta e passaram a
  * ser COLUNAS DE UMA FILEIRA SÓ, divididas por filetes verticais de altura
- * cheia  -  no arquivo de 866px há sete filetes (x=111, 208, 314, 393, 492, 601,
+ * cheia — no arquivo de 866px há sete filetes (x=111, 208, 314, 393, 492, 601,
  * 722) para oito itens, e nenhum antes do primeiro nem depois do último.
  *
  * ⚠️ O DESENHO TEM OITO ITENS E O NOSSO DADO TEM CINCO, e isso é decisão de
@@ -77,7 +77,7 @@ import Reveal from "@/components/Reveal";
  * ⚠️ AS LARGURAS DO DESENHO SÃO DESIGUAIS (de 73 a 121px a 866, conforme o
  * rótulo) e aqui as colunas são IGUAIS. Foi escolha: com colunas de conteúdo,
  * "Coaching" fica com metade da largura de "Leadership experiments" e os
- * filetes param de marcar um ritmo  -  viram um acaso do texto. Numa fileira de
+ * filetes param de marcar um ritmo — viram um acaso do texto. Numa fileira de
  * quatro a seis itens, que é o que os dez serviços têm, a grade igual é o que
  * mais se parece com o desenho.
  *
@@ -93,7 +93,7 @@ import Reveal from "@/components/Reveal";
  * Leadership Services Page.png`).
  *
  * ⚠️ O ÍCONE SUBSTITUIU O NUMERAL EM 16-09, a pedido interno, e a caixa antiga
- * dizia o contrário  -  fica o registro de por que ela caiu. O argumento de então
+ * dizia o contrário — fica o registro de por que ela caiu. O argumento de então
  * era que o projeto não tinha biblioteca de ícones e que ícone genérico
  * repetido nos dez lê como template comprado; o `01`, `02` … dava marcador e
  * ritmo sem afirmar nada. O que mudou: o `lucide-react` entrou como dependência
@@ -109,38 +109,38 @@ import Reveal from "@/components/Reveal";
  * classe por uma cor no mapa.
  *
  * ⚠️ `bg-paper` PARA CONTINUAR O BLOCO DE CIMA, que é o "How we work" e também é
- * paper  -  e o mockup de 21-09 confirmou isso pixel a pixel: a faixa #f7f3f0 do
+ * paper — e o mockup de 21-09 confirmou isso pixel a pixel: a faixa #f7f3f0 do
  * arquivo começa no rótulo "HOW WE WORK" e só termina depois desta fileira.
  * Aqui as duas faixas encostadas são o efeito desejado: a lista pertence
  * àquele bloco, não é uma seção nova. O que separa as duas é o respiro do topo,
- * e não uma troca de fundo nem uma régua  -  as duas foram tentadas e saíram em
+ * e não uma troca de fundo nem uma régua — as duas foram tentadas e saíram em
  * 16-09. O corte de verdade vem depois, na faixa vermelha do CTA (a evidência
  * ficou branca no mesmo dia).
  *
- * Lista vazia (ou ausente) não renderiza nada  -  sem slot tracejado e sem título
+ * Lista vazia (ou ausente) não renderiza nada — sem slot tracejado e sem título
  * órfão, pela mesma régua do resto das páginas de serviço.
  */
 
 /**
  * Rótulo → ícone. O CONJUNTO É FECHADO HOJE: os dez serviços de `lib/services.ts`
  * somam 47 rótulos distintos, todos aqui, e o teste de `pillars` fixa de quatro
- * a seis por serviço. Não é um mapa aberto por acaso  -  os rótulos são PALAVRAS
+ * a seis por serviço. Não é um mapa aberto por acaso — os rótulos são PALAVRAS
  * DA CLIENTE, copiadas literalmente da frase de "how we help" (ver a caixa do
  * campo `pillars` em `lib/services.ts`), então rótulo novo só aparece quando o
  * texto dela muda.
  *
  * ⚠️ QUANDO ISSO ACONTECER, o rótulo cai no `FALLBACK_ICON` e a faixa continua
- * de pé  -  sem buraco no lugar do ícone e sem quebrar o build. Quem acrescentar
+ * de pé — sem buraco no lugar do ícone e sem quebrar o build. Quem acrescentar
  * copy nova acrescenta a linha aqui; o círculo é o aviso visual de que faltou.
  */
 const PILLAR_ICONS: Record<string, LucideIcon> = {
-  /* ✅ OS OITO DA FILEIRA DO SENIOR LEADERSHIP DEVELOPMENT  -  21-09. Os ícones
+  /* ✅ OS OITO DA FILEIRA DO SENIOR LEADERSHIP DEVELOPMENT — 21-09. Os ícones
      foram LIDOS DO DESENHO dela (`nova-pagina-interna-servicoes.jpg`), um a um,
      e não escolhidos por afinidade com a palavra: pessoas, alvo com flecha,
      engrenagem, balão de fala, pessoas, lâmpada, barras em alta, documento com
      gráfico.
 
-     ⚠️ DOIS DELES SÃO PESSOAS NO DESENHO  -  "Immersions" e "Peer learning"  -  e
+     ⚠️ DOIS DELES SÃO PESSOAS NO DESENHO — "Immersions" e "Peer learning" — e
      aqui saem com glifos DIFERENTES (`Users` e `UsersRound`). No arquivo dela os
      dois desenhos também diferem entre si (três cabeças agrupadas contra três
      figuras lado a lado), mas a diferença é sutil demais para sobreviver a
@@ -150,7 +150,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
      ⚠️ "Mastery Labs" COM L MAIÚSCULO é chave PRÓPRIA, e convive com a
      "Mastery labs" minúscula logo abaixo. O mapa casa por string exata: são as
      grafias de dois documentos diferentes dela (o desenho de 21-09 e a planilha
-     de copy), e os ícones também diferem  -  engrenagem no desenho, gráfico em
+     de copy), e os ícones também diferem — engrenagem no desenho, gráfico em
      alta na leitura antiga. Unificar as duas sem ela pedir seria escolher qual
      dos documentos dela está errado. */
   Immersions: Users,
@@ -164,7 +164,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Everyday habits": BarChart3,
   Measurement: FileBarChart,
 
-  /* Top 150 Leadership Development  -  os CINCO `pillars`, que esta página deixou
+  /* Top 150 Leadership Development — os CINCO `pillars`, que esta página deixou
      de renderizar em 21-09 (a fileira passa por `practices`; ver a caixa daquele
      campo). Ficam porque os `pillars` continuam sendo o caminho de volta.
      Seguem o próprio mockup dela: pessoas, balão de fala, alvo, rede, gráfico
@@ -175,7 +175,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   /* ⚠️ "Peer learning" MUDOU DE ÍCONE EM 21-09 (era `Network`) e subiu para o
      bloco dos oito, acima: o rótulo é o MESMO nos dois desenhos dela, e uma
      chave só não pode ter dois ícones. O desenho mostra pessoas, não um
-     diagrama de rede  -  e este rótulo só aparece neste serviço, então a troca
+     diagrama de rede — e este rótulo só aparece neste serviço, então a troca
      não alcança nenhuma outra página. */
   "Mastery labs": TrendingUp,
 
@@ -192,17 +192,17 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Deliberate practice": Repeat,
 
   /* ============================================================================
-     Talent Development  -  os OITO inflection points e os CINCO resultados
+     Talent Development — os OITO inflection points e os CINCO resultados
      comuns do layout de 24-09.
      ============================================================================
      ⚠️ OS GLIFOS FORAM LIDOS DO DESENHO, um a um, e não escolhidos por
-     afinidade com a palavra  -  a mesma régua dos oito do Senior Leadership
+     afinidade com a palavra — a mesma régua dos oito do Senior Leadership
      Development, lá em cima: pessoas, raio, porta, setas de expansão,
      engrenagem, setas circulares, barras, figura com ramificação.
 
      ⚠️ O PONTO FINAL FAZ PARTE DA CHAVE nos cinco de baixo ("Readiness." e não
      "Readiness"). O mapa casa por string EXATA, e o layout escreve as cinco com
-     ponto  -  tirá-lo aqui derrubaria os cinco para o círculo de fallback. */
+     ponto — tirá-lo aqui derrubaria os cinco para o círculo de fallback. */
   "Newly identified High Potentials": Users,
   "Accelerated / fast-track talent": Zap,
   "First-time leadership transitions": DoorOpen,
@@ -213,7 +213,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Retention / flight risk": UserMinus,
 
   /* ⚠️ "Readiness." E "Team identity." SÃO PESSOAS NAS DUAS no desenho, e aqui
-     saem com glifos diferentes (`Users` e `UsersRound`)  -  a mesma decisão, e o
+     saem com glifos diferentes (`Users` e `UsersRound`) — a mesma decisão, e o
      mesmo motivo, dos dois "pessoas" do Senior Leadership Development: dois
      glifos idênticos lado a lado numa fileira de cinco leem como erro de copiar
      e colar. */
@@ -224,7 +224,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Moments that matter in the flow of work.": Target,
 
   /* ⬅ AS QUATRO MEDIDAS DE "THE IMPACT" do mesmo layout, e elas entram AQUI
-     porque a faixa de evidência busca o ícone neste mapa (`pillarIcon`)  - 
+     porque a faixa de evidência busca o ícone neste mapa (`pillarIcon`) —
      `ServiceFact.icon` guarda a chave, que é o próprio rótulo da medida.
 
      ⚠️ "Promotion Readiness" LEVA O MESMO ALVO de "Impact & Identity" e de
@@ -234,7 +234,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
      medido e afirmado.
 
      ⚠️ `PersonStanding` É O MAIS PERTO QUE O LUCIDE TEM da figura CORRENDO que
-     o layout desenha para "Discretionary Effort"  -  não existe "Running" no
+     o layout desenha para "Discretionary Effort" — não existe "Running" no
      conjunto. As alternativas eram piores: `Zap` já é "Execution" e
      "Accelerated / fast-track talent", e usá-lo aqui faria esforço
      discricionário e velocidade de carreira partilharem glifo. */
@@ -271,11 +271,11 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Horizontal working": ArrowLeftRight,
   Influence: Megaphone,
 
-  /* ⬅ OS SEIS RESULTADOS DA HRLT  -  24-09, quando aquela página saiu de uma
+  /* ⬅ OS SEIS RESULTADOS DA HRLT — 24-09, quando aquela página saiu de uma
      implementação própria e passou a usar o template. Eles NÃO são `pillars`
      (não são palavras da frase de `howWeHelp`, que é a regra daquele campo):
      são `evidenceSummary.outcomes`, e desenham a grade de ícone + rótulo acima
-     dos logos. Moram neste mapa porque `pillarIcon` é a busca única do site  - 
+     dos logos. Moram neste mapa porque `pillarIcon` é a busca única do site —
      ver a caixa dela.
 
      ⚠️ OS GLIFOS REPETEM OS DOS RÓTULOS CURTOS DE PROPÓSITO, e é o pedido de
@@ -312,7 +312,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   Succession: GitFork,
 
   /* ============================================================================
-     AS QUATRO FILEIRAS DO LAYOUT DE FAMILY BUSINESS CONSULTING  -  24-09
+     AS QUATRO FILEIRAS DO LAYOUT DE FAMILY BUSINESS CONSULTING — 24-09
      ============================================================================
      São 23 rótulos novos, e eles entram AQUI porque os três blocos que os
      desenham (`SolutionTwoSystems`, `SolutionEntryPoints`, `SolutionOutcome`)
@@ -324,15 +324,15 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
      A regra que já valia ("Readiness." e "Team identity." são pessoas nas duas
      no desenho e saem com `Users` e `UsersRound") é sobre vizinhança: dois
      glifos idênticos lado a lado leem como erro de copiar e colar. Por isso
-     `Cog` serve a "High-Performing Culture" e a "Culture needing to evolve"  - 
-     mesmo conceito, fileiras diferentes  - , e por isso os dois "grupos de
+     `Cog` serve a "High-Performing Culture" e a "Culture needing to evolve" —
+     mesmo conceito, fileiras diferentes —, e por isso os dois "grupos de
      pessoas" do mesmo painel se separam em `Users` e `UsersRound`.
 
      ⚠️ O PONTO FINAL FAZ PARTE DA CHAVE nos quatro de "The outcome": o layout
      as escreve como frases, o mapa casa por string exata, e tirá-lo aqui
      derrubaria as quatro para o círculo de fallback. */
 
-  /* THE FAMILY  -  cinco. Lidos do desenho: bússola, grupo de pessoas, balões de
+  /* THE FAMILY — cinco. Lidos do desenho: bússola, grupo de pessoas, balões de
      fala, pessoa com sinal de mais, broto. */
   "Values & Legacy": Compass,
   "Family Alignment": Users,
@@ -340,9 +340,9 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Founder & Successor Coaching": UserPlus,
   "Transition Readiness": Sprout,
 
-  /* THE BUSINESS  -  seis. `Venus` é o símbolo que o layout desenha para "Women
+  /* THE BUSINESS — seis. `Venus` é o símbolo que o layout desenha para "Women
      in Leadership", e é o mesmo que a página homônima herdará quando for passada
-     a limpo. "Leader Coaching" leva o `MessageSquare` de `Coaching`, acima  - 
+     a limpo. "Leader Coaching" leva o `MessageSquare` de `Coaching`, acima —
      mesmo conceito, mesmo glifo. */
   "Next Generation Talent": UsersRound,
   "High-Performing Culture": Cog,
@@ -351,7 +351,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Leader Coaching": MessageSquare,
   "Performance & Accountability": BarChart3,
 
-  /* WHERE WE TYPICALLY ENTER  -  oito gatilhos. `Milestone` e `GitFork` são os
+  /* WHERE WE TYPICALLY ENTER — oito gatilhos. `Milestone` e `GitFork` são os
      mesmos de "Leadership transitions" e "Succession" logo acima, que é a regra
      do vocabulário comum: a palavra e a frase que a descreve não podem ter
      símbolos diferentes na mesma página. */
@@ -364,7 +364,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "Succession approaching": GitFork,
   "Family alignment around a critical decision": Target,
 
-  /* THE OUTCOME  -  quatro. Escudo, pessoas, barras e broto, na ordem do
+  /* THE OUTCOME — quatro. Escudo, pessoas, barras e broto, na ordem do
      desenho. */
   "A family clearer about what it stands for.": ShieldCheck,
   "Stronger relationships and alignment.": Users,
@@ -373,10 +373,10 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
   "A successful transition to the next generation.": Sprout,
 
   /* ============================================================================
-     AS QUATRO MEDIDAS DO "EVIDENCE" DO EXECUTIVE COACHING  -  24-09
+     AS QUATRO MEDIDAS DO "EVIDENCE" DO EXECUTIVE COACHING — 24-09
      ============================================================================
      Entram neste mapa, e não no de `SolutionSteps`, porque a faixa de evidência
-     busca o ícone aqui (`pillarIcon`)  -  `ServiceFact.icon` guarda a chave, que é
+     busca o ícone aqui (`pillarIcon`) — `ServiceFact.icon` guarda a chave, que é
      o próprio rótulo da medida.
 
      ⚠️ "New role success" LEVA O MESMO ALVO de "Promotion Readiness" e
@@ -386,7 +386,7 @@ const PILLAR_ICONS: Record<string, LucideIcon> = {
 
      ⚠️ `Flower2` É O MAIS PERTO QUE O LUCIDE TEM da flor de lótus que o layout
      desenha para "Higher resilience", e `User` (uma figura) é o desenho literal
-     de "Stronger role integration"  -  a figura sozinha, contra as três de
+     de "Stronger role integration" — a figura sozinha, contra as três de
      "Greater team effectiveness". */
   "Higher resilience": Flower2,
   "Stronger role integration": User,
@@ -399,7 +399,7 @@ const FALLBACK_ICON: LucideIcon = Circle;
 
 /**
  * O ícone de um rótulo, para quem desenha uma fileira de ícone + texto FORA
- * desta seção  -  hoje, os `outcomes` da faixa de evidência da HRLT.
+ * desta seção — hoje, os `outcomes` da faixa de evidência da HRLT.
  *
  * ⚠️ EXPORTA A BUSCA, E NÃO O MAPA. Quem importar o `Record` acaba mexendo nele
  * de outro arquivo, e o mapa é fechado de propósito (ver a caixa dele): os
@@ -416,7 +416,7 @@ export default function SolutionPillars({
 }: {
   items?: string[];
   /**
-   * O RÓTULO ACIMA DA FILEIRA  -  24-09, com o "Common outcome" do Talent
+   * O RÓTULO ACIMA DA FILEIRA — 24-09, com o "Common outcome" do Talent
    * Development.
    *
    * ⚠️ NASCE VAZIO, e é o comportamento de sempre: nas outras páginas esta
@@ -430,7 +430,7 @@ export default function SolutionPillars({
   const pillars = (items ?? []).filter((p) => p.trim());
   if (pillars.length === 0) return null;
 
-  /* ⚠️ COM RÓTULO A FAIXA É A TIRA ROSA DO LAYOUT  -  24-09, Talent Development,
+  /* ⚠️ COM RÓTULO A FAIXA É A TIRA ROSA DO LAYOUT — 24-09, Talent Development,
      *"a seção Common outcome pode diminuir a altura dela e da rum destaque no
      fundo tipo assim"*. Sem rótulo ela continua a enumeração alta sobre
      `paper` das outras nove páginas. */
@@ -469,18 +469,18 @@ export default function SolutionPillars({
             e o ícone deixou de fazer. */}
         {/* ⚠️ `lg:gap-x-0` ANDA JUNTO COM O `lg:divide-x`, e esquecê-lo é o erro
             óbvio: com calha, a borda nasce colada à borda ESQUERDA do item e a
-            calha inteira fica de um lado só dela  -  o filete deixa de estar entre
+            calha inteira fica de um lado só dela — o filete deixa de estar entre
             os dois itens e passa a estar encostado num deles. Sem calha, o
             respiro vem do `lg:px-5` de cada item e o traço cai no meio.
 
-            Abaixo do `lg` a calha volta (`gap-x-8`) e os filetes não existem  - 
+            Abaixo do `lg` a calha volta (`gap-x-8`) e os filetes não existem —
             ver a caixa no topo do arquivo sobre o traço órfão na segunda linha.
 
             `minmax(150px,…)` e não os 180px de antes: com seis pilares e a
             largura que sobra depois do `px-5` de cada um, 180 forçava a grade a
             quebrar em duas linhas justamente nas telas de 1024–1200, que é onde
             o desenho ainda cabe numa fileira só. */}
-        {/* ⚠️ COM RÓTULO, ELE FICA AO LADO  -  24-09, a pedido, com o "Common
+        {/* ⚠️ COM RÓTULO, ELE FICA AO LADO — 24-09, a pedido, com o "Common
             outcome" do Talent Development: *"o titulo a esquerda e os icones a
             direita"*. É o que o layout desenha: uma faixa de uma linha só, com
             o rótulo abrindo à esquerda e os cinco resultados correndo à direita
@@ -507,7 +507,7 @@ export default function SolutionPillars({
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                 {label}
               </p>
-              {/* A RÉGUA VERMELHA DO LAYOUT, debaixo do rótulo  -  a mesma
+              {/* A RÉGUA VERMELHA DO LAYOUT, debaixo do rótulo — a mesma
                   medida de `TypeLabel` (`h-0.5 w-9`), virada de pé para baixo
                   da palavra, que é como o recorte a desenha. */}
               <span aria-hidden className="mt-3 block h-0.5 w-9 bg-brand" />
@@ -527,7 +527,7 @@ export default function SolutionPillars({
                As duas coisas saíram juntas porque são a mesma decisão: a régua
                existia para dar um topo comum aos itens quando o rótulo quebrava
                em número diferente de linhas, e centralizado o alinhamento passa
-               a ser o eixo vertical de cada célula da grade  -  o ícone marca o
+               a ser o eixo vertical de cada célula da grade — o ícone marca o
                topo e o rótulo pendura embaixo dele.
 
                O QUE SE PERDEU, para quem for reverter sabendo: com rótulos de
@@ -551,7 +551,7 @@ export default function SolutionPillars({
                 {/* ⚠️ DECORATIVO: o rótulo logo abaixo diz a mesma coisa, então
                     anunciar o ícone seria repetir o item duas vezes por pilar.
 
-                    ⚠️ 40 NÃO É A ALTURA DO DESENHO  -  o lucide compõe dentro de um
+                    ⚠️ 40 NÃO É A ALTURA DO DESENHO — o lucide compõe dentro de um
                     quadro 24×24 com folga, e o traçado ocupa uns 16 desses 24.
                     `size={40}` põe na tela ~27px de desenho; no mockup de 21-09
                     o ícone mede 27×19 a 866, uns 45×32 a 1440, o que pediria
@@ -563,7 +563,7 @@ export default function SolutionPillars({
                     15-09, onde cada pilar era um CARTÃO e o ícone dividia espaço
                     com uma caixa. Numa fileira nua ele é a única peça gráfica.
 
-                    Traço 1.5  -  fino o bastante para não competir com o corpo
+                    Traço 1.5 — fino o bastante para não competir com o corpo
                     serifado do rótulo, e é o que os dois desenhos mostram. */}
                 <Icon
                   aria-hidden
@@ -572,7 +572,7 @@ export default function SolutionPillars({
                   className="mx-auto block text-brand"
                 />
                 {/* O RÓTULO FICOU EM SERIFA, e o mockup de 21-09 concorda: as
-                    oito legendas dele são serifadas, não versalete de grotesca  - 
+                    oito legendas dele são serifadas, não versalete de grotesca —
                     são NOME DE COISA, não rótulo de seção. A medida também
                     aguentou a conferência: a caixa alta da legenda mede ~8px a
                     866, o que a 1440 dá uns 20px de fonte, e aqui já são 19/21. */}

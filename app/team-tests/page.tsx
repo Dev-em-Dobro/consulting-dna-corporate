@@ -1,18 +1,18 @@
 /**
- * ⚠️ PÁGINA DESCARTÁVEL  -  a seção "Global faculty" da /team em cinco
+ * ⚠️ PÁGINA DESCARTÁVEL — a seção "Global faculty" da /team em cinco
  * tratamentos, para escolher um.
  *
  * ⏸️ PARADA EM 11-09, ANTES DE ESCOLHER UM. As cinco foram montadas e
  * comparadas na tela, e a comparação terminou num lugar que nenhuma delas
  * resolve: as cinco discutem COMO tratar a foto que entra na seção, e a foto
- * que o documento pede nunca chegou. É o slot 06 do outline de Team  -  "A
- * representative selection or mosaic image per region"  - , cinco imagens, uma
+ * que o documento pede nunca chegou. É o slot 06 do outline de Team — "A
+ * representative selection or mosaic image per region" —, cinco imagens, uma
  * por região. O que está no ar continua sendo a faixa de texto.
  *
  * ESCOLHER AGORA SERIA ESCOLHER DUAS VEZES: a decisão muda quando as cinco
  * imagens chegarem, porque três das cinco variantes (1, 2 e 3) usam UMA foto de
  * fundo para a seção inteira e deixam de fazer sentido no dia em que houver uma
- * por região. As que sobreviveriam são a 4 e a 5  -  e a 5 é literalmente o
+ * por região. As que sobreviveriam são a 4 e a 5 — e a 5 é literalmente o
  * mosaico, com uma foto só onde vão as cinco.
  *
  * O QUE FOI FEITO NO LUGAR DE DECIDIR: `docs/mensagem-grupo-team-imagens-11-09
@@ -24,31 +24,31 @@
  * O PROBLEMA DA VERSÃO NO AR. Ela é honesta e é a mais fraca da página: rótulo,
  * título, um parágrafo e cinco caixas brancas com um nome de região dentro. O
  * mosaico de imagens por região é HOLD (slot 06 do outline de Team) e nunca
- * chegou, então a faixa saiu em texto  -  decisão certa para não anunciar o
+ * chegou, então a faixa saiu em texto — decisão certa para não anunciar o
  * buraco, mas o resultado é a única seção da página sem nenhum peso visual,
  * justamente a que fala das 75 pessoas que fazem o trabalho.
  *
  * A REFERÊNCIA É O BLOCO 3 DA /about (`#purpose`): foto de sangria total,
- * escurecida, texto por cima. Vale reusar aqui por dois motivos  -  é tratamento
+ * escurecida, texto por cima. Vale reusar aqui por dois motivos — é tratamento
  * que o cliente já aprovou nesta linguagem, e resolve o HOLD sem inventar
  * conteúdo: UMA foto de grupo diz "somos muitos e somos de toda parte" melhor
  * que cinco retângulos cinza dizendo o mesmo em letra.
  *
  * O QUE FOI COPIADO DE LÁ, e o que não:
- *   • a cor do véu  -  rgb(22,19,20), o `ink` com a luminosidade lá embaixo. NÃO
+ *   • a cor do véu — rgb(22,19,20), o `ink` com a luminosidade lá embaixo. NÃO
  *     é o `ink` cru (#373234): véu feito dele deixa a seção cinza por
  *     definição, por mais opacidade que se ponha. Está anotado na /about.
- *   • o rótulo em `brand-light`, nunca no `brand` cheio  -  #d84339 sobre escuro
+ *   • o rótulo em `brand-light`, nunca no `brand` cheio — #d84339 sobre escuro
  *     dá 2,87:1 e não tem conserto pelo fundo.
  *   • a ideia dos DOIS CONTROLES separados (véu manda em quanta foto aparece,
  *     painel manda em quanto contraste o texto tem), usada na 2.
  *   • o que não vem: o texto centralizado. Lá o bloco é uma declaração de
  *     propósito e centraliza; aqui a página inteira é alinhada à esquerda e a
- *     faixa de regiões é uma grade  -  centralizar brigaria com as duas.
+ *     faixa de regiões é uma grade — centralizar brigaria com as duas.
  *
  * A FOTO É A `dna-time-15`, o grupo grande no pátio em Singapura: ~20 pessoas,
  * visivelmente de origens diferentes, que é literalmente o argumento do texto
- * ("over twenty nationalities"). As alternativas estão no bloco 6, no fim  - 
+ * ("over twenty nationalities"). As alternativas estão no bloco 6, no fim —
  * tratamento e foto são duas escolhas separadas e a página pergunta as duas.
  *
  * ONDE ISSO VAI PARAR, se algum ganhar: `app/team/page.tsx`, a seção
@@ -77,7 +77,7 @@ const LEAD =
   "Our facilitators and coaches come from the behavioural sciences, organisation development, psychology and business. They span over twenty nationalities and a wide range of social identities. They are senior enough to have sat where our clients sit.";
 
 /* Os três números já estão na copy, em letra. A 3 só os tira de dentro da frase
-    -  não inventa dado nenhum. */
+   — não inventa dado nenhum. */
 const FIGURES = [
   { value: "75", label: "senior practitioners" },
   { value: "36", label: "countries" },
@@ -101,8 +101,8 @@ function Tag({ id, children }: { id: string; children: React.ReactNode }) {
  * ocupam a faixa de 48% a 86% da altura do arquivo; empurrando o foco para 70%
  * elas entram inteiras e o prédio vira fundo, que é o papel dele.
  *
- * No telefone a conta se inverte  -  caixa estreita e alta, escala pela altura,
- * folga horizontal  -  e aí o eixo Y não tem efeito. O grupo ocupa a largura toda
+ * No telefone a conta se inverte — caixa estreita e alta, escala pela altura,
+ * folga horizontal — e aí o eixo Y não tem efeito. O grupo ocupa a largura toda
  * do arquivo, então o padrão horizontal já serve e não há o que corrigir. É a
  * mesma armadilha anotada duas vezes na /about: o eixo que funciona depende de
  * qual lado sobra, e ele troca com a proporção da caixa.
@@ -118,7 +118,7 @@ function Backdrop({
   /**
    * `object-position`, em `style` e não em classe: o valor muda por variante
    * (a faixa baixa da 5 precisa de outro ponto que a seção alta da 1), e a
-   * Tailwind varre o código atrás de nomes de classe LITERAIS  -  `object-[${x}]`
+   * Tailwind varre o código atrás de nomes de classe LITERAIS — `object-[${x}]`
    * montado em tempo de execução sai no HTML sem regra nenhuma por trás.
    */
   focus?: string;
@@ -145,12 +145,12 @@ function Backdrop({
 
 /**
  * Rótulo + título + parágrafo. `onDark` troca o vermelho pelo tom claro e o
- * cinza do corpo por branco a 75%  -  os dois tons que a /about já usa sobre véu.
+ * cinza do corpo por branco a 75% — os dois tons que a /about já usa sobre véu.
  *
  * O TÍTULO CRESCE NO ESCURO (28/34 → 30/38). Não é capricho: na página clara
  * ele divide a tela com o resto do bloco; numa faixa de sangria total ele é o
  * único texto grande sobre uma foto inteira, e na medida da página some. O peso
- * 600 continua o mesmo das duas  -  sobre fundo escuro a letra afina
+ * 600 continua o mesmo das duas — sobre fundo escuro a letra afina
  * opticamente, e o degrau repõe o que a inversão tira.
  */
 function Heading({
@@ -186,8 +186,8 @@ function Heading({
 /**
  * As cinco regiões como mosaico de vidro.
  *
- * O MESMO DESENHO DA VERSÃO NO AR  -  grade de cinco, `gap-px`, nome alinhado à
- * base  -  com as cores invertidas: a divisória de 1px é branco a 20% em vez do
+ * O MESMO DESENHO DA VERSÃO NO AR — grade de cinco, `gap-px`, nome alinhado à
+ * base — com as cores invertidas: a divisória de 1px é branco a 20% em vez do
  * `line`, e a célula é um vidro escuro em vez de branca. O `backdrop-blur` não
  * é enfeite: uma foto de grupo é toda alta frequência (rostos, folhas, janelas)
  * e é isso, não a luminância média, que atrapalha ler texto por cima. Borrado,
@@ -244,7 +244,7 @@ export default function TeamTestsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell floatingNav>
-        {/* A NavV2 flutua e não ocupa fluxo  -  sem isto a primeira faixa nasce
+        {/* A NavV2 flutua e não ocupa fluxo — sem isto a primeira faixa nasce
             debaixo do menu. Mesma convenção da /about e da evidence-tests. */}
         <div className="h-[76px] bg-ink" />
 
@@ -268,7 +268,7 @@ export default function TeamTestsPage() {
         {/* ── 1 ───────────────────────────────────────────────────────────
             A tradução direta do bloco 3 da /about: véu chapado a 78%, texto
             alinhado à esquerda como o resto desta página, e a MESMA grade de
-            cinco de hoje, virada em vidro. É a mudança mínima  -  nenhum elemento
+            cinco de hoje, virada em vidro. É a mudança mínima — nenhum elemento
             novo, nenhuma medida nova; só o fundo e as cores. */}
         <Tag id="1">foto + véu 78%, a grade de hoje, em vidro</Tag>
         <section className="relative isolate overflow-hidden bg-ink">
@@ -286,7 +286,7 @@ export default function TeamTestsPage() {
 
             A diferença com a 1 não é estética, é de onde vem o contraste. Na 1
             o texto é protegido escurecendo a SEÇÃO INTEIRA: para o texto ficar
-            legível, a foto toda tem de sumir junto  -  um controle só para dois
+            legível, a foto toda tem de sumir junto — um controle só para dois
             objetivos que brigam. Aqui eles se separam:
 
               véu da seção  52%  → quanta foto aparece
@@ -294,12 +294,12 @@ export default function TeamTestsPage() {
 
             Por isso o véu pode abrir mais que na 1 sem o texto perder nada: quem
             segura a legibilidade é o painel. As regiões entram DENTRO do painel,
-            separadas por divisória vertical  -  fora dele ficariam sobre a foto
+            separadas por divisória vertical — fora dele ficariam sobre a foto
             crua e seria preciso fechar o véu de novo, desfazendo o ganho.
 
             BORDA RETA, sem canto arredondado: o site inteiro é de canto vivo, e
             o vidro aqui é feito de translucidez, desfoque e um fio de borda
-            clara  -  o raio é só convenção. Mesma decisão registrada na /about. */}
+            clara — o raio é só convenção. Mesma decisão registrada na /about. */}
         <Tag id="2">foto + painel de vidro, a versão final da /about</Tag>
         <section className="relative isolate overflow-hidden bg-ink">
           <Backdrop photo={facultyPhoto} veil={0.52} />
@@ -307,7 +307,7 @@ export default function TeamTestsPage() {
             {/* ⚠️ O PAINEL NÃO OCUPA A LARGURA DO CONTAINER, e isto é o que faz
                 a variante funcionar. Cheio, ele tapa a foto inteira e o que
                 sobra à vista é a faixa de cima (prédio) e a de baixo (chão e
-                pés)  -  a foto some justamente onde há gente. Em 1060px sobram
+                pés) — a foto some justamente onde há gente. Em 1060px sobram
                 ~190px de cada lado, e nessas colunas aparecem as pessoas das
                 pontas do grupo. É o mesmo arranjo do `#purpose` da /about, onde
                 o painel tem 900px dentro de uma seção de sangria total. */}
@@ -333,14 +333,14 @@ export default function TeamTestsPage() {
 
         {/* ── 3 ───────────────────────────────────────────────────────────
             OS NÚMEROS SAEM DA FRASE. 75, 36 e 20+ já estão na copy, ditos em
-            letra no meio de um parágrafo de quatro linhas  -  que é onde ninguém
+            letra no meio de um parágrafo de quatro linhas — que é onde ninguém
             os vê. Postos à direita, em corpo grande, eles viram o que a seção
             promete: escala.
 
             ⚠️ A /about JÁ TEM UMA FAIXA DE NÚMEROS (bloco 1b). Repetir o device
             aqui é assumido: são páginas diferentes, os números são outros, e a
             faixa de lá é sobre a empresa enquanto esta é sobre as pessoas. Se
-            incomodar em revisão, é esta que cai  -  as outras quatro não dependem
+            incomodar em revisão, é esta que cai — as outras quatro não dependem
             dela.
 
             As regiões descem para uma linha só: com três números grandes na
@@ -384,21 +384,21 @@ export default function TeamTestsPage() {
             SEM VÉU: a foto vira assunto em vez de textura.
 
             As três de cima escurecem a imagem a ponto de ela virar campo de cor
-             -  é o que permite escrever por cima, e é o que a referência faz. O
+            — é o que permite escrever por cima, e é o que a referência faz. O
             custo é que ninguém mais enxerga QUEM está na foto, e numa seção
             sobre 75 pessoas isso é justamente o que se queria mostrar. Aqui o
             texto e a imagem dividem a largura em vez de se sobrepor: a foto sai
             limpa, sem véu nenhum, e o contraste do texto não depende dela.
 
             É a versão que ainda funciona no dia em que chegarem as fotos por
-            região do slot 06  -  a coluna da direita vira o mosaico e o resto fica
+            região do slot 06 — a coluna da direita vira o mosaico e o resto fica
             de pé. As outras três teriam de ser refeitas. */}
         <Tag id="4">metade texto, metade foto, sem véu, a foto limpa</Tag>
         <section className="bg-ink">
           <div className="grid items-stretch lg:grid-cols-2">
             <div className="px-6 py-20 md:px-10 md:py-24 lg:pl-[max(2.5rem,calc((100vw-1440px)/2+2.5rem))]">
               <Heading onDark />
-              {/* A régua vermelha à esquerda de cada região  -  o device dos
+              {/* A régua vermelha à esquerda de cada região — o device dos
                   valores da /about, que existe justamente para listar cinco
                   coisas sem grade e sem carrossel. */}
               <ul className="mt-12 space-y-4">
@@ -413,7 +413,7 @@ export default function TeamTestsPage() {
               </ul>
             </div>
             {/* `min-h` no telefone porque sem altura a caixa de um `fill`
-                colapsa para zero  -  ela não tem conteúdo próprio. */}
+                colapsa para zero — ela não tem conteúdo próprio. */}
             <div className="relative min-h-[380px] lg:min-h-[620px]">
               <Image
                 src={facultyPhoto}
@@ -429,7 +429,7 @@ export default function TeamTestsPage() {
         {/* ── 5 ───────────────────────────────────────────────────────────
             O TEXTO FICA CLARO E SÓ A FAIXA ESCURECE. A página tem três seções
             claras seguidas; esta acende no fim em vez de virar a seção inteira,
-            e a foto entra exatamente onde o documento pede imagem  -  nos cinco
+            e a foto entra exatamente onde o documento pede imagem — nos cinco
             quadros das regiões.
 
             A faixa é de sangria total (`w-screen` com o truque do
@@ -443,7 +443,7 @@ export default function TeamTestsPage() {
 
             ⚠️ NO TELEFONE ESTA É A MAIS SENSÍVEL À ESCOLHA DA FOTO. A faixa
             vira 2×3 e fica mais alta que larga, então o `object-cover` passa a
-            escalar pela ALTURA e a imagem aparece inteira na vertical  -  o ponto
+            escalar pela ALTURA e a imagem aparece inteira na vertical — o ponto
             de foco deixa de ter efeito, porque não sobra folga nesse eixo. Com
             a `dna-time-15` a primeira fileira cai no prédio e as pessoas só
             aparecem da segunda para baixo. É argumento a favor da foto de
@@ -465,7 +465,7 @@ export default function TeamTestsPage() {
             {/* AQUI O VÉU É MAIS FRACO E O TEXTO NÃO PERDE NADA, porque cada
                 célula tem o seu próprio gradiente: escuro na base, onde está o
                 nome, e transparente em cima, onde está a foto. É o oposto do
-                `backdrop-blur` das outras variantes  -  lá o texto corre por cima
+                `backdrop-blur` das outras variantes — lá o texto corre por cima
                 da imagem inteira e é preciso apagá-la; aqui ele fica numa faixa
                 de 40px no rodapé, e só essa faixa precisa escurecer. */}
             <div className="grid grid-cols-2 gap-px bg-white/20 md:grid-cols-5">
@@ -491,9 +491,9 @@ export default function TeamTestsPage() {
             A OUTRA PERGUNTA, separada da primeira: qual foto. As duas abaixo
             estão no mesmo tratamento da 1, para a comparação ser só da imagem.
 
-            `dna-time-27`  -  Lausanne, grupo grande de braços abertos. Mais
+            `dna-time-27` — Lausanne, grupo grande de braços abertos. Mais
             energia; o ar é de evento, com crachás e sol forte.
-            `dna-time-02`  -  seis pessoas diante dos pôsteres do Inner & Outer
+            `dna-time-02` — seis pessoas diante dos pôsteres do Inner & Outer
             Game. Menos gente, mais trabalho: aparece o método na parede. */}
         <Tag id="6a">mesma 1, foto de Lausanne (dna-time-27)</Tag>
         <section className="relative isolate overflow-hidden bg-ink">

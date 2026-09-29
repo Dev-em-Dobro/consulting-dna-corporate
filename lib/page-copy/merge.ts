@@ -1,5 +1,5 @@
 /**
- * A MESCLA "salvo por cima do padrão"  -  a mesma para toda página editável.
+ * A MESCLA "salvo por cima do padrão" — a mesma para toda página editável.
  *
  * Saiu de `lib/home-copy-schema.ts` em 23-09, quando a About passou a usar o
  * mesmo editor: a função era idêntica nas duas, mudando só de qual padrão e de
@@ -18,12 +18,12 @@ const isPlain = (v: unknown): v is Plain =>
  * editada é a lista inteira, não um remendo); string VAZIA cai no padrão, para
  * um campo limpo por engano não apagar um título da página; chave desconhecida
  * é ignorada. Se depois de mesclar o resultado não passa no schema, volta o
- * padrão inteiro  -  a página nunca renderiza com copy inválida.
+ * padrão inteiro — a página nunca renderiza com copy inválida.
  *
  * ⚠️ O EFEITO COLATERAL DA REGRA DA STRING VAZIA: não há como APAGAR um texto
  * que tem padrão, só trocá-lo. Isso é de propósito na maior parte dos campos
  * (um título em branco é sempre engano), e é um limite real nos poucos campos
- * em que o vazio seria uma escolha legítima  -  o telefone de um escritório, por
+ * em que o vazio seria uma escolha legítima — o telefone de um escritório, por
  * exemplo. Onde isso pesa, o campo leva `hint` dizendo o que o vazio faz.
  */
 export function mergeCopy<T>(defaults: T, schema: ZodType<T>, saved: unknown, mergeArrayObjects = false): T {

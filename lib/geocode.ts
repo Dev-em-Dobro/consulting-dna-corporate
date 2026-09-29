@@ -1,6 +1,6 @@
 /**
  * Geocode "city, country" to coordinates via OpenStreetMap Nominatim (free, no
- * API key). The result is cached for 30 days  -  a city's location never changes,
+ * API key). The result is cached for 30 days — a city's location never changes,
  * so the lookup runs at most once per city per cache window (keeping us well
  * within Nominatim's fair-use policy, alongside a descriptive User-Agent).
  * Returns null on a miss or error so callers degrade gracefully: the country

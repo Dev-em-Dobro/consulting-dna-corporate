@@ -16,7 +16,7 @@ const abs = (path: string) => `${SITE_URL}${path || "/"}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // As páginas de serviço saíram do CMS em 11-09 (ver `lib/services.ts`), então
-  // os dez slugs vêm do módulo e não de um fetch  -  o sitemap não pode listar a
+  // os dez slugs vêm do módulo e não de um fetch — o sitemap não pode listar a
   // taxonomia antiga enquanto as rotas publicadas são outras.
   const [cases, insights, regions, partnerships] = await Promise.all([
     getCaseCards(),
@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/awards",
     // Entrou em 11-09, quando Contact deixou de ser só a âncora `#contact` da
     // home. É rota indexável de verdade agora, e é a que as pessoas procuram
-    // pelo nome  -  ficar de fora do sitemap seria esconder justamente essa.
+    // pelo nome — ficar de fora do sitemap seria esconder justamente essa.
     "/contact",
     "/privacy",
     "/cookies",
@@ -54,13 +54,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
     // `/books` redireciona para o livro na home e fica fora do sitemap.
     // `/events` NÃO entra: nasceu vazia na mesma data, esperando conteúdo da
-    // cliente, e carrega `noindex`  -  mesma regra de `/our-partnerships` e
+    // cliente, e carrega `noindex` — mesma regra de `/our-partnerships` e
     // `/interviews` logo acima.
   ];
 
   // Our Partnerships is a real route with no content until CDNA validates the
   // copy. It carries `noindex` while empty (see its generateMetadata), so it
-  // must stay out of the sitemap until then  -  the two have to agree.
+  // must stay out of the sitemap until then — the two have to agree.
   if (partnerships.length > 0) staticPaths.push("/our-partnerships");
 
   const dynamicPaths = [

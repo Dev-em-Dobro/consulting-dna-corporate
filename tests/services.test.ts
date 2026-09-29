@@ -69,7 +69,7 @@ test("nenhum asterisco vaza para o HTML dos vinte campos", () => {
 });
 
 test("ênfase aninhada corrompe em silêncio (comportamento conhecido, não suportado)", () => {
-  // Número par de `**` (quatro), então o teste de paridade acima aprovaria  -  e
+  // Número par de `**` (quatro), então o teste de paridade acima aprovaria — e
   // mesmo assim o resultado sai errado: o regex não guloso casa do primeiro par
   // de `**` ao segundo, sem noção de aninhamento.
   assert.equal(
@@ -87,11 +87,11 @@ test("ênfase aninhada corrompe em silêncio (comportamento conhecido, não supo
  * a palavra duas vezes, uma faixa escura seguida de uma clara.
  *
  * `SolutionView` dá precedência ao `evidenceSummary`, então o defeito não
- * quebraria a página  -  ele passaria numa revisão rápida, que é pior.
+ * quebraria a página — ele passaria numa revisão rápida, que é pior.
  */
 test("nenhum serviço tem as duas faixas de evidência ao mesmo tempo", () => {
   /* ⬅ SÃO TRÊS DESDE 24-09: `evidenceCases` (os cartões de cliente do layout de
-     Women’s Leadership Development) entra na mesma conta, e pela mesma razão  - 
+     Women’s Leadership Development) entra na mesma conta, e pela mesma razão —
      ela escreve "Evidence" e ocupa este lugar. Duas quaisquer das três na mesma
      página publicam o rótulo duas vezes. */
   const ambos = services
@@ -111,12 +111,12 @@ test("nenhum serviço tem as duas faixas de evidência ao mesmo tempo", () => {
  * colunas e a fileira de `steps`/`practices`/`pillars` logo abaixo dele.
  *
  * Um serviço com `ecosystem` E com `steps` ou `practices` publicaria a faixa
- * escura seguida da fileira órfã da outra composição  -  sem o rótulo dela, que a
+ * escura seguida da fileira órfã da outra composição — sem o rótulo dela, que a
  * guarda do `SolutionSection` teria escondido. Não quebra a página; passa numa
  * revisão rápida, que é pior.
  *
  * ⚠️ `pillars` NÃO ENTRA NESTA CONTA, de propósito. Ele é o estado-base dos dez
- * serviços e as suas palavras são as da própria frase de `howWeHelp`  -  a
+ * serviços e as suas palavras são as da própria frase de `howWeHelp` — a
  * Culture Transformation o mantém como caminho de volta, e é ele que sustenta o
  * teste de `pillars` mais acima. Quem tem `ecosystem` simplesmente não o
  * desenha.
@@ -129,7 +129,7 @@ test("nenhum serviço tem ecosystem e a fileira de How we work ao mesmo tempo", 
 });
 
 /**
- * O TRAVESSÃO NÃO VOLTA À COPY  -  a regra de site inteiro pedida na daily de
+ * O TRAVESSÃO NÃO VOLTA À COPY — a regra de site inteiro pedida na daily de
  * 23-09 (*"tirar o travessão do site todo nos textos pra nao parecer ia"*) e
  * aplicada em `a37355f`, que passou 62 arquivos a limpo.
  *
@@ -140,7 +140,7 @@ test("nenhum serviço tem ecosystem e a fileira de How we work ao mesmo tempo", 
  *
  * ⚠️ O MEIO-TRAÇO (–) NÃO É ALVO. Ele é sinal de intervalo ("1–2 day", "Top
  * 100–150") e está na copy final da cliente em vários serviços; o pedido é
- * sobre o travessão ( - ), que é pontuação de frase.
+ * sobre o travessão (—), que é pontuação de frase.
  */
 test("nenhum travessão na copy visível dos dez serviços", () => {
   for (const s of services) {
@@ -199,7 +199,7 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
          mesmo commit que os criou, pela razão que a caixa acima explica: a copy
          nova chega por layout desenhado ANTES do pedido de 23-09, e é a
          transcrição "à letra" que reintroduz o caractere. Este layout não tem
-         nenhum travessão  -  o teste existe para o próximo serviço que copiar
+         nenhum travessão — o teste existe para o próximo serviço que copiar
          estes campos de um que tenha. */
       ...(s.heroBody ?? []).map(
         (p, i): [string, string | undefined] => [`heroBody.${i}`, p],
@@ -267,7 +267,7 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
          no mesmo commit que os criou, pela razão de sempre: a copy nova chega
          por layout desenhado ANTES do pedido de 23-09, e é a transcrição "à
          letra" que reintroduz o caractere. Aquele layout não tem nenhum
-         travessão  -  tem MEIOS-TRAÇOS ("founder-led", "High-Performing"), que
+         travessão — tem MEIOS-TRAÇOS ("founder-led", "High-Performing"), que
          não são alvo. */
       ["heroSubtitleAccent", s.heroSubtitleAccent],
       ...(s.heroCredential ?? []).map(
@@ -308,7 +308,7 @@ test("nenhum travessão na copy visível dos dez serviços", () => {
     ];
     for (const [campo, texto] of campos) {
       assert.ok(
-        !(texto ?? "").includes("\u2014"),
+        !(texto ?? "").includes("—"),
         `${s.slug}.${campo} tem travessão: ${texto}`,
       );
     }

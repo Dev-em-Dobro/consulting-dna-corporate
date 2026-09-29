@@ -13,7 +13,7 @@ export const revalidate = 300;
 /**
  * Metadata is content-dependent: while the CMS has no published partnership the
  * page is real but empty, and an empty page should not be indexed. It returns to
- * the index by itself on the first publish  -  no code change, no redeploy.
+ * the index by itself on the first publish — no code change, no redeploy.
  */
 export async function generateMetadata(): Promise<Metadata> {
   const partnerships = await getPartnerships();
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * Our Partnerships (27-08 brief, item 12).
  *
- * A new area, distinct from Insights  -  the brief's "Our News → Our Partnerships"
+ * A new area, distinct from Insights — the brief's "Our News → Our Partnerships"
  * is understood as Partnerships being new, with the editorial library continuing
  * separately (open question 3 in the status tracker).
  *
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * Harvard, Imperial, Emeld AI, Explore Performance and TerraGrin as working
  * examples but marks the names and final text as still to be validated, so
  * nothing is hard-coded here. Every partnership renders from the CMS, where
- * "what this partnership enables for our clients" is a REQUIRED field  -  the
+ * "what this partnership enables for our clients" is a REQUIRED field — the
  * brief is explicit that a logo or an announcement is not enough.
  */
 export default async function OurPartnershipsPage() {

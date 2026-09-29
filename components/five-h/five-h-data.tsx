@@ -14,14 +14,14 @@ export type HFaculty = {
   color: string;
   description: string;
   /**
-   * The five dimensions this faculty covers  -  25 across the wheel.
+   * The five dimensions this faculty covers — 25 across the wheel.
    *
    * Transcribed from `docs/5H-wheel-25-dimensions.png`, which is the CDNA
    * artwork, so the wording (including "Interpersonal savvy" in lower case) is
    * theirs and is reproduced verbatim.
    *
    * ⚠️ Proprietary CDNA IP. The names are lifted from their own wheel, but this
-   * cycle's approval list has not come back  -  the 27-08 brief requires sign-off
+   * cycle's approval list has not come back — the 27-08 brief requires sign-off
    * before anything reaches production.
    *
    * Order is ours, not the wheel's: each faculty is read along its arc in the
@@ -54,7 +54,7 @@ function IconBase({ children, ...props }: SVGProps<SVGSVGElement> & { children: 
   );
 }
 
-// HEAD  -  thinking. A lightbulb: ideas, reasoning, interpretation.
+// HEAD — thinking. A lightbulb: ideas, reasoning, interpretation.
 function HeadIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>
@@ -65,7 +65,7 @@ function HeadIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// HEART  -  relating. Emotion, authenticity, trust.
+// HEART — relating. Emotion, authenticity, trust.
 function HeartIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>
@@ -74,7 +74,7 @@ function HeartIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// HUNCH  -  sensing. Intuition, the "gut brain".
+// HUNCH — sensing. Intuition, the "gut brain".
 function HunchIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>
@@ -84,7 +84,7 @@ function HunchIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// HANDS  -  doing. Tangible action, choices and decisions.
+// HANDS — doing. Tangible action, choices and decisions.
 function HandsIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>
@@ -96,7 +96,7 @@ function HandsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// HABITS  -  practicing. Repetition, rituals, sustainable change.
+// HABITS — practicing. Repetition, rituals, sustainable change.
 function HabitsIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>

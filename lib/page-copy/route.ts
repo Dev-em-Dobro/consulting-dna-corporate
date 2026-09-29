@@ -8,14 +8,14 @@ import type { CopyStore } from "./store.ts";
  * POST valida, grava e manda as páginas afetadas regenerarem.
  *
  * ⚠️ SEM AUTENTICAÇÃO, de propósito e por pedido (23-09): a cliente entra e
- * salva sem login. É a mesma exposição de qualquer formulário público  -  quem
+ * salva sem login. É a mesma exposição de qualquer formulário público — quem
  * souber a URL troca o texto do site. Aceito como provisório até o CMS assumir;
  * se precisar fechar antes disso, o lugar é aqui, checando um segredo no header
- *  -  uma vez, para as duas rotas, que é metade do motivo de esta fábrica existir.
+ * — uma vez, para as duas rotas, que é metade do motivo de esta fábrica existir.
  *
  * ⚠️⚠️ QUEM SALVA TEM DE INVALIDAR A TAG DA LOJA, e é aqui que isso acontece.
  * Desde 23-09 a leitura do Blob é cacheada no Data Cache do Next, para o custo
- * ser proporcional às EDIÇÕES e não ao tráfego  -  a caixa em `./store.ts` conta
+ * ser proporcional às EDIÇÕES e não ao tráfego — a caixa em `./store.ts` conta
  * por que (um `list()` por render torrou 1,6 mil operações avançadas numa tarde
  * de desenvolvimento). O preço disso é esta linha: sem o `revalidateTag`, a
  * cliente salva, a página regenera e continua lendo a versão velha do cache por
@@ -27,7 +27,7 @@ import type { CopyStore } from "./store.ts";
  *
  * ⚠️ `revalidate` É UMA LISTA, e não o caminho da própria página. A copy da
  * About alimenta TAMBÉM a faixa "By the numbers" da Clients & Impact (os quatro
- * números são a mesma fonte desde 18-09  -  ver `lib/stats.ts`). Revalidar só
+ * números são a mesma fonte desde 18-09 — ver `lib/stats.ts`). Revalidar só
  * `/about` deixaria a outra página publicando o número velho até o cache dela
  * expirar sozinho, que é exatamente a divergência que juntar as duas listas foi
  * feito para impedir.
@@ -57,7 +57,7 @@ export function createCopyRoute<T>({
         /* 1. O DADO: derruba a leitura cacheada do Blob (ver a caixa acima).
               `{ expire: 0 }` e não um perfil nomeado: no Next 16 o segundo
               argumento diz quanta obsolescência ainda se aceita servir, e aqui
-              a resposta é nenhuma  -  a cliente acabou de salvar e vai recarregar
+              a resposta é nenhuma — a cliente acabou de salvar e vai recarregar
               a página para conferir. */
         revalidateTag(store.tag, { expire: 0 });
         // 2. AS PÁGINAS: são estáticas e regeneram na próxima visita; sem isto,

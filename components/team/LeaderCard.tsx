@@ -7,13 +7,13 @@ import PersonModal, { type Person } from "@/components/PersonModal";
 import type { Leader } from "@/lib/team";
 
 /**
- * O card de uma pessoa da liderança  -  REFEITO EM 14-09 sobre o mockup que a
+ * O card de uma pessoa da liderança — REFEITO EM 14-09 sobre o mockup que a
  * Maliha subiu no Drive durante a daily (`docs/mockup-team-maliha-14-09-2026.png`,
  * item 16 da transcrição).
  *
  * O QUE MUDOU. A citação SAI DE BAIXO DO NOME e vai para O LADO do retrato, num
  * cartão claro com aspas vermelhas grandes. Debaixo da foto ficam só nome, cargo
- * e região  -  mais o botão "+" que o mockup desenha ali.
+ * e região — mais o botão "+" que o mockup desenha ali.
  *
  * ⚠️ CONTINUA TRÊS POR LINHA. O "um card por linha" foi SUGESTÃO do Guli na call
  * ("do you want it maybe just one person in each line?"), não pedido dela: ela
@@ -22,24 +22,24 @@ import type { Leader } from "@/lib/team";
  * posição da quote, e só.
  *
  * ================================================================
- * O "+" ABRE O PERFIL EM POP-UP  -  15-09
+ * O "+" ABRE O PERFIL EM POP-UP — 15-09
  * ================================================================
  * É o que o `CDNA_04_Team.docx` pede para o bloco 2, em letra: *"portrait grid,
  * three across. Name, role, region, **short bio on click or hover**."* O botão
  * que o mockup desenha sob a foto é esse gesto, e o pop-up é o mesmo
- * `PersonModal` que a home usava  -  extraído do `PeopleGrid` para os dois lerem
+ * `PersonModal` que a home usava — extraído do `PeopleGrid` para os dois lerem
  * o mesmo perfil.
  *
  * ⏸️ ELE ABRIU A QUOTE ENTRE 14-09 E 15-09, e o porquê fica registrado porque a
  * pergunta volta: naquele momento a bio não estava localizada, e cortar a quote
- * em 8 linhas era o único trabalho honesto que havia para o botão  -  as quotes
+ * em 8 linhas era o único trabalho honesto que havia para o botão — as quotes
  * vão de 140 a 271 caracteres e a fileira inteira ficava com a altura da mais
  * longa. A bio estava no CMS o tempo todo, nos mesmos registros que a home lê;
  * o que faltava era ligar as duas fontes, e é o que o `cmsSlug` faz.
  *
  * ⚠️ A BIO É DO CMS, NÃO DO WORD. São dois conteúdos diferentes e vale não
  * confundi-los: o CMS traz o perfil (bio longa, valores, forças, especialidades,
- * histórico), e o que o documento marca como HOLD é o **bloco 3, Perspectives**  - 
+ * histórico), e o que o documento marca como HOLD é o **bloco 3, Perspectives** —
  * uma frase NOVA por pessoa, resposta a "what do you believe about leadership
  * that most people in this industry get wrong?". Essa continua sem existir, e
  * foi procurada em todos os cinco `.docx` do pacote de 15-09.
@@ -52,13 +52,13 @@ export default function LeaderCard({
 }: {
   person: Leader;
   /**
-   * O perfil desta pessoa no CMS  -  nome, cargo, foto, bio em HTML e os campos
+   * O perfil desta pessoa no CMS — nome, cargo, foto, bio em HTML e os campos
    * estruturados (valores, forças, especialidades, histórico, clientes,
    * idiomas, credenciais). É o que o pop-up mostra.
    *
    * AUSENTE = SEM BOTÃO "+". Acontece quando a pessoa não tem `cmsSlug`, quando
    * o CMS não responde ou quando a entrada some do ar. O card continua inteiro;
-   * o que desaparece é o gesto  -  porque "+" abrindo um pop-up vazio é pior que
+   * o que desaparece é o gesto — porque "+" abrindo um pop-up vazio é pior que
    * "+" nenhum.
    */
   profile?: Person;
@@ -66,41 +66,41 @@ export default function LeaderCard({
   const [open, setOpen] = useState(false);
 
   return (
-    /* A VIRADA É EM `xl` (1280)  -  baixou de 1440 em 15-09, junto com a grade da
+    /* A VIRADA É EM `xl` (1280) — baixou de 1440 em 15-09, junto com a grade da
        página, a pedido: em 1440 qualquer laptop de 1366 caía em duas colunas, e
        o pedido foi três por linha.
 
        O QUE DECIDE O LIMIAR é a medida da quote, não o dispositivo. Em três
-       colunas de 1280, o cartão fica com 172px e a caixa de texto com 132  -  ~16
+       colunas de 1280, o cartão fica com 172px e a caixa de texto com 132 — ~16
        caracteres por linha. Estreito, mas é onde a referência dela também anda
        (~20 a 1440, com linhas do tipo "Leadership isn't" / "about having"). A
        1024 a mesma conta dá 11 caracteres, e aí não dá.
 
        Abaixo de `xl` o card volta a ser EMPILHADO (foto, nome, quote embaixo),
-       que é o desenho que já estava no ar  -  só que a quote agora é o cartão
+       que é o desenho que já estava no ar — só que a quote agora é o cartão
        claro em vez do filete à esquerda. A conta por largura está no comentário
        da grade, em `app/team/page.tsx`. */
     <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] xl:gap-x-4">
       <div className="flex flex-col">
         {/* ⚠️ A FOTO ESTICA ACIMA DE 1440, e não tem proporção fixa. Medido na
             referência: na primeira fileira ela sai 167x167 e na segunda 167x154
-             -  mesma largura, alturas diferentes. Quem manda na altura da fileira
+            — mesma largura, alturas diferentes. Quem manda na altura da fileira
             é o CARTÃO DE QUOTE, e a foto cresce até encostar nele; nas duas
             fileiras a diferença entre cartão e foto é constante (61 e 60px), que
             é a altura do bloco do nome.
 
             Com `aspect-[4/5]` fixo, que era o que estava aqui, a coluna da
             esquerda terminava antes e o cartão rosa ficava pendurado abaixo do
-            nome  -  é o desalinhamento que se via na página.
+            nome — é o desalinhamento que se via na página.
 
-            O PISO É UMA PROPORÇÃO, e não um `min-h` em pixels  -  15-09, depois
+            O PISO É UMA PROPORÇÃO, e não um `min-h` em pixels — 15-09, depois
             de o retrato sair baixo demais. `aspect-[3/4]` CONTINUA VALENDO
             acima de 1440 e vira a altura MÍNIMA da foto; o `grow` só a estica
             além disso quando a quote ao lado pede mais.
 
             É `grow` E NÃO `flex-1`, e a diferença é o que faz isto funcionar:
             `flex-1` é `flex: 1 1 0%`, e a base zero descarta a altura vinda da
-            proporção  -  a foto passaria a ter só o que sobrasse da fileira, que
+            proporção — a foto passaria a ter só o que sobrasse da fileira, que
             é como ela ficava baixa nas fileiras de quote curta. Com `grow` a
             base continua sendo a da proporção e o crescimento é por cima dela.
 
@@ -109,11 +109,11 @@ export default function LeaderCard({
             cartão de quote é que estica. Nunca há corte.
 
             3:4 E NÃO 4:5, que era o valor anterior: a foto ganha ~7% de altura
-            na mesma largura. Vale nos dois regimes  -  empilhado abaixo de 1440 e
+            na mesma largura. Vale nos dois regimes — empilhado abaixo de 1440 e
             partido acima.
 
             ================================================================
-            ⚠️ O `grow` SAIU EM 18-09  -  pedido da daily: *"the images on
+            ⚠️ O `grow` SAIU EM 18-09 — pedido da daily: *"the images on
             section 'Leadership' should be the same height"*.
             ================================================================
             Era ele que fazia as seis fotos saírem com alturas diferentes. Duas
@@ -125,12 +125,12 @@ export default function LeaderCard({
                  Quotes diferentes → fileiras diferentes → fotos diferentes.
               2. NA MESMA FILEIRA: a foto é o que sobra depois do bloco do nome,
                  e o cargo ocupa 1 ou 2 linhas ("Head of UKEE" contra "CEO,
-                 Founder, Author, Head of MENA")  -  20px de diferença que iam
+                 Founder, Author, Head of MENA") — 20px de diferença que iam
                  direto para a altura da foto do vizinho.
 
             E o custo escondido: em 1280 a foto chegava a 196×424 (0,46:1), uma
-            tira vertical em que um retrato quadrado  -  que é como os novos de
-            18-09 chegaram  -  mostraria só a faixa do nariz.
+            tira vertical em que um retrato quadrado — que é como os novos de
+            18-09 chegaram — mostraria só a faixa do nariz.
 
             AGORA A PROPORÇÃO É FIXA, 3:4, em todos os regimes. 3:4 e não 4:5
             por três motivos: é a mesma proporção do `PeopleRoster` logo abaixo
@@ -138,7 +138,7 @@ export default function LeaderCard({
             o invariante de 17-09 de o retrato de apoio nunca ser maior que o
             da liderança nas DUAS dimensões (em 4:5 a Nicole/Carol/Maliha
             sairiam 4px mais altas que a liderança em 1440); e nenhum dos seis
-            arquivos perde cabeça  -  quatro são 4:5 e cedem 6% nas laterais, o
+            arquivos perde cabeça — quatro são 4:5 e cedem 6% nas laterais, o
             JP (0,83) cede 10%, e os dois novos, quadrados, cedem 25% de largura
             já recortada no arquivo. Nunca há corte vertical.
 
@@ -146,7 +146,7 @@ export default function LeaderCard({
             cartão rosa, esticado pela grade, passa abaixo do bloco do nome
             quando a quote é longa. A grade em `app/team/page.tsx` ganhou
             `sm:auto-rows-fr` para as duas fileiras terem a mesma altura, então
-            esse excedente é o MESMO nos seis cards  -  silhueta idêntica, e não
+            esse excedente é o MESMO nos seis cards — silhueta idêntica, e não
             seis variações. É o preço de "mesma altura", e foi o pedido.
 
             ⚠️ E DE 3:4 PASSOU A 7:10 na revisão do mesmo 18-09 (*"ficou bom,
@@ -155,7 +155,7 @@ export default function LeaderCard({
             liderança deixa de ter a MESMA proporção do `PeopleRoster` (3:4),
             mas continua sendo o retrato maior da página nas duas dimensões, que
             era o invariante que importava; (b) os seis arquivos (4:5, 0,83 e
-            3:4) são todos MAIS LARGOS que 7:10, então o corte segue lateral  - 
+            3:4) são todos MAIS LARGOS que 7:10, então o corte segue lateral —
             nunca vertical, nunca cabeça; (c) o cartão rosa ganha 20px de folga
             para a quote antes de passar abaixo do bloco do nome. */}
         <div className="relative aspect-[7/10] overflow-hidden bg-paper">
@@ -171,7 +171,7 @@ export default function LeaderCard({
               className={`object-cover ${person.portraitPosition ?? "object-center"}`}
             />
           ) : (
-            /* Sem retrato  -  iniciais, e não um avatar genérico de silhueta: o
+            /* Sem retrato — iniciais, e não um avatar genérico de silhueta: o
                card fica claramente à espera de uma foto em vez de fingir ter
                uma. */
             <div className="flex h-full w-full items-center justify-center">
@@ -186,7 +186,7 @@ export default function LeaderCard({
           )}
         </div>
 
-        {/* NOME, CARGO E REGIÃO EM TRÊS LINHAS, como o mockup  -  e não na linha
+        {/* NOME, CARGO E REGIÃO EM TRÊS LINHAS, como o mockup — e não na linha
             única vermelha em caixa alta que estava aqui (`{role} · {region}`).
             Não é troca de gosto: "CEO, Founder, Author, Head of MENA · UAE" tem
             44 caracteres, e em caixa alta com `tracking-[1.3px]` isso ocupa três
@@ -194,7 +194,7 @@ export default function LeaderCard({
             lê como ficha, que é o que o mockup mostra.
 
             `justify-between` põe o "+" na borda direita DA COLUNA DO RETRATO,
-            que é onde o mockup o desenha  -  alinhado com o cargo, não com o
+            que é onde o mockup o desenha — alinhado com o cargo, não com o
             nome. */}
         <div className="flex items-center justify-between gap-4 pt-5">
           <div className="min-w-0">
@@ -202,7 +202,7 @@ export default function LeaderCard({
                 nome é 1,33x a do cargo, o que com o cargo em 14px dá ~19px. Em
                 20px o nome ficava mais pesado que o da referência e o bloco
                 inteiro passava dos ~81px que ela reserva. */}
-            {/* ⚠️ VERMELHO DESDE 21-09  -  *"nome em vermelho do team"*. Era
+            {/* ⚠️ VERMELHO DESDE 21-09 — *"nome em vermelho do team"*. Era
                 `text-ink`. `text-brand`, o token de vermelho sobre fundo claro,
                 e não um hex: a mesma cor do "+" ao lado e das aspas do cartão
                 da quote, que é o que faz o card inteiro ler como uma peça.
@@ -210,7 +210,7 @@ export default function LeaderCard({
                 ESTE É O MELHOR DOS TRÊS LUGARES onde o nome ficou vermelho: 18px
                 peso 600 sobre BRANCO dá 4,39:1, o teto desta cor. A conta
                 inteira, e o que fazer se a régua de 4,5 tiver de ser cumprida,
-                está na caixa do nome em `PeopleRoster`  -  a decisão vale para as
+                está na caixa do nome em `PeopleRoster` — a decisão vale para as
                 três listas juntas, não para uma. */}
             <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-brand">
               {person.name}
@@ -221,7 +221,7 @@ export default function LeaderCard({
                 quebram em duas linhas nas colunas de 1280–1440 ("CEO, Founder,
                 Author, Head of MENA" e "Head of Thought Leadership &
                 Innovation"), e sem reserva o bloco dos outros quatro terminava
-                20px antes  -  o mesmo desalinhamento que a foto tinha, em
+                20px antes — o mesmo desalinhamento que a foto tinha, em
                 miniatura. `lh` é a altura da própria linha, então a reserva
                 acompanha o `leading`.
 
@@ -230,8 +230,8 @@ export default function LeaderCard({
                 linha a linha vazia ficava ENTRE o cargo e a região ("CEO
                 Americas" / vão / "Americas"), e a ficha lia como três coisas
                 soltas. Agora cargo e região são vizinhos imediatos e a reserva
-                é do contêiner dos dois  -  `min-h-[3lh]` = cargo em até duas
-                linhas + região  - , então a linha vazia, quando existe, fica
+                é do contêiner dos dois — `min-h-[3lh]` = cargo em até duas
+                linhas + região —, então a linha vazia, quando existe, fica
                 DEPOIS da região, onde não separa nada. Altura total do bloco é
                 a mesma de antes; só o vão mudou de lugar. */}
             <div className="mt-1 min-h-[3lh] text-[14px] leading-[1.45] text-muted">
@@ -258,7 +258,7 @@ export default function LeaderCard({
         </div>
       </div>
 
-      {/* O CARTÃO DA QUOTE. `#fcf2f0` é o `brand` a ~6% sobre branco  -  o rosa
+      {/* O CARTÃO DA QUOTE. `#fcf2f0` é o `brand` a ~6% sobre branco — o rosa
           pálido do mockup. Não virou token do tema de propósito: é a única
           superfície do site com essa cor, e um `--color-*` novo convida a
           espalhá-la antes de alguém decidir que ela é do sistema.
@@ -266,10 +266,10 @@ export default function LeaderCard({
           `mt-6` até 1440 (o card está empilhado, e este é o vão entre a ficha e
           a quote) e `mt-0` acima, onde ele passa a ser a coluna vizinha e o topo
           tem de bater com o topo do retrato. A altura cheia vem do `stretch` que
-          a grade já dá  -  é o que faz os três cartões da fileira terminarem na
+          a grade já dá — é o que faz os três cartões da fileira terminarem na
           mesma linha, mesmo com quotes de tamanhos diferentes. */}
       <div className="mt-6 bg-[#fcf2f0] px-5 py-6 xl:mt-0">
-        {/* AS ASPAS SÃO DECORAÇÃO, não pontuação  -  daí `aria-hidden`. Se elas
+        {/* AS ASPAS SÃO DECORAÇÃO, não pontuação — daí `aria-hidden`. Se elas
             fossem texto, o leitor de tela anunciaria uma abertura de citação que
             nunca fecha. O `blockquote` abaixo é quem diz que aquilo é uma
             citação, e ele faz isso sem glifo nenhum. */}
@@ -281,14 +281,14 @@ export default function LeaderCard({
         </span>
         <blockquote className="mt-4">
           {/* ⚠️ SEM CORTE DE LINHAS desde 15-09. Até ali a quote era cortada em
-              8 linhas e o "+" abria o resto  -  era o único trabalho honesto que
+              8 linhas e o "+" abria o resto — era o único trabalho honesto que
               havia para o botão enquanto não existia bio. Agora ele abre o
               perfil, e um corte sem gesto para desfazê-lo esconderia conteúdo.
 
               O QUE ISSO CUSTA, e é o que o corte evitava: as quotes vão de 140 a
               271 caracteres, então o cartão mais alto da fileira estica os
-              outros dois. É o que o mockup mostra  -  cartões de mesma altura com
-              o texto no topo  -  e é o preço certo a pagar aqui. */}
+              outros dois. É o que o mockup mostra — cartões de mesma altura com
+              o texto no topo — e é o preço certo a pagar aqui. */}
           <p className="font-serif text-[16px] leading-[1.6] text-ink">
             {person.quote}
           </p>
@@ -301,11 +301,11 @@ export default function LeaderCard({
           pela célula em vez de cobrir a tela. Mesma montagem do `PeopleGrid`.
 
           `createPortal` SÓ DEPOIS DE ABERTO, e nunca no servidor: `open` começa
-          `false`, então o primeiro render  -  que é o do servidor  -  não toca em
+          `false`, então o primeiro render — que é o do servidor — não toca em
           `document`. */}
       {open &&
         createPortal(
-          /* ⚠️ A FOTO DO POP-UP É A DO CARD, sobrescrevendo a do CMS  -  15-09.
+          /* ⚠️ A FOTO DO POP-UP É A DO CARD, sobrescrevendo a do CMS — 15-09.
              Sem isto a pessoa clica num retrato e abre outro: o `photoUrl` do
              CMS é a LEVA ANTIGA (o do Guilherme está gravado como
              `whatsapp-image-2026-07-25`, o do Nitin como `...-07-27`), e os
@@ -316,7 +316,7 @@ export default function LeaderCard({
              É A MESMA CORREÇÃO QUE A HOME FAZIA com `officialPortrait(p.name)`,
              e sem o `?? profile.img` pelo mesmo motivo dela: quem não tiver
              retrato oficial abre o pop-up nas INICIAIS, em vez de voltar a
-             publicar a foto velha. Foi a instrução  -  "as que não tiver pode
+             publicar a foto velha. Foi a instrução — "as que não tiver pode
              deixar sem por enquanto". Hoje os seis têm.
 
              ⏳ QUANDO O CMS FOR ATUALIZADO, esta linha sai e o `profile` volta a

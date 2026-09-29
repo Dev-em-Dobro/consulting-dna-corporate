@@ -47,7 +47,7 @@ test("os id das seções do editor são únicos", () => {
  * ⚠️ A DIVERGÊNCIA QUE ESTE TESTE GUARDA. Os quatro números da faixa escura
  * desta página são os mesmos quatro da About desde 18-09, a pedido da cliente.
  * Se alguém um dia acrescentar `numbers.stats` aqui "para facilitar", passam a
- * existir duas fontes para o mesmo número  -  que é exatamente o defeito que
+ * existir duas fontes para o mesmo número — que é exatamente o defeito que
  * juntar as listas foi feito para impedir.
  */
 test("os quatro números NÃO estão na copy desta página", () => {

@@ -10,10 +10,10 @@ import type { TickerEntry } from "@/lib/cms/map";
  *
  * POR QUE ISTO É UM ARQUIVO SEPARADO, contra a regra de duplicação que vale
  * entre as duas propostas. A regra existe para que apagar uma pasta não quebre
- * a outra  -  `app/page.tsx`, `home-v2` e `home-v3` são cópias por isso, e os
+ * a outra — `app/page.tsx`, `home-v2` e `home-v3` são cópias por isso, e os
  * comentários de lá dizem que o preço é drift. Este componente não viola a
  * regra: ele é uma FOLHA que as duas importam, então apagar a V2 não encosta na
- * V3 e vice-versa. O que ele evita é justamente o preço  -  duplicar aqui seria
+ * V3 e vice-versa. O que ele evita é justamente o preço — duplicar aqui seria
  * repetir uma timeline GSAP, um gate de preloader e um parse de texto do CMS em
  * dois arquivos, e a primeira correção feita num só já sairia errada no outro.
  *
@@ -24,7 +24,7 @@ import type { TickerEntry } from "@/lib/cms/map";
  *
  * O gate vem junto com o mecanismo: a rotação começa quando o preloader abre, e
  * não na montagem. Se rodasse durante o preloader, o visitante chegaria no meio
- * de um cruzamento  -  ou já teria perdido a primeira credencial sem ver.
+ * de um cruzamento — ou já teria perdido a primeira credencial sem ver.
  */
 
 /** Quanto cada credencial fica na tela antes de dar lugar à próxima. */
@@ -50,7 +50,7 @@ const FALLBACK = [
 ];
 
 /**
- * O texto do ticker vem do CMS numa linha só  -  "GOLD - <prêmio> <ano>"  -  porque
+ * O texto do ticker vem do CMS numa linha só — "GOLD - <prêmio> <ano>" — porque
  * o `RunningTicker` imprime a entrada inteira e nunca precisou separar as
  * partes. O cartão daqui precisa: ele tem coluna de ano, categoria e título.
  *
@@ -59,12 +59,12 @@ const FALLBACK = [
  * legível. Um cartão feio é melhor que um canto vazio, e muito melhor que uma
  * exceção em componente de cliente.
  *
- * `category` e `date` existem na entrada e são o plano B  -  o `RunningTicker` não
+ * `category` e `date` existem na entrada e são o plano B — o `RunningTicker` não
  * imprime nenhum dos dois (ver o comentário lá), então aqui eles são fonte de
  * dado, não de texto.
  */
 function toCredential(entry: TickerEntry) {
-  const m = entry.text.match(/^\s*([A-Za-z]+)\s*[-– - ]\s*(.+?)\s*(\d{4})\s*$/);
+  const m = entry.text.match(/^\s*([A-Za-z]+)\s*[-–—]\s*(.+?)\s*(\d{4})\s*$/);
   if (m) return { distinction: m[1], year: m[3], title: m[2] };
   return {
     distinction: entry.category ?? "",
@@ -88,17 +88,17 @@ export default function CyclingCredential({
   useGSAP(
     () => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-credential]");
-      // Com um item só não há o que alternar  -  é o caso de um segmento com uma
+      // Com um item só não há o que alternar — é o caso de um segmento com uma
       // entrada, e o cartão fica estático sem precisar de exceção.
       if (cards.length < 2) return;
 
       // Anima OPACIDADE e mais nada. Sem deslocamento, sem escala: o cartão mora
       // numa quina, e movimento em quina puxa o olho para longe do título, que é
       // onde as duas composições querem que ele fique. Também é o que a torna
-      // aceitável para quem pediu menos movimento  -  é fade, não deslocamento.
+      // aceitável para quem pediu menos movimento — é fade, não deslocamento.
       //
       // O CRUZAMENTO É DESENCONTRADO, e o número tem motivo. Ele começou
-      // simultâneo (`"<"`), para nunca haver um instante de caixa VAZIA  -  uma
+      // simultâneo (`"<"`), para nunca haver um instante de caixa VAZIA — uma
       // moldura de vidro vazia piscando na quina lê como defeito. Só que
       // simultâneo tem o defeito oposto, e ele apareceu numa captura do alpha:
       // no meio da transição os dois textos ficam a ~50% ao mesmo tempo,
@@ -182,8 +182,8 @@ export default function CyclingCredential({
           {/* A COLUNA ESTREITA CARREGA O ANO, E SÓ ELE.
               Ela nasceu com distinção em cima e ano embaixo, e isso funcionava
               enquanto a distinção era escrita à mão e dizia sempre "Gold".
-              Ligada ao ticker, ela passou a receber a CATEGORIA do CMS  -  "New
-              partnerships", "New regions", "New offices"  -  e aí quebrou,
+              Ligada ao ticker, ela passou a receber a CATEGORIA do CMS — "New
+              partnerships", "New regions", "New offices" — e aí quebrou,
               medido: a coluna tinha 84px, menos `px-4` dos dois lados sobravam
               52px úteis, e "partnerships" sozinha ocupa 104px a 11px com
               tracking de 2px. É UMA PALAVRA SÓ: não tem onde quebrar linha,
@@ -192,7 +192,7 @@ export default function CyclingCredential({
               quebravam em duas linhas e disfarçavam o problema.
 
               Encolher a fonte não resolve: para "partnerships" caber em 52px
-              seria preciso ~5,5px de corpo. Alargar a coluna também não  - 
+              seria preciso ~5,5px de corpo. Alargar a coluna também não —
               qualquer largura escolhida hoje é refém da próxima categoria que o
               cliente cadastrar.
 

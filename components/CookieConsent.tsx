@@ -12,7 +12,7 @@ export default function CookieConsent() {
     try {
       if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
     } catch {
-      /* localStorage unavailable  -  don't block the page */
+      /* localStorage unavailable — don't block the page */
     }
   }, []);
 
@@ -25,7 +25,7 @@ export default function CookieConsent() {
      `--consent-h` e some com a variável ao sair. Medida e não fixa porque o
      texto reflui: no telefone a barra empilha e passa dos 150px.
 
-     É `bottom`, e não `transform`, quem lê a variável do outro lado  -  a seta
+     É `bottom`, e não `transform`, quem lê a variável do outro lado — a seta
      tem a entrada do GSAP escrita no transform dela, e duas coisas disputando
      a mesma propriedade foi o defeito que este arranjo evita. */
   useEffect(() => {

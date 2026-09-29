@@ -1,13 +1,13 @@
 /**
- * /home-v3  -  a terceira home para o grupo comparar. NÃO é o site.
+ * /home-v3 — a terceira home para o grupo comparar. NÃO é o site.
  *
- * ⚠️ 10-09: A V2 GANHOU E VIROU A HOME. Ela não mora mais em `/home-v2`  -  mora
+ * ⚠️ 10-09: A V2 GANHOU E VIROU A HOME. Ela não mora mais em `/home-v2` — mora
  * em `/`, e `/home-v2` 308a para lá. A comparação que esta página existe para
  * permitir continua de pé, só que agora é `/home-v3` contra `/`.
  *
  * A DIFERENÇA PARA A V2 É SÓ O HERÓI. Do fim do herói para baixo, esta página é
  * byte a byte a home: mesmas seções, mesma ordem, mesmo tratamento. Foi o
- * pedido de 07-09  -  "pode mexer só na hero e deixar o resto como está". Quem
+ * pedido de 07-09 — "pode mexer só na hero e deixar o resto como está". Quem
  * comparar `/home-v3` e `/` está comparando dois heróis, e só isso.
  *
  * REFERÊNCIA DIFERENTE DA V2. A V2 segue a Explore Performance, que a Rhea
@@ -16,7 +16,7 @@
  * enorme, conteúdo empurrado para os CANTOS em vez de centrado, e o miolo da
  * tela deixado quase vazio. O mapeamento está comentado em `HeroV3.tsx`.
  *
- * Como está montada: cópia da V2  -  hoje `app/page.tsx`  - , não refactor. Mesma
+ * Como está montada: cópia da V2 — hoje `app/page.tsx` —, não refactor. Mesma
  * lógica de sempre neste projeto: enquanto é proposta, nada que está no ar pode
  * depender de arquivo que a proposta mexa. Essa regra vale agora com mais peso,
  * não com menos, porque o arquivo do qual ela é cópia É o site. Se a V3 vencer,
@@ -24,7 +24,7 @@
  * não sobrou nada atrás. O preço é drift: mudanças feitas em `/` a partir de
  * hoje não aparecem aqui sozinhas.
  *
- * `noindex` porque é conteúdo duplicado da home  -  não pode ser indexado nem
+ * `noindex` porque é conteúdo duplicado da home — não pode ser indexado nem
  * concorrer com ela na busca. Não está no `app/sitemap.ts` (a lista lá é
  * explícita) e não está no menu (o nav vem do CMS).
  */
@@ -55,13 +55,13 @@ import { bookLd, personLd } from "@/lib/seo/jsonld";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getSiteStats } from "@/lib/stats";
 
-// Serifa para o corpo  -  item 2.1 da leitura da referência: o par "sans no
+// Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
 // título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
 // A Explore Performance usa freight-text-pro, que é da Adobe; a Source Serif é
 // o equivalente livre mais próximo em desenho e em altura de x.
 //
 // Carregada AQUI, e não no layout: assim a home real não baixa mais uma fonte
-// por causa de uma proposta. Escolha de família é do Guli  -  isto é um lugar
+// por causa de uma proposta. Escolha de família é do Guli — isto é um lugar
 // para ele decidir em cima, e trocar é uma linha.
 const serif = Source_Serif_4({
   subsets: ["latin"],
@@ -89,7 +89,7 @@ const [logoRow1, logoRow2] = clientLogoRows;
 
 const book = {
   /**
-   * The section's headline  -  a positioning line, NOT the book's name. Kept as
+   * The section's headline — a positioning line, NOT the book's name. Kept as
    * authored (CDNA confirmed on 01-09 that it is the same book, and that this
    * heading is deliberately not the title).
    */
@@ -126,10 +126,10 @@ const challenges = [
  *
  * The e-mail writes them as "real pressures, real politics…". The word "real" is
  * dropped here because `RealCycle` supplies it once and holds it fixed while
- * these cycle  -  printing it on each term would put it back on screen six times,
+ * these cycle — printing it on each term would put it back on screen six times,
  * which is the thing Guli's 01-09 treatment exists to stop.
  *
- * Lower case, as the brief writes them. The line reads "Real pressures."  -  one
+ * Lower case, as the brief writes them. The line reads "Real pressures." — one
  * sentence with one capital, not two words each starting upper. Capitalising
  * here also broke the `sr-only` sentence, which joins the six into "Real
  * pressures, politics, choices…" and would have carried a capital mid-clause.
@@ -159,7 +159,7 @@ const cases: {
   { client: "Heineken", sector: "FMCG", challenge: "Accelerate the readiness and advancement of high-potential leaders across the group.", metric: "45%", metricLabel: "higher promotion rate for programme participants", caseSlug: "heineken" },
   { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
-  // Mesma correção aplicada na home no ar  -  este arquivo é cópia, então o
+  // Mesma correção aplicada na home no ar — este arquivo é cópia, então o
   // número tem que ser trocado nos dois lugares até a V2 ser decidida.
   { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
 ];
@@ -167,7 +167,7 @@ const cases: {
 export default async function HomeV3() {
   // `getTickerEntries()` VOLTOU em 07-09, e só nesta rota. Ele tinha saído no
   // mesmo dia, quando o selo do herói virou credencial escrita à mão e o
-  // segmento ficou sem consumidor  -  agora o cartão do canto alterna entre as
+  // segmento ficou sem consumidor — agora o cartão do canto alterna entre as
   // entradas do ticker, então há consumidor de novo.
   //
   // Por que ligar no CMS em vez de repetir os prêmios à mão aqui: as entradas
@@ -203,7 +203,7 @@ export default async function HomeV3() {
       // outra página muda.
       // [&_button[type=submit]]: o botão do formulário é ink dentro do
       // ContactForm, também compartilhado. Com a seção de contato virando
-      // escura, o vermelho sumiria justamente da ação principal da página  -  e a
+      // escura, o vermelho sumiria justamente da ação principal da página — e a
       // referência faz o contrário, o acento vive no CTA. O `!` é porque a
       // classe original do componente tem a mesma especificidade.
       //
@@ -211,7 +211,7 @@ export default async function HomeV3() {
       // `scroll-mt` saiu junto com a barra fixa: sem nada por cima do conteúdo,
       // âncora não cai mais atrás de barra nenhuma.
       // [&_#awards_h2] / [&_#awards_h3]: os títulos do AwardsMentions são os
-      // únicos fora da escala  -  52px onde toda seção usa 40, e 30px onde os
+      // únicos fora da escala — 52px onde toda seção usa 40, e 30px onde os
       // cards usam 28. Medido no navegador, não estimado. Compartilhado com o
       // resto do site, então nivelado aqui em vez de no componente.
       className={`${serif.variable} relative w-full overflow-x-hidden bg-white [&_[data-awards-band]]:bg-ink [&_button[type=submit]]:bg-brand! [&_button[type=submit]]:hover:bg-brand-dark! [&_#awards_h2]:text-[40px]! [&_#awards_h2]:font-semibold! [&_#awards_h2]:tracking-[-0.5px]! [&_#awards_h3]:text-[28px]! [&_#awards_h3]:font-semibold!`}
@@ -228,11 +228,11 @@ export default async function HomeV3() {
           }),
         ]}
       />
-      {/* NAV  -  flutuando sobre o herói em vez de faixa vermelha por cima dele.
+      {/* NAV — flutuando sobre o herói em vez de faixa vermelha por cima dele.
           O porquê está na NavV2. */}
       <NavV2 items={nav} wide />
 
-      {/* SEM TICKER AQUI  -  é a mudança mais visível da V2, e é uma proposta,
+      {/* SEM TICKER AQUI — é a mudança mais visível da V2, e é uma proposta,
           não uma decisão tomada.
 
           O histórico: a faixa está no ar por causa do item 17 do briefing de
@@ -242,8 +242,8 @@ export default async function HomeV3() {
           (`[03:21]`), e o Guilherme concordou.
 
           Aqui ela sai inteira, e o conteúdo não se perde: o herói ganhou uma
-          faixa de credenciais na base (o §4.4 da leitura da referência  - 
-          "trocar o ticker por um bloco de selos"  -  porque rolando o texto
+          faixa de credenciais na base (o §4.4 da leitura da referência —
+          "trocar o ticker por um bloco de selos" — porque rolando o texto
           trunca e não dá para ler), e a faixa de prêmios do rodapé
           (`AwardsMentions`, mais abaixo) continua onde está.
 
@@ -253,31 +253,31 @@ export default async function HomeV3() {
           ATUALIZAÇÃO 07-09: até esta data o herói mostrava `ticker[0]`, a
           entrada mais RECENTE do segmento. Como o segmento mistura prêmios,
           regiões, escritórios e parcerias, o espaço de credencial do herói era
-          sorteio  -  podia cair um escritório novo no lugar de um prêmio. Agora
+          sorteio — podia cair um escritório novo no lugar de um prêmio. Agora
           são dois prêmios escolhidos, escritos no componente. */}
 
       {/* HERO */}
       <HeroV3 ticker={ticker} />
 
-      {/* WHAT "REAL" MEANS  -  27-08 brief, item 1: "Precisamos explicar Keeping
+      {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
           real politics, real choices, real judgement, real people and real
           consequences."
 
-          The six terms are his, verbatim, and nothing else is written here  - 
+          The six terms are his, verbatim, and nothing else is written here —
           no invented copy. The heading is not ours either: on the old site,
           "Our Purpose... is to make leadership REAL" is the first section
           BELOW THE HERO, which is this exact slot. So the line is not being
           borrowed from somewhere else and dropped in; it is being kept where
           CDNA already had it, and the six terms become the concrete answer to
-          it  -  purpose stated, then the six conditions it has to survive.
+          it — purpose stated, then the six conditions it has to survive.
 
           Two earlier attempts were worse and are worth not repeating.
           "Keeping Leadership Real" as an eyebrow repeats the hero H1 word for
           word; "When the stakes are high, leadership must become real" repeats
           the hero sub-line. This one still echoes the hero's "Making
-          Leadership Real" CTA  -  the hero says "real" five times before this
-          section starts, so no heading can avoid an echo  -  but it is one echo
+          Leadership Real" CTA — the hero says "real" five times before this
+          section starts, so no heading can avoid an echo — but it is one echo
           instead of two, and "Our Purpose" itself appears nowhere above.
 
           What is deliberately NOT carried over: the two paragraphs that follow
@@ -287,7 +287,7 @@ export default async function HomeV3() {
           text, not more. The heading is the part that earns its place.
 
           Not approved this cycle. Same category as the closing line on Our
-          Clients, which Guli also took from the old site  -  both need CDNA to
+          Clients, which Guli also took from the old site — both need CDNA to
           confirm they stay.
 
           Placed between the hero and the wall on purpose. Item 2 warns against
@@ -298,8 +298,8 @@ export default async function HomeV3() {
 
           Note there are two lists of "reals" in the e-mail and they are not
           interchangeable: the seven in the opening are about the experience of
-          the whole site; these six are harder  -  pressures, politics,
-          consequences  -  and are the ones item 1 attaches to the homepage. */}
+          the whole site; these six are harder — pressures, politics,
+          consequences — and are the ones item 1 attaches to the homepage. */}
       <section id="real" className="bg-paper">
         <div className="mx-auto max-w-[1200px] px-10 py-16 md:py-20">
           {/* One heading, no eyebrow. The old site splits the line as "Our
@@ -309,7 +309,7 @@ export default async function HomeV3() {
 
               "REAL" is all-caps on the old site. Here it takes the brand colour
               instead, the device the hero's own CTA uses for "Results, Not
-              Promises."  -  no shout on a page with no other all-caps headline.
+              Promises." — no shout on a page with no other all-caps headline.
 
               `stagger={false}`: the grid below is already staggering. */}
           {/* One block, not a heading with a caption under it. Asked whether to
@@ -322,7 +322,7 @@ export default async function HomeV3() {
                   Real pressures.
 
               So both lines carry the same size, weight and tracking, with no
-              margin between them  -  the cycling line is the sentence continuing,
+              margin between them — the cycling line is the sentence continuing,
               not a subtitle. `stagger={false}` because the reveal has two
               children that must appear together, not in sequence.
 
@@ -338,7 +338,7 @@ export default async function HomeV3() {
               <br className="sm:hidden" /> leadership{" "}
               {/* The stop is inside the span. Guli's mock sets "real." in one
                   colour; outside, it printed a dark dot hanging off the red
-                  word  -  and the cycling line below ends in a red stop too, so
+                  word — and the cycling line below ends in a red stop too, so
                   the two lines have to punctuate the same way. */}
               <span className="text-brand">real.</span>
             </h2>
@@ -353,7 +353,7 @@ export default async function HomeV3() {
         </div>
       </section>
 
-      {/* CREDIBILITY  -  proof, before any explanation.
+      {/* CREDIBILITY — proof, before any explanation.
           The brief's ordering principle is "Claim → Proof → Explanation, e não
           long explanation antes de proof" (item 2), so the logo wall and the
           statistics now sit between the hero and "What we solve", which used to
@@ -385,7 +385,7 @@ export default async function HomeV3() {
         </div>
       </section>
 
-      {/* WHAT WE SOLVE  -  the explanation, now that the proof is above it. */}
+      {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
       <section id="solve" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
           <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
@@ -395,7 +395,7 @@ export default async function HomeV3() {
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink md:mx-auto">
             The leadership challenges that determine enterprise performance.
           </h2>
-          {/* Subtítulo de seção em serifa  -  mesmo papel do subtítulo do herói.
+          {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do herói.
               É o par tipográfico saindo da primeira dobra, que era o item 2.1
               da leitura da referência: "eyebrow em caps → título grande →
               subtítulo em serifa → grid", o mesmo padrão em toda seção.
@@ -414,7 +414,7 @@ export default async function HomeV3() {
         </Reveal>
       </section>
 
-      {/* CHALLENGES  -  hidden for now (set the guard to true to restore) */}
+      {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="challenges" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 pb-24 pt-4">
@@ -431,7 +431,7 @@ export default async function HomeV3() {
       </section>
       )}
 
-      {/* WHY CDNA  -  hidden for now (set the guard to true to restore) */}
+      {/* WHY CDNA — hidden for now (set the guard to true to restore) */}
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -463,11 +463,11 @@ export default async function HomeV3() {
           of the 27-08 brief removes it from the public site: "Remover o compiled
           testimonial video atual do public website. Em vez disso, criar uma
           estrutura modular para individual client testimonial videos." That
-          structure exists  -  the `testimonial_video` content type and its read
-          layer  -  and stays empty until CDNA supplies the individual films.
+          structure exists — the `testimonial_video` content type and its read
+          layer — and stays empty until CDNA supplies the individual films.
           `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
-      {/* CLIENT IMPACT  -  fundo escuro na V2, vermelho só nas marcações.
+      {/* CLIENT IMPACT — fundo escuro na V2, vermelho só nas marcações.
 
           O QUE ERA: o Guli pintou esta faixa de vermelho em 31-08, e por um
           motivo real. A reordenação tinha deixado esta seção e "What we solve"
@@ -477,7 +477,7 @@ export default async function HomeV3() {
           brancos.
 
           POR QUE MUDA: o problema que ele resolveu continua resolvido com fundo
-          escuro  -  o que separava as duas seções brancas era a faixa TER cor,
+          escuro — o que separava as duas seções brancas era a faixa TER cor,
           não a cor ser vermelha. E o vermelho como área é exatamente o que a
           leitura da referência aponta como a mudança de maior efeito por menor
           esforço (§4.2: "na referência o acento nunca vira área, só marca").
@@ -491,7 +491,7 @@ export default async function HomeV3() {
           empilhar dois blocos da mesma cor, que foi o problema original. */}
       <section id="impact" className="bg-ink text-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          {/* O filete e o eyebrow voltam a ser vermelhos  -  era isso que o fundo
+          {/* O filete e o eyebrow voltam a ser vermelhos — era isso que o fundo
               vermelho tinha tirado deles. No tom claro de fundo escuro: o
               #d84339 sobre ink mede 2,9:1 e reprovaria em 13px. */}
           <div className="mb-2.5 flex items-baseline gap-3">
@@ -543,7 +543,7 @@ export default async function HomeV3() {
         </Reveal>
       </section>
 
-      {/* 5H FRAMEWORK  -  hidden for now (set the guard to true to restore) */}
+      {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
@@ -574,7 +574,7 @@ export default async function HomeV3() {
       </section>
       )}
 
-      {/* PEOPLE  -  hidden until the CMS has published people */}
+      {/* PEOPLE — hidden until the CMS has published people */}
       {people.length > 0 && (
         <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
@@ -592,7 +592,7 @@ export default async function HomeV3() {
             A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
           </p>
           <PeopleGrid people={people} />
-          {/* The DNA experience  -  copy on the left, life-at-DNA carousel on the
+          {/* The DNA experience — copy on the left, life-at-DNA carousel on the
               right. Stacks on mobile (text first, then the images). */}
           <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-14">
             <div>
@@ -673,7 +673,7 @@ export default async function HomeV3() {
               <figure className="mb-7 w-full md:float-right md:mb-4 md:ml-12 md:w-[400px]">
                 <div className="relative aspect-[4/3] w-full overflow-hidden shadow-xl">
                   {/* The cover is a picture of the book, so it is named by the
-                    book  -  not by the section headline. */}
+                    book — not by the section headline. */}
                 <Image src="/book-cover.png" alt={book.name} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
                 </div>
               </figure>
@@ -700,28 +700,28 @@ export default async function HomeV3() {
         </Reveal>
       </section>
 
-      {/* OFFICES / REGIONS  -  interactive locations map + carousel (feature 003).
+      {/* OFFICES / REGIONS — interactive locations map + carousel (feature 003).
           `tone="dark"` is Guli's 31-08 fix: this block and the book block above
-          were both light grey and touching. Homepage only  -  the same block runs
+          were both light grey and touching. Homepage only — the same block runs
           light on Our Clients and Our Team, which have different neighbours. */}
       <LocationsBlock tone="dark" />
 
-      {/* GLOBAL COVERAGE  -  world map of countries served (feature 008) */}
+      {/* GLOBAL COVERAGE — world map of countries served (feature 008) */}
       <WorldCoverageMap />
 
-      {/* AWARDS & MENTIONS  -  spec 009, design docs/Group 2.png.
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
           A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`
           no wrapper lá em cima, sem duplicar o componente. Os logos dos prêmios
           são claros, então funcionam sobre o ink do mesmo jeito que funcionavam
           sobre o vermelho. */}
       <AwardsMentions />
 
-      {/* CONTACT  -  a terceira e última área vermelha da página.
+      {/* CONTACT — a terceira e última área vermelha da página.
 
           Vira ink pelo mesmo motivo das outras duas, e aqui a troca custa
           menos ainda: o formulário já é um card branco por cima do fundo, e o
-          botão de enviar já é ink. O vermelho continua presente onde importa  - 
-          os asteriscos de campo obrigatório e o link de política  -  que é
+          botão de enviar já é ink. O vermelho continua presente onde importa —
+          os asteriscos de campo obrigatório e o link de política — que é
           marcação, não área.
 
           O rodapé logo abaixo é branco, então a seção escura não encosta em

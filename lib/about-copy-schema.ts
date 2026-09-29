@@ -7,8 +7,8 @@
  * daqui.
  *
  * ⚠️ OS COMPRIMENTOS FIXOS (`.length(4)`, `.length(5)`) NÃO SÃO ENFEITE: a
- * página casa ícone com item POR POSIÇÃO  -  quatro `StatIcon`, cinco
- * `ValueIcon`  -  e a Clients & Impact desenha quatro colunas. Um salvamento com
+ * página casa ícone com item POR POSIÇÃO — quatro `StatIcon`, cinco
+ * `ValueIcon` — e a Clients & Impact desenha quatro colunas. Um salvamento com
  * lista de tamanho diferente é reprovado aqui, e a `mergeCopy` devolve o padrão
  * inteiro em vez de publicar uma página com ícone sem valor ao lado.
  */
@@ -55,7 +55,7 @@ export const AboutCopySchema: z.ZodType<AboutCopy> = z.object({
     intro: str,
     items: z.array(z.object({ name: str, offices: str, descriptor: str })).length(4),
   }),
-  /* `tel` aceita string vazia  -  é assim que Riyadh e Miami dizem "sem telefone
+  /* `tel` aceita string vazia — é assim que Riyadh e Miami dizem "sem telefone
      publicado". Os outros campos também aceitam, mas ali o vazio é engano; a
      diferença é que dentro de uma LISTA o vazio persiste (a mescla substitui a
      lista inteira em vez de entrar campo a campo), e fora dela cai no padrão. */

@@ -1,13 +1,13 @@
 /**
- * O ACERVO "LIFE AT DNA"  -  a lista de fotos do carrossel e o enquadramento de
+ * O ACERVO "LIFE AT DNA" — a lista de fotos do carrossel e o enquadramento de
  * cada uma.
  *
  * MOROU DENTRO DA HOME ATÉ 21-09, e saiu de lá no dia em que a /team passou a
  * mostrar o mesmo carrossel (*"na seção One team da página /team tem que trocar
  * a imagem pelo carrossel de imagens da home"*). Duas páginas montando a mesma
  * lista cada uma por sua conta é como elas divergem em silêncio: a /team já
- * havia nascido com a versão ANTERIOR da conta  -  sem a remoção da foto
- * duplicada e sem mapa de enquadramento nenhum  - , ou seja publicava a foto
+ * havia nascido com a versão ANTERIOR da conta — sem a remoção da foto
+ * duplicada e sem mapa de enquadramento nenhum —, ou seja publicava a foto
  * repetida e os rostos cortados que a home tinha acabado de consertar.
  *
  * Importar a home de dentro da /team não era opção: `app/page.tsx` é um módulo
@@ -26,20 +26,20 @@ const dnaTime = (n: number) =>
  * duas listas que precisam casar por número de arquivo não podem morar uma no
  * meio do JSX e a outra em lugar nenhum.
  *
- * OS BURACOS DA SEQUÊNCIA, um por um  -  a lista nega, não afirma, para que uma
+ * OS BURACOS DA SEQUÊNCIA, um por um — a lista nega, não afirma, para que uma
  * foto nova só precise ser jogada na pasta:
  *
  *   05, 08, 14   nunca existiram no acervo entregue.
  *   07           ⚠️ SAIU EM 23-09. É o jantar em que o grupo brinda com
  *                taças. A cliente pediu essa foto fora do carrossel da home
  *                e da /team. O arquivo continua em /public.
- *   10           ⚠️ SAIU EM 21-09. É A MESMA FOTO DA 15  -  o grupo no pátio do
- *                escritório de Singapura  - , só que a 1280x960 contra 1600x1200,
+ *   10           ⚠️ SAIU EM 21-09. É A MESMA FOTO DA 15 — o grupo no pátio do
+ *                escritório de Singapura —, só que a 1280x960 contra 1600x1200,
  *                e com um enquadramento um pouco mais fechado. O carrossel
  *                mostrava a mesma cena duas vezes, e na segunda vez pior: com
  *                640px de moldura em tela retina o navegador pede 1280px, que é
  *                exatamente o que a 10 tem, sem folga nenhuma. Isto é metade do
- *                *"photo quality is not great"* de 21-09  -  a versão pequena
+ *                *"photo quality is not great"* de 21-09 — a versão pequena
  *                esticada existindo ao lado da grande.
  *
  *   01           ⚠️ FOI PARA O FIM EM 24-09, a pedido: o carrossel abre na 02
@@ -57,12 +57,12 @@ export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
   .map(dnaTime);
 
 /**
- * ENQUADRAMENTO POR FOTO  -  21-09: *"as fotos estao cortando os rostos"*
+ * ENQUADRAMENTO POR FOTO — 21-09: *"as fotos estao cortando os rostos"*
  * (e-mail: *"some photos are cropped"*).
  *
  * A moldura do carrossel é 16:10 no telefone e 16:9 do `sm` para cima, e o
  * acervo é quase todo 4:3 de celular. Numa foto 4:3 dentro de 16:9 só 75% da
- * ALTURA cabe, e centrado o corte tira 12,5% em cima  -  que é onde ficam as
+ * ALTURA cabe, e centrado o corte tira 12,5% em cima — que é onde ficam as
  * cabeças da última fileira de toda foto de grupo. Nos dois retratos o estrago
  * é maior: sobram 42% (03) e 37% (11) da altura.
  *
@@ -71,11 +71,11 @@ export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
  * número SOBE o enquadramento.
  *
  * Quem não está aqui fica em `object-center`, que é o padrão do componente e o
- * certo para a maioria  -  só entra na lista a foto em que o centro erra.
+ * certo para a maioria — só entra na lista a foto em que o centro erra.
  *
  *   01  30% → seria uma selfie de grupo com a fileira do fundo começando aos 7%
  *             de altura; centrado, a fila inteira perdia o alto da cabeça.
- *             Subindo, o rosto grande em primeiro plano perde o queixo  -  30% é
+ *             Subindo, o rosto grande em primeiro plano perde o queixo — 30% é
  *             o ponto em que as duas pontas ainda cabem.
  *   03  30% → retrato: a facilitadora em pé tem a cabeça entre 20% e 28%, e o
  *             corte centrado (28,9%–71,1%) a DECAPITAVA. É o caso mais grosseiro
@@ -90,7 +90,7 @@ export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
  *   27  60% → o grupo ao ar livre começa aos 42%; centrado, sobrava céu em cima
  *             e cortava corpo embaixo.
  *
- * ⚠️ AS CLASSES ESTÃO ESCRITAS POR EXTENSO e têm de continuar assim  -  o
+ * ⚠️ AS CLASSES ESTÃO ESCRITAS POR EXTENSO e têm de continuar assim — o
  * Tailwind varre o código atrás de nomes literais, e uma classe montada em
  * runtime não gera CSS. A foto voltaria para o centro sem erro nenhum.
  */

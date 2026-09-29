@@ -1,25 +1,25 @@
 /**
- * `/`  -  a home do site. Esta página ERA a `/home-v2` até 10-09.
+ * `/` — a home do site. Esta página ERA a `/home-v2` até 10-09.
  *
  * De onde ela veio: na call de 03-09 a Rhea mandou a Explore Performance como
  * referência ("I love the clarity and visual appeal") e pediu, literalmente,
- * exemplos em vez de conversa  -  `[56:49]` "send me some examples and say 'Ria,
- * should it be like this?'  -  talking will only help 50%, examples will help
+ * exemplos em vez de conversa — `[56:49]` "send me some examples and say 'Ria,
+ * should it be like this?' — talking will only help 50%, examples will help
  * more". A V2 foi esse exemplo, servida lado a lado com a home então no ar. Foi
  * a escolhida, e em 10-09 subiu para cá.
  *
  * A home que ela substitui NÃO foi jogada fora: virou `/home-v1`, fora do menu
- * e fora do sitemap, com `noindex`. `/home-v2` continua respondendo  -  308 para
+ * e fora do sitemap, com `noindex`. `/home-v2` continua respondendo — 308 para
  * `/` no `next.config.mjs`, porque é o endereço que circulou para revisão.
  *
  * O que ISTO deixa de ser: enquanto era proposta, este arquivo era uma cópia da
  * home no ar, mantida duplicada de propósito para que nada que a proposta
- * mexesse pudesse afetar o site. Essa regra acabou aqui  -  este arquivo é o
+ * mexesse pudesse afetar o site. Essa regra acabou aqui — este arquivo é o
  * site. Quem continua sob a regra antiga é a `/home-v3`, que segue sendo cópia
  * desta e ainda é proposta.
  *
  * Os comentários abaixo descrevem cada mudança "em relação à home real" e são
- * mantidos como histórico da decisão  -  a "home real" que eles citam é hoje a
+ * mantidos como histórico da decisão — a "home real" que eles citam é hoje a
  * `/home-v1`. A origem de cada uma: leitura da referência em
  * `docs/reuniao-rhea-03-09-2026-referencia-explore-performance.md` e decisões
  * da call interna em `docs/rhea-feedback/analise-call-interna-03-09-2026.md`.
@@ -56,15 +56,15 @@ import { getHomeCopy } from "@/lib/home-copy-server";
 import { getCaseListEntries } from "@/lib/cms/map";
 import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
-// Serifa para o corpo  -  item 2.1 da leitura da referência: o par "sans no
+// Serifa para o corpo — item 2.1 da leitura da referência: o par "sans no
 // título + serifa no corpo" é o que dá o ar editorial, em vez de ar de SaaS.
 // A Explore Performance usa freight-text-pro, que é da Adobe; a Source Serif é
 // o equivalente livre mais próximo em desenho e em altura de x.
 //
 // Carregada AQUI, e não no layout: assim a home real não baixa mais uma fonte
-// por causa de uma proposta. Escolha de família é do Guli  -  isto é um lugar
+// por causa de uma proposta. Escolha de família é do Guli — isto é um lugar
 // para ele decidir em cima, e trocar é uma linha.
-/* GEIST NO LUGAR DA POPPINS  -  10-09, alinhando a home à /about.
+/* GEIST NO LUGAR DA POPPINS — 10-09, alinhando a home à /about.
    O motivo é o mesmo registrado na About: a Poppins é "quadrada demais" (Rhea),
    geométrica, e no peso que a home usa em título isso lê como bloco. A Geist é
    grotesca neo, com terminais retos e cauda no `a` e no `g`.
@@ -94,7 +94,7 @@ const geist = Geist({
    na About. Ele é lido de fora desta página: o `HeroV2` (subtítulo do herói) e o
    `HeroV3` aplicam `var(--font-serif-v2)` inline, e o `HeroV2` é compartilhado
    com a /home-v3, que publica a variável com este nome. Renomear aqui deixou o
-   subtítulo do herói sem serifa  -  cai no `--font-sans` herdado  -  sem erro de
+   subtítulo do herói sem serifa — cai no `--font-sans` herdado — sem erro de
    build e sem aviso nenhum. O nome é interno; o que importa é que
    `--font-serif`, abaixo, aponta para cá. */
 const serif = Source_Serif_4({
@@ -132,13 +132,13 @@ const [logoRow1, logoRow2] = clientLogoRows;
  * A home mostra UM livro, e `/books` mostra todos.
  *
  * O texto saiu daqui para `lib/books.ts` em 11-09, quando a página de livros
- * passou a existir  -  mesma razão de `clientLogoRows` logo acima e de
+ * passou a existir — mesma razão de `clientLogoRows` logo acima e de
  * `officialPortrait` em `lib/team.ts`: duas telas com o mesmo conteúdo em duas
  * cópias divergem na primeira correção feita de um lado só.
  *
  * `[0]` e não uma busca por nome: a ordem do módulo é a ordem de publicação, e o
  * primeiro é o carro-chefe. Quando o segundo livro entrar, esta linha continua
- * certa sem tocar em nada  -  e se um dia a home tiver de mostrar outro, o lugar
+ * certa sem tocar em nada — e se um dia a home tiver de mostrar outro, o lugar
  * de decidir é aqui, numa linha.
  */
 const book = books[0];
@@ -157,10 +157,10 @@ const challenges = [
  *
  * The e-mail writes them as "real pressures, real politics…". The word "real" is
  * dropped here because `RealCycle` supplies it once and holds it fixed while
- * these cycle  -  printing it on each term would put it back on screen six times,
+ * these cycle — printing it on each term would put it back on screen six times,
  * which is the thing Guli's 01-09 treatment exists to stop.
  *
- * Lower case, as the brief writes them. The line reads "Real pressures."  -  one
+ * Lower case, as the brief writes them. The line reads "Real pressures." — one
  * sentence with one capital, not two words each starting upper. Capitalising
  * here also broke the `sr-only` sentence, which joins the six into "Real
  * pressures, politics, choices…" and would have carried a capital mid-clause.
@@ -179,8 +179,8 @@ const differentiators = [
 // Cards without a slug fall back to the flagship-cases listing (/cases).
 //
 // ⚠️ OS TRÊS ESTÃO SEM SLUG DESDE 17-09, e por isso os três caem na biblioteca.
-// Heineken, Coca-Cola e Shell foram despublicados no CMS  -  nenhum tem
-// `Reviewed = Yes` na planilha da daily de 16-09  - , então `/cases/heineken`,
+// Heineken, Coca-Cola e Shell foram despublicados no CMS — nenhum tem
+// `Reviewed = Yes` na planilha da daily de 16-09 —, então `/cases/heineken`,
 // `/cases/coca-cola` e `/cases/shell` respondem 404. Manter o deep link seria
 // mandar o visitante da home para uma página morta.
 //
@@ -191,21 +191,21 @@ const differentiators = [
 //
 // `logo` É O ARQUIVO EM /public/logos, e entrou em 21-09: *"Add company logos
 // to client metrics"* (anotação: *"colocar os logos nos cases"*). Os três
-// existem no acervo  -  `heineken.png`, `coca_cola.png` e `shell.png`  - , então
+// existem no acervo — `heineken.png`, `coca_cola.png` e `shell.png` —, então
 // nenhum card fica sem.
 //
 // ⚠️ O CAMPO É OPCIONAL DE PROPÓSITO. Se um dia entrar aqui um cliente sem arte
 // no acervo, o certo é deixar o campo de fora e o card renderiza só o nome, que
-// é o que ele sempre fez  -  melhor que um retângulo quebrado ou um logo
+// é o que ele sempre fez — melhor que um retângulo quebrado ou um logo
 // inventado. O cabeçalho do card já trata o caso.
 //
 // ✅ `heineken.png` ENTROU NO MURAL EM 24-09, com a pasta nova de clientes
 // reais (`lib/logos.ts`). Continua aqui porque o card já cita a Heineken
-// pelo nome  -  o arquivo é o mesmo.
+// pelo nome — o arquivo é o mesmo.
 // ✅ O TEXTO DOS TRÊS CARDS MORA EM `lib/home-copy.ts` DESDE 23-09
 // (`impact.cases`), editável em /edit-home. O que fica aqui é só o que NÃO é
 // texto: o arquivo do logo, por posição. Se a cliente trocar o cliente do card
-// no editor, o logo continua sendo o desta lista  -  trocar arte é aqui.
+// no editor, o logo continua sendo o desta lista — trocar arte é aqui.
 //
 // SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
 //
@@ -213,14 +213,14 @@ const differentiators = [
 // das marcas, com o laranja escolhido para a métrica da Shell.
 const caseArt: { logo?: string; cardTint: string; metricColor: string }[] = [
   { logo: "heineken.png", cardTint: "#effaf4", metricColor: LOGO_COLORS.heineken },
-  { logo: "frasers-property.png", cardTint: "#f7f5f2", metricColor: "#1f1c1d" },
+  { logo: "coca-cola.png", cardTint: "#fff5f5", metricColor: LOGO_COLORS.coca_cola },
   { logo: "shell.png", cardTint: "#fffbea", metricColor: "#f15d00" },
 ];
 
 
 export default async function Home() {
   // ⛔ `getTickerEntries()` SAIU DO `Promise.all` EM 21-09, e pela segunda vez.
-  // O consumidor dele era o cartão da quina do herói  -  o "pop up" que a cliente
+  // O consumidor dele era o cartão da quina do herói — o "pop up" que a cliente
   // mandou tirar (*"Remove Brandon hall pop up on hero image add this to
   // awards"*). Sem o cartão, esta chamada seria uma requisição ao CMS por build
   // para preencher uma variável que ninguém lê, que é o mesmo defeito que o
@@ -228,17 +228,17 @@ export default async function Home() {
   //
   // ⏳ O QUE VOLTA COM ELE: a chamada aqui, o `import { getTickerEntries }` e o
   // `ticker={ticker}` no `<HeroV2 />`. O cartão em si não precisa ser
-  // reescrito  -  o `CyclingCredential` continua no repo, vivo, porque a
+  // reescrito — o `CyclingCredential` continua no repo, vivo, porque a
   // /home-v3 o usa pela HeroV3.
   //
   // ⛔ `getPeople()` SAIU DO `Promise.all` EM 14-09, junto com a grade de
-  // retratos que era a única consumidora dele (item 29  -  ver a caixa na seção
+  // retratos que era a única consumidora dele (item 29 — ver a caixa na seção
   // `#people`). Ficar chamando o CMS por uma coleção que nada renderiza é uma
   // requisição por build para preencher uma variável morta.
   //
   // ⏳ O QUE VOLTA COM ELE, se ela pedir os retratos de volta: a chamada aqui, o
   // `import PeopleGrid`, o `import { officialPortrait }` e a linha que casava os
-  // dois  -  `cmsPeople.map((p) => ({ ...p, img: officialPortrait(p.name) }))`. O
+  // dois — `cmsPeople.map((p) => ({ ...p, img: officialPortrait(p.name) }))`. O
   // porquê daquele `map` (o CMS guarda a leva ANTIGA de retratos; os oficiais de
   // 09-09 moram em `lib/team.ts`, e quem não tem oficial fica nas iniciais em vez
   // de republicar a foto velha) está no commit de 11-09 e continua valendo.
@@ -258,7 +258,7 @@ export default async function Home() {
   return (
     // `geist.variable` e `serif.variable` publicam --font-geist-v3 e
     // --font-serif-v2 para tudo que está dentro. Ficam no wrapper, e não no
-    // layout, porque o resto do site segue na Poppins  -  ver a nota nas
+    // layout, porque o resto do site segue na Poppins — ver a nota nas
     // declarações das fontes, acima.
     <div
       // --accent-on-dark: o vermelho da marca sobre fundo escuro mede 2,9:1,
@@ -269,7 +269,7 @@ export default async function Home() {
       // color definitiva.
       // --font-sans / --font-serif: a troca da Poppins pela Geist, 10-09. Feita
       // por variável no wrapper, e não classe a classe, porque `--font-sans` é
-      // o que o `font-sans` do body já resolve (`globals.css:4`)  -  reapontar a
+      // o que o `font-sans` do body já resolve (`globals.css:4`) — reapontar a
       // variável troca a fonte de TODA esta árvore de uma vez, sem tocar em
       // nenhum dos títulos. Mesmo mecanismo da /about.
       style={
@@ -290,7 +290,7 @@ export default async function Home() {
       // era ink no ContactForm; o `HoverFillSubmit` já nasce vermelho. Mantê-lo
       // faria o `hover:bg-brand-dark!` escurecer a moldura de 4px no hover, que
       // não é do efeito.
-      // ⚠️ SE O EFEITO FOR DESCARTADO, ELE PRECISA VOLTAR  -  senão o botão da
+      // ⚠️ SE O EFEITO FOR DESCARTADO, ELE PRECISA VOLTAR — senão o botão da
       // home vira ink. Era exatamente esta linha:
       //   [&_button[type=submit]]:bg-brand! [&_button[type=submit]]:hover:bg-brand-dark!
       //
@@ -298,22 +298,22 @@ export default async function Home() {
       // `scroll-mt` saiu junto com a barra fixa: sem nada por cima do conteúdo,
       // âncora não cai mais atrás de barra nenhuma.
       // [&_#awards_h2] / [&_#awards_h3]: os títulos do AwardsMentions são os
-      // únicos fora da escala  -  52px onde toda seção usa 40, e 30px onde os
+      // únicos fora da escala — 52px onde toda seção usa 40, e 30px onde os
       // cards usam 28. Medido no navegador, não estimado. Compartilhado com o
       // resto do site, então nivelado aqui em vez de no componente.
       //
       // ⚠️ `#awards_h3` E `#coverage_h2` ESTÃO INERTES DESDE 14-09 e ficam de
       // propósito. O primeiro mirava os cinco nomes de prêmio, que no banner
       // deixaram de ser `h3`; o segundo, o mapa-múndi, que saiu da página (itens
-      // 33 e 34). São seletores sem alvo  -  custo zero  -  e apagá-los é o que faz
+      // 33 e 34). São seletores sem alvo — custo zero — e apagá-los é o que faz
       // os dois blocos voltarem fora de escala no dia em que alguém reverter.
-      // TÍTULOS EM SERIFA  -  10-09, adotando o padrão tipográfico da /about.
+      // TÍTULOS EM SERIFA — 10-09, adotando o padrão tipográfico da /about.
       // Medido nas duas páginas: na About h1, h2 e h3 são 100% serifa (1, 2 e 19
       // ocorrências) e o corpo é Geist (31 de 33 parágrafos). A home fazia o
       // contrário, com tudo em sans.
       //
       // Feito por variante no wrapper, e não classe a classe como na About,
-      // porque parte dos títulos desta página vem de COMPARTILHADOS  -  hoje o
+      // porque parte dos títulos desta página vem de COMPARTILHADOS — hoje o
       // título do `AwardsMentions`; até 14-09 também o `WorldCoverageMap`
       // ("Where we operate.") e os cinco nomes de prêmio, que saíram com os
       // itens 33 e 34. Editar os componentes arrastaria
@@ -337,19 +337,19 @@ export default async function Home() {
           }),
         ]}
       />
-      {/* NAV  -  flutuando sobre o herói em vez de faixa vermelha por cima dele.
+      {/* NAV — flutuando sobre o herói em vez de faixa vermelha por cima dele.
           O porquê está na NavV2. */}
-      {/* `outlined`  -  o menu na versão final aprovada na /about (10-09): Geist
+      {/* `outlined` — o menu na versão final aprovada na /about (10-09): Geist
           em caixa baixa 16px, Contact vermelho sólido, régua vermelha no hover.
 
           `maxWidthClass` em 1440 porque o CONTEÚDO desta página passou a 1440 no
-          mesmo commit  -  os dez containers daqui mais o do HeroV2. A regra segue
+          mesmo commit — os dez containers daqui mais o do HeroV2. A regra segue
           sendo "o menu acompanha a coluna da página": antes a home era 1200 e o
           menu ficava em 1200; agora os dois sobem juntos. Se a coluna voltar a
           1200, esta prop volta junto, senão o logo descola do título. */}
       <NavV2 items={nav} maxWidthClass="max-w-[1440px]" outlined />
 
-      {/* SEM TICKER AQUI  -  é a mudança mais visível da V2, e é uma proposta,
+      {/* SEM TICKER AQUI — é a mudança mais visível da V2, e é uma proposta,
           não uma decisão tomada.
 
           O histórico: a faixa está no ar por causa do item 17 do briefing de
@@ -359,8 +359,8 @@ export default async function Home() {
           (`[03:21]`), e o Guilherme concordou.
 
           Aqui ela sai inteira, e o conteúdo não se perde: o herói ganhou uma
-          faixa de credenciais na base (o §4.4 da leitura da referência  - 
-          "trocar o ticker por um bloco de selos"  -  porque rolando o texto
+          faixa de credenciais na base (o §4.4 da leitura da referência —
+          "trocar o ticker por um bloco de selos" — porque rolando o texto
           trunca e não dá para ler), e a faixa de prêmios do rodapé
           (`AwardsMentions`, mais abaixo) continua onde está.
 
@@ -370,7 +370,7 @@ export default async function Home() {
           ATUALIZAÇÃO 07-09: até esta data o herói mostrava `ticker[0]`, a
           entrada mais RECENTE do segmento. Como o segmento mistura prêmios,
           regiões, escritórios e parcerias, o espaço de credencial do herói era
-          sorteio  -  podia cair um escritório novo no lugar de um prêmio. Agora
+          sorteio — podia cair um escritório novo no lugar de um prêmio. Agora
           são dois prêmios escolhidos, escritos no componente.
 
           ATUALIZAÇÃO 21-09: o cartão saiu do herói a pedido da cliente, e com
@@ -380,25 +380,25 @@ export default async function Home() {
       {/* HERO */}
       <HeroV2 copy={copy.hero} />
 
-      {/* WHAT "REAL" MEANS  -  27-08 brief, item 1: "Precisamos explicar Keeping
+      {/* WHAT "REAL" MEANS — 27-08 brief, item 1: "Precisamos explicar Keeping
           Leadership Real de maneira curta e visual, trazendo: real pressures,
           real politics, real choices, real judgement, real people and real
           consequences."
 
-          The six terms are his, verbatim, and nothing else is written here  - 
+          The six terms are his, verbatim, and nothing else is written here —
           no invented copy. The heading is not ours either: on the old site,
           "Our Purpose... is to make leadership REAL" is the first section
           BELOW THE HERO, which is this exact slot. So the line is not being
           borrowed from somewhere else and dropped in; it is being kept where
           CDNA already had it, and the six terms become the concrete answer to
-          it  -  purpose stated, then the six conditions it has to survive.
+          it — purpose stated, then the six conditions it has to survive.
 
           Two earlier attempts were worse and are worth not repeating.
           "Keeping Leadership Real" as an eyebrow repeats the hero H1 word for
           word; "When the stakes are high, leadership must become real" repeats
           the hero sub-line. This one still echoes the hero's "Making
-          Leadership Real" CTA  -  the hero says "real" five times before this
-          section starts, so no heading can avoid an echo  -  but it is one echo
+          Leadership Real" CTA — the hero says "real" five times before this
+          section starts, so no heading can avoid an echo — but it is one echo
           instead of two, and "Our Purpose" itself appears nowhere above.
 
           What is deliberately NOT carried over: the two paragraphs that follow
@@ -408,7 +408,7 @@ export default async function Home() {
           text, not more. The heading is the part that earns its place.
 
           Not approved this cycle. Same category as the closing line on Our
-          Clients, which Guli also took from the old site  -  both need CDNA to
+          Clients, which Guli also took from the old site — both need CDNA to
           confirm they stay.
 
           Placed between the hero and the wall on purpose. Item 2 warns against
@@ -419,22 +419,22 @@ export default async function Home() {
 
           Note there are two lists of "reals" in the e-mail and they are not
           interchangeable: the seven in the opening are about the experience of
-          the whole site; these six are harder  -  pressures, politics,
-          consequences  -  and are the ones item 1 attaches to the homepage. */}
-      {/* ── PURPOSE + WHAT WE SOLVE  -  uma seção só desde 10-09 ────────────
+          the whole site; these six are harder — pressures, politics,
+          consequences — and are the ones item 1 attaches to the homepage. */}
+      {/* ── PURPOSE + WHAT WE SOLVE — uma seção só desde 10-09 ────────────
           Antes eram DUAS, e o problema era que diziam a mesma coisa em ordens
           diferentes: a `#real` nomeava as pressões, a `#solve` prometia
           resolvê-las. Separadas, eram duas faixas centralizadas de ritmo quase
           idêntico, com a faixa de logos e números entre elas.
 
           ONDE O BLOCO FUNDIDO FICOU: logo abaixo do herói, ANTES da faixa de
-          credibilidade  -  decisão do cliente em 10-09 ("essa seção vai embaixo
+          credibilidade — decisão do cliente em 10-09 ("essa seção vai embaixo
           da hero e depois vem a seção de clientes").
 
           ⚠️ ISSO INVERTE UMA ORDEM QUE ESTAVA DOCUMENTADA. O comentário da faixa
           de credibilidade, logo abaixo, registra o princípio do brief de 27-08
           (item 2): "Claim → Proof → Explanation, e não long explanation antes de
-          proof"  -  foi por isso que os logos e os números tinham sido movidos
+          proof" — foi por isso que os logos e os números tinham sido movidos
           para ANTES do "What we solve". Agora o herói afirma, esta seção
           explica, e só então a prova chega.
 
@@ -453,7 +453,7 @@ export default async function Home() {
           flutuam. É a régua da faixa de números da /about, girada 90°.
 
           `lg:items-center` e não `items-start`: uma coluna é duas linhas de
-          título grande e a outra são três blocos de tamanhos diferentes  - 
+          título grande e a outra são três blocos de tamanhos diferentes —
           alinhadas pelo topo, uma termina muito abaixo e o par lê torto. */}
       <section id="solve" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
@@ -473,7 +473,7 @@ export default async function Home() {
               <h2 className="font-sans! mb-5 text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[32px]">
                 {copy.solve.title}
               </h2>
-              {/* Subtítulo de seção em serifa  -  mesmo papel do subtítulo do
+              {/* Subtítulo de seção em serifa — mesmo papel do subtítulo do
                   herói, o par tipográfico saindo da primeira dobra. */}
               <p
                 className="max-w-[560px] text-[18px] leading-[1.6] text-muted md:text-[20px]"
@@ -503,19 +503,19 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      {/* CREDIBILITY  -  o mural de logos e os números.
+      {/* CREDIBILITY — o mural de logos e os números.
           The brief's ordering principle is "Claim → Proof → Explanation, e não
           long explanation antes de proof" (item 2), so the logo wall and the
           statistics were moved to sit between the hero and "What we solve".
 
           ⚠️ EM 10-09 O CLIENTE INVERTEU ISSO. A seção fundida "purpose + what we
           solve" passou a vir logo abaixo do herói, e esta faixa desceu para
-          depois dela  -  "essa seção vai embaixo da hero e depois vem a seção de
+          depois dela — "essa seção vai embaixo da hero e depois vem a seção de
           clientes". Ou seja: a explicação voltou a preceder a prova.
 
           O parágrafo acima fica como está de propósito. Ele registra POR QUE
           esta faixa foi parar aqui, e continua sendo o argumento contra a
-          ordem atual  -  se alguém trouxer o assunto de volta, é este o texto a
+          ordem atual — se alguém trouxer o assunto de volta, é este o texto a
           citar. O que mudou foi a decisão, não o princípio. */}
       <section id="credibility" className="bg-ink text-white">
         <div className="pb-[34px] pt-[70px]">
@@ -527,7 +527,7 @@ export default async function Home() {
             <LogoMarquee logos={logoRow2} duration={logoRowDuration(logoRow2)} reverse />
           </div>
         </div>
-        {/* OS QUATRO NÚMEROS NUMA LINHA SÓ  -  21-09: *"Have 4 metrics displayed
+        {/* OS QUATRO NÚMEROS NUMA LINHA SÓ — 21-09: *"Have 4 metrics displayed
             horizontally"* (anotação: *"the number should be horizontal in a
             line"*).
 
@@ -537,14 +537,14 @@ export default async function Home() {
 
             A COLUNA DE 760px TINHA DE SAIR JUNTO. Quatro células nela dariam
             ~160px cada, e "Work sponsored by Chairman / CXO" em 16px não cabe
-            nisso  -  o rótulo viraria cinco linhas embaixo de um número de 56px.
+            nisso — o rótulo viraria cinco linhas embaixo de um número de 56px.
             Agora a fileira usa os 1440 da página, como as outras seções.
 
             `gap-x-10` e não os `gap-x-16` de antes: com quatro colunas em vez
             de duas são três vãos no lugar de um, e manter 64px em cada um
             comeria 192px de largura útil de rótulo.
 
-            NO TELEFONE ELES EMPILHAM, e em 2x2 a partir de `sm`  -  não em
+            NO TELEFONE ELES EMPILHAM, e em 2x2 a partir de `sm` — não em
             fileira. Quatro números de 44px lado a lado numa tela de 375px dão
             ~80px por célula, que é menos que a largura de "10,000+". A fileira
             começa em `md`, que é onde ela cabe. */}
@@ -565,8 +565,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* WHAT WE SOLVE  -  the explanation, now that the proof is above it. */}
-      {/* CHALLENGES  -  hidden for now (set the guard to true to restore) */}
+      {/* WHAT WE SOLVE — the explanation, now that the proof is above it. */}
+      {/* CHALLENGES — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="challenges" className="bg-white">
         <Reveal className="mx-auto max-w-[1440px] px-10 pb-24 pt-4">
@@ -583,7 +583,7 @@ export default async function Home() {
       </section>
       )}
 
-      {/* WHY CDNA  -  hidden for now (set the guard to true to restore) */}
+      {/* WHY CDNA — hidden for now (set the guard to true to restore) */}
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
@@ -612,11 +612,11 @@ export default async function Home() {
           of the 27-08 brief removes it from the public site: "Remover o compiled
           testimonial video atual do public website. Em vez disso, criar uma
           estrutura modular para individual client testimonial videos." That
-          structure exists  -  the `testimonial_video` content type and its read
-          layer  -  and stays empty until CDNA supplies the individual films.
+          structure exists — the `testimonial_video` content type and its read
+          layer — and stays empty until CDNA supplies the individual films.
           `components/TestimonialsVideo.tsx` is left in the repo for them. */}
 
-      {/* CLIENT IMPACT  -  fundo escuro na V2, vermelho só nas marcações.
+      {/* CLIENT IMPACT — fundo escuro na V2, vermelho só nas marcações.
 
           O QUE ERA: o Guli pintou esta faixa de vermelho em 31-08, e por um
           motivo real. A reordenação tinha deixado esta seção e "What we solve"
@@ -626,7 +626,7 @@ export default async function Home() {
           brancos.
 
           POR QUE MUDA: o problema que ele resolveu continua resolvido com fundo
-          escuro  -  o que separava as duas seções brancas era a faixa TER cor,
+          escuro — o que separava as duas seções brancas era a faixa TER cor,
           não a cor ser vermelha. E o vermelho como área é exatamente o que a
           leitura da referência aponta como a mudança de maior efeito por menor
           esforço (§4.2: "na referência o acento nunca vira área, só marca").
@@ -641,7 +641,7 @@ export default async function Home() {
       {/* ⚠️ FUNDO CLARO DESDE 10-09, a pedido. Era `bg-ink text-white`.
           Com a seção fundida subindo para logo abaixo do herói, esta faixa
           passou a vir imediatamente depois do mural de logos, que também é
-          `ink`  -  duas faixas escuras encostadas, e a segunda perdia a virada
+          `ink` — duas faixas escuras encostadas, e a segunda perdia a virada
           que a separava da primeira.
 
           `bg-paper` E NÃO `bg-white`, e a razão está nos cards: eles são
@@ -651,7 +651,7 @@ export default async function Home() {
           em vez de estrutura.
 
           O QUE MUDOU JUNTO: o rótulo perdeu o `onDark` e o h2 voltou a `ink`.
-          Os dois são obrigatórios, não estéticos  -  `brand-light` (#e47e77)
+          Os dois são obrigatórios, não estéticos — `brand-light` (#e47e77)
           sobre `paper` mede 2,6:1, e texto branco sobre `paper` não mede nada. */}
       <section id="impact" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
@@ -659,7 +659,7 @@ export default async function Home() {
               Era `brand-light` enquanto a faixa era escura, porque o cheio sobre
               `ink` mede 2,9:1 e reprovaria em 13px. Sobre `paper` a conta se
               inverte: o cheio passa e o claro é que reprovaria. Régua e texto
-              trocam juntos  -  o `TypeLabel` já faz isso sozinho. */}
+              trocam juntos — o `TypeLabel` já faz isso sozinho. */}
           <TypeLabel>{copy.impact.label}</TypeLabel>
           <h2 className="mb-[52px] max-w-[720px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             {copy.impact.title}
@@ -717,12 +717,12 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      {/* 5H FRAMEWORK  -  hidden for now (set the guard to true to restore) */}
+      {/* 5H FRAMEWORK — hidden for now (set the guard to true to restore) */}
       {false && (
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
           <div>
-            {/* `onDark`  -  a seção é escura e o rótulo estava em `bg-brand`/
+            {/* `onDark` — a seção é escura e o rótulo estava em `bg-brand`/
                 `text-brand` cheio, que sobre `ink` dá 2,87:1 e reprova até a
                 régua de elemento gráfico. O tom claro devolve 4,53:1. Ou seja,
                 unificar o rótulo consertou um problema de contraste de brinde. */}
@@ -750,24 +750,24 @@ export default async function Home() {
       )}
 
       {/* PEOPLE */}
-      {/* ⚠️ AS CARAS DO TIME SAÍRAM EM 14-09  -  item 29 da daily: *"I'd probably
+      {/* ⚠️ AS CARAS DO TIME SAÍRAM EM 14-09 — item 29 da daily: *"I'd probably
           take off the team photos... I don't want to see the team faces on there
           at the start."*
 
           O QUE SAIU É SÓ O `<PeopleGrid>`, e é literal ao que ela disse na mesma
           frase: *"a lot of the information you have on there would probably
           remain."* Ficam o rótulo, o título, o parágrafo, a DNA experience, o
-          carrossel de bastidores e a faixa de parceiros  -  ela reclamou dos
+          carrossel de bastidores e a faixa de parceiros — ela reclamou dos
           RETRATOS, não da seção. Os retratos continuam existindo na /team, que é
           a página que existe para isso.
 
           O PORTÃO `people.length > 0` SAIU JUNTO, e não por descuido: ele
           existia para a seção não aparecer vazia antes de o CMS ter gente
-          publicada. Sem a grade, nada aqui vem do CMS  -  o conteúdo restante é
-          todo escrito à mão neste arquivo  - , então manter o portão faria uma
+          publicada. Sem a grade, nada aqui vem do CMS — o conteúdo restante é
+          todo escrito à mão neste arquivo —, então manter o portão faria uma
           seção estática desaparecer por causa de uma coleção que ela não usa.
 
-          ⛔ `getPeople()` SAIU JUNTO, lá no topo do arquivo  -  a grade era a
+          ⛔ `getPeople()` SAIU JUNTO, lá no topo do arquivo — a grade era a
           única consumidora. A caixa do `Promise.all` lista o que precisa voltar
           se ela mudar de ideia sobre os retratos.
 
@@ -789,9 +789,6 @@ export default async function Home() {
               </p>
             </div>
             <div className="mx-auto w-full lg:mx-0 lg:justify-self-end">
-              <p className="mb-3 text-[12px] font-semibold uppercase tracking-[1.6px] text-muted">
-                Our team in action
-              </p>
               <PhotoCarousel
                 images={LIFE_AT_DNA}
                 positions={LIFE_AT_DNA_FRAMING}
@@ -810,7 +807,7 @@ export default async function Home() {
               const { subtitle, text } = leadSentence(block.body);
               return (
                 <div key={block.title}>
-                  <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand sm:min-h-[58px] xl:min-h-[86px] 2xl:min-h-[58px]">
+                  <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
                     {block.title}
                   </h3>
                   {subtitle && (
@@ -843,13 +840,13 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      {/* AWARDS & MENTIONS  -  spec 009, design docs/Group 2.png.
+      {/* AWARDS & MENTIONS — spec 009, design docs/Group 2.png.
           A faixa interna dele é vermelha; a V2 a escurece pelo `data-awards-band`
           no wrapper lá em cima, sem duplicar o componente. Os logos dos prêmios
           são claros, então funcionam sobre o ink do mesmo jeito que funcionavam
           sobre o vermelho.
 
-          ⚠️ SUBIU PARA ANTES DO LIVRO EM 21-09  -  *"Move awards above books"*
+          ⚠️ SUBIU PARA ANTES DO LIVRO EM 21-09 — *"Move awards above books"*
           (anotação: *"awards and mentions above the book"*). Estava logo abaixo
           da seção `#book` desde que as duas existem.
 
@@ -859,7 +856,7 @@ export default async function Home() {
           página (o override `data-awards-band`), então no meio ela separa as
           duas.
 
-          `includeBrandonHall` põe os dois GOLD na frente da régua  -  é o outro
+          `includeBrandonHall` põe os dois GOLD na frente da régua — é o outro
           lado do pedido que tirou o cartão do herói ("add this to awards"). A
           prop existe porque a faixa é compartilhada com /our-impact, /home-v1 e
           /home-v3, e o pedido é sobre a home; ver a caixa dela no componente. */}
@@ -870,7 +867,7 @@ export default async function Home() {
         <Reveal className="mx-auto max-w-[1440px] py-14 md:px-10 md:py-24">
           {/* O CARTÃO VIROU COMPONENTE em 11-09, quando `/books` passou a
               existir: a mesma composição em duas telas, lendo do mesmo
-              `lib/books.ts`. O que se evita é a divergência silenciosa  -  a
+              `lib/books.ts`. O que se evita é a divergência silenciosa — a
               primeira correção de texto feita de um lado só.
 
               Aqui ele é `h3` porque a seção da home já tem o seu cabeçalho; em
@@ -888,8 +885,8 @@ export default async function Home() {
           *"the address is probably not, I don't really see it on a landing page;
           the map looks like a duplicate."*
 
-          1. OS ESCRITÓRIOS (item 32). Era o `LocationsBlock`  -  mapa Leaflet,
-             régua de cidades, carrossel e endereço  - , com `tone="dark"`, que é a
+          1. OS ESCRITÓRIOS (item 32). Era o `LocationsBlock` — mapa Leaflet,
+             régua de cidades, carrossel e endereço —, com `tone="dark"`, que é a
              correção do Guli de 31-08 para ele não colar no bloco do livro,
              também cinza. O bloco NÃO MORREU: ele é a faixa que a /about acaba
              de ganhar (item 4), lá sem o mapa, e continua rodando na
@@ -899,7 +896,7 @@ export default async function Home() {
           2. O MAPA-MÚNDI (item 33). Era o `WorldCoverageMap`, os 36 países
              pintados. A "duplicata" que ela viu é real e era ESTRUTURAL: dois
              mapas em sequência, a 400px um do outro, dizendo a mesma coisa por
-             desenhos diferentes  -  um com pinos de escritório, outro com países
+             desenhos diferentes — um com pinos de escritório, outro com países
              atendidos. Tirado o primeiro, o segundo deixaria de duplicar
              qualquer coisa; sai junto porque a fala dela cobre os dois e porque
              a cobertura global já é dita em número no herói ("36 countries") e
@@ -910,12 +907,12 @@ export default async function Home() {
           classes inertes sem o componente na árvore, e apagá-las é o que faz o
           mapa voltar torto no dia em que alguém reverter isto. */}
 
-      {/* CONTACT  -  a terceira e última área vermelha da página.
+      {/* CONTACT — a terceira e última área vermelha da página.
 
           Vira ink pelo mesmo motivo das outras duas, e aqui a troca custa
           menos ainda: o formulário já é um card branco por cima do fundo, e o
-          botão de enviar já é ink. O vermelho continua presente onde importa  - 
-          os asteriscos de campo obrigatório e o link de política  -  que é
+          botão de enviar já é ink. O vermelho continua presente onde importa —
+          os asteriscos de campo obrigatório e o link de política — que é
           marcação, não área.
 
           O rodapé logo abaixo é branco, então a seção escura não encosta em
@@ -959,10 +956,6 @@ function caseHref(client: string, published: { slug: string; client: string }[])
 
 function leadSentence(body: string) {
   const trimmed = body.trim();
-  if (trimmed.includes("\n")) {
-    const [subtitle, ...rest] = trimmed.split("\n");
-    return { subtitle: subtitle.trim(), text: rest.join("\n").trim() };
-  }
   const match = trimmed.match(/^([\s\S]*?[.!?])(?:\s+|$)([\s\S]*)$/);
   if (!match) return { subtitle: trimmed, text: "" };
   return { subtitle: match[1].trim(), text: match[2].trim() };

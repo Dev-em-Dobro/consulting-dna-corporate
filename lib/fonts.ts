@@ -1,17 +1,17 @@
 import { Geist, Source_Serif_4 } from "next/font/google";
 
 /**
- * O par tipográfico editorial  -  Geist + Source Serif 4.
+ * O par tipográfico editorial — Geist + Source Serif 4.
  *
  * DE ONDE VEIO. Nasceu na /about, em 09-09, respondendo à Rhea: a Poppins do
- * site é "quadrada demais". Ela é geométrica  -  o `o` é um círculo, o `a` não tem
- * cauda  -  e no peso 700 que os títulos usavam isso lê como bloco. A referência
+ * site é "quadrada demais". Ela é geométrica — o `o` é um círculo, o `a` não tem
+ * cauda — e no peso 700 que os títulos usavam isso lê como bloco. A referência
  * que ela aprovou (Explore Performance) faz o oposto: título em grotesca de peso
  * MÉDIO, corpo em serifa. O contraste entre os dois é o que dá ar editorial em
  * vez de ar de apresentação corporativa.
  *
  *   • GEIST para títulos, rótulos, números e botões. Grotesca neo, terminais
- *     retos, `a` e `g` com cauda  -  a mesma família de desenho da referência,
+ *     retos, `a` e `g` com cauda — a mesma família de desenho da referência,
  *     livre e no Google Fonts.
  *   • SOURCE SERIF 4 para corpo, legendas e linhas de apoio. A Explore usa
  *     freight-text-pro, que é da Adobe; a Source Serif é o equivalente livre
@@ -20,7 +20,7 @@ import { Geist, Source_Serif_4 } from "next/font/google";
  * POR QUE ESTE ARQUIVO EXISTE. Enquanto a /about era proposta, as duas famílias
  * eram declaradas dentro da própria página, para nenhuma página real baixar duas
  * fontes por causa de um teste. A /about virou a página de verdade e as páginas
- * de serviço estão adotando a mesma linguagem  -  a partir de duas telas, declarar
+ * de serviço estão adotando a mesma linguagem — a partir de duas telas, declarar
  * a mesma coisa em dois lugares é como as duas começam a divergir sem ninguém
  * notar. Aqui é a definição única.
  *
@@ -34,7 +34,7 @@ import { Geist, Source_Serif_4 } from "next/font/google";
 export const geist = Geist({
   subsets: ["latin"],
   /* 700 entra por causa dos componentes COMPARTILHADOS que caem dentro destas
-     árvores e não foram reescritos  -  o SiteFooter e o WorldCoverageMap ainda
+     árvores e não foram reescritos — o SiteFooter e o WorldCoverageMap ainda
      pedem `font-bold`. Sem o 700 carregado o navegador engorda o 600 sozinho, e
      negrito sintético em grotesca fica sujo. */
   weight: ["400", "500", "600", "700"],
@@ -64,7 +64,7 @@ export const editorialFontClass = `${geist.variable} ${serif.variable}`;
  *
  * `font-sans` na Tailwind v4 resolve `var(--font-sans)`; redeclarar essa variável
  * no elemento faz a própria classe pegar a Geist, e a família herda para a árvore
- * inteira  -  inclusive para a NavV2, o SiteFooter e o mapa, que continuam sem
+ * inteira — inclusive para a NavV2, o SiteFooter e o mapa, que continuam sem
  * saber que existe fonte nova. O mesmo vale para `--font-serif`: quem escrever
  * `font-serif` daqui para baixo recebe a Source Serif 4.
  */
