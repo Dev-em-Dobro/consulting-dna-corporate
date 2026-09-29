@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 /**
- * O PERFIL DE UMA PESSOA EM POP-UP — extraído do `PeopleGrid` em 15-09.
+ * O PERFIL DE UMA PESSOA EM POP-UP  -  extraído do `PeopleGrid` em 15-09.
  *
  * POR QUE SAIU DE LÁ. Ele nasceu dentro da grade de retratos da home e era
  * privado dela. A /team passou a precisar do MESMO pop-up: o
@@ -17,8 +17,8 @@ import { useEffect } from "react";
  * rodando na /home-v1, na /home-v3 e na /services/leadership.
  *
  * O CONTEÚDO É DO CMS, e é a razão de o tipo `Person` ter tantos campos
- * opcionais: `bio` chega como HTML de campo rico (`bioHtml`) e o resto —
- * valores, forças, especialidades, histórico, clientes, idiomas, credenciais —
+ * opcionais: `bio` chega como HTML de campo rico (`bioHtml`) e o resto  - 
+ * valores, forças, especialidades, histórico, clientes, idiomas, credenciais  - 
  * são campos estruturados que nem toda pessoa preenche. O modal renderiza só o
  * que existe.
  */
@@ -201,14 +201,14 @@ export default function PersonModal({ person, onClose }: { person: Person; onClo
 
           <div className="max-h-[80vh] overflow-y-auto px-7 py-8 md:px-9 md:py-10">
             {/* ⚠️ O NOME AQUI FICOU EM `ink`, e isso é decisão de 21-09, não
-                esquecimento. O pedido daquele dia — *"nome em vermelho do
-                team"* — é sobre as LISTAGENS da /team, e foi aplicado lá
+                esquecimento. O pedido daquele dia  -  *"nome em vermelho do
+                team"*  -  é sobre as LISTAGENS da /team, e foi aplicado lá
                 (`LeaderCard` e `PeopleRoster`). Dentro deste pop-up o vermelho
                 já está tomado pelo CARGO, logo abaixo, e pelos rótulos dos
                 campos: pintar o nome de vermelho colaria duas linhas da mesma
                 cor e o cargo deixaria de se destacar do nome.
 
-                E ESTE ARQUIVO NÃO É SÓ DA /team — ele roda na /home-v1, na
+                E ESTE ARQUIVO NÃO É SÓ DA /team  -  ele roda na /home-v1, na
                 /home-v3 e na /services/leadership. Uma cor trocada aqui sai em
                 quatro rotas por causa de um pedido feito sobre uma. */}
             <h2 className="text-[26px] font-bold leading-tight tracking-[-0.5px] text-ink">
@@ -223,7 +223,7 @@ export default function PersonModal({ person, onClose }: { person: Person; onClo
             )}
 
             {person.bioHtml ? (
-              // First-party CMS rich text — rendered as HTML. Utility selectors
+              // First-party CMS rich text  -  rendered as HTML. Utility selectors
               // style the headings/lists/bold the CMS emits inside the bio.
               <div
                 className="mt-6 text-[15px] leading-relaxed text-muted [&>*:first-child]:mt-0 [&_h3]:mb-3 [&_h3]:mt-9 [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:uppercase [&_h3]:tracking-[1.5px] [&_h3]:text-brand [&_p]:mb-4 [&_strong]:text-ink [&_ul]:mb-4 [&_ul]:mt-0 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_li]:pl-1"

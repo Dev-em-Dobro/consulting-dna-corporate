@@ -1,5 +1,5 @@
 /**
- * Bloco 6 do outline — "Start a Conversation", por serviço.
+ * Bloco 6 do outline  -  "Start a Conversation", por serviço.
  *
  * É A ÚNICA MUDANÇA ESTRUTURAL QUE O OUTLINE PEDE. Na letra dele: "The shared
  * CTA band still runs on every other page, but service pages now carry their own
@@ -17,7 +17,7 @@
  * ⚠️ OS TRÊS CAMPOS NÃO EXISTEM NO CMS, e é por isso que esta faixa ainda mostra
  * o texto padrão. O `solutionSchema` (`corporate-dna-cms/lib/content/types.ts`)
  * tem title, problemStatement, outcome, howWeHelp, body, flagshipCaseSlug,
- * proofRefs e resources — e um comentário dizendo "Start a Conversation → the
+ * proofRefs e resources  -  e um comentário dizendo "Start a Conversation → the
  * site's standing CTA", ou seja, a faixa compartilhada. Não dá para contornar
  * gravando as chaves direto no banco: o Zod do CMS DESCARTA chave desconhecida
  * em vez de dar erro, então na primeira vez que alguém salvasse pelo admin o
@@ -46,14 +46,14 @@ export default function SolutionCta({
    * `py-6 md:py-8` (24/32px). Nasceu 48/56 e encolheu duas vezes na revisão
    * do mesmo dia (*"pode diminuir mais ainda"*, *"diminui mais a altura"*); na
    * terceira rodada o padding já era pouco e o que sobrava de altura era o AR
-   * INTERNO, então `compact` também aperta o miolo — e na quarta rodada
+   * INTERNO, então `compact` também aperta o miolo  -  e na quarta rodada
    * (*"diminuir o tamanho da fonte tbm"*) a tipografia inteira desce um
    * degrau: rótulo 12px em vez de 14, título 22/26px em vez de 30/38, linha
    * 15/16 em vez de 18/19, botão `text-xs` com `px-6 py-3` em vez de `text-sm`
    * com `px-7 py-3.5`, e os `mt` caem de 5/5/10 para 2/2/5.
    * É prop, e não a troca do padrão, porque este
-   * componente é compartilhado — Services index, Our clients, Team e
-   * `CaseStory` também o renderizam — e o pedido foi só para a interna de
+   * componente é compartilhado  -  Services index, Our clients, Team e
+   * `CaseStory` também o renderizam  -  e o pedido foi só para a interna de
    * serviço (`SolutionView`), que é a única que passa `compact`. O conteúdo é
    * o mesmo nos dois casos; só o ar acima e abaixo muda.
    */
@@ -93,7 +93,7 @@ export default function SolutionCta({
           {/* Botão BRANCO sobre o vermelho da marca, e não vermelho sobre
               branco: sobre `bg-brand` um botão vermelho desapareceria, e um
               botão vazado (borda branca, fundo transparente) dá 1:1 de contraste
-              de área — lê como desabilitado. */}
+              de área  -  lê como desabilitado. */}
           <Link
             href={ctaHref ?? "/#contact"}
             className={`inline-block bg-white font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white ${

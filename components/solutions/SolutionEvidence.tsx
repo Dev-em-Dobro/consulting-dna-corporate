@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
 
 /**
- * Bloco 4 do outline — Evidence. Uma faixa clara em até três colunas: o caso
+ * Bloco 4 do outline  -  Evidence. Uma faixa clara em até três colunas: o caso
  * com seus números, a foto e a citação do cliente.
  *
  * ⚠️ A FAIXA ERA ESCURA E FICOU BRANCA em 16-09, a pedido, e é assim que o
@@ -13,21 +13,21 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * de `brand-light` para `brand` cheio pela regra do `globals.css` (claro →
  * `brand`, escuro → `brand-light`), e texto e réguas trocaram de `white/xx` para
  * `ink`/`muted`. Se um dia ela voltar a ser escura, os dois lados têm de voltar
- * juntos — meia volta deixa vermelho ilegível.
+ * juntos  -  meia volta deixa vermelho ilegível.
  *
  * ⚠️ E DE BRANCA PASSOU A `paper` EM 18-09, a pedido na daily. `paper` ainda é
  * fundo CLARO, então a regra acima não muda de lado: o vermelho segue `brand`
  * cheio, e texto e réguas seguem `ink`/`muted`. O que muda é a margem de
- * contraste — sobre #f3f3f3 o `brand` cai de 4,39:1 para ~3,99:1. Para os
+ * contraste  -  sobre #f3f3f3 o `brand` cai de 4,39:1 para ~3,99:1. Para os
  * números (≥32px, texto grande, mínimo 3,0) continua passando com folga; o
  * rótulo de 14px já estava abaixo do AA sobre branco e fica um pouco mais
- * abaixo aqui — é o mesmo caso dos outros rótulos vermelhos do site em fundo
+ * abaixo aqui  -  é o mesmo caso dos outros rótulos vermelhos do site em fundo
  * `paper`, e se for corrigido é no token. Nenhum bloco interno usava `bg-paper`
  * ou `border-line`, então nada ficou invisível com a troca (as réguas são
  * `border-white/12`).
  *
  * ⚠️ E NO MESMO 18-09 O `paper` NÃO BASTOU: os pilares logo acima já são
- * `paper`, e as duas faixas se fundiam numa só — no localhost a mudança
+ * `paper`, e as duas faixas se fundiam numa só  -  no localhost a mudança
  * "não pegava". O pedido foi *"um cinza mais escuro na seção"*, e ficou
  * `#e3dfdd`: cinza QUENTE, no mesmo matiz do `ink` e do `line` (#ece9e6),
  * um degrau abaixo do `line` (luminância 0,74 contra 0,82 do `line` e 0,90
@@ -35,32 +35,32 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * partners: um só uso não justifica `--color-paper-2`; no segundo uso, vira.
  *
  * O QUE MUDOU JUNTO, e tem de andar junto: os três textos em `muted`
- * (#6b6b6b) caíam para 4,0:1 sobre este cinza — abaixo do AA de 4,5 para
- * texto corrido — e viraram `ink/75`, que dá ~4,9:1. O `brand` dos números
+ * (#6b6b6b) caíam para 4,0:1 sobre este cinza  -  abaixo do AA de 4,5 para
+ * texto corrido  -  e viraram `ink/75`, que dá ~4,9:1. O `brand` dos números
  * fica em 3,3:1, acima do mínimo 3,0 de texto grande (≥32px). Escurecer mais
  * do que isto derruba o vermelho; se a cliente quiser mais escuro ainda, a
  * faixa tem de virar ESCURA de vez (`ink`) e voltar a `brand-light` +
  * `white/xx`, como era antes de 16-09.
  *
  * ⚠️ E FOI O QUE ACONTECEU, ainda em 18-09. Na gravação da daily o pedido
- * para esta faixa é *"bolder — maybe another dark background with white
+ * para esta faixa é *"bolder  -  maybe another dark background with white
  * text"*, e o cinza médio era a leitura conservadora do resumo escrito. A
  * faixa volta a `ink` com os DOIS LADOS juntos, como a caixa de 16-09
  * avisa: rótulos, número em destaque e link em `brand-light`; título, nome
  * do fato e citação em `white`; texto corrido em `white/80`, legendas em
  * `white/70`; fios em `white/12`. A composição (grade assimétrica, foto,
  * citação) é a de 16-09, não a dos quatro cards de 10-09. Vizinhas: pilares
- * em `paper` acima, CTA em `brand` abaixo — claro → escuro → vermelho, sem
+ * em `paper` acima, CTA em `brand` abaixo  -  claro → escuro → vermelho, sem
  * duas faixas escuras coladas.
  *
- * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR — quatro cards de mesmo
- * tamanho em faixa de largura inteira —, e fica porque é o registro das rodadas
+ * ⚠️ A HISTÓRIA ABAIXO DESCREVE O DESENHO ANTERIOR  -  quatro cards de mesmo
+ * tamanho em faixa de largura inteira  - , e fica porque é o registro das rodadas
  * de escolha. O que sobreviveu delas está marcado no fim desta caixa.
  *
  * ESCOLHIDO EM 10-09 depois de quatro rodadas em `/evidence-tests` (rota
  * descartável). O caminho importa porque duas decisões foram REVERTIDAS:
  *
- *   1ª  Nove tratamentos gerais — cards com borda, cards com fio de luz, card
+ *   1ª  Nove tratamentos gerais  -  cards com borda, cards com fio de luz, card
  *       único com foto, versão clara, foto retrato sangrando, logo do cliente
  *       como assunto. Escolhida: a grade assimétrica, com um número em destaque.
  *   2ª  Cinco variações da assimétrica, com o nome do cliente em texto.
@@ -69,7 +69,7 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  *       ter o mesmo peso.
  *   4ª  Seis cores de card, sobre a referência `card ref services.png` (canto
  *       arredondado, gradiente diagonal, ícone em badge). Escolhida a mais
- *       sóbria — sem gradiente de cor, só borda e um preenchimento de luz — e
+ *       sóbria  -  sem gradiente de cor, só borda e um preenchimento de luz  -  e
  *       SEM os ícones que a referência traz.
  *
  * ⚠️ A HIERARQUIA PLANA CONTRARIA O OUTLINE, e isso é decisão de composição do
@@ -82,11 +82,11 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * call, é este o texto a citar.
  *
  * ⚠️ O QUE NÃO SE PERDE: o `Impact` continua sendo o PRIMEIRO card. Este bloco
- * fazia `.slice(0, 4)` sobre a lista, que termina justamente no impacto — o
+ * fazia `.slice(0, 4)` sobre a lista, que termina justamente no impacto  -  o
  * quinto caía sempre, e o quinto é o único que prova. No Heineken isso
  * significava publicar "12 países, 450 líderes, global, 18 meses" e esconder
  * "45% higher promotion rate". A correção da ordem fica; o que mudou foi só o
- * peso visual — e, em 16-09, o CORTE EM QUATRO deixou de existir (o porquê está
+ * peso visual  -  e, em 16-09, o CORTE EM QUATRO deixou de existir (o porquê está
  * no corpo do componente, onde `shown` é montado).
  *
  * DEGRADA VAZIO, porque cinco dos dez serviços não têm evidência ainda: sem
@@ -94,7 +94,7 @@ import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/
  * fatos, a linha encolhe sozinha.
  *
  * ⚠️ A FAIXA VIROU TRÊS COLUNAS EM 16-09, e a citação do cliente entrou como a
- * terceira delas — os cards de largura inteira acima descrevem o desenho
+ * terceira delas  -  os cards de largura inteira acima descrevem o desenho
  * anterior, e a decisão de 10-09 que vale daqui para frente é a do PESO IGUAL
  * entre os números, não a do cartão. Os números continuam com o mesmo peso
  * entre si; o que saiu foi a moldura de cartão, que não cabe numa coluna de
@@ -109,7 +109,7 @@ export default function SolutionEvidence({
   imageUrl,
 }: {
   /**
-   * Ausente quando a evidência não tem página de caso para abrir — os três
+   * Ausente quando a evidência não tem página de caso para abrir  -  os três
    * clientes que o outline cita e que não estão no acervo (Vodafone, adidas,
    * GSK Mexico) e o resumo da prática de coaching, que não é um caso. Sem ele o
    * bloco fecha no texto e nos números, sem link morto.
@@ -119,7 +119,7 @@ export default function SolutionEvidence({
   body?: string;
   facts?: ServiceFact[];
   /**
-   * A citação do cliente — TERCEIRA COLUNA desta faixa desde 16-09, e não mais
+   * A citação do cliente  -  TERCEIRA COLUNA desta faixa desde 16-09, e não mais
    * seção própria. Ela existe em dois dos dez serviços, e uma faixa inteira para
    * dois casos em dez é uma seção que oito páginas mostram vazia ou pulam. No
    * template dela a citação mora aqui, ao lado da prova a que se refere.
@@ -128,14 +128,14 @@ export default function SolutionEvidence({
    * have no publishable testimonial. Four have one identified but not chosen:
    * adidas, GSK Mexico, Heineken and Vodafone. Only Executive Coaching has text
    * that can ship." A segunda citação, a do Top 150, é o PLACEHOLDER DO MOCKUP
-   * ("A quote from Dolf to be confirmed.") e está marcada como tal no dado —
+   * ("A quote from Dolf to be confirmed.") e está marcada como tal no dado  - 
    * ver a caixa dela em `lib/services.ts`. Escolher as quatro frases que faltam
-   * é pendência de CONTEÚDO do cliente — o trabalho mais barato que mais muda
-   * estas páginas —, e esta é a única lista delas no componente.
+   * é pendência de CONTEÚDO do cliente  -  o trabalho mais barato que mais muda
+   * estas páginas  - , e esta é a única lista delas no componente.
    */
   testimonial?: ServiceTestimonial;
   /**
-   * A foto do caso, quando existe — sem ela a faixa fica sem a coluna do meio.
+   * A foto do caso, quando existe  -  sem ela a faixa fica sem a coluna do meio.
    * ⏳ Hoje só o Top 150 tem, e é um recorte provisório do mockup: a caixa do
    * campo `image` em `lib/services.ts` conta de onde veio e quando sai.
    */
@@ -145,14 +145,14 @@ export default function SolutionEvidence({
      grade tinha quatro células (`lg:grid-cols-4`) e o quinto fato não teria
      onde entrar; desde a reescrita desta faixa a linha é `flex flex-wrap` e
      absorve o quinto sem estourar nada. Manter o corte era manter um jeito
-     SILENCIOSO de perder um fato — que é exatamente o defeito narrado no
+     SILENCIOSO de perder um fato  -  que é exatamente o defeito narrado no
      cabeçalho deste arquivo, quando o `.slice(0, 4)` sobre a lista terminada em
      "Impact" escondia o único número que provava o caso. Sem o corte, o pior
      que acontece com cinco é a linha quebrar.
 
      O "IMPACT" PRIMEIRO CONTINUA, agora só como ordem de leitura: o fato que diz
      se funcionou vem antes dos que dizem o tamanho. No dado de hoje nenhum
-     serviço tem rótulo "Impact" — isto serve ao caminho do CMS, onde
+     serviço tem rótulo "Impact"  -  isto serve ao caminho do CMS, onde
      `caseFacts()` monta cinco na ordem fixa do brief e termina justamente nele. */
   const all = (facts ?? []).filter((f) => f.value?.trim());
   const impact = all.filter((f) => f.label === "Impact");
@@ -168,7 +168,7 @@ export default function SolutionEvidence({
      imediato. String vazia = a coluna não é renderizada naquele arranjo. */
   const hasImage = Boolean(imageUrl);
   const hasQuote = Boolean(testimonial);
-  // caso · foto · citação — cada linha soma 12
+  // caso · foto · citação  -  cada linha soma 12
   const [caseSpan, imageSpan, quoteSpan] =
     hasImage && hasQuote ? ["lg:col-span-5", "lg:col-span-4", "lg:col-span-3"]
     : hasImage           ? ["lg:col-span-5", "lg:col-span-7", ""]
@@ -180,7 +180,7 @@ export default function SolutionEvidence({
   return (
     <section className="bg-ink text-white">
       {/* Os filhos diretos deste `Reveal` são o rótulo e a grade das três
-          colunas — e a grade entra como UM bloco, não coluna a coluna: os
+          colunas  -  e a grade entra como UM bloco, não coluna a coluna: os
           números têm o mesmo peso por decisão de 10-09, e escaloná-los daria a
           um deles a primazia de chegar primeiro, que é a hierarquia que aquela
           decisão desfez. */}
@@ -195,12 +195,12 @@ export default function SolutionEvidence({
                 foi TESTADA E DESCARTADA, e o registro fica para não voltar como
                 ideia nova: os arquivos de `public/logos/` são as marcas em cores
                 originais para fundo claro, e sobre escuro exigiriam uma plaqueta
-                branca — um retângulo claro competindo com o resto da faixa. */}
+                branca  -  um retângulo claro competindo com o resto da faixa. */}
             <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
               {caseTitle ?? "The flagship client story"}
             </h2>
 
-            {/* O parágrafo do outline — o que o trabalho foi, antes dos números.
+            {/* O parágrafo do outline  -  o que o trabalho foi, antes dos números.
                 Nos cinco serviços com evidência ele existe; no caminho do CMS,
                 não, e aí o bloco vai direto do título para os números. */}
             {body && (
@@ -218,14 +218,14 @@ export default function SolutionEvidence({
                 com o fundo. Esta faixa era `ink` e passou a ser BRANCA a pedido;
                 a regra que decide o token está na caixa de `--color-brand-light`
                 em `app/globals.css` e é de uma linha: **`brand` em fundo claro,
-                `brand-light` em fundo escuro**. Inverter isso aqui reprovaria —
+                `brand-light` em fundo escuro**. Inverter isso aqui reprovaria  - 
                 `brand-light` sobre branco é o mesmo erro que `brand` sobre `ink`,
                 só espelhado. As medidas moram lá e não se repetem aqui: numeral
                 duplicado fora da fonte envelhece em silêncio, que é o defeito que
                 esta rodada já veio consertar uma vez.
 
                 ⚠️ O RÓTULO DE 14px FICA A 4,39:1, um fio abaixo dos 4,5 do AA
-                para texto normal — e 4,39 é o TETO desta cor, porque contra
+                para texto normal  -  e 4,39 é o TETO desta cor, porque contra
                 branco puro ela não vai além disso (a conta está no `globals.css`).
                 Não é desvio local: é o mesmo caso de todos os rótulos vermelhos
                 do site sobre fundo claro, incluindo o "Related services" três
@@ -236,13 +236,13 @@ export default function SolutionEvidence({
                 aqui: o mínimo de contraste para texto GRANDE é mais frouxo que o
                 de texto normal, e a partir de 24px todo texto é grande para a
                 norma. O número ficou mais necessário de conferir depois que
-                encolheu de 38/48px para 32/38px nesta mesma reescrita — segue
+                encolheu de 38/48px para 32/38px nesta mesma reescrita  -  segue
                 acima dos 24px com folga nos dois breakpoints, e é por essa régua
                 que ele passa: em 32px, o teto de 4,39:1 do `brand` está muito
                 acima do mínimo de 3,0 do texto grande.
 
                 MEDIDA E PALAVRA SEGUEM COM TRATAMENTOS DIFERENTES, e quem decide
-                é `factIsMeasure` — vale ler a caixa dele em `lib/services.ts`,
+                é `factIsMeasure`  -  vale ler a caixa dele em `lib/services.ts`,
                 porque "N-1 embedded" já derrubou uma versão dessa regra. A
                 palavra fica em `ink` e num corpo intermediário: pintar "Management
                 activated" de vermelho em corpo de manchete transformaria um
@@ -303,7 +303,7 @@ export default function SolutionEvidence({
                      renderizar esta faixa, um único tem foto (o Top 150, com o
                      recorte provisório do mockup) e esse um também tem citação.
                      O segundo ramo é para quando as fotos da cliente chegarem
-                     para os outros — oito dos dez não têm citação nenhuma, e
+                     para os outros  -  oito dos dez não têm citação nenhuma, e
                      fixar 33vw faria o Next servir neles um arquivo dimensionado
                      para um terço da tela numa caixa de quase dois terços. */
                   sizes={
@@ -313,7 +313,7 @@ export default function SolutionEvidence({
                   }
                   /* ⚠️ RECORTE À DIREITA, a pedido em 16-09. A caixa é 4:5 e a
                      foto de hoje é 2:1, então o `object-cover` mostra só 40% da
-                     largura dela — qual 40% é o que esta classe decide.
+                     largura dela  -  qual 40% é o que esta classe decide.
 
                      ⏳ ESTA É UMA PROP DE ARQUIVO, NÃO DE COMPONENTE, e vale
                      rever quando a foto definitiva chegar: `object-right` está

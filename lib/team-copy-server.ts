@@ -11,6 +11,16 @@ const store = createCopyStore<TeamCopy>({
   key: "team",
   defaults: DEFAULT_TEAM_COPY,
   schema: TeamCopySchema,
+  migrationVersion: "2026-09-29-doc-corrections",
+  migrateSaved(saved) {
+    if (!saved || typeof saved !== "object") return saved;
+    const copy = structuredClone(saved) as Partial<TeamCopy>;
+    if (copy.hero?.title?.trim() === "We bring experience from both sides of the table.") {
+      copy.hero.title = "We bring experience from both sides of the table";
+    }
+    if (copy.leadership?.label === "Leadership") copy.leadership.label = "Leadership Team";
+    return copy;
+  },
 });
 
 /** A copy da Team como deve ser renderizada: o salvo por cima do padrão. */

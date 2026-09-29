@@ -3,18 +3,18 @@ import Reveal from "@/components/Reveal";
 import type { ServiceInflectionPoints } from "@/lib/services";
 
 /**
- * A GRADE DE LADRILHOS DO "THE INFLECTION POINTS" — layout do Talent
+ * A GRADE DE LADRILHOS DO "THE INFLECTION POINTS"  -  layout do Talent
  * Development, 24-09.
  *
  * O desenho é de duas colunas: à esquerda o rótulo, a manchete e a linha de
  * apoio; à direita uma grade 4×2 de ladrilhos, cada um com um glifo e o nome do
  * momento, alternando vermelho cheio e cinza claro como um tabuleiro.
  *
- * ⚠️ É PARENTE DA FILEIRA DE PILARES, E NÃO A MESMA COISA — vale a distinção
+ * ⚠️ É PARENTE DA FILEIRA DE PILARES, E NÃO A MESMA COISA  -  vale a distinção
  * antes de alguém "unificar" os dois. `SolutionPillars` é uma fileira de itens
  * NUS (ícone em vermelho sobre o fundo da faixa, filete entre um e outro), e
  * ela enumera o que o serviço FAZ. Aqui cada item é um LADRILHO com campo de
- * cor, e o que a grade enumera é o que acontece com o CLIENTE — os momentos em
+ * cor, e o que a grade enumera é o que acontece com o CLIENTE  -  os momentos em
  * que o talento emperra. Fundir os dois obrigaria um deles a mudar de desenho.
  *
  * ⚠️ OS ÍCONES VÊM DO MAPA DE `SolutionPillars`, via `pillarIcon`, e é de
@@ -37,7 +37,7 @@ export default function SolutionInflectionPoints({
           faixa nasceu sem ele porque continuava o bloco "What we do" logo
           acima, como os cartões de público. Aquele bloco SAIU desta página a
           pedido (`hideWhatWeDo`), e sem um topo próprio a grade de ladrilhos
-          encostaria no herói de sangria total — o rótulo vermelho a ~0px da
+          encostaria no herói de sangria total  -  o rótulo vermelho a ~0px da
           dobra. Ela é uma faixa autônoma agora, com rótulo e manchete
           próprios, e o respiro simétrico é o que as outras faixas autônomas
           desta página já usam. */}
@@ -48,7 +48,7 @@ export default function SolutionInflectionPoints({
             curta não precisa de mais que um terço.
 
             `items-start` porque as duas colunas têm alturas diferentes e o
-            texto se alinha ao TOPO da grade, não ao centro dela — centrado, a
+            texto se alinha ao TOPO da grade, não ao centro dela  -  centrado, a
             manchete flutuaria no meio de uma grade de duas fileiras. */}
         <Reveal className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] lg:gap-14">
           <div>
@@ -57,7 +57,7 @@ export default function SolutionInflectionPoints({
                 {item.label}
               </p>
             ) : null}
-            {/* `h2` — a faixa é irmã das outras seções da página, não
+            {/* `h2`  -  a faixa é irmã das outras seções da página, não
                 subordinada a nenhuma delas. `whitespace-pre-line` pela mesma
                 razão do `SolutionSection`: a quebra da manchete é do desenho,
                 escrita como `\n` no dado, e não da largura da janela. */}
@@ -78,7 +78,7 @@ export default function SolutionInflectionPoints({
           {/* ⚠️ O TABULEIRO É CALCULADO PARA QUATRO COLUNAS, que é a medida do
               layout, e a conta está no `% 4`: um ladrilho é vermelho quando a
               soma da linha com a coluna é par. Em duas colunas (abaixo de `lg`)
-              a mesma conta deixa de desenhar tabuleiro e vira listra vertical —
+              a mesma conta deixa de desenhar tabuleiro e vira listra vertical  - 
               e isso é aceitável de propósito, porque a alternância é ritmo
               visual, não informação. Nenhum ladrilho diz nada por ser vermelho.
 
@@ -96,7 +96,7 @@ export default function SolutionInflectionPoints({
                     red ? "bg-brand text-white" : "bg-paper text-ink"
                   }`}
                 >
-                  {/* DECORATIVO: o rótulo logo abaixo diz a mesma coisa —
+                  {/* DECORATIVO: o rótulo logo abaixo diz a mesma coisa  - 
                       mesma regra da fileira de pilares e da grade de
                       resultados. */}
                   <Icon aria-hidden size={28} strokeWidth={1.5} />

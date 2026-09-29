@@ -4,12 +4,12 @@ import { fieldsForCopy } from './page-copy/structured.ts';
 export const DEFAULT_APPROACH_COPY = {
   "metadata": {
     "title": "The 5H® Framework | CorporateDNA",
-    "description": "The 5H® Methodology is the neuroscience-led formula behind CorporateDNA's results across 36 countries: Head, Heart, Hunch, Hands and Habits."
+    "description": "The 5H methodology is the neuroscience-led framework behind CorporateDNA's results across 36 countries: Head, Heart, Hunch, Hands and Habits."
   },
   "hero": {
     "eyebrow": "Our approach",
-    "title": "Lead with 5H®",
-    "subtitle": "The neuroscience-led formula behind our results across 36 countries."
+    "title": "Five intelligences. One integrated leader.",
+    "subtitle": "The neuroscience-led framework behind our results across 36 countries."
   },
   "introduction": {
     "heading": "Developing the whole self in leadership",
@@ -46,7 +46,7 @@ export const DEFAULT_APPROACH_COPY = {
     ]
   },
   "fiveH": {
-    "heading": "Five intelligences. One whole leader.",
+    "heading": "Five intelligences. One integrated leader.",
     "faculties": [
       {
         "name": "Head",
@@ -118,9 +118,9 @@ export const DEFAULT_APPROACH_COPY = {
     "toolkit": {
       "label": "Our diagnostic toolkit",
       "heading": "Multiple lenses.\nA richer picture.",
-      "body": "We use a carefully selected suite of leadership diagnostics to understand the individual, the team and the system around them. Each assessment gives a different lens — together, they create a richer picture of strengths, behaviours, motivations, judgement, relationships and impact.",
+      "body": "We use a carefully selected suite of leadership diagnostics to understand the individual, the team and the system around them. Each assessment gives a different lens. Together, they create a richer picture of strengths, behaviours, motivations, judgement, relationships and impact.",
       "items": [
-        { "title": "CDNA\nDNA 360 PROFILER", "description": "Leadership\nimpact" },
+        { "title": "CDNA\n5H PROFILER", "description": "Leadership\nimpact" },
         { "title": "SDI", "description": "Motives &\nrelationships" },
         { "title": "Hogan", "description": "Personality &\nderailers" },
         { "title": "Values &\nSaboteurs", "description": "Beliefs &\ndrivers" },
@@ -169,6 +169,10 @@ export const DEFAULT_APPROACH_COPY = {
         "answer": "Leaders work with live business situations, practise new responses, receive feedback and connect insight directly to the decisions in front of them."
       },
       {
+        "question": "How many diagnostics?",
+        "answer": "3 - Self, 360, situational"
+      },
+      {
         "question": "How do you measure whether it worked?",
         "answer": "The DNA 360 Profiler and supporting diagnostics create a measurable view of leadership impact, development priorities and behaviour change over time."
       }
@@ -176,7 +180,7 @@ export const DEFAULT_APPROACH_COPY = {
   },
   "cta": {
     "heading": "Ready to lead with 5H®?",
-    "buttonLabel": "Start a conversation"
+    "buttonLabel": "Start a Conversation"
   }
 };
 

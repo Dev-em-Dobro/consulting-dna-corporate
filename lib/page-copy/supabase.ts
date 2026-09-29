@@ -1,5 +1,5 @@
 /**
- * A TABELA DOS TEXTOS DO /edit NO SUPABASE — 24-09.
+ * A TABELA DOS TEXTOS DO /edit NO SUPABASE  -  24-09.
  *
  * Substitui o Vercel Blob, cujo `list()` estourou a cota de operações. Fala com
  * a API REST do Supabase (PostgREST) por `fetch`, sem SDK: são duas chamadas, e

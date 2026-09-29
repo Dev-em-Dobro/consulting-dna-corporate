@@ -6,7 +6,7 @@ import Link from "next/link";
  *
  * ONDE ELE RODA: o envio do formulário de contato na home (`/`) e o "Meet the
  * team" no fim da `/about`. O segundo entrou em 10-09, com o pedido de usar as
- * MESMAS cores do primeiro — por isso as cores estão fixas aqui dentro em vez de
+ * MESMAS cores do primeiro  -  por isso as cores estão fixas aqui dentro em vez de
  * virarem prop.
  *
  * O EFEITO: no repouso, um quadrado de vermelho mais CLARO na ponta direita do
@@ -16,16 +16,16 @@ import Link from "next/link";
  * A COR levou quatro rodadas em 10-09, e a conclusão vale escrita porque o
  * caminho tem uma armadilha:
  *
- *   1º  ink            — escuro demais, e nada a ver com a referência.
- *   2º  `brand-light`  — claro, mas "rosa demais".
- *   3º  `brand-dark`   — leitura errada do pedido: escureci quando o que
+ *   1º  ink             -  escuro demais, e nada a ver com a referência.
+ *   2º  `brand-light`   -  claro, mas "rosa demais".
+ *   3º  `brand-dark`    -  leitura errada do pedido: escureci quando o que
  *                        incomodava era o rosa, não a claridade. Hover é mais
  *                        claro, não mais escuro.
- *   4º  `BLOCK` abaixo — claro E vermelho.
+ *   4º  `BLOCK` abaixo  -  claro E vermelho.
  *
  * A ARMADILHA: "menos rosa" não se resolve escurecendo. O `brand-light` puxa
  * para o salmão porque tem saturação relativamente baixa (67%) numa claridade
- * alta (68%) — vermelho claro e pouco saturado LÊ como rosa. A saída é subir a
+ * alta (68%)  -  vermelho claro e pouco saturado LÊ como rosa. A saída é subir a
  * saturação e baixar um pouco a claridade, mantendo o tom acima do botão:
  *
  *     brand         hsl(4, 68%, 54%)   #d84339   o botão
@@ -34,19 +34,19 @@ import Link from "next/link";
  *
  * Cor local e não token do `globals.css` de propósito: ela existe para este
  * bloco e não deve virar oferta para o resto do site sem alguém decidir isso.
- * Vai por `style` inline porque a cor NÃO anima — só a largura anima, por
- * classe —, então não há risco de inline vencer de um `group-hover:`.
+ * Vai por `style` inline porque a cor NÃO anima  -  só a largura anima, por
+ * classe  - , então não há risco de inline vencer de um `group-hover:`.
  *
  * ⚠️ CONTRASTE, e este é o preço que a escolha cobra. Branco sobre o BLOCK dá
  * 3,63:1. Para a SETA está certo: ícone pede 3:1. Para o RÓTULO fica abaixo dos
- * 4,5:1 que texto pede, e não há como consertar mantendo o pedido — QUALQUER
+ * 4,5:1 que texto pede, e não há como consertar mantendo o pedido  -  QUALQUER
  * vermelho mais claro que o botão piora o branco, e o próprio botão já está em
  * 4,39:1 com branco (condição que o site tem hoje, fora deste componente). Se
  * for para resolver, o caminho é o rótulo escurecer no hover (uma classe:
  * `group-hover:text-ink`), ao custo de o texto trocar de cor.
  *
  * É outro mecanismo, muito mais simples que o do `arrow-fill`, e vale dizer no
- * que ele é diferente — as três coisas caras do outro não existem aqui:
+ * que ele é diferente  -  as três coisas caras do outro não existem aqui:
  *
  *  • Anima UMA propriedade só: `width`. Não há `inset` de quatro lados, não há
  *    raio virando canto reto, não há `clip-path`.
@@ -57,14 +57,14 @@ import Link from "next/link";
  *
  * COMO O BLOCO CRESCE PARA A ESQUERDA: ele está preso pela DIREITA (`right-1`)
  * e não tem `left`. Aumentar a largura de uma caixa ancorada à direita empurra a
- * borda esquerda dela para longe — então crescer a largura é varrer para a
+ * borda esquerda dela para longe  -  então crescer a largura é varrer para a
  * esquerda. Não precisa de `transform` nem de `left` animado.
  *
  * POR QUE A SETA NÃO SE MEXE: o bloco é `flex ... justify-end`, então a seta
  * mora no fim dele. O fim é a borda direita, que é justamente a borda que está
  * ancorada e não se move. O bloco cresce por trás dela.
  *
- * SEM FOLGA NENHUMA — e este é o ponto em que a implementação SE AFASTA do
+ * SEM FOLGA NENHUMA  -  e este é o ponto em que a implementação SE AFASTA do
  * original de propósito, decidido em 10-09.
  *
  * No arquivo do 21st o bloco fica a 4px das bordas (`right-1`, `h-12` num botão
@@ -86,19 +86,19 @@ import Link from "next/link";
  *
  * Duração: o original não declara nenhuma, então vale o padrão do Tailwind, que
  * é 150ms. Ficou como está de propósito, para o teste ser do componente deles e
- * não de um ajuste meu — trocar é acrescentar `duration-300` na classe do bloco.
+ * não de um ajuste meu  -  trocar é acrescentar `duration-300` na classe do bloco.
  *
  * Do arquivo original saíram o `cn` e o caminho `components/ui`: são convenção
  * de shadcn, e este projeto não é shadcn (não tem `lib/utils` nem a pasta).
  */
 
-/** hsl(4, 72%, 60%) — ver a nota de cor no cabeçalho antes de trocar. */
+/** hsl(4, 72%, 60%)  -  ver a nota de cor no cabeçalho antes de trocar. */
 const BLOCK = "#e25950";
 
 // Classes comuns às duas formas (botão de envio e link). O que muda entre elas é
 // só a largura, logo abaixo.
 //
-// `overflow-hidden` guarda o bloco dentro do botão — sem ele o efeito vaza.
+// `overflow-hidden` guarda o bloco dentro do botão  -  sem ele o efeito vaza.
 // O `pr` reserva a faixa do bloco MAIS uma folga, senão o rótulo encosta nele:
 // é a largura do bloco (52px) + 8px de respiro. No telefone tudo encolhe, e é
 // essa largura que decide se "Start a Conversation" cabe em uma linha.
@@ -106,7 +106,7 @@ const BASE =
   "group relative items-center justify-center overflow-hidden bg-brand py-4 pl-6 pr-[60px] text-sm font-bold uppercase tracking-[0.5px] text-white max-sm:pl-3 max-sm:pr-[46px] max-sm:text-[13px] max-sm:tracking-[0.3px]";
 
 // `flex w-full` para o botão do formulário, que ocupa a coluna inteira;
-// `inline-flex` para o link, que se ajusta ao texto — que é, aliás, o que o
+// `inline-flex` para o link, que se ajusta ao texto  -  que é, aliás, o que o
 // componente original do 21st faz.
 const WIDTH = { block: "flex w-full", inline: "inline-flex" } as const;
 
@@ -159,7 +159,7 @@ export default function HoverFillButton({
 function Inner({ label }: { label: string }) {
   return (
     <>
-      {/* O rótulo é branco e NÃO muda — como no original. Sobre o BLOCK ele fica
+      {/* O rótulo é branco e NÃO muda  -  como no original. Sobre o BLOCK ele fica
           em 3,63:1, abaixo dos 4,5:1 de texto; a nota de contraste no cabeçalho
           explica por que não dá para consertar sem abrir mão do vermelho claro,
           e qual é a saída se um dia for para consertar. */}
@@ -167,11 +167,11 @@ function Inner({ label }: { label: string }) {
 
       {/* O bloco. `inset-y-0 right-0` o cola no topo, na base e na direita; no
           hover a largura vai a `w-full` e ele cobre o botão inteiro. Sem folga
-          em lugar nenhum — ver a nota no cabeçalho.
+          em lugar nenhum  -  ver a nota no cabeçalho.
 
           A largura em repouso é a ALTURA do botão (52px), para o bloco ser um
           quadrado exato. Se o rótulo quebrar em duas linhas o botão cresce e o
-          bloco vira retângulo — aceitável, porque ele continua colado nas
+          bloco vira retângulo  -  aceitável, porque ele continua colado nas
           bordas, que é o que importa aqui. */}
       <div
         aria-hidden="true"
@@ -180,14 +180,14 @@ function Inner({ label }: { label: string }) {
       >
         {/* ⚠️ A SETA É CENTRADA POR MARGEM, E NÃO POR `justify-center`, e a
             diferença importa: o bloco é `justify-end`, o que prende a seta na
-            borda direita — a única borda que não se move quando o bloco cresce.
+            borda direita  -  a única borda que não se move quando o bloco cresce.
             Trocar para `justify-center` faria a seta escorregar até o meio do
             botão durante o hover, que é justamente o que não pode acontecer.
 
             Então a margem TEM de valer (largura do bloco − tamanho da seta) / 2,
             ou a seta fica torta. Aqui: (52 − 20) / 2 = 16px = `mr-4`; no
             telefone (40 − 16) / 2 = 12px = `mr-3`. Estava com 12px num bloco de
-            52px, o que a deixava 4px à direita do centro — era essa a torta.
+            52px, o que a deixava 4px à direita do centro  -  era essa a torta.
             Se mexer no tamanho do bloco ou do ícone, refaça a conta. */}
         <div className="mr-4 flex items-center justify-center max-sm:mr-3">
           {/* A seta é a do arquivo deles, path idêntico. Branca, a pedido:

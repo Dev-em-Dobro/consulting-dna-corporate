@@ -50,7 +50,7 @@ test("fixed card positions reject missing faculties and resources", () => {
 test("impact and insights have independent copy and retain PDF destinations", () => {
   assert.equal(mergeImpactCopy({ hero: { title: "New impact" } }).hero.title, "New impact");
   assert.equal(mergeInsightsCopy({ hero: { title: "New insights" } }).hero.title, "New insights");
-  assert.equal(DEFAULT_IMPACT_COPY.hero.title, "Leadership change, measured where it matters.");
+  assert.equal(DEFAULT_IMPACT_COPY.hero.title, "People. Planet. Lasting Impact.");
   assert.equal(INSIGHTS_RESOURCE_FILES.length, DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources.length);
   assert.ok(INSIGHTS_RESOURCE_FILES.every((file) => file.endsWith(".pdf")));
 });

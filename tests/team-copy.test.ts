@@ -65,7 +65,7 @@ test("o padrão passa no próprio schema", () => {
   const parsed = TeamCopySchema.safeParse(DEFAULT_TEAM_COPY);
   assert.ok(
     parsed.success,
-    "o padrão derivado de lib/team.ts não passa no schema — os comprimentos travados em team-copy-schema.ts saíram de sincronia",
+    "o padrão derivado de lib/team.ts não passa no schema  -  os comprimentos travados em team-copy-schema.ts saíram de sincronia",
   );
 });
 
@@ -84,9 +84,9 @@ test("os seis líderes e as quatro vertentes casam por posição com lib/team.ts
 });
 
 /**
- * Os rótulos dos campos dos líderes trazem o NOME da pessoa — é o que diz à
+ * Os rótulos dos campos dos líderes trazem o NOME da pessoa  -  é o que diz à
  * cliente de quem é o cargo que ela está editando. Um rótulo genérico ("Leader
- * 3 — job title") seria inutilizável numa grade de seis.
+ * 3  -  job title") seria inutilizável numa grade de seis.
  */
 test("cada campo de líder traz o nome da pessoa no rótulo", () => {
   const section = EDITOR_SECTIONS.find((s) => s.id === "leaders");

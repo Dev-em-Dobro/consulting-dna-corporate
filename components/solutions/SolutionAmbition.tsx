@@ -1,7 +1,7 @@
 import Reveal from "@/components/Reveal";
 
 /**
- * A FAIXA "ONE AMBITION" — a linha rosa do layout de Women’s Leadership
+ * A FAIXA "ONE AMBITION"  -  a linha rosa do layout de Women’s Leadership
  * Development (`women leadership.jpeg`, 24-09), entre os cartões de público e
  * o "How we work".
  *
@@ -11,7 +11,7 @@ import Reveal from "@/components/Reveal";
  * ⚠️ NÃO É O `SolutionClosing`, e por isso é peça própria. Aquele é a
  * assinatura em SERIFA de duas linhas sobre branco, e o rótulo dele (`label`)
  * NOMEIA o bloco que vem abaixo ("Featured case study"). Esta é uma afirmação
- * de ambição: campo de cor, texto miúdo em versalete, e não anuncia nada — no
+ * de ambição: campo de cor, texto miúdo em versalete, e não anuncia nada  -  no
  * layout ela fecha os três cartões de público em vez de abrir a seção seguinte.
  * Fundir as duas exigiria uma prop de fundo, uma de família tipográfica e uma
  * de semântica, que é um componente com dois modos que não partilham nada.
@@ -25,7 +25,7 @@ import Reveal from "@/components/Reveal";
  * tela estreita o texto já ocupa a largura inteira e o `flex-1` daria dois
  * cotocos de uns 10px, que leem como defeito.
  *
- * Sem `line` o bloco não renderiza — a mesma guarda dos outros campos
+ * Sem `line` o bloco não renderiza  -  a mesma guarda dos outros campos
  * opcionais do template.
  */
 export default function SolutionAmbition({ line }: { line?: string }) {
@@ -37,7 +37,7 @@ export default function SolutionAmbition({ line }: { line?: string }) {
        e o `pb` daqui é o degrau até a faixa `paper` do "How we work". */
     <section className="bg-white">
       <div className="mx-auto max-w-[1440px] px-6 pb-20 md:px-10 md:pb-24">
-        {/* `stagger={false}`: os filhos são filete, texto e filete — escaloná-los
+        {/* `stagger={false}`: os filhos são filete, texto e filete  -  escaloná-los
             faria os dois traços entrarem em tempos diferentes. */}
         <Reveal
           stagger={false}

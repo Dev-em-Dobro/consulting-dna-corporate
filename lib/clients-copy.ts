@@ -1,22 +1,22 @@
 /**
- * OS TEXTOS EDITÁVEIS DA CLIENTS & IMPACT (`/our-clients`) — o que a cliente
+ * OS TEXTOS EDITÁVEIS DA CLIENTS & IMPACT (`/our-clients`)  -  o que a cliente
  * pode trocar em `/edit-clients`. Ver `docs/edit-paginas.md`.
  *
  * ⚠️ OS QUATRO NÚMEROS DA FAIXA "By the numbers" NÃO ESTÃO AQUI. Eles são os
  * mesmos quatro da About desde 18-09, a pedido da cliente, justamente para as
- * duas páginas não divergirem — e por isso moram em `lib/about-copy.ts` e se
+ * duas páginas não divergirem  -  e por isso moram em `lib/about-copy.ts` e se
  * editam em `/edit-about`. Duplicá-los aqui recriaria a divergência que juntar
  * as listas foi feito para impedir. A tela traz um aviso dizendo onde editá-los.
  *
  * ⚠️ OS TRÊS NÚMEROS DO "Global footprint" TAMBÉM NÃO: dois deles são CONTAGENS
  * calculadas (quantos logos de cliente existem, quantos cases o CMS publicou) e
- * o terceiro vem do CMS. Só os RÓTULOS entram — que é a mesma regra da faixa
+ * o terceiro vem do CMS. Só os RÓTULOS entram  -  que é a mesma regra da faixa
  * escura da home.
  *
  * O QUE FICOU DE FORA, de propósito: os cases e os depoimentos (vêm do CMS), o
  * mural de logos, o mapa-múndi e o destino do botão do bloco de impacto social.
  *
- * ⚠️ Nada de `fs`, `blob`, zod ou `@/` — carregado pelos testes do Node.
+ * ⚠️ Nada de `fs`, `blob`, zod ou `@/`  -  carregado pelos testes do Node.
  */
 import type { EditorSection } from "./page-copy/fields.ts";
 
@@ -34,9 +34,8 @@ export type ClientsCopy = {
 export const DEFAULT_CLIENTS_COPY: ClientsCopy = {
   hero: {
     eyebrow: "Our Clients",
-    title: "Leadership change, measured where it matters.",
-    subtitle:
-      "From energy and pharma to luxury and financial services, advisory delivered where the stakes are highest.",
+    title: "Our clients trust us to",
+    subtitle: "Keep leadership real",
   },
   logos: {
     label: "Trusted by global organisations",
@@ -65,7 +64,7 @@ export const DEFAULT_CLIENTS_COPY: ClientsCopy = {
   footprint: {
     label: "Global footprint",
     kicker: "Where our clients create change.",
-    /* Os três RÓTULOS. Os valores são contagens — ver a caixa no topo. */
+    /* Os três RÓTULOS. Os valores são contagens  -  ver a caixa no topo. */
     statLabels: ["Regions", "Clients", "Published case studies"],
   },
   cta: {
@@ -110,7 +109,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
         path: "numbers.rowLabel",
         label: "Label beside the row",
         kind: "text",
-        hint: "The four numbers are the same as on the About page — edit them there, and both pages change together.",
+        hint: "The four numbers are the same as on the About page  -  edit them there, and both pages change together.",
       },
     ],
   },

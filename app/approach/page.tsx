@@ -20,6 +20,7 @@ import {
 import SiteShell from "@/components/SiteShell";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
+import InnerOuterGame from "@/components/approach/InnerOuterGame";
 import { breadcrumbLd, faqLd, serviceLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 
@@ -162,6 +163,14 @@ export default async function ApproachPage() {
           </p>
         </section>
 
+        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
+
+        <div className="bg-white px-6 py-14 text-center md:py-16">
+          <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
+            {copy.fiveH.note}
+          </p>
+        </div>
+
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -173,38 +182,8 @@ export default async function ApproachPage() {
           </div>
           </div>
           <div id="two-games" className="min-w-0">
-          <div className="relative mx-auto w-full max-w-[480px] px-[5%] py-[7%]">
-            <Image
-              src="/approach-two-games-arrow.svg"
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes="(min-width: 528px) 480px, 100vw"
-              className="pointer-events-none scale-110 animate-[spin_40s_linear_infinite] object-fill motion-reduce:animate-none"
-            />
-
-            <div className="relative grid grid-cols-2 gap-[5%]">
-              <article className="flex min-w-0 flex-col overflow-hidden rounded-[10px] bg-[#e9e9e9] shadow-[0_3px_8px_rgba(0,0,0,0.27)]">
-                <h3 className="bg-[#383838] px-1 py-3 text-center text-[16px] font-bold leading-[1.4] text-white sm:text-[20px]">{copy.games.inner.heading}</h3>
-                <div className="flex min-h-[260px] flex-1 flex-col items-center px-3 pb-6 pt-5 text-center sm:min-h-[300px] sm:px-4">
-                  <p className="max-w-[200px] text-[14px] sm:text-[16px] leading-[1.5] text-[#595959]">{copy.games.inner.body}</p>
-                  <div className="mt-auto grid w-full max-w-[134px] grid-rows-3 gap-[3px] pt-6">
-                    {copy.games.inner.labels.map((name, index) => [name, ["#693274", "#df3f38", "#e5bd0b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[14px] sm:text-[18px] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
-                  </div>
-                </div>
-              </article>
-              <article className="flex min-w-0 flex-col overflow-hidden rounded-[10px] bg-[#e9e9e9] shadow-[0_3px_8px_rgba(0,0,0,0.27)]">
-                <h3 className="bg-[#383838] px-1 py-3 text-center text-[16px] font-bold leading-[1.4] text-white sm:text-[20px]">{copy.games.outer.heading}</h3>
-                <div className="flex min-h-[260px] flex-1 flex-col items-center px-3 pb-6 pt-5 text-center sm:min-h-[300px] sm:px-4">
-                  <p className="max-w-[200px] text-[14px] sm:text-[16px] leading-[1.5] text-[#595959]">{copy.games.outer.body}</p>
-                  <div className="mt-auto grid w-full max-w-[134px] grid-rows-3 gap-[3px] pt-6">
-                    {copy.games.outer.labels.map((name, index) => [name, ["#2e4794", "#08764b"][index]]).map(([name, color]) => <span key={name} className="rounded-full px-2 text-[14px] sm:text-[18px] leading-[1.32] text-white" style={{ backgroundColor: color }}>{name}</span>)}
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div className="mx-auto max-w-[980px] px-5 py-10 sm:px-8 lg:px-10">
+          <InnerOuterGame />
+          <div className="mx-auto mt-6 max-w-[980px] px-5 py-6 sm:px-8 lg:px-10">
           <div className="grid grid-cols-3 gap-4 lg:mx-auto lg:max-w-[720px] lg:gap-10">
             {[
               { label: copy.games.assessmentLabels[0], Icon: UserRoundCheck },
@@ -237,14 +216,6 @@ export default async function ApproachPage() {
           </div>
         </section>
 
-        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
-
-        <div className="bg-white px-6 py-14 text-center md:py-16">
-          <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
-            {copy.fiveH.note}
-          </p>
-        </div>
-
       </div>
 
       <section id="dna-360-profiler" className="bg-[#353132] text-white">
@@ -257,7 +228,14 @@ export default async function ApproachPage() {
             <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[16px]">
               {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
-            <div className="mt-10 grid gap-7 border-t border-white/15 pt-8 sm:grid-cols-2 sm:gap-10 lg:mt-0 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <div className="mt-10 grid gap-8 lg:mt-0">
+              <Image
+                src="/approach/nigel-guenole.png"
+                alt="Dr Nigel Guenole, who validated the 5H leadership framework"
+                width={374}
+                height={374}
+                className="mb-8 w-full max-w-[280px] object-cover object-top"
+              />
               <div>
                 <strong className="block text-[40px] font-bold leading-none text-brand">{copy.profiler.facts[0].value}</strong>
                 <span className="mt-2 block max-w-[260px] text-[12px] font-semibold uppercase leading-[1.5] tracking-[0.9px] text-white/78 whitespace-pre-line">

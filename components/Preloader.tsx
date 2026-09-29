@@ -25,7 +25,7 @@ declare global {
 export default function Preloader() {
   useEffect(() => {
     // Restore the `js`/`touch` classes in case a hydration failure wiped them
-    // (in-app browsers — see lib/hero-intro.ts).
+    // (in-app browsers  -  see lib/hero-intro.ts).
     applyEnvClasses();
     const root = document.documentElement;
     let finished = false;
@@ -40,7 +40,7 @@ export default function Preloader() {
       window.setTimeout(() => root.classList.add("app-ready-done"), 650);
     };
 
-    // Phone/tablet by hardware touch, not width or CSS media features —
+    // Phone/tablet by hardware touch, not width or CSS media features  - 
     // "Request Desktop Website" can fake all of those (see lib/hero-intro.ts).
     const isMobile = isTouchDevice();
 
@@ -52,7 +52,7 @@ export default function Preloader() {
     // ⚠️ A LISTA SE INVERTEU em 10-09, junto com a promoção da V2 para `/`.
     // Antes isto era uma lista de EXCEÇÕES (`/home-v2` e `/home-v3` não
     // aquecem, todo o resto aquece), porque quem usava a intro era a home. Hoje
-    // a home é a V2 e quem usa a intro é uma rota só — a `/home-v1`, o arquivo.
+    // a home é a V2 e quem usa a intro é uma rota só  -  a `/home-v1`, o arquivo.
     // Virou lista de INCLUSÃO pelo mesmo motivo que ela existe: se um dia
     // aparecer outra rota, o padrão seguro é não baixar nada.
     //
@@ -65,7 +65,7 @@ export default function Preloader() {
     const needsHeroFrames = usesHeroIntro;
 
     // O clipe do desktop, por outro motivo: desde 07-09 nem a V2 nem a V3 usam
-    // `hero-intro.mp4` — as duas têm fotografia estática de fundo, cuidada pelo
+    // `hero-intro.mp4`  -  as duas têm fotografia estática de fundo, cuidada pelo
     // `<Image>` do Next com `priority` (ver HeroV2.tsx e HeroV3.tsx). Aquecer o
     // MP4 nelas seria baixar 3,8 MB de um vídeo que a página não tem.
     const needsHeroVideo = usesHeroIntro;
@@ -88,7 +88,7 @@ export default function Preloader() {
         resolve();
       } else if (isMobile) {
         // Fully download every intro frame BEFORE revealing the site (the
-        // phone intro is a GSAP canvas image sequence — see lib/hero-intro.ts),
+        // phone intro is a GSAP canvas image sequence  -  see lib/hero-intro.ts),
         // so playback starts instantly and can't stutter on the network.
         // Aborting after 25s guarantees a stalled connection can never trap
         // the visitor behind the loader.

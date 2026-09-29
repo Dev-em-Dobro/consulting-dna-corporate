@@ -1,12 +1,12 @@
 /**
- * Herói das páginas de serviço — foto de sangria total, texto por cima.
+ * Herói das páginas de serviço  -  foto de sangria total, texto por cima.
  *
  * ESCOLHIDO EM 10-09 entre seis variações postas lado a lado (`/hero-tests`,
  * rota descartável, já removida): duotone laranja, cinza→vermelho dessaturado,
  * cinza→vermelho em P&B, sangria total, divisão dura 50/50 e um editorial sem
  * foto. Venceu a sangria total.
  *
- * O QUE ELA TROCA. A versão anterior era a composição da /about — foto contida
+ * O QUE ELA TROCA. A versão anterior era a composição da /about  -  foto contida
  * numa caixa de 54% presa à direita, `ink` puro nos 46% da esquerda. Aqui a foto
  * ocupa a largura inteira e o `ink` vira um escurecimento POR CIMA dela, vindo
  * da esquerda. Ganha presença de imagem; perde o campo escuro limpo que a About
@@ -23,7 +23,7 @@
  *     que é; o 600 compensa o degrau.
  *   • Rótulo a 14px/1,3px com régua de 36×2, os dois em `brand-light`. #d84339
  *     sobre escuro dá 2,87:1, abaixo da régua de 3:1 que vale até para elemento
- *     gráfico; o tom claro devolve 4,53:1. Régua e texto mudam JUNTOS — leem
+ *     gráfico; o tom claro devolve 4,53:1. Régua e texto mudam JUNTOS  -  leem
  *     como um objeto só.
  *   • Largura de 1440 e `100svh` com `pt-[76px]`.
  */
@@ -36,9 +36,11 @@ export default function SolutionHero({
   title,
   subtitle,
   subtitleAccent,
+  accentAsTitle = false,
   body,
   imageUrl,
   noImage = false,
+  imageShadeOpacity = 1,
   credential,
   tint = "none",
   imageFilter = "saturate-[.65] brightness-[.68]",
@@ -48,10 +50,10 @@ export default function SolutionHero({
 }: {
   eyebrow: string;
   title: string;
-  /** A "banner statement" do outline de 09-09 — uma frase, não um parágrafo. */
+  /** A "banner statement" do outline de 09-09  -  uma frase, não um parágrafo. */
   subtitle?: string;
   /**
-   * A SEGUNDA LINHA DA FRASE DE APOIO, EM VERMELHO — 24-09, com o layout de
+   * A SEGUNDA LINHA DA FRASE DE APOIO, EM VERMELHO  -  24-09, com o layout de
    * Family Business Consulting, que escreve a manchete em duas cores.
    *
    * ⚠️ MESMA MEDIDA DO `subtitle`, e só a cor muda: no desenho as duas linhas
@@ -59,11 +61,12 @@ export default function SolutionHero({
    * transformaria numa segunda frase subordinada à primeira.
    *
    * ⚠️ `brand-light` E NÃO `brand`: sobre a foto escurecida o vermelho cheio dá
-   * 2,87:1 e não passa na régua. É a regra de uma linha do `globals.css` —
+   * 2,87:1 e não passa na régua. É a regra de uma linha do `globals.css`  - 
    * `brand` em fundo claro, `brand-light` em fundo escuro.
    */
   subtitleAccent?: string;
-  /** Os parágrafos abaixo da frase de apoio — ver a caixa na marcação. */
+  accentAsTitle?: boolean;
+  /** Os parágrafos abaixo da frase de apoio  -  ver a caixa na marcação. */
   body?: string[];
   /**
    * A foto do herói.
@@ -71,23 +74,24 @@ export default function SolutionHero({
    * DOIS TIPOS DE PROPÓSITO: `string` é o CMS (`bannerMediaId` → `bannerUrl`,
    * uma URL do CDN) e `StaticImageData` é arquivo do repositório. O `next/image`
    * sempre aceitou os dois; era o tipo daqui que só aceitava um, e isso apareceu
-   * em 12-09 quando a `/books` ganhou fotografia própria — a primeira página a
+   * em 12-09 quando a `/books` ganhou fotografia própria  -  a primeira página a
    * não dividir a padrão.
    *
    * SEM ELA CAI NUM PADRÃO, e isso é decisão, não descuido: das doze rotas que
    * usam este herói, onze não têm fotografia própria. Um slot vazio em onze
-   * páginas lê como site inacabado; a mesma foto em onze lê como identidade — e
+   * páginas lê como site inacabado; a mesma foto em onze lê como identidade  -  e
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
   /**
-   * SEM FOTO NENHUMA — 24-09, hotfix: a /team ficou com o herói liso. Não cai
+   * SEM FOTO NENHUMA  -  24-09, hotfix: a /team ficou com o herói liso. Não cai
    * no `fallbackPhoto`: a dobra vira só o `bg-ink` da seção, e as camadas de
    * cor e de escurecimento saem junto, porque sem foto não há o que tingir.
    */
   noImage?: boolean;
+  imageShadeOpacity?: number;
   /**
-   * AS PALAVRAS NA BORDA DIREITA DA DOBRA — 24-09, com o layout de Women’s
+   * AS PALAVRAS NA BORDA DIREITA DA DOBRA  -  24-09, com o layout de Women’s
    * Leadership Development: *"People / Perspective / Possibilities"*.
    *
    * ⚠️ UM ARRAY PORQUE AS QUEBRAS SÃO DO DESENHO, exatamente como o
@@ -96,7 +100,7 @@ export default function SolutionHero({
    * disponível.
    *
    * ⚠️ SÓ NO DESKTOP. No telefone o texto do herói é ancorado embaixo e ocupa a
-   * dobra inteira — não há coluna livre à direita onde pôr isto sem cair em
+   * dobra inteira  -  não há coluna livre à direita onde pôr isto sem cair em
    * cima do título.
    *
    * ⏳ UM DOS DEZ TEM. Ausente = a dobra segue como sempre.
@@ -106,7 +110,7 @@ export default function SolutionHero({
    * `object-position` da foto, em classe do Tailwind. Padrão `object-center`.
    *
    * EXISTE PORQUE O TEXTO MORA SEMPRE À ESQUERDA. Numa foto de atmosfera isso
-   * não importa — dá no mesmo o que fica atrás do título. Importa quando a foto
+   * não importa  -  dá no mesmo o que fica atrás do título. Importa quando a foto
    * tem UM assunto: a `/books` tem o livro, e centrado ele nascia debaixo do
    * `h1`. Deslocar o enquadramento manda o assunto para a metade livre sem
    * mexer no arquivo nem no texto.
@@ -114,7 +118,7 @@ export default function SolutionHero({
    * ⚠️ O CURSO É O QUE `object-cover` SOBRA, e é bom medir antes de escolher: se
    * a foto e o quadro tiverem quase a mesma proporção, a sobra é de dezenas de
    * pixels e nenhum valor aqui resolve nada. Foi o caso da primeira versão desta
-   * mesma imagem — 94px de curso vertical, contra os 150px que o assunto
+   * mesma imagem  -  94px de curso vertical, contra os 150px que o assunto
    * precisava subir. A saída ali foi recortar o arquivo, não mover o
    * enquadramento.
    */
@@ -122,11 +126,11 @@ export default function SolutionHero({
   /**
    * A camada `multiply` por cima da foto. **O padrão é não ter nenhuma.**
    *
-   * ⚠️ ERA UM DUOTONE ATÉ 11-09 — `linear-gradient(120deg, #6b5d61, #93615a,
+   * ⚠️ ERA UM DUOTONE ATÉ 11-09  -  `linear-gradient(120deg, #6b5d61, #93615a,
    * #c2564a)`, carvão indo para vermelho. Saiu a pedido, primeiro na /team e
    * agora nas doze rotas: o vermelho daqueles heróis nunca veio da fotografia,
    * vinha desta camada. `none` é valor válido de `background-image`, então o
-   * `div` continua no DOM e simplesmente não pinta — saída limpa, sem prop nova
+   * `div` continua no DOM e simplesmente não pinta  -  saída limpa, sem prop nova
    * e sem ramo no JSX.
    *
    * Quem passar um gradiente aqui reativa o duotone para a sua página.
@@ -135,7 +139,7 @@ export default function SolutionHero({
   /**
    * Filtro CSS aplicado à FOTO.
    *
-   * É O DA HOME, copiado de `HERO_TINT.filter` em `HeroV2` — as duas páginas
+   * É O DA HOME, copiado de `HERO_TINT.filter` em `HeroV2`  -  as duas páginas
    * passam a tratar a foto do herói igual.
    *
    * O `brightness` NÃO É ENFEITE, e é a peça que se esquece ao tirar um
@@ -156,7 +160,7 @@ export default function SolutionHero({
    * rotas, e a seta só se paga onde a dobra cheia realmente esconde o resto.
    *
    * É UM LINK E NÃO UM BOTÃO porque o `html { scroll-behavior: smooth }` do
-   * `globals.css` já entrega a rolagem suave de graça — e um `<a href="#...">`
+   * `globals.css` já entrega a rolagem suave de graça  -  e um `<a href="#...">`
    * funciona sem JS, o que mantém este componente de servidor. A NavV2 é
    * `absolute`, então ela rola junto e não há barra fixa para descontar do
    * destino.
@@ -168,7 +172,7 @@ export default function SolutionHero({
   const src = imageUrl ?? fallbackPhoto;
   return (
     /* `100svh` MAIS `pt-[76px]`, como a /about. O menu é a NavV2 (`floatingNav`
-       no SiteShell), que é `absolute` e não ocupa fluxo — não há o que
+       no SiteShell), que é `absolute` e não ocupa fluxo  -  não há o que
        descontar, e o `pt` só impede que o rótulo nasça debaixo dele.
 
        `svh` e não `vh`: no telefone `100vh` conta a tela COM a barra de endereço
@@ -178,13 +182,13 @@ export default function SolutionHero({
        cresce e o bloco cresce junto, em vez de cortar.
 
        A SANGRIA TOTAL SIMPLIFICOU O TELEFONE. Enquanto a foto vivia numa caixa
-       de 54% à direita, o telefone precisava de uma composição própria — a foto
+       de 54% à direita, o telefone precisava de uma composição própria  -  a foto
        descia para o fluxo, abaixo do texto, com uma costura escondendo o corte.
        Agora ela está atrás de tudo nas duas telas, e o que muda entre elas é só
        a DIREÇÃO do escurecimento. Menos código e uma classe inteira de defeito
        de sobreposição que deixa de existir.
 
-    ⚠️ A DOBRA DEIXOU DE SER CHEIA EM 17-09 — 84svh no lugar de 100svh, a
+    ⚠️ A DOBRA DEIXOU DE SER CHEIA EM 17-09  -  84svh no lugar de 100svh, a
        pedido: *"fazer o hero de todas as páginas menos da home terem uma altura
        um pouco menor para a seção de baixo aparecer na tela."* Não é ajuste de
        gosto, é o que resolve o defeito clássico da dobra cheia: uma primeira
@@ -213,7 +217,7 @@ export default function SolutionHero({
             className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
           />
 
-          {/* A CAMADA DE COR — hoje vazia (`tint="none"` é o padrão), e mantida no
+          {/* A CAMADA DE COR  -  hoje vazia (`tint="none"` é o padrão), e mantida no
               DOM para quem quiser reativar um duotone por página.
 
               O `multiply` fica aqui e não vira camada chapada porque é a única
@@ -226,13 +230,14 @@ export default function SolutionHero({
             style={{ backgroundImage: tint }}
           />
 
-          {/* ESCURECIMENTO — a diferença entre as duas telas.
+          {/* ESCURECIMENTO  -  a diferença entre as duas telas.
               Desktop: vem da ESQUERDA, onde o texto mora, e abre para a direita,
               deixando a foto respirar. É a composição que a variação 4 tinha. */}
           <div
             aria-hidden
             className="absolute inset-0 -z-10 hidden md:block"
             style={{
+              opacity: imageShadeOpacity,
               backgroundImage:
                 "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
             }}
@@ -246,8 +251,8 @@ export default function SolutionHero({
 
               ⚠️ A PRIMEIRA VERSÃO ERROU PARA O LADO ESCURO, e o erro só apareceu
               medindo. Ela fechava o gradiente inteiro (.92/.86/.62/.80) para cobrir
-              o texto no centro, e o resultado dava 15:1 de contraste — três vezes
-              mais do que texto pequeno precisa — ao custo de apagar a foto por
+              o texto no centro, e o resultado dava 15:1 de contraste  -  três vezes
+              mais do que texto pequeno precisa  -  ao custo de apagar a foto por
               completo. Contraste de sobra não é segurança, é imagem jogada fora.
 
               Ancorar o texto embaixo desfaz o conflito: o escurecimento fica onde o
@@ -256,6 +261,7 @@ export default function SolutionHero({
             aria-hidden
             className="absolute inset-0 -z-10 md:hidden"
             style={{
+              opacity: imageShadeOpacity,
               backgroundImage:
                 "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
             }}
@@ -263,7 +269,7 @@ export default function SolutionHero({
         </>
       )}
 
-      {/* A ENTRADA É A DA HOME, desde 11-09 — a escada de
+      {/* A ENTRADA É A DA HOME, desde 11-09  -  a escada de
           `lib/hero-timeline.ts`, a mesma que a /about roda. Este herói é o de
           /team, o das dez páginas de serviço e o do índice: sem isto, sair da
           home ou da /about para qualquer uma delas era passar de um herói que
@@ -272,33 +278,33 @@ export default function SolutionHero({
           AQUI DÁ PARA USAR A RÉGUA (`h-bar`), que a /about não tem: lá o rótulo
           é um `TypeLabel`, que traz a régua dentro e entra como peça única; aqui
           o traço é um `<span>` separado, então ele cresce da esquerda antes de o
-          rótulo aparecer, exatamente como na home. Não há `h-cta` — este herói
+          rótulo aparecer, exatamente como na home. Não há `h-cta`  -  este herói
           não tem botão.
 
           ⚠️ AS CLASSES NASCEM COM `opacity: 0` (globals.css, sob `html.js`), e é
           o `HeroIntro` que as revela. Tirar o wrapper e deixar as classes
-          publica um herói invisível — ele tem prazo de segurança de 10s
+          publica um herói invisível  -  ele tem prazo de segurança de 10s
           justamente para que nenhum caminho termine assim. */}
       <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10">
-        {/* ⛔ A MIGALHA DE PÃO SAIU EM 15-09, a pedido — e a prop `trail` saiu
+        {/* ⛔ A MIGALHA DE PÃO SAIU EM 15-09, a pedido  -  e a prop `trail` saiu
             com ela, em vez de ficar aqui sem uso esperando.
 
             O QUE ERA: um `<nav aria-label="Breadcrumb">` acima do rótulo, com
             as pernas separadas por "/", a última em texto simples (link para a
             página em que já se está é ruído no teclado e no leitor de tela). Ele
             rodava nas dez páginas de serviço e na /team. A montagem inteira está
-            no commit anterior a este — é copiar de volta.
+            no commit anterior a este  -  é copiar de volta.
 
             DE ONDE ELE TINHA VINDO: os mockups do pacote dela. O template de
             serviço abre com "Home / Services / ExCo / Top 150", o de Team com
             "Home / Team" e o de Clients & Impact com "Home / Clients & Impact".
-            Ou seja, ele não foi invenção nossa — mas também não é pedido escrito
+            Ou seja, ele não foi invenção nossa  -  mas também não é pedido escrito
             em nenhum dos `.docx`, e a chamada aqui é de desenho. Se ela pedir de
             volta ao revisar, volta. */}
         <div className="mb-5 flex items-center gap-3">
           <span className="h-bar inline-block h-0.5 w-9 bg-brand-light" />
           {/* `text-left` EXPLÍCITO. Sem ele o texto herda alinhamento do pai e se
-              centraliza DENTRO DA PRÓPRIA CAIXA quando quebra em duas linhas — a
+              centraliza DENTRO DA PRÓPRIA CAIXA quando quebra em duas linhas  -  a
               primeira recua para o meio e abre um vão aparente contra a régua,
               que continua colada à esquerda. */}
           <span className="h-eyebrow text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
@@ -311,7 +317,7 @@ export default function SolutionHero({
             herói de sangria total ele é a única coisa que segura a composição
             contra a foto. */}
         <h1 className="h-title font-serif max-w-[760px] text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
-          {title}
+          {title.replace(/\.$/, "")}
         </h1>
 
         {subtitle && (
@@ -320,17 +326,17 @@ export default function SolutionHero({
           </p>
         )}
 
-        {/* ⬅ A SEGUNDA LINHA DA MANCHETE, EM VERMELHO — ver a prop
+        {/* ⬅ A SEGUNDA LINHA DA MANCHETE, EM VERMELHO  -  ver a prop
             `subtitleAccent`. `mt-2` e não `mt-6`: as duas linhas são a MESMA
             frase partida em duas, e o respiro de parágrafo entre elas as
             separaria em afirmações independentes. */}
         {subtitleAccent && (
-          <p className="h-sub mt-2 max-w-[560px] text-[19px] leading-[1.45] text-brand-light md:text-[21px]">
+          <p className={accentAsTitle ? "h-sub mt-2 max-w-[760px] font-serif text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-brand-light sm:text-[48px] md:text-[58px]" : "h-sub mt-2 max-w-[560px] text-[19px] leading-[1.45] text-brand-light md:text-[21px]"}>
             {subtitleAccent}
           </p>
         )}
 
-        {/* ⬅ OS PARÁGRAFOS DO HERÓI — 24-09, com o layout do Talent
+        {/* ⬅ OS PARÁGRAFOS DO HERÓI  -  24-09, com o layout do Talent
             Development, que é o primeiro dos dez a escrever corpo dentro do
             herói em vez de só a frase de apoio.
 
@@ -360,12 +366,12 @@ export default function SolutionHero({
           </div>
         )}
 
-        {/* ⬅ AS TRÊS PALAVRAS DA BORDA DIREITA — ver a prop `credential`.
+        {/* ⬅ AS TRÊS PALAVRAS DA BORDA DIREITA  -  ver a prop `credential`.
 
             A CAIXA DE FORA CARREGA O DESLOCAMENTO E A DE DENTRO A ANIMAÇÃO, e
             isso não é aninhamento à toa: a entrada do herói anima `y` via
             transform, e o `-translate-y-1/2` que centra o bloco é transform
-            também — na mesma tag, o GSAP sobrescreveria a centralização e as
+            também  -  na mesma tag, o GSAP sobrescreveria a centralização e as
             palavras cairiam para o topo da dobra.
 
             O `max-w-[1440px] px-6/px-10` repete o do <HeroIntro> pela razão da
@@ -384,7 +390,7 @@ export default function SolutionHero({
                   </span>
                 ))}
                 {/* A RÉGUA DO PÉ é a mesma do rótulo lá em cima, virada para a
-                    direita — é ela que fecha o bloco contra a borda. */}
+                    direita  -  é ela que fecha o bloco contra a borda. */}
                 <span
                   aria-hidden
                   className="ml-auto mt-3 block h-0.5 w-9 bg-brand-light"
@@ -394,29 +400,29 @@ export default function SolutionHero({
           </div>
         )}
 
-        {/* A SETA DE ROLAGEM — mora aqui dentro, e não ao lado do <HeroIntro>,
+        {/* A SETA DE ROLAGEM  -  mora aqui dentro, e não ao lado do <HeroIntro>,
             porque o `buildHeroIntro` só enxerga o que está dentro do escopo
             dele. O posicionamento não sofre com isso: o wrapper do HeroIntro
             não tem `position`, então o `absolute` daqui se mede pela <section>,
-            que é `relative` — a seta fica presa ao pé da DOBRA, e não ao pé do
+            que é `relative`  -  a seta fica presa ao pé da DOBRA, e não ao pé do
             bloco de texto, que no desktop está centralizado.
 
             À ESQUERDA, e não centralizada, por duas razões que apontam para o
-            mesmo lugar. A composição é toda de eixo esquerdo — régua, rótulo,
-            título, apoio — e uma seta no meio abriria um segundo eixo só para
+            mesmo lugar. A composição é toda de eixo esquerdo  -  régua, rótulo,
+            título, apoio  -  e uma seta no meio abriria um segundo eixo só para
             ela. E é onde o escurecimento do desktop é mais forte (.90 na borda
             esquerda contra ~.38 no centro): centralizada, ela cairia justamente
             na parte clara da foto, onde branco a 65% deixa de ser legível.
 
             O `max-w-[1440px] px-6/px-10` repete o do <HeroIntro> porque é o que
             faz a seta nascer exatamente na mesma margem do título em telas mais
-            largas que 1440 — sem isso ela encostaria na borda da janela.
+            largas que 1440  -  sem isso ela encostaria na borda da janela.
 
             SÓ NO DESKTOP (`hidden md:block`), e isto foi medido, não presumido.
             No telefone o texto é ancorado embaixo (`justify-end`) e ocupa a
             dobra até o fim: num 390×844 o subtítulo termina a 764px de 844, e
             não sobra faixa vazia onde pôr a seta. Com o banner de cookies
-            aberto fica pior — ele tem 163px ali (contra 85 no desktop, porque o
+            aberto fica pior  -  ele tem 163px ali (contra 85 no desktop, porque o
             texto reflui), e a seta, empurrada por `--consent-h`, aterrissava em
             cima da palavra "leaders" no meio do título.
 
@@ -429,7 +435,7 @@ export default function SolutionHero({
             <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">
               {/* COM RÓTULO, e não a seta sozinha. Posta nua no canto, a 26px e
                   a quase 200px do fim do subtítulo, ela lia como respingo da
-                  foto — um traço que se ignora, não um convite. O rótulo lhe dá
+                  foto  -  um traço que se ignora, não um convite. O rótulo lhe dá
                   peso de instrução, e é a mesma micro-tipografia em versalete do
                   `eyebrow` lá em cima, então entra na família em vez de virar
                   peça avulsa.

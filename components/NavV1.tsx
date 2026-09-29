@@ -50,7 +50,7 @@ export default function NavV1({
     >
       {/* 1440px, e não os 1200px históricos, desde 08-09.
           O conteúdo da /about-v2 subiu para 1440 e o logo ficava 120px à direita
-          da borda do título numa tela de 1600 — a barra e o conteúdo têm de
+          da borda do título numa tela de 1600  -  a barra e o conteúdo têm de
           correr na mesma margem, senão parece defeito.
 
           ⚠️ ESTA BARRA É DE TODAS AS PÁGINAS. As demais ainda têm conteúdo em
@@ -69,7 +69,7 @@ export default function NavV1({
           className="flex flex-none items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          {/* A MARCA COMPLETA desde 15-09 — item 1. O raciocínio inteiro (por
+          {/* A MARCA COMPLETA desde 15-09  -  item 1. O raciocínio inteiro (por
               que PNG, por que a altura é menor até `xl`, e a conta de largura a
               1024) está na NavV2, que é a outra barra do site e tem o orçamento
               mais apertado das duas. Aqui a conta é a mesma com folga maior: o
@@ -83,11 +83,11 @@ export default function NavV1({
           />
         </Link>
 
-        {/* desktop nav — `lg` (1024px) and not `md` (768px). Measured with the
+        {/* desktop nav  -  `lg` (1024px) and not `md` (768px). Measured with the
             08-09 menu: the row is 773px wide, and with the logo and its gap it
             needs ~944px before it stops running past the right edge. On `md` the
             overflow was clipped rather than scrolled, so the item that vanished
-            was the last one — the Contact button. A hamburger on a tablet beats
+            was the last one  -  the Contact button. A hamburger on a tablet beats
             a CTA that is silently not there. */}
         <nav className={`hidden items-center justify-end lg:flex ${light ? "gap-[26px]" : "gap-[30px]"}`}>
           {items.map((item) =>
@@ -124,7 +124,7 @@ export default function NavV1({
                   {item.label}
                   <Chevron className="transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
-                {/* dropdown — opacity + pointer-events (not `invisible`) so the
+                {/* dropdown  -  opacity + pointer-events (not `invisible`) so the
                     links stay focusable for keyboard nav and reveal on focus */}
                 <div className="pointer-events-none absolute right-0 top-full pt-4 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                   <div className="min-w-[248px] border border-line bg-white py-2 text-ink shadow-xl">

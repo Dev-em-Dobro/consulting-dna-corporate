@@ -47,7 +47,7 @@ export const viewport: Viewport = {
 };
 
 // Single-locale (English) shell. next-intl runs without i18n routing, so there is
-// no `[locale]` segment and no middleware — the locale is fixed in lib/i18n/request.
+// no `[locale]` segment and no middleware  -  the locale is fixed in lib/i18n/request.
 export default function RootLayout({
   children,
 }: {
@@ -61,7 +61,7 @@ export default function RootLayout({
             the flash of fully-rendered content that appeared before GSAP ran.
             Also marks touch devices (`touch`): maxTouchPoints is hardware truth
             that iOS "Request Desktop Website" cannot fake, unlike viewport width
-            and hover/pointer media features — the hero intro CSS keys off this
+            and hover/pointer media features  -  the hero intro CSS keys off this
             class. Keep the media query in sync with PHONE_MEDIA_QUERY in
             lib/hero-intro.ts. */}
         <script

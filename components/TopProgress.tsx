@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
  *
  * Programmatic navigations (e.g. the language switcher's `router.replace`) go
  * through a `<button>`, not an `<a>`, so they can't be caught by the click
- * handler — they dispatch a `topprogress:start` event to trigger the bar.
+ * handler  -  they dispatch a `topprogress:start` event to trigger the bar.
  */
 export default function TopProgress() {
   const pathname = usePathname();
@@ -48,7 +48,7 @@ export default function TopProgress() {
         return;
       }
       if (url.origin !== window.location.origin) return;
-      // same page (or in-page hash) — no navigation
+      // same page (or in-page hash)  -  no navigation
       if (url.pathname === window.location.pathname) return;
       start();
     };

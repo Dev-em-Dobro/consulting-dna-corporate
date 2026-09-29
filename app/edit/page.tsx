@@ -55,8 +55,8 @@ const PAGES = [
   {
     href: "/edit-impact",
     title: "Impact page",
-    body: "Headline, testimonials section, TERRAGRN social impact paragraphs and measured outcomes headings.",
-    note: "Measured case results come from the CMS. This editor is separate from Clients.",
+    body: "Headline, the four figures, the WEF recognition, the agroforest, the regenerative model and the impact areas.",
+    note: "Photos and the map stay in code. This editor is separate from Clients.",
   },
   {
     href: "/edit-approach",

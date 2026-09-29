@@ -3,19 +3,19 @@ import Link from "next/link";
 import type { CaseListEntry } from "@/lib/cms/map";
 
 /**
- * O card de case da grade "Case studies" — logo à esquerda, foto à direita,
+ * O card de case da grade "Case studies"  -  logo à esquerda, foto à direita,
  * e embaixo o cliente, a métrica e a frase do trabalho. É o desenho da imagem 1
  * do drive, onde os onze cases aparecem lado a lado em vez de empilhados.
  *
  * ⚠️ SUBSTITUI O `ClientBandCard` NESTA PÁGINA. A faixa larga servia a uma
  * lista de cinco em destaque; a grade serve a quinze. O componente antigo
- * continua onde está (a /cases), porque lá a lista é vertical e longa — este
+ * continua onde está (a /cases), porque lá a lista é vertical e longa  -  este
  * não o apaga, escolhe outro formato para outro número de itens.
  *
  * A MÉTRICA LIDERA QUANDO EXISTE, e é a decisão que dá caráter ao card: o
  * mockup dela escreve "88% NPS" e "400+ alumni" em corpo grande sobre a frase
- * descritiva, porque é o número que faz alguém parar. Sem número — e há cases
- * sem, a Ma'aden por exemplo, cuja evidência é qualitativa — o card lidera pela
+ * descritiva, porque é o número que faz alguém parar. Sem número  -  e há cases
+ * sem, a Ma'aden por exemplo, cuja evidência é qualitativa  -  o card lidera pela
  * frase e não abre buraco onde o número estaria.
  */
 export default function CaseTile({ entry }: { entry: CaseListEntry }) {
@@ -24,7 +24,7 @@ export default function CaseTile({ entry }: { entry: CaseListEntry }) {
   // aparece para os cases antigos, que não têm headline.
   //
   // ⚠️ AS TAGS SÃO O ÚLTIMO RECURSO, e ele é necessário: a Coca-Cola e a Aviva
-  // não têm headline, não têm challenge estruturado e não têm métrica — o card
+  // não têm headline, não têm challenge estruturado e não têm métrica  -  o card
   // saía com o nome do cliente e três linhas de nada, que lê como card
   // quebrado. Os serviços prestados não contam a história, mas dizem algo
   // verdadeiro sobre o trabalho e devolvem peso ao card.
@@ -50,7 +50,7 @@ export default function CaseTile({ entry }: { entry: CaseListEntry }) {
               className="h-7 w-auto object-contain md:h-8"
             />
           ) : (
-            /* Sem PNG de logo, o nome do cliente em versalete faz o papel —
+            /* Sem PNG de logo, o nome do cliente em versalete faz o papel  - 
                continua sendo a identificação, só que tipográfica. */
             <span className="text-center text-[13px] font-semibold uppercase leading-tight tracking-[0.8px] text-ink">
               {entry.client}
@@ -67,7 +67,7 @@ export default function CaseTile({ entry }: { entry: CaseListEntry }) {
               className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             />
           ) : (
-            /* ⚠️ NENHUM DOS CASES TEM FOTO HOJE — `coverMediaId` está vazio nos
+            /* ⚠️ NENHUM DOS CASES TEM FOTO HOJE  -  `coverMediaId` está vazio nos
                quinze, e as imagens são dela (*"that's my job"*). O campo de cor
                segura a proporção do card para a grade não desalinhar quando
                algumas tiverem foto e outras não. */
@@ -90,7 +90,7 @@ export default function CaseTile({ entry }: { entry: CaseListEntry }) {
             {entry.metricValue}
             {/* O rótulo da métrica vem em corpo pequeno NA MESMA LINHA quando é
                 curto ("NPS", "alumni"), como no desenho. Longo demais, quebra
-                sozinho — não vale travar em uma linha e cortar. */}
+                sozinho  -  não vale travar em uma linha e cortar. */}
             {entry.metricLabel && (
               <span className="ml-1.5 text-[13px] font-medium tracking-normal text-muted">
                 {entry.metricLabel}

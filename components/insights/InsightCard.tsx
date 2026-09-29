@@ -22,7 +22,7 @@ export default function InsightCard({ entry }: { entry: InsightListEntry }) {
       href={`/insights/${entry.slug}`}
       className="group flex flex-col overflow-hidden"
     >
-      {/* Cover — image when present, light grey placeholder otherwise. */}
+      {/* Cover  -  image when present, light grey placeholder otherwise. */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#d7d3d0]">
         {entry.coverUrl && (
           <Image

@@ -1,5 +1,5 @@
 /**
- * BACKUP DA COPY EDITÁVEL PELAS ROTAS PÚBLICAS — 24-09.
+ * BACKUP DA COPY EDITÁVEL PELAS ROTAS PÚBLICAS  -  24-09.
  *
  * Lê `GET /api/<key>-copy`, que responde do Data Cache do Next e NÃO chama o
  * Blob enquanto o cache estiver quente. É a rede de segurança para o caso de o
