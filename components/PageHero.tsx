@@ -77,7 +77,7 @@ export default function PageHero({
               : "text-[38px] sm:text-[48px] md:text-[60px] leading-[1.03] tracking-[-1.5px]"
           }`}
         >
-          {title.replace(/\.$/, "")}
+          {typeof title === "string" ? title.replace(/\.$/, "") : title}
         </h1>
         {subtitle && (
           <p

@@ -11,6 +11,7 @@ function article(partial: {
   title: string;
   headline: string;
   logoUrl: string;
+  coverUrl?: string;
   quote?: string;
   quoter?: string;
   facts: { label: string; value: string }[];
@@ -29,7 +30,7 @@ function article(partial: {
   return partial;
 }
 
-export const LOCAL_CASES: CaseArticle[] = [
+export const LOCAL_CASES = [
   article({
     slug: "shell-women-leaders",
     tags: ["Women in Leadership"],
