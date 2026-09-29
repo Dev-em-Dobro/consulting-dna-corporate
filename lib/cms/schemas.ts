@@ -1,5 +1,5 @@
 /**
- * Zod schemas for the CMS read API responses (boundary validation — D3).
+ * Zod schemas for the CMS read API responses (boundary validation  -  D3).
  * Shapes verified against the live API (see specs/002-site-cms-integration/research.md).
  * Schemas are intentionally permissive: only truly-required fields are required, everything
  * else is optional, and `.passthrough()` keeps additive CMS fields from breaking parsing (CG-2).
@@ -33,7 +33,7 @@ export const resourceRef = z
 /**
  * One figure of a case's evidence band: the number and what it measures, kept
  * apart so the page can set them in different sizes and colours. `value` is
- * optional because not every cell the client writes is a number — "Radical
+ * optional because not every cell the client writes is a number  -  "Radical
  * Candour: a new level of healthy challenge" is a finding, not a metric, and
  * arrives with the label alone.
  */
@@ -88,7 +88,7 @@ export const caseListItem = z
 export const caseData = z
   .object({
     /**
-     * The client's name, and only that — "Shell", "Heineken". It is not just a
+     * The client's name, and only that  -  "Shell", "Heineken". It is not just a
      * label: `resolveClientLogo` slugifies it to find `/public/logos/<slug>.png`
      * and the brand colour behind the band, so a title like "SHELL Discovery
      * Journey registered 200 millions in savings" silently costs the case its
@@ -96,7 +96,7 @@ export const caseData = z
      */
     title: z.string(),
     /**
-     * The case's own headline — the outcome sentence Guli's mock leads with.
+     * The case's own headline  -  the outcome sentence Guli's mock leads with.
      * Optional: without it the page falls back to the client name, which is the
      * behaviour every existing case already has.
      */
@@ -110,7 +110,7 @@ export const caseData = z
     text: z.string().optional(),
     // Case header band (27-08 brief, item 7), in the brief's order:
     // Countries → Participants/Leaders → Reach/Scale → Intervention → Impact.
-    // Optional throughout — the band renders only the slots the CMS has filled.
+    // Optional throughout  -  the band renders only the slots the CMS has filled.
     countries: z.string().optional(),
     participants: z.string().optional(),
     reach: z.string().optional(),
@@ -123,7 +123,7 @@ export const caseData = z
     // the band's cells, while `impactFigures`/`scaleFigures` carry the same
     // numbers split into value + label so the page can render the figure large
     // and in brand red, which a single string cannot express.
-    /** The section titles — "01 The challenge" leads with this, not the body. */
+    /** The section titles  -  "01 The challenge" leads with this, not the body. */
     challengeHeadline: z.string().optional(),
     approachHeadline: z.string().optional(),
     outcomeHeadline: z.string().optional(),
@@ -132,7 +132,7 @@ export const caseData = z
     /** Eyebrow of the case hero: markets/geography · years of partnership. */
     markets: z.string().optional(),
     partnershipYears: z.string().optional(),
-    /** The service this case evidences — a `lib/services.ts` title. */
+    /** The service this case evidences  -  a `lib/services.ts` title. */
     serviceLabel: z.string().optional(),
     /** That service's banner statement, carried for the related-cases rail. */
     bannerStatement: z.string().optional(),
@@ -168,7 +168,7 @@ export const solutionListItem = z.object({ ...listItemBase }).passthrough();
 
 /**
  * A single client-proof reference authored on a solution (the CMS `proofRefs`
- * array). Every field is optional — the CMS ships partially-filled/blank rows
+ * array). Every field is optional  -  the CMS ships partially-filled/blank rows
  * (an empty `{}` placeholder is valid) and the site drops any ref without a
  * quote. `caseSlug`, when present, links the proof to a case study.
  */
@@ -193,7 +193,7 @@ export const solutionData = z
     flagshipCaseSlug: z.string().optional(),
     body: z.string().optional(),
     cta: z.object({ label: z.string(), href: z.string() }).partial().optional(),
-    // Bloco 6 do outline de 09-09 — a faixa de CTA escrita para o serviço.
+    // Bloco 6 do outline de 09-09  -  a faixa de CTA escrita para o serviço.
     // Três campos novos no CMS (11-09); ausentes nas entradas antigas, e aí a
     // página cai no convite compartilhado.
     ctaStrapline: z.string().optional(),
@@ -224,7 +224,7 @@ export const insightData = z
     // Optional external-attribution fields (status review §10), resolved server-side.
     author: z.string().optional(),
     // Editorial gate: an individual's name is only published once CDNA marks it
-    // "approved" (§10 / correcao-06-08 item 10). Any other value — or none —
+    // "approved" (§10 / correcao-06-08 item 10). Any other value  -  or none  - 
     // keeps the piece attributed to "Corporate DNA".
     authorApprovalStatus: z.string().optional(),
     originalSource: z.string().optional(),

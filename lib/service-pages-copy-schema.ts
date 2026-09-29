@@ -5,7 +5,7 @@
  * das outras páginas. Os motivos são dois, e os dois vêm do formato:
  *
  *   • A forma é a mesma para os dez serviços, mas nove deles guardam strings
- *     vazias em `audiences`, `closing`, `evidence` e `testimonial` — é o que a
+ *     vazias em `audiences`, `closing`, `evidence` e `testimonial`  -  é o que a
  *     caixa em `lib/service-pages-copy.ts` explica. Travar comprimento aqui
  *     reprovaria o próprio padrão.
  *   • A tira de frases curtas (`pillars`) é o ÚNICO campo do site inteiro em

@@ -7,11 +7,11 @@
  * <RichText> and must NOT be passed through this.
  */
 
-// Minimal entity table — the handful the CMS actually emits in prose fields.
+// Minimal entity table  -  the handful the CMS actually emits in prose fields.
 const ENTITIES: Record<string, string> = {
   amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ",
   ldquo: "“", rdquo: "”", lsquo: "‘", rsquo: "’",
-  hellip: "…", mdash: "—", ndash: "–",
+  hellip: "…", mdash: " - ", ndash: "–",
 };
 
 export function plainText(input?: string): string | undefined {

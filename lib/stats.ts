@@ -2,7 +2,7 @@ import { getAboutCopy } from "@/lib/about-copy-server";
 import { getPage } from "@/lib/cms/client";
 
 /**
- * The firm-level statistics band — the editable statistics item 18 asks us to
+ * The firm-level statistics band  -  the editable statistics item 18 asks us to
  * preserve, now shared by the homepage and Our Impact (27-08 brief, item 9)
  * rather than re-declared per page.
  *
@@ -16,7 +16,7 @@ import { getPage } from "@/lib/cms/client";
  * as correções da daily. Isso EXPÔS UM DEFEITO que só existia em potencial: o
  * VALOR vem do CMS e o RÓTULO vem daqui, e o rótulo de `countries` continuava
  * dizendo "Countries of global delivery". Com o valor em 5, a home e a Our
- * Impact publicaram "5 Countries of global delivery" — a firma dizendo que
+ * Impact publicaram "5 Countries of global delivery"  -  a firma dizendo que
  * entrega em cinco PAÍSES.
  *
  * A troca foi de UNIDADE, não de número: a About passou a contar por REGIÃO no
@@ -30,7 +30,7 @@ import { getPage } from "@/lib/cms/client";
 export type SiteStat = { value: string; label: string };
 
 /**
- * OS QUATRO NÚMEROS DA ABOUT — e, desde 18-09, também da faixa "By the numbers"
+ * OS QUATRO NÚMEROS DA ABOUT  -  e, desde 18-09, também da faixa "By the numbers"
  * da Clients & Impact.
  *
  * ⚠️ NÃO SÃO OS DO CMS. Este jogo é OUTRO em relação ao `getSiteStats()` abaixo:
@@ -48,13 +48,13 @@ export type SiteStat = { value: string; label: string };
  * quatro entraram no editor `/edit-about`, e uma constante em código ao lado de
  * um número editável teria recriado a divergência na PRIMEIRA edição.
  *
- * Então hoje: o TEXTO (valor e rótulo) vem da copy da About — padrão em
- * `lib/about-copy.ts`, salvo no Blob — e o ÍCONE continua aqui, porque é chave
+ * Então hoje: o TEXTO (valor e rótulo) vem da copy da About  -  padrão em
+ * `lib/about-copy.ts`, salvo no Blob  -  e o ÍCONE continua aqui, porque é chave
  * de DESENHO e não texto. As duas páginas leem por `getFirmStats()`.
  *
  * O `icon` aponta para o `StatIcon` que vive na About (calendar / globe /
  * people / chart) e CASA POR POSIÇÃO com a lista da copy. A Clients & Impact
- * ignora o campo — a fileira dela nunca teve ícone —, mas ele viaja junto para
+ * ignora o campo  -  a fileira dela nunca teve ícone  - , mas ele viaja junto para
  * a About não precisar de uma segunda tabela.
  *
  * ⚠️ ESTÁTICO, e não do CMS. Não há campo para "5 of the top 10" no `page_home`,
@@ -72,7 +72,7 @@ export const FIRM_STAT_ICONS = ["calendar", "globe", "people", "chart"];
  *
  * ⚠️ É `async` PORQUE LÊ O BLOB. A `/our-clients` já era `async`; a About
  * também. Quem chamar daqui para a frente precisa estar num componente de
- * servidor — o que é verdade nas duas, e continua sendo o motivo de a lista não
+ * servidor  -  o que é verdade nas duas, e continua sendo o motivo de a lista não
  * poder voltar a ser uma constante.
  */
 export async function getFirmStats(): Promise<FirmStat[]> {
@@ -87,7 +87,7 @@ export async function getFirmStats(): Promise<FirmStat[]> {
  * place his layout and the e-mail disagree; the e-mail wins.
  */
 /* ⚠️ OS FALLBACKS ACOMPANHARAM O CMS em 17-09 (eram 18 / 36 / 75). Eles só
-   entram em cena quando o CMS está fora do ar ou o campo vem vazio — e era
+   entram em cena quando o CMS está fora do ar ou o campo vem vazio  -  e era
    exatamente aí que o defeito ficava armado: com o CMS inacessível, a home
    voltaria a publicar os números velhos que a daily acabou de corrigir. */
 const STAT_FALLBACK: (SiteStat & { cmsKey: string })[] = [

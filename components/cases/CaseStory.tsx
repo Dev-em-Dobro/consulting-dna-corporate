@@ -12,7 +12,7 @@ import type { CaseArticle, CaseListEntry } from "@/lib/cms/map";
  * ============================================================================
  *
  * Desenho: `5. Clients& Impact/efa52866-….png`, mandado por ela no drive e
- * confirmado na daily — *"this will be the detailed view of each of the case
+ * confirmado na daily  -  *"this will be the detailed view of each of the case
  * studies against each client (…) there will be the challenge, what we do, what
  * we did, what changed, client voice, and a few metrics to hold at the top"*.
  *
@@ -25,13 +25,13 @@ import type { CaseArticle, CaseListEntry } from "@/lib/cms/map";
  * before prose") e é o que a faixa escura faz: quem abre a página vê o resultado
  * antes de decidir se vai ler os quatro blocos.
  *
- * ⚠️ QUEM RENDERIZA O QUÊ. Este componente serve os cases com o modelo novo —
+ * ⚠️ QUEM RENDERIZA O QUÊ. Este componente serve os cases com o modelo novo  - 
  * os nove aprovados pela cliente em 16-09, que têm headline por seção, figuras e
  * fecho. Os antigos (Shell, Levi's, Coca-Cola, Aviva, Unilever, HEINEKEN) só têm
  * o corpo em rich text e continuam na `CaseView`, que decide entre os dois.
  *
  * ⚠️ O QUE ISSO CUSTA NO GSK E NO MORGAN STANLEY: esses dois têm as duas coisas
- * — o corpo antigo em `text` E o modelo novo. Aqui vence o novo, e o `text`
+ *  -  o corpo antigo em `text` E o modelo novo. Aqui vence o novo, e o `text`
  * deixa de aparecer na tela (segue gravado no CMS, sem perda). É a conversa que
  * ficou em aberto no doc de correções: apagar aquele corpo ou trazê-lo como
  * seção extra é decisão de conteúdo, não de código.
@@ -47,13 +47,13 @@ export default function CaseStory({
   const { story } = c;
 
   // A linha de meta do herói: setor · período · mercados. Cada pedaço só entra
-  // se existir — nos nove cases da planilha o setor ainda não está classificado
+  // se existir  -  nos nove cases da planilha o setor ainda não está classificado
   // (`facets.industry` vazio), então a maioria abre com período e mercados.
   const meta = [c.tags[0], story.partnershipYears, story.markets].filter(Boolean);
 
   /* A MANCHETE, EM TRÊS TENTATIVAS. O DP World mostrou por que: a cliente
      deixou em branco a célula de hero headline E a de sub-head, e o herói abria
-     com "DP World." sozinho num campo escuro de 640px — tecnicamente correto e
+     com "DP World." sozinho num campo escuro de 640px  -  tecnicamente correto e
      visivelmente quebrado.
      A segunda tentativa é a manchete do CHALLENGE, que é uma frase inteira sobre
      o trabalho e está escrita em oito dos nove cases. Ela desce um degrau na
@@ -65,7 +65,7 @@ export default function CaseStory({
     <>
       {/* ── Herói ─────────────────────────────────────────────────────────
           Foto de sangria total com o texto por cima, à esquerda, como no
-          desenho. Sem foto — que é o caso dos quinze hoje —, o `ink` sólido
+          desenho. Sem foto  -  que é o caso dos quinze hoje  - , o `ink` sólido
           segura a composição: o que carrega o herói é a manchete, não a
           fotografia. */}
       <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-ink text-white md:min-h-[640px]">
@@ -86,7 +86,7 @@ export default function CaseStory({
         )}
 
         <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-28 md:px-10 md:pb-20 md:pt-32">
-          {/* ⚠️ SEM BREADCRUMB VISÍVEL — 16-09, a pedido. O desenho dela tem a
+          {/* ⚠️ SEM BREADCRUMB VISÍVEL  -  16-09, a pedido. O desenho dela tem a
               trilha "Home / Clients & Impact / adidas" no alto do herói; na
               tela, com a nav flutuante logo acima, eram duas linhas de
               navegação empilhadas antes de a página dizer qualquer coisa.
@@ -151,7 +151,7 @@ export default function CaseStory({
 
       {/* ── THE IMPACT ────────────────────────────────────────────────────
           A faixa escura de números. As figuras VERMELHAS são as de impacto e as
-          CARVÃO são as de escala — a distinção não é nossa, vem escrita na
+          CARVÃO são as de escala  -  a distinção não é nossa, vem escrita na
           planilha dela ("Impact figures (render red)" / "Scale figures (render
           charcoal)"), e é o que separa "o que mudou" de "de que tamanho foi". */}
       {(story.impactFigures.length > 0 || story.scaleFigures.length > 0) && (
@@ -183,7 +183,7 @@ export default function CaseStory({
                             </p>
                           </>
                         ) : (
-                          /* Célula sem número — a cliente escreve achados na
+                          /* Célula sem número  -  a cliente escreve achados na
                              mesma coluna das métricas ("Radical Candour: a new
                              level of healthy challenge"). Ele entra como frase,
                              no corpo da métrica, e não fingindo ser número. */
@@ -235,7 +235,7 @@ export default function CaseStory({
                   </p>
                   {/* AS PÍLULAS NÃO SÃO LINKS. Os rótulos que ela escreve aqui
                       ("Learning at Scale", "Behaviour Change") são a linguagem
-                      do trabalho, não o catálogo de `lib/services.ts` — só
+                      do trabalho, não o catálogo de `lib/services.ts`  -  só
                       alguns têm página. Um chip clicável que leva a 404 em
                       metade dos casos é pior que um chip parado. */}
                   <ul className="mt-3.5 flex flex-wrap gap-2">
@@ -257,7 +257,7 @@ export default function CaseStory({
 
       {/* ── 03 What changed · foto · 04 Client voice ──────────────────────
           Três colunas no desenho. A do meio é fotografia; sem arquivo, ela vira
-          o slot tracejado — e some no telefone, onde o que importa é a leitura
+          o slot tracejado  -  e some no telefone, onde o que importa é a leitura
           corrida do texto e da citação. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
@@ -279,7 +279,7 @@ export default function CaseStory({
 
               {/* ⚠️ O `additionalContent` MUDOU DE COLUNA em 16-09. Ele ocupava
                   a terceira quando o case não tinha citação; com o bloco 04
-                  passando a existir sempre, ele volta para onde pertence — é
+                  passando a existir sempre, ele volta para onde pertence  -  é
                   continuação da história, não uma voz de cliente. */}
               {story.additionalContent && (
                 <div className="mt-9 border-t border-line pt-7">
@@ -296,7 +296,7 @@ export default function CaseStory({
                 /* ⚠️ ESTE SLOT FICOU IRRECONHECÍVEL QUANDO OS CASES GANHARAM
                    CAPA, em 18-09. Até ali os quinze cases estavam sem
                    `coverUrl` e o que aparecia aqui era sempre o slot
-                   tracejado — o defeito existia desde 16-09 e nunca tinha
+                   tracejado  -  o defeito existia desde 16-09 e nunca tinha
                    sido visto.
 
                    ERAM DOIS DEFEITOS SOMADOS:
@@ -305,7 +305,7 @@ export default function CaseStory({
                         `fill` + `object-cover`, o `sizes` manda o navegador
                         baixar uma versão de 300px de LARGURA da foto inteira.
                         A capa do Ma'aden é 2560x1139 (2,25:1), então 300px de
-                        largura são 133px de ALTURA — e a caixa 3:4 pede 400px
+                        largura são 133px de ALTURA  -  e a caixa 3:4 pede 400px
                         de altura. O navegador esticava 133 para 400, três
                         vezes, e o resultado era uma foto lavada.
 
@@ -313,19 +313,19 @@ export default function CaseStory({
                         por `cover` a partir de uma foto de proporção `P`, com
                         P > p, a largura útil da foto é `larguraDaCaixa × P/p`.
                         Aqui: 380 × (2,25 / 0,8) ≈ 1069. Daí `sizes="1100px"`,
-                        que cobre as capas panorâmicas e continua barato — o
+                        que cobre as capas panorâmicas e continua barato  -  o
                         arquivo inteiro tem 140KB.
 
                      2. A CAIXA ERA ESTREITA E MUITO ALTA para foto de grupo.
                         300px de largura em 4:3 de recorte sobre uma panorâmica
                         deixavam uma tira vertical de uma sala com dez pessoas:
                         ilegível. A coluna foi para 380px e a caixa para 4:5,
-                        que é menos alta — o recorte perde bem menos das
+                        que é menos alta  -  o recorte perde bem menos das
                         laterais e a foto volta a ser uma fotografia.
 
                    ⚠️ O QUE ISTO NÃO RESOLVE: esta é a MESMA foto do herói.
                    O desenho quer uma segunda fotografia aqui, e o CMS não tem
-                   campo para ela — `coverMediaId` é o único. Enquanto não
+                   campo para ela  -  `coverMediaId` é o único. Enquanto não
                    existir, a página mostra a mesma imagem duas vezes, em
                    recortes diferentes. Pendência registrada com a cliente. */
                 <div className="relative aspect-[4/5] w-full overflow-hidden">
@@ -343,11 +343,11 @@ export default function CaseStory({
             </div>
 
             <div>
-              {/* O BLOCO 04 EXISTE SEMPRE — 16-09, a pedido. Antes ele sumia
+              {/* O BLOCO 04 EXISTE SEMPRE  -  16-09, a pedido. Antes ele sumia
                   quando o case não tinha citação, e como SETE DOS NOVE ainda
                   não têm (a Rhea está fechando isso com os clientes), a maioria
                   das páginas abria com duas colunas onde a referência tem três
-                  — e a comparação com o desenho dava "faltou a quote".
+                   -  e a comparação com o desenho dava "faltou a quote".
 
                   MANTER O SLOT É A MESMA REGRA DAS FOTOS desta página: mostra a
                   composição real, deixa explícito o que falta e de quem é. */}
@@ -466,7 +466,7 @@ export default function CaseStory({
   );
 }
 
-/** "01 · THE CHALLENGE" — o numeral vermelho em serifa e o rótulo em versalete. */
+/** "01 · THE CHALLENGE"  -  o numeral vermelho em serifa e o rótulo em versalete. */
 function NumberedLabel({ number, label }: { number: string; label: string }) {
   return (
     <div className="mb-5 flex items-baseline gap-4">
@@ -510,7 +510,7 @@ function Body({ children }: { children?: string }) {
 }
 
 /**
- * Tira o ponto final da manchete — o desenho fecha o `h1` com um ponto VERMELHO,
+ * Tira o ponto final da manchete  -  o desenho fecha o `h1` com um ponto VERMELHO,
  * e a frase da planilha já vem com o dela. Sem isto sairiam dois.
  */
 const stripFullStop = (t: string) => t.replace(/\s*[.]+\s*$/, "");

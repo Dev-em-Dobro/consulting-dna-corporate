@@ -7,7 +7,7 @@
  * padrão inteiro em vez de publicar um card com o cargo de outra pessoa.
  *
  * ⚠️ SE ALGUÉM ACRESCENTAR UM SÉTIMO LÍDER em `lib/team.ts`, este número tem de
- * subir junto — senão o padrão (que é derivado de lá, e passa a ter sete) não
+ * subir junto  -  senão o padrão (que é derivado de lá, e passa a ter sete) não
  * passa no próprio schema, e a página cai em... nada: `mergeCopy` devolveria o
  * padrão, que é o certo, mas o editor pararia de salvar em silêncio. O teste
  * "o padrão passa no próprio schema" existe para isso falhar no `npm test` e

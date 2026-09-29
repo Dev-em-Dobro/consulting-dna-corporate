@@ -5,7 +5,7 @@ export type Crumb = { label: string; href?: string };
 
 /**
  * Shared shell for the scaffolded routes. Renders the site chrome (nav + footer)
- * and an empty, brand-consistent hero. The actual page structure is added later —
+ * and an empty, brand-consistent hero. The actual page structure is added later  - 
  * pass `children` to drop real content in once the layout is defined.
  */
 export default function PagePlaceholder({

@@ -7,7 +7,7 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  *
  * ⚠️ REARRANJADO EM 17-09, e foi a segunda passada no mesmo dia. A primeira
  * versão saiu de *"cada case em uma linha com logo texto The challenge, e os
- * numeros de impactoo"* e montou TRÊS colunas — logo | desafio | números —, com
+ * numeros de impactoo"* e montou TRÊS colunas  -  logo | desafio | números  - , com
  * a linha inteira clicável. A segunda desfez quase tudo isso:
  *
  *     *"pega o logo e coloca ele na coluna da direita, em cima dos dados de
@@ -16,7 +16,7 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  *     a historia completa em baixo do texto do challenge."*
  *
  * O QUE ISSO RESOLVE, e é o que faz a mudança valer mais que um rearranjo: a
- * coluna do logo custava 180px de largura para mostrar uma marca — e a MESMA
+ * coluna do logo custava 180px de largura para mostrar uma marca  -  e a MESMA
  * informação já vinha escrita no nome do cliente. Juntando logo e números do
  * lado direito, a coluna do desafio ganhou esses 180px inteiros, que é onde o
  * texto que alguém de fato lê mora.
@@ -27,7 +27,7 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  *   • O REALCE DE `hover` na linha. Tarja que acende sob o cursor promete
  *     clique, e agora o clique é do botão.
  *   • O `px`/`-mx` PAR. Ele existia porque a tarja começava no pixel do logo e
- *     terminava no do número (*"o logo esta grudado na borda"*) — sem tarja, não
+ *     terminava no do número (*"o logo esta grudado na borda"*)  -  sem tarja, não
  *     há borda de tarja para dar respiro.
  *   • A SETA SOLTA embaixo dos números, que era o único sinal de que a linha
  *     clicava. O botão diz isso com palavras.
@@ -39,12 +39,12 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  *
  * ⚠️ ZEBRADA DESDE 18-09, e isso desfaz DUAS das linhas acima. Pedido da daily:
  * *cada linha alternando branco e cinza suave*. A linha deixou de ser "branca
- * sempre" — `odd:bg-white even:bg-paper`, a primeira branca porque a seção e o
+ * sempre"  -  `odd:bg-white even:bg-paper`, a primeira branca porque a seção e o
  * `SectionHead` logo acima também são, e uma faixa cinza colada na régua do
  * cabeçalho competiria com ela.
  *
  *   • O PAR `px`/`-mx` VOLTOU. A faixa é uma tarja de novo, e sem o par ela
- *     começaria no pixel do nome e terminaria no do número — o mesmo *"logo
+ *     começaria no pixel do nome e terminaria no do número  -  o mesmo *"logo
  *     grudado na borda"* de 17-09. `-mx-6 px-6 md:-mx-10 md:px-10` é a MESMA
  *     medida do `px` do contêiner da seção, de propósito: a faixa vai até a
  *     borda do contêiner (viewport inteiro no telefone, 1440px no desktop) e o
@@ -52,17 +52,17 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  *     exatamente o que o `-mx` tirou. É o motivo de o `-mx` ter saído em 17-09
  *     lido ao contrário: ele só deslocava a lista quando não havia tarja.
  *   • A PLACA BRANCA DO LOGO NÃO VOLTA. As marcas de `public/logos/` são PNG
- *     com fundo transparente — as mesmas que correm sobre `bg-ink` na esteira
- *     da home —, então sobre `paper` elas simplesmente aparecem. A placa era
+ *     com fundo transparente  -  as mesmas que correm sobre `bg-ink` na esteira
+ *     da home  - , então sobre `paper` elas simplesmente aparecem. A placa era
  *     para um logo com fundo branco, e nenhum tem.
  *
  * OS FIOS `border-t`/`border-b` SAÍRAM JUNTO. Eles separavam linhas da mesma
  * cor; com as faixas alternadas a própria mudança de fundo separa, e um fio
- * `line` (#ece9e6) sobre `paper` (#f3f3f3) é quase invisível — apareceria em
+ * `line` (#ece9e6) sobre `paper` (#f3f3f3) é quase invisível  -  apareceria em
  * metade das emendas e sumiria na outra metade.
  *
  * ⚠️ NÃO É O `CaseRow` de `/cases`. Aquele também é "um por linha", mas empilha
- * VERTICALMENTE dentro do card — faixa de marca em cima, corpo embaixo — e mede
+ * VERTICALMENTE dentro do card  -  faixa de marca em cima, corpo embaixo  -  e mede
  * uns 400px de altura cada. Este é horizontal: as duas colunas dividem a linha.
  *
  * DEGRADA VAZIO: o CMS entrega case sem logo, sem `challenge` e sem número
@@ -71,15 +71,15 @@ import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
  * nome do cliente e o botão são os dois únicos que sempre existem.
  */
 export default function CaseLine({ entry }: { entry: CaseListEntry }) {
-  /* ⚠️ AS FIGURAS AUTORADAS VÊM PRIMEIRO, E SÃO TODAS — corrigido em 17-09.
+  /* ⚠️ AS FIGURAS AUTORADAS VÊM PRIMEIRO, E SÃO TODAS  -  corrigido em 17-09.
      Esta coluna mostrava UMA medida: o `metricValue`/`metricLabel`, que é o que
      `splitMetric` consegue arrancar por heurística da célula "Impact". No
      Vodafone isso publicava "700+ high-potential leaders developed" e escondia
-     "60 to 70% promoted" e "91 Net Promoter Score" — duas das três provas do
+     "60 to 70% promoted" e "91 Net Promoter Score"  -  duas das três provas do
      case, que a página dele mostra e a listagem não mostrava.
 
      O FALLBACK FICA, e não é zelo: `impactFigures` é campo do modelo NOVO de
-     case, e os autorados no modelo anterior têm só `measurableResult` — para
+     case, e os autorados no modelo anterior têm só `measurableResult`  -  para
      esses, o par derivado continua sendo tudo o que existe. A caixa do campo em
      `lib/cms/map.ts` conta a diferença entre os dois. */
   const figures: CaseFigure[] = entry.impactFigures?.length
@@ -122,7 +122,7 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
         )}
 
         {/* O BOTÃO, e é ele que carrega o clique desde 17-09.
-            ⚠️ É O BOTÃO DA PRÓPRIA SEÇÃO, um degrau menor — o "Explore all case
+            ⚠️ É O BOTÃO DA PRÓPRIA SEÇÃO, um degrau menor  -  o "Explore all case
             studies" no pé desta lista usa exatamente esta linguagem (borda `ink`,
             preenchimento no `hover`). Inventar um terceiro tratamento de botão
             para a mesma página seria ganhar inconsistência de graça; o que muda é
@@ -146,30 +146,30 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
       {/* ── DIREITA · logo por cima dos números ──────────────────────────── */}
       <div className="flex flex-col gap-7 md:items-end md:text-right">
         {entry.logoUrl && (
-          /* ⚠️ `<img>` CRU, E NÃO `next/image` — e aqui isso é CORREÇÃO DE
+          /* ⚠️ `<img>` CRU, E NÃO `next/image`  -  e aqui isso é CORREÇÃO DE
              DEFEITO, não preferência. O `next/image` exige `width`/`height`, e
              esse par vira a proporção da CAIXA. As marcas de `public/logos/` têm
              proporções muito diferentes entre si (Vodafone é 123x97, ou seja
              1,27:1; Morgan Stanley é 165x49, 3,4:1), então qualquer par fixo
              mente para a maioria delas: com `object-contain`, a marca era
              ENCAIXOTADA numa proporção alheia e desenhava bem menor que o teto
-             de altura pedido — o Vodafone saía a ~35px num teto de 48.
+             de altura pedido  -  o Vodafone saía a ~35px num teto de 48.
 
              Sem `next/image` não há proporção declarada: o `max-h` limita e a
              largura sai da proporção REAL do arquivo. É o mesmo critério da
-             faixa de parceiros e do mural de clientes, e pelo mesmo motivo — são
+             faixa de parceiros e do mural de clientes, e pelo mesmo motivo  -  são
              PNG de dezenas de KB servidos no tamanho em que aparecem, e o
              otimizador não tem o que otimizar neles.
 
              ⏳ OS ARQUIVOS SÃO PEQUENOS e isso põe um teto real no tamanho. Em
-             `public/logos/` há marcas de 46 a 97px de altura — Careem tem 106x47,
-             Morgan Stanley 165x49 —, e numa tela retina a altura que ainda sai
+             `public/logos/` há marcas de 46 a 97px de altura  -  Careem tem 106x47,
+             Morgan Stanley 165x49  - , e numa tela retina a altura que ainda sai
              nítida é METADE da do arquivo: 23px no Careem, 24px no Morgan
              Stanley. Os 48px daqui já ampliam a maioria delas. É pedido de
              originais para a cliente, e é barato. Não vale "consertar"
              encolhendo: a 24px o logo some ao lado dos números.
 
-             ⚠️ SUBIU PARA 68px EM 18-09 — pedido da daily: *aumentar os logos
+             ⚠️ SUBIU PARA 68px EM 18-09  -  pedido da daily: *aumentar os logos
              na linha*. De `max-h-12` (48px) para `max-h-[68px]`, +42%, e o teto
              de largura de 180 para 260px na mesma proporção, para as marcas
              largas (Morgan Stanley, 3,4:1) crescerem junto em vez de baterem na
@@ -177,7 +177,7 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
              folga. O aviso acima sobre os ARQUIVOS PEQUENOS fica mais urgente,
              não menos: a 68px um PNG de 47px de altura é ampliado 1,4x já numa
              tela comum, e quase 3x numa retina. O pedido de originais continua
-             de pé — o tamanho é da cliente, a nitidez depende dela. */
+             de pé  -  o tamanho é da cliente, a nitidez depende dela. */
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={entry.logoUrl}
@@ -191,16 +191,16 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
             os números lado a lado (`flex flex-wrap`), e a tentação é repetir o
             objeto aqui. Não cabe: lá a linha tem a largura do container, aqui a
             coluna tem 340px, e três medidas lado a lado deixariam ~73px para cada
-            rótulo — "high-potential leaders developed" sairia em cinco linhas de
+            rótulo  -  "high-potential leaders developed" sairia em cinco linhas de
             duas palavras. Empilhadas, cada rótulo tem a coluna inteira.
 
-            ⚠️ O VERMELHO É O `brand` CHEIO porque a linha vive em fundo claro —
+            ⚠️ O VERMELHO É O `brand` CHEIO porque a linha vive em fundo claro  - 
             a regra de uma linha do `globals.css`: `brand` em fundo claro,
             `brand-light` em fundo escuro. O numeral passa dos 24px que a norma usa
             como divisa de "texto grande", então o teto de 4,39:1 desta cor fica
             acima do mínimo de 3,0 que vale nesse tamanho.
 
-            ⚠️ FIGURA SEM VALOR É LEGÍTIMA — `caseFigures` deixa passar linha com
+            ⚠️ FIGURA SEM VALOR É LEGÍTIMA  -  `caseFigures` deixa passar linha com
             rótulo e sem número, porque a cliente escreve achado qualitativo na
             mesma coluna das métricas. Por isso o `value` é opcional aqui. */}
         {figures.map((f, i) => (

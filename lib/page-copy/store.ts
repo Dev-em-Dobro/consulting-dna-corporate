@@ -9,15 +9,15 @@ import { mergeCopy } from "./merge.ts";
 import { supabaseCopyTableFromEnv } from "./supabase.ts";
 
 /**
- * ONDE O QUE A CLIENTE SALVA FICA GUARDADO — uma tabela para todas as páginas.
+ * ONDE O QUE A CLIENTE SALVA FICA GUARDADO  -  uma tabela para todas as páginas.
  *
  * ⚠️ SAIU DO VERCEL BLOB EM 24-09. O `list()` do Blob é uma operação avançada,
  * de cota apertada, e a cota estourou. Agora cada salvamento é uma linha nova
  * em `page_copy_versions`, no Supabase do CMS (`lib/page-copy/supabase.ts`,
  * SQL em `docs/sql/2026-09-24-page-copy-versions.sql`). A mais nova por página
- * é a publicada; as outras são o histórico, sem poda — são ~33 KB por versão.
+ * é a publicada; as outras são o histórico, sem poda  -  são ~33 KB por versão.
  *
- * Sem `SUPABASE_URL`/`SUPABASE_SECRET_KEY` — na máquina de quem desenvolve —
+ * Sem `SUPABASE_URL`/`SUPABASE_SECRET_KEY`  -  na máquina de quem desenvolve  - 
  * cai num arquivo local em `.data/`, que está no .gitignore.
  */
 
@@ -92,13 +92,13 @@ export function createCopyStore<T>({
   });
 
   /**
-   * ⚠️⚠️ FALHA DE LEITURA CAI NO PADRÃO, MAS NÃO ENTRA NO CACHE — 24-09.
+   * ⚠️⚠️ FALHA DE LEITURA CAI NO PADRÃO, MAS NÃO ENTRA NO CACHE  -  24-09.
    *
    * Com o Blob, o erro era engolido DENTRO do `unstable_cache`: o padrão era
    * guardado como se fosse a resposta certa, por até um dia, e a edição da
    * cliente sumia do site sem nenhum aviso. Agora o erro atravessa o
    * `unstable_cache` (que não guarda o que lança) e é aqui fora que a página
-   * cai no padrão — só nesta renderização. A próxima tenta o banco de novo.
+   * cai no padrão  -  só nesta renderização. A próxima tenta o banco de novo.
    */
   const read = cache(async (): Promise<T> => {
     try {

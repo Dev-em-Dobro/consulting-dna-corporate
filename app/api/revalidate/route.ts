@@ -13,7 +13,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * Locale-relative paths (WITHOUT the locale prefix; "/" = home) that a CMS entry
  * of `type`/`slug` renders on. Returns `null` for types we can't map to concrete
- * routes (e.g. `person`, which is embedded, or any future type) — the caller
+ * routes (e.g. `person`, which is embedded, or any future type)  -  the caller
  * then falls back to a full-tree purge so nothing is ever left stale.
  */
 function affectedPaths(type: string, slug: string): string[] | null {
@@ -31,10 +31,10 @@ function affectedPaths(type: string, slug: string): string[] | null {
     case "page_5h":
       return ["/approach"];
     case "page_book":
-      // The book lives in the home `#book` section — there is no /book page.
+      // The book lives in the home `#book` section  -  there is no /book page.
       return ["/"];
     case "page_home":
-      // Homepage statistics singleton — only the home renders it.
+      // Homepage statistics singleton  -  only the home renders it.
       return ["/"];
     case "page_awards":
       return ["/awards"];
@@ -72,13 +72,13 @@ export async function POST(req: NextRequest) {
   const { type, slug } = payload;
   const paths = type && slug ? affectedPaths(type, slug) : null;
 
-  // Unknown/embedded type — purge the whole route tree to stay correct.
+  // Unknown/embedded type  -  purge the whole route tree to stay correct.
   if (!paths) {
     revalidatePath("/", "layout");
     return NextResponse.json({ ok: true, revalidated: "all", type, slug });
   }
 
-  // Single locale, no locale prefix — the affected paths are the live URLs.
+  // Single locale, no locale prefix  -  the affected paths are the live URLs.
   const revalidated: string[] = [];
   for (const p of paths) {
     revalidatePath(p);

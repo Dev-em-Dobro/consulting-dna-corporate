@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 import type { ServiceTwoSystems, ServiceSystemItem } from "@/lib/services";
 
 /**
- * "TWO SYSTEMS. ONE FUTURE." — a faixa de abertura do layout de Family Business
+ * "TWO SYSTEMS. ONE FUTURE."  -  a faixa de abertura do layout de Family Business
  * Consulting (24-09).
  *
  * O desenho tem três colunas: o painel VERMELHO da família à esquerda, o painel
@@ -14,7 +14,7 @@ import type { ServiceTwoSystems, ServiceSystemItem } from "@/lib/services";
  *
  * ⚠️ NÃO É O `SolutionPillars` COM CABEÇALHO. Aquela fileira é uma lista de
  * palavras soltas sob o bloco "How we work"; aqui cada item tem rótulo E
- * descrição, e as duas fileiras existem para serem COMPARADAS entre si — é o
+ * descrição, e as duas fileiras existem para serem COMPARADAS entre si  -  é o
  * que o Venn no meio afirma. Achatar as duas numa fileira só perderia a
  * oposição, que é o argumento inteiro da faixa.
  *
@@ -22,7 +22,7 @@ import type { ServiceTwoSystems, ServiceSystemItem } from "@/lib/services";
  * azul-marinho que não existe no sistema de cor do site (só há `brand`,
  * `brand-light`, `ink`, `ink-2`, `paper`, `line`, `muted`), e cravar o hex do
  * arquivo criaria uma cor nova que nenhuma outra página tem. O contraste que o
- * desenho procura — campo quente contra campo frio — sobrevive em `ink`.
+ * desenho procura  -  campo quente contra campo frio  -  sobrevive em `ink`.
  *
  * ⚠️ OS ÍCONES DOS ITENS VÊM DO MAPA DE `SolutionPillars`, via `pillarIcon`,
  * casando pelo RÓTULO EXATO. É a mesma regra de `SolutionInflectionPoints`:
@@ -32,7 +32,7 @@ import type { ServiceTwoSystems, ServiceSystemItem } from "@/lib/services";
  */
 const PANEL_ICONS: Record<string, LucideIcon> = {
   /* Chaves genéricas, como nos mapas de `SolutionSteps` e `SolutionProof`: o
-     dado diz qual glifo quer. São os dois do layout — o grupo de pessoas no
+     dado diz qual glifo quer. São os dois do layout  -  o grupo de pessoas no
      painel da família, as barras no painel do negócio. */
   people: Users,
   chart: BarChart3,
@@ -43,7 +43,7 @@ function SystemItems({ items }: { items: ServiceSystemItem[] }) {
   return (
     /* ⚠️ TRÊS POR LINHA NO DESKTOP, e não os cinco/seis numa fileira só do
        desenho: ao lado do Venn cada painel tem ~500px, e seis itens nisso
-       davam ~85px por rótulo — espremido, e o `auto-fit` ainda deixava um
+       davam ~85px por rótulo  -  espremido, e o `auto-fit` ainda deixava um
        órfão na segunda linha. 3+2 e 3+3 mantêm as duas fileiras com a mesma
        anatomia. O filete é `border-l` fora do primeiro de cada linha, porque
        o `divide-x` riscaria também a borda esquerda da segunda linha. */
@@ -103,7 +103,7 @@ function SystemPanel({
         ) : null}
         <div>
           {/* `h3` sob o `h2` do rótulo da faixa, mantendo a escada de
-              cabeçalhos — mesma regra dos cartões de público. */}
+              cabeçalhos  -  mesma regra dos cartões de público. */}
           <h3 className="text-[19px] font-semibold uppercase leading-[1.15] tracking-[0.4px] md:text-[22px]">
             {title}
           </h3>
@@ -125,7 +125,7 @@ function SystemPanel({
 }
 
 /**
- * O DIAGRAMA DE VENN — dois círculos sobrepostos, o da família em `brand` e o do
+ * O DIAGRAMA DE VENN  -  dois círculos sobrepostos, o da família em `brand` e o do
  * negócio em `ink`, com a lente hachurada.
  *
  * ⚠️ SVG INLINE E NÃO IMAGEM, de propósito: o conteúdo dos dois círculos é
@@ -174,7 +174,7 @@ function SystemVenn({ venn }: { venn: ServiceTwoSystems["venn"] }) {
         </g>
 
         {/* O texto é `aria-hidden` porque o `aria-label` do `<svg>` já o lê por
-            inteiro — sem isso, o leitor de tela anunciaria as sete palavras
+            inteiro  -  sem isso, o leitor de tela anunciaria as sete palavras
             duas vezes. */}
         {/* `uppercase` no grupo: o dado guarda a copy em caixa natural, como
             todos os outros rótulos do site, e a caixa alta é do desenho. */}
@@ -198,7 +198,7 @@ function SystemVenn({ venn }: { venn: ServiceTwoSystems["venn"] }) {
         </g>
       </svg>
 
-      {/* O fio curto que liga o diagrama ao fecho — é o que o layout desenha. */}
+      {/* O fio curto que liga o diagrama ao fecho  -  é o que o layout desenha. */}
       <span aria-hidden className="mt-6 block h-8 w-px bg-line" />
       <p className="mt-6 text-center text-[15px] font-semibold uppercase leading-[1.4] tracking-[0.4px] text-ink md:text-[16px]">
         {venn.note}
@@ -230,7 +230,7 @@ export default function SolutionTwoSystems({
         ) : null}
 
         {/* O VENN É A COLUNA DO MEIO, e ela tem largura fixa porque o diagrama
-            tem medida própria — dar-lhe uma fração da grade faria os dois
+            tem medida própria  -  dar-lhe uma fração da grade faria os dois
             círculos encolherem junto com a janela até a copy dentro deles
             deixar de ser legível. 260px e não os 320 do desenho, para sobrar
             largura aos ícones dos painéis. Abaixo de `lg` as três colunas

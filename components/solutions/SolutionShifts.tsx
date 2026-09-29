@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import type { ServiceShifts } from "@/lib/services";
 
 /**
- * A COLUNA "WHAT SHIFTS" — layout do Talent Development, 24-09.
+ * A COLUNA "WHAT SHIFTS"  -  layout do Talent Development, 24-09.
  *
  * Uma lista de pares "de → para": o que o talento é hoje à esquerda, o que ele
  * passa a ser à direita, com uma seta vermelha entre os dois.
@@ -11,14 +11,14 @@ import type { ServiceShifts } from "@/lib/services";
  * ⚠️ NO LAYOUT ELA É UMA COLUNA AO LADO DO "HOW WE WORK", e aqui é uma FAIXA
  * PRÓPRIA logo abaixo dele. A troca é deliberada e vale saber o que se ganhou e
  * o que se perdeu. Perdeu-se a leitura simultânea: no desenho o olho compara os
- * sete passos com os sete deslocamentos sem rolar. Ganhou-se o telefone — a
+ * sete passos com os sete deslocamentos sem rolar. Ganhou-se o telefone  -  a
  * fileira de passos já é uma grade de sete células que quebra em duas colunas
  * em tela estreita, e espremer os pares ao lado dela obrigaria uma terceira
  * quebra, com os dois blocos disputando a mesma largura em todo tamanho
  * intermediário. A faixa própria dá largura cheia aos dois.
  *
  * ⚠️ A SETA É DECORATIVA E A PALAVRA "to" NÃO. O par é lido por quem usa leitor
- * de tela como "Potential to Demonstrated readiness" — sem a palavra escondida,
+ * de tela como "Potential to Demonstrated readiness"  -  sem a palavra escondida,
  * a lista sairia como uma sequência de substantivos soltos, que é justamente o
  * que a seta evita para quem enxerga.
  */
@@ -57,7 +57,7 @@ export default function SolutionShifts({ item }: { item?: ServiceShifts }) {
                  esquerdo quase sempre uma. Centrado, a seta desceria para o
                  meio da frase mais alta e as sete sairiam em alturas
                  diferentes. O filete de baixo é o que separa um par do
-                 seguinte — no layout as linhas são finas e cinzas. */
+                 seguinte  -  no layout as linhas são finas e cinzas. */
               className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 border-b border-line pb-4"
             >
               <span className="font-serif text-[15px] leading-[1.4] text-muted md:text-[16px]">
@@ -70,7 +70,7 @@ export default function SolutionShifts({ item }: { item?: ServiceShifts }) {
                 className="mt-1 shrink-0 text-brand"
               />
               <span className="font-serif text-[15px] leading-[1.4] text-ink md:text-[16px]">
-                {/* A PALAVRA QUE A SETA DESENHA — ver a caixa no topo. */}
+                {/* A PALAVRA QUE A SETA DESENHA  -  ver a caixa no topo. */}
                 <span className="sr-only">to </span>
                 {pair.to}
               </span>

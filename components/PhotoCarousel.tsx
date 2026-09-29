@@ -9,18 +9,18 @@ type PhotoCarouselProps = {
   /** Milliseconds between automatic slides. */
   interval?: number;
   /**
-   * ENQUADRAMENTO POR FOTO — 21-09: *"as fotos estao cortando os rostos"*
+   * ENQUADRAMENTO POR FOTO  -  21-09: *"as fotos estao cortando os rostos"*
    * (e-mail: *"some photos are cropped"*).
    *
    * Mapa de `src` para a classe de `object-position` daquela foto. Quem não
    * está no mapa continua em `object-center`, que é o que o componente sempre
-   * fez — por isso o padrão é o objeto vazio e nenhuma das outras três telas
+   * fez  -  por isso o padrão é o objeto vazio e nenhuma das outras três telas
    * que usam este carrossel (/our-impact, /home-v1, /home-v3) muda de
    * comportamento.
    *
    * POR QUE ISTO NÃO É UM NÚMERO SÓ PARA TODAS. O acervo mistura 4:3, 3:2 e
    * retrato dentro de uma moldura 16:9, então a fatia visível de cada foto vai
-   * de 100% a 37% da altura — e onde o rosto cai dentro dessa fatia é
+   * de 100% a 37% da altura  -  e onde o rosto cai dentro dessa fatia é
    * particular de cada imagem. Um valor global consertaria umas e quebraria
    * outras.
    *
@@ -86,7 +86,7 @@ export default function PhotoCarousel({
               // Eager for all: slides start translated out of the viewport, so
               // lazy loading never fires and the incoming slide arrives blank.
               loading="eager"
-              // `cover`, not `contain` — Guli, 31-08: "garantiria que todas as
+              // `cover`, not `contain`  -  Guli, 31-08: "garantiria que todas as
               // fotos estão redimensionar pra maior, pra não aparecer margens
               // nas fotos fora de proporção." These are photographs of varying
               // aspect, so `contain` letterboxed the odd ones against the dark
@@ -95,7 +95,7 @@ export default function PhotoCarousel({
               // Scoped to photographs on purpose. The other `object-contain`
               // uses in the repo are logo lock-ups (LogoMarquee, ClientBandCard,
               // CaseRow, AwardsMentions, our-partnerships) where the whole point
-              // is that nothing is cropped — do not carry this change there.
+              // is that nothing is cropped  -  do not carry this change there.
               //
               // O `object-position` vem do mapa `positions` quando a foto
               // estiver nele; sem entrada, `object-center`, que é o que sempre

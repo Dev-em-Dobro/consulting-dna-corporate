@@ -12,13 +12,13 @@ type LogoMarqueeProps = {
   /** Scroll right-to-left by default; set true to reverse. */
   reverse?: boolean;
   /**
-   * A esteira sobre fundo CLARO — entrou em 17-09, quando a Clients & Impact
+   * A esteira sobre fundo CLARO  -  entrou em 17-09, quando a Clients & Impact
    * trocou o paredão parado por esta esteira (*"na seção 'Trusted by global
    * organisations' trocar os clientes pela barra animada de clientes da home"*).
    *
    * ⚠️ O QUE MUDA É SÓ A CAIXA DO LOGO, e a razão é de leitura: na home a
    * esteira corre sobre `bg-ink`, e é o `bg-white` de cada célula que desenha o
-   * cartão. Sobre uma seção branca esse mesmo branco não desenha nada — vira um
+   * cartão. Sobre uma seção branca esse mesmo branco não desenha nada  -  vira um
    * retângulo invisível com um respiro de 190px que ninguém vê. Aqui a célula
    * fica transparente e quem separa os logos é o próprio vão.
    *
@@ -27,7 +27,7 @@ type LogoMarqueeProps = {
    * qualquer fundo, e é por isso que ela não aparece nesta prop.
    *
    * ⏳ SE ELA QUISER A FAIXA ESCURA IGUAL À DA HOME, é tirar este `onLight` e
-   * pôr `bg-ink` na seção — uma palavra de cada lado. O que segura o claro hoje
+   * pôr `bg-ink` na seção  -  uma palavra de cada lado. O que segura o claro hoje
    * é o ritmo da página: a faixa nasce colada no herói, que já é escuro, e duas
    * massas escuras encostadas não têm divisa entre si.
    */
@@ -36,6 +36,23 @@ type LogoMarqueeProps = {
 
 const label = (file: string) =>
   file.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ");
+
+/**
+ * Visual weight inside a fixed white tile. Tall marks (Adidas, Heineken)
+ * shrink; wide thin wordmarks grow so they sit nearer the same presence.
+ * Collins is the Collins Aerospace tile already in the grid.
+ */
+const LOGO_SCALE: Record<string, number> = {
+  "adidas.png": 0.78,
+  "heineken.png": 0.74,
+  "schroders.png": 1.42,
+  "singtel.png": 1.42,
+  "collins-aerospace.png": 1.32,
+  "kedaara.png": 1.22,
+  "loreal.svg": 1.2,
+  "bank-of-england.png": 1.12,
+  "swarovski.png": 1.12,
+};
 
 export default function LogoMarquee({
   logos,
@@ -90,6 +107,7 @@ export default function LogoMarquee({
               alt={label(file)}
               loading="lazy"
               className="max-h-[52px] w-auto max-w-full object-contain"
+              style={{ transform: `scale(${LOGO_SCALE[file] ?? 1})` }}
             />
           </div>
         ))}

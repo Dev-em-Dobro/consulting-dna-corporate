@@ -1,5 +1,5 @@
 /**
- * Graceful empty state for CMS-backed lists/pages with no content yet — and the
+ * Graceful empty state for CMS-backed lists/pages with no content yet  -  and the
  * same treatment for copy still pending CDNA approval, which reads identically
  * to a visitor and identically to us: a slot that is deliberately not filled.
  *
@@ -19,7 +19,7 @@ export default function EmptyNotice({
     >
       <span className="inline-block h-2 w-2 flex-none rounded-full bg-brand" />
       {/* Wrapped, not spread: this is a flex row, so a notice written with any
-          markup in it — <strong>, a link — would otherwise turn each fragment
+          markup in it  -  <strong>, a link  -  would otherwise turn each fragment
           into its own flex item and break the sentence into columns. */}
       <span>{children}</span>
     </div>

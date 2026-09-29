@@ -4,7 +4,7 @@ import { DEFAULT_ABOUT_COPY, EDITOR_SECTIONS } from "@/lib/about-copy";
 import { getAboutCopy } from "@/lib/about-copy-server";
 
 /**
- * `/edit-about` — a tela em que a cliente edita os textos da About.
+ * `/edit-about`  -  a tela em que a cliente edita os textos da About.
  *
  * Sem login, por pedido (23-09). `noindex` e fora do sitemap; o `robots.ts`
  * também a exclui. A copy inicial vem do servidor para a tela abrir já
@@ -12,7 +12,7 @@ import { getAboutCopy } from "@/lib/about-copy-server";
  *
  * ⚠️ O QUE SE SALVA AQUI TAMBÉM MUDA A `/our-clients`: os quatro números da
  * seção "The four numbers" são os mesmos da faixa "By the numbers" de lá. Isso
- * é de propósito — ver `lib/about-copy.ts`.
+ * é de propósito  -  ver `lib/about-copy.ts`.
  */
 export const metadata: Metadata = {
   title: "Edit About page text | Corporate DNA",

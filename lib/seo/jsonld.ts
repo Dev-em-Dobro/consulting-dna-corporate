@@ -105,7 +105,7 @@ export function serviceLd(s: {
 }
 
 /**
- * FAQPage — one of the strongest GEO signals: AI engines extract self-contained
+ * FAQPage  -  one of the strongest GEO signals: AI engines extract self-contained
  * Q&A verbatim. The `question`/`answer` text MUST also be visible on the page
  * (Google policy), so pair this with a rendered FAQ section.
  */

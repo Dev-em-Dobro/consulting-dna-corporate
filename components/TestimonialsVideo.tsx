@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
  * stitched-testimonials reel shown immediately before the Client-Impact
  * section.
  *
- * Lazy click-to-play: on page load only the lightweight poster image renders —
+ * Lazy click-to-play: on page load only the lightweight poster image renders  - 
  * the `<video>` element (and therefore the mp4 download) is not mounted until
  * the visitor clicks play, so the reel never adds loading weight to the initial
  * page open.
@@ -55,7 +55,7 @@ export default function TestimonialsVideo({
               preload="auto"
             />
           ) : src ? (
-            // Poster only — the mp4 is not requested until the visitor clicks.
+            // Poster only  -  the mp4 is not requested until the visitor clicks.
             <button
               type="button"
               onClick={handlePlay}

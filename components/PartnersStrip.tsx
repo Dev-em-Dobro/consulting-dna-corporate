@@ -1,24 +1,24 @@
 /**
- * A FAIXA DAS MARCAS PARCEIRAS — uma só para o site inteiro.
+ * A FAIXA DAS MARCAS PARCEIRAS  -  uma só para o site inteiro.
  *
  * ⚠️ POR QUE ELE EXISTE (21-09). O bloco nasceu dentro de
  * `app/services/page.tsx` e a cliente pediu que a home passasse a mostrar o
  * mesmo desenho: *"Have similar layout to in partnership with as services
- * page"*, e na anotação da mesma call — *"a seção de parceiros tem que ser
+ * page"*, e na anotação da mesma call  -  *"a seção de parceiros tem que ser
  * igual a seção da listagem de serviços"*. "Igual" feito por cópia dura um
  * commit: a primeira correção de marca sai num lado só e as duas telas
  * divergem em silêncio. Então a lista, as alturas e o arranjo das fileiras
  * vivem AQUI, e as duas páginas montam o mesmo componente.
  *
  * COMO CADA TELA USA:
- *   • `/services` — dentro da seção escura de Partners, que já tem rótulo
+ *   • `/services`  -  dentro da seção escura de Partners, que já tem rótulo
  *     (`TypeLabel`) e `h2` próprios. Vai sem `label` e no tom `dark`, direto
  *     sobre o `bg-ink` da seção.
- *   • home — o bloco é introduzido pela linha "In partnership with" e mora
+ *   • home  -  o bloco é introduzido pela linha "In partnership with" e mora
  *     numa seção branca, então vai com `label` e no tom `light`.
  *
  * ⏳ A LISTA AINDA É CÓDIGO. O outline pede que as duas telas leiam "from one
- * CMS partner collection so the two pages cannot drift" — isso depende do tipo
+ * CMS partner collection so the two pages cannot drift"  -  isso depende do tipo
  * `partnership` no CMS e da migração 0007. Enquanto ela não roda, este arquivo
  * é a fonte única; quando rodar, é ele que passa a buscar, e as páginas não
  * mudam.
@@ -35,20 +35,20 @@ type PartnerLogo = {
    * Altura própria, e não uma altura comum como no mural de clientes: lá são 27
    * logotipos-palavra de proporção parecida, e altura igual é o que os faz pesar
    * igual. Aqui convivem logotipo-palavra muito largo (Explore Performance,
-   * 5,5:1) e BRASÃO quase quadrado (Imperial, 0,9:1) — na mesma altura o
+   * 5,5:1) e BRASÃO quase quadrado (Imperial, 0,9:1)  -  na mesma altura o
    * primeiro fica seis vezes mais largo que o segundo e o brasão some.
    */
   className: string;
   /**
    * Versão que lê em cartão branco. A de `src` é a reversa, branca, feita para
    * o fundo escuro da /services. `invert` pinta de preto um wordmark branco
-   * (CLO100, YPO) — o arquivo colorido desses dois não existe aqui.
+   * (CLO100, YPO)  -  o arquivo colorido desses dois não existe aqui.
    */
   onLight?: { src: string; className: string; invert?: boolean };
 };
 
 /**
- * AS CINCO MARCAS, EM DUAS FILEIRAS FIXAS — pedido de 21-09: *"Partners - HBI
+ * AS CINCO MARCAS, EM DUAS FILEIRAS FIXAS  -  pedido de 21-09: *"Partners - HBI
  * and Imperial college on row 1"*, e na anotação *"dois logos pra cima harvard
  * e imperial college e os outros pra baixo"*.
  *
@@ -56,7 +56,7 @@ type PartnerLogo = {
  * com quebra por largura: dava 3 + 2 na coluna da /services por acidente da
  * medida, e qualquer mudança de largura reembaralhava quem ficava em cima. O
  * pedido nomeia QUEM vai na fileira 1, então são duas listas de verdade. Dentro
- * de cada fileira o `flex-wrap` continua — no telefone elas empilham como
+ * de cada fileira o `flex-wrap` continua  -  no telefone elas empilham como
  * couber, que é o que se espera; o que a estrutura garante é que HBI e Imperial
  * nunca dividam linha com as outras três.
  *
@@ -64,16 +64,16 @@ type PartnerLogo = {
  * mandou na pasta `4. Services` do Drive. Três das cinco precisaram ser tratadas
  * para viver sobre fundo escuro, e isso fica anotado porque é alteração de marca
  * de terceiro:
- *   • HARVARD BUSINESS IMPACT veio SEM canal alfa — PNG de fundo branco com o
+ *   • HARVARD BUSINESS IMPACT veio SEM canal alfa  -  PNG de fundo branco com o
  *     escudo em traço preto. Sobre escuro seria um retângulo branco. O branco
  *     virou transparência e o traço preto virou branco: é a versão reversa da
  *     marca monocromática.
  *   • EXPLORE PERFORMANCE tem alfa, mas a tinta é cinza-escuro (luminância 56 de
- *     255) e some no escuro. Foi para branco inteiro — PERDE O AZUL do símbolo,
+ *     255) e some no escuro. Foi para branco inteiro  -  PERDE O AZUL do símbolo,
  *     que é o custo real desta escolha.
  *   • IMPERIAL COLLEGE tinha um fundo branco chapado por baixo do brasão. Só a
  *     chave de branco foi tirada; o brasão continua COLORIDO, porque brasão
- *     heráldico não tem versão reversa que preste — e colorido ele lê bem sobre
+ *     heráldico não tem versão reversa que preste  -  e colorido ele lê bem sobre
  *     escuro.
  *
  * ⏳ O IDEAL É PEDIR OS ARQUIVOS OFICIAIS EM VERSÃO REVERSA a cada marca. O que
@@ -148,11 +148,11 @@ export default function PartnersStrip({
    */
   label?: string;
   /**
-   * A COR DO FUNDO EM QUE A FAIXA FOI COLADA — e não uma escolha de estilo.
+   * A COR DO FUNDO EM QUE A FAIXA FOI COLADA  -  e não uma escolha de estilo.
    * Três das cinco marcas só existem em BRANCO (ver a caixa de `PARTNER_ROWS`),
    * então em `light` elas não podem simplesmente pousar na seção clara: seriam
    * marcas invisíveis. O tom claro devolve o PAINEL CONTIDO ESCURO que a
-   * /services usou entre 17-09 e 18-09 — *"pode deixar eles claros e colocar o
+   * /services usou entre 17-09 e 18-09  -  *"pode deixar eles claros e colocar o
    * fundo da parte dos logos escuro pra dar visibilidade nos logos"*. Em `dark`
    * o painel não existe: a seção já é escura e os logos ficam direto sobre ela,
    * num tom só, que foi o pedido de 18-09 (*"tirar a cor de fundo dos logos"*).
@@ -230,7 +230,7 @@ export default function PartnersStrip({
                       PNG com transparência servidos a 180px de altura de arquivo
                       contra 26–68px de exibição, ou seja já há ~2,6x de folga para
                       tela densa. O `/_next/image` não tem o que otimizar num logo
-                      de 20KB — só acrescentaria uma requisição de transformação. */}
+                      de 20KB  -  só acrescentaria uma requisição de transformação. */}
                   <img
                     src={art.src}
                     alt={l.alt}

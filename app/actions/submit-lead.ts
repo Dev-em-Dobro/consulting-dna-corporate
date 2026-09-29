@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 /**
  * Lead capture (004). The form submits here (server-side); this action
  * re-validates and forwards the lead to the CMS, which owns the database and
- * persists it (see specs/cms-tarefas.md — TAREFA 1). Routing through the CMS
+ * persists it (see specs/cms-tarefas.md  -  TAREFA 1). Routing through the CMS
  * means the site reuses the existing CMS_URL + read key and never needs a
  * Supabase service-role key in its own bundle. Anti-spam via a honeypot.
  *

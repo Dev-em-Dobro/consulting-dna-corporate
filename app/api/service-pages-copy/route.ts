@@ -4,7 +4,7 @@ import { services } from "@/lib/services";
 
 /**
  * A API das telas `/edit-services/<serviço>`. Uma rota só para as dez: a copy
- * das dez vive num objeto só, e cada tela salva o objeto inteiro — ver a caixa
+ * das dez vive num objeto só, e cada tela salva o objeto inteiro  -  ver a caixa
  * em `lib/service-pages-copy.ts`.
  *
  * ⚠️ REVALIDA ONZE CAMINHOS. O título e o banner de um serviço aparecem na

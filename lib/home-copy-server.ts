@@ -7,7 +7,7 @@ import { createCopyStore } from "@/lib/page-copy/store";
  * A copy da home no Vercel Blob. O COMO está todo em `lib/page-copy/store.ts`:
  * um arquivo novo por versão, as últimas 20 guardadas, e um arquivo local em
  * `.data/` quando não há `BLOB_READ_WRITE_TOKEN`. Este arquivo é só a instância
- * da home — a chave `home` é o que decide o prefixo `home-copy/` na loja.
+ * da home  -  a chave `home` é o que decide o prefixo `home-copy/` na loja.
  *
  * ⚠️ A CHAVE NÃO PODE MUDAR: o que a cliente já salvou está sob esse prefixo.
  */

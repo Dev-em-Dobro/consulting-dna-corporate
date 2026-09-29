@@ -79,7 +79,7 @@ test("um campo salvo muda só aquele serviço", () => {
 /**
  * O corpo das duas seções de texto resolve `whatWeDo ?? outcome` e
  * `howWeWork ?? howWeHelp` no template. Nove serviços caem no segundo de cada
- * par — se o `copyOf` pegasse o campo errado, a tela mostraria vazio e a edição
+ * par  -  se o `copyOf` pegasse o campo errado, a tela mostraria vazio e a edição
  * não apareceria na página.
  */
 test("o corpo editável é o que a página realmente renderiza", () => {
@@ -89,7 +89,7 @@ test("o corpo editável é o que a página realmente renderiza", () => {
     assert.equal(c.howWeWorkBody, s.howWeWork ?? s.howWeHelp, s.slug);
     assert.ok(c.whatWeDoBody.trim(), `${s.slug}: corpo do "What we do" vazio`);
     /* ⬅ 24-09: `howWeWork: ""` é o jeito explícito de o bloco sair só com a
-       manchete (o Executive Coaching) — ausente continua caindo no
+       manchete (o Executive Coaching)  -  ausente continua caindo no
        `howWeHelp`, e esse não pode ser vazio. */
     if (s.howWeWork !== "") {
       assert.ok(c.howWeWorkBody.trim(), `${s.slug}: corpo do "How we work" vazio`);
@@ -118,12 +118,12 @@ test("todo campo do editor de cada serviço existe no padrão", () => {
 /**
  * O espelho do teste acima, pelo lado da PÁGINA: se um campo está na tela, o
  * texto dele tem de chegar ao HTML. A assinatura de fecho é o caso que quase
- * escapou — o único serviço que a tem também tem `practices`, e o template
+ * escapou  -  o único serviço que a tem também tem `practices`, e o template
  * troca a assinatura por um rótulo fixo quando isso acontece.
  */
 test("nenhum serviço publica a assinatura de fecho hoje", () => {
   const rendered = services.filter((s) => s.closing && !s.practices);
-  assert.deepEqual(rendered, [], "algum serviço passou a publicar `closing` — reveja sectionsFor");
+  assert.deepEqual(rendered, [], "algum serviço passou a publicar `closing`  -  reveja sectionsFor");
 });
 
 test("slug desconhecido não devolve seção nenhuma", () => {
@@ -139,18 +139,18 @@ test("a tela de cada serviço mostra só as seções que ele tem", () => {
   for (const s of services) {
     const ids = sectionsFor(s.slug).map((x) => x.id);
     /* ⬅ 24-09: o "What we do" deixou de ser obrigatório na página, e a tela
-       tem de acompanhar — campo que não chega à tela não se oferece para
+       tem de acompanhar  -  campo que não chega à tela não se oferece para
        editar. Ver `hideWhatWeDo` em `lib/services.ts`. */
     assert.equal(ids.includes("what-we-do"), !s.hideWhatWeDo, s.slug);
     assert.equal(ids.includes("audiences"), Boolean(s.audiences?.length), s.slug);
     /* A assinatura de fecho só chega à tela quando o serviço NÃO tem
-       `practices` — ver a caixa em `sectionsFor`. Hoje isso significa que ela
+       `practices`  -  ver a caixa em `sectionsFor`. Hoje isso significa que ela
        não aparece em nenhuma das dez telas; o teste guarda a REGRA, não o
        número, para o dia em que um serviço sem práticas ganhar uma. */
     assert.equal(ids.includes("closing"), Boolean(s.closing && !s.practices), s.slug);
     assert.equal(ids.includes("evidence"), Boolean(s.evidence), s.slug);
     /* A faixa de evidência do layout de 24-09 é seção própria, e ela e a de
-       cima nunca aparecem na mesma tela — ver o teste do par excludente em
+       cima nunca aparecem na mesma tela  -  ver o teste do par excludente em
        `tests/services.test.ts`. */
     assert.equal(ids.includes("evidence-summary"), Boolean(s.evidenceSummary), s.slug);
   }
@@ -215,7 +215,7 @@ test("o texto editado vence o `??` do template nos nove que caem em outcome", ()
  * O defeito que este teste guarda foi real e derrubou as onze rotas de serviço
  * de uma vez, em 24-09, no primeiro render depois de `evidenceSummary` entrar.
  * O `mergeCopy` preenche o campo novo a partir do padrão, então a leitura CRUA
- * do Blob nunca chega aqui sem ele — mas entre a mescla e esta função há o
+ * do Blob nunca chega aqui sem ele  -  mas entre a mescla e esta função há o
  * `unstable_cache`, que guarda o resultado por um dia com uma chave que não
  * sabe nada sobre a FORMA do objeto. Entrada gravada pela versão anterior volta
  * sem a chave nova, o tipo garante que ela está lá, e o acesso direto estoura.

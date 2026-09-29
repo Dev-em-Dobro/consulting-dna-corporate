@@ -37,7 +37,7 @@ export default async function OurImpactPage() {
       {/* ── Our Social Impact ─────────────────────────────────────────────
           Pulled across from the old site, as in Guli's mock. He deliberately
           did not bring the full copy: "nem vou pegar, porque eles estão falando
-          'evitar o scroll em excesso' — e é um textaço" (14:41). This is the
+          'evitar o scroll em excesso'  -  e é um textaço" (14:41). This is the
           opening paragraph only, with the carousel treatment he gave the loose
           stills (14:17).
 

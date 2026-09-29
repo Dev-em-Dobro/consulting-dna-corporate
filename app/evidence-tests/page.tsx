@@ -1,5 +1,5 @@
 /**
- * ⚠️ PÁGINA DESCARTÁVEL — cards do bloco Evidence, quatro iguais.
+ * ⚠️ PÁGINA DESCARTÁVEL  -  cards do bloco Evidence, quatro iguais.
  *
  * Quarta rodada. As anteriores testaram tratamentos gerais e depois a grade
  * assimétrica com um número em destaque. A assimétrica foi DESCARTADA em 10-09
@@ -7,7 +7,7 @@
  * importante e acho que não é a ideia". Os quatro voltam a ter o mesmo peso.
  *
  * ⚠️ ISSO REABRE UMA TENSÃO, e vale escrever. Foi montando a assimétrica que se
- * descobriu que o `.slice(0, 4)` estava jogando fora o `Impact` — o único dos
+ * descobriu que o `.slice(0, 4)` estava jogando fora o `Impact`  -  o único dos
  * cinco que responde "funcionou?", contra quatro que respondem "quanto foi
  * grande?". O outline de Services faz essa crítica em letra sobre o Heineken:
  * "The figures are scale, not impact... Heineken needs one number that says what
@@ -21,7 +21,7 @@
  *
  * OS ÍCONES seguem a gramática que a /about já usa (StatIcon e ValueIcon):
  * contorno sem preenchimento, canto e junta arredondados, traço 1,75 num quadro
- * de 24, `stroke="currentColor"`. São desenhados aqui pelo mesmo motivo de lá —
+ * de 24, `stroke="currentColor"`. São desenhados aqui pelo mesmo motivo de lá  - 
  * o site não tem biblioteca de ícones, e instalar uma por causa de uma página de
  * teste seria pôr dependência no `package.json` do site inteiro.
  */
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 const CASE = "HEINEKEN";
 const SLUG = "heineken";
 
-/** Os quatro fatos, com o Impact liderando — a ordem que o componente já usa. */
+/** Os quatro fatos, com o Impact liderando  -  a ordem que o componente já usa. */
 const FACTS = [
   { icon: "target", label: "Impact", value: "45% higher promotion rate" },
   { icon: "globe", label: "Countries", value: "12" },
@@ -118,7 +118,7 @@ function StoryLink() {
  *
  * ⚠️ `items-start` E `min-h` NO GRID, não aqui: os quatro valores têm
  * comprimentos muito diferentes ("12" contra "45% higher promotion rate"), e
- * sem altura mínima comum os cards saem de tamanhos diferentes — que é
+ * sem altura mínima comum os cards saem de tamanhos diferentes  -  que é
  * exatamente o que a rodada anterior foi descartada por sugerir.
  */
 function Card({

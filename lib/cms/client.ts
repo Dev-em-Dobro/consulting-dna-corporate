@@ -1,6 +1,6 @@
 /**
  * Thin, read-only client for the custom CMS (a SEPARATE project/deployment).
- * The marketing site consumes published content over HTTP only — it never
+ * The marketing site consumes published content over HTTP only  -  it never
  * touches the CMS database or admin (FR-004). See ../../specs/001-custom-cms.
  *
  * Env:
@@ -53,7 +53,7 @@ async function cmsGet<T>(path: string, tags: string[]): Promise<T | null> {
     if (!res.ok) return null;
     return (await res.json()) as T;
   } catch (err) {
-    // CMS unreachable / bad response — degrade gracefully (FR-107): callers
+    // CMS unreachable / bad response  -  degrade gracefully (FR-107): callers
     // treat null as "no content" and serve last-good cache / empty states.
     console.warn(`[cms] fetch failed for ${path}:`, (err as Error)?.message);
     return null;
@@ -111,7 +111,7 @@ export function getPage(key: string, locale = "en") {
 
 /**
  * Fetch a DRAFT entry for the preview route, authorised by a signed preview
- * token minted by the CMS. Never cached — drafts change constantly and must not
+ * token minted by the CMS. Never cached  -  drafts change constantly and must not
  * leak into the CDN or a shared tag.
  */
 export async function getPreviewEntry(

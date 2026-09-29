@@ -11,7 +11,7 @@ export type NavItem = {
   children?: NavChild[];
   /**
    * Renders as the header's call-to-action button instead of a plain link.
-   * One item at most — a second button is a second primary action, which is
+   * One item at most  -  a second button is a second primary action, which is
    * none. NavV1/NavV2 read this; the footer ignores it and lists it as a link.
    */
   cta?: boolean;
@@ -34,12 +34,12 @@ export type NavItem = {
 //   • `About` → /about. Desde 09-09 a About real mora aqui; a página antiga
 //     there). "Our Team" is now its own top-level item, so /about stays split.
 //   • `Team` and `Insights` join the menu. Both routes existed and were kept
-//     out on purpose — Team pending photography, Insights because the 27-08
+//     out on purpose  -  Team pending photography, Insights because the 27-08
 //     list omitted it. This structure asks for both, which overrides that.
 //   • `Clients & Impact` is ONE item over two pages. It points at /our-clients
 //     (wall + stories); /our-impact (numbers + proof) is no longer reachable
 //     from the header and is linked from the footer instead. Merging the two
-//     pages is content work nobody has asked for yet — flagged to the client.
+//     pages is content work nobody has asked for yet  -  flagged to the client.
 //   • `Contact` returns as a button (`cta`), reversing the 28-08 removal of
 //     "Start a Conversation". It targets the home's `#contact` section, the
 //     same destination /contact and /contact-us already redirect to.
@@ -58,14 +58,14 @@ export const siteNav: NavItem[] = [
   { label: "Services", href: "/services" },
   // `/team` e não `/our-team` desde 11-09, a pedido. É a exceção que a nota lá
   // em cima prevê: não é o label perseguindo a rota, é a rota mudando por
-  // decisão de endereço — e o `/our-team` que está em produção continua
+  // decisão de endereço  -  e o `/our-team` que está em produção continua
   // respondendo, por 308 em next.config.
   { label: "Team", href: "/team" },
   { label: "Clients", href: "/our-clients" },
-  { label: "Impact", href: "/our-impact" },
+  { label: "Planet", href: "/our-impact" },
   // O livro permanece na home; esta rota reúne os artigos e materiais editoriais.
   { label: "Insights", href: "/insights" },
-  // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }` — *"mudar book para
+  // ⚠️ ESTE ITEM ERA `{ label: "Books", href: "/books" }`  -  *"mudar book para
   // events"* (anotação da reunião de 21-09). A troca É de rota, e isso precisa
   // ficar claro contra a regra lá em cima ("labels são copy, rotas são
   // endereço, não se renomeia rota para perseguir label"): aqui NÃO é o mesmo
@@ -75,7 +75,7 @@ export const siteNav: NavItem[] = [
   // se proíbe é mexer na rota quando só a palavra mudou, e não é o caso.
   //
   // ⏳ A PÁGINA NASCE VAZIA, de propósito. O pedido de 21-09 é de navegação, e
-  // conteúdo de Events não existe em lugar nenhum do projeto — nem no CMS, que
+  // conteúdo de Events não existe em lugar nenhum do projeto  -  nem no CMS, que
   // não tem tipo "events", nem nos documentos. `app/events/page.tsx` usa o
   // padrão de página pendente do site (PageHero + EmptyNotice + `noindex`), o
   // mesmo de /awards e /our-partnerships. Um item de menu tem de levar a algum

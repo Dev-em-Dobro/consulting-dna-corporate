@@ -3,7 +3,7 @@ import Link from "next/link";
 import { EDITABLE_SERVICES } from "@/lib/service-pages-copy";
 
 /**
- * `/edit` — o índice das telas de edição de texto.
+ * `/edit`  -  o índice das telas de edição de texto.
  *
  * EXISTE PARA A CLIENTE TER UMA URL SÓ. Com `/edit-home` e `/edit-about` já são
  * dois endereços para decorar, e mandar dois links por WhatsApp é o começo de
@@ -11,7 +11,7 @@ import { EDITABLE_SERVICES } from "@/lib/service-pages-copy";
  * de cada editor volta para cá.
  *
  * ⚠️ SEM LOGIN, como as duas telas que ele lista. `noindex`, fora do sitemap e
- * bloqueado no `robots.ts` — o que não é proteção, só higiene: quem tiver a URL
+ * bloqueado no `robots.ts`  -  o que não é proteção, só higiene: quem tiver a URL
  * edita. A caixa em `lib/page-copy/route.ts` conta o porquê e onde fechar.
  *
  * ESTÁTICO de propósito: não lê copy nenhuma, então não precisa de
@@ -32,13 +32,13 @@ const PAGES = [
     href: "/edit-about",
     title: "About page",
     body: "Headline, the four numbers, our purpose and promise, the values, the regions and the offices.",
-    note: "The four numbers also appear on the Clients page — editing them here changes both.",
+    note: "The four numbers also appear on the Clients page  -  editing them here changes both.",
   },
   {
     href: "/edit-team",
     title: "Team page",
     body: "Headline, the leadership and faculty headings, the job title, region and quote of each leader, the four DNA experience cards and the closing band.",
-    note: "Names and photos are not editable here — send those to us.",
+    note: "Names and photos are not editable here  -  send those to us.",
   },
   {
     href: "/edit-services",

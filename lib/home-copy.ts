@@ -1,5 +1,5 @@
 /**
- * OS TEXTOS EDITÁVEIS DA HOME — o que a cliente pode trocar em `/edit-home`
+ * OS TEXTOS EDITÁVEIS DA HOME  -  o que a cliente pode trocar em `/edit-home`
  * sem passar por nós nem pelo CMS.
  *
  * O QUE ISTO É: uma fonte única, em código, de TODA a copy que a home escreve à
@@ -7,16 +7,16 @@
  * contato). `app/page.tsx` e o `HeroV2` leem daqui em vez de trazer a frase
  * inline. O que a cliente salva no editor é guardado FORA do repo (ver
  * `lib/home-copy-server.ts`) e mesclado por cima destes padrões em cada
- * renderização da home — então o padrão continua sendo o que está aqui, e um
+ * renderização da home  -  então o padrão continua sendo o que está aqui, e um
  * campo apagado no editor cai de volta nele em vez de sumir da tela.
  *
  * O QUE ISTO NÃO É: CMS. Não tem locale, não tem rascunho/publicado, não tem
  * histórico. Foi feito em 23-09 para a cliente poder mexer na copy da home na
  * mesma hora; quando isto migrar para o CMS, o `getHomeCopy()` passa a ler de
- * lá e este arquivo vira só o fallback — os consumidores não mudam.
+ * lá e este arquivo vira só o fallback  -  os consumidores não mudam.
  *
  * ⚠️ ESTE ARQUIVO É IMPORTADO PELO CLIENTE (o editor). Nada de `fs`, `blob` ou
- * variável de ambiente aqui — isso mora no `-server`.
+ * variável de ambiente aqui  -  isso mora no `-server`.
  *
  * O QUE FICOU DE FORA, de propósito: os componentes compartilhados com outras
  * páginas (rodapé, faixa de prêmios, formulário de contato, endossos do livro,
@@ -29,7 +29,7 @@ import { books } from "./books.ts";
 export type HomeCase = { client: string; sector: string; challenge: string; metric: string; metricLabel: string };
 export type HomePillar = { title: string; body: string };
 
-/** O formato — validado pelo zod em `home-copy-schema.ts`, que espelha isto. */
+/** O formato  -  validado pelo zod em `home-copy-schema.ts`, que espelha isto. */
 export type HomeCopy = {
   hero: { title: string; subtitle: string; primaryCta: string; secondaryCta: string };
   solve: { label: string; title: string; subtitle: string; purposeTitle: string; purposeAccent: string; reals: string[] };
@@ -50,7 +50,7 @@ export type HomeCopy = {
 };
 
 /**
- * Os padrões — a copy que estava inline na home em 23-09, sem alteração. O
+ * Os padrões  -  a copy que estava inline na home em 23-09, sem alteração. O
  * livro vem de `lib/books.ts`; o editor da home sobrepõe esse texto na página.
  */
 export const DEFAULT_HOME_COPY: HomeCopy = {
@@ -68,7 +68,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
       "We start with what is at stake for the organisation, then bring the people, method and evidence to solve it.",
     purposeTitle: "Our purpose is to make leadership",
     purposeAccent: "real.",
-    reals: ["pressures", "politics", "choices", "judgement", "people", "consequences"],
+    reals: ["pressures", "choices", "judgement", "people", "consequences"],
   },
   credibility: {
     label: "Trusted by leadership teams at",
@@ -89,25 +89,25 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
         client: "Heineken",
         sector: "FMCG",
         challenge:
-          "Accelerate the readiness and advancement of high-potential leaders across the group.",
+          "Equip the Top 150 to lead through complexity, accelerate transformation and sustain business performance.",
         metric: "45%",
-        metricLabel: "higher promotion rate for programme participants",
+        metricLabel: "higher promotion rate versus non-participants over three years",
       },
       {
-        client: "Coca-Cola",
-        sector: "FMCG",
+        client: "Frasers",
+        sector: "Real Estate",
         challenge:
-          "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.",
-        metric: "43",
-        metricLabel: "leaders transformed across APAC & Japan",
+          "Build a stronger enterprise leadership pipeline across markets, functions and leadership generations.",
+        metric: "150+",
+        metricLabel: "top leaders developed globally",
       },
       {
         client: "Shell",
         sector: "Energy",
         challenge:
-          "Scale women's leadership development across a global engineering workforce.",
-        metric: "6,300",
-        metricLabel: "women leaders impacted across the programme",
+          "Accelerate the advancement of women leaders globally and shift the system around them.",
+        metric: "6,000",
+        metricLabel: "women impacted across three levels and multiple geographies",
       },
     ],
   },
@@ -119,22 +119,22 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
     intro: "With our “One DNA TEAM” principle, we execute as one collaborative team.",
     designTitle: "Different by design",
     designBody:
-      "There is no single mould for a DNA facilitator/coach.\n\nOur people come from different countries, cultures, careers, disciplines and life experiences. Some have led businesses. Some are psychologists, coaches or behavioural scientists. Some have spent their careers inside organisations; others have advised them. What connects us is curiosity, character, generosity and the confidence to bring our whole selves to the work.",
+      "There is an authentic and consistent mould for a DNA facilitator or coach. Our people come from different cultures, careers and life experiences. Leaders, psychologists, coaches, behavioural scientists and former operators. What connects is is a consistent DNA of curiosity, character, generosity and the confidence to bring our whole selves to the work.",
     pillars: [
+      {
+        title: "Personal energy and personality",
+        body:
+          "Beyond content and expertise, our people bring themselves. Energy, warmth, character and presence matter. We want clients to feel the person behind the expertise - someone who can connect, challenge, read the room and bring the work to life.",
+      },
       {
         title: "The DNA Experience",
         body:
-          "We blend our individual talents with the collective expertise of our global pool of 75 members across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time.",
+          "You get the best of the team, not just the person in the room. Behind every engagement sits the collective experience of DNA. We share what we see, challenge each other and bring in the right expertise when it matters. No silos. No territory. One team.",
       },
       {
-        title: "Trusted Relationships",
+        title: "Relationships that last",
         body:
-          "Relationships are at the core of who we are. We build long-term, deep relationships with our people and become part of each other’s stories. We are part of a family who care about each other, stay close and grow, laugh and unmask together.",
-      },
-      {
-        title: "Inclusion & Diversity",
-        body:
-          "Our best-in-class people are full of great character and personality, representing a range of backgrounds in the behavioural sciences and business; coming from different markets around the world, and representing a wide range of social identities.",
+          "We stay close and relevant. Many client relationships have lasted years, across roles, organisations and chapters of leadership. We challenge, laugh, disagree and support each other. That trust runs through our own team - and into how we work with clients.",
       },
     ],
     partnersLabel: "In partnership with",
@@ -153,7 +153,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
 
 
 /* ------------------------------------------------------------------------- */
-/* O MAPA DO EDITOR — cada campo que a tela `/edit-home` mostra, na ordem da   */
+/* O MAPA DO EDITOR  -  cada campo que a tela `/edit-home` mostra, na ordem da   */
 /* página. O FORMATO de um campo e os utilitários de caminho saíram daqui em   */
 /* 23-09 para `lib/page-copy/fields.ts`, quando a About passou a usar o mesmo  */
 /* editor; são reexportados abaixo porque os testes e os consumidores antigos  */
@@ -166,16 +166,16 @@ export { getAtPath, setAtPath, fromInput, toInput } from "./page-copy/fields.ts"
 import type { EditorField, EditorSection } from "./page-copy/fields.ts";
 
 const caseFields = (i: number, name: string): EditorField[] => [
-  { path: `impact.cases.${i}.client`, label: `${name} — client name`, kind: "text" },
-  { path: `impact.cases.${i}.sector`, label: `${name} — sector`, kind: "text" },
-  { path: `impact.cases.${i}.challenge`, label: `${name} — challenge`, kind: "textarea" },
-  { path: `impact.cases.${i}.metric`, label: `${name} — headline number`, kind: "text", hint: "e.g. 45% or 6,300" },
-  { path: `impact.cases.${i}.metricLabel`, label: `${name} — what the number means`, kind: "text" },
+  { path: `impact.cases.${i}.client`, label: `${name}  -  client name`, kind: "text" },
+  { path: `impact.cases.${i}.sector`, label: `${name}  -  sector`, kind: "text" },
+  { path: `impact.cases.${i}.challenge`, label: `${name}  -  challenge`, kind: "textarea" },
+  { path: `impact.cases.${i}.metric`, label: `${name}  -  headline number`, kind: "text", hint: "e.g. 45% or 6,300" },
+  { path: `impact.cases.${i}.metricLabel`, label: `${name}  -  what the number means`, kind: "text" },
 ];
 
 const pillarFields = (i: number, n: string): EditorField[] => [
-  { path: `people.pillars.${i}.title`, label: `${n} — heading`, kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
-  { path: `people.pillars.${i}.body`, label: `${n} — text`, kind: "textarea" },
+  { path: `people.pillars.${i}.title`, label: `${n}  -  heading`, kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
+  { path: `people.pillars.${i}.body`, label: `${n}  -  text`, kind: "textarea" },
 ];
 
 export const EDITOR_SECTIONS: EditorSection[] = [
@@ -238,8 +238,8 @@ export const EDITOR_SECTIONS: EditorSection[] = [
       { path: "people.title", label: "Heading", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
       { path: "people.subtitle", label: "Supporting text", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
       { path: "people.intro", label: "Intro line", kind: "textarea", hint: "Press Enter for a line break. It shows on the site." },
-      { path: "people.designTitle", label: "Different by design — heading", kind: "textarea" },
-      { path: "people.designBody", label: "Different by design — text", kind: "textarea", hint: "Press Enter for a line break. A blank line starts a new paragraph." },
+      { path: "people.designTitle", label: "Different by design  -  heading", kind: "textarea" },
+      { path: "people.designBody", label: "Different by design  -  text", kind: "textarea", hint: "Press Enter for a line break. A blank line starts a new paragraph." },
       ...pillarFields(0, "Block 1"),
       ...pillarFields(1, "Block 2"),
       ...pillarFields(2, "Block 3"),

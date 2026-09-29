@@ -1,5 +1,5 @@
 /**
- * Renders a JSON-LD structured-data block. Server component — the script is in
+ * Renders a JSON-LD structured-data block. Server component  -  the script is in
  * the initial HTML, so crawlers and the Rich Results Test see it without JS.
  * Pass a single schema object or an array of them.
  */
