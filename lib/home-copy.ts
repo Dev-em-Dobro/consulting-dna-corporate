@@ -97,9 +97,9 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
         client: "Frasers",
         sector: "Real Estate",
         challenge:
-          "Build a stronger enterprise leadership pipeline across markets, functions and leadership generations.",
-        metric: "150+",
-        metricLabel: "top leaders developed globally",
+          "Sustain the transformation of a senior leadership team across an evolving real estate business.",
+        metric: "18 months",
+        metricLabel: "sustained team transformation",
       },
       {
         client: "Shell",
@@ -119,12 +119,12 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
     intro: "With our “One DNA TEAM” principle, we execute as one collaborative team.",
     designTitle: "Different by design",
     designBody:
-      "There is an authentic and consistent mould for a DNA facilitator or coach. Our people come from different cultures, careers and life experiences. Leaders, psychologists, coaches, behavioural scientists and former operators. What connects is is a consistent DNA of curiosity, character, generosity and the confidence to bring our whole selves to the work.",
+      "There is an authentic and consistent mould for a DNA facilitator or coach. Our people come from different cultures, careers and life experiences. Leaders, psychologists, coaches, behavioural scientists and former operators. What connects us is a consistent DNA of curiosity, character, generosity and the confidence to bring our whole selves to the work.",
     pillars: [
       {
-        title: "Personal energy and personality",
+        title: "Personal energy & personality",
         body:
-          "Beyond content and expertise, our people bring themselves. Energy, warmth, character and presence matter. We want clients to feel the person behind the expertise - someone who can connect, challenge, read the room and bring the work to life.",
+          "Beyond content and expertise, our people bring themselves. Energy, warmth, character and presence matter. We want clients to feel the person behind the expertise, someone who can connect, challenge, read the room and bring the work to life.",
       },
       {
         title: "The DNA Experience",
@@ -134,7 +134,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
       {
         title: "Relationships that last",
         body:
-          "We stay close and relevant. Many client relationships have lasted years, across roles, organisations and chapters of leadership. We challenge, laugh, disagree and support each other. That trust runs through our own team - and into how we work with clients.",
+          "We stay close and relevant\nMany client relationships have lasted years, across roles, organisations and chapters of leadership. We challenge, laugh, disagree and support each other. That trust runs through our own team and into how we work with clients.",
       },
     ],
     partnersLabel: "In partnership with",

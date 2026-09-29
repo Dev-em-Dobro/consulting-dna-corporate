@@ -192,6 +192,7 @@ export default async function ClientsAndImpactPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title}
           subtitleAccent={copy.hero.subtitle}
+          accentAsTitle
           imageUrl={clientsHero}
           imagePosition="object-top"
         />
@@ -534,7 +535,7 @@ export default async function ClientsAndImpactPage() {
                 a faixa fica estreita  -  no desenho ele tem largura própria e o
                 texto é que cede. */}
             <Link
-              href="/our-impact#social-impact"
+              href="/our-impact#model"
               className="inline-flex shrink-0 items-center gap-3 self-start border border-white px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[1.5px] text-white transition-colors hover:bg-white hover:text-ink md:self-auto"
             >
               {copy.social.ctaLabel}

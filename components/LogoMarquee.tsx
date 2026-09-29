@@ -43,15 +43,17 @@ const label = (file: string) =>
  * Collins is the Collins Aerospace tile already in the grid.
  */
 const LOGO_SCALE: Record<string, number> = {
-  "adidas.png": 0.78,
-  "heineken.png": 0.74,
-  "schroders.png": 1.42,
-  "singtel.png": 1.42,
-  "collins-aerospace.png": 1.32,
-  "kedaara.png": 1.22,
-  "loreal.svg": 1.2,
-  "bank-of-england.png": 1.12,
-  "swarovski.png": 1.12,
+  "unilever.png": 1.38,
+  "hsbc.png": 2.2,
+  "adidas.png": 1.12,
+  "heineken.png": 1.12,
+  "schroders.png": 2.2,
+  "singtel.png": 1.56,
+  "collins-aerospace.png": 2.52,
+  "kedaara.png": 1.45,
+  "loreal.svg": 1.05,
+  "bank-of-england.png": 1.35,
+  "swarovski.png": 1.2,
 };
 
 export default function LogoMarquee({
@@ -106,7 +108,7 @@ export default function LogoMarquee({
               src={`/logos/client-logos/${file}`}
               alt={label(file)}
               loading="lazy"
-              className="max-h-[52px] w-auto max-w-full object-contain"
+              className="h-[42px] w-[138px] object-contain"
               style={{ transform: `scale(${LOGO_SCALE[file] ?? 1})` }}
             />
           </div>

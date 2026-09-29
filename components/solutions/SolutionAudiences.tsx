@@ -135,7 +135,7 @@ export default function SolutionAudiences({
                        fotografia faria o leitor de tela anunciar o cartão duas
                        vezes  -  a mesma regra do `ServiceCard`. */
                     sizes="(min-width: 640px) 33vw, 100vw"
-                    className="object-cover object-center"
+                    className={`object-cover ${a.image.includes("/audiences/wil-") ? "object-top" : "object-center"}`}
                   />
                 ) : null}
 

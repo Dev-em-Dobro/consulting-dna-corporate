@@ -636,6 +636,7 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
   { name: "Aman Almahid", meta: "Middle East", portrait: "/team/faculty/aman-almahid.png" },
   { name: "Nana Lawson", meta: "UK & Europe" },
+  { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/nitin-goil.jpg" },
   { name: "Wendy", meta: "Asia Pacific" },
   { name: "Sarah", meta: "Asia Pacific" },
   { name: "Ina", meta: "Asia Pacific" },

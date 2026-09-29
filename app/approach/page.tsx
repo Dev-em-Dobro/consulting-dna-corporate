@@ -163,6 +163,14 @@ export default async function ApproachPage() {
           </p>
         </section>
 
+        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
+
+        <div className="bg-white px-6 py-14 text-center md:py-16">
+          <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
+            {copy.fiveH.note}
+          </p>
+        </div>
+
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -197,14 +205,6 @@ export default async function ApproachPage() {
           </div>
           </div>
         </section>
-
-        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
-
-        <div className="bg-white px-6 py-14 text-center md:py-16">
-          <p className="mx-auto max-w-[720px] text-[14px] font-normal leading-[1.4] text-ink sm:text-[16px]">
-            {copy.fiveH.note}
-          </p>
-        </div>
 
         <section id="approach-video" aria-label="CorporateDNA leaders" className="bg-[#373234] px-6 py-12 md:px-10 md:py-20">
           <div className="relative mx-auto aspect-[1.58/1] max-w-[980px] overflow-hidden">

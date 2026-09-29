@@ -48,11 +48,15 @@ export function createCopyStore<T>({
   defaults,
   schema,
   mergeArrayObjects = false,
+  migrateSaved,
+  migrationVersion = "0",
 }: {
   key: string;
   defaults: T;
   schema: ZodType<T>;
   mergeArrayObjects?: boolean;
+  migrateSaved?: (saved: unknown) => unknown;
+  migrationVersion?: string;
 }): CopyStore<T> {
   const localFile = path.join(process.cwd(), ".data", `${key}-copy.json`);
 
@@ -71,7 +75,10 @@ export function createCopyStore<T>({
 
   const readFresh = async (): Promise<T> => {
     const saved = await readSaved();
-    return saved ? mergeCopy(defaults, schema, saved, mergeArrayObjects) : defaults;
+    const alreadyMigrated = saved && typeof saved === "object" &&
+      (saved as Record<string, unknown>).__copyRevision === migrationVersion;
+    const current = saved && migrateSaved && !alreadyMigrated ? migrateSaved(saved) : saved;
+    return current ? mergeCopy(defaults, schema, current, mergeArrayObjects) : defaults;
   };
 
   /* A impressão dos padrões entra na chave do cache: trocar uma frase no
@@ -86,7 +93,7 @@ export function createCopyStore<T>({
   /* "supabase" na chave: o Data Cache da Vercel sobrevive a deploy, e sem ela
      o primeiro deploy depois do Blob herdaria o padrão que o Blob bloqueado
      deixou guardado, por até um dia. Trocar a origem da leitura = trocar aqui. */
-  const readCached = unstable_cache(readFresh, [tag, shape, backend, String(mergeArrayObjects)], {
+  const readCached = unstable_cache(readFresh, [tag, shape, backend, String(mergeArrayObjects), migrationVersion], {
     tags: [tag],
     revalidate: READ_CACHE_SECONDS,
   });
@@ -114,12 +121,15 @@ export function createCopyStore<T>({
     read,
     async save(input: unknown) {
       const copy = schema.parse(input);
+      const persisted = migrationVersion !== "0" && copy && typeof copy === "object"
+        ? { ...copy, __copyRevision: migrationVersion }
+        : copy;
       const table = supabaseCopyTableFromEnv();
       if (table) {
-        await table.append(key, copy);
+        await table.append(key, persisted);
       } else {
         await mkdir(path.dirname(localFile), { recursive: true });
-        await writeFile(localFile, JSON.stringify(copy, null, 2), "utf8");
+        await writeFile(localFile, JSON.stringify(persisted, null, 2), "utf8");
       }
       return copy;
     },

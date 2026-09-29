@@ -36,9 +36,11 @@ export default function SolutionHero({
   title,
   subtitle,
   subtitleAccent,
+  accentAsTitle = false,
   body,
   imageUrl,
   noImage = false,
+  imageShadeOpacity = 1,
   credential,
   tint = "none",
   imageFilter = "saturate-[.65] brightness-[.68]",
@@ -63,6 +65,7 @@ export default function SolutionHero({
    * `brand` em fundo claro, `brand-light` em fundo escuro.
    */
   subtitleAccent?: string;
+  accentAsTitle?: boolean;
   /** Os parágrafos abaixo da frase de apoio  -  ver a caixa na marcação. */
   body?: string[];
   /**
@@ -86,6 +89,7 @@ export default function SolutionHero({
    * cor e de escurecimento saem junto, porque sem foto não há o que tingir.
    */
   noImage?: boolean;
+  imageShadeOpacity?: number;
   /**
    * AS PALAVRAS NA BORDA DIREITA DA DOBRA  -  24-09, com o layout de Women’s
    * Leadership Development: *"People / Perspective / Possibilities"*.
@@ -233,6 +237,7 @@ export default function SolutionHero({
             aria-hidden
             className="absolute inset-0 -z-10 hidden md:block"
             style={{
+              opacity: imageShadeOpacity,
               backgroundImage:
                 "linear-gradient(to right, rgba(35,31,33,.90) 0%, rgba(35,31,33,.66) 38%, rgba(35,31,33,.24) 62%, rgba(35,31,33,.06) 100%)",
             }}
@@ -256,6 +261,7 @@ export default function SolutionHero({
             aria-hidden
             className="absolute inset-0 -z-10 md:hidden"
             style={{
+              opacity: imageShadeOpacity,
               backgroundImage:
                 "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
             }}
@@ -325,7 +331,7 @@ export default function SolutionHero({
             frase partida em duas, e o respiro de parágrafo entre elas as
             separaria em afirmações independentes. */}
         {subtitleAccent && (
-          <p className="h-sub mt-2 max-w-[560px] text-[19px] leading-[1.45] text-brand-light md:text-[21px]">
+          <p className={accentAsTitle ? "h-sub mt-2 max-w-[760px] font-serif text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-brand-light sm:text-[48px] md:text-[58px]" : "h-sub mt-2 max-w-[560px] text-[19px] leading-[1.45] text-brand-light md:text-[21px]"}>
             {subtitleAccent}
           </p>
         )}

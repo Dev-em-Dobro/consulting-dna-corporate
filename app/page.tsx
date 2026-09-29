@@ -810,7 +810,7 @@ export default async function Home() {
               const { subtitle, text } = leadSentence(block.body);
               return (
                 <div key={block.title}>
-                  <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand">
+                  <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand sm:min-h-[58px] xl:min-h-[86px] 2xl:min-h-[58px]">
                     {block.title}
                   </h3>
                   {subtitle && (
@@ -959,6 +959,10 @@ function caseHref(client: string, published: { slug: string; client: string }[])
 
 function leadSentence(body: string) {
   const trimmed = body.trim();
+  if (trimmed.includes("\n")) {
+    const [subtitle, ...rest] = trimmed.split("\n");
+    return { subtitle: subtitle.trim(), text: rest.join("\n").trim() };
+  }
   const match = trimmed.match(/^([\s\S]*?[.!?])(?:\s+|$)([\s\S]*)$/);
   if (!match) return { subtitle: trimmed, text: "" };
   return { subtitle: match[1].trim(), text: match[2].trim() };

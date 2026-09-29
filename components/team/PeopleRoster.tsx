@@ -85,16 +85,16 @@ export default function PeopleRoster({
 
   if (size === "lg") {
     return (
-      <ul className="grid gap-10">
+      <ul className="grid gap-6 lg:grid-cols-3">
         {people.map((p) => (
-          <li key={p.name} className="grid items-center gap-6 md:grid-cols-[220px_minmax(0,1fr)]">
+          <li key={p.name} className="grid items-start gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
             {p.portrait ? (
-              <div className="relative aspect-[3/4] max-w-[220px] overflow-hidden bg-[#e9e6e3]">
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e6e3]">
                 <Image
                   src={p.portrait}
                   alt={p.name}
                   fill
-                  sizes="220px"
+                  sizes="(min-width: 1024px) 15vw, (min-width: 640px) 40vw, 90vw"
                   className="object-cover object-[center_22%]"
                 />
                 <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />

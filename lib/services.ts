@@ -2007,25 +2007,18 @@ export const services: Service[] = [
       line: "Turn strategic ambition into the behaviours, decisions and habits that increase organisational adaptability and make transformation happen.",
       label: "Talk to us about the culture your strategy needs",
     },
-    /* Os quatro fatos aqui são uma SEQUÊNCIA, não medidas  -  é a "cascade line"
-       do documento, que o próprio outline chama de bom gráfico e, no mesmo
-       parágrafo, de único dos cinco sem número nenhum. */
-    evidence: {
-      client: "GSK MEXICO",
-      title: "From leadership team to organisation",
-      body: "Culture transformation started with the Country CEO and Leadership Team, before cascading through the Management Team and N-1 leadership layers. The focus: translate the desired culture into the behaviours, relationships and leadership practices people experience every day, creating alignment from the top while building momentum through the organisation.",
-      /* Sem rótulo, e de propósito: a linha do documento é
-         "CEO led → LT aligned → Management activated → N-1 embedded", quatro
-         etapas e nada mais. Escrever uma legenda para cada uma seria copy nossa
-         numa página onde todo o resto é do cliente. */
+    /* A sequência da GSK usa a mesma faixa de Evidence do Senior Leadership
+       Development, sem foto ou citação não aprovadas. */
+    evidenceSummary: {
+      headline: "From leadership team to organisation.",
+      lead: "At GSK Mexico, culture transformation started with the Country CEO and Leadership Team, then cascaded through the Management Team and N-1 leaders. The work translated the desired culture into everyday behaviours, relationships and leadership practices.",
+      logos: [{ src: "/logos/client-logos/gsk.png", alt: "GSK Mexico", caseSlug: "gsk" }],
       facts: [
         { value: "CEO led" },
         { value: "LT aligned" },
         { value: "Management activated" },
         { value: "N-1 embedded" },
       ],
-      /* ⏳ Placeholder de 17-09  -  ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
-      image: EVIDENCE_IMAGE_PLACEHOLDER,
     },
     /* ⏳ Placeholder de 17-09  -  ver a caixa de `evidenceQuotePlaceholder`. A
        citação real da GSK Mexico é uma das quatro que o outline dá como
@@ -2133,29 +2126,30 @@ export const services: Service[] = [
        serviço, porque o layout não os escreve com ponto. É transcrição, não
        descuido.
 
-       ⏳ SEM FOTOGRAFIA: os quatro retratos do layout são arte do arquivo
-       (~250px de largura cada) e não estão na pasta da cliente. Sem `image` o
-       cartão cai no campo de cor `ink` com o nome do público em cima, que é um
-       estado BOM e o mesmo da Culture Transformation. Quando as fotos chegarem,
-       é acrescentar `image` nos quatro, em `public/services/audiences/`. */
+       As quatro fotos editoriais foram geradas para completar esta seção,
+       sem reaproveitar a arte de baixa resolução do layout de referência. */
     audiences: [
       {
         label: "Global Top Talent",
+        image: "/services/audiences/talent-global.jpg",
         title: "Building the next generation of enterprise leaders",
         body: "Accelerating talent for the organisation’s most significant future roles, with a focus on enterprise leadership, strategic judgement and readiness for complexity.",
       },
       {
         label: "Regional & Emerging Market Talent",
+        image: "/services/audiences/talent-regional.jpg",
         title: "Accelerating readiness across markets and boundaries",
         body: "Building leadership capability, visibility and influence across different cultures, markets and organisational contexts.",
       },
       {
         label: "Functional & Critical-Role Talent",
+        image: "/services/audiences/talent-functional.jpg",
         title: "Turning deep expertise into broader leadership impact",
         body: "Helping high-value specialists broaden their identity, influence and enterprise contribution as their scope increases.",
       },
       {
         label: "Early & Mid-Career High Potentials",
+        image: "/services/audiences/talent-emerging.jpg",
         title: "Creating the runway for what comes next",
         body: "Developing the capabilities, experiences and confidence required to make successful transitions into larger leadership roles.",
       },

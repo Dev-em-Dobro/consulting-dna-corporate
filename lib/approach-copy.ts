@@ -46,7 +46,7 @@ export const DEFAULT_APPROACH_COPY = {
     ]
   },
   "fiveH": {
-    "heading": "Five intelligences. One whole leader.",
+    "heading": "Five intelligences. One integrated leader.",
     "faculties": [
       {
         "name": "Head",
