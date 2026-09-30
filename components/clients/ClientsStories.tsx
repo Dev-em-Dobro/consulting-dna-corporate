@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import SectionHead from "@/components/clients/SectionHead";
 
 const featured = [
   {
@@ -75,56 +76,66 @@ const quotes = [
 export default function ClientsStories() {
   return (
     <>
-      <section id="case-studies" className="bg-[#f7f6f4]">
+      <section id="case-studies" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[1.6px] text-[#8a7044]">Impact in action</p>
-              <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.05] tracking-[-0.6px] text-ink sm:text-[40px]">
-                Real organisations. Lasting change.
-              </h2>
-            </div>
-          </div>
+          <SectionHead label="Impact in action" />
+          <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
+            Real organisations. Lasting change.
+          </h2>
           <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
             {featured.map((card) => (
-              <article key={card.name} className="flex h-full flex-col bg-white p-3">
-                <div className="relative aspect-[16/9] overflow-hidden">
+              <article key={card.name} className="flex h-full flex-col border border-line bg-white">
+                <div className="relative aspect-[16/9] overflow-hidden bg-paper">
                   <Image src={card.image} alt={card.imageAlt} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
                 </div>
-                <div className="flex flex-1 flex-col px-3 pb-4 pt-5">
-                  <div className="flex items-center gap-3">
-                    <Image src={card.logo} alt="" width={36} height={36} className="h-8 w-8 object-contain" />
-                    <p className="font-serif text-[22px] font-semibold leading-none text-ink">{card.name}</p>
+                <div className="flex flex-1 flex-col border-t border-line">
+                  <div className="px-6 pb-8 pt-5">
+                    <div className="flex h-12 items-center justify-between gap-4">
+                      <p className="text-[12px] font-semibold uppercase tracking-[1px] text-muted">{card.name}</p>
+                      <Image
+                        src={card.logo}
+                        alt=""
+                        width={96}
+                        height={48}
+                        className={`h-12 w-20 shrink-0 object-cover ${card.name === "Maaden" ? "scale-[1.4]" : ""}`}
+                      />
+                    </div>
+                    <h3 className="mt-6 font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.3px] text-ink">
+                      {card.kicker}
+                    </h3>
+                    <p className="mt-3 text-[15px] leading-[1.6] text-muted">{card.body}</p>
                   </div>
-                  <p className="mt-4 text-[11px] font-semibold uppercase tracking-[1.2px] text-[#8a7044]">{card.kicker}</p>
-                  <p className="mt-2 text-[16px] leading-[1.45] text-ink">{card.body}</p>
-                  <p className="mt-5 text-[40px] font-semibold leading-none tracking-[-1px] text-brand">{card.metric}</p>
-                  <p className="mt-2 max-w-[24ch] text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.8px] text-muted">
-                    {card.metricLabel}
-                  </p>
-                  <Link href={card.href} className="mt-5 text-[14px] font-semibold text-brand hover:text-brand-dark">
-                    View case study <span aria-hidden>→</span>
-                  </Link>
+                  <div className="mt-auto flex min-h-24 items-center gap-5 border-t border-line bg-paper px-6 py-5">
+                    <p className="shrink-0 text-[34px] font-semibold leading-none tracking-[-1px] text-ink">{card.metric}</p>
+                    <p className="max-w-[30ch] text-[11px] font-semibold uppercase leading-[1.45] tracking-[0.6px] text-muted">
+                      {card.metricLabel}
+                    </p>
+                  </div>
+                  <div className="border-t border-line px-6 py-5">
+                    <Link href={card.href} className="inline-block text-[13px] font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4 transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
+                      View case study <span aria-hidden>→</span>
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[1.6px] text-[#8a7044]">More client stories</p>
-              <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.05] tracking-[-0.6px] text-ink sm:text-[40px]">
-                Different sectors. A common outcome.
-              </h2>
-            </div>
-          </div>
+      <section className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          <SectionHead label="More client stories" />
+          <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
+            Different sectors. A common outcome.
+          </h2>
           <div className="mt-8 flex gap-3 overflow-x-auto pb-2 xl:grid xl:grid-cols-8 xl:overflow-visible">
             {moreStories.map((story) => (
-              <Link key={story.name} href={story.href} className="flex w-[148px] shrink-0 flex-col bg-white xl:w-auto">
-                <div className="relative aspect-[4/3] overflow-hidden">
+              <Link key={story.name} href={story.href} className="group flex w-[148px] shrink-0 flex-col border border-line bg-white transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand xl:w-auto">
+                <div className="relative aspect-[4/3] overflow-hidden bg-paper">
                   <Image src={story.image} alt="" fill sizes="148px" className="object-cover" />
                 </div>
-                <div className="flex h-14 items-center justify-center px-3">
+                <div className="flex h-14 items-center justify-center border-t border-line px-3">
                   <Image
                     src={story.logo}
                     alt={story.name}
@@ -134,8 +145,8 @@ export default function ClientsStories() {
                     className="h-7 w-auto max-w-[108px] object-contain"
                   />
                 </div>
-                <p className="px-3 pb-4 text-[13px] leading-[1.35] text-ink">
-                  {story.label} <span aria-hidden className="text-brand">→</span>
+                <p className="px-3 pb-4 text-[12px] leading-[1.45] text-muted">
+                  {story.label} <span aria-hidden className="inline-block text-brand transition-transform group-hover:translate-x-1">→</span>
                 </p>
               </Link>
             ))}
@@ -143,19 +154,15 @@ export default function ClientsStories() {
         </div>
       </section>
 
-      <section id="voices" className="bg-[#f7f6f4]">
-        <div className="mx-auto max-w-[1440px] px-6 pb-16 md:px-10 md:pb-20">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[1.6px] text-[#8a7044]">What our clients say</p>
-              <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.05] tracking-[-0.6px] text-ink sm:text-[40px]">
-                Stronger leaders. Brighter futures.
-              </h2>
-            </div>
-          </div>
+      <section id="voices" className="bg-white">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          <SectionHead label="What our clients say" />
+          <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
+            Stronger leaders. Brighter futures.
+          </h2>
           <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
             {quotes.map((item) => (
-              <article key={item.logoAlt} className="grid grid-cols-[118px_1fr] items-center gap-4 bg-white p-4 sm:grid-cols-[140px_1fr]">
+              <article key={item.logoAlt} className="grid grid-cols-[118px_1fr] items-center gap-4 border border-line bg-white p-4 sm:grid-cols-[140px_1fr]">
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image src={item.image} alt={item.imageAlt} fill sizes="140px" className="object-cover" />
                 </div>
@@ -174,7 +181,7 @@ export default function ClientsStories() {
                     }
                     className="block h-7 w-auto object-contain"
                   />
-                  <p className="mt-3 font-serif text-[16px] leading-[1.45] text-ink sm:text-[18px]">“{item.quote}”</p>
+                  <p className="mt-3 font-serif text-[16px] leading-[1.5] text-ink sm:text-[18px]">“{item.quote}”</p>
                 </div>
               </article>
             ))}
