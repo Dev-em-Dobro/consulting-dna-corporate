@@ -20,7 +20,6 @@ import {
 import SiteShell from "@/components/SiteShell";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
-import InnerOuterGame from "@/components/approach/InnerOuterGame";
 import { breadcrumbLd, faqLd, serviceLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 
@@ -126,8 +125,8 @@ export default async function ApproachPage() {
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
               <span aria-hidden="true" className="h-px w-10 bg-brand-light" /> {copy.hero.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-[900px] font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
-              <RegisteredText text={copy.hero.title} />
+            <h1 className="mt-5 max-w-[900px] whitespace-pre-line font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
+              <RegisteredText text={copy.hero.title.replace(" One integrated leader.", "\nOne integrated leader.")} />
             </h1>
             <p className="mt-6 max-w-[620px] text-[19px] leading-[1.4] text-white/78 md:text-[22px]">
               {copy.hero.subtitle}
@@ -139,8 +138,8 @@ export default async function ApproachPage() {
       <div className="bg-white">
         <section id="framework" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.framework.label}</p>
-          <h2 className="mt-3 font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
-            {copy.framework.heading}
+          <h2 className="mt-3 whitespace-pre-line font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
+            {copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader.")}
           </h2>
           <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
             {copy.framework.body}
@@ -148,10 +147,10 @@ export default async function ApproachPage() {
           <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <Image
-                src="/approach-5h-wheel.svg"
-                alt="The 5H model showing the inner game, outer game and the five leadership intelligences"
-                width={932}
-                height={908}
+                src="/approach-5h-wheel-v2.png"
+                alt="The 5H model showing the five leadership intelligences and their dimensions"
+                width={1254}
+                height={1254}
                 sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full max-w-[648px]"
               />
@@ -182,7 +181,14 @@ export default async function ApproachPage() {
           </div>
           </div>
           <div id="two-games" className="min-w-0">
-          <InnerOuterGame />
+          <Image
+            src="/approach/inner-outer-game-5h.png"
+            alt="Inner Game and Outer Game connected by the five leadership intelligences"
+            width={1619}
+            height={971}
+            sizes="(min-width: 1024px) 650px, 100vw"
+            className="mx-auto h-auto w-full max-w-[720px]"
+          />
           <div className="mx-auto mt-6 max-w-[980px] px-5 py-6 sm:px-8 lg:px-10">
           <div className="grid grid-cols-3 gap-4 lg:mx-auto lg:max-w-[720px] lg:gap-10">
             {[

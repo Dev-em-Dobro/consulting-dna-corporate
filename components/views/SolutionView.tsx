@@ -681,7 +681,7 @@ export default function SolutionView({
       <SolutionCta
         strapline={service.cta.strapline}
         line={service.cta.line}
-        ctaLabel={service.cta.label}
+        ctaLabel="Start a conversation"
         /* Faixa mais baixa SÓ aqui, 18-09  -  a prop existe para as outras
            páginas que usam o `SolutionCta` não mudarem; ver a caixa dela. */
         compact

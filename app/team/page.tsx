@@ -908,7 +908,7 @@ export default async function OurTeamPage() {
         <SolutionCta
           strapline={copy.cta.strapline}
           line={copy.cta.line}
-          ctaLabel={copy.cta.ctaLabel}
+          ctaLabel={copy.cta.ctaLabel === "Get in touch" ? "Start a conversation" : copy.cta.ctaLabel}
         />
         </div>
       </SiteShell>

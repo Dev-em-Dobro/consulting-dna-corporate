@@ -170,9 +170,9 @@ export default function CaseStory({
 
               <div>
                 {story.impactFigures.length > 0 && (
-                  <Reveal className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10 sm:divide-x sm:divide-white/12">
+                  <Reveal className="grid grid-cols-1 gap-y-10 sm:grid-cols-3">
                     {story.impactFigures.map((f) => (
-                      <div key={f.label} className="sm:px-8 sm:first:pl-0">
+                      <div key={f.label} className="min-w-0 sm:border-l sm:border-white/12 sm:px-8 sm:[&:nth-child(3n+1)]:border-l-0 sm:[&:nth-child(3n+1)]:pl-0">
                         {f.value ? (
                           <>
                             <p className="font-serif text-[34px] font-semibold leading-none tracking-[-1px] text-brand-light sm:text-[40px]">

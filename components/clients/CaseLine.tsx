@@ -1,6 +1,22 @@
 import Link from "next/link";
 import type { CaseFigure, CaseListEntry } from "@/lib/cms/map";
 
+// Scale away transparent source margins, then place the visible artwork 10px
+// from the right edge of the common 260px logo box.
+const CASE_LOGO_PLACEMENT: Record<string, { scale: number; offset: number }> = {
+  "shell.png": { scale: 1, offset: 86 },
+  "dubai-holding.png": { scale: 1, offset: 71 },
+  "heineken.png": { scale: 1, offset: 49 },
+  "vodafone.png": { scale: 2.5, offset: 40 },
+  "maaden.png": { scale: 2.5, offset: 15 },
+  "frasers-property.png": { scale: 1, offset: 43 },
+  "dyson.png": { scale: 1, offset: 37 },
+  "dp-world.png": { scale: 1.2, offset: 61 },
+  "bt.png": { scale: 1, offset: 95 },
+  "gsk.png": { scale: 1, offset: 26 },
+  "morgan-stanley.png": { scale: 2.5, offset: 10 },
+};
+
 /**
  * UM CASE POR LINHA, na listagem da Clients & Impact. Nome do cliente, desafio e
  * o botão de ler a história à ESQUERDA; logo e números de impacto à DIREITA.
@@ -87,6 +103,8 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
     : entry.metricValue || entry.metricLabel
       ? [{ value: entry.metricValue, label: entry.metricLabel ?? "" }]
       : [];
+  const hasManyFigures = figures.length >= 4;
+  const logoPlacement = CASE_LOGO_PLACEMENT[entry.logoUrl?.split("/").pop() ?? ""];
 
   return (
     <article className="-mx-6 grid grid-cols-1 gap-8 px-6 py-10 odd:bg-white even:bg-paper md:-mx-10 md:grid-cols-[1fr_340px] md:gap-12 md:px-10 md:py-12">
@@ -146,53 +164,23 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
       {/* ── DIREITA · logo por cima dos números ──────────────────────────── */}
       <div className="flex flex-col gap-7 md:items-end md:text-right">
         {entry.logoUrl && (
-          /* ⚠️ `<img>` CRU, E NÃO `next/image`  -  e aqui isso é CORREÇÃO DE
-             DEFEITO, não preferência. O `next/image` exige `width`/`height`, e
-             esse par vira a proporção da CAIXA. As marcas de `public/logos/` têm
-             proporções muito diferentes entre si (Vodafone é 123x97, ou seja
-             1,27:1; Morgan Stanley é 165x49, 3,4:1), então qualquer par fixo
-             mente para a maioria delas: com `object-contain`, a marca era
-             ENCAIXOTADA numa proporção alheia e desenhava bem menor que o teto
-             de altura pedido  -  o Vodafone saía a ~35px num teto de 48.
-
-             Sem `next/image` não há proporção declarada: o `max-h` limita e a
-             largura sai da proporção REAL do arquivo. É o mesmo critério da
-             faixa de parceiros e do mural de clientes, e pelo mesmo motivo  -  são
-             PNG de dezenas de KB servidos no tamanho em que aparecem, e o
-             otimizador não tem o que otimizar neles.
-
-             ⏳ OS ARQUIVOS SÃO PEQUENOS e isso põe um teto real no tamanho. Em
-             `public/logos/` há marcas de 46 a 97px de altura  -  Careem tem 106x47,
-             Morgan Stanley 165x49  - , e numa tela retina a altura que ainda sai
-             nítida é METADE da do arquivo: 23px no Careem, 24px no Morgan
-             Stanley. Os 48px daqui já ampliam a maioria delas. É pedido de
-             originais para a cliente, e é barato. Não vale "consertar"
-             encolhendo: a 24px o logo some ao lado dos números.
-
-             ⚠️ SUBIU PARA 68px EM 18-09  -  pedido da daily: *aumentar os logos
-             na linha*. De `max-h-12` (48px) para `max-h-[68px]`, +42%, e o teto
-             de largura de 180 para 260px na mesma proporção, para as marcas
-             largas (Morgan Stanley, 3,4:1) crescerem junto em vez de baterem na
-             largura antes de chegar à altura. Cabe nos 340px da coluna com
-             folga. O aviso acima sobre os ARQUIVOS PEQUENOS fica mais urgente,
-             não menos: a 68px um PNG de 47px de altura é ampliado 1,4x já numa
-             tela comum, e quase 3x numa retina. O pedido de originais continua
-             de pé  -  o tamanho é da cliente, a nitidez depende dela. */
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={entry.logoUrl}
-            alt={`${entry.client} logo`}
-            loading="lazy"
-            className="max-h-[68px] w-auto max-w-[260px]"
-          />
+          /* Every logo occupies the same box; object-contain keeps each mark's
+             proportions. A few source files need optical scaling because their
+             artwork has unusually large transparent margins. */
+          <div className="h-[68px] w-[260px] max-w-full self-end overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={entry.logoUrl}
+              alt={`${entry.client} logo`}
+              loading="lazy"
+              className={`h-full w-full object-contain ${logoPlacement ? "" : "object-right"}`}
+              style={{ transform: logoPlacement ? `translateX(${logoPlacement.offset}px) scale(${logoPlacement.scale})` : undefined }}
+            />
+          </div>
         )}
 
-        {/* ⚠️ EMPILHADAS, E NÃO EM FILEIRA. A faixa de evidência dos serviços põe
-            os números lado a lado (`flex flex-wrap`), e a tentação é repetir o
-            objeto aqui. Não cabe: lá a linha tem a largura do container, aqui a
-            coluna tem 340px, e três medidas lado a lado deixariam ~73px para cada
-            rótulo  -  "high-potential leaders developed" sairia em cinco linhas de
-            duas palavras. Empilhadas, cada rótulo tem a coluna inteira.
+        {/* With four or more figures, two columns keep the client row compact.
+            Shorter sets retain a full-width label for each figure.
 
             ⚠️ O VERMELHO É O `brand` CHEIO porque a linha vive em fundo claro  - 
             a regra de uma linha do `globals.css`: `brand` em fundo claro,
@@ -203,20 +191,22 @@ export default function CaseLine({ entry }: { entry: CaseListEntry }) {
             ⚠️ FIGURA SEM VALOR É LEGÍTIMA  -  `caseFigures` deixa passar linha com
             rótulo e sem número, porque a cliente escreve achado qualitativo na
             mesma coluna das métricas. Por isso o `value` é opcional aqui. */}
-        {figures.map((f, i) => (
-          <div key={i}>
-            {f.value && (
-              <p className="text-[26px] font-semibold leading-[1.02] tracking-[-1px] text-brand md:text-[30px]">
-                {f.value}
-              </p>
-            )}
-            {f.label && (
-              <p className="mt-1 max-w-[300px] font-serif text-[13px] leading-[1.4] text-muted">
-                {f.label}
-              </p>
-            )}
-          </div>
-        ))}
+        <div className={hasManyFigures ? "grid w-full grid-cols-1 gap-x-5 gap-y-7 text-left min-[400px]:grid-cols-2" : "flex flex-col gap-7"}>
+          {figures.map((f, i) => (
+            <div key={i} className="min-w-0">
+              {f.value && (
+                <p className="text-[26px] font-semibold leading-[1.02] tracking-[-1px] text-brand md:text-[30px]">
+                  {f.value}
+                </p>
+              )}
+              {f.label && (
+                <p className="mt-1 max-w-[300px] font-serif text-[13px] leading-[1.4] text-muted">
+                  {f.label}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </article>
   );

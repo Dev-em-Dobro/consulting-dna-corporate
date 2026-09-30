@@ -548,7 +548,7 @@ export default async function ClientsAndImpactPage() {
         <SolutionCta
           strapline={copy.cta.strapline}
           line={copy.cta.line || undefined}
-          ctaLabel={copy.cta.ctaLabel}
+          ctaLabel={copy.cta.ctaLabel === "Get in touch" ? "Start a conversation" : copy.cta.ctaLabel}
         />
         </div>
       </SiteShell>

@@ -70,7 +70,7 @@ export const DEFAULT_CLIENTS_COPY: ClientsCopy = {
   cta: {
     strapline: "Let’s create real change, together.",
     line: "Speak to our team about how we can support your organisation.",
-    ctaLabel: "Get in touch",
+    ctaLabel: "Start a conversation",
   },
 };
 

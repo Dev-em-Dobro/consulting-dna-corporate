@@ -91,7 +91,7 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
   cta: {
     strapline: "Ready to make leadership real?",
     line: "We partner with organisations to unlock real people, cultures and performance.",
-    ctaLabel: "Get in touch",
+    ctaLabel: "Start a conversation",
   },
 };
 
