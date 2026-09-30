@@ -1,17 +1,17 @@
 /**
- * OS TEXTOS EDITÁVEIS DA ABOUT — o que a cliente pode trocar em `/edit-about`
+ * OS TEXTOS EDITÁVEIS DA ABOUT  -  o que a cliente pode trocar em `/edit-about`
  * sem passar por nós nem pelo CMS. Mesma máquina da home; ver `lib/home-copy.ts`
  * para o desenho, e `docs/edit-paginas.md` para o todo.
  *
  * O QUE ISTO É: uma fonte única, em código, de TODA a copy que a
- * `app/about/page.tsx` escrevia à mão — herói, os quatro números, propósito,
+ * `app/about/page.tsx` escrevia à mão  -  herói, os quatro números, propósito,
  * promessa, identidade, valores, regiões, escritórios e o bloco do time. A
  * página lê daqui via `getAboutCopy()`; o que a cliente salva fica FORA do repo
  * (Vercel Blob, ver `lib/page-copy/store.ts`) e é mesclado por cima destes
  * padrões a cada renderização.
  *
  * ⚠️ OS QUATRO NÚMEROS (`stats`) SÃO TAMBÉM OS DA CLIENTS & IMPACT. Eles eram o
- * `FIRM_STATS` de `lib/stats.ts` — que, desde 18-09, as duas páginas importavam
+ * `FIRM_STATS` de `lib/stats.ts`  -  que, desde 18-09, as duas páginas importavam
  * justamente para não divergirem ("19 anos numa página e 18 na outra" é o
  * defeito que a caixa de lá registra). Pôr os números no editor da About e
  * deixar a outra página lendo a constante teria recriado a divergência na
@@ -22,11 +22,11 @@
  *
  * ⚠️ NADA DE `fs`, `blob`, zod OU VARIÁVEL DE AMBIENTE AQUI. Este arquivo é
  * carregado pelos testes do Node (`npm test`) com import relativo e extensão
- * `.ts` explícita — por isso o único import abaixo é de TIPO, e relativo.
+ * `.ts` explícita  -  por isso o único import abaixo é de TIPO, e relativo.
  *
  * O QUE FICOU DE FORA, de propósito: os ícones (`StatIcon` e `ValueIcon`, que
  * são chave de desenho e casam por posição), as fotos, o `WorldCoverageMap`, a
- * `NavV2`, o `SiteFooter` e a metadata de SEO — mesma regra da home.
+ * `NavV2`, o `SiteFooter` e a metadata de SEO  -  mesma regra da home.
  */
 import type { EditorField, EditorSection } from "./page-copy/fields.ts";
 
@@ -37,7 +37,7 @@ export type AboutRegion = { name: string; offices: string; descriptor: string };
 /** `tel` vazio = escritório sem telefone publicado (Riyadh e Miami, hoje). */
 export type AboutOffice = { city: string; address: string[]; tel: string; email: string };
 
-/** O formato — validado pelo zod em `about-copy-schema.ts`, que espelha isto. */
+/** O formato  -  validado pelo zod em `about-copy-schema.ts`, que espelha isto. */
 export type AboutCopy = {
   hero: { label: string; title: string; subtitleLines: string[] };
   stats: AboutStat[];
@@ -58,7 +58,7 @@ export type AboutCopy = {
 };
 
 /**
- * Os padrões — a copy que estava inline em `app/about/page.tsx` em 23-09, sem
+ * Os padrões  -  a copy que estava inline em `app/about/page.tsx` em 23-09, sem
  * uma palavra alterada. Ela vem do outline de 08-09 da Maliha, com as correções
  * das dailies de 17-09 e 18-09; a procedência de cada bloco continua anotada no
  * ponto de uso, na página.
@@ -66,7 +66,7 @@ export type AboutCopy = {
  * ⚠️ DUAS MARCAÇÕES viajam dentro do texto e não são enfeite:
  *   • `**…**` vira negrito na renderização (`inlineEmphasis`, em
  *     `lib/page-copy/text.ts`). Usado em `purpose.quote` e `values.intro`.
- *     Não aninha — `**a **b** c**` corrompe em silêncio.
+ *     Não aninha  -  `**a **b** c**` corrompe em silêncio.
  *   • `purpose.titleNowrap` é a PARTE FINAL do título que não pode quebrar
  *     linha; o `whitespace-nowrap` fica no JSX, e o texto, aqui.
  */
@@ -114,7 +114,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     /* AS ASPAS DECORATIVAS NÃO ESTÃO NO TEXTO. A de abertura é um `<span>`
        vermelho fora da coluna, no primeiro parágrafo; a de fechamento gruda na
        ÚLTIMA PALAVRA do último parágrafo, por um `nowrap`, para não cair
-       sozinha numa linha. As duas são desenho e ficam no JSX — se viessem no
+       sozinha numa linha. As duas são desenho e ficam no JSX  -  se viessem no
        texto, a cliente teria de manter as duas casadas à mão. */
     quote: [
       "When a client trusts us as a consulting firm, that trust starts from the very first interaction with the people who represent CorporateDNA and how we live our purpose in the moments that matter.",
@@ -200,7 +200,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
   },
   /**
    * ⚠️ ESTES ENDEREÇOS DIVERGEM DE `lib/offices.ts` DE PROPÓSITO, em três
-   * registros (Singapore, Dubai, Miami) — a caixa em `app/about/page.tsx`
+   * registros (Singapore, Dubai, Miami)  -  a caixa em `app/about/page.tsx`
    * conta qual é a discordância entre o documento do cliente e o que o site
    * publica. Editar aqui muda SÓ a About.
    *
@@ -254,11 +254,11 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
 };
 
 /* ------------------------------------------------------------------------- */
-/* O MAPA DO EDITOR — cada campo que a tela `/edit-about` mostra, na ordem da  */
+/* O MAPA DO EDITOR  -  cada campo que a tela `/edit-about` mostra, na ordem da  */
 /* página. O formato vem de `lib/page-copy/fields.ts`, igual ao da home.       */
 /*                                                                            */
 /* ONDE UMA SEÇÃO DA PÁGINA VIRA DUAS AQUI: `identity` e `regions`. Não é      */
-/* capricho — cada seção do editor mostra UM print de como ela aparece no      */
+/* capricho  -  cada seção do editor mostra UM print de como ela aparece no      */
 /* site, numa coluna de 440px. A Identity inteira é foto + citação de quatro   */
 /* parágrafos + quatro cartões, e a de regiões é texto + mapa-múndi + quatro   */
 /* tiles; num print só, nessa largura, não se lê nada. Partidas em duas, cada  */
@@ -267,31 +267,31 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
 /* ------------------------------------------------------------------------- */
 
 const statFields = (i: number, n: string): EditorField[] => [
-  { path: `stats.${i}.value`, label: `${n} — the number`, kind: "text" },
-  { path: `stats.${i}.label`, label: `${n} — what it means`, kind: "textarea" },
+  { path: `stats.${i}.value`, label: `${n}  -  the number`, kind: "text" },
+  { path: `stats.${i}.label`, label: `${n}  -  what it means`, kind: "textarea" },
 ];
 
 const pillarFields = (i: number, n: string): EditorField[] => [
-  { path: `identity.pillars.${i}.heading`, label: `${n} — heading`, kind: "text" },
-  { path: `identity.pillars.${i}.body`, label: `${n} — text`, kind: "textarea" },
+  { path: `identity.pillars.${i}.heading`, label: `${n}  -  heading`, kind: "text" },
+  { path: `identity.pillars.${i}.body`, label: `${n}  -  text`, kind: "textarea" },
 ];
 
 const valueFields = (i: number, n: string): EditorField[] => [
-  { path: `values.items.${i}.name`, label: `${n} — name`, kind: "text" },
-  { path: `values.items.${i}.body`, label: `${n} — text`, kind: "textarea" },
+  { path: `values.items.${i}.name`, label: `${n}  -  name`, kind: "text" },
+  { path: `values.items.${i}.body`, label: `${n}  -  text`, kind: "textarea" },
 ];
 
 const regionFields = (i: number, n: string): EditorField[] => [
-  { path: `regions.items.${i}.name`, label: `${n} — region`, kind: "text" },
-  { path: `regions.items.${i}.offices`, label: `${n} — offices`, kind: "text" },
-  { path: `regions.items.${i}.descriptor`, label: `${n} — one-line descriptor`, kind: "textarea" },
+  { path: `regions.items.${i}.name`, label: `${n}  -  region`, kind: "text" },
+  { path: `regions.items.${i}.offices`, label: `${n}  -  offices`, kind: "text" },
+  { path: `regions.items.${i}.descriptor`, label: `${n}  -  one-line descriptor`, kind: "textarea" },
 ];
 
 const officeFields = (i: number, n: string): EditorField[] => [
-  { path: `offices.${i}.city`, label: `${n} — city`, kind: "text" },
-  { path: `offices.${i}.address`, label: `${n} — address`, kind: "lines", hint: "One line per line." },
-  { path: `offices.${i}.tel`, label: `${n} — phone`, kind: "text", hint: "Leave empty for no phone." },
-  { path: `offices.${i}.email`, label: `${n} — e-mail`, kind: "text" },
+  { path: `offices.${i}.city`, label: `${n}  -  city`, kind: "text" },
+  { path: `offices.${i}.address`, label: `${n}  -  address`, kind: "lines", hint: "One line per line." },
+  { path: `offices.${i}.tel`, label: `${n}  -  phone`, kind: "text", hint: "Leave empty for no phone." },
+  { path: `offices.${i}.email`, label: `${n}  -  e-mail`, kind: "text" },
 ];
 
 const BOLD_HINT = "Put **two asterisks** around words to make them bold.";
@@ -364,7 +364,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
   },
   {
     id: "identity",
-    title: "Identity — the quote",
+    title: "Identity  -  the quote",
     anchor: "/about#identity",
     fields: [
       { path: "identity.label", label: "Small label", kind: "text" },
@@ -378,7 +378,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
   },
   {
     id: "pillars",
-    title: "Identity — the four cards",
+    title: "Identity  -  the four cards",
     anchor: "/about#identity",
     fields: [
       ...pillarFields(0, "Card 1"),

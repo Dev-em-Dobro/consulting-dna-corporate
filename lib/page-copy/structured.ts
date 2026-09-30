@@ -57,6 +57,6 @@ export function fieldsForCopy(value: TextNode, path: string, label = ""): Editor
     return value.flatMap((item, i) => fieldsForCopy(item, `${path}.${i}`, `${label} ${i + 1}`));
   }
   return Object.entries(value).flatMap(([key, item]) => fieldsForCopy(
-    item, path ? `${path}.${key}` : key, label ? `${label} — ${humanize(key)}` : humanize(key),
+    item, path ? `${path}.${key}` : key, label ? `${label}  -  ${humanize(key)}` : humanize(key),
   ));
 }

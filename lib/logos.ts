@@ -1,15 +1,15 @@
 /**
- * The curated client logo wall — the single source shared by the homepage band
+ * The curated client logo wall  -  the single source shared by the homepage band
  * and the Our Clients page (27-08 brief, item 8). It used to live inside
  * `app/page.tsx`; two pages showing "the clients" from two hand-kept arrays is
  * exactly how they drift, and the brief asks for the wall to carry immediate
  * credibility on both.
  *
- * Files live in /public/logos/client-logos. The order is deliberate — the largest
+ * Files live in /public/logos/client-logos. The order is deliberate  -  the largest
  * and most globally recognisable names lead.
  *
  * ============================================================================
- * ⚠️ LISTA DE 24-09 — SÓ CLIENTES DE VERDADE
+ * ⚠️ LISTA DE 24-09  -  SÓ CLIENTES DE VERDADE
  * ============================================================================
  * A daily pediu para tirar do banner as empresas que ainda são só negociação e
  * refazer a esteira com a pasta nova de logos. São estes dezenove arquivos,
@@ -34,7 +34,7 @@ export const clientLogos = [
   "dubai-holding.png",
   "frasers-property.png",
   "hbo-max.png",
-  "bain-capital.png",
+  "loreal.svg",
   "collins-aerospace.png",
   "kedaara.png",
   "schroders.png",

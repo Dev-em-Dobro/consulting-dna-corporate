@@ -3,14 +3,14 @@ import Reveal from "@/components/Reveal";
 import type { ServiceOutcomeSummary } from "@/lib/services";
 
 /**
- * "THE OUTCOME" — o fecho do layout de Family Business Consulting (24-09).
+ * "THE OUTCOME"  -  o fecho do layout de Family Business Consulting (24-09).
  *
  * Manchete, quatro resultados com ícone, a caixa rosa com as três linhas em
  * vermelho, e "OUR EXPERIENCE" na coluna da direita.
  *
  * ⚠️ NÃO É O `SolutionProof`, ainda que os dois fechem uma página. Lá são três
  * CARTÕES escuros com título, subtítulo e parágrafo; aqui são quatro legendas
- * nuas sobre fundo branco, mais um campo de cor que não é cartão de nada — é
+ * nuas sobre fundo branco, mais um campo de cor que não é cartão de nada  -  é
  * uma frase. Dar ao `SolutionProof` uma variante clara sem cartão o faria
  * desenhar duas coisas diferentes conforme o dado, que é o que este repositório
  * já desfez uma vez.
@@ -20,7 +20,7 @@ import type { ServiceOutcomeSummary } from "@/lib/services";
  * um parágrafo solto ao lado do resultado, e esta página não tem logos.
  *
  * ⚠️ OS ÍCONES VÊM DO MAPA DE `SolutionPillars`, via `pillarIcon`, casando pelo
- * rótulo exato — incluindo o PONTO FINAL, que o layout escreve e que faz parte
+ * rótulo exato  -  incluindo o PONTO FINAL, que o layout escreve e que faz parte
  * da chave. Rótulo sem linha no mapa cai no círculo de fallback.
  */
 export default function SolutionOutcome({
@@ -34,7 +34,7 @@ export default function SolutionOutcome({
   const note = (item.note ?? []).filter((n) => n.trim());
 
   return (
-    /* BRANCO contra a faixa `paper` do "What shifts" logo acima — o mesmo
+    /* BRANCO contra a faixa `paper` do "What shifts" logo acima  -  o mesmo
        degrau que separa as provas do ecossistema na Culture Transformation. */
     <section className="bg-white">
       <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">

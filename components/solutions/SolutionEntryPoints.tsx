@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import type { ServiceEntryPoints } from "@/lib/services";
 
 /**
- * "WHERE WE TYPICALLY ENTER" — a faixa rosa do layout de Family Business
+ * "WHERE WE TYPICALLY ENTER"  -  a faixa rosa do layout de Family Business
  * Consulting (24-09).
  *
  * Oito gatilhos com ícone e rótulo à esquerda; à direita, atrás de um fio
@@ -14,13 +14,13 @@ import type { ServiceEntryPoints } from "@/lib/services";
  * ⚠️ NÃO É O `SolutionPillars`, e vale a distinção antes de alguém unificar os
  * dois. Aquela fileira ocupa a largura inteira sob o bloco "How we work" e
  * enumera o que o serviço FAZ; esta divide a faixa com uma coluna de texto e
- * enumera o que acontece com o CLIENTE — é parente da grade de
+ * enumera o que acontece com o CLIENTE  -  é parente da grade de
  * `SolutionInflectionPoints`, não da fileira de pilares. Fundir as duas
  * obrigaria o `SolutionPillars` a ganhar uma prop de coluna lateral que
  * nenhuma das outras nove páginas usaria.
  *
  * ⚠️ O CAMPO DE COR É `brand/5` E NÃO UM ROSA NOVO. O layout pinta a faixa de
- * um rosa muito lavado, que é o vermelho da marca a baixa opacidade — o mesmo
+ * um rosa muito lavado, que é o vermelho da marca a baixa opacidade  -  o mesmo
  * recurso do disco dos ícones em `SolutionSteps` (`brand/10`). Cravar o hex do
  * arquivo criaria uma cor que nenhuma outra página tem.
  *
@@ -76,7 +76,7 @@ export default function SolutionEntryPoints({
           </ul>
 
           {/* O FIO VERMELHO À ESQUERDA DO FECHO é o que o layout desenha, e é
-              a mesma régua de 2px que abre as seções — virada de pé. */}
+              a mesma régua de 2px que abre as seções  -  virada de pé. */}
           <div className="border-l-2 border-brand pl-6">
             <p className="font-serif text-[19px] font-semibold leading-[1.3] text-ink md:text-[21px]">
               {item.noteLead}

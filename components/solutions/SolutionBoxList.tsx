@@ -6,7 +6,7 @@ import type { SolutionIndexEntry } from "@/lib/cms/map";
  * proposed on 29-08 (27-08 brief, item 5: "recuperar a força dos black boxes /
  * coloured bars do site antigo, ou uma interpretação moderna dessa lógica").
  *
- * A vertical list at every width — not a grid that collapses into one. Guli's
+ * A vertical list at every width  -  not a grid that collapses into one. Guli's
  * mock is the list, and the same move is what he prescribed for the 5H on
  * mobile: square tiles in a grid are what break there, "colocando isso em lista
  * já ajuda bastante qualquer usuário de mobile" (05:22).
@@ -14,7 +14,7 @@ import type { SolutionIndexEntry } from "@/lib/cms/map";
  * Content model is unchanged from the outcome-led index (commit 587e9e2): the
  * solution name is the label, what changes for the client is the line that
  * leads. Where CDNA has not authored an `outcome` yet the name becomes the
- * single line — which is literally what the mock shows, so the index degrades
+ * single line  -  which is literally what the mock shows, so the index degrades
  * into the mock rather than into a placeholder.
  *
  * `problemStatement` is deliberately not rendered here. It is `The Challenge`
@@ -59,7 +59,7 @@ export default function SolutionBoxList({
               )}
             </span>
 
-            {/* Muted at rest, white and nudged forward once the fill lands —
+            {/* Muted at rest, white and nudged forward once the fill lands  - 
                 the arrow is the only thing that travels with the sweep. */}
             <span
               aria-hidden

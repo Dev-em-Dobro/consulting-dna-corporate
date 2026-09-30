@@ -1,5 +1,5 @@
 /**
- * MIGRAÇÃO DOS TEXTOS DO /edit PARA O SUPABASE — 24-09.
+ * MIGRAÇÃO DOS TEXTOS DO /edit PARA O SUPABASE  -  24-09.
  *
  * Duas fontes, na ordem de preferência:
  *   --from-blob            todas as versões guardadas no Blob (até 20 por

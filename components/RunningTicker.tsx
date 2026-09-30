@@ -8,7 +8,7 @@ import type { TickerEntry } from "@/lib/cms/map";
 
 /**
  * Running ticker of awards, new regions and offices, new partnerships and
- * milestones — 27-08 brief, item 17. Content is CMS-managed (`ticker` segment)
+ * milestones  -  27-08 brief, item 17. Content is CMS-managed (`ticker` segment)
  * and covers 2023 onwards; the filtering and ordering happen in
  * `getTickerEntries`, so this component just loops whatever it is handed.
  *

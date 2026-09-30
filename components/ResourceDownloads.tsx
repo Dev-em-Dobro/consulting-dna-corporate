@@ -22,7 +22,7 @@ function FileIcon() {
 }
 
 /**
- * "Reports & Resources" — a list of downloadable files carried by a case,
+ * "Reports & Resources"  -  a list of downloadable files carried by a case,
  * solution or insight (the CMS `resources[]`). Rendered only by callers when
  * there is at least one resolved resource, so it never shows an empty block.
  * The `heading` lets a page opt into a different label (default below).

@@ -6,30 +6,30 @@ import { useEffect, useState } from "react";
  * The six "reals" of the 27-08 brief (item 1), as Guli resolved them on 01-09.
  *
  * The block used to be a 2×3 grid with one term per cell. That put the word
- * "real" on screen six times, directly under a hero that already says it five —
+ * "real" on screen six times, directly under a hero that already says it five  - 
  * which is what Ricardo flagged and what this replaces. Guli's fix keeps one
  * "Real", fixed, and cycles the second word: *"a primeira frase fica estática. A
  * segunda o 'real' fica parado em preto enquanto as palavras que ele quer ficam
  * trocando em vermelho, preferencialmente com um efeito de digitação (digita,
  * apaga, digita, apaga) bem rápido"*. His reference was a "you're **fascinating**"
- * loop — static prefix in ink, the changing word in the accent colour.
+ * loop  -  static prefix in ink, the changing word in the accent colour.
  *
  * **The width is reserved by the longest word.** Without that, the whole line
  * re-centres on every keystroke and "Real" jitters left and right. The longest
  * term is rendered invisibly in the same grid cell and the typed text sits on
- * top of it, left-aligned — the stacking idiom `FiveHExplorer` already uses so a
+ * top of it, left-aligned  -  the stacking idiom `FiveHExplorer` already uses so a
  * changing string cannot resize its container.
  *
  * **Reduced motion gets the whole set, not a frozen frame.** A caret parked on a
  * half-typed word reads as a bug, and one term out of six loses the point of the
  * item. So it degrades to the six joined into a single line, which is also what
- * screen readers get — the animation itself is `aria-hidden`, because a live
+ * screen readers get  -  the animation itself is `aria-hidden`, because a live
  * region retyping every 60ms would be hostile.
  */
 
 /** Milliseconds per character while typing. "Bem rápido", as he asked. */
 const TYPE_MS = 55;
-/** Deleting is faster than typing — the return trip is not the content. */
+/** Deleting is faster than typing  -  the return trip is not the content. */
 const DELETE_MS = 28;
 /** How long a completed word stays before it is erased. */
 const HOLD_MS = 1500;
@@ -44,7 +44,7 @@ export default function RealCycle({
   /**
    * Inverte as duas cores para fundo escuro.
    *
-   * O "Real" fixo estava cravado em `text-ink` — invisível sobre `ink`. E a
+   * O "Real" fixo estava cravado em `text-ink`  -  invisível sobre `ink`. E a
    * palavra que cicla estava em `text-brand`: #d84339 sobre escuro dá 2,87:1, o
    * mesmo motivo pelo qual a régua do rótulo vira `brand-light` na /about.
    * As duas trocam JUNTAS; clarear só uma quebraria o par que a linha é.

@@ -19,7 +19,7 @@ export default function HeroV1() {
   useGSAP(
     () => {
       // Restore the `js`/`touch` classes in case a hydration failure wiped
-      // them (in-app browsers — see lib/hero-intro.ts). useGSAP is a layout
+      // them (in-app browsers  -  see lib/hero-intro.ts). useGSAP is a layout
       // effect, so this lands before the next paint.
       applyEnvClasses();
       const mm = gsap.matchMedia();
@@ -50,8 +50,8 @@ export default function HeroV1() {
       }
 
       // "all": the intro runs for everyone, including visitors with
-      // "Reduce Motion" enabled. This is a deliberate product decision — the
-      // hero intro is core to the brand experience — over the accessibility
+      // "Reduce Motion" enabled. This is a deliberate product decision  -  the
+      // hero intro is core to the brand experience  -  over the accessibility
       // default of honouring prefers-reduced-motion. (Previously a separate
       // `reduce` branch skipped the intro; see git history.)
       mm.add("all", () => {
@@ -59,7 +59,7 @@ export default function HeroV1() {
         // this reveal only runs once the video ends (see `reveal` below).
         const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
         // fromTo (not from): the targets start hidden via CSS, so we must state
-        // the visible end explicitly — otherwise GSAP would read the hidden CSS
+        // the visible end explicitly  -  otherwise GSAP would read the hidden CSS
         // value as the destination and animate hidden -> hidden.
         tl.fromTo(
           ".h-bg",
@@ -123,7 +123,7 @@ export default function HeroV1() {
                 /* no-op: seeking may fail if metadata never loaded */
               }
             }
-            // Mobile: no rewind and nothing else to do — CSS drops the video
+            // Mobile: no rewind and nothing else to do  -  CSS drops the video
             // from the hero the instant data-hero is removed (below).
           }
           // Grow the pinned mobile hero to its full content height as the
@@ -154,7 +154,7 @@ export default function HeroV1() {
 
         // Safety net only: reveal if the video stalls or never fires `ended`.
         // It must never fire before the clip would naturally end, so we size it
-        // to the real duration (+ buffer) as soon as that's known — including
+        // to the real duration (+ buffer) as soon as that's known  -  including
         // synchronously here, since the duration may already be available by the
         // time this effect runs, in which case `loadedmetadata` won't fire again.
         // Until the duration is known we use a generous cap longer than any
@@ -165,17 +165,17 @@ export default function HeroV1() {
           fallback = window.setTimeout(reveal, dur > 0 ? dur * 1000 + 4000 : 30000);
         };
 
-        // Phone/tablet by hardware touch, not width or CSS media features —
+        // Phone/tablet by hardware touch, not width or CSS media features  - 
         // "Request Desktop Website" can fake all of those (see lib/hero-intro.ts).
         const isMobile = isTouchDevice();
         const cleanups: Array<() => void> = [() => tl.kill()];
 
         // Runs the actual intro. Gated on the preloader below, so it never
         // plays behind the loading screen and its asset is already fully
-        // cached — i.e. smooth from the first frame.
+        // cached  -  i.e. smooth from the first frame.
         const startIntro = () => {
           // Phones: a GSAP-driven image sequence drawn onto a <canvas>. Plain
-          // JavaScript — no autoplay policy applies (iOS Low Power Mode blocks
+          // JavaScript  -  no autoplay policy applies (iOS Low Power Mode blocks
           // <video> autoplay; large animated images stutter under main-thread
           // load), it always starts by itself, and the tween's onComplete
           // reveals the content at exactly the last frame.
@@ -206,7 +206,7 @@ export default function HeroV1() {
               let flipped = false;
               const draw = (i: number) => {
                 if (i === last) return;
-                // A failed frame draws the nearest earlier one — a 1/12s hold
+                // A failed frame draws the nearest earlier one  -  a 1/12s hold
                 // is invisible; a blank flash is not.
                 let j = i;
                 while (j >= 0 && !frames[j]) j--;
@@ -215,7 +215,7 @@ export default function HeroV1() {
                 last = i;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 // Flip the hero from the poster <picture> to the <canvas>
-                // (see globals.css: [data-intro="canvas"]) — on the first frame
+                // (see globals.css: [data-intro="canvas"])  -  on the first frame
                 // actually painted, never before.
                 //
                 // This used to run unconditionally on the line after `draw(0)`.
@@ -225,7 +225,7 @@ export default function HeroV1() {
                 // tween starts. So the poster was hidden to reveal a canvas
                 // with nothing on it, and the hero rendered black until the
                 // first frame arrived. Reloading "fixed" it because the frames
-                // then came from cache and frame 0 was there immediately —
+                // then came from cache and frame 0 was there immediately  - 
                 // which is exactly why it looked intermittent.
                 //
                 // Gating the flip on a real `drawImage` means the worst case is
@@ -274,7 +274,7 @@ export default function HeroV1() {
             return;
           }
           // iOS/Safari refuses inline autoplay unless the element is *actually*
-          // muted at play() time — force it (plus playsinline) before playing.
+          // muted at play() time  -  force it (plus playsinline) before playing.
           video.muted = true;
           video.defaultMuted = true;
           video.setAttribute("muted", "");
@@ -398,7 +398,7 @@ export default function HeroV1() {
       </picture>
 
       {/* PHONE intro player: GSAP draws the extracted video frames here (see
-          lib/hero-intro.ts). A canvas has no autoplay policy — it always runs,
+          lib/hero-intro.ts). A canvas has no autoplay policy  -  it always runs,
           Low Power Mode included. Hidden until JS marks data-intro="canvas";
           dropped entirely the instant the intro ends (globals.css). */}
       <canvas
@@ -415,14 +415,14 @@ export default function HeroV1() {
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 pt-[110px] md:px-10">
         <div className="mx-auto max-w-[1000px] text-center">
           {/* Branco, não brand. O eyebrow em #d84339 sobre esta foto media 1.29:1
-              — o vermelho da marca e o céu azul-acinzentado têm quase a mesma
+               -  o vermelho da marca e o céu azul-acinzentado têm quase a mesma
               luminância, e 13px uppercase com tracking de 2px é o pior caso para
               contraste baixo. Em branco vai a 6.3:1.
 
               Não é regra nova: a faixa de credibilidade (page.tsx) já usa
               white/70 e o Client impact virou branco em 31-08 pelo mesmo motivo.
-              O brand aqui vive como preenchimento — o CTA "Results, Not
-              Promises." — e não como cor de texto sobre imagem. O traço acompanha
+              O brand aqui vive como preenchimento  -  o CTA "Results, Not
+              Promises."  -  e não como cor de texto sobre imagem. O traço acompanha
               o texto; deixá-lo vermelho sozinho seria um borrão no mesmo 1.29:1. */}
           <div className="mb-[26px] flex items-center justify-center gap-3">
             <span className="h-bar inline-block h-0.5 w-9 bg-white" />
@@ -431,7 +431,7 @@ export default function HeroV1() {
             </span>
           </div>
           {/* 27-08 brief, item 1. Both lines are the client's own approved
-              working copy, quoted from the e-mail — not a rewrite. "When the
+              working copy, quoted from the e-mail  -  not a rewrite. "When the
               stakes are high…" is not gone, it has moved into the sub-line,
               which is what the brief asks: it "pode continuar na narrativa, mas
               não como primary headline". The sub also has to put CEOs, CHROs &

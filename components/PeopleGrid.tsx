@@ -8,14 +8,14 @@ import PersonModal, { Avatar, type Person } from "@/components/PersonModal";
  * A grade de retratos que abre o perfil em pop-up.
  *
  * ⚠️ O MODAL SAIU DAQUI EM 15-09 e mora em `components/PersonModal.tsx`. Ele
- * era privado deste arquivo, e a /team passou a precisar do mesmo pop-up — o
+ * era privado deste arquivo, e a /team passou a precisar do mesmo pop-up  -  o
  * `CDNA_04_Team.docx` pede "short bio on click or hover" para a grade de
  * liderança, e o botão "+" do mockup é esse gesto. Duas cópias do perfil de uma
  * pessoa divergem na primeira correção feita de um lado só.
  *
  * O QUE FICOU AQUI é só a grade: o cartão, o `hover` com "View profile" e o
  * estado de qual pessoa está aberta. O tipo `Person` e o `Avatar` vêm de lá,
- * porque os dois descrevem a MESMA pessoa — se o CMS ganhar um campo, ele
+ * porque os dois descrevem a MESMA pessoa  -  se o CMS ganhar um campo, ele
  * aparece nos dois lugares de uma vez.
  *
  * ⚠️ NÃO RODA MAIS NA HOME. Saiu em 14-09, a pedido da cliente ("I don’t want

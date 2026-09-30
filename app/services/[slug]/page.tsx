@@ -10,20 +10,20 @@ import { services } from "@/lib/services";
 import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
 
 /**
- * Página de serviço — "one template, ten instances" (outline de 09-09, §3.2).
+ * Página de serviço  -  "one template, ten instances" (outline de 09-09, §3.2).
  *
  * DEIXOU DE LER O CMS em 11-09. O conteúdo agora é `lib/services.ts`, e o porquê
  * está na caixa de abertura daquele arquivo: os dez serviços do outline não
  * existem no CMS (dois são novos, três mudaram de nome, dois saíram) e os campos
  * do bloco 6 também não. Consequência prática aqui: a rota virou estática de
- * verdade — sem `revalidate`, sem fetch, e `generateStaticParams` devolve os dez
+ * verdade  -  sem `revalidate`, sem fetch, e `generateStaticParams` devolve os dez
  * na hora do build em vez de perguntar ao CMS.
  */
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-/** Toda rota que não está nos dez é 404 — os slugs velhos têm 301 no next.config. */
+/** Toda rota que não está nos dez é 404  -  os slugs velhos têm 301 no next.config. */
 export const dynamicParams = false;
 
 export async function generateMetadata({
@@ -76,7 +76,7 @@ export default async function SolutionDetailPage({
        comentário em `lib/fonts.ts`.
 
        Vale para a árvore inteira, incluindo a NavV2 e o SiteFooter, que
-       continuam sem saber que existe fonte nova — é a variável que faz o
+       continuam sem saber que existe fonte nova  -  é a variável que faz o
        trabalho, não uma classe em cada elemento. */
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
@@ -86,12 +86,12 @@ export default async function SolutionDetailPage({
             caixa sempre prometeu.
 
             A branch `feature/paginas-servicos-menu-herois` trouxe três páginas
-            escritas à mão — HRLT, Manager Development e Culture Transformation —
+            escritas à mão  -  HRLT, Manager Development e Culture Transformation  - 
             e um ternário aqui mandava cada slug para a sua. Culture e Manager
             saíram no merge do mesmo dia, porque as duas já tinham sido refeitas
             pelos layouts de 24-09 dentro do template; a HRLT saiu logo depois, a
             pedido: *"faz ela seguir o mesmo layout das outras paginas de
-            serviços"*. A copy dela virou dado em `lib/services.ts` — ver a caixa
+            serviços"*. A copy dela virou dado em `lib/services.ts`  -  ver a caixa
             na entrada `hrlt-effectiveness`, que lista o que a implementação
             própria media de diferente.
 
@@ -101,7 +101,7 @@ export default async function SolutionDetailPage({
             `0ca1e73` e na branch `feature/paginas-servicos-menu-herois`.
 
             ⏳ O QUE SE PERDEU DE CONTEÚDO, para quem precisar recuperar: a
-            Culture dele fechava com uma frase que a nossa não tem — *"Culture
+            Culture dele fechava com uma frase que a nossa não tem  -  *"Culture
             isn't what is written on the wall. / It's what happens when the real
             work begins."* Ela não está no layout arquivado em `docs/meetings/`,
             que vem cortado na fileira "Our measurement journey"; ele devia ter
@@ -110,9 +110,9 @@ export default async function SolutionDetailPage({
             Development) e não precisa de componente novo.
 
             ⚠️ SE UMA PÁGINA PRECISAR DE UM BLOCO QUE O TEMPLATE NÃO TEM, o
-            caminho é o que Culture e Manager usaram em 24-09 — um componente em
+            caminho é o que Culture e Manager usaram em 24-09  -  um componente em
             `components/solutions/` com o seu campo em `lib/services.ts`, que
-            NÃO renderiza para quem não tem o campo —, e não um ramo aqui. A
+            NÃO renderiza para quem não tem o campo  - , e não um ramo aqui. A
             diferença não é de estilo: um bloco novo fica disponível para os
             outros nove no dia em que a cliente pedir o mesmo; uma página à parte
             começa a divergir em largura, ícone e espaçamento no primeiro ajuste

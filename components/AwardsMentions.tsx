@@ -9,7 +9,7 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /**
- * "Awards and Mentions" — the awards & credentials that until now lived only in
+ * "Awards and Mentions"  -  the awards & credentials that until now lived only in
  * the sales presentation (spec 009). Logos are local assets under
  * /public/awards; the copy followed the client's `docs/Group 2.png` design.
  *
@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * ================================================================
  * Pedido da Maliha na daily (item 34): *"awards and mentions, I'm thinking maybe
  * we just have it as a banner rather than calling out that we were the finalists
- * or the semi-finalists — even though that's what we were."*
+ * or the semi-finalists  -  even though that's what we were."*
  *
  * O QUE ERA. Cinco FILEIRAS de largura cheia, cada uma com o nome do prêmio em
  * 30px, a distinção em vermelho maiúsculo ("FINALIST 2008"), o logo à direita e
@@ -29,11 +29,11 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * O QUE É AGORA. UMA faixa: o título e os logos em régua, com nome e ano embaixo
  * de cada um. Mesma altura de uma faixa de parceiros, que é o objeto que
  * "banner" descreve. São cinco em toda parte e SETE na home, que desde 21-09
- * abre a régua com os dois GOLD da Brandon Hall — ver `BRANDON_HALL` e a prop
+ * abre a régua com os dois GOLD da Brandon Hall  -  ver `BRANDON_HALL` e a prop
  * `includeBrandonHall`.
  *
  * O `distinction` CONTINUA NO TIPO E NOS DADOS, e não é esquecimento. Dois dos
- * cinco não são "finalista" coisa nenhuma — "Top 10 Indian women leader in the
+ * cinco não são "finalista" coisa nenhuma  -  "Top 10 Indian women leader in the
  * UK" e "Best international leadership consulting firm" são prêmios ganhos, e é
  * plausível que ela queira esses de volta quando revisar a lista com a Ria
  * (item 35: *"our awards are a bit outdated, it's 2008, I will speak to Ria"*).
@@ -50,7 +50,7 @@ type Award = {
   /**
    * The distinction earned, e.g. "Finalist".
    *
-   * ⏸️ NÃO RENDERIZADO DESDE 14-09 — é exatamente a linha que a cliente pediu
+   * ⏸️ NÃO RENDERIZADO DESDE 14-09  -  é exatamente a linha que a cliente pediu
    * para sair. Fica no dado; ver a caixa do componente.
    *
    * ⚠️ VOLTA A APARECER quando `showDistinction` estiver ligado, e só aí. O
@@ -65,37 +65,37 @@ type Award = {
    * Arquivo em /public/awards.
    *
    * OPCIONAL DESDE 21-09: os dois Brandon Hall entraram sem logo porque não
-   * temos o arquivo. Sem ele a célula desenha um selo tipográfico no lugar —
+   * temos o arquivo. Sem ele a célula desenha um selo tipográfico no lugar  - 
    * ver o `<li>` lá embaixo. Assim que a CDNA mandar a arte, é só apontar o
    * campo para ela e o selo dá lugar ao logo, sem mexer em mais nada.
    */
   logo?: string;
   /**
-   * LOGO NUMA CAIXA BRANCA — 24-09: a arte do "Top 15" é transparente com
+   * LOGO NUMA CAIXA BRANCA  -  24-09: a arte do "Top 15" é transparente com
    * letra escura e sumia sobre a faixa. A caixa dá o fundo claro que ela pede.
    */
   logoOnWhite?: boolean;
 };
 
 /**
- * OS DOIS GOLD DA BRANDON HALL — 21-09: *"Remove Brandon hall pop up on hero
+ * OS DOIS GOLD DA BRANDON HALL  -  21-09: *"Remove Brandon hall pop up on hero
  * image add this to awards"*.
  *
  * DE ONDE ELES VIERAM: do cartão da quina do herói (o `CyclingCredential`, que
  * a home deixou de renderizar no mesmo dia). O texto é o par escrito à mão que
- * o componente guarda como fallback — ver `components/CyclingCredential.tsx`,
+ * o componente guarda como fallback  -  ver `components/CyclingCredential.tsx`,
  * que continua vivo porque a /home-v3 ainda o usa.
  *
  * POR QUE ELES ABREM A RÉGUA, e não entram no fim da fila: são os únicos
  * prêmios recentes e GANHOS da lista. Dos cinco que já estavam aqui, três são
- * de 2008–2009 e eram "Finalist"/"Semi finalist" — foi exatamente isso que fez
+ * de 2008–2009 e eram "Finalist"/"Semi finalist"  -  foi exatamente isso que fez
  * a `HeroV2` recusar esta seção como credencial de primeira dobra, e o
  * comentário de lá continua registrando o argumento. Pôr os GOLD no fim seria
  * abrir a faixa por 2008 e fechar por 2024.
  *
  * A DISTINÇÃO "GOLD" APARECE, contra a regra dos outros cinco. Não é exceção
  * por gosto: o item 34 de 14-09 pediu para parar de anunciar COLOCAÇÃO
- * ("finalists", "semi-finalists") — *"even though that's what we were"*. "Gold"
+ * ("finalists", "semi-finalists")  -  *"even though that's what we were"*. "Gold"
  * é o oposto disso, é o prêmio ganho, e sem essa linha as duas entradas leem
  * como mais duas menções. O próprio comentário daquela mudança já previa este
  * caso ao explicar por que o campo `distinction` não foi apagado do tipo.
@@ -105,8 +105,8 @@ type Award = {
  * DE&I foi removido para o círculo sentar na faixa escura do mesmo jeito
  * que o de Talent Acquisition, que já veio com transparência.
  *
- * Os nomes visíveis seguem a faixa de cada selo — "Diversity, Equity and
- * Inclusion" e "Talent Acquisition" — e não os títulos longos do cartão do
+ * Os nomes visíveis seguem a faixa de cada selo  -  "Diversity, Equity and
+ * Inclusion" e "Talent Acquisition"  -  e não os títulos longos do cartão do
  * herói, que continuam escritos abaixo para ninguém achar que se perderam.
  *
  * ⚠️ OS NOMES LONGOS, do cartão do herói:
@@ -120,7 +120,7 @@ type Award = {
  * texto corrido. Aqui a célula tem ~169px de largura e o nome é centrado
  * embaixo do selo: os dois títulos inteiros dariam oito linhas cada, contra as
  * duas ou três dos outros cinco, e a fileira inteira cresceria para acomodá-los
- * — uma faixa de prêmios com um prêmio três vezes mais alto que os vizinhos
+ *  -  uma faixa de prêmios com um prêmio três vezes mais alto que os vizinhos
  * deixa de ser faixa.
  *
  * Nada se perdeu: o texto completo continua no CMS (segmento `ticker`) e no
@@ -187,19 +187,19 @@ export default function AwardsMentions({
    *
    * PROP, E NÃO ENTRADA FIXA NO ARRAY, pelo mesmo motivo do `maxWidthClass`
    * logo acima: esta faixa roda em quatro telas, e o pedido de 21-09 é sobre a
-   * HOME — foi de lá que a Brandon Hall saiu (o cartão do herói) e é para cá
+   * HOME  -  foi de lá que a Brandon Hall saiu (o cartão do herói) e é para cá
    * que ela foi. Ligar por padrão mexeria na /our-impact, na /home-v1 e na
    * /home-v3 sem ninguém ter pedido.
    *
-   * ⏳ SE A CDNA QUISER OS DOIS EM TODO LUGAR — e é plausível, porque a lista de
-   * prêmios inteira está para ser revista com a Ria (item 35 de 14-09) —, a
+   * ⏳ SE A CDNA QUISER OS DOIS EM TODO LUGAR  -  e é plausível, porque a lista de
+   * prêmios inteira está para ser revista com a Ria (item 35 de 14-09)  - , a
    * mudança é trocar este `false` por `true` e apagar a prop dos pontos de uso.
    */
   includeBrandonHall?: boolean;
   /**
    * Mostra o ano embaixo do nome.
    *
-   * A home desliga isto desde 22-09 — a Maliha pediu para tirar as datas da
+   * A home desliga isto desde 22-09  -  a Maliha pediu para tirar as datas da
    * faixa. Prop, e não um corte no dado: /our-impact, /home-v1 e /home-v3
    * continuam datando cada prêmio, e o `year` segue no tipo para o dia em
    * que a lista for revista com a Ria.
@@ -223,15 +223,15 @@ export default function AwardsMentions({
           scrollTrigger: { trigger: "[data-awards-band]", start: "top 85%", once: true },
         });
 
-        /* ⚠️ UM GATILHO SÓ, e não um por prêmio — 14-09. Enquanto eram cinco
+        /* ⚠️ UM GATILHO SÓ, e não um por prêmio  -  14-09. Enquanto eram cinco
            fileiras de largura cheia, cada uma entrava no viewport em momentos
            diferentes e precisava do próprio `ScrollTrigger`; a varredura em
            direções opostas (texto da esquerda, logo da direita) existia porque
            havia uma fileira inteira para atravessar.
 
            No banner os cinco logos estão LADO A LADO na mesma linha e entram na
-           tela juntos. Cinco gatilhos disparariam no mesmo instante — cinco
-           observadores fazendo o trabalho de um — e a varredura lateral não tem
+           tela juntos. Cinco gatilhos disparariam no mesmo instante  -  cinco
+           observadores fazendo o trabalho de um  -  e a varredura lateral não tem
            mais distância para correr. Vira um `stagger` da régua inteira, que é
            o movimento que uma faixa de logos pede: eles sobem em sequência, da
            esquerda para a direita. */
@@ -285,7 +285,7 @@ export default function AwardsMentions({
             className="text-[38px] font-bold leading-[1.05] tracking-[-1px] text-white sm:text-[44px] md:text-[52px]"
           >
             {/* On mobile the title breaks as "Awards and" / "Mentions", per the
-                design — so the break is explicit rather than left to wrapping. */}
+                design  -  so the break is explicit rather than left to wrapping. */}
             Awards
           </h2>
 
@@ -320,7 +320,7 @@ export default function AwardsMentions({
                   }`}
                 >
                   {a.logo ? (
-                    /* `alt=""` — DECORATIVO DE PROPÓSITO. O nome do prêmio está
+                    /* `alt=""`  -  DECORATIVO DE PROPÓSITO. O nome do prêmio está
                        escrito logo abaixo, em texto de verdade; com alt o leitor
                        de tela anunciaria "Women of the Future Awards logo" e, na
                        linha seguinte, "Women of the Future Awards". */
@@ -335,7 +335,7 @@ export default function AwardsMentions({
                     /* SELO TIPOGRÁFICO NO LUGAR DO LOGO QUE NÃO TEMOS.
                        A alternativa era deixar o buraco, e aí a célula perderia
                        os 96px de altura e desalinharia o nome dela em relação
-                       ao das vizinhas — a régua inteira ficaria torta por causa
+                       ao das vizinhas  -  a régua inteira ficaria torta por causa
                        de um arquivo faltando.
 
                        Um círculo com a distinção dentro, porque é o que um selo
@@ -354,11 +354,11 @@ export default function AwardsMentions({
                     de lá). Branco é a única cor de texto que passa nos dois.
 
                     ⚠️ A LINHA DE DISTINÇÃO SÓ SAI PARA QUEM PEDE. É o pedido do
-                    item 34 — era aqui que se lia "FINALIST 2008" nos cinco
+                    item 34  -  era aqui que se lia "FINALIST 2008" nos cinco
                     antigos. Os dois GOLD a mostram porque colocação e prêmio
                     ganho não são a mesma alegação; ver a caixa do
                     `BRANDON_HALL`. O ano fica no dado e sai na tela quando
-                    `showYear` está ligado — a home desliga desde 22-09. */}
+                    `showYear` está ligado  -  a home desliga desde 22-09. */}
                 {a.showDistinction ? (
                   <p className="mt-4 text-[11px] font-bold uppercase tracking-[2px] text-white">
                     {a.distinction}

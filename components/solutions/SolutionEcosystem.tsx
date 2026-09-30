@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import type { ServiceEcosystem } from "@/lib/services";
 
 /**
- * A FAIXA DO ECOSSISTEMA — o "How we work" do layout de Culture Transformation
+ * A FAIXA DO ECOSSISTEMA  -  o "How we work" do layout de Culture Transformation
  * (`docs/meetings/culture-transformation-24-09.jpeg`, 24-09).
  *
  * Três colunas sobre campo `ink`: à esquerda o rótulo, a manchete em serifa e o
@@ -16,7 +16,7 @@ import type { ServiceEcosystem } from "@/lib/services";
  * Nas outras nove páginas aquela região são DUAS peças empilhadas: o
  * `SolutionSection` de duas colunas e, logo abaixo dele, a fileira de `steps`,
  * `practices` ou `pillars`. No layout de Culture as duas dão lugar a esta faixa
- * única — o rótulo "How we work" é escrito AQUI DENTRO, e não acima.
+ * única  -  o rótulo "How we work" é escrito AQUI DENTRO, e não acima.
  *
  * Por isso `SolutionView` trata `ecosystem` como interruptor e não como bloco
  * extra: com ele, nem a seção nem a fileira renderizam. Um serviço que tivesse
@@ -27,11 +27,11 @@ import type { ServiceEcosystem } from "@/lib/services";
  * ============================================================================
  * A daily de 24-09 é explícita: *"o diagrama do ecossistema elas vão redesenhar
  * e mandar (ideia do sol no centro e planetas orbitando, sem cores infantis)"*.
- * Ou seja, o desenho que está no JPEG é a versão que elas mesmas recusaram —
+ * Ou seja, o desenho que está no JPEG é a versão que elas mesmas recusaram  - 
  * reproduzi-lo seria publicar o que foi pedido para trocar, e redesenhá-lo seria
  * fazer trabalho que já nasce descartado.
  *
- * Sem `diagram`, o meio da faixa é a CHAPA MARCADA — o mesmo recurso que a
+ * Sem `diagram`, o meio da faixa é a CHAPA MARCADA  -  o mesmo recurso que a
  * evidência usa desde 17-09, e pelo mesmo motivo: o furo tem de ser visível na
  * revisão com a cliente em vez de passar por acabamento. Ver a caixa de
  * `diagram` em `lib/services.ts`.
@@ -39,13 +39,13 @@ import type { ServiceEcosystem } from "@/lib/services";
  * ⚠️ O PLACEHOLDER É DESENHADO EM CSS, e não é um arquivo. A evidência aponta
  * para `/services/evidence/evidence.PLACEHOLDER.jpg` porque aquele slot é uma
  * FOTOGRAFIA e uma chapa cinza no lugar dela lê como foto que não carregou.
- * Aqui o slot é um diagrama — uma peça de traço sobre campo escuro —, e um JPEG
+ * Aqui o slot é um diagrama  -  uma peça de traço sobre campo escuro  - , e um JPEG
  * cinza no meio de uma faixa `ink` seria um retângulo claro pedindo para ser
  * confundido com conteúdo. O contorno tracejado diz "isto vai ser preenchido"
  * sem fingir ser nada.
  *
  * ⚠️ OS DEZ ELEMENTOS NÃO SAEM AQUI. Eles moram dentro do diagrama, e a
- * transcrição deles fica no dado — ver `elements` em `lib/services.ts`, que
+ * transcrição deles fica no dado  -  ver `elements` em `lib/services.ts`, que
  * explica por que a lista está guardada sem ser renderizada.
  */
 export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem }) {
@@ -54,25 +54,25 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
   return (
     /* `bg-ink`, medido no layout: a faixa é o único campo escuro do corpo desta
        página, entre a faixa branca dos cartões e a branca das provas. Na
-       sequência de fundos ela ocupa o lugar que nas outras páginas é `paper` —
+       sequência de fundos ela ocupa o lugar que nas outras páginas é `paper`  - 
        ver a lista em `SolutionView`. */
     <section className="bg-ink">
       <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         {/* A GRADE É 1,2 / 1,5 / 0,8. A esquerda ganhou um pouco contra o
             1 / 1,6 / 0,9 original para a segunda linha da manchete
-            ("Culture Ecosystem") caber inteira — a 42px ela mede ~378px, e a
+            ("Culture Ecosystem") caber inteira  -  a 42px ela mede ~378px, e a
             coluna antiga tinha 361. O diagrama continua sendo a coluna mais
             larga; a da direita continua a mais estreita.
 
             ⚠️ SÓ A PARTIR DE `lg`. Abaixo disso as três empilham na ordem do
-            DOM — texto, diagrama, comentário —, que é a ordem de leitura do
+            DOM  -  texto, diagrama, comentário  - , que é a ordem de leitura do
             layout. Tentar manter três colunas em tablet daria uma coluna de
             ~200px para um parágrafo de seis linhas. */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1.5fr_0.8fr] lg:gap-10">
           <div>
             {/* O MESMO RÓTULO DAS OUTRAS PÁGINAS, em `brand-light` e não em
                 `brand`: sobre `ink` o vermelho cheio dá 2,87:1 e não passa na
-                régua de 3:1 — a conta está no `globals.css`, e é a mesma regra
+                régua de 3:1  -  a conta está no `globals.css`, e é a mesma regra
                 que o herói aplica. */}
             <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
               How we work
@@ -143,14 +143,14 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
             {/* A RÉGUA VERMELHA PADRÃO (`h-0.5 w-9`), a mesma do `TypeLabel`,
                 EM CIMA do título e não ao lado: o pedido foi o traço acima de
                 "Ten planets. A stronger culture.". `brand-light` porque o fundo
-                é `ink` — a mesma regra de contraste do rótulo "How we work". */}
+                é `ink`  -  a mesma regra de contraste do rótulo "How we work". */}
             <span
               aria-hidden
               className="mb-4 block h-0.5 w-9 bg-brand-light"
             />
             {/* CAIXA ALTA E NÃO SERIFA, ao contrário da manchete da esquerda: no
                 layout as duas frases grandes desta faixa têm tratamentos
-                diferentes de propósito — a da esquerda é o título do bloco, esta
+                diferentes de propósito  -  a da esquerda é o título do bloco, esta
                 é uma legenda com voz de cartaz. */}
             <p className="text-[15px] font-bold uppercase leading-[1.45] tracking-[1.5px] text-white md:text-[16px]">
               {item.asideTitle}

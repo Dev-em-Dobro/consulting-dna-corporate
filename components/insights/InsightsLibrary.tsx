@@ -46,7 +46,7 @@ export default function InsightsLibrary({
       {/* Filter bar (per the reference): the two filled grey dropdowns.
           ⚠️ COM LARGURA MÁXIMA PRÓPRIA desde 12-09, quando a página passou de
           820px para 1440. Sem o limite, os dois selects esticavam 680px cada um
-          — um campo de escolher entre duas opções com a largura de meia tela,
+           -  um campo de escolher entre duas opções com a largura de meia tela,
           que lê como erro de layout. 560px mantém os dois com a proporção que
           tinham antes; o que cresceu foi a grade de cards, que é o que precisava
           crescer. */}

@@ -1,11 +1,11 @@
 /**
  * Countries where the firm operates, by ISO 3166 alpha-3 code (008 FR-610).
  * The world coverage map paints exactly these; edit this list to add/remove a
- * country — no image editing required. Codes with no matching map feature
+ * country  -  no image editing required. Codes with no matching map feature
  * (e.g. tiny city-states like Singapore, SGP, at this resolution) are skipped
  * safely by the map (FR-612).
  *
- * Seed list derived from the offices + the meeting's US/Canada note — replace
+ * Seed list derived from the offices + the meeting's US/Canada note  -  replace
  * with the firm's authoritative coverage list when provided.
  */
 export const COVERAGE_ISO3: string[] = [
@@ -14,7 +14,7 @@ export const COVERAGE_ISO3: string[] = [
   "GBR", // United Kingdom
   "ARE", // United Arab Emirates
   "SAU", // Saudi Arabia
-  "SGP", // Singapore (no polygon at this resolution — skipped)
+  "SGP", // Singapore (no polygon at this resolution  -  skipped)
 ];
 
 import world from "@/lib/world-countries.geo.json";
@@ -24,7 +24,7 @@ type CountryFeature = { id: string; properties: { name: string } };
 /**
  * Country name → ISO 3166 alpha-3, built from the map's OWN GeoJSON
  * (`feature.properties.name` → `feature.id`). Deriving it from the same data the
- * map paints means every one of the ~180 countries resolves automatically — no
+ * map paints means every one of the ~180 countries resolves automatically  -  no
  * hand-maintained table to fall behind the CMS.
  */
 const NAME_TO_ISO3: Record<string, string> = (() => {

@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     //
     // `noindex` e sem canonical: ela ficou fora do menu e fora do sitemap, e
     // duas páginas com o mesmo assunto disputando busca é o problema que
-    // canonical existe para evitar — aqui a resposta certa é a página não
+    // canonical existe para evitar  -  aqui a resposta certa é a página não
     // concorrer.
     robots: { index: false, follow: false },
   };
@@ -38,7 +38,7 @@ export const revalidate = 300;
  *
  * **Every block is deliberately empty.** The brief forbids inventing identity
  * claims, so each placeholder states what CDNA has to supply and any constraint
- * the brief puts on it — the London story has to sit inside the company story
+ * the brief puts on it  -  the London story has to sit inside the company story
  * rather than stand as an isolated founder quote, and the 5H is a reference here
  * with the full explanation staying on Our Approach.
  *
@@ -108,7 +108,7 @@ export default async function OurIdentityPage() {
       {/* ── Keeping Leadership Real ────────────────────────────────────
           Its own block, and under its own name. The brief lists it separately
           from Our Values, and item 1 makes "Keeping Leadership Real" the site's
-          primary proposition — the section used to be called "Keeping It Real",
+          primary proposition  -  the section used to be called "Keeping It Real",
           which no longer matches the headline the homepage now leads with. */}
       <section id="keeping-leadership-real" className="bg-paper">
         <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
@@ -128,7 +128,7 @@ export default async function OurIdentityPage() {
       {/* ── The 5H, as part of who we are ──────────────────────────────
           A reference, not the framework. "O 5H pode ser referenciado aqui como
           parte de who we are, mas a explicação completa permanece em Our
-          Approach" — so this block links across rather than repeating the
+          Approach"  -  so this block links across rather than repeating the
           explorer that lives there. */}
       <section id="five-h" className="bg-white">
         <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">
@@ -152,7 +152,7 @@ export default async function OurIdentityPage() {
       </section>
 
       {/* ── Why We Are Different ───────────────────────────────────────
-          The final language is being developed by Rhea, JP, Nitin and G — per
+          The final language is being developed by Rhea, JP, Nitin and G  -  per
           the 05-08 brief we hold a placeholder and do NOT invent the claim. */}
       <section id="why" className="bg-ink text-white">
         <div className="mx-auto max-w-[820px] px-6 py-16 md:px-10 md:py-20">

@@ -10,7 +10,7 @@ import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
 import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
-/* 23-09 (main): a foto da Rhea — golfe, tênis e futebol — substituiu o skyline
+/* 23-09 (main): a foto da Rhea  -  golfe, tênis e futebol  -  substituiu o skyline
    que a /about e a /services dividiam. Só nesta página; a padrão
    `service-hero-fallback.jpg` segue nas outras rotas do SolutionHero. */
 import heroPhoto from "@/public/hero/hero-services.jpeg";
@@ -25,13 +25,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * O índice de serviços — outline de 09-09, §3.1: "hero, then ten cards in a
+ * O índice de serviços  -  outline de 09-09, §3.1: "hero, then ten cards in a
  * grid", e uma faixa de parceiros embaixo.
  *
  * O QUE SAIU DAQUI. A versão anterior lia os cards do CMS (`SolutionBoxList`,
  * com o sistema de caixas pretas que o Guli desenhou em 29-08) e era liderada
  * pelo `outcome`. Os dez do outline não estão no CMS, então a lista agora vem de
- * `lib/services.ts` — a caixa de abertura daquele arquivo explica a troca.
+ * `lib/services.ts`  -  a caixa de abertura daquele arquivo explica a troca.
  *
  * O CARD LIDERA PELA BANNER STATEMENT, e não pelo outcome, porque é o que a
  * sub-linha promete: "Everyone starts with what is at stake for the business."
@@ -42,13 +42,13 @@ export async function generateMetadata(): Promise<Metadata> {
  * porque ele não estava errado: em três colunas a última fileira dos dez cards
  * ficaria com um card sozinho, e a medida mais larga de duas acomodava as banner
  * statements, que têm duas linhas em quase todas. A cliente pediu QUATRO na
- * daily, e quatro resolve o mesmo problema por outro caminho — 4 + 4 + 2 fecha
+ * daily, e quatro resolve o mesmo problema por outro caminho  -  4 + 4 + 2 fecha
  * a última fileira com um par, não com um órfão. O que se paga é a medida: ver
  * a caixa na própria grade.
  */
 /* ⚠️ VIROU `async` EM 23-09: as duas leituras abaixo vão ao Vercel Blob. A
    copy desta página vem de `/edit-services`, e a dos dez cards vem da tela
-   de cada serviço — o nome e o sub-título do card são os mesmos que abrem a
+   de cada serviço  -  o nome e o sub-título do card são os mesmos que abrem a
    página interna, e editá-los em dois lugares daria duas fontes para o mesmo
    texto. Ver `lib/service-pages-copy.ts`. */
 export default async function SolutionsPage() {
@@ -64,8 +64,8 @@ export default async function SolutionsPage() {
             rotas do SolutionHero. `object-center` porque o texto fica no
             lavado da esquerda e o arquivo é bem mais largo que a dobra.
 
-            O SKYLINE QUE ESTAVA AQUI — o mesmo da /about, pedido na daily de
-            14-09 — saiu com esta troca. O arquivo continua em
+            O SKYLINE QUE ESTAVA AQUI  -  o mesmo da /about, pedido na daily de
+            14-09  -  saiu com esta troca. O arquivo continua em
             `public/skyline-dna.jpg`, servindo a /about. */}
         {/* O wrapper existe pelo `id`: o <SolutionHero> não recebe um, e o
             script do guia visual do editor precisa de um alvo. */}
@@ -83,14 +83,14 @@ export default async function SolutionsPage() {
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel>{copy.whatWeDo.label}</TypeLabel>
             {/* O `Reveal` ESCALONA OS DEZ CARDS, um atrás do outro, porque eles
-                são filhos diretos dele — é para isso que o `stagger` do
+                são filhos diretos dele  -  é para isso que o `stagger` do
                 componente existe. Numa grade de dez, a entrada em cascata é o
                 que diferencia uma lista longa de um paredão que aparece
                 inteiro. */}
             {/* ⚠️ QUATRO COLUNAS DESDE 14-09, pedido da Maliha na daily (item
                 10): *"we want to do four four four going across... and then the
                 last two at the bottom."* São dez cards, então `grid-cols-4`
-                entrega 4 + 4 + 2 sozinho — a "última fileira com dois" é
+                entrega 4 + 4 + 2 sozinho  -  a "última fileira com dois" é
                 consequência da conta, não uma regra escrita à mão.
 
                 AS QUATRO SÓ VALEM DE `xl` PARA CIMA, e o `lg:grid-cols-2` que
@@ -104,7 +104,7 @@ export default async function SolutionsPage() {
                 ✅ AS IMAGENS DOS CARDS ENTRARAM EM 15-09 (item 12). Ela
                 respondeu *"use generic for now"*, então seis dos dez recebem as
                 banners fotográficas do site antigo e os quatro restantes caem no
-                campo de cor — a conta está em `cardImage`, em `lib/services.ts`.
+                campo de cor  -  a conta está em `cardImage`, em `lib/services.ts`.
 
                 ⚠️ OS DOIS ÚLTIMOS OCUPAM DUAS COLUNAS, e é o que fecha a
                 fileira. A fala dela foi "four four four going across and then
@@ -136,31 +136,31 @@ export default async function SolutionsPage() {
           </div>
         </section>
 
-        {/* PARCEIROS — §3.1 do outline, a faixa sob a grade.
+        {/* PARCEIROS  -  §3.1 do outline, a faixa sob a grade.
             ✅ AS DUAS MARCAS CHEGARAM EM 15-09, no pacote do Drive, e com isso o
-            §3.1 ("two partner marks left, copy right") fica cumprido — era o
+            §3.1 ("two partner marks left, copy right") fica cumprido  -  era o
             item 15 da daily, e a faixa vinha desde 11-09 só com a copy,
             guardando o lugar delas à esquerda.
 
             A PROCEDÊNCIA IMPORTA MAIS QUE O ARQUIVO. Nome de instituição é
             marca registrada com regra de uso própria, e a nota anterior aqui
             dizia que não se improvisa com imagem achada na internet. Estes dois
-            vieram DA CLIENTE, na pasta que ela mesma montou — ou seja, o aceite
+            vieram DA CLIENTE, na pasta que ela mesma montou  -  ou seja, o aceite
             de uso é dela, que é exatamente o que faltava. Se alguém trocar por
             um arquivo "melhor" achado fora, perde isso.
 
             O outline também pede que ela e a Home leiam "from one CMS partner
-            collection so the two pages cannot drift" — isso depende do tipo
+            collection so the two pages cannot drift"  -  isso depende do tipo
             `partnership` no CMS, que ainda espera a migração 0007. Enquanto não
             roda, o texto vive aqui. */}
         {/* ⚠️ NÃO PONHA O MURAL DE CLIENTES AQUI. Ele chegou a existir entre
-            esta faixa e a grade — as mesmas duas fileiras da home, lendo de
-            `lib/logos.ts` — e saiu em 11-09 por uma razão só: o §3.1 não pede.
+            esta faixa e a grade  -  as mesmas duas fileiras da home, lendo de
+            `lib/logos.ts`  -  e saiu em 11-09 por uma razão só: o §3.1 não pede.
             O outline lista herói, dez cards e a faixa de parceiros, e a página
             entrega isso.
 
             O argumento a favor era razoável (sem ele a página é dez cards de
-            texto e um parágrafo, sem prova de nada), e pode voltar — mas como
+            texto e um parágrafo, sem prova de nada), e pode voltar  -  mas como
             pedido ao cliente, não como decisão nossa. O mural é afirmação sobre
             clientes REAIS, e `lib/logos.ts` registra que cada nome ali é
             aprovação da CDNA, não mudança de código. Se voltar, que volte pelo
@@ -172,7 +172,7 @@ export default async function SolutionsPage() {
             `PartnersStrip`, que é o que a home ainda precisa); agora a faixa
             inteira vai de margem a margem em `bg-ink`, que é o escuro quente que
             as outras faixas escuras do site já usam (home §approach e §contact,
-            /about §purpose e §people) — "padrão das cores do site" é isto, e não
+            /about §purpose e §people)  -  "padrão das cores do site" é isto, e não
             um cinza neutro novo.
 
             O QUE MUDA JUNTO COM O FUNDO, e por quê:
@@ -181,7 +181,7 @@ export default async function SolutionsPage() {
                 corrido sobre `ink`. O `text-muted` (#6b6b6b) que estava aqui
                 dá ~2,9:1 sobre `ink` e não passa no AA; `white/80` dá ~9:1.
               • `TypeLabel onDark`, que troca `brand` por `brand-light` na régua
-                e na palavra — a regra do `globals.css`: `brand` em fundo claro
+                e na palavra  -  a regra do `globals.css`: `brand` em fundo claro
                 não é legível como texto sobre `ink` (2,87:1).
 
             A VIZINHANÇA CONTINUA COM DIVISA: acima é o `bg-paper` da grade de
@@ -194,7 +194,7 @@ export default async function SolutionsPage() {
                 1. Nasceu em DUAS COLUNAS com o título e as marcas à ESQUERDA e o
                    texto à direita (`md:grid-cols-[1fr_1.4fr]`), que é o que o
                    outline desenhava.
-                2. Foi para EMPILHADO a pedido — *"vamos colocar o titulo, texto
+                2. Foi para EMPILHADO a pedido  -  *"vamos colocar o titulo, texto
                    e logos um embaixo do outro"*.
                 3. E voltou a duas colunas, MAS ESPELHADO: *"tenta colocar os
                    logos na direita, e o texto na esquerda"*. É o arranjo de hoje.
@@ -203,7 +203,7 @@ export default async function SolutionsPage() {
               perdido: o TÍTULO FICOU COM O TEXTO. No arranjo original ele morava
               com as marcas, do outro lado da página do parágrafo que ele
               introduz. Agora rótulo, título e texto são uma coluna só, e as
-              marcas são a outra — que é a divisão que o conteúdo pede.
+              marcas são a outra  -  que é a divisão que o conteúdo pede.
 
               ⚠️ A MEDIDA DO TEXTO É A COLUNA, e não um `max-w` escrito à mão. A
               versão empilhada precisava de `max-w-[720px]` porque a linha inteira
@@ -227,7 +227,7 @@ export default async function SolutionsPage() {
                   duas marcas da versão anterior; o painel ao lado mostra cinco.
                   Ficou assim a pedido (*"pode deixar o texto como esta (…) o
                   texto eu peço pra ela depois"*), e é pendência de CONTEÚDO da
-                  cliente — escrever a frase de CLO100, YPO e Explore Performance
+                  cliente  -  escrever a frase de CLO100, YPO e Explore Performance
                   por conta própria seria inventar a natureza de três parcerias
                   reais. */}
               <div className="mt-6 space-y-5 font-serif text-[17px] leading-[1.7] text-white/80 md:text-[18px]">
@@ -243,19 +243,19 @@ export default async function SolutionsPage() {
                 similar layout to in partnership with as services page"*), e a
                 lista, as alturas por marca e o arranjo das fileiras foram para
                 `components/PartnersStrip.tsx`, que é o que as duas telas usam. O
-                raciocínio de cada decisão viajou junto e está lá — inclusive o
+                raciocínio de cada decisão viajou junto e está lá  -  inclusive o
                 tratamento que três das cinco marcas precisaram para viver no
                 escuro, que é alteração de marca de terceiro e não pode se perder.
 
                 ⚠️ AS FILEIRAS AGORA SÃO 2 + 3, E POR PEDIDO. Eram 3 + 2 por
                 acidente da largura: as cinco viviam num `flex-wrap` só e quebravam
-                onde a coluna mandava. Em 21-09 ela nomeou quem fica em cima —
-                *"Partners - HBI and Imperial college on row 1"* —, então a quebra
+                onde a coluna mandava. Em 21-09 ela nomeou quem fica em cima  - 
+                *"Partners - HBI and Imperial college on row 1"*  - , então a quebra
                 virou estrutura dentro do componente.
 
                 `tone="dark"` E SEM `label`: a seção inteira já é `bg-ink` (ver a
                 caixa na abertura da `<section>`), então os logos ficam direto
-                sobre ela, num tom só, que foi o pedido de 18-09 — *"tirar a cor
+                sobre ela, num tom só, que foi o pedido de 18-09  -  *"tirar a cor
                 de fundo dos logos"*. E o rótulo desta coluna seria um terceiro
                 cabeçalho: o `TypeLabel` e o `h2` ao lado já apresentam o bloco.
                 Na home é o contrário, e é para isso que as duas props existem. */}
@@ -265,7 +265,7 @@ export default async function SolutionsPage() {
 
         {/* A FAIXA DE CONVITE FALTAVA AQUI, e era a única página nova sem uma:
             as dez páginas de serviço fecham com ela, a home fecha no formulário,
-            a /about e a /team fecham no mapa — só o índice caía do bloco de
+            a /about e a /team fecham no mapa  -  só o índice caía do bloco de
             parceiros direto no rodapé.
 
             SEM PROPS, de propósito. Este é o convite COMPARTILHADO do site
@@ -275,7 +275,7 @@ export default async function SolutionsPage() {
             uma strapline para ele seria copy nossa numa página onde todo o
             resto é dele. */}
         {/* ⚠️ ERA `<SolutionCta />` SEM PROP NENHUMA, caindo nos padrões do
-            componente — a caixa acima explica por quê. Desde 23-09 as três
+            componente  -  a caixa acima explica por quê. Desde 23-09 as três
             partes vêm da copy, e os PADRÕES DELA são exatamente os do
             componente, transcritos em `lib/services-index-copy.ts`: enquanto
             a cliente não editar, esta faixa publica o mesmo que publicava.

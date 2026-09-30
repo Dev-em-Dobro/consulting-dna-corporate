@@ -1,7 +1,7 @@
 /**
- * /about-v2 — a About reorganizada, para o cliente aprovar. NÃO é o site.
+ * /about-v2  -  a About reorganizada, para o cliente aprovar. NÃO é o site.
  *
- * De onde vem: a Maliha mandou em 08-09 dois anexos — `CDNA_About_Page_Dev_Outline.docx`
+ * De onde vem: a Maliha mandou em 08-09 dois anexos  -  `CDNA_About_Page_Dev_Outline.docx`
  * (o "text breakdown": sete blocos, cada campo marcado FINAL ou HOLD) e uma
  * imagem de página inteira mostrando a ordem dos blocos. A imagem é referência
  * de ARRANJO, não de design: ela vem com header branco, cards arredondados e
@@ -9,7 +9,7 @@
  * blocos; a linguagem visual continua sendo a nossa (PageHero em `bg-ink`,
  * Eyebrow vermelho, régua vermelha, Counter, alternância white/paper).
  *
- * Onde o documento e a imagem discordam, o documento ganha — ele é a instrução
+ * Onde o documento e a imagem discordam, o documento ganha  -  ele é a instrução
  * escrita para o time de desenvolvimento. Dois casos:
  *   • Our Promise: a imagem põe o corpo em duas colunas; o texto pede "single
  *     column prose, narrower measure than the surrounding blocks".
@@ -23,7 +23,7 @@
  *
  * ⚠️ O documento também pede renomear rotas (/about, /services, /team,
  * /clients-impact, /contact, /books) com 301 das atuais. Isso NÃO está feito
- * aqui — é trabalho de redirects e sitemap, separado desta página, e foi
+ * aqui  -  é trabalho de redirects e sitemap, separado desta página, e foi
  * levantado com o cliente.
  */
 import { Fragment } from "react";
@@ -46,18 +46,18 @@ import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
-import heroPhoto from "@/public/skyline-dna.jpg";
+import heroPhoto from "@/public/about/about-hero-skyline.jpeg";
 import teamStairs from "@/public/team-stairs-about-six.jpg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
-   propósito — ver a caixa de comentário daquela seção. Mesmo arquivo que a
+   propósito  -  ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
 import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
 
 /* ────────────────────────────────────────────────────────────────────────────
-   TIPOGRAFIA — o teste de 09-09.
+   TIPOGRAFIA  -  o teste de 09-09.
 
    O problema, na palavra da Rhea: a Poppins do site é "quadrada demais". Ela é
-   uma geométrica — o `o` é um círculo, o `a` não tem cauda —, e no peso 700 que
+   uma geométrica  -  o `o` é um círculo, o `a` não tem cauda  - , e no peso 700 que
    esta página usa em todo título isso lê como bloco. A referência que ela
    aprovou (Explore Performance) faz o oposto: título em grotesca de peso MÉDIO,
    corpo em serifa. O contraste entre os dois é o que dá ar editorial em vez de
@@ -65,7 +65,7 @@ import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
 
    Daí o par:
      • GEIST para títulos, rótulos, números e botões. Grotesca neo, terminais
-       retos, `a` e `g` com cauda — a mesma família de desenho da referência,
+       retos, `a` e `g` com cauda  -  a mesma família de desenho da referência,
        livre e no Google Fonts.
      • SOURCE SERIF 4 para corpo, legendas e as linhas de apoio. É a mesma
        escolha já feita na /home-v2 pelo mesmo motivo: a Explore usa
@@ -73,14 +73,14 @@ import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
        mais próximo em desenho e em altura de x.
 
    PESOS. 400/500/600 são os da grade. O 700 entra por causa dos componentes
-   COMPARTILHADOS que caem dentro desta árvore e não foram reescritos — o
+   COMPARTILHADOS que caem dentro desta árvore e não foram reescritos  -  o
    SiteFooter e o WorldCoverageMap ainda pedem `font-bold`. Sem o 700 carregado
    o navegador engorda o 600 sozinho, e negrito sintético em grotesca fica sujo.
 
    CARREGADAS AQUI, e não no layout, pelo mesmo motivo da serifa da /home-v2:
    nenhuma página real pode baixar duas famílias por causa de uma proposta.
 
-   ONDE A GRADE NÃO FOI SEGUIDA À RISCA — três lugares, todos por medida, todos
+   ONDE A GRADE NÃO FOI SEGUIDA À RISCA  -  três lugares, todos por medida, todos
    anotados no ponto de uso:
      1. h3 de card a 28px. Vale para título de UMA palavra (os escritórios), e
         quebra em três linhas nos pilares e nos valores, cujos títulos são
@@ -101,7 +101,7 @@ const serif = Source_Serif_4({
   subsets: ["latin"],
   /* 500 entrou com a inversão de 09-09: os títulos de card, que passaram para a
      serifa, usam `font-medium`. Sem ele o navegador engorda o 400 sozinho, e
-     negrito sintético em serifa é pior que em grotesca — as hastes finas
+     negrito sintético em serifa é pior que em grotesca  -  as hastes finas
      engrossam junto com as grossas e o desenho perde o contraste que define a
      família. */
   weight: ["400", "500", "600"],
@@ -120,15 +120,15 @@ export async function generateMetadata(): Promise<Metadata> {
     // porque a página de verdade era `/our-identity`. Agora esta É a página de
     // verdade, e as duas linhas abaixo mudaram juntas de propósito:
     //
-    //   • entra o `alternates`, que faltava — sem canonical próprio a página
+    //   • entra o `alternates`, que faltava  -  sem canonical próprio a página
     //     não tem como se declarar a versão boa de si mesma.
     //   • sai o `robots: noindex`. Ele não podia ficar: `/about` entrou no
     //     `sitemap.ts` no mesmo commit, e sitemap dizendo "indexe" com a página
-    //     dizendo "não indexe" é pior que qualquer um dos dois sozinho — é
+    //     dizendo "não indexe" é pior que qualquer um dos dois sozinho  -  é
     //     sinal contraditório, e o Google resolve contra a gente.
     //
     // O que sustenta a decisão: o `robots.ts` do site libera tudo menos `/v1` e
-    // `/preview/`, e o domínio real ainda serve o WordPress antigo — o que está
+    // `/preview/`, e o domínio real ainda serve o WordPress antigo  -  o que está
     // exposto é um endereço `vercel.app`. Quem for revisar antes do lançamento,
     // revise por lá.
     alternates: localeAlternates("/about"),
@@ -139,7 +139,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export const revalidate = 300;
 
 /* ────────────────────────────────────────────────────────────────────────────
-   Conteúdo do outline de 08-09. Tudo abaixo é transcrição — nada foi escrito
+   Conteúdo do outline de 08-09. Tudo abaixo é transcrição  -  nada foi escrito
    por nós. O que está marcado HOLD no documento leva comentário no lugar.
 
    Estes arrays vivem na página, e não em `lib/`, de propósito: enquanto isto
@@ -148,15 +148,15 @@ export const revalidate = 300;
 
 /**
  * Block 1, faixa de estatísticas. FINAL no documento, com uma ressalva: o `36`
- * aparecia como `[36] countries`, entre colchetes — número pendente de
+ * aparecia como `[36] countries`, entre colchetes  -  número pendente de
  * confirmação, junto com o "over 75 senior practitioners" do bloco de regiões
- * (que virou "60+" em 17-09 — ver a caixa lá).
+ * (que virou "60+" em 17-09  -  ver a caixa lá).
  *
  * ✅ OS TRÊS PRIMEIROS FORAM CONFIRMADOS NA DAILY DE 17-09, e é essa a origem
  * dos números de hoje: *"trocar todas as menções de 18 years para 19 years /
  * trocar 36 países para 5 regions / trocar 1,000 leaders para 10 000+."* O
  * `[36]` entre colchetes deixou de existir porque a resposta não foi um número
- * de países — foi trocar a UNIDADE: a firma conta alcance por REGIÃO, que é a
+ * de países  -  foi trocar a UNIDADE: a firma conta alcance por REGIÃO, que é a
  * mesma unidade do bloco 6 desta página e não colide mais com "across five
  * regions" no rótulo, que por isso saiu.
  *
@@ -187,7 +187,7 @@ export const revalidate = 300;
  *
  * O DESENHO segue a referência: contorno, sem preenchimento, canto e junta
  * arredondados, traço de 1,5 num quadro de 24. `stroke="currentColor"` para a
- * cor vir do `text-brand` do container e não ficar cravada aqui — é assim que
+ * cor vir do `text-brand` do container e não ficar cravada aqui  -  é assim que
  * um `hover` ou uma versão em fundo claro continuam funcionando sem tocar no
  * path. `aria-hidden`: o ícone repete o que o número ao lado já diz.
  */
@@ -201,7 +201,7 @@ function StatIcon({ name }: { name: string }) {
     ),
     /* O meridiano é um <ellipse> e não um <path> curvo escrito à mão. A
        primeira versão tentava desenhar a elipse com dois arcos em `d` e saía
-       uma amêndoa torta — arco de Bézier com raios desiguais é fácil de errar
+       uma amêndoa torta  -  arco de Bézier com raios desiguais é fácil de errar
        e impossível de conferir lendo o atributo. `rx`/`ry` diz a mesma coisa
        sem margem para erro. */
     globe: (
@@ -249,18 +249,18 @@ function StatIcon({ name }: { name: string }) {
  * Block 5, os cinco valores. Os corpos são FINAL; o documento diz que três dos
  * cinco NOMES estão em HOLD ("shown in brackets, pending confirmation") e pede
  * que os nomes sejam campos de CMS para trocar sem deploy. O documento não
- * marca quais três — a tabela dele traz os cinco sem colchete.
+ * marca quais três  -  a tabela dele traz os cinco sem colchete.
  *
  * ✅ O PEDIDO DO HOLD FOI ATENDIDO EM 23-09, sem CMS: nome e corpo dos cinco
  * estão em `lib/about-copy.ts` (`values.items`) e a cliente troca os dois em
- * `/edit-about`, sem deploy — que era o que "campo de CMS" queria dizer ali.
+ * `/edit-about`, sem deploy  -  que era o que "campo de CMS" queria dizer ali.
  *
  * ⚠️ O QUE NÃO ENTROU NO EDITOR É O ÍCONE, e a lista abaixo é o motivo: `icon`
  * nunca foi texto, é uma CHAVE para um desenho que existe neste arquivo. A
  * caixa do `ValueIcon` já previa que, virando campo aberto, um valor novo sairia
  * sem ícone e ninguém descobriria. A solução aqui é a mesma da faixa de números:
  * casar POR POSIÇÃO. Reordenar os cinco valores no editor reordena nome e texto,
- * e os ícones ficam onde estão — o que é o comportamento certo enquanto lâmpada,
+ * e os ícones ficam onde estão  -  o que é o comportamento certo enquanto lâmpada,
  * folha, par, alvo e escudo forem genéricos o bastante para qualquer valor.
  */
 const VALUE_ICONS = ["bulb", "leaf", "pair", "target", "shield"];
@@ -272,19 +272,19 @@ const VALUE_ICONS = ["bulb", "leaf", "pair", "target", "shield"];
  * dizia "sem os ícones da imagem: não existe esse jogo de ícones no site, e os
  * campos de CMS do outline são { name, body }, sem ícone". Era verdade e deixou
  * de ser: o cliente pediu os ícones em 09-09, e a referência da Maliha
- * (`docs/rhea-feedback/about-pagina-inteira.jpeg`) já os trazia — lâmpada,
+ * (`docs/rhea-feedback/about-pagina-inteira.jpeg`) já os trazia  -  lâmpada,
  * folha, duas pessoas, alvo e escudo, nessa ordem. Os desenhos abaixo seguem a
  * referência dela, um a um.
  *
  * FICA O EFEITO NO CMS: `{ name, body }` vira `{ name, body, icon }`, e `icon`
- * não é texto livre — é uma chave para um desenho que existe aqui dentro. Se
+ * não é texto livre  -  é uma chave para um desenho que existe aqui dentro. Se
  * esta página for aprovada, o campo tem de virar uma LISTA FECHADA no CMS, não
  * um campo aberto, senão um valor novo cadastrado pela Rhea sai sem ícone
  * nenhum e ninguém descobre até alguém abrir a página.
  *
  * DESENHADOS À MÃO pelo mesmo motivo do StatIcon, lá em cima: o site não tem
  * biblioteca de ícones, e agora são NOVE desenhos nesta página. Nove já é o
- * número em que vale a conversa sobre adotar um set de verdade — o comentário
+ * número em que vale a conversa sobre adotar um set de verdade  -  o comentário
  * do StatIcon previa exatamente este momento. Não instalei nada porque a rota
  * ainda é proposta `noindex`, e uma dependência no `package.json` do site
  * inteiro por causa dela continua sendo o negócio errado.
@@ -295,7 +295,7 @@ const VALUE_ICONS = ["bulb", "leaf", "pair", "target", "shield"];
  */
 function ValueIcon({ name }: { name: string }) {
   const paths: Record<string, React.ReactNode> = {
-    /* Lâmpada com raios. O bulbo é UM path só — a primeira versão era um
+    /* Lâmpada com raios. O bulbo é UM path só  -  a primeira versão era um
        <circle> com o gargalo desenhado por baixo, e sobrava um vão de ~1px de
        cada lado porque a corda do círculo naquela altura é mais estreita que o
        gargalo. Path único não tem emenda para desalinhar. */
@@ -315,7 +315,7 @@ function ValueIcon({ name }: { name: string }) {
     /* Duas pessoas SIMÉTRICAS, e não o par assimétrico do `people` da faixa de
        números lá em cima. Os dois ícones dizem "pessoas" e aparecem na mesma
        página; se fossem o mesmo desenho, a repetição leria como descuido. Aqui
-       a simetria também é o conteúdo — "relationship centricity" é mútuo. */
+       a simetria também é o conteúdo  -  "relationship centricity" é mútuo. */
     pair: (
       <>
         <circle cx="8.2" cy="8.4" r="2.7" />
@@ -353,7 +353,7 @@ function ValueIcon({ name }: { name: string }) {
       strokeLinejoin="round"
       /* 30px, contra os 26px do StatIcon. Os dois são o mesmo desenho de
          traço, mas fazem trabalhos diferentes: na faixa de números o ícone é
-         subordinado — ele acompanha um número que é o assunto —, e aqui ele
+         subordinado  -  ele acompanha um número que é o assunto  - , e aqui ele
          ABRE o card, é a primeira coisa que o olho encontra em cada coluna. Na
          referência da Maliha ele tem cerca de uma vez e meia a altura do título;
          30px contra um título de 20px é essa proporção. */
@@ -365,7 +365,7 @@ function ValueIcon({ name }: { name: string }) {
 }
 
 /**
- * Block 6, os escritórios — endereço, telefone e e-mail como o documento pede.
+ * Block 6, os escritórios  -  endereço, telefone e e-mail como o documento pede.
  * O conteúdo mora em `lib/about-copy.ts` (`offices`) desde 23-09.
  *
  * ⚠️ A LISTA É DESTA PÁGINA, e NÃO `lib/offices.ts`. Três dos registros
@@ -377,7 +377,7 @@ function ValueIcon({ name }: { name: string }) {
  *     abaixo, diz que Dubai "has no contact details published anywhere".
  *   • Miami: o documento não traz telefone; o site publica +1 305-374-4611.
  * Escrever isso em `lib/offices.ts` mudaria a home e a Our Team sem ninguém ter
- * confirmado qual versão está certa. Fica separado até o cliente decidir — e
+ * confirmado qual versão está certa. Fica separado até o cliente decidir  -  e
  * agora a cliente pode corrigir os cinco sozinha, o que é a rota mais curta
  * para essa decisão sair do limbo.
  */
@@ -401,24 +401,24 @@ function splitLastWord(text: string): [string, string] {
 /**
  * Block 6, as regiões. Os NOMES são FINAL; os descritores eram HOLD ("one line
  * descriptor per region, max 120 characters") e os textos publicados são os que
- * aparecem na própria imagem da Maliha — placeholder do cliente, não copy
+ * aparecem na própria imagem da Maliha  -  placeholder do cliente, não copy
  * nossa. O documento pedia que virassem campo de CMS; desde 23-09 eles estão em
  * `lib/about-copy.ts` (`regions.items`) e a cliente os troca em `/edit-about`.
  *
- * ⚠️ "GCC & Middle East" VIROU "Middle East & North Africa" EM 17-09 — *"na
+ * ⚠️ "GCC & Middle East" VIROU "Middle East & North Africa" EM 17-09  -  *"na
  * seção 'Where we work.' trocar GCC & Middle East para Middle East and North
  * Africa."* Não é sinônimo: a região deixou de ser o Golfo com o Oriente Médio
  * em volta e passou a ser MENA, que estende para o norte da África. O descritor
  * acompanhou, senão a linha de baixo continuaria dizendo "GCC".
  */
-/* AS FOTOS DAS REGIÕES, por posição na lista da copy — 23-09 (main): as mesmas
+/* AS FOTOS DAS REGIÕES, por posição na lista da copy  -  23-09 (main): as mesmas
    de `public/team/mock` que ilustravam estas colunas (Miami, Londres, Dubai,
    Singapura). Arte não é copy: a cliente troca o texto da região em
    `/edit-about`, e a foto continua vindo daqui.
 
-   Ú A DE CINGAPURA SAIU DO `mock` — 23-09, fim do dia: o usuário mandou uma
+   Ú A DE CINGAPURA SAIU DO `mock`  -  23-09, fim do dia: o usuário mandou uma
    foto de Marina Bay e ela virou `public/about/regions/singapore.jpg`, servida
-   a 1600×1280 e 203 KB (o original tinha 7074×4716 e 18,7 MB — pôr isso no
+   a 1600×1280 e 203 KB (o original tinha 7074×4716 e 18,7 MB  -  pôr isso no
    repositório seria 90× o peso para a mesma imagem na tela). A pasta nova diz
    o que o nome antigo mentia: esta não é imagem de placeholder de time, é arte
    da /about. As outras três seguem no `mock` até chegarem as definitivas. */
@@ -430,15 +430,15 @@ function splitLastWord(text: string): [string, string] {
    decapitava o hotel. Os valores abaixo põem o assunto no meio da janela:
 
      miami      15%  a villa mora no terço de cima; embaixo só há jardim
-     london      0%  a ponte já começa no topo do arquivo — qualquer valor
+     london      0%  a ponte já começa no topo do arquivo  -  qualquer valor
                      maior que zero come a torre da esquerda
      dubai      40%  a faixa de prédios fica no meio, entre o sol e a água
      singapore  50%  IRRELEVANTE, e de propósito: este arquivo já é 5/4, a
                      proporção exata da moldura, então não sobra nada para o
-                     `object-position` escolher. É o caminho mais limpo — quem
+                     `object-position` escolher. É o caminho mais limpo  -  quem
                      enquadra é o corte do arquivo, não o CSS
 
-   Trocar uma foto sem revisar o `y` dela devolve o problema — os dois andam
+   Trocar uma foto sem revisar o `y` dela devolve o problema  -  os dois andam
    juntos. Para calibrar: suba o valor se o assunto estiver baixo demais na
    janela, desça se estiver alto demais. */
 const REGION_IMAGES = [
@@ -450,7 +450,7 @@ const REGION_IMAGES = [
 
 /* AS CIDADES DE UMA REGIÃO saem do campo `offices` da copy ("Miami", "Dubai and
    Riyadh"), que é o que a cliente edita. A coluna usa a lista para achar o
-   endereço correspondente em `copy.offices` — se ela renomear uma cidade num
+   endereço correspondente em `copy.offices`  -  se ela renomear uma cidade num
    lugar e não no outro, a coluna simplesmente não mostra aquele endereço, que é
    melhor que quebrar a página. */
 const regionCities = (offices: string) =>
@@ -458,10 +458,10 @@ const regionCities = (offices: string) =>
 
 export default async function AboutV2Page() {
   const [nav, copy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
-  /* O ícone casa com o número POR POSIÇÃO — ver a caixa do bloco 1 acima. */
+  /* O ícone casa com o número POR POSIÇÃO  -  ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
   return (
-    /* SEM <SiteShell> — e essa é a razão de o shell estar montado à mão aqui.
+    /* SEM <SiteShell>  -  e essa é a razão de o shell estar montado à mão aqui.
        O SiteShell embute a NavV1: barra vermelha, `sticky`, ocupando 76px do
        fluxo. O pedido de 08-09 foi o menu SEM FUNDO sobre o herói, como na
        /home-v2, e isso é a NavV2: `absolute`, transparente, flutuando sobre a
@@ -477,7 +477,7 @@ export default async function AboutV2Page() {
        AS FONTES SÃO TROCADAS AQUI, numa linha, e não classe por classe.
        `font-sans` na Tailwind v4 resolve `var(--font-sans)`; redeclarar essa
        variável NESTE elemento faz a própria classe pegar a Geist, e a família
-       herda para a árvore inteira — inclusive para a NavV2, o SiteFooter e o
+       herda para a árvore inteira  -  inclusive para a NavV2, o SiteFooter e o
        mapa, que continuam sem saber que existe fonte nova. O mesmo vale para
        `--font-serif`: quem escrever `font-serif` daqui para baixo recebe a
        Source Serif 4, e as aspas vermelhas dos dois blocos de citação, que já
@@ -502,7 +502,7 @@ export default async function AboutV2Page() {
            Enquanto esta rota era `/about-v2`, o item "About" do menu apontava
            para `/our-identity` e a marcação de item ativo precisava ser forçada
            à mão. Agora a rota e o `href` do menu são o mesmo `/about`, então o
-           casamento acontece sozinho — era o que o comentário anterior previa. */
+           casamento acontece sozinho  -  era o que o comentário anterior previa. */
       />
       <main className="flex-1">
       <JsonLd
@@ -514,14 +514,14 @@ export default async function AboutV2Page() {
           UMA seção só, de tela cheia, pedido em 08-09: "a hero e a parte com os
           números ocupando 100vh". Os três pedaços já eram `bg-ink` e liam como
           uma faixa escura só; agora são de fato um bloco, com a foto atrás dos
-          três e o espaço livre distribuído entre eles — breadcrumb no topo, o
+          três e o espaço livre distribuído entre eles  -  breadcrumb no topo, o
           título no meio, os números na base.
 
-          ALTURA: `min-h-[84svh]` com `pt-[76px]` — eram 100svh cheios até 17-09.
+          ALTURA: `min-h-[84svh]` com `pt-[76px]`  -  eram 100svh cheios até 17-09.
             • Era `calc(100svh-76px)` enquanto o menu era a NavV1 `sticky`, que
               OCUPA lugar no fluxo: descontar a barra era o que impedia a faixa
               dos números de cair abaixo da dobra. Com a NavV2, que é `absolute`
-              e flutua POR CIMA, não há nada a descontar — se o desconto tivesse
+              e flutua POR CIMA, não há nada a descontar  -  se o desconto tivesse
               ficado, sobrariam 76px de branco no fim da dobra.
             • O `pt-[76px]` substitui o desconto: ele não muda a altura total
               (a caixa é `border-box`), só impede que o eyebrow nasça debaixo do
@@ -530,11 +530,11 @@ export default async function AboutV2Page() {
               barra de endereço retraída: a base do bloco fica escondida atrás
               do navegador até o usuário rolar.
           É `min-h`, não `h`: no telefone os quatro números empilham em quatro
-          linhas e não cabem em uma tela — aí o bloco cresce e rola, em vez de
+          linhas e não cabem em uma tela  -  aí o bloco cresce e rola, em vez de
           cortar conteúdo.
 
           ⚠️ OS 100svh VIRARAM 84svh EM 17-09, mesmo pedido que encolheu o
-          `SolutionHero` das outras rotas — ver a caixa de lá, que é onde o
+          `SolutionHero` das outras rotas  -  ver a caixa de lá, que é onde o
           porquê está escrito por inteiro. O caso desta página é o mais forte
           dos treze: aqui a dobra cheia termina justamente na faixa de números,
           que é um FIM visual convincente (régua, quatro blocos, base da foto), e
@@ -542,21 +542,21 @@ export default async function AboutV2Page() {
           84svh, a foto do time assoma na base e desmente esse fim.
 
           A ARTE é a que a Maliha mandou em 08-09 (`public/skyline-dna.jpg`): o
-          skyline montado — Big Ben, Marina Bay, Burj Khalifa, Kingdom Centre —
+          skyline montado  -  Big Ben, Marina Bay, Burj Khalifa, Kingdom Centre  - 
           com a hélice de DNA atravessando o céu. Ela é a imagem definitiva da
           seção, não mais o placeholder da home V2, e desde 14-09 é também o
           herói da /services, a pedido dela. Uma ressalva de arquivo está
           anotada no <Image> logo abaixo. */}
       {/* `id` posto em 23-09 para o script do guia visual do editor saber
           fotografar esta dobra (`scripts/edit-page-guide-shots.mjs`). Não é
-          âncora de navegação — o menu não aponta para cá. */}
+          âncora de navegação  -  o menu não aponta para cá. */}
       <section id="about-hero" className="relative isolate flex min-h-[84svh] flex-col overflow-hidden bg-ink pt-[76px] text-white">
         {/* ✅ A RECOMPRESSÃO DO WHATSAPP SAIU EM 15-09. O que estava aqui era
             a `about-hero.jpeg`, 229 KB de JPEG que o WhatsApp já havia
             recomprimido: céu em blocos e os pontos da hélice empastados. O
             pacote do Drive daquele dia trouxe o PNG de origem (2,2 MB), que
             virou `public/skyline-dna.jpg` com uma compressão só, em q90. O nome
-            mudou de propósito — trocar os bytes mantendo a URL não adianta
+            mudou de propósito  -  trocar os bytes mantendo a URL não adianta
             contra o cache longo do `/_next/image`. A `about-hero.jpeg` fica no
             repositório ao lado, para comparar e para voltar atrás numa linha.
 
@@ -572,7 +572,7 @@ export default async function AboutV2Page() {
                pendente com a Maliha.
 
             2. PROPORÇÃO. É 1,2:1, quase quadrada, contra uma dobra de ~1,9:1.
-               Essa diferença é o motivo de a imagem NÃO ser de sangria total —
+               Essa diferença é o motivo de a imagem NÃO ser de sangria total  - 
                ver a caixa logo abaixo. */}
 
         {/* A IMAGEM NÃO OCUPA A LARGURA TODA: ela vive numa caixa de 72% presa
@@ -583,7 +583,7 @@ export default async function AboutV2Page() {
 
               Com `fill` + `object-cover` de sangria total, a imagem é escalada
               PELA LARGURA (o arquivo é mais "gordo" que a caixa). Aí não sobra
-              folga horizontal nenhuma — o corte é 100% vertical, e mexer no eixo
+              folga horizontal nenhuma  -  o corte é 100% vertical, e mexer no eixo
               X do `object-position` não move absolutamente nada no desktop. Foi
               o que travou a primeira tentativa de descentralizar a torre.
 
@@ -598,7 +598,7 @@ export default async function AboutV2Page() {
               28 + 0,72x0,51 = ~65% da largura da dobra, à direita do centro,
               como na referência.
 
-            NO TELEFONE A CAIXA É OUTRA — refeito em 09-09, quando o pedido foi
+            NO TELEFONE A CAIXA É OUTRA  -  refeito em 09-09, quando o pedido foi
             "a torre bem centralizada e mais pra baixo pra não atrapalhar a
             leitura". A caixa antiga era `inset-y-0 w-full`: sangria total, foto
             atrás de tudo, e o "mais pra baixo" era impossível de atender.
@@ -608,7 +608,7 @@ export default async function AboutV2Page() {
             390x1100 a caixa tem proporção 0,35:1 contra 1,2:1 do arquivo, então
             o `object-cover` escala PELA ALTURA: a imagem sai com 1321px de
             largura dentro de uma caixa de 390px. São 931px de folga horizontal e
-            ZERO de folga vertical — o corte é 100% horizontal, e mexer no eixo Y
+            ZERO de folga vertical  -  o corte é 100% horizontal, e mexer no eixo Y
             do `object-position` não move nada. No desktop é ao contrário. Em
             ambos os casos a saída não é o `object-position`: é mudar a caixa.
 
@@ -617,11 +617,11 @@ export default async function AboutV2Page() {
 
             • "MAIS PRA BAIXO": a foto simplesmente começa depois do texto. O
               título, o rótulo e a linha de apoio passam a viver sobre `ink`
-              limpo, sem nada por baixo — que é a leitura mais confortável que
+              limpo, sem nada por baixo  -  que é a leitura mais confortável que
               existe, e não custa nenhum escurecimento.
             • "BEM CENTRALIZADA": com a caixa mais baixa (390x705, proporção
               0,55:1) a escala ainda é pela altura, então o eixo X continua sendo
-              o que manda — e agora ele pode ir para `50%`, centralizando a
+              o que manda  -  e agora ele pode ir para `50%`, centralizando a
               torre, porque não há mais texto disputando aquele espaço. Era o
               `62%` que a empurrava para o lado, e ele existia justamente para
               fugir do texto.
@@ -629,20 +629,20 @@ export default async function AboutV2Page() {
             A foto continua inteira e visível: ela ganhou dois terços da dobra
             só para si, em vez de ficar atrás de tudo com o texto por cima.
 
-            ⚠️ "INTEIRA" ERA O PROBLEMA — corrigido em 10-09, a pedido ("a foto
+            ⚠️ "INTEIRA" ERA O PROBLEMA  -  corrigido em 10-09, a pedido ("a foto
             teria que aparecer mais, talvez até dar um leve zoom na torre").
 
             O que a medição mostrou: mostrar o arquivo inteiro num telefone é
             desperdício, porque o arquivo tem 23% de ÁGUA na base e um terço de
             céu vazio no topo. Medido em 390x844, com `ink` (#373234) valendo
-            luminância 52 — ou seja, "52 = fundo chapado, sem imagem nenhuma":
+            luminância 52  -  ou seja, "52 = fundo chapado, sem imagem nenhuma":
 
               y 304–420  topo da foto (céu vazio)  → compositava a 48–51
               y 430–620  a hélice de DNA           → 73–101
               y 680–844  água / reflexo            → 49–55
 
             Das duas pontas saía a MESMA COISA que pintar a cor de fundo. Dos
-            540px de caixa, ~190px carregavam imagem visível — e eram os 190px
+            540px de caixa, ~190px carregavam imagem visível  -  e eram os 190px
             mais vazios do arquivo. O `object-position` não resolve, pelo motivo
             já escrito acima: no telefone o eixo Y não tem folga nenhuma.
 
@@ -650,12 +650,12 @@ export default async function AboutV2Page() {
             passou a viver num wrapper de 172,4% de altura (1/0,58) deslocado
             24,1% para cima, dentro de uma caixa `overflow-hidden`. Isso recorta
             a janela do arquivo em 14%–72%: fora o céu morto, fora a água,
-            dentro a hélice e a torre. Percentagem pura, sem JS — o `top` em %
+            dentro a hélice e a torre. Percentagem pura, sem JS  -  o `top` em %
             resolve contra a altura do bloco continente, que é a caixa.
 
             O QUE O ZOOM CUSTA, e não é pouco: recorte come resolução. A largura
             de render no telefone sobe de 647px para 1117px contra um arquivo de
-            1373px. Num telefone DPR 3 isso pede 3351px e temos 1373 — upscale
+            1373px. Num telefone DPR 3 isso pede 3351px e temos 1373  -  upscale
             de 2,44x, contra 1,41x antes. Nos screenshots de revisão (DPR 1) não
             aparece; num iPhone de verdade vai amolecer. A arte é escura,
             monocromática e granulada, o que perdoa bastante, mas isto promove
@@ -664,7 +664,7 @@ export default async function AboutV2Page() {
 
             A DOSE É A LEVE, e o teto tem motivo. Testados 58% (leve), 50%
             (médio) e 44% (forte) de janela. Do médio para cima a hélice sai do
-            quadro e sobra uma torre sozinha — que é trocar a imagem DESTA
+            quadro e sobra uma torre sozinha  -  que é trocar a imagem DESTA
             empresa por uma foto de banco de imagens. A hélice é o motivo de o
             arquivo existir; ela é o teto do zoom, não o enquadramento da torre.
 
@@ -674,8 +674,8 @@ export default async function AboutV2Page() {
 
             O TEXTO NÃO ENCOLHE COM A TELA. O bloco da mensagem é ancorado no
             topo (`items-start` + `pt-16`), então o rótulo, o h1 e a linha de
-            apoio caem SEMPRE nos mesmos y — h1 em 174–253, linha de apoio em
-            273–326 — em qualquer altura de telefone. A caixa em percentagem,
+            apoio caem SEMPRE nos mesmos y  -  h1 em 174–253, linha de apoio em
+            273–326  -  em qualquer altura de telefone. A caixa em percentagem,
             não: em 844 ela começava em 304 (22px depois do texto, tudo bem) e
             em 667 começava em 240, ou seja 86px ANTES de o texto acabar. A
             linha de apoio inteira caía em cima da foto.
@@ -690,12 +690,12 @@ export default async function AboutV2Page() {
 
             344px = os 326 onde o texto acaba + 18 de folga. Em 844 a foto
             começa 40px mais abaixo do que começava (500px de caixa em vez de
-            540) e o brilho medido dela cai de 111 para 90 — ainda 23% acima dos
+            540) e o brilho medido dela cai de 111 para 90  -  ainda 23% acima dos
             73 de antes. É a troca certa: 21 pontos de brilho num telefone
             grande valem menos que uma linha de apoio ilegível num pequeno.
 
             SE O TÍTULO MUDAR, ESTE NÚMERO MUDA. Ele é a única coisa aqui que
-            depende do texto que está escrito — e o degrau em `min-[360px]` é
+            depende do texto que está escrito  -  e o degrau em `min-[360px]` é
             exatamente isso acontecendo: abaixo de 360 de largura o h1 quebra em
             TRÊS linhas em vez de duas, e a linha de apoio termina em 393 em vez
             de 326. Um anular só serviria a um dos dois casos.
@@ -709,29 +709,28 @@ export default async function AboutV2Page() {
             ⚠️ 320 CONTINUA SENDO UMA TELA RUIM AQUI, e isso é anterior a este
             trabalho: com o h1 em três linhas a dobra mede 746px numa tela de
             568, ou seja os números nascem fora dela. (Antes deste commit era
-            pior — 1581px, quase três telas.) O que o anular resolve é só o
+            pior  -  1581px, quase três telas.) O que o anular resolve é só o
             texto em cima da foto; o resto é a faixa de números não caber, que é
             decisão de conteúdo e está anotada mais abaixo. */}
         <div className="absolute inset-x-0 bottom-0 top-[412px] -z-10 w-full overflow-hidden min-[360px]:top-[344px] md:inset-y-0 md:left-auto md:right-0 md:top-0 md:h-auto md:w-[72%]">
           {/* O wrapper do zoom. Só existe no telefone: em `md` ele volta a ser
               do tamanho da caixa (`md:top-0 md:h-full`) e o desktop continua
-              exatamente como estava — sangria de 72% à direita, arquivo inteiro,
+              exatamente como estava  -  sangria de 72% à direita, arquivo inteiro,
               escala pela largura. */}
           <div className="absolute inset-x-0 top-[-24.1%] h-[172.4%] md:top-0 md:h-full">
             <Image
               src={heroPhoto}
-              alt=""
-              aria-hidden
+              alt="Global city skyline with a DNA helix"
               fill
               priority
               /* ⚠️ O RAMO DO TELEFONE NÃO É `100vw`. Era, e estava errado antes
                  mesmo do zoom: com `object-cover` escalando pela ALTURA, a
                  largura de render no telefone nunca foi a da tela. Com 390 de
-                 viewport ela é 1117px, ou seja 287vw — dizer `100vw` fazia o
+                 viewport ela é 1117px, ou seja 287vw  -  dizer `100vw` fazia o
                  navegador pedir a variante de 640px e depois esticá-la.
 
                  O DESKTOP FICA EM `100vw`, e não nos 72vw da caixa, porque lá a
-                 largura de render é `max(0,72·W, 1,199·H)` — o cover escolhe o
+                 largura de render é `max(0,72·W, 1,199·H)`  -  o cover escolhe o
                  maior dos dois eixos, e em janela alta quem manda é a altura.
                  Em 1920x1080 dá 72vw; em 1440x900, 75vw; em 1280x1024, 96vw.
                  Cravar 72vw sub-pediria a imagem justamente nas janelas mais
@@ -749,7 +748,7 @@ export default async function AboutV2Page() {
             A versão anterior era uma camada chapada de `ink/75` sobre tudo. Isso
             atendia o contraste do texto e destruía a arte junto: a hélice, que é
             o motivo de a imagem existir, virava um chiado cinza. A referência
-            faz o contrário — a metade direita é a foto LIMPA, com o branco da
+            faz o contrário  -  a metade direita é a foto LIMPA, com o branco da
             hélice e as nuvens em contraste cheio, e o texto mora num campo
             escuro à esquerda para onde a foto se dissolve.
 
@@ -760,7 +759,7 @@ export default async function AboutV2Page() {
                esquerda da caixa é um corte reto em 28% da largura, e sem nada
                por cima ela apareceria como uma linha vertical atravessando a
                dobra. Por isso o gradiente fica opaco até passar dos 28% e só
-               então abre, morrendo a 60% — o olho lê "a foto se dissolve no
+               então abre, morrendo a 60%  -  o olho lê "a foto se dissolve no
                escuro", que é o que a referência faz, e não "tem uma imagem
                colada ali". Da metade para a direita não há camada nenhuma, então
                o skyline e a hélice ficam com o contraste original do arquivo.
@@ -770,14 +769,14 @@ export default async function AboutV2Page() {
                inteira, inclusive a parte clara: "1,000+" e "5 of the top 10"
                caem justamente sobre os arranha-céus iluminados. O gradiente sobe
                pela metade de baixo e chega opaco na borda, então os números
-               ficam sobre `ink` sólido. Isso não briga com a referência — nela a
+               ficam sobre `ink` sólido. Isso não briga com a referência  -  nela a
                orla também é escura.
 
             Não há mais camada chapada: as duas direcionais já se cruzam na
             esquerda e somam o suficiente para o texto.
 
             ⚠️ O LAVADO LATERAL É SÓ DE `md` PARA CIMA desde 09-09. Ele descreve
-            uma composição horizontal — escuro à esquerda, foto à direita — e no
+            uma composição horizontal  -  escuro à esquerda, foto à direita  -  e no
             telefone a composição virou VERTICAL: texto em cima, foto embaixo.
             Aplicado ali ele fazia o oposto do que devia: deixava a coluna
             esquerda opaca e o lado direito da tela com a foto crua bem debaixo
@@ -797,14 +796,14 @@ export default async function AboutV2Page() {
             foto para baixo) e o fecho (`h-[58%]`, da base para cima) SE
             SOBREPUNHAM em 490px de uma dobra de 844. Duas camadas empilhadas
             somam por 1-(1-a1)(1-a2), então a cobertura no meio era o produto de
-            duas curvas que ninguém consegue ler olhando o código — e o piso
+            duas curvas que ninguém consegue ler olhando o código  -  e o piso
             resultante nunca descia de 0,36. Na prática: o brilho máximo da
             hélice (238 no arquivo) saía a 156. A arte nunca aparecia a mais de
             ~65% do valor dela, em lugar nenhum da dobra.
 
             E os dois trabalhos são em pontas OPOSTAS da tela: esconder o corte
             reto no topo da foto, e proteger os números na base. Escurecer o meio
-            não servia a nenhum dos dois — só apagava a foto.
+            não servia a nenhum dos dois  -  só apagava a foto.
 
             Agora são duas camadas QUE NÃO SE TOCAM:
 
@@ -824,7 +823,7 @@ export default async function AboutV2Page() {
               "5 of the top 10"        6,23    6,67
               brilho da foto y330-460    60      94
 
-            A foto fica 57% mais clara E todo texto melhora. Não há troca — o
+            A foto fica 57% mais clara E todo texto melhora. Não há troca  -  o
             que havia era desperdício.
 
             Vale registrar que a primeira linha de números JÁ FALHAVA antes:
@@ -833,14 +832,14 @@ export default async function AboutV2Page() {
             defeito de composição parecer resolvido. */}
         {/* COSTURA. A caixa da imagem começa num corte reto; sem nada por cima,
             essa borda apareceria como uma linha horizontal atravessando a dobra
-            — o mesmo defeito que o lavado lateral resolve no desktop, girado
+             -  o mesmo defeito que o lavado lateral resolve no desktop, girado
             90°. Este é o único trabalho dela: morre aos 24% da caixa e não
             encosta no resto.
 
             O `top` É COPIADO DA CAIXA DA FOTO, degrau de 360 inclusive, e não
             `h-[64%]`: os dois têm de cobrir exatamente o mesmo retângulo. Se um
             for percentagem e o outro pixel, eles descolam a cada altura de tela
-            e a costura passa a cobrir o lugar errado — que é pior do que não
+            e a costura passa a cobrir o lugar errado  -  que é pior do que não
             existir. Mexeu num, mexe no outro. */}
         <div
           aria-hidden
@@ -850,7 +849,7 @@ export default async function AboutV2Page() {
               "linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(52,47,49,.72) 7%, rgba(44,40,42,.24) 15%, rgba(40,36,38,0) 24%)",
           }}
         />
-        {/* SCRIM DOS NÚMEROS — telefone. Começa em 45% da seção (y 464), logo
+        {/* SCRIM DOS NÚMEROS  -  telefone. Começa em 45% da seção (y 464), logo
             acima da primeira linha de células (y 552), e não em 58% como antes:
             fechar mais alto não protegia nada e custava a hélice inteira.
             Termina em `ink` cheio na borda, que é o que casa com o `bg-ink` da
@@ -863,11 +862,11 @@ export default async function AboutV2Page() {
               "linear-gradient(to top, rgb(55,50,52) 0%, rgba(55,50,52,.97) 22%, rgba(46,42,44,.88) 48%, rgba(40,36,38,.72) 72%, rgba(38,34,36,.35) 90%, rgba(38,34,36,0) 100%)",
           }}
         />
-        {/* FECHO DA BASE — desktop, INTOCADO. Separado do telefone em 10-09
+        {/* FECHO DA BASE  -  desktop, INTOCADO. Separado do telefone em 10-09
             porque `style` não aceita variante responsiva: mudar o gradiente de
             um elemento só mudaria as duas telas junto. A composição do desktop
             é outra (foto sangrando à direita, arquivo inteiro, sem zoom) e não
-            tem o problema que o telefone tinha — os números aqui atravessam a
+            tem o problema que o telefone tinha  -  os números aqui atravessam a
             largura toda e continuam precisando da metade de baixo opaca. */}
         <div
           aria-hidden
@@ -881,7 +880,7 @@ export default async function AboutV2Page() {
         {/* ⚠️ O BREADCRUMB VISÍVEL SAIU em 08-09, a pedido. Vale registrar que
             isso CONTRARIA o outline da Maliha, que pede em letra: "Breadcrumb at
             the top of the page: Home / About" (bloco 3). Foi decisão posterior
-            ao documento, então ganha dele — mas quando a página for revisada com
+            ao documento, então ganha dele  -  mas quando a página for revisada com
             o cliente é bom saber que a ausência é deliberada, e não esquecimento.
 
             O `breadcrumbLd` no topo do componente FICOU. Ele é dado estruturado
@@ -896,20 +895,20 @@ export default async function AboutV2Page() {
             da dobra inteira. As classes abaixo são as do PageHero não-compacto,
             copiadas, para o herói continuar idêntico ao das outras páginas
             internas. Se um dia isto virar a /about de verdade, o caminho é dar
-            ao PageHero uma variante de tela cheia — não mexer nele agora, que a
+            ao PageHero uma variante de tela cheia  -  não mexer nele agora, que a
             página real depende dele. */}
         {/* NO TELEFONE O TÍTULO ENCOSTA NO TOPO; no desktop ele continua
             centrado no espaço que sobra.
 
             O `items-center` sozinho distribui a folga em partes iguais acima e
             abaixo, e no telefone isso rendia 183px de vazio entre a base do menu
-            e o rótulo — medido em 393x852, com outros 183px espelhados embaixo.
+            e o rótulo  -  medido em 393x852, com outros 183px espelhados embaixo.
             O que funciona no desktop, onde a dobra é larga e o título ocupa uma
             linha só, vira um buraco numa tela estreita: o visitante abre a
             página e a primeira coisa que vê é o nada entre o logo e o texto.
 
             `items-start` no telefone tira a metade de cima da folga e joga tudo
-            para baixo, onde ela não é buraco nenhum — é justamente onde a foto
+            para baixo, onde ela não é buraco nenhum  -  é justamente onde a foto
             começa (307px). O bloco passa a ler como texto em cima, foto no meio,
             números embaixo, que era a composição pretendida quando a imagem
             desceu para os 64% de baixo.
@@ -918,7 +917,7 @@ export default async function AboutV2Page() {
             64px abaixo do menu em vez dos 183px de antes, e em vez dos 48px que
             o padding original entregaria sozinho, que colariam demais. */}
         <div className="flex flex-1 items-start md:items-center">
-          {/* A ENTRADA DO HERÓI É A DA HOME, desde 11-09 — a escada de
+          {/* A ENTRADA DO HERÓI É A DA HOME, desde 11-09  -  a escada de
               `lib/hero-timeline.ts`, rodada por `HeroIntro`. O resto da página
               já revelava por rolagem, mas o herói está acima da dobra: o
               `Reveal` dispararia na hora e tudo entraria junto, num fade só.
@@ -931,7 +930,7 @@ export default async function AboutV2Page() {
             <TypeLabel onDark className="h-eyebrow">
               {copy.hero.label}
             </TypeLabel>
-            {/* h1 — Geist 500 a 52px, entrelinha 1,1, como a grade pede.
+            {/* h1  -  Geist 500 a 52px, entrelinha 1,1, como a grade pede.
                 Duas coisas mudaram além da família:
 
                 O PESO CAIU DE 700 PARA 500, e é ele que responde ao
@@ -940,12 +939,12 @@ export default async function AboutV2Page() {
                 devolve o branco de dentro das letras. É a diferença que a
                 referência tem e esta página não tinha.
 
-                O TAMANHO CAIU DE 60px PARA 52px. Parece contramão — mas o peso
+                O TAMANHO CAIU DE 60px PARA 52px. Parece contramão  -  mas o peso
                 menor pede menos corpo para ocupar a mesma presença, e 52px é o
                 que a grade fixa. Se ficar tímido na tela grande, o número a
                 mexer é este, sozinho.
 
-                O PESO É 600, E NÃO OS 500 DA GRADE — medido contra a própria
+                O PESO É 600, E NÃO OS 500 DA GRADE  -  medido contra a própria
                 referência em 09-09, depois de a comparação ser levantada. O h1
                 da Explore é 52px / peso 500 / entrelinha 1,1 / `letter-spacing:
                 normal`: os mesmos números que a grade traz. Mesmo assim o deles
@@ -953,7 +952,7 @@ export default async function AboutV2Page() {
 
                   • A FONTE DELES NÃO É ESTA. Eles usam Platform Web, cujo 500 é
                     um médio cheio; o 500 da Geist é bem mais leve. Peso é uma
-                    escala relativa a cada família, não uma medida absoluta —
+                    escala relativa a cada família, não uma medida absoluta  - 
                     copiar o "500" copia o rótulo, não a mancha. O 600 da Geist
                     é o que chega perto do 500 da Platform.
                   • BRANCO SOBRE ESCURO AFINA. Os dois heróis são texto branco
@@ -963,7 +962,7 @@ export default async function AboutV2Page() {
                   • O TÍTULO DELES OCUPA A DOBRA. São 103 caracteres em três
                     linhas de 952px; o nosso é "Keeping Leadership Real.", uma
                     linha curta. Metade do "parece maior" é área ocupada, não
-                    corpo de letra, e isso é decisão de COPY — se a Rhea quiser
+                    corpo de letra, e isso é decisão de COPY  -  se a Rhea quiser
                     a mesma presença, o caminho é um título mais longo, não uma
                     fonte maior.
 
@@ -978,14 +977,14 @@ export default async function AboutV2Page() {
                 frase só com `max-width` deixando o navegador decidir: o pedido
                 de 08-09 foi por um ponto de quebra específico ("Our purpose, our
                 promise" / "what we believe, and where we work"), e largura
-                máxima não garante ponto nenhum — ela muda com a fonte carregada,
+                máxima não garante ponto nenhum  -  ela muda com a fonte carregada,
                 com o zoom e com o tamanho da tela.
 
                 `md:block` e não `block`: no telefone a segunda metade sozinha já
                 ocupa duas linhas, e forçar a quebra ali criaria três linhas com
                 a primeira quase vazia. Abaixo de `md` os spans ficam em linha e
                 o texto reflui normalmente. */}
-            {/* Linha de apoio — Source Serif 4 400 a 22px, entrelinha 1,4. É a
+            {/* Linha de apoio  -  Source Serif 4 400 a 22px, entrelinha 1,4. É a
                 primeira aparição da serifa na página, e ela vem colada no
                 título de propósito: o par "grotesca em cima, serifa embaixo" é
                 o device inteiro. Se a serifa só aparecesse lá embaixo no corpo,
@@ -1010,7 +1009,7 @@ export default async function AboutV2Page() {
 
             1. ÍCONE no lugar da régua vermelha. A faixa da home e da Our Impact
                abre cada número com um traço de 3px; a referência põe um ícone de
-               contorno vermelho. Aqui ganha a referência — ver StatIcon, no topo
+               contorno vermelho. Aqui ganha a referência  -  ver StatIcon, no topo
                do arquivo, para o porquê de serem desenhados à mão.
             2. DIVISÓRIA vertical entre os itens.
             3. O NÚMERO NÃO PODE QUEBRAR em duas linhas. "36 countries" e "5 of
@@ -1023,7 +1022,7 @@ export default async function AboutV2Page() {
             primeira tentativa, e só apareceu porque foi medido.
 
             ⚠️ REFEITA EM 09-09 PARA A GEIST. Os números abaixo NÃO são os da
-            versão em Poppins — trocar de família invalida uma medida de largura,
+            versão em Poppins  -  trocar de família invalida uma medida de largura,
             e a diferença aqui não é pequena: no peso 600, com o espacejamento de
             −0,5px que a Geist pede (a Poppins levava −1,2px), a string mais
             longa passou de 6,47em para 6,92em. A fonte "mais estreita" acabou
@@ -1041,12 +1040,12 @@ export default async function AboutV2Page() {
                                container trava em 1440, então 1920 é igual a 1440.
               1024px (2 col) → coluna de 411px. Teto 60px. Aqui sobra.
                768px (2 col) → coluna de 283px. Teto 41px.
-               640px (2 col) → coluna de 235px. Teto 34px — a segunda pior.
+               640px (2 col) → coluna de 235px. Teto 34px  -  a segunda pior.
                390px (1 col) → coluna de 342px. Teto 50px.
 
             Daí o `36 → 32 → 38 → 44 → 32 → 38` parecer errado de tão vai-e-volta,
             e não ser: o tamanho segue a LARGURA DA COLUNA, e a coluna não cresce
-            junto com a tela — ela despenca toda vez que a grade ganha uma coluna
+            junto com a tela  -  ela despenca toda vez que a grade ganha uma coluna
             nova (em `sm` e em `xl`) e volta a crescer entre um salto e outro.
 
             O corte do topo é `2xl` (1536) e não 1440, embora a coluna já esteja
@@ -1058,12 +1057,12 @@ export default async function AboutV2Page() {
 
             ⚠️ OS "48px+" DA GRADE NÃO CABEM AQUI, e não é questão de ajuste
             fino: o teto do caso apertado é 34px. Dois dos quatro "números" são
-            frases inteiras — "5 of the top 10" e "36 countries" —, e frase não
+            frases inteiras  -  "5 of the top 10" e "36 countries"  - , e frase não
             escala como número. As duas saídas de verdade são de LAYOUT ou de
             CONTEÚDO, não de tipografia: duas colunas em vez de quatro (a faixa
             dobra de altura), ou separar o número da unidade ("5" grande, "of the
             top 10" pequeno embaixo), que é como faixas de estatística
-            costumam resolver isso — e muda o que o outline da Maliha escreveu.
+            costumam resolver isso  -  e muda o que o outline da Maliha escreveu.
 
             O `whitespace-nowrap` fica como trava final: se alguém editar um
             número para algo mais longo, ele transborda de forma visível na
@@ -1077,7 +1076,7 @@ export default async function AboutV2Page() {
 
             Ou seja: a PROVA ocupava mais da primeira tela do que a MENSAGEM. E o
             desequilíbrio era maior do que os números sozinhos dizem, porque a
-            faixa trazia quatro ícones vermelhos de 36px lado a lado — vermelho
+            faixa trazia quatro ícones vermelhos de 36px lado a lado  -  vermelho
             saturado é o maior ímã de atenção da página, e havia quatro deles
             embaixo contra um título branco de uma linha em cima. A primeira
             fixação tinha boa chance de cair nos números, e não na frase que a
@@ -1085,7 +1084,7 @@ export default async function AboutV2Page() {
 
             Faixa de números na dobra é padrão bom e fica: ela é prova social e
             trabalha a favor de quem chega pela primeira vez. O que muda é o
-            POSTO dela — de bloco co-titular para rodapé da dobra:
+            POSTO dela  -  de bloco co-titular para rodapé da dobra:
 
               ícone   36px → 26px (e some no telefone, onde não sobra espaço)
               número  38px → 30px em desktop
@@ -1099,12 +1098,12 @@ export default async function AboutV2Page() {
             com o título centrado em `flex-1`: ele existe para a dobra ter ar. Se
             depois de ver isto no ar você quiser a mensagem mais alta na tela, o
             ajuste é trocar o `items-center` do bloco do título por algo tipo
-            `justify-end` com padding — mas aí é escolha de composição, e prefiro
+            `justify-end` com padding  -  mas aí é escolha de composição, e prefiro
             que seja vista antes de ser feita.
 
             ⚠️ FALTA UMA AÇÃO NA DOBRA. Não há CTA nenhum aqui: o visitante lê o
             título, lê a linha de apoio, vê os números e não tem para onde ir a
-            não ser rolar. Isso não é ajuste de tamanho, é conteúdo — anotado
+            não ser rolar. Isso não é ajuste de tamanho, é conteúdo  -  anotado
             para a conversa com o cliente, não resolvido aqui. */}
         {/* ⚠️ O `md:pb-12` VIROU `md:pb-9` EM 21-09, em dois passos. Não é
             ajuste de respiro: a faixa de números deixou de ser a última coisa da
@@ -1115,12 +1114,12 @@ export default async function AboutV2Page() {
             OS DOIS VÃOS PASSARAM POR TRÊS ESTADOS NA MESMA DATA, e o último é o
             que está no ar: 24/48 (a linha encostada nos números e boiando sobre a
             borda), depois 36/36 pedindo simetria sem crescer a dobra, e agora
-            36 aqui em cima com 24 embaixo — o `pb-6` da lista.
+            36 aqui em cima com 24 embaixo  -  o `pb-6` da lista.
 
             ⚠️ 36 E 24 SÃO O QUE FICA IGUAL NA TELA, e é por isso que os números
             não batem. Medido no navegador a 1440x1000: com 36/36 o vazio VISÍVEL
             era de 23px acima da linha e 42px abaixo. A assimetria vem da caixa
-            de linha do texto — os 13px da lista deixam ~5px de folga sob os
+            de linha do texto  -  os 13px da lista deixam ~5px de folga sob os
             glifos, que somam ao padding de baixo, enquanto em cima o padding
             nasce do rodapé da grade de números, que já está justo. Igualar os
             valores de CSS era desigualar o resultado.
@@ -1133,12 +1132,12 @@ export default async function AboutV2Page() {
         <div id="about-stats" className="mx-auto w-full max-w-[1440px] px-6 pb-10 md:px-10 md:pb-9">
           {/* DUAS COLUNAS JÁ NO TELEFONE (pedido de 09-09: "duas linhas com 2
               quadrados menores, ao invés de cada quadrado ocupar a largura toda
-              da tela"). Em 390px cada célula fica com 161px úteis — o `gap-x`
+              da tela"). Em 390px cada célula fica com 161px úteis  -  o `gap-x`
               cai de 40px para 20px justamente para não comer mais que isso.
 
               O preço está no corpo do número: 161px comportam no máximo 24px
               para "5 of the top 10", contra os 36px que ele tinha ocupando a
-              largura inteira. É a troca que o pedido implica — quatro blocos
+              largura inteira. É a troca que o pedido implica  -  quatro blocos
               empilhados não cabiam na dobra de jeito nenhum (a seção media
               1102px numa tela de 844px, e o quarto número ficava fora). */}
           <Reveal className="grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-x-10 sm:gap-y-10 xl:grid-cols-4">
@@ -1146,7 +1145,7 @@ export default async function AboutV2Page() {
               <div
                 key={s.label}
                 /* A divisória mora no ITEM, não no container, porque precisa
-                   sumir em quem abre cada linha da grade — e "primeiro da
+                   sumir em quem abre cada linha da grade  -  e "primeiro da
                    linha" muda com o breakpoint, coisa que `divide-x` não sabe
                    fazer. Com quatro itens fixos dá para resolver pelo índice:
                      • 2 colunas (sm+): borda nos ímpares, que são a coluna da
@@ -1161,15 +1160,15 @@ export default async function AboutV2Page() {
               >
                 {/* ⚠️ O ÍCONE FICOU ESCONDIDO NO TELEFONE POR UM TEMPO, e a
                     razão deixou de valer sem que ninguém percebesse. Ele saiu
-                    quando a dobra do telefone estava estourando — a seção media
-                    1102px numa tela de 844 e o quarto número ficava fora — e
+                    quando a dobra do telefone estava estourando  -  a seção media
+                    1102px numa tela de 844 e o quarto número ficava fora  -  e
                     26px por célula vezes duas linhas era espaço que não existia.
 
                     Duas mudanças depois (a foto descendo para os 64% de baixo e
                     o título encostando no topo) a dobra passou a fechar em 844px
                     exatos, e a restrição simplesmente evaporou. Medido ao
                     restaurar: os ícones custam 40px, tirados do vão VAZIO entre
-                    a linha de apoio e os números — a seção continua em 844px, o
+                    a linha de apoio e os números  -  a seção continua em 844px, o
                     respiro do menu continua em 64px e a foto continua começando
                     em 304px. Custo real: nenhum.
 
@@ -1179,7 +1178,7 @@ export default async function AboutV2Page() {
 
                     A MARGEM CAI PARA 8px NO TELEFONE (`mb-2`), 12px de `sm` para
                     cima. Restaurados com os 12px de todo lugar, os ícones cabiam
-                    em 390x844 mas estouravam o iPhone SE por 8px — 675px numa
+                    em 390x844 mas estouravam o iPhone SE por 8px  -  675px numa
                     tela de 667. São 4px por linha vezes duas linhas vezes... na
                     verdade 4px por célula em duas fileiras, e a conta fecha
                     porque é exatamente o que faltava. Vale medir na tela mais
@@ -1193,14 +1192,14 @@ export default async function AboutV2Page() {
                   <StatIcon name={s.icon} />
                 </span>
                 {/* Geist 600. A grade pede "48px+" para número grande; os
-                    tamanhos abaixo são MEDIDOS, não escolhidos — ver o
+                    tamanhos abaixo são MEDIDOS, não escolhidos  -  ver o
                     comentário da faixa, logo acima. O `tracking` sai do −1,2px
                     que a Poppins pedia: no peso 600 da Geist ele fecharia o
                     "1,000+" em cima da vírgula. */}
                 <div className="whitespace-nowrap text-[18px] font-semibold leading-none tracking-[-0.5px] text-white min-[360px]:text-[21px] sm:text-[30px] md:text-[34px] lg:text-[40px] xl:text-[28px] 2xl:text-[30px]">
                   <Counter value={s.value} />
                 </div>
-                {/* Legenda — Source Serif 4 400 a 14px, a linha "texto pequeno"
+                {/* Legenda  -  Source Serif 4 400 a 14px, a linha "texto pequeno"
                     da grade. Serifa clara sobre fundo escuro é o caso em que
                     ela mais afina, então a opacidade sobe de 70% para 75%: o
                     desenho da Source Serif tem hastes finas que a 14px em
@@ -1213,7 +1212,7 @@ export default async function AboutV2Page() {
           </Reveal>
         </div>
 
-        {/* ── Os escritórios no canto inferior direito do herói — 21-09.
+        {/* ── Os escritórios no canto inferior direito do herói  -  21-09.
 
             AS DUAS FORMULAÇÕES SÃO A MESMA COISA, e vale registrar porque de
             início não parecem: o e-mail diz *"Add offices to bottom right of
@@ -1221,7 +1220,7 @@ export default async function AboutV2Page() {
             embaixo dos numeros"*. O e-mail é o autoritativo, e nesta dobra ele
             entrega a anotação de brinde: os números já ocupam a base do herói,
             então qualquer coisa colada no canto inferior direito nasce LOGO
-            ABAIXO deles. Não houve escolha entre as duas leituras — a
+            ABAIXO deles. Não houve escolha entre as duas leituras  -  a
             composição da página já as fazia coincidir.
 
             ✅ CENTRALIZADA (`justify-center`) DESDE A REVISÃO DE 21-09. Nasceu
@@ -1232,38 +1231,38 @@ export default async function AboutV2Page() {
             isso que ele fica escrito: a lógica era cair sobre o skyline, que
             vive numa caixa de 72% presa à direita, e não sobre os 28% de `ink`
             chapado da esquerda. Centrada, a linha mede ~510px num campo útil de
-            1360px, ou seja começa por volta dos 425px — já depois dos 403px em
+            1360px, ou seja começa por volta dos 425px  -  já depois dos 403px em
             que a foto começa numa tela de 1440. Ela continua inteira sobre a
             fotografia; o que mudou foi a margem, não o assento.
 
             E mesmo que uma tela estreita empurrasse a ponta esquerda para fora
             da foto, o fecho da base é de LARGURA TOTAL (`inset-x-0`, alguns
-            blocos acima) — ou seja, o contraste da linha não depende de ela
+            blocos acima)  -  ou seja, o contraste da linha não depende de ela
             estar de um lado ou do outro.
 
             O CONTRASTE É O QUE A DOBRA JÁ TEM. O fecho da base (o gradiente
             `to top` de meia altura, algumas linhas acima) chega OPACO na borda
             inferior justamente para os números poderem atravessar a parte clara
             da foto. A lista fica ainda mais embaixo que eles, ou seja no trecho
-            mais fechado do gradiente — sobre `ink` praticamente sólido, o mesmo
+            mais fechado do gradiente  -  sobre `ink` praticamente sólido, o mesmo
             assento que a linha "1,000+" já usa e que foi medido em 6,76:1.
             Nenhuma camada nova: reaproveitar o que existe é o que impede a foto
             de escurecer mais um degrau.
 
             ⚠️ NÃO APARECE NO TELEFONE. A dobra de lá é apertada por medida, não
-            por estilo — a caixa acima registra a conta inteira: 844px de tela
+            por estilo  -  a caixa acima registra a conta inteira: 844px de tela
             para 844px de conteúdo, com o iPhone SE (667) já estourando quando
             os ícones da faixa voltaram. Cinco cidades ali teriam de virar duas
             ou três linhas de texto pequeno sobre a foto, e a página já publica
             os cinco endereços por inteiro na seção de escritórios. Some em
-            `md`, que é o mesmo corte do lavado lateral e do fecho da base —
+            `md`, que é o mesmo corte do lavado lateral e do fecho da base  - 
             ou seja, some exatamente onde a composição deixa de ser horizontal.
 
             TEXTO, E NÃO LINKS. A âncora `#offices` existe (é o `id` do
             `LocationsBlock`) e seria fácil ligar cada cidade a ela, mas as cinco
             iriam para o MESMO lugar: cinco links que fazem a mesma coisa leem
             como cinco destinos diferentes. É a mesma regra dos pilares, anotada
-            lá embaixo — não prometer interação que não existe.
+            lá embaixo  -  não prometer interação que não existe.
 
             OS DADOS SÃO O `OFFICES` DESTA PÁGINA, a lista do documento do
             cliente, e não `lib/offices.ts`: aqui só sai o nome da cidade, onde
@@ -1291,10 +1290,10 @@ export default async function AboutV2Page() {
           maior tipo da página depois do herói, como o outline pede.
 
           ⚠️ OS NÚMEROS DOS BANNERS SÃO OS DO OUTLINE DE 08-09, NÃO A ORDEM DA
-          PÁGINA — e desde 21-09 as duas coisas deixaram de coincidir. A Maliha
+          PÁGINA  -  e desde 21-09 as duas coisas deixaram de coincidir. A Maliha
           pediu por e-mail: *"Move block one to block 3, block 2 and 3 should
           become 1 and 2."*, e a anotação da mesma call confirma qual é o bloco
-          um: *"o bloco da foto seria o 3 da pagina"* — a faixa com a fotografia
+          um: *"o bloco da foto seria o 3 da pagina"*  -  a faixa com a fotografia
           do time, que é o `#identity`. Então:
 
             era   1 identity (foto do time)  2 purpose  3 promise
@@ -1304,7 +1303,7 @@ export default async function AboutV2Page() {
           número é o do DOCUMENTO do cliente, que é a referência de conteúdo e
           não mudou. Quem for conferir a ordem lê o arquivo de cima para baixo.
 
-          ÂNCORAS: nenhuma mudou de seção — `#purpose`, `#promise` e `#identity`
+          ÂNCORAS: nenhuma mudou de seção  -  `#purpose`, `#promise` e `#identity`
           viajaram com o bloco delas. A única âncora da /about apontada de fora é
           `#values` (dois 301 no `next.config.mjs`, vindos do site antigo), e a
           seção de valores não se moveu.
@@ -1314,20 +1313,20 @@ export default async function AboutV2Page() {
           uma dobra escura encostava numa fotografia clara, ver a caixa do
           `#identity`); aqui a faixa começa com a mesma cor e o que muda é a
           textura da foto atrás do véu. Se ficar duro na revisão, o ajuste é
-          desta seção — um respiro no topo —, não do herói.
+          desta seção  -  um respiro no topo  - , não do herói.
 
           ⚠️ O "LIGHT GROUND" DO OUTLINE CAIU em 09-09. O cliente mandou a seção
           equivalente da Explore Performance (`docs/rhea-feedback/`, a mesma
           referência que já reorganizou o bloco de identidade) e pediu este
           tratamento: foto de sangria total no fundo, escurecida, texto branco
           centralizado por cima. É decisão posterior ao documento, então ganha
-          dele — mesma precedência do breadcrumb removido no bloco 1. Fica
+          dele  -  mesma precedência do breadcrumb removido no bloco 1. Fica
           registrado porque a contradição é literal: o outline pede fundo claro
           em letra.
 
           O QUE FOI MEDIDO NA REFERÊNCIA, e não estimado de olho: a faixa deles é
           `background-size: cover` centralizada com um `::after` de
-          `rgba(27, 54, 65, .8)` por cima — um azul-petróleo escuro a 80%. Aqui a
+          `rgba(27, 54, 65, .8)` por cima  -  um azul-petróleo escuro a 80%. Aqui a
           cor é o `ink` do site (55, 50, 52) na MESMA opacidade: o que importa
           copiar é a densidade do véu, não o matiz, que é da paleta deles.
 
@@ -1337,7 +1336,7 @@ export default async function AboutV2Page() {
           raciocínio já anotado na foto do herói, lá em cima.
 
           A FOTO É A DA HOME (`dna-time-06`), a mulher no palco com o público em
-          volta — a mesma que a HeroV2 e a HeroV3 usam. Reaproveitar em vez de
+          volta  -  a mesma que a HeroV2 e a HeroV3 usam. Reaproveitar em vez de
           pedir arte nova tem um efeito bom aqui: o bloco que fala do PROPÓSITO
           mostra o trabalho acontecendo, que é o argumento do texto.
 
@@ -1346,17 +1345,17 @@ export default async function AboutV2Page() {
           o detalhe que muda de lugar: no resto da página ela abre o rótulo, à
           esquerda; aqui ela desce e vira separador entre a citação e a prosa.
           Por isso o rótulo desta seção é escrito à mão em vez de usar o
-          <TypeLabel> — ele viria com a régua colada, e ela já está embaixo. */}
+          <TypeLabel>  -  ele viria com a régua colada, e ela já está embaixo. */}
       <section id="purpose" className="relative isolate overflow-hidden bg-ink text-white">
         {/* NO TELEFONE O ENQUADRAMENTO VAI PARA A DIREITA (09-09), onde está a
             mulher de pé no palco. Centralizado, o corte mostrava o meio do
-            salão — plateia de costas — e a pessoa que dá sentido à foto ficava
+            salão  -  plateia de costas  -  e a pessoa que dá sentido à foto ficava
             fora da tela.
 
             A CONTA. Numa seção de 1028px de altura por 390 de largura, a caixa
             tem proporção 0,38:1 contra 1,50:1 do arquivo, então o `object-cover`
             escala PELA ALTURA: a imagem sai com 1543px de largura dentro de uma
-            caixa de 390. Sobram 1153px de folga horizontal e nenhuma vertical —
+            caixa de 390. Sobram 1153px de folga horizontal e nenhuma vertical  - 
             só o eixo X manda. A mulher está a ~80% da largura do arquivo, o que
             a põe a 1242px da borda esquerda da imagem escalada; a 85% de
             deslocamento a janela abre em 980px e ela cai a dois terços da tela,
@@ -1366,7 +1365,7 @@ export default async function AboutV2Page() {
             teria efeito nenhum de qualquer forma: numa dobra larga a caixa fica
             mais alongada que o arquivo, a escala passa a ser pela LARGURA e a
             folga vira vertical. É a mesma armadilha já documentada duas vezes
-            neste arquivo, no herói — o eixo que funciona depende de qual lado
+            neste arquivo, no herói  -  o eixo que funciona depende de qual lado
             sobra, e ele troca com a proporção da caixa. */}
         <Image
           src={purposePhoto}
@@ -1379,16 +1378,16 @@ export default async function AboutV2Page() {
         {/* HISTÓRICO DO TRATAMENTO, porque a versão final inverte a lógica das
             duas primeiras e isso não se adivinha lendo o código.
 
-            V1 — véu chapado a 80%, copiado da referência. Medido com o conteúdo
+            V1  -  véu chapado a 80%, copiado da referência. Medido com o conteúdo
             oculto: texto branco 6,7:1 (passa), rótulo vermelho 1,83:1 (não passa
             em nada). O problema é físico: #d84339 tem luminância 0,187, então
-            contra BRANCO PURO ele dá 4,39:1 — o teto absoluto dessa cor. Não
+            contra BRANCO PURO ele dá 4,39:1  -  o teto absoluto dessa cor. Não
             existe fundo que a leve ao AA.
-            V2 — véu 78% + vinheta escurecendo o miolo. Levou o branco a
+            V2  -  véu 78% + vinheta escurecendo o miolo. Levou o branco a
             8,9–10,5:1 e o vermelho a 2,32:1. Melhor, mas ainda escondia a foto
             justamente onde o olho vai primeiro.
 
-            V3, esta — PAINEL DE VIDRO, pedido de 09-09 ("deixar aparecer
+            V3, esta  -  PAINEL DE VIDRO, pedido de 09-09 ("deixar aparecer
             levemente mais a imagem, com um efeito de glassmorphism").
 
             O que muda não é a estética, é de ONDE vem o contraste. Nas duas
@@ -1402,34 +1401,34 @@ export default async function AboutV2Page() {
               painel        62%  → manda em quanto contraste o texto tem
 
             ⚠️ A COR DOS DOIS NÃO É MAIS O `ink` (09-09, terceiro ajuste). O
-            `ink` é #373234 — um cinza QUENTE, não um preto —, e um véu feito
+            `ink` é #373234  -  um cinza QUENTE, não um preto  - , e um véu feito
             dele deixa a seção inteira cinza por definição, por mais opacidade
             que se ponha. O pedido foi "mais preto mesmo", e isso é cor, não
             opacidade: as duas camadas passam a rgb(22,19,20), que é o mesmo
-            matiz do `ink` com a luminosidade lá embaixo. Continua quente — não
+            matiz do `ink` com a luminosidade lá embaixo. Continua quente  -  não
             é preto puro, que ao lado de uma foto de luz incandescente ficaria
             azulado por contraste simultâneo.
 
             O PAINEL TEVE DE ACOMPANHAR, e não é detalhe: ele é composto POR CIMA
             do véu. Deixá-lo em `ink` cinza enquanto o entorno vira quase-preto
             faria dele a área mais CLARA da seção, invertendo exatamente o papel
-            que ele tem — o assento escuro do texto viraria uma mancha clara no
+            que ele tem  -  o assento escuro do texto viraria uma mancha clara no
             meio de um campo escuro.
 
             Por isso o véu pôde abrir sem que o texto perdesse nada: o que
-            segura a legibilidade é o painel, não o véu. A vinheta saiu junto —
+            segura a legibilidade é o painel, não o véu. A vinheta saiu junto  - 
             ela existia só para simular o assento que o painel agora dá de
             verdade.
 
             O 78% é o terceiro valor. A primeira tentativa foi 42%, aproveitando
-            toda a folga que o painel abriu, e a foto ficou dominante demais — o
+            toda a folga que o painel abriu, e a foto ficou dominante demais  -  o
             pedido era "levemente mais", não "o máximo que der". Veio 68% como
             meio-termo, e depois 78% a pedido ("aumentar em 15%"), que é o 68
             acrescido de 15% dele mesmo e não de 15 pontos.
 
             O DESFOQUE não é enfeite: `backdrop-filter: blur` apaga o detalhe
-            fino do que está atrás. Uma foto de salão cheio tem alta frequência —
-            cabeças, cadeiras, luminárias — e é isso, não a luminância média, que
+            fino do que está atrás. Uma foto de salão cheio tem alta frequência  - 
+            cabeças, cadeiras, luminárias  -  e é isso, não a luminância média, que
             atrapalha ler texto por cima. Borrado, o fundo vira campo de cor. É
             legibilidade, e o visual de vidro sai de brinde.
 
@@ -1437,7 +1436,7 @@ export default async function AboutV2Page() {
             aqui não vem: o site inteiro é de canto vivo, e o próprio comentário
             do topo deste arquivo registra que os cards arredondados da
             referência da Maliha foram descartados por isso. O vidro aqui é feito
-            de translucidez, desfoque e um fio de borda clara — que é a parte
+            de translucidez, desfoque e um fio de borda clara  -  que é a parte
             essencial do efeito; o raio de canto é só convenção. */}
         <div
           aria-hidden
@@ -1449,20 +1448,20 @@ export default async function AboutV2Page() {
             {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
                 recomendação registrada aqui. Fica o número para quem reabrir
                 isto depois: no `brand-light`, dentro do painel, ele dá 3,56:1
-                no pior ponto e 4,28:1 na média — acima da régua de 3:1 de
+                no pior ponto e 4,28:1 na média  -  acima da régua de 3:1 de
                 elemento gráfico, abaixo dos 4,5:1 que o AA pede para texto. O
                 branco daria 9,9:1, e o vermelho CHEIO daria 2,25:1, que é o
                 motivo de o tom aqui ser o `brand-light` e não o `brand`.
 
                 Uma versão intermediária chegou a subir com o rótulo branco e o
                 vermelho só na régua e nas aspas. O cliente pediu o vermelho de
-                volta, e o pedido ganha — é a cor da marca no lugar onde a marca
+                volta, e o pedido ganha  -  é a cor da marca no lugar onde a marca
                 se anuncia, e a página inteira usa esse rótulo assim.
 
                 O QUE FOI FEITO PARA MELHORAR O NÚMERO sem desfazer o pedido
                 anterior: o painel escureceu de 55% para 65%, e SÓ o painel. Foi
                 o que levou o rótulo de 2,56:1 para 3,56:1. Isso não custou nada
-                da foto — a opacidade do painel governa o contraste do texto, o
+                da foto  -  a opacidade do painel governa o contraste do texto, o
                 véu da seção governa quanta imagem aparece, e são controles
                 separados desde que este bloco virou vidro. Fechar o véu teria
                 custado a imagem; fechar o painel não custa.
@@ -1473,22 +1472,22 @@ export default async function AboutV2Page() {
             <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
               {copy.purpose.label}
             </span>
-            {/* h2 — Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
+            {/* h2  -  Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
                 herói está em 52px, então a distância entre os dois níveis é de
                 12px: suficiente para hierarquia, pequena o bastante para os
                 dois lerem como a mesma voz. Era 60/44 antes, com peso 700 nos
-                dois — dois blocos, não dois níveis. */}
+                dois  -  dois blocos, não dois níveis. */}
             {/* PESO 600 aqui, e 500 nos outros h2, pelo mesmo motivo do h1: o
                 título passou a ser branco sobre fundo escuro, e nessa
                 combinação a letra afina opticamente. Um degrau de peso repõe o
-                que a inversão tira — é o mesmo ajuste, na mesma página, pela
+                que a inversão tira  -  é o mesmo ajuste, na mesma página, pela
                 mesma razão. */}
             {/* A MEDIDA SUBIU DE 720 PARA 820px em 09-09, e o número não é
                 estético: medido, o título de então ("Our purpose is to keep
                 leadership real.") pedia 744px a 40px numa linha só. Preso em 720
                 ele quebrava por 24px e largava "real." sozinho na segunda linha.
                 820px é a largura cheia do container (900 menos os 80 de
-                padding), então é o teto real, não um valor escolhido — e por
+                padding), então é o teto real, não um valor escolhido  -  e por
                 isso ele fica, mesmo com o título novo, que é mais curto.
 
                 `whitespace-nowrap` nas duas últimas palavras, de volta em 22-09
@@ -1522,7 +1521,7 @@ export default async function AboutV2Page() {
                 /* `[&_strong]:font-semibold` porque o negrito agora é gerado, e
                    não escrito no JSX: o `<strong>` que sai do `inlineEmphasis`
                    não carrega classe, e o padrão do navegador é 700. O texto
-                   aqui sempre foi 600 — sem esta linha, a abertura da citação
+                   aqui sempre foi 600  -  sem esta linha, a abertura da citação
                    engrossaria um degrau sozinha. */
                 className="[&_strong]:font-semibold"
                 dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.purpose.quote) }}
@@ -1574,14 +1573,14 @@ export default async function AboutV2Page() {
 
       {/* ── Block 4 · Our Promise ─────────────────────────────────────
           Declaração à esquerda, explicação à direita. Escolhido em 09-09 entre
-          três versões montadas e comparadas na tela — as outras duas eram texto
+          três versões montadas e comparadas na tela  -  as outras duas eram texto
           empilhado, variando só a medida e a posição.
 
           POR QUE ESTA. Das sete seções da página, seis empilham texto. O medo
           registrado era o leitor cansar antes do fim, e a resposta não é mudar
           corpo de letra: é ter, em algum ponto da leitura, uma seção que se lê
           de outro jeito. Esta é a candidata natural porque o conteúdo já vem
-          partido em dois — uma promessa e a explicação dela. O arranjo não foi
+          partido em dois  -  uma promessa e a explicação dela. O arranjo não foi
           imposto ao texto; ele estava no texto.
 
           ⚠️ TENSÃO COM O OUTLINE, e ela é real. O documento diz "Type: single
@@ -1592,7 +1591,7 @@ export default async function AboutV2Page() {
 
           O argumento para esta versão: a PROSA continua em coluna única. O que o
           documento rejeita é partir o corpo do texto em duas colunas, e não é o
-          que acontece aqui — a coluna da esquerda é a declaração e o convite, a
+          que acontece aqui  -  a coluna da esquerda é a declaração e o convite, a
           da direita é a prosa inteira, sem quebra. É argumento, não certeza. Se
           alguém do lado do cliente ler ao pé da letra, cai; as versões A (três
           tempos escalonados) e B (bloco estreito centrado) ficaram guardadas
@@ -1600,14 +1599,14 @@ export default async function AboutV2Page() {
 
           O CONVITE SOBE para junto da declaração, e não fica no pé da prosa. O
           outline manda ele "standalone, larger, red"; à esquerda, embaixo da
-          promessa, ele fecha a coluna de voz — promessa e convite são as duas
+          promessa, ele fecha a coluna de voz  -  promessa e convite são as duas
           frases que a CDNA diz na primeira pessoa. A prosa da direita explica as
           duas. Deixá-lo embaixo da coluna direita o transformaria em conclusão
           do argumento, que é outra coisa.
 
           `md:col-span-5` e `md:col-start-7 md:col-span-6` de 12, com `gap-x-16`:
           a declaração fica em ~530px e a prosa em ~650px num container de 1440.
-          A coluna direita é a mais larga de propósito — ela tem quatro vezes
+          A coluna direita é a mais larga de propósito  -  ela tem quatro vezes
           mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
@@ -1623,7 +1622,10 @@ export default async function AboutV2Page() {
             </div>
             <div className="space-y-5 text-[17px] leading-[1.7] text-muted lg:col-span-6 lg:col-start-7 md:text-[18px]">
               {copy.promise.body.map((p, i) => (
-                <p key={i}>{p}</p>
+                <div key={i} className="flex items-start gap-4">
+                  <span className="font-serif text-[28px] font-semibold leading-none text-ink md:text-[32px]">{i + 1}</span>
+                  <p>{p}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -1634,31 +1636,31 @@ export default async function AboutV2Page() {
           "Two column. Photograph left, quote right. Four pillar cards in a row
           beneath, full width." (outline)
 
-          ⚠️ É O TERCEIRO BLOCO DA PÁGINA DESDE 21-09 — *"o bloco da foto seria
+          ⚠️ É O TERCEIRO BLOCO DA PÁGINA DESDE 21-09  -  *"o bloco da foto seria
           o 3 da pagina"*. O porquê inteiro está no banner do `#purpose`, que
           passou a abrir a leitura; aqui fica só o que a descida muda de fato:
 
           • O RESPIRO CONTRA O HERÓI PERDEU O DESTINATÁRIO. O `pt-12 md:pt-16`
             logo abaixo existia porque a foto do time nascia colada na base de
             uma dobra escura de sangria total. Agora o vizinho de cima é o
-            `#promise`, que é `paper` e termina em padding. O respiro FICA — ele
-            continua sendo o vão de entrada da faixa —, mas a razão registrada
+            `#promise`, que é `paper` e termina em padding. O respiro FICA  -  ele
+            continua sendo o vão de entrada da faixa  - , mas a razão registrada
             nele é histórica, não mais a atual.
           • O VIZINHO DE BAIXO VIROU O `#values`, que é branco. A faixa dos
-            pilares, que fecha esta seção, voltou a `bg-paper` por causa disso —
+            pilares, que fecha esta seção, voltou a `bg-paper` por causa disso  - 
             ver a caixa lá embaixo.
 
           REDESENHADO em 08-09 sobre a referência da Explore Performance que a
           Rhea aprovou (`docs/rhea-feedback/about-explore.png`): fundo BRANCO,
           foto ocupando a altura inteira da faixa, texto na outra metade. A
-          Explore põe o texto à esquerda e a foto à direita; aqui é espelhado —
-          foto à esquerda —, que é o lado que o outline da Maliha pede e o que a
+          Explore põe o texto à esquerda e a foto à direita; aqui é espelhado  - 
+          foto à esquerda  - , que é o lado que o outline da Maliha pede e o que a
           imagem de página inteira dela mostra.
 
           A FOTO NÃO SANGRA. Em 08-09 ela ia até a borda da janela, como na
           Explore. Em 09-09 o cliente pediu o contrário: ela fica CONTIDA no
           mesmo `max-w-[1440px]` de todos os outros blocos, inclusive em telas
-          maiores que isso. Daí o container em volta da grade — era o único
+          maiores que isso. Daí o container em volta da grade  -  era o único
           `mx-auto max-w-[1440px] px-6 md:px-10` que faltava na página, e é ele
           que faz a borda esquerda da foto cair na mesma linha vertical do logo,
           do título do hero e dos quatro números.
@@ -1675,13 +1677,13 @@ export default async function AboutV2Page() {
           Antes daqui a foto não tinha `aspect`: era uma coluna da grade e quem
           definia a altura era o TEXTO ao lado, porque duas células de uma grade
           se esticam para a mais alta. O efeito colateral é que a proporção
-          mudava com a largura da tela — 1,40:1 em 1920 (paisagem, por acaso) e
+          mudava com a largura da tela  -  1,40:1 em 1920 (paisagem, por acaso) e
           1,16:1 em 1280, quase quadrada. "Paisagem" virava uma coisa que
           dependia do navegador de quem abre.
 
           `aspect-[3/2]` resolve: é a paisagem fotográfica padrão, a que sai de
           qualquer câmera sem recorte, então é a que o cliente consegue mandar
-          sem trabalho. Não está no outline — ele diz só "landscape" —, é
+          sem trabalho. Não está no outline  -  ele diz só "landscape"  - , é
           escolha nossa dentro do que ele pede, e trocar por 16/9 é uma linha.
 
           `self-center` porque a foto agora é MAIS BAIXA que a coluna de texto
@@ -1697,24 +1699,24 @@ export default async function AboutV2Page() {
           OS QUATRO PILARES ficaram FORA do split, em faixa própria de largura
           cheia, como o outline manda ("in a row beneath, full width"). Para os
           pilares descerem para dentro do split eles teriam de ir para a coluna
-          da direita, em 2x2 — o que contraria o outline e espreme quatro textos
+          da direita, em 2x2  -  o que contraria o outline e espreme quatro textos
           em meia largura. Fica como está até alguém pedir o contrário. */}
       <section id="identity" className="bg-white text-ink">
         {/* RESPIRO ENTRE O HERÓI E A FOTO (09-09). A foto nascia colada na base
-            do herói — medido, zero pixel entre o fim de um e o começo da outra.
+            do herói  -  medido, zero pixel entre o fim de um e o começo da outra.
 
             Emenda direta entre uma dobra escura de sangria total e uma
             fotografia clara não lê como continuidade, lê como falha de
             espaçamento: são duas superfícies de peso muito diferente que se
             tocam sem transição, e o olho procura a borda que deveria existir.
 
-            48px no telefone e 64px no desktop — deliberadamente MENOS que os
+            48px no telefone e 64px no desktop  -  deliberadamente MENOS que os
             64/80px que as outras seções usam de respiro. Aqui não se quer uma
             separação de seção: o herói e a foto do time contam a mesma coisa em
             sequência, então o vão precisa dizer "respira" sem dizer "acabou". */}
         {/* O `id` fica num wrapper porque o <Reveal> não recebe `id`. Ele
             existe porque o editor mostra a citação e os quatro cartões em
-            telas separadas, cada uma com o seu print — num print só, na
+            telas separadas, cada uma com o seu print  -  num print só, na
             coluna de 440px desta tela, não se lê nada. */}
 
         {/* Quatro pilares, largura cheia, como o outline descreve.
@@ -1724,23 +1726,23 @@ export default async function AboutV2Page() {
             solução não é "reforçar a borda".
 
             Versão 1: card `bg-white` sobre `bg-ink-2`. O card era desenhado pelo
-            CONTRASTE COM O FUNDO ESCURO — não precisava de borda nenhuma.
+            CONTRASTE COM O FUNDO ESCURO  -  não precisava de borda nenhuma.
             Versão 2 (08-09): a faixa virou branca com a referência da Explore, e
             branco sobre branco some. Entrou uma borda em `line` (#ece9e6) para
             devolver a silhueta.
             Versão 3 (agora): a borda não deu conta. #ece9e6 sobre #fff são cinco
-            por cento de diferença — no monitor de quem desenhou ela aparece, num
+            por cento de diferença  -  no monitor de quem desenhou ela aparece, num
             monitor comum ela é invisível, e os quatro cards voltam a ler como
             quatro blocos de texto soltos no branco.
 
             O conserto devolve o mecanismo da versão 1 em vez de engrossar o
             traço da versão 2: o card volta a ser desenhado pelo fundo, não pela
             borda. A faixa recebe `bg-paper` (#f3f3f3) e o card volta a `bg-white`
-            SEM borda — dez por cento de diferença em vez de cinco, e a silhueta
+            SEM borda  -  dez por cento de diferença em vez de cinco, e a silhueta
             aparece pelo campo inteiro do card, não por uma linha de 1px.
 
-            É a MESMA construção do bloco de escritórios lá embaixo — card branco
-            sobre faixa `paper`, sem borda —, então a página passa a ter um jeito
+            É a MESMA construção do bloco de escritórios lá embaixo  -  card branco
+            sobre faixa `paper`, sem borda  - , então a página passa a ter um jeito
             só de fazer card, em vez de dois. Engrossar a borda teria resolvido o
             contraste e criado um terceiro.
 
@@ -1749,7 +1751,7 @@ export default async function AboutV2Page() {
             container de 1440 deixaria duas tarjas brancas nas laterais em tela
             grande. */}
         {/* A BANDA VOLTA A BRANCA. O `bg-paper` entrou em 09-09 para o card
-            BRANCO ter silhueta — a borda em #ece9e6 sobre #fff era invisível na
+            BRANCO ter silhueta  -  a borda em #ece9e6 sobre #fff era invisível na
             prática. Com o card preto essa razão deixou de existir, e manter a
             faixa cinza colocaria TRÊS valores na mesma seção (branco da seção,
             cinza da faixa, preto do card) onde dois bastam. O pedido original
@@ -1761,8 +1763,8 @@ export default async function AboutV2Page() {
             atrás nisso é uma classe.
 
             ⚠️ E É EXATAMENTE ISSO QUE ACONTECEU EM 21-09: voltou a `bg-paper`, a
-            classe prevista acima. Não é volta atrás na decisão — o argumento dos
-            "três valores na mesma seção" continua de pé —, é o efeito colateral
+            classe prevista acima. Não é volta atrás na decisão  -  o argumento dos
+            "três valores na mesma seção" continua de pé  - , é o efeito colateral
             da reordenação. Esta faixa passou a ser a ÚLTIMA coisa da seção que
             agora antecede o `#values`, e o `#values` é branco: branca aqui, o
             corte entre as duas seções simplesmente não existiria, e o visitante
@@ -1770,7 +1772,7 @@ export default async function AboutV2Page() {
 
             Dos dois chãos disponíveis, `paper` é o que a página já usa para
             marcar essa fronteira, e ele devolve de brinde a silhueta ao card
-            branco — que é a razão pela qual ele existiu aqui em 09-09. O card
+            branco  -  que é a razão pela qual ele existiu aqui em 09-09. O card
             fica como está (branco, borda, sombra), porque é especificação
             escrita do cliente. */}
         <div id="identity-pillars" className="hidden">
@@ -1780,7 +1782,7 @@ export default async function AboutV2Page() {
               /* AS BLACK BOXES VOLTAM, agora como superfície (09-09).
                  A Rhea pediu de volta o device do site antigo, e ele já existe
                  aqui: as linhas da Solutions (`.sbox`, em globals.css) são a
-                 leitura moderna dele. O que muda é o que se aproveita — lá o
+                 leitura moderna dele. O que muda é o que se aproveita  -  lá o
                  preto é o estado de repouso de um LINK, e o gesto é o vermelho
                  inclinado atravessando no hover; aqui é só a superfície.
 
@@ -1792,7 +1794,7 @@ export default async function AboutV2Page() {
                  lugar.
 
                  A LUZ VEM DA REFERÊNCIA MEDIDA, não estimada. A primeira
-                 versão usava um gradiente LINEAR a 158° e ficou fraca — o
+                 versão usava um gradiente LINEAR a 158° e ficou fraca  -  o
                  cliente reparou. Amostrando os pixels de `card ref.png`:
 
                    canto sup. esquerdo  #3d4759  ← o ponto mais claro
@@ -1802,7 +1804,7 @@ export default async function AboutV2Page() {
                    base (meio)          #151c2e  ← o mais escuro
 
                  Ou seja: a luz é RADIAL e nasce no canto superior esquerdo, não
-                 espalhada pela aresta de cima. E a queda é rápida — sobre a base
+                 espalhada pela aresta de cima. E a queda é rápida  -  sobre a base
                  #1b2334, o canto tem 16% de branco por cima e no meio do topo já
                  caiu para 3,5%. Um gradiente linear distribui esse ganho pela
                  largura inteira e é exatamente por isso que a versão anterior
@@ -1812,7 +1814,7 @@ export default async function AboutV2Page() {
                  só na metade de baixo, para o pé do card fechar como na
                  referência. Escritas como CAMADAS sobre o `ink`, e não como
                  hexadecimais, para a cor da marca seguir sendo a fonte da
-                 verdade — a referência é azul-petróleo, a nossa não, e o que se
+                 verdade  -  a referência é azul-petróleo, a nossa não, e o que se
                  copia é o comportamento da luz.
 
                  A ELIPSE É ALTA (85% x 110%), e essa proporção é o segundo
@@ -1831,7 +1833,7 @@ export default async function AboutV2Page() {
                  A SOMBRA também estava na referência e faltava aqui: fora do
                  card o fundo vai de #f9fafa nas laterais para #eaebec logo
                  abaixo dele, uma queda de ~6% concentrada embaixo. É uma sombra
-                 larga, baixa e deslocada para baixo — a mesma família da que o
+                 larga, baixa e deslocada para baixo  -  a mesma família da que o
                  card da citação usa, dois blocos acima.
 
                  Canto reto, como todo o resto da página. */
@@ -1841,7 +1843,7 @@ export default async function AboutV2Page() {
                  on mobile."
 
                  Ela ganha de duas decisões anteriores, e as duas vinham do lado
-                 deles — registro para ninguém tratar como capricho nosso:
+                 deles  -  registro para ninguém tratar como capricho nosso:
                    • ERAM PRETOS A PEDIDO DA RHEA, que pediu de volta o device do
                      site antigo. Branco desfaz isso.
                    • CANTO ARREDONDADO CONTRARIA O SISTEMA. O cabeçalho desta
@@ -1872,7 +1874,7 @@ export default async function AboutV2Page() {
                     duas linhas e a proporção volta ao lugar.
 
                     O peso, esse sim, segue a grade: 500 no lugar do 700. Vale
-                    reparar que é a mesma correção do h1 — em card pequeno ela
+                    reparar que é a mesma correção do h1  -  em card pequeno ela
                     aparece ainda mais, porque negrito em corpo pequeno é onde a
                     geométrica mais fecha. */}
                 <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
@@ -1892,7 +1894,7 @@ export default async function AboutV2Page() {
       {/* ── Block 5 · Our Values ──────────────────────────────────────
           "Five cards, or a stacked list with a red rule between each. Not a
           carousel: all five must be visible without interaction." Grade de
-          cinco com régua vermelha à esquerda de cada uma — no telefone a régua
+          cinco com régua vermelha à esquerda de cada uma  -  no telefone a régua
           continua ali, empilhada, então nunca há interação para ver um valor.
 
           Sem os ícones da imagem: não existe esse jogo de ícones no site, e os
@@ -1901,7 +1903,7 @@ export default async function AboutV2Page() {
         <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           {/* ALINHADO À ESQUERDA NO TELEFONE, centralizado a partir de `md`.
               Centralizado numa coluna de 342px o texto quebra em seis linhas
-              esfarrapadas dos dois lados, e — o que pesa mais — fica fora do
+              esfarrapadas dos dois lados, e  -  o que pesa mais  -  fica fora do
               eixo da lista logo abaixo, que é toda alinhada à esquerda. Dois
               alinhamentos diferentes na mesma seção, num telefone, leem como
               descuido.
@@ -1911,11 +1913,11 @@ export default async function AboutV2Page() {
               o bloco em vez de disputar eixo com ele. */}
           <div className="flex flex-col items-start text-left md:items-center md:text-center">
             <TypeLabel>{copy.values.label}</TypeLabel>
-            {/* O negrito vem marcado com `**…**` na copy — mesma conversão do
+            {/* O negrito vem marcado com `**…**` na copy  -  mesma conversão do
                 bloco de propósito. */}
             <p
               /* `[&_strong]:font-semibold` pelo mesmo motivo do bloco de
-                 propósito — ver a caixa lá. */
+                 propósito  -  ver a caixa lá. */
               className="max-w-[760px] text-[20px] leading-[1.4] text-ink [&_strong]:font-semibold md:text-[22px]"
               dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.values.intro) }}
             />
@@ -1925,7 +1927,7 @@ export default async function AboutV2Page() {
               volta e o histórico é o que impede a terceira rodada:
 
               Primeiro foram CINCO CARDS, construídos em 09-09 sobre a
-              `card ref 4.png` — faixa rosa no topo, ícone dentro dela, sombra
+              `card ref 4.png`  -  faixa rosa no topo, ícone dentro dela, sombra
               suave (commit 02cdc51). Saíram horas depois, no mesmo dia, por um
               detalhe do outline: ele pede "a red rule BETWEEN each", e para
               haver régua entre cards eles teriam de encostar, perdendo vão e
@@ -1934,7 +1936,7 @@ export default async function AboutV2Page() {
               Entrou então a LISTA EMPILHADA: cada valor uma fileira de largura
               cheia, ícone e título na coluna da esquerda (5fr), corpo na da
               direita (7fr), quatro réguas vermelhas entre os cinco. As colunas
-              não eram estética — 1360px de medida corrida dariam ~180
+              não eram estética  -  1360px de medida corrida dariam ~180
               caracteres por linha, contra os 45–75 legíveis.
 
               Duas notas de implementação que sobrevivem às duas versões e
@@ -1943,7 +1945,7 @@ export default async function AboutV2Page() {
                 `divide-*` da Tailwind v4 emite `border-width: calc(2px *
                 var(--tw-divide-y-reverse))`, e aqui a variável não chegou
                 inicializada na folha servida: o `calc` resolvia para zero e as
-                réguas sumiam, com a COR aplicada — falha que passa despercebida
+                réguas sumiam, com a COR aplicada  -  falha que passa despercebida
                 numa revisão rápida.
               • Se algum dia isto voltar a ser UMA coluna com texto largo, o
                 contêiner precisa de `grid-cols-[minmax(0,1fr)]` e não do `grid`
@@ -1951,17 +1953,17 @@ export default async function AboutV2Page() {
                 que se dimensiona pelo max-content, e isso faz um `max-w` de
                 parágrafo virar largura PREFERIDA em vez de teto. Medido num
                 telefone de 390px, o texto saía com 680px e transbordava. */}
-          {/* ⚠️ VOLTARAM A SER CINCO CAIXAS EM 14-09 — É O ITEM 2 DA DAILY, e a
+          {/* ⚠️ VOLTARAM A SER CINCO CAIXAS EM 14-09  -  É O ITEM 2 DA DAILY, e a
               lista horizontal descrita acima é exatamente o que ela estava
               vendo:
               *"can we make these like vertical by any chance, so you know
-              currently they're in horizontals — can we have, is it five, five
+              currently they're in horizontals  -  can we have, is it five, five
               little boxes with the text underneath."*
 
               ONDE O PEDIDO ESTAVA ANCORADO ERRADO. O doc de correções mandou
               mexer nos tiles de REGIÃO (`lg:grid-cols-5`, bloco 6). Não é ali:
               na fita ela diz "these" e, na frase seguinte, *"and then THIS ONE,
-              can we make the map a tiny bit smaller"* — logo "these" é o bloco
+              can we make the map a tiny bit smaller"*  -  logo "these" é o bloco
               imediatamente ANTES do mapa, que é esta lista. Os tiles de região
               vêm DEPOIS do mapa e já eram cinco em linha com o texto embaixo.
 
@@ -1969,7 +1971,7 @@ export default async function AboutV2Page() {
               cheia, com o ícone e o título na coluna da esquerda (5fr) e o corpo
               na da direita (7fr), cinco delas empilhadas com régua vermelha
               entre cada. Agora cada valor é uma COLUNA: ícone em cima, nome,
-              corpo embaixo — e as cinco correm lado a lado, como no mockup dela
+              corpo embaixo  -  e as cinco correm lado a lado, como no mockup dela
               de 08-09 e como nos cards que existiram nesta página até 09-09
               (commit 02cdc51).
 
@@ -1979,14 +1981,14 @@ export default async function AboutV2Page() {
               foi escolhida em 09-09 porque a régua vermelha estava no texto e,
               entre cards com vão, não há onde pôr régua "entre cada". Com o
               pedido dela a escolha se inverte, e a régua vermelha sobrevive
-              como `border-t-2` NO TOPO DE CADA CAIXA — que é onde ela já estava
+              como `border-t-2` NO TOPO DE CADA CAIXA  -  que é onde ela já estava
               nos tiles de região, e o que dá as cinco marcas alinhadas num eixo
               só. Os cinco continuam visíveis sem interação, que é a parte
               inegociável do outline.
 
               O TÍTULO VOLTA A 20px, de 24/26. Não é gosto: a coluna caiu de
               ~440px para ~250px, que é a mesma medida dos cards de 09-09, e a
-              caixa daquele dia registra o motivo — "Relationship Centricity" a
+              caixa daquele dia registra o motivo  -  "Relationship Centricity" a
               26px pede ~300px e quebra em três linhas.
 
               O ÍCONE VOLTA PARA CIMA pela razão espelhada da que o mandou para
@@ -1997,7 +1999,7 @@ export default async function AboutV2Page() {
               `sm:grid-cols-2 lg:grid-cols-5`: cinco colunas a 1024 dariam 180px
               por caixa e o corpo (até 160 caracteres) viraria uma tira de 20
               linhas. Duas colunas no meio do caminho, cinco só de `lg` para
-              cima — a mesma escada dos tiles de região, que é a outra grade de
+              cima  -  a mesma escada dos tiles de região, que é a outra grade de
               cinco desta página. */}
           <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
             {copy.values.items.map((v, i) => (
@@ -2021,17 +2023,17 @@ export default async function AboutV2Page() {
           Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio
           (`eyebrow={null} title={null}`), senão a seção abriria dois títulos.
 
-          O outline pede o mapa "region level only, with no per client pins" — o
+          O outline pede o mapa "region level only, with no per client pins"  -  o
           WorldCoverageMap pinta países e marca as cidades das regiões do CMS,
           nunca clientes, então já é esse nível.
 
-          ⚠️ FUNDO `paper` NOS DOIS PEDAÇOS — 10-09. A região eram três irmãos
-          no DOM (o cabeçalho, o mapa, e os escritórios abaixo — o mapa virou
+          ⚠️ FUNDO `paper` NOS DOIS PEDAÇOS  -  10-09. A região eram três irmãos
+          no DOM (o cabeçalho, o mapa, e os escritórios abaixo  -  o mapa virou
           filho do cabeçalho em 15-09, ver abaixo), e eles estavam em `white`,
           `white` e `paper`. Duas consequências, ambas erradas: o único corte de
           cor da região caía DENTRO da seção, partindo o mapa das locations que
           ele ilustra; e a fronteira com o `#values` logo acima, que é onde a
-          página realmente muda de assunto, não tinha corte nenhum — eram três
+          página realmente muda de assunto, não tinha corte nenhum  -  eram três
           faixas brancas seguidas.
 
           A borda do `paper` sobe para cá. Os pedaços passam a dividir um chão
@@ -2047,7 +2049,7 @@ export default async function AboutV2Page() {
             no meio da região.
 
             O motivo é colapso de margem. Quem é flex item nesta página é o
-            `<main className="flex-1">` (linha 555) — as `section` dentro dele
+            `<main className="flex-1">` (linha 555)  -  as `section` dentro dele
             são blocos comuns, não itens de flex, e portanto NÃO abrem contexto
             de formatação próprio. A margem inferior do último filho então sobe
             por este `<div>` e por esta `<section>`, que não tinham
@@ -2064,17 +2066,17 @@ export default async function AboutV2Page() {
         <Reveal className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-20">
           <TypeLabel>{copy.regions.label}</TypeLabel>
 
-          {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA — item 3 da call de 14-09.
+          {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA  -  item 3 da call de 14-09.
               Antes o parágrafo ficava sozinho numa linha e o mapa entrava
               abaixo, como seção própria, em largura cheia. A Maliha pediu
               *"the map just a tiny bit smaller and the text on the left hand
-              side"*, e o lado — a fala tinha "left" e "right" em sequência, e o
-              item ficou travado até 15-09 — foi confirmado como texto à
+              side"*, e o lado  -  a fala tinha "left" e "right" em sequência, e o
+              item ficou travado até 15-09  -  foi confirmado como texto à
               esquerda.
 
               O rótulo "Where we work." FICA FORA DO GRID, em cima dos dois:
               *"Where we work can remain at the top, but the body of the text
-              ... we can have that on the right"* — só o corpo desce para o lado
+              ... we can have that on the right"*  -  só o corpo desce para o lado
               do mapa.
 
               O mapa vem `bare`: sem a seção e o container de 1200px dele, senão
@@ -2098,12 +2100,12 @@ export default async function AboutV2Page() {
             {/* ⚠️ ERA "over 75 senior practitioners" ATÉ 17-09. O pedido da
                 daily citava a seção Global faculty da /team (*"trocar 75 por 60+
                 - a faculty of 60+"*), e esta linha é a MESMA afirmação em outra
-                página — deixá-la em 75 faria a firma publicar dois tamanhos de
+                página  -  deixá-la em 75 faria a firma publicar dois tamanhos de
                 faculty a um clique de distância.
 
                 O "over" SAIU JUNTO, e não por estilo: o `+` já diz "mais de", e
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
-                60+ é, aliás, de número EXATO para PISO — ver a caixa do h2 na
+                60+ é, aliás, de número EXATO para PISO  -  ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
             <p className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink">
               {copy.regions.intro}
@@ -2119,13 +2121,13 @@ export default async function AboutV2Page() {
           Três colunas, não cinco. O outline escreve "OFFICES: three cards" e
           logo abaixo tabela cinco cidades; a imagem mostra as cinco numa linha
           só. Medido: cinco cards em 1200px deixam ~170px de texto por card, e
-          `corporatednaconsulting.com` em Poppins ocupa ~185px a 11,5px — o
+          `corporatednaconsulting.com` em Poppins ocupa ~185px a 11,5px  -  o
           domínio quebrava no meio ("...consulting.c | om") em qualquer corpo
           ainda legível. A cinco cidades em três colunas cada card tem ~310px, o
           e-mail cabe inteiro em 14px como o telefone ao lado, e o layout passa a
           ser o que o texto do outline pede. As cinco regiões abaixo continuam em
           cinco, porque lá o texto é curto e cabe. */}
-      {/* `id` para o script do guia visual — ver a caixa do `identity-quote`. */}
+      {/* `id` para o script do guia visual  -  ver a caixa do `identity-quote`. */}
       <section id="region-tiles" className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           {/* Cinco tiles de região. Sem foto: os campos de CMS do outline são
@@ -2135,17 +2137,17 @@ export default async function AboutV2Page() {
               recepção. Endereço é dado de contato e fecha a seção.
 
               Some com a inversão o `mt-16` que separava estes tiles do link de
-              contato — agora eles abrem o bloco e o vão fica com a lista, abaixo.
+              contato  -  agora eles abrem o bloco e o vão fica com a lista, abaixo.
 
               { name, descriptor }. Os descritores estão em HOLD.
 
-              `mt-16`, e não os `mt-5` de antes — 09-09. Os 20px vinham de casar
+              `mt-16`, e não os `mt-5` de antes  -  09-09. Os 20px vinham de casar
               com o `gap-5` da grade de cards que existia acima; sem a grade,
               eles deixavam o link "Contact" mais perto destes tiles do que da
               lista a que ele pertence, e o link passava a ler como rótulo desta
               faixa. O vão maior devolve o link ao grupo certo.
 
-              SEM `bg-white` — 09-09. Tirados os cards dos escritórios, estes
+              SEM `bg-white`  -  09-09. Tirados os cards dos escritórios, estes
               cinco eram as únicas caixas que sobravam na faixa e passavam a
               saltar como resto do desenho antigo. Ficam o filete vermelho no
               topo e o texto, direto sobre o `paper`: mesma leitura de coluna,
@@ -2156,18 +2158,18 @@ export default async function AboutV2Page() {
               ("→ o `lg:grid-cols-5`"), e a fita mostra que não é: ela diz
               *"can we make these vertical... and then THIS ONE, can we make the
               map a tiny bit smaller"*, ou seja, "these" é o bloco IMEDIATAMENTE
-              ANTES do mapa — e estes tiles vêm DEPOIS dele. O que vem antes é a
+              ANTES do mapa  -  e estes tiles vêm DEPOIS dele. O que vem antes é a
               lista de valores, que de fato corre em fileiras horizontais.
 
               E o mockup dela de 08-09 (`1.About Page/WhatsApp Image 2026-09-08
               at 18.28.29.jpeg`) desenha estas cinco regiões EM LINHA, com a
-              imagem em cima e o texto embaixo — que é o que já está aqui, menos
+              imagem em cima e o texto embaixo  -  que é o que já está aqui, menos
               a imagem, que segue em HOLD (slot 06). Mexer nisto era desfazer o
               que ela aprovou.
 
               O ARRANJO EM LINHA FICA. O item 2 mora na seção `#values`.
 
-              ⚠️ SÃO QUATRO COLUNAS DESDE 16-09, E ERAM CINCO — e a troca não
+              ⚠️ SÃO QUATRO COLUNAS DESDE 16-09, E ERAM CINCO  -  e a troca não
               desfaz nada do parágrafo acima. A Índia saiu da LISTA a pedido dela
               na daily ("India will be covered under Asia"), primeiro na /team e
               aqui logo depois, quando ela confirmou que valia para as duas. O
@@ -2175,7 +2177,7 @@ export default async function AboutV2Page() {
               cinco deixariam uma coluna vazia e um vão do tamanho de um tile na
               ponta direita.
 
-              As duas listas continuam tendo de bater — é instrução do documento
+              As duas listas continuam tendo de bater  -  é instrução do documento
               de Team ("tiles matching the About page regions"), e o `lib/team.ts`
               tem a metade de lá. */}
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -2184,23 +2186,23 @@ export default async function AboutV2Page() {
                 {/* 23-09: as fotos de cidade voltam para cima do texto. São as
                     mesmas de `public/team/mock` que ilustravam estas regiões
                     (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
-                {/* ⚠️ QUADRADA, E ANCORADA NO TOPO — 23-09, em duas passadas.
+                {/* ⚠️ QUADRADA, E ANCORADA NO TOPO  -  23-09, em duas passadas.
                     Os cinco arquivos de `public/team/mock` são retratos de
                     900×1125 (4/5). A moldura era 3/2, paisagem: o `object-cover`
                     tinha de jogar fora quase metade da altura e, com
                     `object-center`, a perda saía metade em cima e metade embaixo
-                    — a ponte de Londres sem o vão de cima, a skyline de
+                     -  a ponte de Londres sem o vão de cima, a skyline de
                     Cingapura sem as torres. Na tela parecia zoom; era recorte.
                     A proporção nativa (4/5) resolvia o corte e criava outro
                     problema: quatro retratos inteiros lado a lado deixavam a
                     faixa alta demais para o texto que vem embaixo.
 
                     5/4 é onde paramos, depois de passar pelo quadrado: sobra
-                    36% de altura para cortar, contra os 47% de antes — menos que
+                    36% de altura para cortar, contra os 47% de antes  -  menos que
                     a moldura original, e ~253px de altura em quatro colunas a
                     1440, contra os 395px do retrato inteiro. E o corte inteiro
                     vai para BAIXO, via `object-top`, porque é onde mora o chão
-                    da foto — o céu, a ponte e as torres, que são o assunto,
+                    da foto  -  o céu, a ponte e as torres, que são o assunto,
                     ficam. Trocar por `object-center` devolve o defeito original
                     pela metade. Reduzir mais que isto começa a comer a base dos
                     prédios, e aí o recorte volta a se ver. */}
@@ -2213,7 +2215,7 @@ export default async function AboutV2Page() {
                       sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
                       className="object-cover"
                       /* INLINE, E NÃO CLASSE UTILITÁRIA: o valor vem de dados, e a
-                         Tailwind só gera classe que ela LEU no fonte — um
+                         Tailwind só gera classe que ela LEU no fonte  -  um
                          `object-[center_${y}]` montado em runtime não existiria
                          no CSS final e a foto cairia no centro, calada. */
                       style={{ objectPosition: `center ${REGION_IMAGES[ri].y}` }}
@@ -2221,7 +2223,7 @@ export default async function AboutV2Page() {
                   </div>
                 ) : null}
                 <div className="border-t-2 border-brand pt-5">
-                {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas — o mesmo
+                {/* SAIU DA CAIXA ALTA. Era 15px/700/maiúsculas  -  o mesmo
                     tratamento do rótulo vermelho, aplicado a um TÍTULO, e
                     caixa alta em grotesca pesada é exatamente o "quadrado" que
                     esta página está testando tirar. Em Geist 500 a 20px, caixa
@@ -2279,15 +2281,15 @@ export default async function AboutV2Page() {
 
       {/* ── Block 6b · The people behind it ───────────────────────────
           Pedido pela Maliha em 09-09, apontando o bloco que já existe na
-          /our-identity no ar (`app/our-identity/page.tsx:167`). Copy idêntica —
-          rótulo, título, corpo e "Meet the team →" — porque o pedido foi trazer
+          /our-identity no ar (`app/our-identity/page.tsx:167`). Copy idêntica  - 
+          rótulo, título, corpo e "Meet the team →"  -  porque o pedido foi trazer
           AQUELE bloco, não desenhar um novo.
 
           É também o que respondemos à pergunta dela sobre ligar a foto do time
           a uma galeria: em vez de fazer a fotografia do bloco 2 navegar em
           silêncio, a rota fica aqui, rotulada, no fim da leitura.
 
-          POSIÇÃO — antes da faixa de fecho, e não depois dela. O pedido foi
+          POSIÇÃO  -  antes da faixa de fecho, e não depois dela. O pedido foi
           "última seção"; last CONTENT section é o que faz sentido. A faixa de
           fecho é a chamada final da página, e dois botões em sequência
           ("Meet the team", "Get in touch") disputam o mesmo clique. Assim o
@@ -2300,7 +2302,7 @@ export default async function AboutV2Page() {
           faixa só e o corte entre as seções some. Na /our-identity o vizinho é
           branco, por isso lá o `paper` funciona.
 
-          MEDIDA — container de 1440 e alinhado à esquerda, como todo o resto
+          MEDIDA  -  container de 1440 e alinhado à esquerda, como todo o resto
           desta página, em vez da coluna centrada de 820px do original. É a
           mesma razão da foto do bloco 2: a borda esquerda de tudo cai na mesma
           linha vertical. O texto fica preso em 680px para não virar linha
@@ -2308,7 +2310,7 @@ export default async function AboutV2Page() {
 
           BOTÃO DE CONTORNO, não sólido. O sólido vermelho é da faixa logo
           abaixo, que é a ação principal. Dois preenchidos seguidos anulam a
-          hierarquia — este é o caminho lateral, aquele é o convite. */}
+          hierarquia  -  este é o caminho lateral, aquele é o convite. */}
       <section id="people" className="bg-ink text-white">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           <TypeLabel onDark>{copy.people.label}</TypeLabel>
@@ -2318,7 +2320,7 @@ export default async function AboutV2Page() {
           <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-white/70">
             {copy.people.body}
           </p>
-          {/* O MESMO BOTÃO DA HOME, desde 10-09 — mesmo componente, mesmas
+          {/* O MESMO BOTÃO DA HOME, desde 10-09  -  mesmo componente, mesmas
               cores, mesma animação (o bloco vermelho claro varrendo da seta para
               a esquerda). Ver `components/HoverFillButton.tsx`.
 
@@ -2327,7 +2329,7 @@ export default async function AboutV2Page() {
               ação principal, e dois preenchidos seguidos anulariam a hierarquia.
               ESSA FAIXA SAIU em 09-09 (ver o comentário logo abaixo desta
               seção). Sem ela não há segundo botão para disputar nada, então o
-              motivo do contorno morreu junto — este virou o único CTA da página
+              motivo do contorno morreu junto  -  este virou o único CTA da página
               e pode ser sólido.
 
               O rótulo passa a ser caixa alta, porque é o tratamento do
@@ -2343,8 +2345,8 @@ export default async function AboutV2Page() {
           CONSEQUÊNCIA, para quem for cobrar depois: a About passou a ser a única
           página do site que termina SEM chamada de contato. O outline de Services
           registra que a faixa compartilhada roda em todas as outras. O contato
-          continua alcançável — pelo link "Contact" no fim dos escritórios e pelo
-          botão do menu — mas deixou de ser o último gesto da página.
+          continua alcançável  -  pelo link "Contact" no fim dos escritórios e pelo
+          botão do menu  -  mas deixou de ser o último gesto da página.
 
           O que fecha a página agora é a seção "The people behind it", que passou
           a fundo escuro no mesmo pedido. O escuro no fim continua existindo; o

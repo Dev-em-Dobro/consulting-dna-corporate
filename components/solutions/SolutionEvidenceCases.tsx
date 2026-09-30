@@ -2,7 +2,7 @@ import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
 
 /**
- * OS TRÊS CARTÕES DE CLIENTE DA FAIXA "EVIDENCE" — layout de Women’s
+ * OS TRÊS CARTÕES DE CLIENTE DA FAIXA "EVIDENCE"  -  layout de Women’s
  * Leadership Development (`women leadership.jpeg`, 24-09).
  *
  * Cada cartão é uma prova fechada em si: o logo da marca, o nome do programa,
@@ -15,7 +15,7 @@ import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
  * O `SolutionEvidence` conta UM caso por extenso (parágrafo, foto, citação). O
  * `SolutionEvidenceSummary` afirma UM resultado e usa os logos como lastro,
  * numa fileira só. Esta faixa afirma TRÊS resultados independentes, um por
- * cliente, cada um com as suas medidas e o seu recorte de tempo e geografia —
+ * cliente, cada um com as suas medidas e o seu recorte de tempo e geografia  - 
  * as medidas não são comparáveis entre os cartões (6.300 pessoas, 96% de
  * impacto, 70 de NPS), e é por isso que elas não podem entrar na fileira
  * intercalada do `Summary`, que trata cada célula como uma medida da MESMA
@@ -28,13 +28,13 @@ import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
  * ⚠️ FUNDO BRANCO E LOGO EM COR ORIGINAL, como no `Summary` e pela mesma razão:
  * os PNG de `public/logos/` são as marcas para fundo claro, e sobre `ink`
  * exigiriam a plaqueta branca que `SolutionEvidence` registra como testada e
- * descartada. O vermelho das medidas é o `brand` cheio — a regra de uma linha
+ * descartada. O vermelho das medidas é o `brand` cheio  -  a regra de uma linha
  * do `globals.css` (`brand` em fundo claro, `brand-light` em fundo escuro).
  *
  * ⛔ SEM LINK PARA CASE. O layout não desenha nenhum, e a régua de sempre vale:
  * link para case despublicado é 404 em cima do logo de um cliente. Quando
  * houver página para as três marcas, o caminho é o do `EvidenceLogo` do
- * `Summary` — envolver o `<img>` num `Link` com `aria-label` próprio.
+ * `Summary`  -  envolver o `<img>` num `Link` com `aria-label` próprio.
  */
 export default function SolutionEvidenceCases({
   item,
@@ -101,7 +101,7 @@ export default function SolutionEvidenceCases({
                       {c.client}
                     </p>
                   ) : null}
-                  {/* `h3` sob o `h2` da faixa — a escada de cabeçalhos inteira. */}
+                  {/* `h3` sob o `h2` da faixa  -  a escada de cabeçalhos inteira. */}
                   <h3 className="text-[12px] font-bold uppercase leading-[1.35] tracking-[1.2px] text-ink">
                     {c.title}
                   </h3>
@@ -112,13 +112,13 @@ export default function SolutionEvidenceCases({
                 {c.tagline}
               </p>
 
-              {/* AS TRÊS MEDIDAS, separadas por filete vertical — a mesma
+              {/* AS TRÊS MEDIDAS, separadas por filete vertical  -  a mesma
                   gramática da fileira do `SolutionEvidenceSummary`, em
                   miniatura.
 
                   ⚠️ NÚMERO EM TEXTO E NÃO `Counter`, ao contrário da outra
                   faixa: aqui os valores são "5–7", ">70%" e "6,300", e o
-                  contador anima a parte numérica que encontra — com um
+                  contador anima a parte numérica que encontra  -  com um
                   intervalo ou um sinal de maior ele conta até o número errado,
                   e a animação passaria a depender de como a cliente escreveu a
                   medida.
@@ -150,7 +150,7 @@ export default function SolutionEvidenceCases({
                 ))}
               </ul>
 
-              {/* A TIRA DE RECORTES — "5+ years | Global". São qualificadores da
+              {/* A TIRA DE RECORTES  -  "5+ years | Global". São qualificadores da
                   prova, não medidas: dizem em quanto tempo e em que geografia
                   ela vale. */}
               {c.meta && c.meta.length > 0 ? (

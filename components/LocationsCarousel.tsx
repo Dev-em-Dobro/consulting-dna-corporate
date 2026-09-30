@@ -17,7 +17,7 @@ export default function LocationsCarousel({
   offices: Office[];
   activeIndex: number;
   onChange: (index: number) => void;
-  /** Mirrors `LocationsBlock`'s own `tone` — see the note on that prop. */
+  /** Mirrors `LocationsBlock`'s own `tone`  -  see the note on that prop. */
   tone?: "paper" | "dark";
 }) {
   const dark = tone === "dark";
@@ -44,7 +44,7 @@ export default function LocationsCarousel({
   }, [recenter, n]);
 
   // Re-center once the web font has loaded (it changes the name widths) and on
-  // any resize — both would otherwise leave the active name slightly off-center.
+  // any resize  -  both would otherwise leave the active name slightly off-center.
   useEffect(() => {
     let cancelled = false;
     document.fonts?.ready.then(() => {
@@ -60,7 +60,7 @@ export default function LocationsCarousel({
 
   return (
     <div className="relative">
-      {/* Edge fades. These have to track the section's ground exactly — a
+      {/* Edge fades. These have to track the section's ground exactly  -  a
           `from-paper` fade left on a dark block reads as two grey smudges
           bracketing the city name, not as a fade. */}
       <div

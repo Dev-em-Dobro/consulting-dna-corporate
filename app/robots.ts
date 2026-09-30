@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         // As telas de edição de texto (23-09) entram aqui pelo mesmo motivo de
         // `/preview/`: são rotas de trabalho, `noindex` e fora do sitemap. Isso
-        // é higiene, não proteção — elas não têm login.
+        // é higiene, não proteção  -  elas não têm login.
         //
         // `/edit` sozinho já bastaria: a regra do robots.txt casa por PREFIXO,
         // então ela cobre todas as `/edit-*`, inclusive as dez telas em
