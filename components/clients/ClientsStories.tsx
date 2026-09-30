@@ -33,19 +33,19 @@ const featured = [
     body: "Developing leaders to enable sustainable growth.",
     metric: "85%",
     metricLabel: "of leaders demonstrated stronger influence and collaboration",
-    href: "/our-clients",
+    href: "/cases/maaden",
   },
 ] as const;
 
 const moreStories = [
   { image: "/clients/impact/thumb-heineken.jpg", logo: "/logos/client-logos/heineken.png", name: "Heineken", label: "Culture & engagement", href: "/cases/heineken-inner-outer-game" },
-  { image: "/clients/impact/thumb-vodafone.jpg", logo: "/logos/client-logos/vodafone.png", name: "Vodafone", label: "Leadership transformation", href: "/our-clients", logoScale: 2.25 },
+  { image: "/clients/impact/thumb-vodafone.jpg", logo: "/logos/client-logos/vodafone.png", name: "Vodafone", label: "Leadership transformation", href: "/cases/vodafone", logoScale: 2.25 },
   { image: "/clients/impact/thumb-frasers.jpg", logo: "/logos/client-logos/frasers-property.png", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership" },
-  { image: "/clients/impact/thumb-dyson.jpg", logo: "/logos/client-logos/dyson.png", name: "Dyson", label: "Innovation & growth", href: "/our-clients" },
-  { image: "/clients/impact/thumb-dp-world.jpg", logo: "/logos/client-logos/dp-world.png", name: "DP World", label: "Global leadership", href: "/our-clients" },
-  { image: "/clients/impact/thumb-bt.jpg", logo: "/logos/client-logos/bt.png", name: "BT", label: "Inclusive leadership", href: "/our-clients" },
-  { image: "/clients/impact/thumb-gsk.jpg", logo: "/logos/client-logos/gsk.png", name: "GSK", label: "Talent & capability", href: "/our-clients" },
-  { image: "/clients/impact/thumb-morgan-stanley.jpg", logo: "/logos/client-logos/morgan-stanley.png", name: "Morgan Stanley", label: "Leadership for what's next", href: "/our-clients", logoScale: 2.25 },
+  { image: "/clients/impact/thumb-dyson.jpg", logo: "/logos/client-logos/dyson.png", name: "Dyson", label: "Innovation & growth", href: "/cases/dyson" },
+  { image: "/clients/impact/thumb-dp-world.jpg", logo: "/logos/client-logos/dp-world.png", name: "DP World", label: "Global leadership", href: "/cases/dp-world" },
+  { image: "/clients/impact/thumb-bt.jpg", logo: "/logos/client-logos/bt.png", name: "BT", label: "Inclusive leadership", href: "/cases/bt" },
+  { image: "/clients/impact/thumb-gsk.jpg", logo: "/logos/client-logos/gsk.png", name: "GSK", label: "Talent & capability", href: "/cases/gsk" },
+  { image: "/clients/impact/thumb-morgan-stanley.jpg", logo: "/logos/client-logos/morgan-stanley.png", name: "Morgan Stanley", label: "Leadership for what's next", href: "/cases/morgan-stanley", logoScale: 2.25 },
 ] as const;
 
 const quotes = [

@@ -49,15 +49,6 @@ This document tracks the remaining assets and content needed to complete the pag
   - Schroders
   - Singtel
   - Swarovski
-- **Cards without direct case links:** In the “Impact in action” / “More client stories” content, these cards currently link to `/our-clients`:
-  - Maaden
-  - Vodafone
-  - Dyson
-  - DP World
-  - BT
-  - GSK
-  - Morgan Stanley
-  A case page for each client is currently published under `/cases`. Confirm that each case matches the specific story shown on its card before linking directly; request a new case only if the published case does not cover that story.
 
 The client logo wall itself is intentionally non-clickable. The case request list above is based on whether each logo’s client has a published case page, not on a logo `href`.
 
