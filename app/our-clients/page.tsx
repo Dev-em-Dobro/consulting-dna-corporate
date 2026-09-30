@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
-import EmptyNotice from "@/components/EmptyNotice";
 import SolutionHero from "@/components/solutions/SolutionHero";
-import SolutionCta from "@/components/solutions/SolutionCta";
 import SectionHead from "@/components/clients/SectionHead";
+import ClientsStories from "@/components/clients/ClientsStories";
 import LogoMarquee from "@/components/LogoMarquee";
-import CaseLine from "@/components/clients/CaseLine";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getFirmStats } from "@/lib/stats";
 import { getClientsCopy } from "@/lib/clients-copy-server";
-import { getCaseListEntries, type CaseListEntry } from "@/lib/cms/map";
 /* 24-09 (hotfix): o herói passou a usar a foto que era do herói da /team, que
    ficou sem imagem. O paredão de logos da Rhea (`clients-impact.jpeg`, sem o
    título gravado na arte) continua em `public/hero`  -  é trocar o import. */
@@ -29,17 +25,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 export const revalidate = 300;
 
-/** Quantos cases a grade mostra antes de mandar para a biblioteca inteira. */
-const TILE_COUNT = 12;
-const CLIENT_FILMS = [
-  { role: "CEO, Vodafone Americas", name: "Andrew Morawski", href: "https://www.youtube.com/watch?v=xEgl5TdON20" },
-  { role: "Former Chief DEI Officer, Shell", name: "Lyn Lee", href: "https://www.youtube.com/watch?v=VDylL7Isexw" },
-  { role: "Chief People Officer, Heineken", name: "Yolanda Talamo", href: "https://www.youtube.com/watch?v=GwFhWZs8FfU" },
-  { role: "Chief Human Resources Officer, Kellanova", name: "Sonali Roychowdhury", href: "https://www.youtube.com/watch?v=3LBXTFCFtx0" },
-  { role: "Managing Director, Heineken Asia Pacific", name: "Kenneth Choo", href: "https://www.youtube.com/watch?v=dyuIM3VHEbo" },
-  { role: "SVP, Global Therapy Area Head & Digital Lead, GSK", name: "James Strenner", href: "https://www.youtube.com/watch?v=qiQkc5RbR4c" },
-  { role: "Managing Director, Adidas Asia Pacific", name: "Frederic Serrant", href: "https://www.youtube.com/watch?v=nE1fFizK0Gk" },
-];
 
 /**
  * ============================================================================
@@ -107,8 +92,7 @@ export default async function ClientsAndImpactPage() {
   /* `copy` vem de `/edit-clients`; `firmStats` vem de `/edit-about`, porque
      os quatro números desta página são os mesmos da faixa de lá desde 18-09
       -  ver `lib/clients-copy.ts`. */
-  const [cases, firmStats, copy] = await Promise.all([
-    getCaseListEntries(),
+  const [firmStats, copy] = await Promise.all([
     getFirmStats(),
     getClientsCopy(),
   ]);
@@ -126,13 +110,6 @@ export default async function ClientsAndImpactPage() {
      FICA O QUE TEM NÚMERO. Entre dois cases do mesmo cliente, vence o que traz
      métrica: o card foi desenhado em volta dela, e sem número ele perde a linha
      que faz alguém parar. Empatados, vence o primeiro  -  a ordem do CMS. */
-  const tiles = Object.values(
-    cases.reduce<Record<string, CaseListEntry>>((porCliente, c) => {
-      const atual = porCliente[c.client];
-      if (!atual || (!atual.metricValue && c.metricValue)) porCliente[c.client] = c;
-      return porCliente;
-    }, {}),
-  ).slice(0, TILE_COUNT);
   /* AS TRÊS MAIS CURTAS, e não as três primeiras. Numa fileira de cartões a
      altura é a da citação mais longa, e as do CMS vão de uma frase (Unilever) a
      um parágrafo inteiro (GSK, HEINEKEN): pela ordem natural a faixa saía com um
@@ -377,180 +354,8 @@ export default async function ClientsAndImpactPage() {
             `lib/services.ts`, e a informacao de breadth que a cliente ficou de
             mandar (*"we'll give you this information"*, daily de 16-09). */}
 
-        {/* ── Case studies ─────────────────────────────────────────────── */}
-        <section id="case-studies" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label={copy.cases.label} kicker={copy.cases.kicker} />
+        <ClientsStories />
 
-            {/* ⚠️ ERA UMA GRADE DE CARTÕES COM FOTO até 17-09  -  *"mudar o
-                estilo da seção 'case studies' deixar cada case em uma linha com
-                logo texto The challenge, e os numeros de impactoo"*. O desenho
-                de cada linha e o porquê da troca estão no cabeçalho do
-                `CaseLine`; o que importa AQUI é o que a lista ganhou com ela.
-
-                A CAPA DE CASE ERA O PROBLEMA MAIOR: `coverMediaId` está vazio
-                nos quinze cases do CMS, então os doze cartões desta grade
-                mostravam doze placeholders de imagem. Uma grade de placeholders
-                numa página cujo trabalho é provar impacto era o defeito mais
-                visível da página, e a linha não tem slot de foto para ficar
-                vazio  -  ela mostra logo, desafio e número, que são os três campos
-                que o CMS realmente preenche.
-
-                ⚠️ O `CaseTile` FICA NO REPOSITÓRIO, sem uso, pelo mesmo motivo
-                que o `LogoWall` duas seções acima: esta página inverteu duas
-                decisões em dois dias, e a peça pronta é mais barata de devolver
-                que de reescrever. Quando as capas chegarem, a conversa sobre
-                cartão × linha volta com dado melhor do que tem hoje. */}
-            {tiles.length === 0 ? (
-              <EmptyNotice>{copy.cases.empty}</EmptyNotice>
-            ) : (
-              /* ⚠️ O `-mx` SAIU EM 17-09, junto com o realce de `hover` da
-                 linha. Ele existia para a tarja transbordar a margem do conteúdo
-                 sem mover o conteúdo; sem tarja, ele só deslocava a lista para
-                 fora do eixo do `SectionHead` acima. Ver a caixa no `CaseLine`.
-
-                 ⚠️ E O PAR `-mx`/`px` VOLTOU EM 18-09  -  dentro do `CaseLine`, não
-                 aqui. A cliente pediu as linhas alternando branco e cinza, e uma
-                 faixa de fundo é exatamente a "tarja" para a qual o par existia:
-                 o `-mx` estica a faixa até a borda do contêiner e o `px` do
-                 mesmo tamanho devolve o conteúdo ao eixo do `SectionHead`. Sem o
-                 par, ou a faixa começaria no pixel do texto, ou o texto
-                 entraria 24px para dentro. A conta está na caixa do `CaseLine`. */
-              <Reveal className="mt-2 flex flex-col">
-                {tiles.map((entry) => (
-                  <CaseLine key={entry.slug} entry={entry} />
-                ))}
-              </Reveal>
-            )}
-
-            {/* ⚠️ O "EXPLORE ALL CASE STUDIES" SAIU EM 17-09, a pedido. Ele era
-                um botão de borda no pé da lista, condicionado a
-                `cases.length > tiles.length`  -  só aparecia quando o CMS tinha
-                mais cases publicados do que os `TILE_COUNT` que esta seção
-                mostra.
-
-                ⚠️ O CORTE EM 12 CONTINUA EXISTINDO. Ele não saiu junto, e é bom
-                saber: se um dia houver mais de doze cases publicados, os
-                excedentes deixam de ter QUALQUER caminho a partir desta seção  - 
-                antes o botão era esse caminho. A biblioteca segue viva em
-                `/cases` e alcançável pelo menu; o que se perdeu foi o atalho
-                daqui. Hoje são nove cases contra um teto de doze, então a
-                condição nem chegava a ser verdadeira e o botão não aparecia.
-
-                COMO VOLTAR: é o `<Link href="/cases">` com a mesma linguagem de
-                botão do "Read the full story" de cada linha, dentro do mesmo
-                `cases.length > tiles.length`. Está no git. */}
-          </div>
-        </section>
-
-        {/* ── What our clients say ─────────────────────────────────────────
-            ⚠️ ERA UMA FAIXA ESCURA ATÉ 16-09, e ela apontou o erro olhando a
-            referência: o bloco é CLARO nas duas imagens do drive, com cartões
-            brancos de borda fina. E o motivo é de leitura, não de gosto  -  a
-            faixa escura deste site é o registro de ÊNFASE (o CTA, a evidência
-            de serviço), e usá-la aqui punha os depoimentos no mesmo peso do
-            fecho da página, empurrando para baixo o que vem antes. Em claro,
-            eles ficam onde devem: prova corrente, não clímax.
-
-            A ESTRUTURA DO CARTÃO É A DA REFERÊNCIA: retrato à esquerda, citação
-            à direita, atribuição embaixo e uma régua vermelha curta no pé. */}
-        <section id="voices" className="bg-paper">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead label={copy.voices.label} kicker={copy.voices.kicker} />
-            <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {CLIENT_FILMS.map((film) => {
-                const videoId = new URL(film.href).searchParams.get("v");
-                return (
-                <article
-                  key={film.href}
-                  className="flex h-full flex-col border border-line bg-white p-3"
-                >
-                  {videoId && (
-                    <div className="relative aspect-video w-full overflow-hidden bg-ink">
-                      <iframe
-                        className="absolute inset-0 h-full w-full"
-                        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-                        title={`${film.name}  -  ${film.role}`}
-                        loading="lazy"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                      />
-                    </div>
-                  )}
-                  <div className="px-3 pb-3 pt-4">
-                    <p className="text-[12px] font-semibold uppercase tracking-[1.2px] text-brand">{film.role}</p>
-                    <p className="mt-2 font-serif text-[22px] font-semibold leading-[1.25] text-ink">{film.name}</p>
-                  </div>
-                </article>
-                );
-              })}
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── A force for good ─────────────────────────────────────────────
-            ⚠️ REFEITA EM 16-09. A primeira versão repetia a forma das outras
-            seções  -  `SectionHead` com a régua vermelha, fundo claro, texto em
-            `muted`, link sublinhado  -  e por isso lia como "mais uma seção", que
-            é justamente o que ela NÃO é na imagem 1 do drive: lá é uma FAIXA
-            ESCURA DE SANGRIA TOTAL, com o título em versalete à esquerda e um
-            botão claro à direita.
-
-            E a diferença tem função. Tudo acima desta faixa é prova comercial  - 
-            logos, números, cases, depoimentos. Este bloco muda de assunto: fala
-            do que a firma faz fora do contrato. A quebra de fundo é o que avisa
-            o leitor de que o assunto virou; em claro, com o mesmo rótulo das
-            outras, o aviso não existia.
-
-            SEM `SectionHead` AQUI, pelo mesmo motivo: o rótulo com régua é o
-            objeto que marca "seção de conteúdo da página". Esta faixa é um
-            intervalo.
-
-            ⚠️ FALTA A FOTOGRAFIA. No desenho, a faixa tem folhagem escura ao
-            fundo  -  é o trabalho de agrofloresta com a TERRAGRN. Não temos esse
-            arquivo: o acervo tem fotos de evento (`/dna-time/*`), que são de
-            pessoas em sala e diriam o contrário de "beyond the boardroom". A
-            faixa fica no `ink` sólido até a imagem chegar; quando chegar, é um
-            `<Image fill>` com um véu por cima, e nada mais muda aqui. */}
-        <section id="social-impact" className="relative isolate overflow-hidden bg-ink text-white">
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-9 px-6 py-16 md:flex-row md:items-center md:justify-between md:gap-14 md:px-10 md:py-20">
-            <div>
-              {/* VERSALETE COM ENTRELETRA, em serifa, como no desenho  -  e é a
-                  única seção da página cujo título é o próprio texto grande, em
-                  vez de um rótulo acima de um parágrafo. */}
-              <h2 className="font-serif text-[19px] uppercase leading-[1.35] tracking-[2px] text-white sm:text-[22px]">
-                {copy.social.title}
-              </h2>
-              {/* A COPY É A DA /our-impact, palavra por palavra. Ela já está no
-                  ar e já passou pela cliente; o desenho traz uma versão mais
-                  curta e mais bonita para a faixa, mas reescrita e sem fonte em
-                  documento nenhum. Se ela quiser a do mockup, é pedido de copy.
-                  `max-w` em ch para a linha não atravessar a faixa inteira. */}
-              <p className="mt-5 max-w-[78ch] text-[15px] leading-[1.7] text-white/70 md:text-[16px]">
-                {copy.social.body}
-              </p>
-            </div>
-            {/* `shrink-0` para o botão não ser espremido pelo parágrafo quando
-                a faixa fica estreita  -  no desenho ele tem largura própria e o
-                texto é que cede. */}
-            <Link
-              href="/our-impact#model"
-              className="inline-flex shrink-0 items-center gap-3 self-start border border-white px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[1.5px] text-white transition-colors hover:bg-white hover:text-ink md:self-auto"
-            >
-              {copy.social.ctaLabel}
-              <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </section>
-
-        <div id="clients-cta">
-        <SolutionCta
-          strapline={copy.cta.strapline}
-          line={copy.cta.line || undefined}
-          ctaLabel={copy.cta.ctaLabel === "Get in touch" ? "Start a conversation" : copy.cta.ctaLabel}
-        />
-        </div>
       </SiteShell>
     </div>
   );

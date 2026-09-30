@@ -236,10 +236,10 @@ export default async function ApproachPage() {
             </div>
             <div className="mt-10 grid gap-8 lg:mt-0">
               <Image
-                src="/approach/nigel-guenole.png"
+                src="/approach/nigel-guenole-30-09.webp"
                 alt="Dr Nigel Guenole, who validated the 5H leadership framework"
-                width={374}
-                height={374}
+                width={227}
+                height={234}
                 className="mb-8 w-full max-w-[280px] object-cover object-top"
               />
               <div>

@@ -164,6 +164,8 @@ export const events: LeadershipEvent[] = [
     summary: "A privilege to host the first CDNA Executive Series, with Frasers.",
     overview: [],
     topics: [],
+    image: "/events/executive-series-11-june-2026.jpg",
+    imageAlt: "CorporateDNA Executive Series with Frasers in Singapore, 11 June 2026",
     status: "past",
   },
   {
