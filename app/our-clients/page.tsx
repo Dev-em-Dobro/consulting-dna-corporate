@@ -3,6 +3,7 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import SectionHead from "@/components/clients/SectionHead";
 import ClientsStories from "@/components/clients/ClientsStories";
+import SolutionCta from "@/components/solutions/SolutionCta";
 import LogoMarquee from "@/components/LogoMarquee";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
@@ -355,6 +356,12 @@ export default async function ClientsAndImpactPage() {
             mandar (*"we'll give you this information"*, daily de 16-09). */}
 
         <ClientsStories />
+        <SolutionCta
+          strapline={copy.cta.strapline}
+          line={copy.cta.line}
+          ctaLabel={copy.cta.ctaLabel}
+          ctaHref="/contact"
+        />
 
       </SiteShell>
     </div>

@@ -19,6 +19,11 @@ const store = createCopyStore<TeamCopy>({
       copy.hero.title = "We bring experience from both sides of the table";
     }
     if (copy.leadership?.label === "Leadership") copy.leadership.label = "Leadership Team";
+    const legacyManagersText = copy.leadership?.managersTitle;
+    if (copy.leadership && typeof legacyManagersText === "string" && legacyManagersText.includes("The team that carries every project from promise to impact.")) {
+      copy.leadership.managersIntro = legacyManagersText.replace(/^PMO\s+/, "").trim();
+      copy.leadership.managersTitle = DEFAULT_TEAM_COPY.leadership.managersTitle;
+    }
     return copy;
   },
 });

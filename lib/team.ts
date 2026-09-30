@@ -631,7 +631,7 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Mauricio Tasca", meta: "Americas", portrait: "/team/faculty/mauricio-tasca.png" },
   { name: "Aroldo Couto", meta: "Americas", portrait: "/team/faculty/aroldo-couto-29-09.png" },
   { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli.jpg" },
-  { name: "Susana Azevedo", meta: "Americas", portrait: "/team/faculty/susana-azevedo-30-09.jpg" },
+  { name: "Susanna Ezvedo", meta: "Americas", portrait: "/team/faculty/susana-azevedo-30-09.jpg" },
   { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
   { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
   { name: "Aman Almahid", meta: "Middle East", portrait: "/team/faculty/aman-almahid.png" },

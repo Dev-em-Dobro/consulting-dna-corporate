@@ -176,7 +176,7 @@ const differentiators = [
 ];
 
 // `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
-// Cards without a slug fall back to the flagship-cases listing (/cases).
+// Cards without a slug fall back to the client collection (/our-clients).
 //
 // ⚠️ OS TRÊS ESTÃO SEM SLUG DESDE 17-09, e por isso os três caem na biblioteca.
 // Heineken, Coca-Cola e Shell foram despublicados no CMS  -  nenhum tem
@@ -207,7 +207,7 @@ const differentiators = [
 // texto: o arquivo do logo, por posição. Se a cliente trocar o cliente do card
 // no editor, o logo continua sendo o desta lista  -  trocar arte é aqui.
 //
-// SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /cases.
+// SEM `caseSlug` desde 17-09 (ver acima): os três links caem em /our-clients.
 //
 // Os tons suaves distinguem os três cartões. As métricas acompanham as cores
 // das marcas, com o laranja escolhido para a métrica da Shell.
@@ -954,7 +954,7 @@ function caseHref(client: string, published: { slug: string; client: string }[])
     const slug = entry.slug.toLowerCase().replace(/[^a-z0-9]/g, "");
     return name.includes(key) || slug.includes(key);
   });
-  return hit ? `/cases/${hit.slug}` : "/cases";
+  return hit ? `/cases/${hit.slug}` : "/our-clients";
 }
 
 function leadSentence(body: string) {

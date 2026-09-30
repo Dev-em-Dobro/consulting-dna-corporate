@@ -23,7 +23,7 @@ export const events: LeadershipEvent[] = [
     slug: "executive-series-collective-judgement-2026-09-18",
     title: "Executive Series",
     category: "cDNA",
-    kind: "Past event",
+    kind: "Speaker event",
     dateLabel: "18 September 2026",
     summary:
       "Our focus was collective judgement in the AI era: what happens to executive judgement when AI becomes another voice in the room.",
@@ -158,7 +158,7 @@ export const events: LeadershipEvent[] = [
     slug: "executive-series-singapore-2026-06-11",
     title: "Executive Series",
     category: "cDNA",
-    kind: "Past event",
+    kind: "Speaker event",
     dateLabel: "11 June 2026",
     location: "Singapore",
     summary: "A privilege to host the first CDNA Executive Series, with Frasers.",
@@ -172,7 +172,7 @@ export const events: LeadershipEvent[] = [
     slug: "clo-impact-residency-2026-09",
     title: "CLO Impact Residency",
     category: "cDNA",
-    kind: "Past event",
+    kind: "Speaker event",
     dateLabel: "September 2026",
     summary:
       "An immersive, multi-day development experience for Chief Learning Officers, Heads of Learning & Development and senior HR leaders.",

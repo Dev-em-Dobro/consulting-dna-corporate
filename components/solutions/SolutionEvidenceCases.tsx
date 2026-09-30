@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import Link from "next/link";
 import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
 
 /**
@@ -31,10 +32,10 @@ import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
  * descartada. O vermelho das medidas é o `brand` cheio  -  a regra de uma linha
  * do `globals.css` (`brand` em fundo claro, `brand-light` em fundo escuro).
  *
- * ⛔ SEM LINK PARA CASE. O layout não desenha nenhum, e a régua de sempre vale:
- * link para case despublicado é 404 em cima do logo de um cliente. Quando
- * houver página para as três marcas, o caminho é o do `EvidenceLogo` do
- * `Summary`  -  envolver o `<img>` num `Link` com `aria-label` próprio.
+ * OS LOGOS PODEM LEVAR À LISTA DE CASES sem prometer uma página específica que
+ * não esteja publicada para este trabalho. `href` é opcional no dado; quando
+ * existe, o logo ganha o mesmo foco visível e a mesma resposta ao hover da
+ * outra faixa de evidência.
  */
 export default function SolutionEvidenceCases({
   item,
@@ -83,12 +84,29 @@ export default function SolutionEvidenceCases({
                     240/86): lá as marcas SÃO a fileira; aqui elas dividem a
                     primeira linha do cartão com o nome do programa. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.logo.src}
-                  alt={c.logo.alt}
-                  loading="lazy"
-                  className="h-auto max-h-[40px] w-auto max-w-[96px] shrink-0 md:max-h-[48px]"
-                />
+                {c.logo.href ? (
+                  <Link
+                    href={c.logo.href}
+                    aria-label={`Read the cases: ${c.logo.alt}`}
+                    className="shrink-0 transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={c.logo.src}
+                      alt={c.logo.alt}
+                      loading="lazy"
+                      className="h-auto max-h-[40px] w-auto max-w-[96px] md:max-h-[48px]"
+                    />
+                  </Link>
+                ) : (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={c.logo.src}
+                    alt={c.logo.alt}
+                    loading="lazy"
+                    className="h-auto max-h-[40px] w-auto max-w-[96px] shrink-0 md:max-h-[48px]"
+                  />
+                )}
                 <div className="min-w-0">
                   {/* O NOME DO CLIENTE SÓ EXISTE ONDE O LOGO NÃO O ESCREVE. No
                       layout a Shell mostra "SHELL" acima do nome do programa,

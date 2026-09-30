@@ -68,7 +68,7 @@ export default async function CasePage({
       // "Client Impact" as an area name is retired by the 27-08 brief, which
       // splits it into Our Clients and Our Impact; the library itself keeps its
       // route and is now named for what it holds.
-      { name: "Case Studies", path: "/cases" },
+      { name: "Case Studies", path: "/our-clients" },
       { name: c.title, path: `/cases/${slug}` },
     ]),
     articleLd({

@@ -33,19 +33,19 @@ const featured = [
     body: "Developing leaders to enable sustainable growth.",
     metric: "85%",
     metricLabel: "of leaders demonstrated stronger influence and collaboration",
-    href: "/cases",
+    href: "/our-clients",
   },
 ] as const;
 
 const moreStories = [
   { image: "/clients/impact/thumb-heineken.jpg", logo: "/logos/client-logos/heineken.png", name: "Heineken", label: "Culture & engagement", href: "/cases/heineken-inner-outer-game" },
-  { image: "/clients/impact/thumb-vodafone.jpg", logo: "/logos/client-logos/vodafone.png", name: "Vodafone", label: "Leadership transformation", href: "/cases" },
+  { image: "/clients/impact/thumb-vodafone.jpg", logo: "/logos/client-logos/vodafone.png", name: "Vodafone", label: "Leadership transformation", href: "/our-clients", logoScale: 2.25 },
   { image: "/clients/impact/thumb-frasers.jpg", logo: "/logos/client-logos/frasers-property.png", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership" },
-  { image: "/clients/impact/thumb-dyson.jpg", logo: "/logos/client-logos/dyson.png", name: "Dyson", label: "Innovation & growth", href: "/cases" },
-  { image: "/clients/impact/thumb-dp-world.jpg", logo: "/logos/client-logos/dp-world.png", name: "DP World", label: "Global leadership", href: "/cases" },
-  { image: "/clients/impact/thumb-bt.jpg", logo: "/logos/client-logos/bt.png", name: "BT", label: "Inclusive leadership", href: "/cases" },
-  { image: "/clients/impact/thumb-gsk.jpg", logo: "/logos/client-logos/gsk.png", name: "GSK", label: "Talent & capability", href: "/cases" },
-  { image: "/clients/impact/thumb-morgan-stanley.jpg", logo: "/logos/client-logos/morgan-stanley.png", name: "Morgan Stanley", label: "Leadership for what's next", href: "/cases" },
+  { image: "/clients/impact/thumb-dyson.jpg", logo: "/logos/client-logos/dyson.png", name: "Dyson", label: "Innovation & growth", href: "/our-clients" },
+  { image: "/clients/impact/thumb-dp-world.jpg", logo: "/logos/client-logos/dp-world.png", name: "DP World", label: "Global leadership", href: "/our-clients" },
+  { image: "/clients/impact/thumb-bt.jpg", logo: "/logos/client-logos/bt.png", name: "BT", label: "Inclusive leadership", href: "/our-clients" },
+  { image: "/clients/impact/thumb-gsk.jpg", logo: "/logos/client-logos/gsk.png", name: "GSK", label: "Talent & capability", href: "/our-clients" },
+  { image: "/clients/impact/thumb-morgan-stanley.jpg", logo: "/logos/client-logos/morgan-stanley.png", name: "Morgan Stanley", label: "Leadership for what's next", href: "/our-clients", logoScale: 2.25 },
 ] as const;
 
 const quotes = [
@@ -72,14 +72,6 @@ const quotes = [
   },
 ] as const;
 
-function SectionLink({ href, children }: { href: string; children: string }) {
-  return (
-    <Link href={href} className="text-[13px] font-semibold text-brand hover:text-brand-dark">
-      {children} <span aria-hidden>→</span>
-    </Link>
-  );
-}
-
 export default function ClientsStories() {
   return (
     <>
@@ -92,7 +84,6 @@ export default function ClientsStories() {
                 Real organisations. Lasting change.
               </h2>
             </div>
-            <SectionLink href="/cases">View all client stories</SectionLink>
           </div>
           <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
             {featured.map((card) => (
@@ -126,7 +117,6 @@ export default function ClientsStories() {
                 Different sectors. A common outcome.
               </h2>
             </div>
-            <SectionLink href="/cases">View all client stories</SectionLink>
           </div>
           <div className="mt-8 flex gap-3 overflow-x-auto pb-2 xl:grid xl:grid-cols-8 xl:overflow-visible">
             {moreStories.map((story) => (
@@ -135,7 +125,14 @@ export default function ClientsStories() {
                   <Image src={story.image} alt="" fill sizes="148px" className="object-cover" />
                 </div>
                 <div className="flex h-14 items-center justify-center px-3">
-                  <Image src={story.logo} alt={story.name} width={120} height={36} className="h-7 w-auto max-w-[108px] object-contain" />
+                  <Image
+                    src={story.logo}
+                    alt={story.name}
+                    width={120}
+                    height={36}
+                    style={"logoScale" in story && story.logoScale ? { transform: `scale(${story.logoScale})` } : undefined}
+                    className="h-7 w-auto max-w-[108px] object-contain"
+                  />
                 </div>
                 <p className="px-3 pb-4 text-[13px] leading-[1.35] text-ink">
                   {story.label} <span aria-hidden className="text-brand">→</span>
@@ -155,7 +152,6 @@ export default function ClientsStories() {
                 Stronger leaders. Brighter futures.
               </h2>
             </div>
-            <SectionLink href="/cases">Explore more client videos</SectionLink>
           </div>
           <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
             {quotes.map((item) => (
@@ -164,7 +160,20 @@ export default function ClientsStories() {
                   <Image src={item.image} alt={item.imageAlt} fill sizes="140px" className="object-cover" />
                 </div>
                 <div>
-                  <Image src={item.logo} alt={item.logoAlt} width={88} height={32} className="h-7 w-auto object-contain" />
+                  <Image
+                    src={item.logo}
+                    alt={item.logoAlt}
+                    width={88}
+                    height={32}
+                    style={
+                      item.logoAlt === "Maaden"
+                        ? { transform: "scale(2)", transformOrigin: "left center" }
+                        : item.logoAlt === "Shell"
+                          ? { transform: "translateX(-18px)" }
+                          : undefined
+                    }
+                    className="block h-7 w-auto object-contain"
+                  />
                   <p className="mt-3 font-serif text-[16px] leading-[1.45] text-ink sm:text-[18px]">“{item.quote}”</p>
                 </div>
               </article>
@@ -173,22 +182,6 @@ export default function ClientsStories() {
         </div>
       </section>
 
-      <section className="bg-black text-white">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-6 py-16 md:flex-row md:items-center md:justify-between md:px-10 md:py-20">
-          <div className="max-w-[640px]">
-            <p className="text-[11px] font-semibold uppercase tracking-[1.6px] text-[#d7b56d]">Let&apos;s build what&apos;s next</p>
-            <h2 className="mt-3 font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.6px] sm:text-[44px]">
-              Remarkable leadership changes what&apos;s possible.
-            </h2>
-          </div>
-          <Link
-            href="/contact"
-            className="inline-flex shrink-0 items-center rounded-full bg-[#f08b86] px-7 py-3.5 text-[15px] font-semibold text-white hover:bg-brand"
-          >
-            Get in touch <span aria-hidden className="ml-2">→</span>
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

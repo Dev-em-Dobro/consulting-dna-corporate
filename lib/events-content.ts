@@ -34,7 +34,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     slug,
     title,
     category,
-    kind,
+    kind: item.status === "past" ? "Speaker event" : kind,
     dateLabel,
     location: text(item.location) || undefined,
     summary: text(item.summary) ?? "",

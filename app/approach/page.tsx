@@ -147,10 +147,10 @@ export default async function ApproachPage() {
           <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <Image
-                src="/approach-5h-wheel-v2.png"
+                src="/approach/5h-framework-wheel-user.png"
                 alt="The 5H model showing the five leadership intelligences and their dimensions"
-                width={1254}
-                height={1254}
+                width={1322}
+                height={1329}
                 sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full max-w-[648px]"
               />

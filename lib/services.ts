@@ -451,7 +451,7 @@ export type ServiceCommonOutcome = {
  */
 export type ServiceEvidenceCase = {
   /** A marca, em `public/logos/`. Ver a régua de tamanho no componente. */
-  logo: { src: string; alt: string };
+  logo: { src: string; alt: string; href?: string };
   /**
    * O NOME DO CLIENTE, e só onde o logo não o escreve.
    *
@@ -546,7 +546,7 @@ export type ServiceEvidenceSummary = {
      só com as quatro medidas, sem marca nenhuma. Um `logos: []` para satisfazer
      o tipo seria escrever lista vazia em vez de dizer que o campo não se
      aplica  -  a mesma conta que já valia para `facts`. */
-  logos?: { src: string; alt: string; caseSlug?: string }[];
+  logos?: { src: string; alt: string; caseSlug?: string; href?: string; scale?: number }[];
   /**
    * O TAMANHO DAS MARCAS em coluna única  -  24-09. Ausente = o teto de 240px do
    * layout do Senior Leadership. `small` (teto de 140px) é a HRLT: *"os logos
@@ -1848,7 +1848,7 @@ export const services: Service[] = [
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
       ],
       /* A divisão entre número e rótulo é a do layout: o numeral grande em
          vermelho, o que ele conta embaixo, em duas linhas. Os três começam com
@@ -2343,11 +2343,9 @@ export const services: Service[] = [
        Quando forem tratados como os de 24-09 (recorte pela caixa do alfa e
        800px de largura), é trocar o caminho aqui.
 
-       ⚠️ SÓ A FRASERS LEVA A CASE. `/cases/frasers-property-leadership` é
-       justamente *"Building the next generation of leaders and talent for One
-       Frasers"*, que é este serviço. Os outros cinco não têm página publicada, e
-       a régua é a de sempre: link para case despublicado é 404 em cima do logo
-       de um cliente. */
+       ⚠️ A FRASERS LEVA AO CASE ESPECÍFICO; AS OUTRAS MARCAS LEVAM À LISTA DE
+       CASES, pois não têm páginas publicadas próprias. Schroders e Vodafone
+       usam recortes dos assets originais para retirar o espaço transparente. */
     evidenceSummary: {
       label: "The impact",
       headline:
@@ -2363,16 +2361,16 @@ export const services: Service[] = [
         lead: "For nearly two decades, we’ve worked with organisations to identify, accelerate and retain talent across global, regional, emerging-market and local populations, including:",
       },
       logos: [
-        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN" },
-        { src: "/logos/client-logos/gsk.png", alt: "GSK" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
+        { src: "/logos/client-logos/gsk.png", alt: "GSK", href: "/our-clients" },
         {
           src: "/logos/client-logos/frasers-property.png",
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
-        { src: "/logos/client-logos/schroders.png", alt: "Schroders" },
-        { src: "/logos/client-logos/vodafone.png", alt: "Vodafone" },
+        { src: "/logos/client-logos/kellanova.png", alt: "Kellanova", href: "/our-clients" },
+        { src: "/logos/client-logos/talent-schroders.png", alt: "Schroders", href: "/our-clients", scale: 1.5 },
+        { src: "/logos/client-logos/talent-vodafone.png", alt: "Vodafone", href: "/our-clients" },
       ],
       note: "Turn potential into readiness. And readiness into impact.",
     },
@@ -2515,12 +2513,8 @@ export const services: Service[] = [
     /* ✅ A FAIXA DE EVIDÊNCIA, do mesmo layout  -  mesma peça da Senior Leadership
        Development, outra copy. Ver `ServiceEvidenceSummary`.
 
-       ⚠️ NENHUM DOS DOIS LOGOS LEVA A CASE, e a razão é diferente da de lá: aqui
-       os DOIS clientes têm página publicada (`/cases/bt` e `/cases/dp-world`),
-       mas nenhuma delas é de desenvolvimento de gestores  -  são os cases que já
-       estavam no acervo, de outros trabalhos. Apontar o logo para eles faria a
-       faixa prometer prova que a página de destino não entrega. É pergunta para
-       a cliente: qual case sustenta estes números?
+       Os logos levam à lista de cases, pois os cases específicos de BT e DP World
+       publicados hoje são de outros trabalhos e não sustentam esta evidência.
 
        ⚠️ AS DUAS MARCAS ESTÃO EM ESTADOS DIFERENTES, e vale saber qual é qual:
        a DP World ganhou ORIGINAL GRANDE em 24-09 (`dp-world-2026.png`, 800x448
@@ -2543,8 +2537,8 @@ export const services: Service[] = [
       headline: "Building managers people want to work for.",
       lead: "Nearly two decades of manager development across industries, geographies and organisational levels.",
       logos: [
-        { src: "/logos/client-logos/bt.png", alt: "BT" },
-        { src: "/logos/client-logos/dp-world.png", alt: "DP World" },
+        { src: "/logos/client-logos/bt.png", alt: "BT", href: "/our-clients" },
+        { src: "/logos/client-logos/dp-world.png", alt: "DP World", href: "/our-clients" },
       ],
       facts: [
         { value: "72%", label: "Manager confidence" },
@@ -2746,7 +2740,7 @@ export const services: Service[] = [
       lead: "Real results from our work with women across industries, geographies and organisational levels.",
       items: [
         {
-          logo: { src: "/logos/client-logos/shell.png", alt: "Shell" },
+          logo: { src: "/logos/client-logos/shell.png", alt: "Shell", href: "/our-clients" },
           client: "Shell",
           title: "Powering women",
           tagline: "Building the pipeline at scale.",
@@ -2760,7 +2754,7 @@ export const services: Service[] = [
         },
         {
           /* SEM `client`: o lockup da Kellanova já escreve o nome. */
-          logo: { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
+          logo: { src: "/logos/client-logos/kellanova.png", alt: "Kellanova", href: "/our-clients" },
           title: "Women of Kellanova Aspire",
           tagline: "Turning potential into progression.",
           facts: [
@@ -2772,7 +2766,7 @@ export const services: Service[] = [
           note: "Women stepping into next-level roles not as exceptions, but as visible role models for others.",
         },
         {
-          logo: { src: "/logos/client-logos/aviva.png", alt: "Aviva" },
+          logo: { src: "/logos/client-logos/aviva.png", alt: "Aviva", href: "/our-clients" },
           title: "Accelerating leadership from the inside out",
           tagline: "Building inclusive leadership at the top.",
           facts: [
@@ -2988,12 +2982,12 @@ export const services: Service[] = [
     evidenceSummary: {
       headline: "Stronger HRLTs. Greater business impact.",
       lead: "Our work helps HR leadership teams build the capability and influence to drive real change.",
-      logoSize: "small",
+      logoSize: "medium",
       logos: [
-        { src: "/logos/client-logos/adidas.png", alt: "adidas" },
-        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property" },
-        { src: "/logos/client-logos/dyson.png", alt: "dyson" },
-        { src: "/logos/client-logos/maaden.png", alt: "Ma'aden" },
+        { src: "/logos/client-logos/adidas.png", alt: "adidas", href: "/our-clients" },
+        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/our-clients" },
+        { src: "/logos/client-logos/dyson.png", alt: "dyson", href: "/our-clients" },
+        { src: "/logos/client-logos/maaden.png", alt: "Ma'aden", href: "/our-clients", scale: 1.56 },
       ],
       outcomes: [
         "Stronger strategic influence",

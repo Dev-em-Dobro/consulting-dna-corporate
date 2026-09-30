@@ -46,7 +46,7 @@ import {
  * O rótulo NÃO é vermelho, é `ink`  -  outra diferença para a faixa antiga, e é o
  * que o desenho mostra.
  */
-type EvidenceLogoData = { src: string; alt: string; caseSlug?: string };
+type EvidenceLogoData = { src: string; alt: string; caseSlug?: string; href?: string; scale?: number };
 
 /**
  * UMA MARCA DA FILEIRA  -  clicável quando o cliente tem case publicado.
@@ -117,6 +117,7 @@ function EvidenceLogo({
       src={logo.src}
       alt={logo.alt}
       loading="lazy"
+      style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
       className={
         size === "small"
           ? "h-auto w-auto max-h-[40px] max-w-[120px] lg:max-h-[52px] lg:max-w-[140px]"
@@ -126,10 +127,11 @@ function EvidenceLogo({
       }
     />
   );
-  if (!logo.caseSlug) return img;
+  const href = logo.href ?? (logo.caseSlug ? `/cases/${logo.caseSlug}` : undefined);
+  if (!href) return img;
   return (
     <Link
-      href={`/cases/${logo.caseSlug}`}
+      href={href}
       aria-label={`Read the full story: ${logo.alt}`}
       className="inline-block transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
     >

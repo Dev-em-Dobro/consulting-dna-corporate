@@ -2122,12 +2122,6 @@ export default async function AboutV2Page() {
               className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
               dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.regions.intro) }}
             />
-            <a
-              href={`mailto:${CENTRAL_EMAIL}`}
-              className="mt-5 inline-block text-[16px] leading-[1.5] text-brand transition-colors hover:text-brand-dark"
-            >
-              {CENTRAL_EMAIL}
-            </a>
             </div>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
@@ -2276,6 +2270,12 @@ export default async function AboutV2Page() {
                   className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted"
                   dangerouslySetInnerHTML={{ __html: inlineEmphasis(r.descriptor) }}
                 />
+                <a
+                  href={`mailto:${CENTRAL_EMAIL}`}
+                  className="mt-3 inline-block text-[14px] leading-[1.5] text-brand transition-colors hover:text-brand-dark"
+                >
+                  {CENTRAL_EMAIL}
+                </a>
                 </div>
               </div>
             ))}

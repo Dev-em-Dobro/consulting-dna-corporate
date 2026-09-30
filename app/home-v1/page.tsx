@@ -122,7 +122,7 @@ const differentiators = [
 ];
 
 // `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
-// Cards without a slug fall back to the flagship-cases listing (/cases).
+// Cards without a slug fall back to the client collection (/our-clients).
 const cases: {
   client: string; sector: string; challenge: string;
   metric: string; metricLabel: string; caseSlug?: string;
@@ -403,7 +403,7 @@ export default async function HomeV1() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/cases"}
+                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/our-clients"}
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
                       read more here
