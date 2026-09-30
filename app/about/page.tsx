@@ -40,6 +40,7 @@ import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
 import { FIRM_STAT_ICONS } from "@/lib/stats";
 import { getAboutCopy } from "@/lib/about-copy-server";
+import { CENTRAL_EMAIL, presentAboutCopy } from "@/lib/about-copy";
 import { inlineEmphasis } from "@/lib/page-copy/text";
 import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
@@ -457,7 +458,8 @@ const regionCities = (offices: string) =>
   offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
 
 export default async function AboutV2Page() {
-  const [nav, copy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
+  const [nav, savedCopy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
+  const copy = presentAboutCopy(savedCopy);
   /* O ícone casa com o número POR POSIÇÃO  -  ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
   return (
@@ -1540,13 +1542,13 @@ export default async function AboutV2Page() {
           <div className="mt-10 space-y-6 text-center text-[18px] leading-[1.7] text-white/80 md:text-[20px]">
             {copy.purpose.body.flatMap((p, i) => {
               const at = p.search(/context[.!?]?\s+/i);
-              if (at < 0) return [<p key={i} className="whitespace-pre-line">{p}</p>];
+              if (at < 0) return [<p key={i} className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: inlineEmphasis(p) }} />];
               const cut = p.indexOf(" ", at + "context".length);
               const head = (cut < 0 ? p : p.slice(0, cut)).trim();
               const tail = (cut < 0 ? "" : p.slice(cut)).trim();
               return [
-                <p key={`${i}-a`} className="whitespace-pre-line">{head}</p>,
-                tail ? <p key={`${i}-b`} className="whitespace-pre-line">{tail}</p> : null,
+                <p key={`${i}-a`} className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: inlineEmphasis(head) }} />,
+                tail ? <p key={`${i}-b`} className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: inlineEmphasis(tail) }} /> : null,
               ];
             })}
           </div>
@@ -1561,10 +1563,14 @@ export default async function AboutV2Page() {
                 key={p.heading}
                 className="rounded-xl border border-line bg-white p-6 shadow-[0_4px_16px_-6px_rgba(55,50,52,0.18)]"
               >
-                <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
-                  {p.heading}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-ink/80">{p.body}</p>
+                <h3
+                  className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(p.heading) }}
+                />
+                <p
+                  className="mt-3 text-[15px] leading-[1.6] text-ink/80"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(p.body) }}
+                />
               </div>
             ))}
           </div>
@@ -1624,7 +1630,7 @@ export default async function AboutV2Page() {
               {copy.promise.body.map((p, i) => (
                 <div key={i} className="flex items-start gap-4">
                   <span className="font-serif text-[28px] font-semibold leading-none text-ink md:text-[32px]">{i + 1}</span>
-                  <p>{p}</p>
+                  <p dangerouslySetInnerHTML={{ __html: inlineEmphasis(p) }} />
                 </div>
               ))}
             </div>
@@ -1877,12 +1883,14 @@ export default async function AboutV2Page() {
                     reparar que é a mesma correção do h1  -  em card pequeno ela
                     aparece ainda mais, porque negrito em corpo pequeno é onde a
                     geométrica mais fecha. */}
-                <h3 className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]">
-                  {p.heading}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-ink/80">
-                  {p.body}
-                </p>
+                <h3
+                  className="font-serif text-[19px] font-semibold leading-[1.25] text-brand md:text-[20px]"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(p.heading) }}
+                />
+                <p
+                  className="mt-3 text-[15px] leading-[1.6] text-ink/80"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(p.body) }}
+                />
               </div>
             ))}
           </div>
@@ -2007,12 +2015,14 @@ export default async function AboutV2Page() {
                 <span className="block text-brand">
                   <ValueIcon name={VALUE_ICONS[i] ?? ""} />
                 </span>
-                <h3 className="font-serif mt-4 text-[20px] font-medium leading-[1.2] text-ink">
-                  {v.name}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-muted">
-                  {v.body}
-                </p>
+                <h3
+                  className="font-serif mt-4 text-[20px] font-medium leading-[1.2] text-ink"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(v.name) }}
+                />
+                <p
+                  className="mt-3 text-[15px] leading-[1.6] text-muted"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(v.body) }}
+                />
               </div>
             ))}
           </Reveal>
@@ -2107,9 +2117,18 @@ export default async function AboutV2Page() {
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
                 60+ é, aliás, de número EXATO para PISO  -  ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
-            <p className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink">
-              {copy.regions.intro}
-            </p>
+            <div>
+            <p
+              className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
+              dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.regions.intro) }}
+            />
+            <a
+              href={`mailto:${CENTRAL_EMAIL}`}
+              className="mt-5 inline-block text-[16px] leading-[1.5] text-brand transition-colors hover:text-brand-dark"
+            >
+              {CENTRAL_EMAIL}
+            </a>
+            </div>
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
         </Reveal>
@@ -2249,25 +2268,14 @@ export default async function AboutV2Page() {
                             </span>
                           ))}
                         </p>
-                        {office.tel && (
-                          <p className="mt-2 text-[14px] leading-[1.6] text-muted">
-                            Tel: {office.tel}
-                          </p>
-                        )}
-                        <a
-                          href={`mailto:${office.email}`}
-                          className="mt-2 inline-block break-words text-[14px] leading-[1.6] text-brand transition-colors hover:text-brand-dark"
-                        >
-                          {office.email.split("@")[0]}@<wbr />
-                          {office.email.split("@")[1]}
-                        </a>
                       </div>
                     );
                   })}
                 </div>
-                <p className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted">
-                  {r.descriptor}
-                </p>
+                <p
+                  className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted"
+                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(r.descriptor) }}
+                />
                 </div>
               </div>
             ))}

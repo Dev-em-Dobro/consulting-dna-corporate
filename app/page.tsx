@@ -774,7 +774,7 @@ export default async function Home() {
           A ÂNCORA `#people` FICA. Ela está no menu (`lib/nav.ts`) e a seção
           continua existindo com todo o resto do conteúdo. */}
       <section id="people" className="bg-white">
-        <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
           <TypeLabel>{copy.people.label}</TypeLabel>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,640px)] lg:gap-16">
             <div className="w-full max-w-[40rem]">
@@ -802,14 +802,14 @@ export default async function Home() {
               Título e corpo usam a mesma medida em todos, para nenhum bloco
               parecer um cabeçalho dos outros. 24px no título mantém o vermelho
               da marca dentro do contraste de texto grande. */}
-          <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-16 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {[
               { title: copy.people.designTitle, body: copy.people.designBody },
               ...copy.people.pillars,
             ].map((block) => {
               const { subtitle, text } = leadSentence(block.body);
               return (
-                <div key={block.title}>
+                <article key={block.title} className="flex h-full flex-col border border-line bg-paper p-6 md:p-8">
                   <h3 className="whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] text-brand sm:min-h-[58px] xl:min-h-[86px] 2xl:min-h-[58px]">
                     {block.title}
                   </h3>
@@ -823,7 +823,7 @@ export default async function Home() {
                       {text}
                     </p>
                   )}
-                </div>
+                </article>
               );
             })}
           </div>

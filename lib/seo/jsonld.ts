@@ -35,14 +35,12 @@ export function organizationLd() {
     // TODO: add verified social profiles when available (LinkedIn, X, …):
     // sameAs: ["https://www.linkedin.com/company/..."],
     address: offices.map(postalAddress),
-    contactPoint: offices.map((o) => ({
+    contactPoint: {
       "@type": "ContactPoint",
-      contactType: "sales",
-      ...(o.tel ? { telephone: o.tel } : {}),
-      email: o.email,
-      areaServed: o.country,
+      contactType: "customer support",
+      email: "info@corporatednaconsulting.com",
       availableLanguage: "English",
-    })),
+    },
   };
 }
 

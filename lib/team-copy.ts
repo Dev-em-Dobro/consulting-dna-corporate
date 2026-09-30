@@ -68,7 +68,7 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
   leadership: {
     label: "Leadership Team",
     title: "The team behind the work.",
-    managersTitle: "Program Management",
+    managersTitle: "Program Management Team",
   },
   leaders: leaders.map((p) => ({ role: p.role, region: p.region, quote: p.quote })),
   oneTeam: {

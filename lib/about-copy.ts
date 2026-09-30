@@ -124,8 +124,8 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     ],
     pillars: [
       {
-        heading: "We invest in Identity beyond role.",
-        body: "When leaders shift Identity (Who am I), they accelerate skills faster.",
+        heading: "We invest in identity beyond role.",
+        body: "When leaders shift identity (Who am I), they accelerate skills faster.",
       },
       {
         heading: "We lead with care and candour.",
@@ -137,7 +137,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
       },
       {
         heading: "We earn the right as your trusted ally.",
-        body: "By Keeping It Real, we develop Talent and build relationships.",
+        body: "By keeping it real, we develop talent and build relationships.",
       },
     ],
   },
@@ -213,20 +213,20 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     {
       city: "London",
       address: ["60 St Martin’s Lane, Covent Garden", "London WC2N 4JS"],
-      tel: "+44 20 3755 5329",
-      email: "london@corporatednaconsulting.com",
+      tel: "",
+      email: "info@corporatednaconsulting.com",
     },
     {
       city: "Singapore",
       address: ["1 Raffles Place, Level 24", "Tower 1, Singapore 048616"],
-      tel: "+65 6408 0636",
-      email: "singapore@corporatednaconsulting.com",
+      tel: "",
+      email: "info@corporatednaconsulting.com",
     },
     {
       city: "Dubai",
       address: ["Sheikh Rashid Tower, 4th Floor", "Dubai World Trade Centre, Dubai"],
-      tel: "+971 58 141 2901",
-      email: "dubai@corporatednaconsulting.com",
+      tel: "",
+      email: "info@corporatednaconsulting.com",
     },
     {
       city: "Riyadh",
@@ -236,13 +236,13 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
         "Dist. 13671, Riyadh 13321, RASA6101",
       ],
       tel: "",
-      email: "riyadh@corporatednaconsulting.com",
+      email: "info@corporatednaconsulting.com",
     },
     {
       city: "Miami",
       address: ["1221 Brickell Ave, Suite 900", "Miami, FL 33131"],
       tel: "",
-      email: "miami@corporatednaconsulting.com",
+      email: "info@corporatednaconsulting.com",
     },
   ],
   people: {
@@ -252,6 +252,40 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     cta: "Meet the team",
   },
 };
+
+/** One published inbox. Office cards keep their address and drop individual phones. */
+export const CENTRAL_EMAIL = "info@corporatednaconsulting.com";
+
+/**
+ * The saved About copy can still carry the previous office inboxes and the
+ * mid-title capitals the client asked to drop. The page reads through this so
+ * a stored draft cannot put them back on screen.
+ */
+export function presentAboutCopy(copy: AboutCopy): AboutCopy {
+  const fix = (value: string) =>
+    value
+      .replaceAll("We invest in Identity beyond role.", "We invest in identity beyond role.")
+      .replaceAll("When leaders shift Identity (Who am I)", "When leaders shift identity (Who am I)")
+      .replaceAll(
+        "By Keeping It Real, we develop Talent and build relationships.",
+        "By keeping it real, we develop talent and build relationships.",
+      );
+  return {
+    ...copy,
+    identity: {
+      ...copy.identity,
+      pillars: copy.identity.pillars.map((pillar) => ({
+        heading: fix(pillar.heading),
+        body: fix(pillar.body),
+      })),
+    },
+    offices: copy.offices.map((office) => ({
+      ...office,
+      tel: "",
+      email: CENTRAL_EMAIL,
+    })),
+  };
+}
 
 /* ------------------------------------------------------------------------- */
 /* O MAPA DO EDITOR  -  cada campo que a tela `/edit-about` mostra, na ordem da  */

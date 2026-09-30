@@ -104,6 +104,12 @@ export default function ContactPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
             <TypeLabel>Offices</TypeLabel>
+            <a
+              href="mailto:info@corporatednaconsulting.com"
+              className="mt-6 inline-block text-[16px] leading-[1.5] text-brand underline decoration-line underline-offset-4 transition-colors hover:text-brand-dark"
+            >
+              info@corporatednaconsulting.com
+            </a>
             <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {offices.map((o) => (
                 <div key={o.slug} className="border-t border-line pt-6">
@@ -120,24 +126,6 @@ export default function ContactPage() {
                       </span>
                     ))}
                   </address>
-                  <div className="mt-5 flex flex-col gap-1.5 text-[15px] leading-[1.5]">
-                    {o.tel && (
-                      /* `tel:` sem espaço nem hífen  -  o formato de exibição é
-                         para ler, o do href é para o telefone discar. */
-                      <a
-                        href={`tel:${o.tel.replace(/[^+\d]/g, "")}`}
-                        className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-brand"
-                      >
-                        {o.tel}
-                      </a>
-                    )}
-                    <a
-                      href={`mailto:${o.email}`}
-                      className="break-all text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-brand"
-                    >
-                      {o.email}
-                    </a>
-                  </div>
                 </div>
               ))}
             </Reveal>

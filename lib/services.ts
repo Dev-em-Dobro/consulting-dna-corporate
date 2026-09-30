@@ -1864,6 +1864,7 @@ export const services: Service[] = [
   {
     slug: "culture-transformation",
     cardImage: "/services/cards/culture-transformation-client.jpg",
+    heroImage: "/services/heroes/culture-transformation-hero.png",
     title: "Culture Transformation",
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
@@ -3113,6 +3114,7 @@ export const services: Service[] = [
   {
     slug: "executive-coaching",
     cardImage: "/services/cards/executive-coaching-client.jpg",
+    heroImage: "/services/heroes/executive-coaching-hero.png",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     /* ============================================================================
@@ -3337,6 +3339,7 @@ export const services: Service[] = [
        client.jpg` é material da cliente, escolhido por ela em 17-09, e mantém
        a continuidade card → herói. */
     cardImage: "/services/cards/family-business-consulting-client.jpg",
+    heroImage: "/services/heroes/family-business-consulting-hero.png",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
