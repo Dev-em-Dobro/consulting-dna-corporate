@@ -80,7 +80,7 @@ export default function LeaderCard({
        que é o desenho que já estava no ar  -  só que a quote agora é o cartão
        claro em vez do filete à esquerda. A conta por largura está no comentário
        da grade, em `app/team/page.tsx`. */
-    <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] xl:gap-x-4">
+    <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] xl:gap-x-5 2xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] 2xl:gap-x-4">
       <div className="flex flex-col">
         {/* ⚠️ A FOTO ESTICA ACIMA DE 1440, e não tem proporção fixa. Medido na
             referência: na primeira fileira ela sai 167x167 e na segunda 167x154
@@ -289,7 +289,7 @@ export default function LeaderCard({
               271 caracteres, então o cartão mais alto da fileira estica os
               outros dois. É o que o mockup mostra  -  cartões de mesma altura com
               o texto no topo  -  e é o preço certo a pagar aqui. */}
-          <p className="font-serif text-[16px] leading-[1.6] text-ink">
+          <p className="font-serif text-[17px] leading-[1.6] text-ink md:text-[18px]">
             {person.quote}
           </p>
         </blockquote>

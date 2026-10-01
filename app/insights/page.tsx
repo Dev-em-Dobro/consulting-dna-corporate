@@ -122,12 +122,12 @@ export default async function InsightsPage() {
                 <h2 className="font-serif mt-4 text-[32px] font-semibold leading-[1.08] tracking-[-0.4px]">
                   The Restored Organization: Six Ways to Humanize Workplace Culture and Transform Results
                 </h2>
+                <p className="mt-3 text-[14px] text-white/60">Notion Press, 2025</p>
                 <div className="mt-7 grid gap-x-12 md:grid-cols-[minmax(0,1fr)_minmax(220px,340px)]">
                   <div>
                     <div className="space-y-5 text-[15px] leading-[1.7] text-white/80">
-                      <p>Based on conversations and interviews with over 100 global business leaders, support and relevant research, The Restored Organization offers a refreshing approach to address dysfunctional and toxic cultures that foster environments where both people and results can flourish.</p>
-                      <p>The book is built on the premise that ‘culture restoration’ is centered around Trust, Empathy and Inclusion. The book details an innovative FLOWER® framework, which provides a comprehensive approach allowing leaders to address six critical cultural elements needed for culture restoration. Each petal (chapter) delves into three key elements of these cultural aspects, offering practical and proven strategies for their restoration, providing organizations with an actionable roadmap for cultural transformation.</p>
-                      <p>By embracing the approaches described in The Restored Organization, leaders can embark on a journey to humanize their workplaces and create thriving, high-performing cultures.</p>
+                      <p>The Restored Organization offers a refreshing approach and a powerful guide for leaders, HR professionals, and change-makers, ready to address dysfunctional cultures and create workplaces where both people and performance can thrive. Drawing on research, neuroscience, and over 100 interviews with global organizations, the book introduces the FLOWER Framework™ that describes six ways (petals) to humanize workplace cultures and transform results.</p>
+                      <p>Whether your organization is facing talent issues, disengagement, or lack of productivity, this book offers real stories, actionable strategies and examples of companies from 14 different countries and 16 diverse industries. The Restored Organization is more than a leadership book. It’s a call to action for those who believe people and performance can grow together.</p>
                     </div>
                     <a href="https://www.amazon.com/dp/B0F9PY7YQ1?lv=shuf&channelId=510&plpRedirect=mhFallback" target="_blank" rel="noopener noreferrer" className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark">Buy on Amazon</a>
                   </div>
@@ -149,8 +149,8 @@ export default async function InsightsPage() {
                     <footer className="mt-3 text-[13px] font-semibold text-white">KV Rao, Chairman, Tata International, Singapore</footer>
                   </blockquote>
                   <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“A strategic exploration of both personal and organizational leadership strategies, designed to have positive outcomes in an ever-changing landscape. An invigorating read for any leader.”</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Ivan Chin, CEO, Extra Ordinary People, Singapore</footer>
+                    <p>“The Restored Organization is your ultimate guide to thriving in the digital age. It challenges you to rethink your approach and foster a culture of innovation, collaboration, and people-centricity. A must-read for visionary leaders eager to shape the future of work.”</p>
+                    <footer className="mt-3 text-[13px] font-semibold text-white">Tian Chong Ng, CEO, Singtel, Singapore</footer>
                   </blockquote>
                 </div>
               </article>

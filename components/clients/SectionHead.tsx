@@ -28,7 +28,8 @@ export default function SectionHead({
   onDark = false,
   className = "",
 }: {
-  label: string;
+  /** Opcional desde 01-10: a faixa de números da /our-clients saiu sem rótulo. */
+  label?: string;
   /** A frase da direita, em versalete. Opcional: nem toda seção tem uma. */
   kicker?: string;
   onDark?: boolean;
@@ -39,9 +40,11 @@ export default function SectionHead({
       <div className="flex items-end justify-between gap-6">
         {/* `mb-0` anula a margem própria do TypeLabel: quem espaça aqui é o fio
             logo abaixo, e as duas margens somadas abririam um vão duplo. */}
-        <TypeLabel onDark={onDark} className="!mb-0">
-          {label}
-        </TypeLabel>
+        {label ? (
+          <TypeLabel onDark={onDark} className="!mb-0">
+            {label}
+          </TypeLabel>
+        ) : <span />}
         {kicker && (
           <p
             className={`hidden text-[11.5px] font-medium uppercase leading-none tracking-[1.5px] md:block ${

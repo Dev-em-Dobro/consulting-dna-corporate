@@ -12,6 +12,8 @@ export type LeadershipEvent = {
   topics: string[];
   image?: string | StaticImageData;
   imageAlt?: string;
+  /** 01-10: mostra a imagem inteira (sem recorte)  -  para artes com logo no pé. */
+  imageContain?: boolean;
   featured?: boolean;
   gallery?: { src: string; alt: string }[];
   links?: { label: string; href: string }[];
@@ -168,21 +170,7 @@ export const events: LeadershipEvent[] = [
     imageAlt: "CorporateDNA Executive Series with Frasers in Singapore, 11 June 2026",
     status: "past",
   },
-  {
-    slug: "clo-impact-residency-2026-09",
-    title: "CLO Impact Residency",
-    category: "cDNA",
-    kind: "Speaker event",
-    dateLabel: "September 2026",
-    summary:
-      "An immersive, multi-day development experience for Chief Learning Officers, Heads of Learning & Development and senior HR leaders.",
-    overview: [
-      "The programme brought together practitioners from different organisations and sectors to explore how the L&D function can increase its strategic relevance and deliver greater organisational and business impact.",
-      "A central theme was the evolving role of the learning leader: moving beyond functional expertise toward strategic business partnership, connecting learning strategy to business priorities, and demonstrating impact through organisational outcomes.",
-    ],
-    topics: [],
-    status: "past",
-  },
+  /* 01-10: "CLO Impact Residency" saiu  -  duplicava o evento do Mike (CLO100). */
   {
     slug: "executive-series-singapore-2026-12-11",
     title: "Executive Series Singapore",
@@ -190,7 +178,13 @@ export const events: LeadershipEvent[] = [
     kind: "Upcoming event",
     dateLabel: "11 December 2026",
     location: "Singapore",
-    summary: "More info to follow.",
+    summary: [
+      "Our Executive Series are an intimate, off-the record conversations with senior business leaders, heads of HR, Talent and learning, to explore the leadership, culture and technological shifts facing organizations today.",
+      "After two successful events this year, we will be ending the year with our final one on December 11. If you’re a CHRO and not part of our community, please drop us a note and will make sure to include you in the invite.",
+    ].join("\n\n"),
+    image: "/events/executive-series-2026-12-11.jpg",
+    imageAlt: "CorporateDNA Executive Series, 11 December 2026",
+    imageContain: true,
     overview: [],
     topics: [],
     status: "upcoming",

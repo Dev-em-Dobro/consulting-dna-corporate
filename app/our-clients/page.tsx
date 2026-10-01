@@ -235,7 +235,8 @@ export default async function ClientsAndImpactPage() {
             claros, como o herói. */}
         <section id="numbers" className="bg-ink text-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <SectionHead onDark label={copy.numbers.label} kicker={copy.numbers.kicker} />
+            {/* 01-10: "Remove the heading - By the Numbers". */}
+            <SectionHead onDark kicker={copy.numbers.kicker} />
 
             {/* ⚠️ OS NÚMEROS SÃO OS DA ABOUT DESDE 18-09  -  pedido da daily: a
                 fileira passa a publicar os quatro da faixa da About (19 years /
