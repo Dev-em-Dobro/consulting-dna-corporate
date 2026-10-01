@@ -2117,12 +2117,35 @@ export default async function AboutV2Page() {
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
                 60+ é, aliás, de número EXATO para PISO  -  ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
-            <div>
-            <p
-              className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
-              dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.regions.intro) }}
-            />
-            </div>
+            {/* ✅ 01-10: AS LINHAS CURTAS DE ABERTURA VIRAM DESTAQUE. A copy salva
+                abre com "Global reach. / Local context. / ... that travel." e a
+                Rhea pediu as três *maiores e em bold*  -  no corpo de 16px elas
+                sumiam. A regra é estrutural, não pelo texto: se o primeiro
+                bloco (até a primeira linha em branco) é de linhas curtas, ele
+                sai na escala de subtítulo da página (serif semibold, 24→30px,
+                entre o corpo e o h2 de 28→36px); o resto segue como corpo.
+                Copy sem esse bloco (o padrão do código) renderiza como antes. */}
+            {(() => {
+              const intro = copy.regions.intro;
+              const split = intro.indexOf("\n\n");
+              const head = split > 0 ? intro.slice(0, split).trim() : "";
+              const isLead = !!head && head.split("\n").every((l) => l.trim().length <= 40);
+              const body = isLead ? intro.slice(split).trim() : intro;
+              return (
+                <div>
+                  {isLead && (
+                    <p
+                      className="mb-5 max-w-[620px] whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.4px] text-ink md:mb-6 md:text-[30px]"
+                      dangerouslySetInnerHTML={{ __html: inlineEmphasis(head.replace(/[ \t]+\n/g, "\n")) }}
+                    />
+                  )}
+                  <p
+                    className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
+                    dangerouslySetInnerHTML={{ __html: inlineEmphasis(body) }}
+                  />
+                </div>
+              );
+            })()}
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
         </Reveal>

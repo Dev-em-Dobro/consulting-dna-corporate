@@ -443,7 +443,7 @@ export type ServiceCommonOutcome = {
  * POR QUE NÃO É O `evidenceSummary` COM MAIS LOGOS: lá as medidas são de UMA
  * afirmação e a fileira as intercala com as marcas, como se as marcas fossem o
  * lastro daquela afirmação. Aqui cada medida pertence a um cliente e a um
- * recorte de tempo  -  6.300 pessoas na Shell e 5–7 patrocinadores por
+ * recorte de tempo  -  8.000 pessoas na Shell e 5–7 patrocinadores por
  * participante na Kellanova não são medidas da mesma coisa, e postas na mesma
  * fileira leriam como se fossem.
  *
@@ -2128,7 +2128,14 @@ export const services: Service[] = [
        descuido.
 
        As quatro fotos editoriais foram geradas para completar esta seção,
-       sem reaproveitar a arte de baixa resolução do layout de referência. */
+       sem reaproveitar a arte de baixa resolução do layout de referência.
+
+       ✅ 01-10, NA CALL: *"as imagens estão iguais"*  -  as quatro eram a mesma
+       mesa de escritório clara com o mesmo grupo. Fica só a primeira (Global);
+       as outras três viraram cenas DIFERENTES entre si: skyline com o time em
+       pé (Regional), conversa a dois (Functional) e uma foto REAL de workshop
+       da CDNA com o grupo sentado em roda (Early & Mid-Career). ⏳ Se ela
+       quiser fotos novas feitas sob medida, é trocar os três caminhos. */
     audiences: [
       {
         label: "Global Top Talent",
@@ -2138,19 +2145,19 @@ export const services: Service[] = [
       },
       {
         label: "Regional & Emerging Market Talent",
-        image: "/services/audiences/talent-regional.jpg",
+        image: "/services/audiences/talent-regional-20261001.jpg",
         title: "Accelerating readiness across markets and boundaries",
         body: "Building leadership capability, visibility and influence across different cultures, markets and organisational contexts.",
       },
       {
         label: "Functional & Critical-Role Talent",
-        image: "/services/audiences/talent-functional.jpg",
+        image: "/services/audiences/talent-functional-20261001.jpg",
         title: "Turning deep expertise into broader leadership impact",
         body: "Helping high-value specialists broaden their identity, influence and enterprise contribution as their scope increases.",
       },
       {
         label: "Early & Mid-Career High Potentials",
-        image: "/services/audiences/talent-emerging.jpg",
+        image: "/services/audiences/talent-emerging-20261001.jpg",
         title: "Creating the runway for what comes next",
         body: "Developing the capabilities, experiences and confidence required to make successful transitions into larger leadership roles.",
       },
@@ -2388,7 +2395,15 @@ export const services: Service[] = [
   },
   {
     slug: "manager-development",
-    cardImage: "/services/cards/manager-development-client.jpg",
+    /* ✅ 01-10, NA CALL: SAIU A ESCADA (`manager-development-client.jpg`,
+       *"chata, de arquiteto"*, e com cara de IA). Entrou uma foto REAL de
+       workshop da CDNA (Frasers, pasta "A. Images" do Drive), com gerentes mais
+       jovens, que é o pedido: *"gerentes são mais jovens"*. É 4:3 e alta
+       (2400px); a posição abaixo desce o enquadramento para as pessoas, que
+       ocupam os dois terços de baixo. Ela serve o herói E o card da
+       `/services`, como antes. */
+    cardImage: "/services/manager/md-hero-workshop-20261001.jpg",
+    heroImagePosition: "object-[center_65%]",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     /* ⚠️ O HERÓI NÃO MEXEU, a pedido de 24-09: *"pode manter o hero na
@@ -2443,13 +2458,18 @@ export const services: Service[] = [
 
        SAEM no dia em que ela mandar as originais, que é pedido barato: é trocar
        os dois caminhos. ⚠️ TROCAR O NOME DO ARQUIVO JUNTO  -  o otimizador do Next
-       serve por URL e já entregou versão velha neste projeto por causa disso. */
+       serve por URL e já entregou versão velha neste projeto por causa disso.
+
+       ✅ 01-10: SAÍRAM. Na call ela pediu para tirar as imagens de IA desta
+       página. Entraram duas fotos REAIS de workshops da CDNA (Adidas e
+       Frasers, pasta "A. Images" do Drive, 1600x1200), com gente jovem em
+       pé, discutindo. Os `.FROM-LAYOUT.` ficam no disco como caminho de volta. */
     pathways: [
       {
         label: "First-time managers",
         title: "From managing yourself to managing others.",
         body: "We build the foundations to lead people with clarity and confidence.",
-        image: "/services/pathways/md-first-time-managers.FROM-LAYOUT.jpg",
+        image: "/services/pathways/md-first-time-managers-20261001.jpg",
         items: [
           "Stepping into the manager identity",
           "Setting expectations",
@@ -2462,7 +2482,7 @@ export const services: Service[] = [
         label: "Mid-level managers",
         title: "From managing people to leading performance.",
         body: "We strengthen the capability to lead through others, across functions and through complexity.",
-        image: "/services/pathways/md-mid-level-managers.FROM-LAYOUT.jpg",
+        image: "/services/pathways/md-mid-level-managers-20261001.jpg",
         items: [
           "Leading through others",
           "Coaching for performance",
@@ -2601,8 +2621,14 @@ export const services: Service[] = [
        o slug não muda  -  é endereço, não texto, a mesma regra que mantém
        `/solutions` atrás do rótulo "Services". As tags de caso no CMS também
        continuam dizendo "Women in Leadership"; nenhum código casa título com
-       tag, então isso é vocabulário do acervo, não dependência. */
-    title: "Women’s Leadership Development",
+       tag, então isso é vocabulário do acervo, não dependência.
+
+       ✅ 01-10, NA CALL: VOLTOU PARA "Women in Leadership", a pedido  -  *"para
+       ficar tudo em uma linha como os outros"*. A caixa acima fica como
+       registro do porquê da troca de 24-09. O slug nunca mudou, então nenhum
+       endereço muda agora; a copy salva no editor é migrada em
+       `lib/service-pages-copy-server.ts` (só se ela ainda guarda o nome antigo). */
+    title: "Women in Leadership",
     banner:
       "Accelerate progression and strengthen the pipeline of women ready for bigger leadership roles.",
     /* ✅ A FRASE DE APOIO DO HERÓI É A DO LAYOUT, e a `banner` segue viva nos
@@ -2626,11 +2652,13 @@ export const services: Service[] = [
        rótulo nenhum sobre eles. É o caso do Senior Leadership Development, não
        o do Talent Development. Ver a caixa daquele campo.
 
-       ⏳ SEM FOTOGRAFIA: os três retratos do layout são arte do arquivo
-       (~215px de largura cada) e não estão na pasta da cliente. Sem `image` o
-       cartão cai no campo de cor `ink` com o nome da trilha em cima, que é o
-       mesmo estado da Culture e do Talent Development. Quando as fotos
-       chegarem, é acrescentar `image` nos três, em `public/services/audiences/`.
+       ✅ 01-10: AS TRÊS FOTOS TROCADAS POR ARQUIVOS GRANDES. As anteriores
+       (`wil-early-careers.jpg` etc.) eram recortes de ~370x398 do layout, em
+       RETRATO, num quadro 2:1 de ~437px: o navegador as ampliava ~2,4x e elas
+       saíam pequenas e moles, que é a queixa da call. As novas têm 960px ou
+       mais e já são paisagem; ela deu liberdade (*"você já conhece nosso
+       estilo"*). Nome com data porque o otimizador do Next serve por URL. Os
+       arquivos velhos ficam no disco como caminho de volta.
 
        ⚠️ OS RÓTULOS VÃO EM CAIXA BAIXA e o versalete é CSS, como em todos os
        outros serviços. */
@@ -2639,7 +2667,7 @@ export const services: Service[] = [
         label: "Early career women",
         title: "Build the foundations early.",
         body: "For organisations wanting to strengthen confidence, voice, networks and leadership identity earlier in the pipeline.",
-        image: "/services/audiences/wil-early-careers.jpg",
+        image: "/services/audiences/wil-early-careers-20261001.jpg",
         focus: [
           "Leadership identity",
           "Voice & confidence",
@@ -2653,7 +2681,7 @@ export const services: Service[] = [
         label: "Mid-career women",
         title: "Accelerate the critical middle.",
         body: "For organisations wanting to strengthen progression, sponsorship and readiness for bigger, broader leadership roles.",
-        image: "/services/audiences/wil-mid.jpg",
+        image: "/services/audiences/wil-mid-20261001.jpg",
         focus: [
           "Strategic perspective",
           "Influence",
@@ -2667,7 +2695,7 @@ export const services: Service[] = [
         label: "Senior women",
         title: "Increase impact at the top.",
         body: "For organisations wanting to accelerate women into enterprise, ExCo and Board-level leadership and amplify their influence once there.",
-        image: "/services/audiences/wil-senior.jpg",
+        image: "/services/audiences/wil-senior-20261001.jpg",
         focus: [
           "Enterprise leadership",
           "Power & influence",
@@ -2745,7 +2773,7 @@ export const services: Service[] = [
           title: "Powering women",
           tagline: "Building the pipeline at scale.",
           facts: [
-            { value: "6,300", label: "Women impacted" },
+            { value: "8,000", label: "Women impacted" },
             { value: "96%", label: "Facilitator impact" },
             { value: "70", label: "Net Promoter Score" },
           ],
@@ -2813,11 +2841,105 @@ export const services: Service[] = [
   },
   {
     slug: "high-performing-teams",
-    heroImage: "/hero/hpt-f1.jpeg",
+    /* ============================================================================
+       ✅ A PÁGINA REFEITA PELO LAYOUT DA CALL DE 01-10
+       ============================================================================
+
+       `docs/meetings/image-meeting-rhea/high performaition  team.jpeg`. Apesar do
+       nome, o arquivo NÃO é uma foto: é o layout inteiro da página (1024x1536),
+       com a copy escrita em letra. Toda a copy abaixo foi TRANSCRITA dele, a
+       mesma operação que Women in Leadership, Manager e Talent já sofreram.
+
+       ⚠️ O HERÓI é a foto do próprio layout (os quatro escalando, o da frente
+       puxando o de trás pela mão): recortada da faixa de cima, com o texto do
+       desenho removido por inpainting e ampliada para 1920px com grão leve.
+       ⏳ Ela nasceu de um JPEG de 1024px, então fica macia num monitor grande.
+       Há uma versão gerada no Canva com a mesma composição (1680px) esperando
+       download manual; quando a original chegar, é trocar o caminho (com nome
+       novo, por causa do otimizador do Next).
+
+       ⚠️ TRAVESSÕES: o layout tem três, e os três viraram vírgula pela regra
+       de 23-09 que `tests/services.test.ts` guarda.
+
+       ⛔ SEM `heroCredential` ("People / Perspective / Possibilities" na borda
+       direita do desenho): ela pediu para tirar essas três palavras em 24-09
+       nas outras páginas, e a régua vale aqui também.
+
+       ⛔ O CASO DA ADIDAS (`evidence`) E A CITAÇÃO PLACEHOLDER SAÍRAM: o layout
+       troca o bloco de caso pela faixa de dois logos e três medidas
+       (`evidenceSummary`), e os dois não podem conviver  -  ver o teste
+       "nenhum serviço tem as duas faixas de evidência". O caso anterior está
+       no git (Adidas South East Asia, 92% NPS / 93% / 150+).
+       ============================================================================ */
+    heroImage: "/services/heroes/hpt-climb-hero-20261001.jpg",
     cardImage: "/services/cards/high-performing-teams-client.jpg",
     title: "High Performing Teams",
     banner:
       "Turn groups of strong individuals into leadership teams that perform collectively.",
+    heroSubtitle: "Real teams. Real trust. Real execution.",
+    heroBody: [
+      "We help teams move from strong individuals to a high-performing team, with a shared identity, clear ways of working and the discipline to deliver together.",
+    ],
+    whatWeDoHeadline: "We build the conditions for teams to perform.",
+    whatWeDo:
+      "We work with executive, senior, functional and project teams to create a shared identity, stronger trust and clearer ways of working, so they can make better decisions, move faster and deliver higher impact together.",
+    /* ✅ OS TRÊS TIPOS DE TIME DO LAYOUT. As fotos foram escolhidas para NÃO
+       se parecerem entre si (a queixa da call): silhueta do time de liderança
+       contra a janela, grupo diverso em volta do laptop e uma foto REAL de
+       workshop da CDNA (Frasers). O ícone de pessoas que o desenho põe acima
+       de cada título não existe no cartão de público e ficou de fora. */
+    audiences: [
+      {
+        label: "Executive teams",
+        title: "Aligned at the top.",
+        body: "Stronger collective leadership, better decisions and greater impact.",
+        image: "/services/audiences/hpt-executive-teams.jpg",
+      },
+      {
+        label: "Senior & functional teams",
+        title: "From silos to one team.",
+        body: "Breaking down boundaries to collaborate, solve and execute as one.",
+        image: "/services/audiences/hpt-senior-functional-teams.jpg",
+      },
+      {
+        label: "Project teams",
+        title: "Turn capability into execution.",
+        body: "Clearer roles, sharper accountability and momentum that lasts.",
+        image: "/services/audiences/hpt-project-teams.jpg",
+      },
+    ],
+    howWeWorkHeadline: "A practical, immersive journey from insight to lasting impact.",
+    howWeWork:
+      "We use a blend of facilitated sessions, real team challenges and practical tools to create immediate momentum and build habits that stick.",
+    /* ✅ AS CINCO ETAPAS, com os glifos lidos do layout: lupa, grupo,
+       engrenagem, barras e o par de setas em círculo (`refresh`, chave nova
+       em `SolutionSteps`). O desenho as numera, daí `stepsNumbered`. */
+    steps: [
+      { icon: "search", title: "Diagnose", body: "Understand team dynamics, strengths and tensions." },
+      { icon: "people", title: "Design", body: "Co-create a tailored journey with clear goals." },
+      { icon: "cog", title: "Activate", body: "Immersive sessions, real business challenges and tools." },
+      { icon: "chart", title: "Embed", body: "Translate insights into habits in the flow of work." },
+      { icon: "refresh", title: "Sustain", body: "Measure progress and reinforce for lasting impact." },
+    ],
+    stepsNumbered: true,
+    /* ✅ A FAIXA DE EVIDÊNCIA DO LAYOUT: dois logos e três medidas, a mesma
+       anatomia da Senior Leadership Development. ⛔ Sem `caseSlug`: não há
+       caso publicado de times para essas duas marcas, e link para caso
+       despublicado é 404 em cima do logo de um cliente. */
+    evidenceSummary: {
+      headline: "Teams deliver more when they are aligned.",
+      lead: "Real results from our work with executive, functional and project teams across industries.",
+      logoSize: "medium",
+      logos: [
+        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/our-clients" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
+      ],
+      facts: [
+        { value: "35%", label: "Faster decision making" },
+        { value: "82%", label: "Higher team effectiveness" },
+        { value: "3x", label: "Greater execution speed" },
+      ],
+    },
     outcome:
       "Better **decision quality, execution speed, collective accountability and cross-functional effectiveness**. Less organisational friction. More leadership capacity directed at the priorities that matter most.",
     howWeHelp:
@@ -2835,23 +2957,6 @@ export const services: Service[] = [
       line: "Reduce friction, strengthen decision-making and collective accountability, and increase the speed at which teams turn priorities into performance.",
       label: "Talk to us about your team’s performance",
     },
-    /* O outline aponta este como o padrão a seguir: *"This is the strongest of
-       the five and the only one carrying a percentage of impact. Two of its three
-       figures say whether it worked rather than how big it was."* */
-    evidence: {
-      client: "ADIDAS",
-      title: "South East Asia leadership",
-      body: "A regional team transformation designed to align diverse leadership behaviours, create a unified identity and shift the team from siloed execution to shared decision-making and collective ownership. The work connected the team’s Inner Game of identity and behavioural cohesion with its Outer Game of activating three critical transformation streams.",
-      facts: [
-        { value: "92%", label: "NPS" },
-        { value: "93%", label: "immersion impact" },
-        { value: "150+", label: "senior executives" },
-      ],
-      /* ⏳ Placeholder de 17-09  -  ver a caixa de `EVIDENCE_IMAGE_PLACEHOLDER`. */
-      image: EVIDENCE_IMAGE_PLACEHOLDER,
-    },
-    /* ⏳ Placeholder de 17-09  -  ver a caixa de `evidenceQuotePlaceholder`. */
-    testimonial: evidenceQuotePlaceholder("ADIDAS"),
   },
   {
     slug: "hrlt-effectiveness",
@@ -3020,7 +3125,11 @@ export const services: Service[] = [
     cardImage: "/services/cards/judgement-in-ai-client.jpg",
     title: "Judgement in AI",
     heroTitle: "Leadership Judgement",
-    heroImage: "/services/heroes/judgement-leadership-hero-20260926.png",
+    /* ✅ 01-10: TRATAMENTO FOTOGRÁFICO sobre a mesma imagem (IA), pedido na
+       call para ela "parecer menos Photoshop": grão de filme leve, pretos um
+       pouco levantados, saturação -12%, meio-tons aquecidos e as bordas
+       hipernítidas suavizadas. O original (`...-20260926.png`) fica no disco. */
+    heroImage: "/services/heroes/judgement-leadership-hero-20261001-graded.jpg",
     heroImagePosition: "object-[70%_center] md:object-center",
     heroSubtitle: "Clearer thinking. Braver calls.",
     heroBody: [
@@ -3108,7 +3217,13 @@ export const services: Service[] = [
   {
     slug: "executive-coaching",
     cardImage: "/services/cards/executive-coaching-client.jpg",
-    heroImage: "/services/heroes/executive-coaching-hero.png",
+    /* ✅ 01-10: a call disse que esta imagem "tem cara de IA". A pasta da
+       cliente não trouxe referência para o coaching, e entre as imagens de
+       coaching do repo esta continua a mais crível (duas pessoas, conversa,
+       luz natural). Ganhou o mesmo tratamento fotográfico do herói da Judgement
+       (grão, pretos levantados, menos saturação, bordas suavizadas). O PNG
+       original fica no disco. ⏳ O ideal continua sendo uma foto real. */
+    heroImage: "/services/heroes/executive-coaching-hero-20261001-graded.jpg",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     /* ============================================================================

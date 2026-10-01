@@ -41,7 +41,7 @@ export const LOCAL_CASES = [
       "My heartfelt congratulations to this amazing team for winning us a GOLD in leading our Women in Leadership Program globally . This transformational program has had and will continue to have a deep impact for our women. I am very grateful for this opportunity to work with all of you.",
     quoter: "Lynn Lee, Global VP Diversity, Equity and Inclusion, Shell",
     facts: [
-      { label: "Participants / Leaders", value: "6,000 women" },
+      { label: "Participants / Leaders", value: "8,000 women" },
       { label: "Impact", value: "96% facilitator impact" },
     ],
     body: {
@@ -57,13 +57,13 @@ export const LOCAL_CASES = [
       approachHeadline: "A multi-year women's leadership ecosystem.",
       outcomeHeadline: "Advancing women, and shaping the system around them.",
       impactFigures: [
-        { value: "6,000", label: "women impacted across three levels and multiple geographies" },
+        { value: "8,000", label: "women impacted across three levels and multiple geographies" },
         { value: "96%", label: "facilitator impact" },
         { value: "70+", label: "Net Promoter Score" },
         { value: "Gold", label: "Brandon Hall Group award for Diversity, Equity & Inclusion" },
       ],
       scaleFigures: [
-        "Who we worked with: 6,000 women across three career levels and multiple geographies, supported by managers, sponsors and senior leaders.",
+        "Who we worked with: 8,000 women across three career levels and multiple geographies, supported by managers, sponsors and senior leaders.",
       ],
       services: [],
       service: "women-in-leadership",

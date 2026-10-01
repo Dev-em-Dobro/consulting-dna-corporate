@@ -29,6 +29,7 @@ export const TeamCopySchema: z.ZodType<TeamCopy> = z.object({
   leadership: z.object({
     label: str,
     title: str,
+    managersLabel: str,
     managersTitle: str,
     managersIntro: str,
   }),

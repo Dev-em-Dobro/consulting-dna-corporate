@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import SolutionHero from "@/components/solutions/SolutionHero";
-import EmptyNotice from "@/components/EmptyNotice";
+import InsightsHero from "@/components/insights/InsightsHero";
 import InsightsLibrary from "@/components/insights/InsightsLibrary";
 import Reveal from "@/components/Reveal";
 import TypeLabel from "@/components/TypeLabel";
@@ -48,26 +47,10 @@ export default async function InsightsPage() {
        esta linha está no wrapper e não só no herói. */
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        {/* O TÍTULO É O QUE JÁ ESTAVA NA PÁGINA  -  "Let's share some insights."
-            Ele sobe do `<h1>` de 820px para o herói, sem uma palavra nova.
-
-            ⏳ SEM SUBTÍTULO, e isso é falta de conteúdo, não de desenho. O
-            `subtitle` deste herói é a "banner statement" do outline de Services,
-            uma frase que diz o que está em jogo; para Insights não existe frase
-            equivalente escrita pelo cliente, e inventá-la seria copy nossa numa
-            página que é toda dele. A descrição de metadados aqui do lado serve
-            ao buscador e foi escrita para isso  -  promovê-la a texto de herói é
-            outra decisão, e é dele.
-
-            A FOTO É A PADRÃO das páginas de serviço. Vale o mesmo que está
-            escrito no componente: uma foto repetida lê como identidade, um slot
-            vazio lê como site inacabado  -  e ela some sozinha no dia em que esta
-            página ganhar a sua. */}
-        <SolutionHero
-          eyebrow={copy.hero.eyebrow}
-          title={copy.hero.title.replace(/\.$/, "")}
-          imageUrl="/insights/insights-hero.png"
-        />
+        {/* 01-10: título novo ("Insights for the moments that shape
+            leadership") e a estante de livros no lugar da foto  -  ver a caixa
+            no topo de `components/insights/InsightsHero.tsx`. */}
+        <InsightsHero eyebrow={copy.hero.eyebrow} title={copy.hero.title} />
 
         <section id="thought-leadership" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
@@ -185,19 +168,22 @@ export default async function InsightsPage() {
             outras páginas novas correm em 1440, e esta era a única em 820  -  o
             rótulo e os cards começavam 310px adentro enquanto tudo o mais
             começa em 40px. */}
-        <section id="library" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <TypeLabel>{copy.library.label}</TypeLabel>
-            <h2 className="sr-only">{copy.library.label}</h2>
-            <div className="mt-10">
-            {insights.length === 0 ? (
-              <EmptyNotice>{copy.library.empty}</EmptyNotice>
-            ) : (
-              <InsightsLibrary insights={insights} labels={copy.library} />
-            )}
+        {/* ⛔ SEM ARTIGOS, SEM SEÇÃO  -  01-10, a pedido: *"remove the Articles
+            section"*, porque ainda não há nenhum. Ela não foi apagada: volta
+            sozinha quando o primeiro artigo for publicado no CMS. O texto
+            continua no editor (`/edit-insights`, "Article library"), e o
+            `library.empty` fica sem uso enquanto esta regra valer. */}
+        {insights.length > 0 && (
+          <section id="library" className="bg-white">
+            <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+              <TypeLabel>{copy.library.label}</TypeLabel>
+              <h2 className="sr-only">{copy.library.label}</h2>
+              <div className="mt-10">
+                <InsightsLibrary insights={insights} labels={copy.library} />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </SiteShell>
     </div>
   );

@@ -98,6 +98,7 @@ export default function PeopleRoster({
                   className="object-cover object-[center_22%]"
                 />
                 <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
+                <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
               </div>
             ) : null}
             <div>
@@ -126,6 +127,8 @@ export default function PeopleRoster({
                 className={`object-cover object-[center_22%]${mono ? " grayscale" : ""}`}
               />
               <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
+              {/* 01-10: o par em diagonal, canto oposto ao de baixo. */}
+              <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
             </div>
           ) : null}
           <h4 className="mt-3.5 text-[15px] font-semibold leading-snug text-brand">{p.name}</h4>

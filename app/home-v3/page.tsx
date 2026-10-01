@@ -161,7 +161,7 @@ const cases: {
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
   // Mesma correção aplicada na home no ar  -  este arquivo é cópia, então o
   // número tem que ser trocado nos dois lugares até a V2 ser decidida.
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
+  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "8,000", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
 ];
 
 export default async function HomeV3() {

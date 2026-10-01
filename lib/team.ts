@@ -606,22 +606,28 @@ export const programmeManagers: RosterPerson[] = [
  * Europe" lado a lado na mesma grade, que é exatamente a inconsistência que o
  * comentário da célula do Tom Cross levanta. Unificar os dois é decisão DELA.
  */
+/* 01-10, lista da Rhea: Rachel e Bianca trocaram de lugar; Nitin foi para o
+   lugar do Swang, Swang para o da Sharon e Sharon desceu para o lugar antigo do
+   Nitin (rotação das três, dentro de Asia Pacific). Retratos `-01-10`: Justin,
+   Sandro e Wouter com fundo removido (rembg) e branco; Wouter mais fechado no
+   rosto; Justin e Tony recentralizados a partir do original do .docx; Wendy e
+   Catherine com as fotos novas. Os arquivos anteriores ficam no lugar. */
 export const facultyMembers: RosterPerson[] = [
   { name: "Tom Cross", meta: "UK & Europe", portrait: "/team/faculty/tom-cross.jpg" },
-  { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty/justin-bridge.jpg" },
+  { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty/justin-bridge-01-10.jpg" },
   { name: "Daniela Rusu", meta: "Europe", portrait: "/team/faculty/daniela-rusu.jpg" },
   { name: "Jojo O’Driscoll-Kearney", meta: "Middle East", portrait: "/team/faculty/jojo-odriscoll-kearney.jpg" },
-  { name: "Rachel Monteverdi", meta: "Americas", portrait: "/team/faculty/rachel-monteverdi.jpg" },
+  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli.jpg" },
   { name: "Michele Perry", meta: "Americas", portrait: "/team/faculty/michele-perry.jpg" },
-  { name: "Seow Swang Chua", meta: "Asia Pacific", portrait: "/team/faculty/seow-swang-chua.jpg" },
+  { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/nitin-goil.jpg" },
   { name: "Marisa Chuawiwat", meta: "Asia Pacific", portrait: "/team/faculty/marisa-chuawiwat.jpg" },
   { name: "Akua Nyame-Mensah", meta: "Africa", portrait: "/team/faculty/akua-nyame-mensah.jpg" },
   { name: "Angela Gachui", meta: "Africa", portrait: "/team/faculty/angela-gachui.jpg" },
-  { name: "Sharon Lim", meta: "Asia Pacific", portrait: "/team/faculty/sharon-lim.jpg" },
+  { name: "Seow Swang Chua", meta: "Asia Pacific", portrait: "/team/faculty/seow-swang-chua.jpg" },
   { name: "Sunanda Banerjee", meta: "Asia Pacific", portrait: "/team/faculty/sunanda-banerjee-29-09.png" },
-  { name: "Tony", meta: "Australia", portrait: "/team/faculty/tony.jpg" },
-  { name: "Sandro da Silva", meta: "Europe", portrait: "/team/faculty/sandro-da-silva-29-09.jpg" },
-  { name: "Wouter van den Berg", meta: "Europe", portrait: "/team/faculty/wouter-van-den-berg.jpg" },
+  { name: "Tony", meta: "Australia", portrait: "/team/faculty/tony-01-10.jpg" },
+  { name: "Sandro da Silva", meta: "Europe", portrait: "/team/faculty/sandro-da-silva-01-10.jpg" },
+  { name: "Wouter van den Berg", meta: "Europe", portrait: "/team/faculty/wouter-van-den-berg-01-10.jpg" },
   { name: "Manuela Damant", meta: "Europe", portrait: "/team/faculty/manuela-damant.jpg" },
   { name: "Rob Grundel", meta: "Australia", portrait: "/team/faculty/rob-grundel.jpg" },
   { name: "Amy Scialdone", meta: "Americas", portrait: "/team/faculty/amy-scialdone.jpg" },
@@ -630,17 +636,17 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Bret Freeman", meta: "Middle East", portrait: "/team/faculty/bret-freeman.jpg" },
   { name: "Mauricio Tasca", meta: "Americas", portrait: "/team/faculty/mauricio-tasca.png" },
   { name: "Aroldo Couto", meta: "Americas", portrait: "/team/faculty/aroldo-couto-29-09.png" },
-  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli.jpg" },
+  { name: "Rachel Monteverdi", meta: "Americas", portrait: "/team/faculty/rachel-monteverdi.jpg" },
   { name: "Susanna Ezvedo", meta: "Americas", portrait: "/team/faculty/susana-azevedo-30-09.jpg" },
   { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
   { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
   { name: "Aman Almahid", meta: "Middle East", portrait: "/team/faculty/aman-almahid.png" },
   { name: "Nana Lawson", meta: "UK & Europe", portrait: "/team/faculty/nana-lawson-30-09.jpeg" },
-  { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/nitin-goil.jpg" },
-  { name: "Wendy", meta: "Asia Pacific", portrait: "/team/faculty/wendy-30-09.png" },
+  { name: "Sharon Lim", meta: "Asia Pacific", portrait: "/team/faculty/sharon-lim.jpg" },
+  { name: "Wendy", meta: "Asia Pacific", portrait: "/team/faculty/wendy-01-10.jpg" },
   { name: "Sarah", meta: "Asia Pacific", portrait: "/team/faculty/sarah-30-09.png" },
   { name: "Ina", meta: "Asia Pacific", portrait: "/team/faculty/ina-30-09.png" },
-  { name: "Catherine", meta: "Australia", portrait: "/team/faculty/catherine-30-09.png" },
+  { name: "Catherine", meta: "Australia", portrait: "/team/faculty/catherine-01-10.jpg" },
   { name: "Peter", meta: "Australia", portrait: "/team/faculty/peter-30-09.png" },
   { name: "Sahib", meta: "Americas", portrait: "/team/faculty/sahib-30-09.png" },
   { name: "Hiroko", meta: "Asia Pacific", portrait: "/team/faculty/hiroko-30-09.png" },

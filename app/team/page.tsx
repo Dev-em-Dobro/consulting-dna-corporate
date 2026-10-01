@@ -341,6 +341,7 @@ export default async function OurTeamPage() {
                 quebrariam a árvore de cabeçalhos para quem navega por leitor de
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
+              <TypeLabel>{copy.leadership.managersLabel}</TypeLabel>
               <h3 className="mb-5 font-serif text-[28px] font-semibold leading-[1.1] tracking-[-0.4px] text-ink sm:text-[32px]">
                 {copy.leadership.managersTitle}
               </h3>

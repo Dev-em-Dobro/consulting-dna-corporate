@@ -185,7 +185,7 @@ const differentiators = [
 // mandar o visitante da home para uma página morta.
 //
 // ⏳ OS NÚMEROS DESTA FAIXA CONTINUAM NO AR, e são os mesmos três que a lista de
-// aprovação de 06-08 nunca fechou (45%, 43, 6.300). Despublicar o case não os
+// aprovação de 06-08 nunca fechou (45%, 43, 6.300; Shell virou 8.000 em 01-10). Despublicar o case não os
 // tira daqui: isto é dado do código, não do CMS. Se a cliente quiser a faixa
 // fora enquanto os cases estão fora, é apagar as três entradas abaixo.
 //

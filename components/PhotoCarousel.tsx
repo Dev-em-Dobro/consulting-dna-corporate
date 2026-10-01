@@ -31,12 +31,24 @@ type PhotoCarouselProps = {
    * `app/team-tests/page.tsx`.
    */
   positions?: Record<string, string>;
+  /** Alt text per slide, by index. Missing entries fall back to "" (decorative). */
+  alts?: string[];
+  /** Accessible name of the carousel region. */
+  label?: string;
+  /** Max-width class of the frame. Literal Tailwind class (see note above). */
+  frameClassName?: string;
+  /** `sizes` hint for next/image; keep in step with `frameClassName`. */
+  sizes?: string;
 };
 
 export default function PhotoCarousel({
   images,
   interval = 5000,
   positions = {},
+  alts = [],
+  label = "Life at CorporateDNA",
+  frameClassName = "max-w-[640px]",
+  sizes = "(min-width: 640px) 640px, 100vw",
 }: PhotoCarouselProps) {
   const count = images.length;
   const [index, setIndex] = useState(0);
@@ -58,10 +70,10 @@ export default function PhotoCarousel({
 
   return (
     <div
-      className="group relative mx-auto w-full max-w-[640px] overflow-hidden rounded-xl bg-ink"
+      className={`group relative mx-auto w-full ${frameClassName} overflow-hidden rounded-xl bg-ink`}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Life at CorporateDNA"
+      aria-label={label}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -80,9 +92,9 @@ export default function PhotoCarousel({
           >
             <Image
               src={src}
-              alt=""
+              alt={alts[i] ?? ""}
               fill
-              sizes="(min-width: 640px) 640px, 100vw"
+              sizes={sizes}
               // Eager for all: slides start translated out of the viewport, so
               // lazy loading never fires and the incoming slide arrives blank.
               loading="eager"

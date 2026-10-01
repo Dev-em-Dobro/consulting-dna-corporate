@@ -8,6 +8,7 @@ import { getEvents } from "@/lib/events-content";
 import { getEventsCopy } from "@/lib/events-copy-server";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { localeAlternates } from "@/lib/seo/alternates";
+import eventsHero from "@/public/events/events-hero.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -26,7 +27,20 @@ export default async function EventsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        <SolutionHero eyebrow="Events" title="Where we bring leaders together." noImage />
+        {/* 01-10: foto da cliente (hero-events.jpeg) e manchete nova. A palavra
+            "leadership" vai em vermelho na linha de baixo, no mesmo tamanho do
+            título  -  o padrão de destaque da /our-clients (`subtitleAccent` +
+            `accentAsTitle`). Foto 4:3 com o grupo no terço de baixo: o
+            `object-[50%_70%]` desce o corte no desktop (quadro ~1,9:1) para
+            manter rostos e corpos e cortar o teto. */}
+        <SolutionHero
+          eyebrow="Events"
+          title="Where we bring leaders together to shape"
+          subtitleAccent="leadership"
+          accentAsTitle
+          imageUrl={eventsHero}
+          imagePosition="object-[50%_70%]"
+        />
         <section id="upcoming-events" aria-labelledby="upcoming-heading" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
             <TypeLabel>{copy.upcoming.label}</TypeLabel>

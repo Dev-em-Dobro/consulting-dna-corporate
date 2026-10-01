@@ -12,5 +12,5 @@ export default async function EditInsightsPage() {
   const copy = await getInsightsCopy();
   return <CopyEditor initial={copy} defaults={DEFAULT_INSIGHTS_COPY} sections={EDITOR_SECTIONS}
     apiPath='/api/insights-copy' siteHref='/insights' title='Insights page text'
-    note="Edit the page and PDF resource text here. Articles and authors are managed in the CMS." />;
+    note="Edit the page and PDF resource text here. Articles and authors are managed in the CMS; the Articles section stays hidden on the page until the first article is published." />;
 }
