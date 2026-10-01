@@ -9,6 +9,7 @@ import {
   CircleCheck,
   Cog,
   Cpu,
+  RefreshCw,
   Eye,
   ClipboardCheck,
   FastForward,
@@ -153,6 +154,9 @@ const STEP_ICONS: Record<string, LucideIcon> = {
      esse o sentido  -  a regra da daily de um glifo por conceito. */
   calendar: CalendarDays,
   compass: Compass,
+  /* 01-10, High Performing Teams: "Sustain" no layout é o par de setas em
+     círculo  -  o ciclo que se reforça, e não crescimento (`growth`). */
+  refresh: RefreshCw,
 };
 
 /** O glifo de uma chave do mapa acima  -  para quem desenha a mesma anatomia fora

@@ -38,7 +38,10 @@ import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
-import { FIRM_STAT_ICONS } from "@/lib/stats";
+import { FIRM_STAT_ICONS, getSiteStats } from "@/lib/stats";
+import { getHomeCopy } from "@/lib/home-copy-server";
+import { getCaseListEntries } from "@/lib/cms/map";
+import { HomeCredibility, HomeImpact, HomePeople } from "@/components/home/HomeSharedSections";
 import { getAboutCopy } from "@/lib/about-copy-server";
 import { CENTRAL_EMAIL, presentAboutCopy } from "@/lib/about-copy";
 import { inlineEmphasis } from "@/lib/page-copy/text";
@@ -458,7 +461,15 @@ const regionCities = (offices: string) =>
   offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
 
 export default async function AboutV2Page() {
-  const [nav, savedCopy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
+  const [nav, savedCopy, homeCopy, cmsStats, publishedCases] = await Promise.all([
+    buildSiteNav(),
+    getAboutCopy(),
+    getHomeCopy(),
+    getSiteStats(),
+    getCaseListEntries(),
+  ]);
+  // Os mesmos números e rótulos da faixa da home (ver `HomeCredibility`).
+  const homeStats = cmsStats.map((s, i) => ({ ...s, label: homeCopy.credibility.statLabels[i] ?? s.label }));
   const copy = presentAboutCopy(savedCopy);
   /* O ícone casa com o número POR POSIÇÃO  -  ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
@@ -2029,6 +2040,14 @@ export default async function AboutV2Page() {
         </div>
       </section>
 
+      {/* 01-10: as três seções da home  -  Trusted by, Client impact e Our
+          people  -  repetidas aqui, depois de "What we believe". Ver
+          `components/home/HomeSharedSections.tsx`. Ids próprios porque a
+          /about já tem um `#people`. */}
+      <HomeCredibility id="about-credibility" copy={homeCopy} stats={homeStats} />
+      <HomeImpact id="about-impact" copy={homeCopy} publishedCases={publishedCases} />
+      <HomePeople id="about-our-people" copy={homeCopy} />
+
       {/* ── Block 6 · Our Regions ─────────────────────────────────────
           Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio
           (`eyebrow={null} title={null}`), senão a seção abriria dois títulos.
@@ -2117,12 +2136,35 @@ export default async function AboutV2Page() {
                 "over 60+" seria a mesma palavra duas vezes. A troca de 75 para
                 60+ é, aliás, de número EXATO para PISO  -  ver a caixa do h2 na
                 /team, que é onde isso está explicado. */}
-            <div>
-            <p
-              className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
-              dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.regions.intro) }}
-            />
-            </div>
+            {/* ✅ 01-10: AS LINHAS CURTAS DE ABERTURA VIRAM DESTAQUE. A copy salva
+                abre com "Global reach. / Local context. / ... that travel." e a
+                Rhea pediu as três *maiores e em bold*  -  no corpo de 16px elas
+                sumiam. A regra é estrutural, não pelo texto: se o primeiro
+                bloco (até a primeira linha em branco) é de linhas curtas, ele
+                sai na escala de subtítulo da página (serif semibold, 24→30px,
+                entre o corpo e o h2 de 28→36px); o resto segue como corpo.
+                Copy sem esse bloco (o padrão do código) renderiza como antes. */}
+            {(() => {
+              const intro = copy.regions.intro;
+              const split = intro.indexOf("\n\n");
+              const head = split > 0 ? intro.slice(0, split).trim() : "";
+              const isLead = !!head && head.split("\n").every((l) => l.trim().length <= 40);
+              const body = isLead ? intro.slice(split).trim() : intro;
+              return (
+                <div>
+                  {isLead && (
+                    <p
+                      className="mb-5 max-w-[620px] whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.4px] text-ink md:mb-6 md:text-[30px]"
+                      dangerouslySetInnerHTML={{ __html: inlineEmphasis(head.replace(/[ \t]+\n/g, "\n")) }}
+                    />
+                  )}
+                  <p
+                    className="max-w-[620px] whitespace-pre-line font-serif text-[16px] font-normal leading-[1.5] tracking-[-0.2px] text-ink"
+                    dangerouslySetInnerHTML={{ __html: inlineEmphasis(body) }}
+                  />
+                </div>
+              );
+            })()}
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
         </Reveal>

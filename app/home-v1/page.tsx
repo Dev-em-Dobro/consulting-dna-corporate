@@ -131,7 +131,7 @@ const cases: {
   { client: "Coca-Cola", sector: "FMCG", challenge: "Reset a legacy beverage brand by embedding new mindsets and behaviours across a newly formed APAC leadership team.", metric: "43", metricLabel: "leaders transformed across APAC & Japan", caseSlug: "coca-cola" },
   // 6.300, não 2.582: a Rhea corrigiu o número na call de 03-09 (`[47:06]`).
   // Era a nossa própria prova social errada, e para menos.
-  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "6,300", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
+  { client: "Shell", sector: "Energy", challenge: "Scale women's leadership development across a global engineering workforce.", metric: "8,000", metricLabel: "women leaders impacted across the programme", caseSlug: "shell" },
 ];
 
 export default async function HomeV1() {

@@ -44,7 +44,7 @@ export type TeamStrand = { title: string; body: string };
 /** O formato  -  validado pelo zod em `team-copy-schema.ts`, que espelha isto. */
 export type TeamCopy = {
   hero: { eyebrow: string; title: string; subtitle: string };
-  leadership: { label: string; title: string; managersTitle: string; managersIntro: string };
+  leadership: { label: string; title: string; managersLabel: string; managersTitle: string; managersIntro: string };
   /** Os SEIS, na ordem de `leaders` em `lib/team.ts`. Casa por posição. */
   leaders: TeamLeaderCopy[];
   oneTeam: { label: string; lines: string[] };
@@ -68,6 +68,8 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
   leadership: {
     label: "Leadership Team",
     title: "The team behind the work.",
+    /* 01-10: rótulo com o traço vermelho, igual ao "Leadership Team". */
+    managersLabel: "Project Management Office",
     managersTitle: "Program Management Team",
     managersIntro:
       "The team that carries every project from promise to impact. Our senior programme managers across UKEE, ASIA and Middle East are the connective tissue of every client engagement, holding the client relationship, faculty, roadmap and delivery together. They bring the discipline, care and continuity that turns great thinking into a consistently great client experience.",
@@ -140,13 +142,13 @@ export const EDITOR_SECTIONS: EditorSection[] = [
     fields: [
       { path: "leadership.label", label: "Small label", kind: "text" },
       { path: "leadership.title", label: "Heading", kind: "text" },
+      { path: "leadership.managersLabel", label: "Small label above the programme managers", kind: "text" },
       {
-        path: "leadership.managersTitle",
-        label: "Heading above the programme managers",
-        kind: "text",
+        path: "leadership.managersIntro",
+        label: "Programme managers introduction",
+        kind: "textarea",
         hint: "The people themselves  -  names and photos  -  are not editable here.",
       },
-      { path: "leadership.managersIntro", label: "Programme managers introduction", kind: "textarea" },
     ],
   },
   {

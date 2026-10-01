@@ -106,7 +106,7 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
         sector: "Energy",
         challenge:
           "Accelerate the advancement of women leaders globally and shift the system around them.",
-        metric: "6,000",
+        metric: "8,000",
         metricLabel: "women impacted across three levels and multiple geographies",
       },
     ],
@@ -169,7 +169,7 @@ const caseFields = (i: number, name: string): EditorField[] => [
   { path: `impact.cases.${i}.client`, label: `${name}  -  client name`, kind: "text" },
   { path: `impact.cases.${i}.sector`, label: `${name}  -  sector`, kind: "text" },
   { path: `impact.cases.${i}.challenge`, label: `${name}  -  challenge`, kind: "textarea" },
-  { path: `impact.cases.${i}.metric`, label: `${name}  -  headline number`, kind: "text", hint: "e.g. 45% or 6,300" },
+  { path: `impact.cases.${i}.metric`, label: `${name}  -  headline number`, kind: "text", hint: "e.g. 45% or 8,000" },
   { path: `impact.cases.${i}.metricLabel`, label: `${name}  -  what the number means`, kind: "text" },
 ];
 

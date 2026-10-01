@@ -235,7 +235,14 @@ export default async function OurTeamPage() {
              aqui. Um caractere não mudou  -  e isso responde de passagem a dúvida
              anotada em 17-09 sobre contar por país ou por região. */
           subtitle={copy.hero.subtitle}
-          noImage
+          /* 01-10, fim do dia: foto nova (WhatsApp). */
+          imageUrl="/team/team-hero-20261001-v3.jpg"
+          /* Sem zoom: a foto ocupa a altura da faixa, encostada à direita, e a
+             borda esquerda se funde no fundo escuro. Véu escuro por cima de tudo. */
+          imageNatural={{ width: 1402, height: 1122 }}
+          imageShadeOpacity={0}
+          /* Véu escuro uniforme por cima da foto inteira (01-10). */
+          tint="linear-gradient(rgba(38,34,36,.55), rgba(38,34,36,.55))"
         />
         </div>
 
@@ -305,7 +312,7 @@ export default async function OurTeamPage() {
                 seis, e rosa vazio no celular é só rolagem. */}
             {/* `id` para o guia visual: os seis cards são uma seção à parte
                 no editor, porque são dezoito campos. */}
-            <div id="leaders" className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:grid-cols-3">
+            <div id="leaders" className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:gap-x-10 2xl:grid-cols-3 2xl:gap-x-6">
               {leadershipCards.map((p) => (
                 <LeaderCard
                   key={p.name}
@@ -341,9 +348,10 @@ export default async function OurTeamPage() {
                 quebrariam a árvore de cabeçalhos para quem navega por leitor de
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
-              <h3 className="mb-5 font-serif text-[28px] font-semibold leading-[1.1] tracking-[-0.4px] text-ink sm:text-[32px]">
-                {copy.leadership.managersTitle}
-              </h3>
+              <TypeLabel>{copy.leadership.managersLabel}</TypeLabel>
+              {/* 01-10: o título "Program Management Team" saiu a pedido  -  o rótulo
+                  "Project Management Office" acima já nomeia o bloco. O campo
+                  `managersTitle` segue no schema para não invalidar copy salva. */}
               <p className="mb-10 w-full whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:text-[18px]">
                 {copy.leadership.managersIntro}
               </p>

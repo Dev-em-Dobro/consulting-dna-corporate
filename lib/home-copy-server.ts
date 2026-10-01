@@ -15,10 +15,19 @@ const store = createCopyStore<HomeCopy>({
   key: "home",
   defaults: DEFAULT_HOME_COPY,
   schema: HomeCopySchema,
-  migrationVersion: "2026-09-29-doc-corrections",
+  migrationVersion: "2026-10-01-call-corrections",
   migrateSaved(saved) {
     if (!saved || typeof saved !== "object") return saved;
     const copy = structuredClone(saved) as Partial<HomeCopy>;
+    // 01-10: a Rhea corrigiu a Shell para 8.000 mulheres ("not 6k").
+    for (const item of copy.impact?.cases ?? []) {
+      if (item?.client === "Shell" && ["6,000", "6,300", "6k", "6000", "6300"].includes(item.metric?.trim() ?? "")) {
+        item.metric = "8,000";
+      }
+    }
+    // As trocas de 29-09 abaixo já rodaram em quem foi salvo com aquela revisão;
+    // repeti-las agora apagaria edições feitas pela cliente depois de 29-09.
+    if ((saved as Record<string, unknown>).__copyRevision === "2026-09-29-doc-corrections") return copy;
     const caseTwo = copy.impact?.cases?.[1];
     if (caseTwo?.client === "Coca-Cola" || (caseTwo?.client === "Frasers" && caseTwo.metric === "150+")) {
       copy.impact!.cases[1] = DEFAULT_HOME_COPY.impact.cases[1];

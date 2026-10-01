@@ -368,7 +368,7 @@ export default function SolutionView({
           rótulo e respiro no topo  -  é o caso do Talent Development, onde a
           grade de ladrilhos entrou entre ela e o bloco de cima. Ver a prop no
           componente. */}
-      <SolutionAudiences items={service.audiences} label={service.audiencesLabel} />
+      <SolutionAudiences items={service.audiences} label={service.audiencesLabel} labelBelowImage={service.audiencesLabelBelowImage} />
 
       {/* ⬅ NOVO EM 24-09, com o layout de Women’s Leadership Development: a
           faixa rosa de uma linha que amarra as três trilhas de público numa

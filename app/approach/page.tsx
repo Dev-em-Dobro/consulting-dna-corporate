@@ -10,7 +10,6 @@ import {
   ChartNoAxesColumn,
   Compass,
   Dna,
-  Play,
   Plus,
   Star,
   Target,
@@ -18,6 +17,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import SiteShell from "@/components/SiteShell";
+import PhotoCarousel from "@/components/PhotoCarousel";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, faqLd, serviceLd } from "@/lib/seo/jsonld";
@@ -54,6 +54,21 @@ function RegisteredText({ text }: { text: string }) {
   const parts = text.split("®");
   return <>{parts.map((part, index) => <Fragment key={index}>{part}{index < parts.length - 1 && <R />}</Fragment>)}</>;
 }
+
+const APPROACH_CAROUSEL = [
+  {
+    src: "/approach/approach-carousel-01.jpg",
+    alt: "Leaders presenting their group's conclusions during a leadership dilemma debate in a CorporateDNA workshop",
+  },
+  {
+    src: "/approach/approach-carousel-02.jpg",
+    alt: "Participants talking in small groups during a CorporateDNA leadership programme, with the Inner to Outer Game of Leadership poster behind them",
+  },
+  {
+    src: "/approach/approach-carousel-03.jpg",
+    alt: "Collage from a CorporateDNA leadership programme: the cohort group photo, facilitators presenting and participants at a team dinner",
+  },
+];
 
 const TOOLKIT_ICONS = [Dna, UsersRound, ChartNoAxesColumn, Compass, Star, UsersRound, Target];
 
@@ -182,9 +197,9 @@ export default async function ApproachPage() {
           </div>
           <div id="two-games" className="min-w-0">
           <Image
-            src="/approach/inner-outer-game-5h.png"
+            src="/approach/inner-outer-game-5h-20261001.png"
             alt="Inner Game and Outer Game connected by the five leadership intelligences"
-            width={1619}
+            width={1620}
             height={971}
             sizes="(min-width: 1024px) 650px, 100vw"
             className="mx-auto h-auto w-full max-w-[720px]"
@@ -212,14 +227,17 @@ export default async function ApproachPage() {
           </div>
         </section>
 
-        <section id="approach-video" aria-label="CorporateDNA leaders" className="bg-[#373234] px-6 py-12 md:px-10 md:py-20">
-          <div className="relative mx-auto aspect-[1.58/1] max-w-[980px] overflow-hidden">
-            <Image src="/clients-bottom-banner.jpg" alt="CorporateDNA leaders together" fill sizes="(min-width: 1060px) 980px, 100vw" className="object-cover grayscale" />
-            <div className="absolute inset-0 bg-black/10" />
-            <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-black/45 text-white shadow-xl">
-              <Play aria-hidden="true" className="ml-1 h-6 w-6 fill-current" />
-            </span>
-          </div>
+        {/* 01-10 (reunião com a Rhea): a foto única acima do "The DNA 360
+            Profiler" vira carrossel, no mesmo padrão dos outros do site
+            (PhotoCarousel). Moldura mantém a largura de 980px da foto antiga. */}
+        <section id="approach-video" aria-label="CorporateDNA programmes in action" className="bg-[#373234] px-6 py-12 md:px-10 md:py-20">
+          <PhotoCarousel
+            images={APPROACH_CAROUSEL.map((slide) => slide.src)}
+            alts={APPROACH_CAROUSEL.map((slide) => slide.alt)}
+            label="CorporateDNA programmes in action"
+            frameClassName="max-w-[980px]"
+            sizes="(min-width: 1060px) 980px, 100vw"
+          />
         </section>
 
       </div>

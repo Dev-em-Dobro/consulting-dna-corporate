@@ -8,7 +8,7 @@ export const DEFAULT_INSIGHTS_COPY = {
   },
   "hero": {
     "eyebrow": "Insights",
-    "title": "Let’s share some insights."
+    "title": "Insights for the moments that shape leadership"
   },
   "thoughtLeadership": {
     "label": "Thought Leadership",
@@ -68,8 +68,8 @@ export const EDITOR_SECTIONS: EditorSection[] = [
   },
   {
     "id": "library",
-    "title": "Article library",
-    "anchor": "/insights#library"
+    "title": "Article library (hidden until the first article is published)",
+    "anchor": "/insights"
   }
 ].map((section) => ({
   id: section.id, title: section.title, anchor: section.anchor,
