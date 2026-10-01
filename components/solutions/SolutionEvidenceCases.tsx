@@ -83,30 +83,15 @@ export default function SolutionEvidenceCases({
                     ⚠️ O TETO AQUI É METADE DO DA OUTRA FAIXA (96/48 contra
                     240/86): lá as marcas SÃO a fileira; aqui elas dividem a
                     primeira linha do cartão com o nome do programa. */}
+                {/* 01-10: o logo deixou de ser link  -  o case abre pelo botão
+                    "Read more" no pé do cartão. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {c.logo.href ? (
-                  <Link
-                    href={c.logo.href}
-                    aria-label={`Read the cases: ${c.logo.alt}`}
-                    className="shrink-0 transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={c.logo.src}
-                      alt={c.logo.alt}
-                      loading="lazy"
-                      className="h-auto max-h-[40px] w-auto max-w-[96px] md:max-h-[48px]"
-                    />
-                  </Link>
-                ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={c.logo.src}
-                    alt={c.logo.alt}
-                    loading="lazy"
-                    className="h-auto max-h-[40px] w-auto max-w-[96px] shrink-0 md:max-h-[48px]"
-                  />
-                )}
+                <img
+                  src={c.logo.src}
+                  alt={c.logo.alt}
+                  loading="lazy"
+                  className="h-auto max-h-[40px] w-auto max-w-[96px] shrink-0 md:max-h-[48px]"
+                />
                 <div className="min-w-0">
                   {/* O NOME DO CLIENTE SÓ EXISTE ONDE O LOGO NÃO O ESCREVE. No
                       layout a Shell mostra "SHELL" acima do nome do programa,
@@ -195,6 +180,15 @@ export default function SolutionEvidenceCases({
               <p className="mt-auto pt-5 font-serif text-[13px] leading-[1.5] text-muted">
                 {c.note}
               </p>
+              {c.caseSlug ? (
+                <Link
+                  href={`/cases/${c.caseSlug}`}
+                  aria-label={`Read more: ${c.logo.alt} case study`}
+                  className="mt-5 inline-flex items-center gap-2 self-start border-b border-brand/50 pb-1 text-[13px] font-medium uppercase tracking-[1.3px] text-brand transition-colors hover:border-brand"
+                >
+                  Read more <span aria-hidden>→</span>
+                </Link>
+              ) : null}
             </article>
           ))}
         </Reveal>

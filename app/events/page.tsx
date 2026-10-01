@@ -28,16 +28,14 @@ export default async function EventsPage() {
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         {/* 01-10: foto da cliente (hero-events.jpeg) e manchete nova. A palavra
-            "leadership" vai em vermelho na linha de baixo, no mesmo tamanho do
-            título  -  o padrão de destaque da /our-clients (`subtitleAccent` +
-            `accentAsTitle`). Foto 4:3 com o grupo no terço de baixo: o
+            "leadership" vai em vermelho NA MESMA LINHA (`titleAccent`)  -  01-10:
+            *"nao precisa quebrar leadership pra baixo"*. Foto 4:3 com o grupo no terço de baixo: o
             `object-[50%_70%]` desce o corte no desktop (quadro ~1,9:1) para
             manter rostos e corpos e cortar o teto. */}
         <SolutionHero
           eyebrow="Events"
           title="Where we bring leaders together to shape"
-          subtitleAccent="leadership"
-          accentAsTitle
+          titleAccent="leadership"
           imageUrl={eventsHero}
           imagePosition="object-[50%_70%]"
         />

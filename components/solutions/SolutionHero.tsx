@@ -37,6 +37,8 @@ export default function SolutionHero({
   subtitle,
   subtitleAccent,
   accentAsTitle = false,
+  titleAccent,
+  imageNatural,
   body,
   imageUrl,
   noImage = false,
@@ -66,6 +68,19 @@ export default function SolutionHero({
    */
   subtitleAccent?: string;
   accentAsTitle?: boolean;
+  /**
+   * O FIM DA MANCHETE EM VERMELHO, NA MESMA LINHA  -  01-10, /events: *"nao
+   * precisa quebrar leadership pra baixo"*. Diferente do `subtitleAccent` com
+   * `accentAsTitle`, que parte a frase em duas linhas.
+   */
+  titleAccent?: string;
+  /**
+   * 01-10, /team: *"deixa ela do tamanho original e posiciona mais pra direita,
+   * e se faltar imagem do lado esquerdo coloca uma sombra"*. A foto sai no
+   * tamanho natural (sem `object-cover` ampliando), encostada à direita, e as
+   * bordas dela se fundem no `bg-ink` da faixa por degradês.
+   */
+  imageNatural?: { width: number; height: number };
   /** Os parágrafos abaixo da frase de apoio  -  ver a caixa na marcação. */
   body?: string[];
   /**
@@ -207,15 +222,42 @@ export default function SolutionHero({
     <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
       {noImage ? null : (
         <>
-          <Image
-            src={src}
-            alt=""
-            aria-hidden
-            fill
-            priority
-            sizes="100vw"
-            className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
-          />
+          {imageNatural ? (
+            /* ALTURA DA FAIXA, LARGURA PELA PROPORÇÃO: a foto inteira aparece,
+               sem corte nem ampliação além do necessário para fechar a altura. */
+            <div className="absolute inset-y-0 right-0 -z-30 max-w-full">
+              <Image
+                src={src}
+                alt=""
+                aria-hidden
+                priority
+                width={imageNatural.width}
+                height={imageNatural.height}
+                sizes={`${imageNatural.width}px`}
+                className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+              />
+              {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
+                  falta imagem, e leve em cima e embaixo. */}
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
+                }}
+              />
+            </div>
+          ) : (
+            <Image
+              src={src}
+              alt=""
+              aria-hidden
+              fill
+              priority
+              sizes="100vw"
+              className={`-z-30 object-cover ${imagePosition} ${imageFilter}`}
+            />
+          )}
 
           {/* A CAMADA DE COR  -  hoje vazia (`tint="none"` é o padrão), e mantida no
               DOM para quem quiser reativar um duotone por página.
@@ -318,6 +360,7 @@ export default function SolutionHero({
             contra a foto. */}
         <h1 className="h-title font-serif max-w-[760px] text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
           {title.replace(/\.$/, "")}
+          {titleAccent ? <> <span className="text-brand-light">{titleAccent}</span></> : null}
         </h1>
 
         {subtitle && (

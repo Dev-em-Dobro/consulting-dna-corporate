@@ -197,9 +197,9 @@ export default async function ApproachPage() {
           </div>
           <div id="two-games" className="min-w-0">
           <Image
-            src="/approach/inner-outer-game-5h.png"
+            src="/approach/inner-outer-game-5h-20261001.png"
             alt="Inner Game and Outer Game connected by the five leadership intelligences"
-            width={1619}
+            width={1620}
             height={971}
             sizes="(min-width: 1024px) 650px, 100vw"
             className="mx-auto h-auto w-full max-w-[720px]"

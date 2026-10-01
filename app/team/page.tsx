@@ -235,6 +235,9 @@ export default async function OurTeamPage() {
              aqui. Um caractere não mudou  -  e isso responde de passagem a dúvida
              anotada em 17-09 sobre contar por país ou por região. */
           subtitle={copy.hero.subtitle}
+          /* 01-10: foto testada e retirada "por enquanto". Para voltar:
+             imageUrl="/team/team-hero-20261001-v2.jpg" e
+             imageNatural={{ width: 1396, height: 1127 }} no lugar do `noImage`. */
           noImage
         />
         </div>

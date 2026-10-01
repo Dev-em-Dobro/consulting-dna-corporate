@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import InsightsHero from "@/components/insights/InsightsHero";
+import SolutionHero from "@/components/solutions/SolutionHero";
 import InsightsLibrary from "@/components/insights/InsightsLibrary";
 import Reveal from "@/components/Reveal";
 import TypeLabel from "@/components/TypeLabel";
@@ -47,10 +47,17 @@ export default async function InsightsPage() {
        esta linha está no wrapper e não só no herói. */
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        {/* 01-10: título novo ("Insights for the moments that shape
-            leadership") e a estante de livros no lugar da foto  -  ver a caixa
-            no topo de `components/insights/InsightsHero.tsx`. */}
-        <InsightsHero eyebrow={copy.hero.eyebrow} title={copy.hero.title} />
+        {/* 01-10: título novo e a foto da estante (gerada, enviada à tarde),
+            em sangria total: o lado esquerdo escuro da foto recebe o texto e
+            os livros ficam à direita. Filtro mais leve que o padrão para as
+            capas não apagarem. */}
+        <SolutionHero
+          eyebrow={copy.hero.eyebrow}
+          title={copy.hero.title.replace(/\.$/, "")}
+          imageUrl="/insights/insights-hero-bookshelf.jpg"
+          imagePosition="object-[72%_25%]"
+          imageFilter="brightness-[.9]"
+        />
 
         <section id="thought-leadership" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">

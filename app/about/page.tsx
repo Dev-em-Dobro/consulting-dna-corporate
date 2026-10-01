@@ -38,7 +38,10 @@ import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
 import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
-import { FIRM_STAT_ICONS } from "@/lib/stats";
+import { FIRM_STAT_ICONS, getSiteStats } from "@/lib/stats";
+import { getHomeCopy } from "@/lib/home-copy-server";
+import { getCaseListEntries } from "@/lib/cms/map";
+import { HomeCredibility, HomeImpact, HomePeople } from "@/components/home/HomeSharedSections";
 import { getAboutCopy } from "@/lib/about-copy-server";
 import { CENTRAL_EMAIL, presentAboutCopy } from "@/lib/about-copy";
 import { inlineEmphasis } from "@/lib/page-copy/text";
@@ -458,7 +461,15 @@ const regionCities = (offices: string) =>
   offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
 
 export default async function AboutV2Page() {
-  const [nav, savedCopy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
+  const [nav, savedCopy, homeCopy, cmsStats, publishedCases] = await Promise.all([
+    buildSiteNav(),
+    getAboutCopy(),
+    getHomeCopy(),
+    getSiteStats(),
+    getCaseListEntries(),
+  ]);
+  // Os mesmos números e rótulos da faixa da home (ver `HomeCredibility`).
+  const homeStats = cmsStats.map((s, i) => ({ ...s, label: homeCopy.credibility.statLabels[i] ?? s.label }));
   const copy = presentAboutCopy(savedCopy);
   /* O ícone casa com o número POR POSIÇÃO  -  ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
@@ -2028,6 +2039,14 @@ export default async function AboutV2Page() {
           </Reveal>
         </div>
       </section>
+
+      {/* 01-10: as três seções da home  -  Trusted by, Client impact e Our
+          people  -  repetidas aqui, depois de "What we believe". Ver
+          `components/home/HomeSharedSections.tsx`. Ids próprios porque a
+          /about já tem um `#people`. */}
+      <HomeCredibility id="about-credibility" copy={homeCopy} stats={homeStats} />
+      <HomeImpact id="about-impact" copy={homeCopy} publishedCases={publishedCases} />
+      <HomePeople id="about-our-people" copy={homeCopy} />
 
       {/* ── Block 6 · Our Regions ─────────────────────────────────────
           Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio

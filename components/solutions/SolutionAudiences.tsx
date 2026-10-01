@@ -53,6 +53,7 @@ import type { ServiceAudience } from "@/lib/services";
 export default function SolutionAudiences({
   items,
   label,
+  labelBelowImage = false,
 }: {
   items?: ServiceAudience[];
   /**
@@ -74,6 +75,12 @@ export default function SolutionAudiences({
    * rótulo passa a ter `aria-labelledby`; quem não tem segue como estava.
    */
   label?: string;
+  /**
+   * 01-10, Talent Development: *"pega os titulos que ficam no top da imagem e
+   * coloca pra baixo"*  -  *"dentro da imagem mesmo, mas no bottom"*. O nome do
+   * público continua sobre a foto, no canto inferior esquerdo.
+   */
+  labelBelowImage?: boolean;
 }) {
   /* ⚠️ O FILTRO É PELO TÍTULO desde 24-09, e era pelos dois. O layout do
      Executive Coaching desenha os quatro cartões SEM o rótulo sobreposto  -  só
@@ -215,7 +222,7 @@ export default function SolutionAudiences({
                      leaders", 21 caracteres) não cabe em 16px  -  daí os dois
                      degraus. Ele pode quebrar em duas linhas nas telas estreitas,
                      e quebrar é melhor que transbordar. */
-                  className="absolute left-0 top-0 p-4 text-[12px] font-bold uppercase leading-[1.25] tracking-[1.5px] text-white sm:text-[13px] lg:p-5 lg:text-[16px]"
+                  className={`absolute left-0 ${labelBelowImage ? "bottom-0" : "top-0"} p-4 text-[12px] font-bold uppercase leading-[1.25] tracking-[1.5px] text-white sm:text-[13px] lg:p-5 lg:text-[16px]`}
                 >
                   {a.label}
                 </span>

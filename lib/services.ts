@@ -452,6 +452,8 @@ export type ServiceCommonOutcome = {
 export type ServiceEvidenceCase = {
   /** A marca, em `public/logos/`. Ver a régua de tamanho no componente. */
   logo: { src: string; alt: string; href?: string };
+  /** 01-10: o link do case vai no botão "Read more" do cartão, não mais no logo. */
+  caseSlug?: string;
   /**
    * O NOME DO CLIENTE, e só onde o logo não o escreve.
    *
@@ -1127,6 +1129,8 @@ export type Service = {
    * serviços, não de um.
    */
   audiencesLabel?: string;
+  /** 01-10: o nome do público abaixo da foto, e não sobre ela. Ver `SolutionAudiences`. */
+  audiencesLabelBelowImage?: boolean;
   /**
    * A FAIXA ROSA DE UMA LINHA QUE FECHA OS CARTÕES DE PÚBLICO  -  24-09, com o
    * layout de Women’s Leadership Development: *"One ambition: stronger
@@ -1848,7 +1852,7 @@ export const services: Service[] = [
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/cases/heineken-inner-outer-game" },
       ],
       /* A divisão entre número e rótulo é a do layout: o numeral grande em
          vermelho, o que ele conta embaixo, em duas linhas. Os três começam com
@@ -2114,6 +2118,7 @@ export const services: Service[] = [
        Aqui entre os dois há a grade de ladrilhos, e sem rótulo os quatro
        cartões entrariam na página sem nada que os anuncie. */
     audiencesLabel: "Where we work",
+    audiencesLabelBelowImage: true,
     /* ✅ OS QUATRO PÚBLICOS DO LAYOUT. O mapeamento para o cartão do template é
        o mesmo dos três do Senior Leadership Development: o NOME do público
        (`label`) é a sobreposição no quadro de cima, a linha vermelha do desenho
@@ -2139,25 +2144,25 @@ export const services: Service[] = [
     audiences: [
       {
         label: "Global Top Talent",
-        image: "/services/audiences/talent-global.jpg",
+        image: "/services/audiences/talent-global-20261001-v2.jpg",
         title: "Building the next generation of enterprise leaders",
         body: "Accelerating talent for the organisation’s most significant future roles, with a focus on enterprise leadership, strategic judgement and readiness for complexity.",
       },
       {
         label: "Regional & Emerging Market Talent",
-        image: "/services/audiences/talent-regional-20261001.jpg",
+        image: "/services/audiences/talent-regional-20261001-v2.jpg",
         title: "Accelerating readiness across markets and boundaries",
         body: "Building leadership capability, visibility and influence across different cultures, markets and organisational contexts.",
       },
       {
         label: "Functional & Critical-Role Talent",
-        image: "/services/audiences/talent-functional-20261001.jpg",
+        image: "/services/audiences/talent-functional-20261001-v2.jpg",
         title: "Turning deep expertise into broader leadership impact",
         body: "Helping high-value specialists broaden their identity, influence and enterprise contribution as their scope increases.",
       },
       {
         label: "Early & Mid-Career High Potentials",
-        image: "/services/audiences/talent-emerging-20261001.jpg",
+        image: "/services/audiences/talent-emerging-20261001-v2.jpg",
         title: "Creating the runway for what comes next",
         body: "Developing the capabilities, experiences and confidence required to make successful transitions into larger leadership roles.",
       },
@@ -2368,16 +2373,16 @@ export const services: Service[] = [
         lead: "For nearly two decades, we’ve worked with organisations to identify, accelerate and retain talent across global, regional, emerging-market and local populations, including:",
       },
       logos: [
-        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
-        { src: "/logos/client-logos/gsk.png", alt: "GSK", href: "/our-clients" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/cases/heineken-inner-outer-game" },
+        { src: "/logos/client-logos/gsk.png", alt: "GSK", href: "/cases/gsk" },
         {
           src: "/logos/client-logos/frasers-property.png",
           alt: "Frasers Property",
           caseSlug: "frasers-property-leadership",
         },
-        { src: "/logos/client-logos/kellanova.png", alt: "Kellanova", href: "/our-clients" },
-        { src: "/logos/client-logos/talent-schroders.png", alt: "Schroders", href: "/our-clients", scale: 1.5 },
-        { src: "/logos/client-logos/talent-vodafone.png", alt: "Vodafone", href: "/our-clients" },
+        { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
+        { src: "/logos/client-logos/talent-schroders.png", alt: "Schroders", scale: 1.5 },
+        { src: "/logos/client-logos/talent-vodafone.png", alt: "Vodafone", href: "/cases/vodafone" },
       ],
       note: "Turn potential into readiness. And readiness into impact.",
     },
@@ -2403,7 +2408,9 @@ export const services: Service[] = [
        ocupam os dois terços de baixo. Ela serve o herói E o card da
        `/services`, como antes. */
     cardImage: "/services/manager/md-hero-workshop-20261001.jpg",
-    heroImagePosition: "object-[center_65%]",
+    /* 01-10, à tarde: o herói ganhou foto própria (enviada pelo Roberto); o
+       workshop da Frasers segue só no card. */
+    heroImage: "/services/heroes/manager-development-hero-20261001.jpg",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     /* ⚠️ O HERÓI NÃO MEXEU, a pedido de 24-09: *"pode manter o hero na
@@ -2469,7 +2476,7 @@ export const services: Service[] = [
         label: "First-time managers",
         title: "From managing yourself to managing others.",
         body: "We build the foundations to lead people with clarity and confidence.",
-        image: "/services/pathways/md-first-time-managers-20261001.jpg",
+        image: "/services/pathways/md-first-time-managers-20261001-v2.jpg",
         items: [
           "Stepping into the manager identity",
           "Setting expectations",
@@ -2482,7 +2489,7 @@ export const services: Service[] = [
         label: "Mid-level managers",
         title: "From managing people to leading performance.",
         body: "We strengthen the capability to lead through others, across functions and through complexity.",
-        image: "/services/pathways/md-mid-level-managers-20261001.jpg",
+        image: "/services/pathways/md-mid-level-managers-20261001-v2.jpg",
         items: [
           "Leading through others",
           "Coaching for performance",
@@ -2557,8 +2564,8 @@ export const services: Service[] = [
       headline: "Building managers people want to work for.",
       lead: "Nearly two decades of manager development across industries, geographies and organisational levels.",
       logos: [
-        { src: "/logos/client-logos/bt.png", alt: "BT", href: "/our-clients" },
-        { src: "/logos/client-logos/dp-world.png", alt: "DP World", href: "/our-clients" },
+        { src: "/logos/client-logos/bt.png", alt: "BT", href: "/cases/bt" },
+        { src: "/logos/client-logos/dp-world.png", alt: "DP World", href: "/cases/dp-world" },
       ],
       facts: [
         { value: "72%", label: "Manager confidence" },
@@ -2667,7 +2674,7 @@ export const services: Service[] = [
         label: "Early career women",
         title: "Build the foundations early.",
         body: "For organisations wanting to strengthen confidence, voice, networks and leadership identity earlier in the pipeline.",
-        image: "/services/audiences/wil-early-careers-20261001.jpg",
+        image: "/services/audiences/wil-early-careers-20261001-v2.jpg",
         focus: [
           "Leadership identity",
           "Voice & confidence",
@@ -2768,7 +2775,8 @@ export const services: Service[] = [
       lead: "Real results from our work with women across industries, geographies and organisational levels.",
       items: [
         {
-          logo: { src: "/logos/client-logos/shell.png", alt: "Shell", href: "/our-clients" },
+          logo: { src: "/logos/client-logos/shell.png", alt: "Shell" },
+          caseSlug: "shell-women-leaders",
           client: "Shell",
           title: "Powering women",
           tagline: "Building the pipeline at scale.",
@@ -2782,7 +2790,7 @@ export const services: Service[] = [
         },
         {
           /* SEM `client`: o lockup da Kellanova já escreve o nome. */
-          logo: { src: "/logos/client-logos/kellanova.png", alt: "Kellanova", href: "/our-clients" },
+          logo: { src: "/logos/client-logos/kellanova.png", alt: "Kellanova" },
           title: "Women of Kellanova Aspire",
           tagline: "Turning potential into progression.",
           facts: [
@@ -2794,7 +2802,7 @@ export const services: Service[] = [
           note: "Women stepping into next-level roles not as exceptions, but as visible role models for others.",
         },
         {
-          logo: { src: "/logos/client-logos/aviva.png", alt: "Aviva", href: "/our-clients" },
+          logo: { src: "/logos/client-logos/aviva.png", alt: "Aviva" },
           title: "Accelerating leadership from the inside out",
           tagline: "Building inclusive leadership at the top.",
           facts: [
@@ -2905,7 +2913,7 @@ export const services: Service[] = [
         label: "Project teams",
         title: "Turn capability into execution.",
         body: "Clearer roles, sharper accountability and momentum that lasts.",
-        image: "/services/audiences/hpt-project-teams.jpg",
+        image: "/services/audiences/hpt-project-teams-20261001-v2.jpg",
       },
     ],
     howWeWorkHeadline: "A practical, immersive journey from insight to lasting impact.",
@@ -2931,8 +2939,8 @@ export const services: Service[] = [
       lead: "Real results from our work with executive, functional and project teams across industries.",
       logoSize: "medium",
       logos: [
-        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/our-clients" },
-        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/our-clients" },
+        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/cases/frasers-property-leadership" },
+        { src: "/logos/client-logos/heineken.png", alt: "HEINEKEN", href: "/cases/heineken-inner-outer-game" },
       ],
       facts: [
         { value: "35%", label: "Faster decision making" },
@@ -3089,10 +3097,10 @@ export const services: Service[] = [
       lead: "Our work helps HR leadership teams build the capability and influence to drive real change.",
       logoSize: "medium",
       logos: [
-        { src: "/logos/client-logos/adidas.png", alt: "adidas", href: "/our-clients" },
-        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/our-clients" },
-        { src: "/logos/client-logos/dyson.png", alt: "dyson", href: "/our-clients" },
-        { src: "/logos/client-logos/maaden.png", alt: "Ma'aden", href: "/our-clients", scale: 1.56 },
+        { src: "/logos/client-logos/adidas.png", alt: "adidas" },
+        { src: "/logos/client-logos/frasers-property.png", alt: "Frasers Property", href: "/cases/frasers-property-hrlt" },
+        { src: "/logos/client-logos/dyson.png", alt: "dyson", href: "/cases/dyson" },
+        { src: "/logos/client-logos/maaden.png", alt: "Ma'aden", href: "/cases/maaden", scale: 1.56 },
       ],
       outcomes: [
         "Stronger strategic influence",
@@ -3223,7 +3231,8 @@ export const services: Service[] = [
        luz natural). Ganhou o mesmo tratamento fotográfico do herói da Judgement
        (grão, pretos levantados, menos saturação, bordas suavizadas). O PNG
        original fica no disco. ⏳ O ideal continua sendo uma foto real. */
-    heroImage: "/services/heroes/executive-coaching-hero-20261001-graded.jpg",
+    heroImage: "/services/heroes/executive-coaching-hero-20261001-v2.jpg",
+    heroImagePosition: "object-[center_20%]",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
     /* ============================================================================
