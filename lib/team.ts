@@ -646,7 +646,7 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Wendy", meta: "Asia Pacific", portrait: "/team/faculty/wendy-01-10.jpg" },
   { name: "Sarah", meta: "Asia Pacific", portrait: "/team/faculty/sarah-30-09.png" },
   { name: "Ina", meta: "Asia Pacific", portrait: "/team/faculty/ina-30-09.png" },
-  { name: "Catherine", meta: "Australia", portrait: "/team/faculty/catherine-01-10.jpg" },
+  { name: "Catherine", meta: "Australia", portrait: "/team/faculty/catherine-01-10b.jpg" },
   { name: "Peter", meta: "Australia", portrait: "/team/faculty/peter-30-09.png" },
   { name: "Sahib", meta: "Americas", portrait: "/team/faculty/sahib-30-09.png" },
   { name: "Hiroko", meta: "Asia Pacific", portrait: "/team/faculty/hiroko-30-09.png" },

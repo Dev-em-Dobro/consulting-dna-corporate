@@ -342,9 +342,9 @@ export default async function OurTeamPage() {
                 tela. */}
             <div className="mt-20 border-t border-line pt-14 md:mt-24">
               <TypeLabel>{copy.leadership.managersLabel}</TypeLabel>
-              <h3 className="mb-5 font-serif text-[28px] font-semibold leading-[1.1] tracking-[-0.4px] text-ink sm:text-[32px]">
-                {copy.leadership.managersTitle}
-              </h3>
+              {/* 01-10: o título "Program Management Team" saiu a pedido  -  o rótulo
+                  "Project Management Office" acima já nomeia o bloco. O campo
+                  `managersTitle` segue no schema para não invalidar copy salva. */}
               <p className="mb-10 w-full whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:text-[18px]">
                 {copy.leadership.managersIntro}
               </p>

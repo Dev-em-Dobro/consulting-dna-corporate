@@ -2871,7 +2871,7 @@ export const services: Service[] = [
        "nenhum serviço tem as duas faixas de evidência". O caso anterior está
        no git (Adidas South East Asia, 92% NPS / 93% / 150+).
        ============================================================================ */
-    heroImage: "/services/heroes/hpt-climb-hero-20261001.jpg",
+    heroImage: "/services/heroes/hpt-rowing-hero-20261001.jpg",
     cardImage: "/services/cards/high-performing-teams-client.jpg",
     title: "High Performing Teams",
     banner:

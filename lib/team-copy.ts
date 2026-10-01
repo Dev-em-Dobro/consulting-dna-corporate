@@ -144,12 +144,11 @@ export const EDITOR_SECTIONS: EditorSection[] = [
       { path: "leadership.title", label: "Heading", kind: "text" },
       { path: "leadership.managersLabel", label: "Small label above the programme managers", kind: "text" },
       {
-        path: "leadership.managersTitle",
-        label: "Heading above the programme managers",
-        kind: "text",
+        path: "leadership.managersIntro",
+        label: "Programme managers introduction",
+        kind: "textarea",
         hint: "The people themselves  -  names and photos  -  are not editable here.",
       },
-      { path: "leadership.managersIntro", label: "Programme managers introduction", kind: "textarea" },
     ],
   },
   {

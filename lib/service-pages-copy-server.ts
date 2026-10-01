@@ -24,7 +24,7 @@ const store = createCopyStore<ServicePagesCopy>({
   key: "service-pages",
   defaults: DEFAULT_SERVICE_PAGES_COPY,
   schema: ServicePagesCopySchema,
-  migrationVersion: "2026-10-01-call-corrections-services",
+  migrationVersion: "2026-10-01-call-corrections-services-2",
   migrateSaved(saved) {
     if (!saved || typeof saved !== "object") return saved;
     const copy = structuredClone(saved) as Partial<ServicePagesCopy>;
@@ -47,6 +47,10 @@ const store = createCopyStore<ServicePagesCopy>({
       if (!hpt.howWeWorkHeadline?.trim()) hpt.howWeWorkHeadline = hptDefault.howWeWorkHeadline;
       if (hpt.whatWeDoBody === HPT_OLD_WHAT_WE_DO) hpt.whatWeDoBody = hptDefault.whatWeDoBody;
       if (hpt.howWeWorkBody === HPT_OLD_HOW_WE_WORK) hpt.howWeWorkBody = hptDefault.howWeWorkBody;
+      // A faixa Evidence (Frasers + Heineken) não existia antes: a copy salva congelou as medidas vazias.
+      if (hpt.evidenceSummary && !hpt.evidenceSummary.facts?.some((f) => f.value?.trim())) {
+        hpt.evidenceSummary.facts = structuredClone(hptDefault.evidenceSummary.facts);
+      }
     }
     return copy;
   },
