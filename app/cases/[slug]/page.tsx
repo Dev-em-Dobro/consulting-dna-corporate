@@ -25,6 +25,7 @@ export async function generateMetadata({
   const c = await getCaseArticle(slug);
   const title = c ? `${c.title} | CorporateDNA` : "Case study | CorporateDNA";
   const description = firstDescription([c?.intro]);
+  const image = c?.heroCoverUrl ?? c?.coverUrl;
   return {
     title,
     description,
@@ -33,9 +34,9 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      ...(c?.coverUrl ? { images: [c.coverUrl] } : {}),
+      ...(image ? { images: [image] } : {}),
     },
-    ...(c?.coverUrl ? { twitter: { images: [c.coverUrl] } } : {}),
+    ...(image ? { twitter: { images: [image] } } : {}),
   };
 }
 
@@ -75,7 +76,7 @@ export default async function CasePage({
       headline: c.title,
       path: `/cases/${slug}`,
       description: firstDescription([c.intro]),
-      image: c.coverUrl,
+      image: c.heroCoverUrl ?? c.coverUrl,
     }),
   ];
 

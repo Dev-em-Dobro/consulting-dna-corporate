@@ -279,7 +279,7 @@ export default function LeaderCard({
         >
           &ldquo;
         </span>
-        <blockquote className="mt-4">
+        <blockquote className="mt-0">
           {/* ⚠️ SEM CORTE DE LINHAS desde 15-09. Até ali a quote era cortada em
               8 linhas e o "+" abria o resto  -  era o único trabalho honesto que
               havia para o botão enquanto não existia bio. Agora ele abre o
@@ -289,7 +289,7 @@ export default function LeaderCard({
               271 caracteres, então o cartão mais alto da fileira estica os
               outros dois. É o que o mockup mostra  -  cartões de mesma altura com
               o texto no topo  -  e é o preço certo a pagar aqui. */}
-          <p className="font-serif text-[17px] leading-[1.6] text-ink md:text-[18px]">
+          <p className="font-serif text-[17px] leading-[1.6] text-ink md:text-[16px] md:leading-[1.4]">
             {person.quote}
           </p>
         </blockquote>

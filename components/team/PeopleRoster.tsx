@@ -105,7 +105,7 @@ export default function PeopleRoster({
               <h4 className="font-semibold leading-snug text-brand text-[17px]">{p.name}</h4>
               {p.meta && <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>}
               {p.focus && <p className="mt-2 text-[13px] font-medium leading-snug text-ink">{p.focus}</p>}
-              {p.quote && <p className="mt-3 text-[15px] leading-[1.6] text-muted">“{p.quote}”</p>}
+              {p.quote && <p className="mt-3 text-[15px] leading-[1.6] text-muted md:leading-[1.4]">“{p.quote}”</p>}
             </div>
           </li>
         ))}
@@ -130,7 +130,17 @@ export default function PeopleRoster({
               {/* 01-10: o par em diagonal, canto oposto ao de baixo. */}
               <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
             </div>
-          ) : null}
+          ) : (
+            /* 01-10: sem retrato (ex.: Michela), um quadro neutro com a inicial
+               no lugar do vão  -  a grade continua alinhada até a foto chegar. */
+            <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-[#e9e6e3]">
+              <span aria-hidden className="font-serif text-[56px] font-semibold text-white">
+                {p.name.charAt(0)}
+              </span>
+              <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
+              <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
+            </div>
+          )}
           <h4 className="mt-3.5 text-[15px] font-semibold leading-snug text-brand">{p.name}</h4>
           {p.meta && <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>}
           {p.focus && <p className="mt-2 text-[13px] font-medium leading-snug text-ink">{p.focus}</p>}

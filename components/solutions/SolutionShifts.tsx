@@ -39,13 +39,13 @@ export default function SolutionShifts({ item }: { item?: ServiceShifts }) {
           </p>
         ) : null}
 
-        {/* DUAS COLUNAS DE PARES A PARTIR DE `md`, e não uma lista longa: são
-            sete linhas curtas, e numa coluna só elas desenhariam uma tira
-            estreita no meio de uma faixa de 1440. O `auto-fit` não serve aqui
-            porque as duas metades precisam da MESMA largura para as setas
-            ficarem alinhadas entre si. */}
+        {/* Duas colunas funcionam para listas de até sete pares. Com oito pares,
+            três colunas em telas largas ocupam melhor a faixa sem deixar uma
+            última linha solitária. */}
         <ul
           className={`grid grid-cols-1 gap-x-14 gap-y-4 md:grid-cols-2 ${
+            pairs.length >= 8 ? "2xl:grid-cols-3 2xl:gap-x-8" : ""
+          } ${
             item.label?.trim() ? "mt-10" : ""
           }`}
         >
@@ -58,9 +58,11 @@ export default function SolutionShifts({ item }: { item?: ServiceShifts }) {
                  meio da frase mais alta e as sete sairiam em alturas
                  diferentes. O filete de baixo é o que separa um par do
                  seguinte  -  no layout as linhas são finas e cinzas. */
-              className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 border-b border-line pb-4"
+              className="grid grid-cols-[minmax(0,0.8fr)_auto_minmax(0,1.2fr)] items-start gap-2 border-b border-line pb-4 md:grid-cols-[max-content_auto_minmax(0,1fr)]"
             >
-              <span className="font-serif text-[15px] leading-[1.4] text-muted md:text-[16px]">
+              <span className={`font-serif text-[15px] leading-[1.4] text-muted md:text-[16px] ${
+                pairs.length >= 8 ? "2xl:whitespace-nowrap 2xl:text-[14px]" : ""
+              }`}>
                 {pair.from}
               </span>
               <ArrowRight
@@ -69,7 +71,9 @@ export default function SolutionShifts({ item }: { item?: ServiceShifts }) {
                 strokeWidth={2}
                 className="mt-1 shrink-0 text-brand"
               />
-              <span className="font-serif text-[15px] leading-[1.4] text-ink md:text-[16px]">
+              <span className={`text-left font-serif text-[15px] leading-[1.4] text-ink md:text-[16px] ${
+                pairs.length >= 8 ? "2xl:whitespace-nowrap 2xl:text-[14px]" : ""
+              }`}>
                 {/* A PALAVRA QUE A SETA DESENHA  -  ver a caixa no topo. */}
                 <span className="sr-only">to </span>
                 {pair.to}

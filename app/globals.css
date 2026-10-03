@@ -433,3 +433,27 @@ body {
     opacity: 1;
   }
 }
+
+/* Case heroes keep the mobile composition through tablet widths. Between
+   1100px and 1440px, tighten the copy and logo together so the two sides keep
+   a clear gap while the desktop layout is still in use. */
+@media (min-width: 1100px) and (max-width: 1440px) {
+  .case-hero-title {
+    font-size: 44px;
+  }
+  .case-hero-copy {
+    max-width: calc(48vw - 60px);
+  }
+  .case-hero-logo-panel {
+    width: 48%;
+  }
+  .case-hero-logo {
+    transform: scale(0.82);
+  }
+}
+
+@media (min-width: 1441px) {
+  .case-hero-title {
+    font-size: 52px;
+  }
+}

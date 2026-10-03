@@ -3266,8 +3266,8 @@ export const services: Service[] = [
        desenha  -  24-09, a pedido: *"faltou aquela parte da direita"*. Ver
        `capabilitiesBeside`.
 
-       ⚠️ A CAIXA ALTA É DO LAYOUT e está escrita no dado porque o componente não
-       transforma o título  -  ele é `font-semibold` e mais nada. */
+       ⚠️ OS OUTROS TÍTULOS SEGUEM A CAIXA ALTA DO LAYOUT. O bloco "We bring care
+       and dare" usa caixa normal, conforme o ajuste de 02-10. */
     capabilitiesBeside: true,
     capabilitiesHeader: { label: "Why our coaching stands out" },
     capabilities: [
@@ -3278,8 +3278,8 @@ export const services: Service[] = [
       },
       {
         icon: "people",
-        title: "WE BRING CARE AND DARE",
-        body: "Experience you can feel in the room. Our coaches BRING REAL SUPPORT AND CHALLENGE IN EQUAL MEASURE BY EARNING THE RIGHT TO BE TRUSTED.",
+        title: "We bring care and dare",
+        body: "Experience you can feel in the room. Our coaches bring real support and challenge in equal measure by earning the right to be trusted.",
       },
       {
         icon: "target",

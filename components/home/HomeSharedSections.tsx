@@ -141,7 +141,7 @@ export function HomeImpact({
                 <p className="mb-8 text-[15px] leading-[1.6] text-[#5c5f65]">{c.challenge}</p>
                 <div className="mt-auto pt-5">
                   <span className="mb-5 block h-px w-full bg-[#e6e9e8]" />
-                  <div className="text-[42px] font-bold leading-none tracking-[-1.5px] md:text-[52px]" style={{ color: c.metricColor }}>
+                  <div className="text-[42px] font-bold leading-none tracking-[-1.5px] md:text-[34px] lg:text-[44px] xl:text-[52px]" style={{ color: c.metricColor }}>
                     <Counter value={c.metric} />
                   </div>
                   <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-muted">{c.metricLabel}</div>

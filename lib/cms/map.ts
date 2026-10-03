@@ -12,6 +12,7 @@ import type { Social } from "./schemas";
 import { plainText, plainTextList } from "./text";
 import { countriesToIso3 } from "../coverage";
 import { LOGO_COLORS } from "../logo-colors";
+import { CASE_HERO_COVERS } from "../case-hero-covers";
 import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-cases";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
@@ -195,7 +196,7 @@ export type CaseArticle = {
   intro?: string;            // introduction  -  rich text (HTML)
   quote?: string; quoter?: string;
   text?: string;             // main body  -  rich text (HTML)
-  videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string;
+  videoUrl?: string; mutedVideoUrl?: string; coverUrl?: string; heroCoverUrl?: string;
   resources?: ResourceLink[];
   // Header band shown before the story (27-08 brief, item 7). Only the filled
   // slots render, so a partially-authored case degrades to fewer cells.
@@ -224,6 +225,8 @@ export type CaseArticle = {
     /** Service chips under "What we did". */
     services: string[];
     additionalContent?: string;
+    /** 01-10: citações além da principal, no bloco "Client voice" (cases do site antigo). */
+    moreQuotes?: { quote: string; quoter?: string }[];
   };
 };
 /** A figure from the case evidence band: the number, and what it measures. */
@@ -385,6 +388,7 @@ function mapCase(raw: unknown): CaseArticle | null {
     videoUrl: d.videoUrl,
     mutedVideoUrl: d.mutedVideoUrl,
     coverUrl: d.coverUrl,
+    heroCoverUrl: CASE_HERO_COVERS[r.data.slug] ?? d.coverUrl,
     resources: mapResources(d.resources),
     facts: caseFacts(d),
     logoUrl: resolveClientLogo(plainText(d.title) ?? "").url,
@@ -486,7 +490,7 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
         client,
         // `caseTags(it.facets)` is only the fallback for when the detail entry failed to load.
         tags: art?.tags.length ? art.tags : caseTags(it.facets),
-        coverUrl: art?.coverUrl ?? it.coverUrl,
+        coverUrl: art?.coverUrl ?? CASE_HERO_COVERS[it.slug] ?? it.coverUrl,
         // Prefer the structured field; else pull the excerpt from the rich body.
         challenge: art?.body.challenge ?? challengeExcerpt(art?.text),
         metricValue: metric.value,

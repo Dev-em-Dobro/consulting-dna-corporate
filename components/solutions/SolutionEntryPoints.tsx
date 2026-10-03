@@ -48,18 +48,18 @@ export default function SolutionEntryPoints({
             desenho: oito células lado a lado pedem quase toda a largura, e o
             fecho são duas frases curtas. */}
         <Reveal
-          className={`grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,2.6fr)_minmax(0,1fr)] lg:gap-12 ${
+          className={`grid grid-cols-1 items-center gap-10 2xl:grid-cols-[minmax(0,2.6fr)_minmax(0,1fr)] 2xl:gap-12 ${
             item.label?.trim() ? "mt-10" : ""
           }`}
         >
           {/* `divide-brand/15` e não `divide-line`: sobre o campo rosa o filete
               cinza claro desaparece. Abaixo de `lg` os filetes somem junto com
               a fileira única, pela conta do traço órfão do `SolutionPillars`. */}
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:grid-cols-[repeat(auto-fit,minmax(104px,1fr))] lg:gap-x-0 lg:divide-x lg:divide-brand/15">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 2xl:grid-cols-[repeat(auto-fit,minmax(104px,1fr))] 2xl:gap-x-0 2xl:divide-x 2xl:divide-brand/15">
             {points.map((point) => {
               const Icon = pillarIcon(point);
               return (
-                <li key={point} className="text-center lg:px-3">
+                <li key={point} className="min-w-0 text-center 2xl:px-3">
                   {/* DECORATIVO: o rótulo logo abaixo diz a mesma coisa. */}
                   <Icon
                     aria-hidden
@@ -67,7 +67,7 @@ export default function SolutionEntryPoints({
                     strokeWidth={1.5}
                     className="mx-auto block text-brand"
                   />
-                  <p className="mt-3 text-[13px] font-medium leading-[1.3] text-ink md:text-[14px]">
+                  <p className="mt-3 hyphens-auto break-words text-[13px] font-medium leading-[1.3] text-ink md:text-[14px]">
                     {point}
                   </p>
                 </li>

@@ -116,7 +116,7 @@ export default function CaseView({
               the brand colour of the band (see lib/cms/map.ts), so a case with
               no headline authored yet keeps the behaviour it has today. */}
           <h1 className="text-[30px] sm:text-[38px] md:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-ink [text-wrap:balance]">
-            {c.headline || c.title}
+            {(c.headline || c.title).replace(/\s*[.]+\s*$/, "")}
           </h1>
           {/* Header band  -  the 27-08 brief (item 7) asks every case to open with
               Countries → Participants/Leaders → Reach/Scale → Intervention →

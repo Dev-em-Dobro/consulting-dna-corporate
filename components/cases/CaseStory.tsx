@@ -4,7 +4,14 @@ import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import SolutionCta from "@/components/solutions/SolutionCta";
+import { getService } from "@/lib/services";
 import type { CaseArticle, CaseListEntry } from "@/lib/cms/map";
+import {
+  CASE_HERO_LOGO_SCALE_PERCENT,
+  CASE_HERO_MOBILE_LOGO_HEIGHT,
+  CASE_HERO_MOBILE_LOGO_SRC,
+  CASE_HERO_MOBILE_WHITE_LOGOS,
+} from "@/lib/case-hero-covers";
 
 /**
  * ============================================================================
@@ -45,6 +52,24 @@ export default function CaseStory({
   related?: CaseListEntry[];
 }) {
   const { story } = c;
+  const heroCoverUrl = c.heroCoverUrl ?? c.coverUrl;
+  const heroLogoScale = CASE_HERO_LOGO_SCALE_PERCENT[c.slug] ?? 100;
+  const heroLogoIsWhite = [
+    "dubai-holding-leadership-accountability",
+    "dyson",
+    "frasers-property-hrlt",
+    "frasers-property-leadership",
+    "morgan-stanley",
+  ].includes(c.slug);
+  const mobileLogoHeight = CASE_HERO_MOBILE_LOGO_HEIGHT[c.slug] ?? 72;
+  const mobileLogoIsWhite = heroLogoIsWhite || CASE_HERO_MOBILE_WHITE_LOGOS.has(c.slug);
+  const mobileLogoSrc = CASE_HERO_MOBILE_LOGO_SRC[c.slug] ?? c.logoUrl;
+  const mobileHeroContentTop =
+    c.slug === "vodafone"
+      ? "pt-[214px]"
+      : mobileLogoHeight > 72
+        ? "pt-[260px]"
+        : "pt-[228px]";
 
   // A linha de meta do herói: setor · período · mercados. Cada pedaço só entra
   // se existir  -  nos nove cases da planilha o setor ainda não está classificado
@@ -68,24 +93,59 @@ export default function CaseStory({
           desenho. Sem foto  -  que é o caso dos quinze hoje  - , o `ink` sólido
           segura a composição: o que carrega o herói é a manchete, não a
           fotografia. */}
-      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-ink text-white md:min-h-[640px]">
-        {c.coverUrl && (
+      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-ink text-white min-[1100px]:min-h-[640px]">
+        {heroCoverUrl && (
           <>
             <Image
-              src={c.coverUrl}
+              src={heroCoverUrl}
               alt=""
               fill
               priority
               sizes="100vw"
               className="-z-10 object-cover object-center"
             />
-            {/* O véu vem da ESQUERDA, onde mora o texto, e abre para a direita,
-                onde o desenho deixa a fotografia respirar. */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/25" />
+            <div
+              aria-hidden
+              className="absolute inset-0 z-0"
+              style={{
+                backgroundColor:
+                  c.slug === "dubai-holding-leadership-accountability"
+                    ? "rgba(0, 0, 0, 0.04)"
+                    : c.slug === "heineken-inner-outer-game"
+                      ? "rgba(0, 0, 0, 0.4)"
+                      : "rgba(0, 0, 0, 0.2)",
+              }}
+            />
+            {c.logoUrl && (
+              <div
+                className="absolute left-6 top-[132px] z-[1] w-[calc(100vw-3rem)] min-[1100px]:hidden"
+                style={{ height: `${mobileLogoHeight}px` }}
+              >
+                <Image
+                  src={mobileLogoSrc!}
+                  alt={c.title}
+                  fill
+                  sizes="calc(100vw - 3rem)"
+                  className={`object-contain object-left ${mobileLogoIsWhite ? "brightness-0 invert" : ""}`}
+                />
+              </div>
+            )}
+            {c.logoUrl && (
+              <div className="case-hero-logo-panel absolute inset-y-0 right-0 z-[1] hidden w-[52%] items-center justify-center px-8 min-[1100px]:flex">
+                <Image
+                  src={c.logoUrl}
+                  alt=""
+                  width={900}
+                  height={300}
+                  className={`case-hero-logo h-auto max-w-none object-contain ${heroLogoIsWhite ? "brightness-0 invert" : ""}`}
+                  style={{ width: `${heroLogoScale}%` }}
+                />
+              </div>
+            )}
           </>
         )}
 
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-28 md:px-10 md:pb-20 md:pt-32">
+        <div className={`relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 ${mobileHeroContentTop} min-[1100px]:px-10 min-[1100px]:pb-20 min-[1100px]:pt-32`}>
           {/* ⚠️ SEM BREADCRUMB VISÍVEL  -  16-09, a pedido. O desenho dela tem a
               trilha "Home / Clients & Impact / adidas" no alto do herói; na
               tela, com a nav flutuante logo acima, eram duas linhas de
@@ -95,8 +155,8 @@ export default function CaseStory({
               rota (`app/cases/[slug]/page.tsx`) publica a mesma hierarquia em
               JSON-LD, que é o que alimenta o caminho exibido no resultado de
               busca. O que saiu foi só o desenho dela na tela. */}
-          <div className="max-w-[720px]">
-            {c.logoUrl ? (
+          <div className="case-hero-copy max-w-[720px]">
+            {heroCoverUrl && c.logoUrl ? null : c.logoUrl ? (
               /* O LOGO DO CLIENTE ABRE A PÁGINA, como no desenho. Fundo branco
                  atrás dele porque a maioria dos PNGs do acervo é de marca
                  escura, feita para papel branco: sobre o herói escuro, metade
@@ -132,17 +192,16 @@ export default function CaseStory({
               </p>
             )}
 
-            {/* O PONTO FINAL EM VERMELHO é do desenho dela, e vale o detalhe: é
-                o único lugar da página onde a cor da marca toca a manchete. */}
-            <h1 className="font-serif text-[34px] font-semibold leading-[1.12] tracking-[-0.5px] text-white sm:text-[44px] md:text-[52px]">
+            {/* As manchetes do hero ficam sem ponto final para manter o padrão
+                editorial entre todos os cases. */}
+            <h1 className="case-hero-title font-serif text-[34px] font-semibold leading-[1.12] tracking-[-0.5px] text-white">
               {stripFullStop(headline)}
-              <span className="text-brand-light">.</span>
             </h1>
 
             {c.intro && (
               <RichText
                 html={c.intro}
-                className="mt-6 max-w-[62ch] !text-[16px] !leading-[1.65] [&_*]:!text-white/75 md:!text-[17px]"
+                className="mt-6 max-w-[62ch] !text-[16px] !leading-[1.65] [&_*]:!text-white/75 min-[1100px]:!text-[17px]"
               />
             )}
           </div>
@@ -261,7 +320,9 @@ export default function CaseStory({
           corrida do texto e da citação. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_380px_1fr] lg:gap-14">
+          {/* 01-10: sem capa, a coluna da foto some (era um "PHOTO" cinza) e o
+              bloco vira duas colunas. */}
+          <div className={`grid grid-cols-1 gap-10 lg:gap-14 ${c.coverUrl ? "lg:grid-cols-[1fr_380px_1fr]" : "lg:grid-cols-2"}`}>
             <div>
               <NumberedLabel number="03" label="What changed" />
               <SectionTitle>{story.outcomeHeadline}</SectionTitle>
@@ -291,6 +352,7 @@ export default function CaseStory({
               )}
             </div>
 
+            {c.coverUrl ? (
             <div className="hidden lg:block">
               {c.coverUrl ? (
                 /* ⚠️ ESTE SLOT FICOU IRRECONHECÍVEL QUANDO OS CASES GANHARAM
@@ -341,6 +403,7 @@ export default function CaseStory({
                 <ImagePlaceholder label="Photo" className="aspect-[4/5] w-full" />
               )}
             </div>
+            ) : null}
 
             <div>
               {/* O BLOCO 04 EXISTE SEMPRE  -  16-09, a pedido. Antes ele sumia
@@ -368,6 +431,20 @@ export default function CaseStory({
                       {c.quoter}
                     </figcaption>
                   )}
+                  {/* 01-10: as citações a mais dos cases do site antigo, no
+                      mesmo desenho, empilhadas abaixo da principal. */}
+                  {(story.moreQuotes ?? []).map((q) => (
+                    <div key={q.quote} className="mt-10">
+                      <blockquote className="font-serif text-[17px] leading-[1.5] tracking-[-0.2px] text-ink md:text-[18px]">
+                        <span aria-hidden className="mr-1 text-brand">“</span>
+                        {stripQuotes(q.quote)}
+                        <span aria-hidden className="ml-1 text-brand">”</span>
+                      </blockquote>
+                      {q.quoter && (
+                        <p className="mt-5 border-t border-line pt-4 text-[13px] leading-[1.5] text-muted">{q.quoter}</p>
+                      )}
+                    </div>
+                  ))}
                 </figure>
               ) : (
                 <div className="flex min-h-[180px] flex-col justify-center border border-dashed border-ink/20 bg-ink/[0.06] px-6 py-8">
@@ -420,12 +497,13 @@ export default function CaseStory({
                       </p>
                     </div>
                     <span className="mt-6 inline-flex items-center gap-2 text-[12.5px] font-semibold text-ink">
-                      {r.service ?? "Case study"}
+                      {(r.service && getService(r.service)?.title) ?? r.service ?? "Case study"}
                       <span aria-hidden className="transition-transform group-hover:translate-x-1">
                         →
                       </span>
                     </span>
                   </div>
+                  {r.coverUrl ? (
                   <div className="relative w-[38%] shrink-0 overflow-hidden bg-paper">
                     {r.coverUrl ? (
                       <Image
@@ -450,6 +528,7 @@ export default function CaseStory({
                       </span>
                     )}
                   </div>
+                  ) : null}
                 </Link>
               ))}
             </Reveal>
@@ -498,14 +577,50 @@ function SectionTitle({ children }: { children?: string }) {
 function Body({ children }: { children?: string }) {
   if (!children) return null;
   const paragraphs = children.split(/\r?\n\s*\r?\n|\r?\n/).filter((p) => p.trim());
+  /* 01-10: linhas que começam com "- " viram LISTA, com a seta vermelha dos
+     cases do site antigo, e "**trecho**" vira negrito  -  os cases herdados
+     escrevem assim, e achatar em parágrafo perderia a estrutura. */
+  const blocks: (string | string[])[] = [];
+  for (const p of paragraphs) {
+    const item = p.match(/^\s*-\s+(.*)$/);
+    const last = blocks[blocks.length - 1];
+    if (item) {
+      if (Array.isArray(last)) last.push(item[1]);
+      else blocks.push([item[1]]);
+    } else blocks.push(p);
+  }
   return (
     <div className="space-y-4">
-      {paragraphs.map((p, i) => (
-        <p key={i} className="max-w-[58ch] text-[15.5px] leading-[1.7] text-muted md:text-[16px]">
-          {p}
-        </p>
-      ))}
+      {blocks.map((b, i) =>
+        Array.isArray(b) ? (
+          <ul key={i} className="max-w-[58ch] space-y-2.5">
+            {b.map((li) => (
+              <li key={li} className="flex gap-3 text-[15.5px] leading-[1.6] text-muted md:text-[16px]">
+                <span aria-hidden className="flex-none font-semibold text-brand">›</span>
+                <span>{withBold(li)}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} className="max-w-[58ch] text-[15.5px] leading-[1.7] text-muted md:text-[16px]">
+            {withBold(b)}
+          </p>
+        ),
+      )}
     </div>
+  );
+}
+
+/** "**trecho**" em negrito, na cor cheia do texto. */
+function withBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-ink">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
   );
 }
 

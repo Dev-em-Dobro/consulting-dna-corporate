@@ -57,7 +57,7 @@ export default function SolutionOutcome({
                 é uma coluna própria ao lado das quatro: numa grade única ela
                 herdaria os filetes e a centralização das legendas, e deixaria
                 de ler como campo de cor. */}
-            <div className="mt-12 grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10">
+            <div className="mt-12 grid grid-cols-1 items-stretch gap-8 2xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] 2xl:gap-10">
               <ul className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-x-0 lg:divide-x lg:divide-line">
                 {results.map((result) => {
                   const Icon = pillarIcon(result);

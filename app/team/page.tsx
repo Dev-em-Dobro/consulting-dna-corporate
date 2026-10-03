@@ -252,7 +252,7 @@ export default async function OurTeamPage() {
             <TypeLabel>{copy.leadership.label}</TypeLabel>
             {/* Mesma escala de h2 da Client impact da home, agora nas três
                 seções desta página. Ver a caixa no bloco 6. */}
-            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[32px] md:text-[34px]">
               {copy.leadership.title}
             </h2>
 
@@ -352,7 +352,7 @@ export default async function OurTeamPage() {
               {/* 01-10: o título "Program Management Team" saiu a pedido  -  o rótulo
                   "Project Management Office" acima já nomeia o bloco. O campo
                   `managersTitle` segue no schema para não invalidar copy salva. */}
-              <p className="mb-10 w-full whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:text-[18px]">
+              <p className="mb-10 w-full whitespace-pre-line text-[16px] font-normal leading-[1.6] text-muted md:leading-[1.45] md:text-[16px]">
                 {copy.leadership.managersIntro}
               </p>
               <PeopleRoster people={programmeManagers} size="lg" />
