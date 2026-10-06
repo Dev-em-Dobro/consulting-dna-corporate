@@ -36,7 +36,6 @@ export const metadata: Metadata = {
 };
 
 const CASE = "HEINEKEN";
-const SLUG = "heineken";
 
 /** Os quatro fatos, com o Impact liderando  -  a ordem que o componente já usa. */
 const FACTS = [
@@ -105,10 +104,10 @@ function Tag({ id, children }: { id: string; children: React.ReactNode }) {
 function StoryLink() {
   return (
     <Link
-      href={`/cases/${SLUG}`}
+      href="/cases"
       className="mt-12 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white md:mt-14"
     >
-      Read the client story <span aria-hidden>→</span>
+      View case studies <span aria-hidden>→</span>
     </Link>
   );
 }

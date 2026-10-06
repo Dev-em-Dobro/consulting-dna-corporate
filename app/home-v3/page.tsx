@@ -33,6 +33,7 @@ import { Source_Serif_4 } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
+import { isReviewedCaseSlug } from "@/lib/reviewed-cases";
 import methodology from "@/public/5H-methodology.jpg";
 import HeroV3 from "@/components/HeroV3";
 import NavV2 from "@/components/NavV2";
@@ -530,7 +531,7 @@ export default async function HomeV3() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/our-clients"}
+                      href={c.caseSlug && isReviewedCaseSlug(c.caseSlug) ? `/cases/${c.caseSlug}` : "/our-clients"}
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
                       read more here

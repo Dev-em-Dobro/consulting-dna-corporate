@@ -3,6 +3,7 @@ import Link from "next/link";
 import SectionHead from "@/components/clients/SectionHead";
 import ClientVoices from "@/components/clients/ClientVoices";
 import { LOGO_RATIO, fitLogo, logoSrc, type LogoKey } from "@/components/clients/logo-fit";
+import { isReviewedCaseHref } from "@/lib/reviewed-cases";
 
 const featured = [
   {
@@ -55,16 +56,19 @@ const moreStories: { logo: LogoKey; name: string; label: string; href: string }[
 ];
 
 export default function ClientsStories() {
+  const featuredStories = featured.filter((card) => isReviewedCaseHref(card.href));
+  const reviewedMoreStories = moreStories.filter((story) => isReviewedCaseHref(story.href));
   return (
     <>
+      {featuredStories.length > 0 && (
       <section id="case-studies" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <SectionHead label="Impact in action" />
           <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
             Real organisations. Lasting change.
           </h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
-            {featured.map((card) => (
+          <div className={`mt-8 grid grid-cols-1 gap-5 ${featuredStories.length === 1 ? "lg:max-w-[440px]" : "lg:grid-cols-3"}`}>
+            {featuredStories.map((card) => (
               <article key={card.name} className="flex h-full flex-col border border-line bg-white">
                 <div className="relative aspect-[16/9] overflow-hidden bg-paper">
                   <Image src={card.image} alt={card.imageAlt} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
@@ -103,7 +107,9 @@ export default function ClientsStories() {
           </div>
         </div>
       </section>
+      )}
 
+      {reviewedMoreStories.length > 0 && (
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <SectionHead label="More client stories" />
@@ -111,7 +117,7 @@ export default function ClientsStories() {
             Different sectors. A common outcome.
           </h2>
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-8">
-            {moreStories.map((story) => {
+            {reviewedMoreStories.map((story) => {
               /* Em % da largura do cartão: a caixa do logo é 4:3, então a altura
                  máxima de 42% da largura é ~56% da altura dela. */
               const { w } = fitLogo(LOGO_RATIO[story.logo], 0.09, 0.72, 0.42);
@@ -137,6 +143,7 @@ export default function ClientsStories() {
           </div>
         </div>
       </section>
+      )}
 
       {/* "What our clients say" virou esteira em 01-10  -  ver o componente. */}
       <ClientVoices />

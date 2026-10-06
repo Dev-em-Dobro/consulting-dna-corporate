@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CaseListEntry } from "@/lib/cms/map";
+import { CASE_HERO_MOBILE_LOGO_SRC } from "@/lib/case-hero-covers";
 
 /** One case in the /cases library list (see the design spec). Presentational. */
 export default function CaseRow({ entry }: { entry: CaseListEntry }) {
   const href = `/cases/${entry.slug}`;
+  const logoUrl = CASE_HERO_MOBILE_LOGO_SRC[entry.slug] ?? entry.logoUrl;
   return (
     <article className="overflow-hidden border border-line bg-white">
       {/* Branded band (per topocase reference): client name + tags on the left.
@@ -14,7 +16,7 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
       <div
         className={
           "relative isolate flex min-h-[132px] items-center justify-between gap-6 overflow-hidden px-6 py-5 " +
-          (entry.logoUrl && !entry.logoColor
+          (logoUrl && !entry.logoColor
             ? "bg-gradient-to-r from-neutral-900 via-neutral-900 to-brand "
             : "bg-neutral-900 ")
         }
@@ -35,13 +37,13 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
           )}
         </div>
 
-        {entry.logoUrl && (
+        {logoUrl && (
           <Image
-            src={entry.logoUrl}
+            src={logoUrl}
             alt={`${entry.client} logo`}
             width={160}
             height={64}
-            className="h-12 w-auto max-w-[150px] flex-none object-contain md:h-14 md:max-w-[180px]"
+            className="h-12 w-auto max-w-[150px] flex-none object-contain brightness-0 invert md:h-14 md:max-w-[180px]"
           />
         )}
       </div>

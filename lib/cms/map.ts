@@ -14,6 +14,7 @@ import { countriesToIso3 } from "../coverage";
 import { LOGO_COLORS } from "../logo-colors";
 import { CASE_HERO_COVERS } from "../case-hero-covers";
 import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-cases";
+import { isReviewedCaseSlug } from "../reviewed-cases";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -324,7 +325,7 @@ export function splitMetric(text?: string): { value?: string; label?: string } {
 }
 
 export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Promise<CaseCard[]> {
-  const local = LOCAL_CASES.map((c) => ({
+  const local = LOCAL_CASES.filter((c) => isReviewedCaseSlug(c.slug)).map((c) => ({
     slug: c.slug,
     title: c.title,
     summary: c.headline,
@@ -333,7 +334,8 @@ export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Pro
   }));
   const res = await getCases(facets);
   if (!res) return local;
-  const cms = parseItems<S.CaseListItem>(res.items, S.caseListItem).map((c) => ({
+  const cms = parseItems<S.CaseListItem>(res.items, S.caseListItem)
+    .filter((c) => isReviewedCaseSlug(c.slug)).map((c) => ({
     slug: c.slug,
     title: plainText(c.title) ?? "",
     summary: plainText(c.summary),
@@ -434,6 +436,7 @@ function caseFigures(raw?: { value?: string; label?: string }[]): CaseFigure[] {
 }
 
 export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseArticle | null> {
+  if (!isReviewedCaseSlug(slug)) return null;
   const local = localCaseArticle(slug);
   if (local) return local;
   const raw = await getEntry("cases", slug, locale);
@@ -469,10 +472,11 @@ function challengeExcerpt(html?: string, max = 300): string | undefined {
  * fails to load still appears, just without challenge/metric.
  */
 export async function getCaseListEntries(): Promise<CaseListEntry[]> {
-  const local = localCaseListEntries();
+  const local = localCaseListEntries().filter((c) => isReviewedCaseSlug(c.slug));
   const res = await getCases();
   if (!res) return local;
-  const items = parseItems<S.CaseListItem>(res.items, S.caseListItem);
+  const items = parseItems<S.CaseListItem>(res.items, S.caseListItem)
+    .filter((c) => isReviewedCaseSlug(c.slug));
   const cms = await Promise.all(
     items.map(async (it) => {
       const art = await getCaseArticle(it.slug);

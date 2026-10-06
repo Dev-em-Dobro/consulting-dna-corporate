@@ -1,6 +1,7 @@
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
+import { isReviewedCaseSlug } from "@/lib/reviewed-cases";
 
 /**
  * OS TRÊS CARTÕES DE CLIENTE DA FAIXA "EVIDENCE"  -  layout de Women’s
@@ -42,7 +43,9 @@ export default function SolutionEvidenceCases({
 }: {
   item?: ServiceEvidenceCases;
 }) {
-  const cases = (item?.items ?? []).filter((c) => c.title.trim());
+  const cases = (item?.items ?? []).filter((c) =>
+    c.title.trim() && c.caseSlug && isReviewedCaseSlug(c.caseSlug)
+  );
   if (!item || cases.length === 0) return null;
 
   return (

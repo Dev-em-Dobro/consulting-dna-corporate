@@ -114,12 +114,15 @@ export default function NavV2({
   wide = false,
   maxWidthClass = "max-w-[1200px]",
   outlined = false,
+  onLight = false,
   activeHref,
 }: {
   items?: NavItem[];
   wide?: boolean;
   maxWidthClass?: string;
   outlined?: boolean;
+  /** Dark logo and links when the navigation sits on a white hero. */
+  onLight?: boolean;
   /**
    * Qual item marcar como ativo, quando a rota atual não é a do item.
    *
@@ -208,8 +211,8 @@ export default function NavV2({
   // itens caem por cima da foto e não se lê nenhum dos dois.
   return (
     <header
-      className={`absolute top-0 z-50 w-full text-white ${
-        open ? "bg-brand" : "bg-transparent"
+      className={`absolute top-0 z-50 w-full ${
+        open ? "bg-brand text-white" : onLight ? "bg-transparent text-ink" : "bg-transparent text-white"
       }`}
     >
       <div
@@ -265,7 +268,7 @@ export default function NavV2({
               marca escreve agora que o letreiro inteiro está visível. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/cdna-logo-full-light.png"
+            src={onLight && !open ? "/cdna-logo-full.png" : "/cdna-logo-full-light.png"}
             alt="CorporateDNA Consulting"
             className="h-[41px] w-auto xl:h-[52px]"
           />
@@ -299,7 +302,9 @@ export default function NavV2({
                 className={
                   outlined
                     ? `inline-flex items-center whitespace-nowrap border border-brand bg-brand px-4 py-2.5 leading-none text-white transition-colors duration-200 hover:border-brand-dark hover:bg-brand-dark ${ctaType}`
-                    : `inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 leading-none text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand ${ctaType}`
+                    : onLight
+                      ? `inline-flex items-center whitespace-nowrap border border-brand/70 px-4 py-2.5 leading-none text-brand transition-colors duration-200 hover:border-brand hover:bg-brand hover:text-white ${ctaType}`
+                      : `inline-flex items-center whitespace-nowrap border border-white/70 px-4 py-2.5 leading-none text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-brand ${ctaType}`
                 }
               >
                 {item.label}
@@ -336,10 +341,10 @@ export default function NavV2({
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={
                     outlined
-                      ? `navlink inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white transition-colors duration-200 ${
+                      ? `navlink inline-flex items-center gap-1.5 whitespace-nowrap leading-none ${onLight ? "text-ink" : "text-white"} transition-colors duration-200 ${
                           isActive(item.href) ? "navlink--active" : ""
                         } ${linkType}`
-                      : `inline-flex items-center gap-1.5 whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 group-hover:underline ${
+                      : `inline-flex items-center gap-1.5 whitespace-nowrap leading-none ${onLight ? "text-ink" : "text-white"} underline-offset-[6px] transition-colors duration-200 group-hover:underline ${
                           isActive(item.href) ? "underline" : ""
                         } ${linkType}`
                   }
@@ -371,10 +376,10 @@ export default function NavV2({
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={
                   outlined
-                    ? `navlink inline-flex items-center whitespace-nowrap leading-none text-white transition-colors duration-200 ${
+                    ? `navlink inline-flex items-center whitespace-nowrap leading-none ${onLight ? "text-ink" : "text-white"} transition-colors duration-200 ${
                         isActive(item.href) ? "navlink--active" : ""
                       } ${linkType}`
-                    : `inline-flex items-center whitespace-nowrap leading-none text-white underline-offset-[6px] transition-colors duration-200 hover:underline ${
+                    : `inline-flex items-center whitespace-nowrap leading-none ${onLight ? "text-ink" : "text-white"} underline-offset-[6px] transition-colors duration-200 hover:underline ${
                         isActive(item.href) ? "underline" : ""
                       } ${linkType}`
                 }
@@ -393,7 +398,7 @@ export default function NavV2({
           aria-expanded={open}
           aria-controls="v1-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center text-white lg:hidden"
+          className={`-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center lg:hidden ${onLight && !open ? "text-ink" : "text-white"}`}
         >
           <svg
             width="26"

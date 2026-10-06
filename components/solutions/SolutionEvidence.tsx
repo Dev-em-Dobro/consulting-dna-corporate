@@ -3,6 +3,7 @@ import Link from "next/link";
 import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
 import { factIsMeasure, type ServiceFact, type ServiceTestimonial } from "@/lib/services";
+import { isReviewedCaseSlug } from "@/lib/reviewed-cases";
 
 /**
  * Bloco 4 do outline  -  Evidence. Uma faixa clara em até três colunas: o caso
@@ -277,7 +278,7 @@ export default function SolutionEvidence({
               </div>
             )}
 
-            {caseSlug && (
+            {caseSlug && isReviewedCaseSlug(caseSlug) && (
               <Link
                 href={`/cases/${caseSlug}`}
                 className="mt-10 inline-flex items-center gap-2 border-b border-brand-light/50 pb-1 text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light transition-colors hover:border-brand-light hover:text-white"

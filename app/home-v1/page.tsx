@@ -30,6 +30,7 @@ import SiteFooter from "@/components/SiteFooter";
 import BookEndorsements from "@/components/BookEndorsements";
 import AwardsMentions from "@/components/AwardsMentions";
 import { getPeople, getTickerEntries } from "@/lib/cms/map";
+import { isReviewedCaseSlug } from "@/lib/reviewed-cases";
 import { buildSiteNav } from "@/lib/nav-server";
 import ContactForm from "@/components/ContactForm";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -403,7 +404,7 @@ export default async function HomeV1() {
                     </div>
                     <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-ink">{c.metricLabel}</div>
                     <a
-                      href={c.caseSlug ? `/cases/${c.caseSlug}` : "/our-clients"}
+                      href={c.caseSlug && isReviewedCaseSlug(c.caseSlug) ? `/cases/${c.caseSlug}` : "/our-clients"}
                       className="mt-4 inline-block text-[14px] font-semibold text-brand underline underline-offset-4 transition-colors hover:text-brand-dark"
                     >
                       read more here

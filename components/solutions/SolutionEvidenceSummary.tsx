@@ -2,6 +2,7 @@ import Link from "next/link";
 import Counter from "@/components/Counter";
 import { pillarIcon } from "@/components/solutions/SolutionPillars";
 import Reveal from "@/components/Reveal";
+import { isReviewedCaseHref, isReviewedCaseSlug } from "@/lib/reviewed-cases";
 import {
   factIsMeasure,
   type ServiceFact,
@@ -127,7 +128,11 @@ function EvidenceLogo({
       }
     />
   );
-  const href = logo.href ?? (logo.caseSlug ? `/cases/${logo.caseSlug}` : undefined);
+  const href = logo.href
+    ? (!logo.href.startsWith("/cases/") || isReviewedCaseHref(logo.href) ? logo.href : undefined)
+    : logo.caseSlug && isReviewedCaseSlug(logo.caseSlug)
+      ? `/cases/${logo.caseSlug}`
+      : undefined;
   if (!href) return img;
   return (
     <Link

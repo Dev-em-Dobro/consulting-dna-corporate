@@ -4,6 +4,7 @@ import EmptyNotice from "@/components/EmptyNotice";
 import CasesLibrary from "@/components/cases/CasesLibrary";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { getCaseListEntries } from "@/lib/cms/map";
+import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -21,10 +22,11 @@ export default async function CasesPage() {
   const cases = await getCaseListEntries();
 
   return (
-    <SiteShell footerTopBorder>
+    <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
+    <SiteShell footerTopBorder floatingNav lightNav>
       {/* White hero, per the reference: heavy dark title + muted subtitle. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 pt-14 pb-6 md:px-10 md:pt-20 md:pb-8">
+        <div className="mx-auto max-w-[820px] px-6 pb-6 pt-[132px] md:px-10 md:pb-8 md:pt-[156px]">
           <h1 className="text-[34px] font-bold leading-[1.05] tracking-[-1px] text-ink [text-wrap:balance] sm:text-[44px] md:text-[52px]">
             Leadership change, measured where it matters.
           </h1>
@@ -45,5 +47,6 @@ export default async function CasesPage() {
         </div>
       </section>
     </SiteShell>
+    </div>
   );
 }

@@ -52,6 +52,9 @@ export default function CaseStory({
   related?: CaseListEntry[];
 }) {
   const { story } = c;
+  const clientQuote = c.quote?.trim();
+  const moreQuotes = (story.moreQuotes ?? []).filter((q) => q.quote.trim());
+  const hasClientVoice = !!clientQuote || moreQuotes.length > 0;
   const heroCoverUrl = c.heroCoverUrl ?? c.coverUrl;
   const heroLogoScale = CASE_HERO_LOGO_SCALE_PERCENT[c.slug] ?? 100;
   const heroLogoIsWhite = [
@@ -314,15 +317,14 @@ export default function CaseStory({
         </div>
       </section>
 
-      {/* ── 03 What changed · foto · 04 Client voice ──────────────────────
-          Três colunas no desenho. A do meio é fotografia; sem arquivo, ela vira
-          o slot tracejado  -  e some no telefone, onde o que importa é a leitura
-          corrida do texto e da citação. */}
+      {/* What changed, optional photo, and Client voice when a quote exists. */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-          {/* 01-10: sem capa, a coluna da foto some (era um "PHOTO" cinza) e o
-              bloco vira duas colunas. */}
-          <div className={`grid grid-cols-1 gap-10 lg:gap-14 ${c.coverUrl ? "lg:grid-cols-[1fr_380px_1fr]" : "lg:grid-cols-2"}`}>
+          <div className={`grid grid-cols-1 gap-10 lg:gap-14 ${
+            c.coverUrl
+              ? hasClientVoice ? "lg:grid-cols-[1fr_380px_1fr]" : "lg:grid-cols-[minmax(0,1fr)_380px]"
+              : hasClientVoice ? "lg:grid-cols-2" : ""
+          }`}>
             <div>
               <NumberedLabel number="03" label="What changed" />
               <SectionTitle>{story.outcomeHeadline}</SectionTitle>
@@ -338,10 +340,7 @@ export default function CaseStory({
                 </p>
               )}
 
-              {/* ⚠️ O `additionalContent` MUDOU DE COLUNA em 16-09. Ele ocupava
-                  a terceira quando o case não tinha citação; com o bloco 04
-                  passando a existir sempre, ele volta para onde pertence  -  é
-                  continuação da história, não uma voz de cliente. */}
+              {/* Additional content continues the story in this column. */}
               {story.additionalContent && (
                 <div className="mt-9 border-t border-line pt-7">
                   <p className="mb-3 text-[11.5px] font-semibold uppercase tracking-[1.4px] text-muted">
@@ -405,23 +404,16 @@ export default function CaseStory({
             </div>
             ) : null}
 
-            <div>
-              {/* O BLOCO 04 EXISTE SEMPRE  -  16-09, a pedido. Antes ele sumia
-                  quando o case não tinha citação, e como SETE DOS NOVE ainda
-                  não têm (a Rhea está fechando isso com os clientes), a maioria
-                  das páginas abria com duas colunas onde a referência tem três
-                   -  e a comparação com o desenho dava "faltou a quote".
-
-                  MANTER O SLOT É A MESMA REGRA DAS FOTOS desta página: mostra a
-                  composição real, deixa explícito o que falta e de quem é. */}
+            {hasClientVoice && <div>
               <NumberedLabel number="04" label="Client voice" />
-              {c.quote ? (
-                <figure>
+              <figure>
+                  {clientQuote && (
+                    <>
                   <blockquote className="font-serif text-[19px] leading-[1.45] tracking-[-0.2px] text-ink md:text-[21px]">
                     <span aria-hidden className="mr-1 text-brand">
                       “
                     </span>
-                    {stripQuotes(c.quote)}
+                    {stripQuotes(clientQuote)}
                     <span aria-hidden className="ml-1 text-brand">
                       ”
                     </span>
@@ -431,10 +423,12 @@ export default function CaseStory({
                       {c.quoter}
                     </figcaption>
                   )}
+                    </>
+                  )}
                   {/* 01-10: as citações a mais dos cases do site antigo, no
                       mesmo desenho, empilhadas abaixo da principal. */}
-                  {(story.moreQuotes ?? []).map((q) => (
-                    <div key={q.quote} className="mt-10">
+                  {moreQuotes.map((q, index) => (
+                    <div key={q.quote} className={clientQuote || index > 0 ? "mt-10" : ""}>
                       <blockquote className="font-serif text-[17px] leading-[1.5] tracking-[-0.2px] text-ink md:text-[18px]">
                         <span aria-hidden className="mr-1 text-brand">“</span>
                         {stripQuotes(q.quote)}
@@ -445,27 +439,17 @@ export default function CaseStory({
                       )}
                     </div>
                   ))}
-                </figure>
-              ) : (
-                <div className="flex min-h-[180px] flex-col justify-center border border-dashed border-ink/20 bg-ink/[0.06] px-6 py-8">
-                  <p className="text-[11px] font-semibold uppercase tracking-[2px] text-ink/45">
-                    Client quote
-                  </p>
-                  <p className="mt-3 max-w-[30ch] font-serif text-[17px] leading-[1.45] text-ink/35">
-                    Awaiting sign-off from the client.
-                  </p>
-                </div>
-              )}
-            </div>
+              </figure>
+            </div>}
           </div>
         </div>
       </section>
 
-      {/* ── 05 Related case studies ───────────────────────────────────── */}
+      {/* Related case studies follow the last visible numbered section. */}
       {related.length > 0 && (
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <NumberedLabel number="05" label="Related case studies" />
+            <NumberedLabel number={hasClientVoice ? "05" : "04"} label="Related case studies" />
             <p className="-mt-3 mb-8 text-[12px] uppercase tracking-[1.3px] text-muted">
               Explore more client stories
             </p>
