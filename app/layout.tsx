@@ -30,11 +30,20 @@ export const metadata: Metadata = {
     url: SITE_URL,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/og-share.png",
+        width: 1200,
+        height: 630,
+        alt: "CorporateDNA: Global Leadership Advisory & Executive Coaching",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: ["/og-share.png"],
   },
   icons: {
     icon: [{ url: "/cdna-logo-horizontal.svg", type: "image/svg+xml" }],

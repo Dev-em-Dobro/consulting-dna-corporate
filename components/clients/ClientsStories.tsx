@@ -5,53 +5,79 @@ import ClientVoices from "@/components/clients/ClientVoices";
 import { LOGO_RATIO, fitLogo, logoSrc, type LogoKey } from "@/components/clients/logo-fit";
 import { isReviewedCaseHref } from "@/lib/reviewed-cases";
 
-const featured = [
+type FeaturedCard = {
+  image: string;
+  imageAlt: string;
+  /** Colour mark in the card body — keep these optically similar. */
+  logo: string;
+  /** Optional wider/padded asset for the white hero overlay. */
+  overlayLogo?: string;
+  name: string;
+  kicker: string;
+  body: string;
+  metric: string;
+  metricLabel: string;
+  href: string;
+  whiteLogoOnImage: boolean;
+  whiteLogoWidth: string;
+};
+
+/** Shared box for the three colour marks under the hero. */
+const FEATURED_LOGO_BOX = "relative h-7 w-[5.5rem] shrink-0";
+
+const featured: FeaturedCard[] = [
   {
-    image: "/clients/impact/shell.jpg",
-    imageAlt: "Wind turbines at sunset",
-    logo: "/logos/client-logos/shell.png",
-    name: "Shell",
-    kicker: "Leadership transformation",
-    body: "Building the leadership capability to deliver a lower carbon future.",
-    metric: "92%",
-    metricLabel: "of leaders reported greater confidence in driving change",
-    href: "/cases/shell-women-leaders",
+    image: "/cases/vodafone-hero.webp",
+    imageAlt: "Vodafone case study",
+    logo: "/clients/logos/vodafone.png",
+    overlayLogo: "/logos/client-logos/vodafone.png",
+    name: "Vodafone",
+    kicker: "Talent development",
+    body: "Building a leadership pipeline that lasted well beyond the programme.",
+    metric: "700+",
+    metricLabel: "high-potential leaders developed",
+    href: "/cases/vodafone",
+    whiteLogoOnImage: true,
+    whiteLogoWidth: "72%",
   },
   {
-    image: "/clients/impact/dubai-holding.jpg",
-    imageAlt: "Dubai skyline with the Burj Khalifa",
-    logo: "/logos/client-logos/dubai-holding.png",
-    name: "Dubai Holding",
-    kicker: "Talent & succession",
-    body: "Strengthening leadership across a diversified global business.",
-    metric: "3x",
-    metricLabel: "increase in internal leadership pipeline",
-    href: "/cases/dubai-holding-leadership-accountability",
+    image: "/cases/gsk-hero.webp",
+    imageAlt: "GSK case study",
+    logo: "/clients/logos/gsk.png",
+    overlayLogo: "/logos/client-logos/gsk-padded.png",
+    name: "GSK",
+    kicker: "Culture transformation",
+    body: "Turning global strategy into local leadership alignment, priorities and behaviour.",
+    metric: "30%",
+    metricLabel: "improvement in decision-making agility",
+    href: "/cases/gsk",
+    whiteLogoOnImage: true,
+    whiteLogoWidth: "58%",
   },
   {
     image: "/clients/impact/maaden.jpg",
     imageAlt: "Maaden team member in a hard hat on an industrial site",
-    logo: "/logos/client-logos/maaden.png",
+    logo: "/clients/logos/maaden.png",
     name: "Maaden",
     kicker: "Leadership at scale",
     body: "Developing leaders to enable sustainable growth.",
     metric: "85%",
     metricLabel: "of leaders demonstrated stronger influence and collaboration",
     href: "/cases/maaden",
+    whiteLogoOnImage: false,
+    whiteLogoWidth: "55%",
   },
-] as const;
+];
 
 /* "MORE CLIENT STORIES" SÓ COM LOGO desde 01-10: as miniaturas (`thumb-*.jpg`)
    eram fotos de banco em baixa resolução e foram trocadas pelo logo do cliente,
    em tamanho óptico (`logo-fit.ts`). */
 const moreStories: { logo: LogoKey; name: string; label: string; href: string }[] = [
   { logo: "heineken", name: "Heineken", label: "Culture & engagement", href: "/cases/heineken-inner-outer-game" },
-  { logo: "vodafone", name: "Vodafone", label: "Leadership transformation", href: "/cases/vodafone" },
   { logo: "frasers-property", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership" },
   { logo: "dyson", name: "Dyson", label: "Innovation & growth", href: "/cases/dyson" },
   { logo: "dp-world", name: "DP World", label: "Global leadership", href: "/cases/dp-world" },
   { logo: "bt", name: "BT", label: "Inclusive leadership", href: "/cases/bt" },
-  { logo: "gsk", name: "GSK", label: "Talent & capability", href: "/cases/gsk" },
   { logo: "morgan-stanley", name: "Morgan Stanley", label: "Leadership for what's next", href: "/cases/morgan-stanley" },
 ];
 
@@ -72,18 +98,35 @@ export default function ClientsStories() {
               <article key={card.name} className="flex h-full flex-col border border-line bg-white">
                 <div className="relative aspect-[16/9] overflow-hidden bg-paper">
                   <Image src={card.image} alt={card.imageAlt} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
+                  {card.whiteLogoOnImage && (
+                    <>
+                      <div aria-hidden className="absolute inset-0 bg-black/35" />
+                      <div className="absolute inset-0 flex items-center justify-center px-6">
+                        <Image
+                          src={card.overlayLogo ?? card.logo}
+                          alt=""
+                          width={320}
+                          height={128}
+                          style={{ width: card.whiteLogoWidth }}
+                          className="h-auto max-h-[52%] object-contain brightness-0 invert"
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col border-t border-line">
                   <div className="px-6 pb-8 pt-5">
                     <div className="flex h-12 items-center justify-between gap-4">
-                      <p className="text-[12px] font-semibold uppercase tracking-[1px] text-muted">{card.name}</p>
-                      <Image
-                        src={card.logo}
-                        alt=""
-                        width={96}
-                        height={48}
-                        className={`h-12 w-20 shrink-0 object-cover ${card.name === "Maaden" ? "scale-[1.4]" : ""}`}
-                      />
+                      <p className="min-w-0 text-[12px] font-semibold uppercase tracking-[1px] text-muted">{card.name}</p>
+                      <div className={FEATURED_LOGO_BOX}>
+                        <Image
+                          src={card.logo}
+                          alt=""
+                          fill
+                          sizes="120px"
+                          className="object-contain object-right"
+                        />
+                      </div>
                     </div>
                     <h3 className="mt-6 font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.3px] text-ink">
                       {card.kicker}
