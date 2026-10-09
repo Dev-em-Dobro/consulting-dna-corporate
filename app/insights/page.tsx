@@ -55,8 +55,23 @@ export default async function InsightsPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title.replace(/\.$/, "")}
           imageUrl="/insights/insights-hero-bookshelf.jpg"
-          imagePosition="object-[72%_25%]"
+          imagePosition="object-left md:object-[72%_25%]"
           imageFilter="brightness-[.9]"
+          mobileVisual={
+            <div
+              className="absolute inset-x-0 top-[clamp(78px,12svh,100px)] h-[min(44svh,320px)] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+            >
+              <Image
+                src="/insights/insights-hero-bookshelf.jpg"
+                alt=""
+                width={1672}
+                height={941}
+                sizes="(max-width: 767px) 190vw, 0px"
+                className="absolute -right-5 top-1/2 h-[125%] w-auto max-w-none origin-[68%_center] -translate-x-1 -translate-y-1/2 scale-[1.2]"
+              />
+              <div className="absolute inset-0 bg-ink/15" />
+            </div>
+          }
         />
 
         <section id="thought-leadership" className="bg-paper">
