@@ -80,9 +80,8 @@ const PAGES = [
 export default function EditIndexPage() {
   return (
     <div className="min-h-screen bg-paper text-ink">
-      {/* Mesmo motivo da caixa no `CopyEditor`: o banner de cookies e o botão do
-          WhatsApp vêm do layout raiz e não fazem sentido numa tela de trabalho. */}
-      <style>{`[aria-label="Cookie consent"],[aria-label="Chat with us on WhatsApp"]{display:none!important}`}</style>
+      {/* O banner de cookies do layout raiz não faz sentido nesta tela de trabalho. */}
+      <style>{`[aria-label="Cookie consent"]{display:none!important}`}</style>
       <div className="mx-auto max-w-[760px] px-6 py-16">
         <p className="text-[11px] font-semibold uppercase tracking-[2px] text-brand">Corporate DNA</p>
         <h1 className="mt-1 text-[28px] font-semibold leading-tight">Edit the website text</h1>

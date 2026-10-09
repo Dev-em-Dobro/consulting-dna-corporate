@@ -6,7 +6,6 @@ import "leaflet/dist/leaflet.css";
 import CookieConsent from "@/components/CookieConsent";
 import Preloader from "@/components/Preloader";
 import TopProgress from "@/components/TopProgress";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { organizationLd } from "@/lib/seo/jsonld";
@@ -86,7 +85,6 @@ export default function RootLayout({
           <Preloader />
           <TopProgress />
           {children}
-          <WhatsAppButton />
           <CookieConsent />
         </NextIntlClientProvider>
       </body>
