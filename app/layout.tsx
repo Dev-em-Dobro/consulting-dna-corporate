@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import CookieConsent from "@/components/CookieConsent";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Preloader from "@/components/Preloader";
 import TopProgress from "@/components/TopProgress";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
@@ -23,6 +24,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: SITE_URL,
+  },
+  verification: {
+    // TXT already on DNS; meta tag covers GSC HTML-tag verification path.
+    google: "qhJkWlL-UVvC_XuGzji8FuWTGDFZiP2ynGRIAsxIoIU",
+  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
@@ -81,6 +89,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         <JsonLd data={organizationLd()} />
+        <GoogleAnalytics />
         <NextIntlClientProvider>
           <Preloader />
           <TopProgress />

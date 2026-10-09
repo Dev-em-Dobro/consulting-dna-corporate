@@ -55,8 +55,23 @@ export default async function InsightsPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title.replace(/\.$/, "")}
           imageUrl="/insights/insights-hero-bookshelf.jpg"
-          imagePosition="object-[72%_25%]"
+          imagePosition="object-left md:object-[72%_25%]"
           imageFilter="brightness-[.9]"
+          mobileVisual={
+            <div
+              className="absolute inset-x-0 top-[clamp(78px,12svh,100px)] h-[min(44svh,320px)] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+            >
+              <Image
+                src="/insights/insights-hero-bookshelf.jpg"
+                alt=""
+                width={1672}
+                height={941}
+                sizes="(max-width: 767px) 190vw, 0px"
+                className="absolute -right-5 top-1/2 h-[125%] w-auto max-w-none origin-[68%_center] -translate-x-1 -translate-y-1/2 scale-[1.2]"
+              />
+              <div className="absolute inset-0 bg-ink/15" />
+            </div>
+          }
         />
 
         <section id="thought-leadership" className="bg-paper">
@@ -123,17 +138,25 @@ export default async function InsightsPage() {
                   The Restored Organization: Six Ways to Humanize Workplace Culture and Transform Results
                 </h2>
                 <p className="mt-3 text-[14px] text-white/60">Notion Press, 2025</p>
+                {/* No mobile a capa vem ANTES do texto  -  mesma ordem do BookCard
+                    do primeiro livro. No desktop a capa fica à direita. */}
                 <div className="mt-7 grid gap-x-12 md:grid-cols-[minmax(0,1fr)_minmax(220px,340px)]">
-                  <div>
+                  <figure className="relative mx-auto mb-8 aspect-[1198/1313] w-full max-w-[340px] md:order-2 md:mb-0 md:mx-0 md:justify-self-end">
+                    <Image
+                      src="/nitin-restored-organization.png"
+                      alt="Cover of The Restored Organization by Nitin Goil and Sebastian Anthony"
+                      fill
+                      sizes="(min-width: 768px) 340px, 80vw"
+                      className="object-contain object-top"
+                    />
+                  </figure>
+                  <div className="md:order-1">
                     <div className="space-y-5 text-[15px] leading-[1.7] text-white/80">
                       <p>The Restored Organization offers a refreshing approach and a powerful guide for leaders, HR professionals, and change-makers, ready to address dysfunctional cultures and create workplaces where both people and performance can thrive. Drawing on research, neuroscience, and over 100 interviews with global organizations, the book introduces the FLOWER Framework™ that describes six ways (petals) to humanize workplace cultures and transform results.</p>
                       <p>Whether your organization is facing talent issues, disengagement, or lack of productivity, this book offers real stories, actionable strategies and examples of companies from 14 different countries and 16 diverse industries. The Restored Organization is more than a leadership book. It’s a call to action for those who believe people and performance can grow together.</p>
                     </div>
                     <a href="https://www.amazon.com/dp/B0F9PY7YQ1?lv=shuf&channelId=510&plpRedirect=mhFallback" target="_blank" rel="noopener noreferrer" className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark">Buy on Amazon</a>
                   </div>
-                  <figure className="relative mx-auto mt-10 aspect-[1198/1313] w-full max-w-[340px] md:mx-0 md:mt-0 md:justify-self-end">
-                    <Image src="/nitin-restored-organization.png" alt="Cover of The Restored Organization by Nitin Goil and Sebastian Anthony" fill sizes="(min-width: 768px) 340px, 80vw" className="object-contain" />
-                  </figure>
                 </div>
                 <div className="mt-12 grid gap-8 border-t border-white/20 pt-8 md:grid-cols-2">
                   <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">

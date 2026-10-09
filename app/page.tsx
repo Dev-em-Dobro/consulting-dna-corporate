@@ -687,7 +687,9 @@ export default async function Home() {
           lado do pedido que tirou o cartão do herói ("add this to awards"). A
           prop existe porque a faixa é compartilhada com /our-impact, /home-v1 e
           /home-v3, e o pedido é sobre a home; ver a caixa dela no componente. */}
-      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall showYear={false} />
+      {/* Datas de volta  -  pedido do cliente no cutover: Brandon Hall (2023 /
+          2024) e Women of the Future (2008) estavam ilegíveis com showYear off. */}
+      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall showYear />
 
       {/* BOOK */}
       <section id="book" className="bg-paper">

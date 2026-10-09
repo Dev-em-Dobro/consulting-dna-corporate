@@ -41,6 +41,7 @@ export default function SolutionHero({
   imageNatural,
   body,
   imageUrl,
+  mobileVisual,
   noImage = false,
   imageShadeOpacity = 1,
   credential,
@@ -98,6 +99,8 @@ export default function SolutionHero({
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
+  /** Optional foreground artwork for narrow screens, above the mobile shade. */
+  mobileVisual?: React.ReactNode;
   /**
    * SEM FOTO NENHUMA  -  24-09, hotfix: a /team ficou com o herói liso. Não cai
    * no `fallbackPhoto`: a dobra vira só o `bg-ink` da seção, e as camadas de
@@ -219,34 +222,47 @@ export default function SolutionHero({
        ⚠️ `min-h` CONTINUA SENDO `min-h`: o bloco cresce quando o conteúdo pede
        (título de três linhas no telefone), e 84svh é o PISO, não o teto.
        */
-    <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
+    <section className={`relative isolate flex flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center ${mobileVisual ? "min-h-[max(84svh,560px)] md:min-h-[84svh]" : "min-h-[84svh]"}`}>
       {noImage ? null : (
         <>
           {imageNatural ? (
-            /* ALTURA DA FAIXA, LARGURA PELA PROPORÇÃO: a foto inteira aparece,
-               sem corte nem ampliação além do necessário para fechar a altura. */
-            <div className="absolute inset-y-0 right-0 -z-30 max-w-full">
+            <>
+              {/* MOBILE: cover full-bleed com enquadramento que mostra o grupo.
+                  O modo "altura da faixa / dock à direita" cortava a escada
+                  quase pela metade numa viewport estreita (pedido cutover). */}
               <Image
                 src={src}
                 alt=""
                 aria-hidden
                 priority
-                width={imageNatural.width}
-                height={imageNatural.height}
-                sizes={`${imageNatural.width}px`}
-                className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+                fill
+                sizes="100vw"
+                className={`-z-30 object-cover object-center md:hidden ${imageFilter}`}
               />
-              {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
-                  falta imagem, e leve em cima e embaixo. */}
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
-                }}
-              />
-            </div>
+              {/* DESKTOP: altura da faixa, largura pela proporção, dock à direita. */}
+              <div className="absolute inset-y-0 right-0 -z-30 hidden max-w-full md:block">
+                <Image
+                  src={src}
+                  alt=""
+                  aria-hidden
+                  priority
+                  width={imageNatural.width}
+                  height={imageNatural.height}
+                  sizes={`${imageNatural.width}px`}
+                  className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+                />
+                {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
+                    falta imagem, e leve em cima e embaixo. */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <Image
               src={src}
@@ -308,6 +324,14 @@ export default function SolutionHero({
                 "linear-gradient(to top, rgba(35,31,33,.92) 0%, rgba(35,31,33,.86) 38%, rgba(35,31,33,.44) 62%, rgba(35,31,33,.14) 82%, rgba(35,31,33,.20) 100%)",
             }}
           />
+          {mobileVisual ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-[5] md:hidden"
+            >
+              {mobileVisual}
+            </div>
+          ) : null}
         </>
       )}
 
