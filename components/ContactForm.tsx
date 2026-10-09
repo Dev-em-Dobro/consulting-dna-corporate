@@ -269,7 +269,7 @@ export default function ContactForm({
       <button
         type="button"
         onClick={() => confirmationRef.current?.close()}
-        className="mt-8 bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-[#2a2627] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        className="mt-8 cursor-pointer bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-[#2a2627] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       >
         Close
       </button>
