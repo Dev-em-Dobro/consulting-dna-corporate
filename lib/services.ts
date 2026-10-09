@@ -3224,14 +3224,10 @@ export const services: Service[] = [
   },
   {
     slug: "executive-coaching",
-    cardImage: "/services/cards/executive-coaching-client.jpg",
-    /* ✅ 01-10: a call disse que esta imagem "tem cara de IA". A pasta da
-       cliente não trouxe referência para o coaching, e entre as imagens de
-       coaching do repo esta continua a mais crível (duas pessoas, conversa,
-       luz natural). Ganhou o mesmo tratamento fotográfico do herói da Judgement
-       (grão, pretos levantados, menos saturação, bordas suavizadas). O PNG
-       original fica no disco. ⏳ O ideal continua sendo uma foto real. */
-    heroImage: "/services/heroes/executive-coaching-hero-20261001-v2.jpg",
+    // Real photograph by LinkedIn Sales Solutions (Unsplash, 2017).
+    // https://unsplash.com/photos/two-men-talking-W3Jl3jREpDY
+    cardImage: "/services/heroes/executive-coaching-photo.jpg",
+    heroImage: "/services/heroes/executive-coaching-photo.jpg",
     heroImagePosition: "object-[center_20%]",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
@@ -3448,16 +3444,10 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
-    /* ⚠️ O HERÓI CONTINUA SENDO A FOTO DO CARD, e a foto da família ao pôr do
-       sol que o layout desenha NÃO ENTROU: ela é arte do próprio arquivo, num
-       JPEG de 1536px em que a imagem mede ~700px de largura e traz o lettering
-       "Generations People Possibilities." chapado no pixel. Recortá-la daria
-       uma dobra de sangria total macia e com texto cravado que ninguém
-       consegue traduzir nem editar pelo /edit. A `family-business-consulting-
-       client.jpg` é material da cliente, escolhido por ela em 17-09, e mantém
-       a continuidade card → herói. */
-    cardImage: "/services/cards/family-business-consulting-client.jpg",
-    heroImage: "/services/heroes/family-business-consulting-hero.png",
+    // Real photograph by Iwaria Inc. (Unsplash, 2022).
+    // https://unsplash.com/photos/a-group-of-people-sitting-on-a-couch-looking-at-a-laptop-M7ALc3UuX_g
+    cardImage: "/services/heroes/family-business-consulting-photo.jpg",
+    heroImage: "/services/heroes/family-business-consulting-photo.jpg",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",

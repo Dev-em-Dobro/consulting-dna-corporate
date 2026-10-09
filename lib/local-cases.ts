@@ -36,6 +36,35 @@ function article(partial: {
 }
 
 export const LOCAL_CASES = [
+  // Reviewed = Yes in CaseStudiesv2.xlsx (9 Oct 2026). The CMS has no case
+  // record yet; keep the approved story available without inventing a logo,
+  // photograph or achieved impact figures.
+  article({
+    slug: "shunkhlai",
+    tags: ["Family Business Consulting"],
+    title: "Shunkhlai",
+    headline: "Turning a family group into one enterprise.",
+    logoUrl: "",
+    facts: [{ label: "Countries", value: "Mongolia" }],
+    body: {
+      challenge:
+        "Shunkhlai's challenge sat at every level of the group at once. HoldCo was led by a single voice without clear shared accountability, while business units operated in silos. HR and strategy capability needed strengthening, and limited learning opportunities constrained growth across the group.",
+      approach:
+        "The work is designed as one connected enterprise programme. It begins with a review of HoldCo structure, mandates and leadership roles, then extends into the business units through leader development and focused performance management. HR and strategy capability are built in parallel, supported by a Skills Academy for leadership and core teams.",
+      outcome:
+        "The intended outcome is a group that leads as one enterprise rather than a portfolio of separate businesses. The programme aims to strengthen shared ownership, collaboration, decision-making and succession as the group's long-term vision takes hold.",
+    },
+    story: {
+      challengeHeadline: "A group led by a single voice, running as separate businesses.",
+      approachHeadline: "Rebuilding the centre, then growing leaders and capability outwards.",
+      outcomeHeadline: "From single voice and silos to shared ownership.",
+      markets: "Mongolia; Group HoldCo and business unit portfolio",
+      impactFigures: [],
+      scaleFigures: ["Chairman, HoldCo leadership, business unit CEOs and leadership teams across four connected workstreams."],
+      services: ["Family Business Consulting", "Enterprise Leadership", "Succession and Leadership Pipeline"],
+      service: "family-business-consulting",
+    },
+  }),
   article({
     slug: "shell-women-leaders",
     tags: ["Women in Leadership"],

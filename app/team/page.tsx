@@ -312,7 +312,7 @@ export default async function OurTeamPage() {
                 seis, e rosa vazio no celular é só rolagem. */}
             {/* `id` para o guia visual: os seis cards são uma seção à parte
                 no editor, porque são dezoito campos. */}
-            <div id="leaders" className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 xl:gap-x-10 2xl:grid-cols-3 2xl:gap-x-6">
+            <div id="leaders" className="grid grid-cols-1 gap-x-6 gap-y-9 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10 2xl:gap-x-6">
               {leadershipCards.map((p) => (
                 <LeaderCard
                   key={p.name}

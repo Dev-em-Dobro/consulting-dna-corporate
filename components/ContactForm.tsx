@@ -63,9 +63,15 @@ export default function ContactForm({
   // Time-trap: when the form became interactive. A submit that lands faster
   // than a human could plausibly type is treated as a bot server-side.
   const mountedAtRef = useRef(0);
+  const confirmationRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     mountedAtRef.current = Date.now();
   }, []);
+  useEffect(() => {
+    if (submitted && !confirmationRef.current?.open) {
+      confirmationRef.current?.showModal();
+    }
+  }, [submitted]);
 
   const update =
     (key: FieldKey) =>
@@ -105,8 +111,13 @@ export default function ContactForm({
             : "",
       });
       // Only show the thank-you state on a confirmed capture (FR-204).
-      if (res.ok) setSubmitted(true);
-      else setSubmitError(res.error === "rate" ? "rate" : "server");
+      if (res.ok) {
+        setValues({ name: "", email: "", organisation: "", message: "" });
+        setTouched({});
+        setErrors({});
+        mountedAtRef.current = Date.now();
+        setSubmitted(true);
+      } else setSubmitError(res.error === "rate" ? "rate" : "server");
     } catch {
       setSubmitError("server");
     } finally {
@@ -133,6 +144,7 @@ export default function ContactForm({
     ) : null;
 
   return (
+    <>
     <form
       noValidate
       onSubmit={onSubmit}
@@ -242,14 +254,26 @@ export default function ContactForm({
         </button>
       )}
 
-      {submitted && (
-        <p
-          role="status"
-          className="text-[14px] leading-relaxed text-brand"
-        >
-          We’ve received your message and will respond shortly
-        </p>
-      )}
     </form>
+    <dialog
+      ref={confirmationRef}
+      onClose={() => setSubmitted(false)}
+      aria-labelledby="contact-confirmation-title"
+      aria-describedby="contact-confirmation-message"
+      className="m-auto w-[min(92vw,440px)] border border-line bg-white p-8 text-ink shadow-xl backdrop:bg-black/60"
+    >
+      <h2 id="contact-confirmation-title" className="font-serif text-[28px] font-semibold">Submitted</h2>
+      <p id="contact-confirmation-message" className="mt-4 text-[16px] leading-relaxed">
+        You will hear from the CDNA team within 24 hours.
+      </p>
+      <button
+        type="button"
+        onClick={() => confirmationRef.current?.close()}
+        className="mt-8 bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-[#2a2627] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      >
+        Close
+      </button>
+    </dialog>
+    </>
   );
 }

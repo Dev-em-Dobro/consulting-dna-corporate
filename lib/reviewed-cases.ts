@@ -1,6 +1,6 @@
-/** Snapshot of rows marked Reviewed = Yes in CaseStudiesv2.xlsx (6 Oct 2026).
+/** Snapshot of rows marked Reviewed = Yes in CaseStudiesv2.xlsx (9 Oct 2026).
  * Source: https://docs.google.com/spreadsheets/d/1C8OsJLCIlcD9gXtTu4qFMMZaSOeNUN1y/edit?gid=2100036858
- * Shunkhlai is approved in the sheet, but has no case article in the site yet.
+ * Shunkhlai has no CMS record; its approved story is served locally.
  */
 const reviewedCaseSlugs = new Set([
   "bt",
