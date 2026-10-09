@@ -162,7 +162,7 @@ export default function ClientsStories() {
           <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
             Different sectors. A common outcome.
           </h2>
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {reviewedMoreStories.map((story) => {
               /* Em % da largura do cartão: a caixa do logo é 4:3, então a altura
                  máxima de 42% da largura é ~56% da altura dela. */
