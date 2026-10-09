@@ -170,7 +170,7 @@ export default function CaseStory({
                   alt={c.title}
                   width={160}
                   height={60}
-                  className="h-7 w-auto object-contain md:h-8"
+                  className={`h-7 w-auto object-contain md:h-8 ${c.slug === "shunkhlai" ? "brightness-0" : ""}`}
                 />
               </span>
             ) : (
@@ -469,7 +469,7 @@ export default function CaseStory({
                           alt={r.client}
                           width={140}
                           height={56}
-                          className="h-7 w-auto object-contain"
+                          className={`h-7 w-auto object-contain ${r.slug === "shunkhlai" ? "brightness-0" : ""}`}
                         />
                       ) : (
                         <span className="text-[13px] font-semibold uppercase tracking-[1px] text-ink">

@@ -32,10 +32,12 @@ export const LOGO_RATIO = {
   "morgan-stanley": 6.452,
   schroders: 5.405,
   shell: 1.083,
+  shunkhlai: 4.2,
   unilever: 0.987,
   vodafone: 3.797,
 } as const;
 
 export type LogoKey = keyof typeof LOGO_RATIO;
 
-export const logoSrc = (key: LogoKey) => `/clients/logos/${key}.png`;
+export const logoSrc = (key: LogoKey) =>
+  key === "shunkhlai" ? "/clients/logos/shunkhlai.webp" : `/clients/logos/${key}.png`;

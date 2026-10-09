@@ -69,8 +69,7 @@ const featured: FeaturedCard[] = [
   },
 ];
 
-/* Use client logos in place of the old low-resolution stock thumbnails.
-   Shunkhlai has no approved logo asset, so its name is the visual mark. */
+/* Use client logos in place of the old low-resolution stock thumbnails. */
 const moreStories: { logo?: LogoKey; name: string; label: string; href: string }[] = [
   { logo: "vodafone", name: "Vodafone", label: "Talent development", href: "/cases/vodafone" },
   { logo: "gsk", name: "GSK", label: "Culture transformation", href: "/cases/gsk" },
@@ -81,7 +80,7 @@ const moreStories: { logo?: LogoKey; name: string; label: string; href: string }
   { logo: "dp-world", name: "DP World", label: "Global leadership", href: "/cases/dp-world" },
   { logo: "bt", name: "BT", label: "Inclusive leadership", href: "/cases/bt" },
   { logo: "morgan-stanley", name: "Morgan Stanley", label: "Leadership for what's next", href: "/cases/morgan-stanley" },
-  { name: "Shunkhlai", label: "Family business consulting", href: "/cases/shunkhlai" },
+  { logo: "shunkhlai", name: "Shunkhlai", label: "Family business consulting", href: "/cases/shunkhlai" },
 ];
 
 export default function ClientsStories() {
@@ -177,8 +176,8 @@ export default function ClientsStories() {
                         width={600}
                         height={Math.round(600 / LOGO_RATIO[story.logo])}
                         sizes="(min-width: 1280px) 120px, (min-width: 640px) 18vw, 36vw"
-                        style={{ width: `${w * 100}%` }}
-                        className="h-auto transition-transform duration-300 motion-safe:group-hover:scale-105"
+                        style={{ width: story.logo === "shunkhlai" ? "82%" : `${w * 100}%` }}
+                        className={`h-auto transition-transform duration-300 motion-safe:group-hover:scale-105 ${story.logo === "shunkhlai" ? "brightness-0" : ""}`}
                       />
                     ) : (
                       <span className="px-3 text-center font-serif text-[22px] font-semibold text-ink">{story.name}</span>

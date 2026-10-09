@@ -37,14 +37,14 @@ function article(partial: {
 
 export const LOCAL_CASES = [
   // Reviewed = Yes in CaseStudiesv2.xlsx (9 Oct 2026). The CMS has no case
-  // record yet; keep the approved story available without inventing a logo,
+  // record yet; keep the approved story available without inventing a
   // photograph or achieved impact figures.
   article({
     slug: "shunkhlai",
     tags: ["Family Business Consulting"],
     title: "Shunkhlai",
     headline: "Turning a family group into one enterprise.",
-    logoUrl: "",
+    logoUrl: "/clients/logos/shunkhlai.webp",
     facts: [{ label: "Countries", value: "Mongolia" }],
     body: {
       challenge:
