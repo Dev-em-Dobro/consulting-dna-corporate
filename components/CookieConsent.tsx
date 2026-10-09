@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-const STORAGE_KEY = "cdna-cookie-consent";
+import { COOKIE_ACCEPTED_EVENT, COOKIE_CONSENT_KEY } from "@/lib/analytics";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -10,7 +9,7 @@ export default function CookieConsent() {
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+      if (!localStorage.getItem(COOKIE_CONSENT_KEY)) setVisible(true);
     } catch {
       /* localStorage unavailable  -  don't block the page */
     }
@@ -48,9 +47,12 @@ export default function CookieConsent() {
 
   const decide = (value: "accepted" | "declined") => {
     try {
-      localStorage.setItem(STORAGE_KEY, value);
+      localStorage.setItem(COOKIE_CONSENT_KEY, value);
     } catch {
       /* ignore */
+    }
+    if (value === "accepted") {
+      window.dispatchEvent(new Event(COOKIE_ACCEPTED_EVENT));
     }
     setVisible(false);
   };

@@ -145,8 +145,10 @@ const BRANDON_HALL: Award[] = [
 
 const awards: Award[] = [
   {
+    // "2×" no overview deck = prêmio conquistado duas vezes. Sem anos
+    // confirmados pela CDNA, o rótulo deixa isso legível sem inventar datas.
     name: "Corporate Vision",
-    distinction: "2×",
+    distinction: "2× Winner",
     showDistinction: true,
     year: "",
     logo: "/awards/corporate-vision.png",
@@ -199,10 +201,8 @@ export default function AwardsMentions({
   /**
    * Mostra o ano embaixo do nome.
    *
-   * A home desliga isto desde 22-09  -  a Maliha pediu para tirar as datas da
-   * faixa. Prop, e não um corte no dado: /our-impact, /home-v1 e /home-v3
-   * continuam datando cada prêmio, e o `year` segue no tipo para o dia em
-   * que a lista for revista com a Ria.
+   * Padrão ligado. Em 22-09 a home tinha desligado a pedido; no cutover o
+   * cliente pediu as datas de volta (Brandon Hall e Women of the Future).
    */
   showYear?: boolean;
 } = {}) {
@@ -371,8 +371,8 @@ export default function AwardsMentions({
                 >
                   {a.name}
                 </p>
-                {showYear ? (
-                  <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/60">
+                {showYear && a.year ? (
+                  <p className="mt-1 text-[12px] font-medium tracking-[1px] text-white/70">
                     {a.year}
                   </p>
                 ) : null}

@@ -30,7 +30,8 @@ export type NavItem = {
 //
 // What moved, and why the mapping is what it is:
 //
-//   • `Home` leaves the menu. The logo already links to `/` in both headers.
+//   • `Home` volta ao menu (pedido do cliente, cutover). O logo continua
+//     apontando para `/`; o item deixa a rota explícita no desktop e no mobile.
 //   • `About` → /about. Desde 09-09 a About real mora aqui; a página antiga
 //     there). "Our Team" is now its own top-level item, so /about stays split.
 //   • `Team` and `Insights` join the menu. Both routes existed and were kept
@@ -48,6 +49,7 @@ export type NavItem = {
 //     da reunião, não do e-mail da cliente. A caixa do próprio item conta o
 //     porquê de ela ser uma troca de rota e não de label.
 export const siteNav: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   // Plain "(5H)" and not the site's 5H® treatment: labels are strings here (and
   // are used as React keys), so a superscript would mean a node-typed label

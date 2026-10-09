@@ -223,30 +223,43 @@ export default function SolutionHero({
       {noImage ? null : (
         <>
           {imageNatural ? (
-            /* ALTURA DA FAIXA, LARGURA PELA PROPORÇÃO: a foto inteira aparece,
-               sem corte nem ampliação além do necessário para fechar a altura. */
-            <div className="absolute inset-y-0 right-0 -z-30 max-w-full">
+            <>
+              {/* MOBILE: cover full-bleed com enquadramento que mostra o grupo.
+                  O modo "altura da faixa / dock à direita" cortava a escada
+                  quase pela metade numa viewport estreita (pedido cutover). */}
               <Image
                 src={src}
                 alt=""
                 aria-hidden
                 priority
-                width={imageNatural.width}
-                height={imageNatural.height}
-                sizes={`${imageNatural.width}px`}
-                className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+                fill
+                sizes="100vw"
+                className={`-z-30 object-cover object-[72%_center] md:hidden ${imageFilter}`}
               />
-              {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
-                  falta imagem, e leve em cima e embaixo. */}
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
-                }}
-              />
-            </div>
+              {/* DESKTOP: altura da faixa, largura pela proporção, dock à direita. */}
+              <div className="absolute inset-y-0 right-0 -z-30 hidden max-w-full md:block">
+                <Image
+                  src={src}
+                  alt=""
+                  aria-hidden
+                  priority
+                  width={imageNatural.width}
+                  height={imageNatural.height}
+                  sizes={`${imageNatural.width}px`}
+                  className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+                />
+                {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
+                    falta imagem, e leve em cima e embaixo. */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <Image
               src={src}
