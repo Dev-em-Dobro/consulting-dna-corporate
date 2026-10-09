@@ -58,6 +58,7 @@ import type { Service } from "@/lib/services";
 export default function ServiceCard({
   service,
   index,
+  wideAtXl = false,
   className = "",
 }: {
   service: Service;
@@ -76,17 +77,9 @@ export default function ServiceCard({
    * pela posição real (03, 07, 09…) seria correto e ilegível  -  quatro números
    * salteados só levantam a pergunta de onde estão os outros. */
   index?: number;
-  /**
-   * Classes de POSIÇÃO NA GRADE, aplicadas ao próprio card.
-   *
-   * Existe para os dois últimos do índice, que ocupam duas colunas na grade de
-   * quatro (`xl:col-span-2`). Vai no card e não num `<div>` em volta porque o
-   * `Reveal` escalona os FILHOS DIRETOS dele  -  uma caixa intermediária roubaria
-   * a animação do card.
-   *
-   * Só layout externo. Cor, borda e respiro interno são deste componente, e
-   * sobrescrevê-los daqui é o caminho curto para dez cards que não combinam.
-   */
+  /** Keeps image `sizes` in sync when a card spans two desktop columns. */
+  wideAtXl?: boolean;
+  /** Optional external layout classes. */
   className?: string;
 }) {
   /* ⚠️ A FOTO DO HERÓI PRIMEIRO, desde 24-09, a pedido: *"as imagens da lista
@@ -97,7 +90,7 @@ export default function ServiceCard({
   return (
     <Link
       href={`/services/${service.slug}`}
-      className={`group flex flex-col border border-line bg-white transition-colors hover:border-brand/40 ${className}`}
+      className={`group flex flex-col border border-line bg-white transition-colors hover:border-brand/40 ${wideAtXl ? "xl:col-span-2" : ""} ${className}`}
     >
       {/* A IMAGEM NÃO TEM PADDING, e o texto tem  -  é o que o desenho dela faz e
           é o que distingue este card do anterior: a foto encosta nas três
@@ -112,7 +105,9 @@ export default function ServiceCard({
             /* `alt=""`  -  a foto é ATMOSFERA, não informação. O que identifica o
                card é o título logo abaixo, em texto; descrever a fotografia
                faria o leitor de tela anunciar duas vezes o mesmo card. */
-            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 50vw, 100vw"
+            sizes={wideAtXl
+              ? "(min-width: 1024px) 75vw, 150vw"
+              : "(min-width: 1280px) 25vw, (min-width: 1024px) 50vw, 100vw"}
             className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (

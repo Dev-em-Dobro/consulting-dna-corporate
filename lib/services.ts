@@ -3224,10 +3224,8 @@ export const services: Service[] = [
   },
   {
     slug: "executive-coaching",
-    // Real photograph by LinkedIn Sales Solutions (Unsplash, 2017).
-    // https://unsplash.com/photos/two-men-talking-W3Jl3jREpDY
-    cardImage: "/services/heroes/executive-coaching-photo.jpg",
-    heroImage: "/services/heroes/executive-coaching-photo.jpg",
+    cardImage: "/services/cards/executive-coaching-client.jpg",
+    heroImage: "/services/heroes/executive-coaching-hero-20261001-v2.jpg",
     heroImagePosition: "object-[center_20%]",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
@@ -3444,10 +3442,8 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
-    // Real photograph by Iwaria Inc. (Unsplash, 2022).
-    // https://unsplash.com/photos/a-group-of-people-sitting-on-a-couch-looking-at-a-laptop-M7ALc3UuX_g
-    cardImage: "/services/heroes/family-business-consulting-photo.jpg",
-    heroImage: "/services/heroes/family-business-consulting-photo.jpg",
+    cardImage: "/services/cards/family-business-consulting-client.jpg",
+    heroImage: "/services/heroes/family-business-consulting-hero.png",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",
