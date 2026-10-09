@@ -22,7 +22,7 @@ export const CASE_HERO_COVERS: Record<string, string> = {
 
 /** Per-case logo scale as a percentage of the available right-hand hero area. */
 export const CASE_HERO_LOGO_SCALE_PERCENT: Record<string, number> = {
-  shunkhlai: 110,
+  shunkhlai: 65,
   "shell-women-leaders": 140,
   shell: 140,
   aviva: 80,

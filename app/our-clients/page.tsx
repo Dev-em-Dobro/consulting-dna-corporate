@@ -279,14 +279,14 @@ export default async function ClientsAndImpactPage() {
                 A RÉGUA VERMELHA CURTA ABAIXO DO RÓTULO é o mesmo objeto do
                 `TypeLabel`  -  régua e palavra  - , só que empilhado em vez de lado
                 a lado, porque aqui ele rotula uma FILEIRA e não uma seção. */}
-            <div className="grid grid-cols-1 items-center gap-8 xl:grid-cols-[150px_1fr] xl:gap-10">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[100px_minmax(0,1fr)] lg:gap-4 xl:grid-cols-[135px_minmax(0,1fr)] xl:gap-6">
               <RowLabel onDark>{copy.numbers.rowLabel}</RowLabel>
               {/* `divide-x` com borda só entre as células é o que o desenho faz
                    -  as barras verticais separando os números sem caixa ao redor
                   de cada um. */}
-              <Reveal className="grid grid-cols-2 items-start gap-x-4 gap-y-10 xl:grid-cols-4 xl:gap-x-0 xl:divide-x xl:divide-white/15">
+              <Reveal className="grid grid-cols-2 items-start gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-0 lg:divide-x lg:divide-white/15">
                 {firmStats.map((s) => (
-                  <div key={s.label} className="min-w-0 px-2 text-center xl:px-5">
+                  <div key={s.label} className="min-w-0 px-2 text-center xl:px-4">
                     {/* "5 of the top 10" é uma FRASE onde os outros três são
                         um número curto, e no mesmo corpo ela quebrava em duas
                         linhas e pesava mais que os vizinhos. Na revisão de
@@ -302,12 +302,14 @@ export default async function ClientsAndImpactPage() {
                         composição, com ícones, e não foi pedida. */}
                     <p
                       className={`font-semibold leading-none tracking-[-1.5px] text-white ${
-                        s.value.length > 10 ? "text-[28px] sm:text-[34px]" : "text-[34px] sm:text-[42px]"
+                        s.value.length > 10
+                          ? "text-[28px] sm:text-[34px] lg:text-[22px] xl:text-[30px] 2xl:text-[34px]"
+                          : "text-[34px] sm:text-[42px] lg:text-[30px] xl:text-[36px] 2xl:text-[42px]"
                       }`}
                     >
                       {s.value}
                     </p>
-                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.5] tracking-[0.7px] text-white/75">
+                    <p className="mx-auto mt-3 max-w-[22ch] text-[11.5px] font-semibold uppercase leading-[1.5] tracking-[0.7px] text-white/75 lg:text-[10px] lg:tracking-[0.4px] xl:text-[11px]">
                       {s.label}
                     </p>
                   </div>
