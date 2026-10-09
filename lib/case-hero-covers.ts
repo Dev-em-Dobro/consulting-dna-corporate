@@ -1,5 +1,6 @@
 /** Selected backgrounds for the published case-study heroes. */
 export const CASE_HERO_COVERS: Record<string, string> = {
+  shunkhlai: "/cases/shunkhlai-hero.webp",
   "shell-women-leaders": "/cases/shell-women-leaders-hero.webp",
   "dubai-holding-leadership-accountability": "/cases/dubai-holding-leadership-accountability-hero.webp",
   "heineken-inner-outer-game": "/cases/frasers-property-hrlt-hero.webp",
@@ -21,6 +22,7 @@ export const CASE_HERO_COVERS: Record<string, string> = {
 
 /** Per-case logo scale as a percentage of the available right-hand hero area. */
 export const CASE_HERO_LOGO_SCALE_PERCENT: Record<string, number> = {
+  shunkhlai: 65,
   "shell-women-leaders": 140,
   shell: 140,
   aviva: 80,
@@ -55,6 +57,7 @@ export const CASE_HERO_MOBILE_LOGO_SRC: Record<string, string> = {
 
 /** Mobile logo height in pixels, tuned for each mark's shape and visual weight. */
 export const CASE_HERO_MOBILE_LOGO_HEIGHT: Record<string, number> = {
+  shunkhlai: 100,
   vodafone: 58,
   "dp-world": 92,
   "morgan-stanley": 88,

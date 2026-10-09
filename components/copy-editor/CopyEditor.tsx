@@ -133,10 +133,8 @@ export default function CopyEditor<T>({
 
   return (
     <div className="min-h-screen bg-paper text-ink">
-      {/* O banner de cookies e o botão do WhatsApp vêm do layout raiz e não
-          fazem sentido numa tela de trabalho  -  o banner ainda cobria o botão
-          de salvar do rodapé. Escondidos só aqui, por atributo. */}
-      <style>{`[aria-label="Cookie consent"],[aria-label="Chat with us on WhatsApp"]{display:none!important}`}</style>
+      {/* O banner de cookies do layout raiz cobria o botão de salvar do rodapé. */}
+      <style>{`[aria-label="Cookie consent"]{display:none!important}`}</style>
       {/* Barra do topo */}
       <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
         {/* A BARRA QUEBRA EM DUAS LINHAS NO TELEFONE, e não é enfeite: com o

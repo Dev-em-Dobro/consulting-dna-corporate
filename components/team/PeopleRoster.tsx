@@ -97,6 +97,9 @@ export default function PeopleRoster({
                   sizes="(min-width: 1024px) 15vw, (min-width: 640px) 40vw, 90vw"
                   className="object-cover object-[center_22%]"
                 />
+                {p.name === "Nicole Phoon" && (
+                  <div aria-hidden className="absolute inset-0 bg-[#e9e6e3] mix-blend-multiply" />
+                )}
                 <div className="absolute bottom-0 left-0 h-[5px] w-9 bg-brand" />
                 <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
               </div>

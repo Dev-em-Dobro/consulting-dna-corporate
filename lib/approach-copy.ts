@@ -109,7 +109,7 @@ export const DEFAULT_APPROACH_COPY = {
         ]
       }
     ],
-    "note": "(Most leadership development stops at the Head)"
+    "note": ""
   },
   "framework": {
     "label": "The 5H framework",

@@ -66,21 +66,10 @@ export default function LeaderCard({
   const [open, setOpen] = useState(false);
 
   return (
-    /* A VIRADA É EM `xl` (1280)  -  baixou de 1440 em 15-09, junto com a grade da
-       página, a pedido: em 1440 qualquer laptop de 1366 caía em duas colunas, e
-       o pedido foi três por linha.
-
-       O QUE DECIDE O LIMIAR é a medida da quote, não o dispositivo. Em três
-       colunas de 1280, o cartão fica com 172px e a caixa de texto com 132  -  ~16
-       caracteres por linha. Estreito, mas é onde a referência dela também anda
-       (~20 a 1440, com linhas do tipo "Leadership isn't" / "about having"). A
-       1024 a mesma conta dá 11 caracteres, e aí não dá.
-
-       Abaixo de `xl` o card volta a ser EMPILHADO (foto, nome, quote embaixo),
-       que é o desenho que já estava no ar  -  só que a quote agora é o cartão
-       claro em vez do filete à esquerda. A conta por largura está no comentário
-       da grade, em `app/team/page.tsx`. */
-    <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] xl:gap-x-5 2xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)] 2xl:gap-x-4">
+    /* Keep portrait and quote side by side from laptop widths onward.
+       The `lg` proportions and smaller type preserve the three-column grid
+       while leaving each full quote readable. Phones remain stacked. */
+    <article className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-x-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] xl:gap-x-4 2xl:grid-cols-[minmax(0,1.14fr)_minmax(0,1fr)]">
       <div className="flex flex-col">
         {/* ⚠️ A FOTO ESTICA ACIMA DE 1440, e não tem proporção fixa. Medido na
             referência: na primeira fileira ela sai 167x167 e na segunda 167x154
@@ -167,7 +156,7 @@ export default function LeaderCard({
               /* A coluna do retrato encolheu: era 1/3 da página e agora é ≈48%
                  de 1/3 acima de 1440. Os valores abaixo seguem a escada de
                  breakpoints deste card, não a da grade de antes. */
-              sizes="(min-width: 1440px) 15vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+              sizes="(min-width: 1440px) 15vw, (min-width: 1024px) 14vw, (min-width: 640px) 45vw, 100vw"
               className={`object-cover ${person.portraitPosition ?? "object-center"}`}
             />
           ) : (
@@ -196,7 +185,7 @@ export default function LeaderCard({
             `justify-between` põe o "+" na borda direita DA COLUNA DO RETRATO,
             que é onde o mockup o desenha  -  alinhado com o cargo, não com o
             nome. */}
-        <div className="flex items-center justify-between gap-4 pt-5">
+        <div className="flex items-center justify-between gap-1 pt-3 xl:gap-2 2xl:gap-4 2xl:pt-5">
           <div className="min-w-0">
             {/* 18px e não 20: medido na referência, a altura de caixa alta do
                 nome é 1,33x a do cargo, o que com o cargo em 14px dá ~19px. Em
@@ -212,7 +201,7 @@ export default function LeaderCard({
                 inteira, e o que fazer se a régua de 4,5 tiver de ser cumprida,
                 está na caixa do nome em `PeopleRoster`  -  a decisão vale para as
                 três listas juntas, não para uma. */}
-            <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-brand">
+            <h3 className="font-serif text-[18px] font-semibold leading-[1.2] tracking-[-0.2px] text-brand lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
               {person.name}
             </h3>
             {/* A RESERVA DE ALTURA É DO PAR CARGO+REGIÃO, e não do cargo.
@@ -234,7 +223,7 @@ export default function LeaderCard({
                 linhas + região  - , então a linha vazia, quando existe, fica
                 DEPOIS da região, onde não separa nada. Altura total do bloco é
                 a mesma de antes; só o vão mudou de lugar. */}
-            <div className="mt-1 min-h-[3lh] text-[14px] leading-[1.45] text-muted">
+            <div className="mt-1 min-h-[3lh] text-[14px] leading-[1.45] text-muted lg:text-[11px] lg:leading-[1.35] xl:text-[12px] 2xl:text-[14px] 2xl:leading-[1.45]">
               <p>{person.role}</p>
               <p>{person.region}</p>
             </div>
@@ -250,7 +239,7 @@ export default function LeaderCard({
                  `aria-hidden` porque "+" lido em voz alta não acrescenta nada a
                  quem já recebeu este rótulo. */
               aria-label={`View ${person.name}’s profile`}
-              className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full border border-brand text-[18px] leading-none text-brand transition-colors hover:bg-brand hover:text-white"
+              className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full border border-brand text-[18px] leading-none text-brand transition-colors hover:bg-brand hover:text-white lg:h-7 lg:w-7 2xl:h-8 2xl:w-8"
             >
               <span aria-hidden>+</span>
             </button>
@@ -263,19 +252,19 @@ export default function LeaderCard({
           superfície do site com essa cor, e um `--color-*` novo convida a
           espalhá-la antes de alguém decidir que ela é do sistema.
 
-          `mt-6` até 1440 (o card está empilhado, e este é o vão entre a ficha e
+          `mt-6` abaixo de `lg` (o card está empilhado, e este é o vão entre a ficha e
           a quote) e `mt-0` acima, onde ele passa a ser a coluna vizinha e o topo
           tem de bater com o topo do retrato. A altura cheia vem do `stretch` que
           a grade já dá  -  é o que faz os três cartões da fileira terminarem na
           mesma linha, mesmo com quotes de tamanhos diferentes. */}
-      <div className="mt-6 bg-[#fcf2f0] px-5 py-6 xl:mt-0">
+      <div className="mt-6 bg-[#fcf2f0] px-5 py-6 lg:mt-0 lg:px-3 lg:py-4 xl:px-4 xl:py-5 2xl:px-5 2xl:py-6">
         {/* AS ASPAS SÃO DECORAÇÃO, não pontuação  -  daí `aria-hidden`. Se elas
             fossem texto, o leitor de tela anunciaria uma abertura de citação que
             nunca fecha. O `blockquote` abaixo é quem diz que aquilo é uma
             citação, e ele faz isso sem glifo nenhum. */}
         <span
           aria-hidden
-          className="font-serif block text-[46px] font-semibold leading-[0.6] text-brand"
+          className="font-serif block text-[46px] font-semibold leading-[0.6] text-brand lg:text-[34px] xl:text-[40px] 2xl:text-[46px]"
         >
           &ldquo;
         </span>
@@ -289,7 +278,7 @@ export default function LeaderCard({
               271 caracteres, então o cartão mais alto da fileira estica os
               outros dois. É o que o mockup mostra  -  cartões de mesma altura com
               o texto no topo  -  e é o preço certo a pagar aqui. */}
-          <p className="font-serif text-[17px] leading-[1.6] text-ink md:text-[16px] md:leading-[1.4]">
+          <p className="font-serif text-[17px] leading-[1.6] text-ink md:text-[16px] md:leading-[1.4] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
             {person.quote}
           </p>
         </blockquote>
