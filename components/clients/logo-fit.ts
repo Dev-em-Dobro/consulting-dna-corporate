@@ -28,6 +28,7 @@ export const LOGO_RATIO = {
   "frasers-property": 2.885,
   gsk: 3.55,
   heineken: 2.4,
+  maaden: 4.925,
   "morgan-stanley": 6.452,
   schroders: 5.405,
   shell: 1.083,

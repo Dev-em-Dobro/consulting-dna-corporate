@@ -72,6 +72,9 @@ const featured: FeaturedCard[] = [
 /* Use client logos in place of the old low-resolution stock thumbnails.
    Shunkhlai has no approved logo asset, so its name is the visual mark. */
 const moreStories: { logo?: LogoKey; name: string; label: string; href: string }[] = [
+  { logo: "vodafone", name: "Vodafone", label: "Talent development", href: "/cases/vodafone" },
+  { logo: "gsk", name: "GSK", label: "Culture transformation", href: "/cases/gsk" },
+  { logo: "maaden", name: "Ma'aden", label: "Leadership at scale", href: "/cases/maaden" },
   { logo: "frasers-property", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership" },
   { logo: "frasers-property", name: "Frasers Property", label: "HR leadership team", href: "/cases/frasers-property-hrlt" },
   { logo: "dyson", name: "Dyson", label: "Innovation & growth", href: "/cases/dyson" },
