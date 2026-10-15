@@ -198,11 +198,10 @@ export default async function InsightsPage() {
             outras páginas novas correm em 1440, e esta era a única em 820  -  o
             rótulo e os cards começavam 310px adentro enquanto tudo o mais
             começa em 40px. */}
-        {/* ⛔ SEM ARTIGOS, SEM SEÇÃO  -  01-10, a pedido: *"remove the Articles
-            section"*, porque ainda não há nenhum. Ela não foi apagada: volta
-            sozinha quando o primeiro artigo for publicado no CMS. O texto
-            continua no editor (`/edit-insights`, "Article library"), e o
-            `library.empty` fica sem uso enquanto esta regra valer. */}
+        {/* Articles library: hidden while the CMS list is empty (01-10), and
+            shown again as soon as a published insight is returned. Cover image
+            is optional on cards  -  InsightCard already falls back to a grey
+            placeholder when `coverUrl` is missing. */}
         {insights.length > 0 && (
           <section id="library" className="bg-white">
             <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
