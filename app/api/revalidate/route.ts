@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -9,6 +9,25 @@ import { NextRequest, NextResponse } from "next/server";
  *
  * Env: CMS_WEBHOOK_SECRET (must match the CMS webhook endpoint's secret).
  */
+
+/**
+ * CMS content-type → fetch cache tags used by `lib/cms/client.ts`.
+ * Path revalidation alone is not enough: list/detail fetches live in the Data
+ * Cache under these tags, so a newly published insight could open at
+ * `/insights/[slug]` while `/insights` still rendered an empty library.
+ */
+function affectedTags(type: string, slug: string): string[] {
+  const segment: Record<string, string> = {
+    case: "cases",
+    insight: "insights",
+    solution: "solutions",
+    region: "regions",
+    event: "events",
+    person: "people",
+  };
+  const collection = segment[type] ?? type;
+  return ["cms", `cms:${collection}`, `cms:${collection}:${slug}`];
+}
 
 /**
  * Locale-relative paths (WITHOUT the locale prefix; "/" = home) that a CMS entry
@@ -70,12 +89,30 @@ export async function POST(req: NextRequest) {
   }
 
   const { type, slug } = payload;
+
+  // Always drop the shared CMS Data Cache first. `{ expire: 0 }` matches the
+  // page-copy editors: after a publish, the next render must not reuse a stale
+  // empty list (the bug that hid the Insights library after the first article).
+  revalidateTag("cms", { expire: 0 });
+  if (type && slug) {
+    for (const tag of affectedTags(type, slug)) {
+      if (tag === "cms") continue;
+      revalidateTag(tag, { expire: 0 });
+    }
+  }
+
   const paths = type && slug ? affectedPaths(type, slug) : null;
 
   // Unknown/embedded type  -  purge the whole route tree to stay correct.
   if (!paths) {
     revalidatePath("/", "layout");
-    return NextResponse.json({ ok: true, revalidated: "all", type, slug });
+    return NextResponse.json({
+      ok: true,
+      revalidated: "all",
+      tags: type && slug ? affectedTags(type, slug) : ["cms"],
+      type,
+      slug,
+    });
   }
 
   // Single locale, no locale prefix  -  the affected paths are the live URLs.
@@ -85,5 +122,9 @@ export async function POST(req: NextRequest) {
     revalidated.push(p);
   }
 
-  return NextResponse.json({ ok: true, revalidated });
+  return NextResponse.json({
+    ok: true,
+    revalidated,
+    tags: affectedTags(type!, slug!),
+  });
 }
