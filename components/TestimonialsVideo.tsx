@@ -33,8 +33,7 @@ export default function TestimonialsVideo({
   return (
     <section id="testimonials" className="bg-paper">
       <div className="mx-auto max-w-[1200px] px-6 py-24 md:px-10">
-        <div className="mb-2.5 flex items-baseline gap-3">
-          <span className="inline-block h-0.5 w-9 bg-brand" />
+        <div className="mb-2.5 flex items-baseline">
           <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
             In their words
           </span>

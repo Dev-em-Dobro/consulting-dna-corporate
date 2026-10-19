@@ -59,8 +59,7 @@ export default function InsightsHero({
 
       <HeroIntro className="mx-auto grid w-full max-w-[1440px] grid-cols-[minmax(0,1fr)] items-center gap-6 px-6 pb-16 pt-6 md:px-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:py-16">
         <div className="lg:order-1">
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-bar inline-block h-0.5 w-9 bg-brand-light" />
+          <div className="mb-5 flex items-center">
             <span className="h-eyebrow text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
               {eyebrow}
             </span>

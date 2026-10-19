@@ -487,14 +487,6 @@ export default async function OurTeamPage() {
                   </Fragment>
                 ))}
               </p>
-              {/* O FILETE VERMELHO FECHA O BLOCO, como no mockup  -  lá ele
-                  aparece sob a frase, curto e à esquerda. É a mesma marca que o
-                  `TypeLabel` traz em cima, repetida embaixo para emoldurar as
-                  duas linhas. */}
-              <span
-                aria-hidden
-                className="mt-7 block h-0.5 w-16 bg-brand"
-              />
             </div>
           </div>
         </section>

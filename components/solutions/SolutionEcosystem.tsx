@@ -140,14 +140,6 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
               nada à esquerda para separar, e o fio viraria um traço solto acima
               do texto. `pl-0 lg:pl-10` acompanha. */}
           <div className="lg:border-l lg:border-white/20 lg:pl-10">
-            {/* A RÉGUA VERMELHA PADRÃO (`h-0.5 w-9`), a mesma do `TypeLabel`,
-                EM CIMA do título e não ao lado: o pedido foi o traço acima de
-                "Ten planets. A stronger culture.". `brand-light` porque o fundo
-                é `ink`  -  a mesma regra de contraste do rótulo "How we work". */}
-            <span
-              aria-hidden
-              className="mb-4 block h-0.5 w-9 bg-brand-light"
-            />
             {/* CAIXA ALTA E NÃO SERIFA, ao contrário da manchete da esquerda: no
                 layout as duas frases grandes desta faixa têm tratamentos
                 diferentes de propósito  -  a da esquerda é o título do bloco, esta

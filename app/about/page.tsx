@@ -935,10 +935,7 @@ export default async function AboutV2Page() {
               já revelava por rolagem, mas o herói está acima da dobra: o
               `Reveal` dispararia na hora e tudo entraria junto, num fade só.
 
-              SEM `h-bar` E SEM `h-cta` aqui: o rótulo desta página traz a
-              própria régua dentro do `TypeLabel` (por isso a classe vai NELE, e
-              os dois entram como uma peça), e o herói não tem botão. A timeline
-              pula o que não encontra. */}
+              O rótulo recebe `h-eyebrow` para acompanhar a entrada do título. */}
           <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
             <TypeLabel onDark className="h-eyebrow">
               {copy.hero.label}

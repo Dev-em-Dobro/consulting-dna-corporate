@@ -395,7 +395,6 @@ function RowLabel({ children, onDark = false }: { children: React.ReactNode; onD
       >
         {children}
       </p>
-      <span className={`mt-2.5 block h-0.5 w-6 ${onDark ? "bg-brand-light" : "bg-brand"}`} />
     </div>
   );
 }

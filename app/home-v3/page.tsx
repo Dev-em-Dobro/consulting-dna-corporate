@@ -389,8 +389,7 @@ export default async function HomeV3() {
       {/* WHAT WE SOLVE  -  the explanation, now that the proof is above it. */}
       <section id="solve" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24 md:text-center">
-          <div className="mb-2.5 flex items-baseline gap-3 md:justify-center">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
+          <div className="mb-2.5 flex items-baseline md:justify-center">
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">What we solve</span>
           </div>
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink md:mx-auto">
@@ -436,8 +435,7 @@ export default async function HomeV3() {
       {false && (
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
+          <div className="mb-2.5 flex items-baseline">
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Why CorporateDNA</span>
           </div>
           <h2 className="mb-[52px] max-w-[760px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink">
@@ -495,11 +493,7 @@ export default async function HomeV3() {
           {/* O filete e o eyebrow voltam a ser vermelhos  -  era isso que o fundo
               vermelho tinha tirado deles. No tom claro de fundo escuro: o
               #d84339 sobre ink mede 2,9:1 e reprovaria em 13px. */}
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span
-              className="inline-block h-0.5 w-9"
-              style={{ backgroundColor: "var(--accent-on-dark)" }}
-            />
+          <div className="mb-2.5 flex items-baseline">
             <span
               className="text-[13px] font-semibold uppercase tracking-[2px]"
               style={{ color: "var(--accent-on-dark)" }}
@@ -549,8 +543,7 @@ export default async function HomeV3() {
       <section id="approach" className="bg-ink text-white">
         <Reveal className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-[72px] px-10 py-24 md:grid-cols-2">
           <div>
-            <div className="mb-2.5 flex items-baseline gap-3">
-              <span className="inline-block h-0.5 w-9 bg-brand" />
+            <div className="mb-2.5 flex items-baseline">
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our approach</span>
             </div>
             <h2 className="mb-5 text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-white">
@@ -579,8 +572,7 @@ export default async function HomeV3() {
       {people.length > 0 && (
         <section id="people" className="bg-white">
         <Reveal className="mx-auto max-w-[1200px] px-10 py-24">
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
+          <div className="mb-2.5 flex items-baseline">
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">Our people</span>
           </div>
           <h2 className="mb-3 max-w-[720px] text-[30px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink">

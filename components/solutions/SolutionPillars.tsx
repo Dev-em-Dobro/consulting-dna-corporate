@@ -507,10 +507,6 @@ export default function SolutionPillars({
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                 {label}
               </p>
-              {/* A RÉGUA VERMELHA DO LAYOUT, debaixo do rótulo  -  a mesma
-                  medida de `TypeLabel` (`h-0.5 w-9`), virada de pé para baixo
-                  da palavra, que é como o recorte a desenha. */}
-              <span aria-hidden className="mt-3 block h-0.5 w-9 bg-brand" />
             </div>
           ) : null}
           <ul

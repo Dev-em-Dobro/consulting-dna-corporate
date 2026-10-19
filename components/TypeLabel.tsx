@@ -1,6 +1,5 @@
 /**
- * Rótulo de seção  -  a régua vermelha curta mais a palavra em caixa alta que
- * abre cada bloco ("WHAT WE SOLVE", "WHERE WE WORK.").
+ * Rótulo de seção em caixa alta, compartilhado entre as páginas.
  *
  * ⚠️ MORAVA DENTRO DA /about  -  extraído em 10-09 para a home usar o MESMO
  * rótulo. Antes disso a home tinha cinco tratamentos diferentes de texto em
@@ -36,10 +35,6 @@ export default function TypeLabel({
    * conta está no `--color-brand-light`, em globals.css). O tom claro é o mesmo
    * vermelho com a luminosidade subida, e devolve 4,53:1.
    *
-   * A RÉGUA MUDA JUNTO com a palavra. Elas leem como um objeto só; deixar o
-   * traço no vermelho cheio e clarear apenas o texto pareceria defeito de
-   * renderização, não decisão. E o traço tem o mesmo problema: 2,87:1 é
-   * limítrofe até para elemento gráfico, cuja régua é 3:1.
    */
   onDark?: boolean;
 }) {
@@ -50,22 +45,12 @@ export default function TypeLabel({
      sem regra nenhuma por trás  -  falha silenciosa, que só aparece olhando a
      tela. */
   return (
-    <div className={`mb-5 flex items-center gap-3 ${className}`}>
-      <span
-        className={`inline-block h-0.5 w-9 ${onDark ? "bg-brand-light" : "bg-brand"}`}
-      />
+    <div className={`mb-5 flex items-center ${className}`}>
       {/* ⚠️ `text-left` EXPLÍCITO, mesmo dentro de blocos centralizados.
           Sem ele o texto herda o `text-center` do pai e se centraliza DENTRO
           DA PRÓPRIA CAIXA. Enquanto cabe numa linha ninguém nota; quando quebra
           em duas  -  "WHAT WE BELIEVE, AND HOW / WE WORK." num telefone  -  a
-          primeira linha recua para o meio da caixa e abre um vão aparente
-          contra a régua, que continua colada na borda esquerda. O vão medido
-          era 12px, o percebido era o dobro, e a causa não estava no `gap`:
-          estava no alinhamento interno.
-
-          O par régua+texto continua centralizado COMO UNIDADE quando o bloco
-          pai é centralizado  -  o que muda é o texto parar de se recentralizar
-          por dentro. */}
+          primeira linha recua para o meio da caixa. */}
       <span
         className={`text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
           onDark ? "text-brand-light" : "text-brand"

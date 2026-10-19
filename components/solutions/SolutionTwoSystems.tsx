@@ -203,7 +203,6 @@ function SystemVenn({ venn }: { venn: ServiceTwoSystems["venn"] }) {
       <p className="mt-6 text-center text-[15px] font-semibold uppercase leading-[1.4] tracking-[0.4px] text-ink md:text-[16px]">
         {venn.note}
       </p>
-      <span aria-hidden className="mt-5 block h-0.5 w-9 bg-brand" />
     </div>
   );
 }

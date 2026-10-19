@@ -181,7 +181,6 @@ export default function CaseStory({
 
             {meta.length > 0 && (
               <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11.5px] font-semibold uppercase tracking-[1.4px] text-white/70">
-                <span aria-hidden className="inline-block h-0.5 w-7 bg-brand-light" />
                 {meta.map((m, i) => (
                   <span key={m}>
                     {m}
@@ -227,7 +226,6 @@ export default function CaseStory({
                 <p className="mt-2 text-[11px] uppercase tracking-[1.3px] text-white/45">
                   Real results. Lasting change.
                 </p>
-                <span className="mt-4 block h-0.5 w-7 bg-brand-light" />
               </div>
 
               <div>

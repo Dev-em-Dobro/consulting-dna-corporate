@@ -341,11 +341,7 @@ export default function SolutionHero({
           home ou da /about para qualquer uma delas era passar de um herói que
           entra para um que já está lá.
 
-          AQUI DÁ PARA USAR A RÉGUA (`h-bar`), que a /about não tem: lá o rótulo
-          é um `TypeLabel`, que traz a régua dentro e entra como peça única; aqui
-          o traço é um `<span>` separado, então ele cresce da esquerda antes de o
-          rótulo aparecer, exatamente como na home. Não há `h-cta`  -  este herói
-          não tem botão.
+          O rótulo usa `h-eyebrow` para acompanhar a entrada do título.
 
           ⚠️ AS CLASSES NASCEM COM `opacity: 0` (globals.css, sob `html.js`), e é
           o `HeroIntro` que as revela. Tirar o wrapper e deixar as classes
@@ -367,12 +363,8 @@ export default function SolutionHero({
             Ou seja, ele não foi invenção nossa  -  mas também não é pedido escrito
             em nenhum dos `.docx`, e a chamada aqui é de desenho. Se ela pedir de
             volta ao revisar, volta. */}
-        <div className="mb-5 flex items-center gap-3">
-          <span className="h-bar inline-block h-0.5 w-9 bg-brand-light" />
-          {/* `text-left` EXPLÍCITO. Sem ele o texto herda alinhamento do pai e se
-              centraliza DENTRO DA PRÓPRIA CAIXA quando quebra em duas linhas  -  a
-              primeira recua para o meio e abre um vão aparente contra a régua,
-              que continua colada à esquerda. */}
+        <div className="mb-5 flex items-center">
+          {/* Mantém o alinhamento à esquerda quando o rótulo quebra em linhas. */}
           <span className="h-eyebrow text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
             {eyebrow}
           </span>
@@ -456,12 +448,6 @@ export default function SolutionHero({
                     {word}
                   </span>
                 ))}
-                {/* A RÉGUA DO PÉ é a mesma do rótulo lá em cima, virada para a
-                    direita  -  é ela que fecha o bloco contra a borda. */}
-                <span
-                  aria-hidden
-                  className="ml-auto mt-3 block h-0.5 w-9 bg-brand-light"
-                />
               </p>
             </div>
           </div>

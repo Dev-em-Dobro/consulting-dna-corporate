@@ -435,8 +435,7 @@ export default async function WorldCoverageMap({
         (typeLabel ? (
           <TypeLabel>{eyebrow}</TypeLabel>
         ) : (
-          <div className="mb-2.5 flex items-baseline gap-3">
-            <span className="inline-block h-0.5 w-9 bg-brand" />
+          <div className="mb-2.5 flex items-baseline">
             <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
               {eyebrow}
             </span>

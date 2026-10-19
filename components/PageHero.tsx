@@ -63,8 +63,7 @@ export default function PageHero({
         }`}
       >
         {eyebrow && (
-          <div className={`flex items-center gap-3 ${compact ? "mb-3" : "mb-5"}`}>
-            <span className="inline-block h-0.5 w-9 bg-brand" />
+          <div className={`flex items-center ${compact ? "mb-3" : "mb-5"}`}>
             <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
               {eyebrow}
             </span>

@@ -286,9 +286,8 @@ export default function LocationsBlock({
             </TypeLabel>
           ) : (
             <div
-              className={`flex items-baseline gap-3 ${centered ? "justify-center" : ""}`}
+              className={`flex items-baseline ${centered ? "justify-center" : ""}`}
             >
-              <span className="inline-block h-0.5 w-9 bg-brand" />
               <span className="text-[13px] font-semibold uppercase tracking-[2px] text-brand">
                 {eyebrow}
               </span>

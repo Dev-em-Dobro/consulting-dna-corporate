@@ -46,8 +46,7 @@ function Tag({ id, children }: { id: string; children: React.ReactNode }) {
 
 function EyebrowRow({ onDark = false }: { onDark?: boolean }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className={`inline-block h-0.5 w-9 ${onDark ? "bg-brand-light" : "bg-brand"}`} />
+    <div className="flex items-center">
       <span
         className={`text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
           onDark ? "text-brand-light" : "text-brand"

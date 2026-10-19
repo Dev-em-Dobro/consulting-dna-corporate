@@ -182,7 +182,6 @@ export default function PartnersStrip({
     <div className={className}>
       {label && featured ? (
         <div>
-          <span className="mb-5 block h-[3px] w-9 bg-brand" />
           <h2
             id={headingId}
             className="max-w-[16ch] font-serif text-[32px] font-medium leading-[1.15] text-ink md:text-[40px]"

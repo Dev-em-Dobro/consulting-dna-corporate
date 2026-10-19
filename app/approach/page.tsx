@@ -135,8 +135,8 @@ export default async function ApproachPage() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#1f1c1d]/88 via-[#1f1c1d]/60 to-[#1f1c1d]/20" />
         <div className="w-full">
           <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10 md:py-16">
-            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
-              <span aria-hidden="true" className="h-px w-10 bg-brand-light" /> {copy.hero.eyebrow}
+            <p className="text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
+              {copy.hero.eyebrow}
             </p>
             <h1 className="mt-5 max-w-[900px] whitespace-pre-line font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
               <RegisteredText text={copy.hero.title.replace(" One integrated leader.", "\nOne integrated leader.")} />

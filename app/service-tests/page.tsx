@@ -149,8 +149,7 @@ function V2() {
       ].map((b) => (
         <section key={b.label} className={b.tone}>
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <div className="flex items-center gap-3">
-              <span className="inline-block h-0.5 w-9 bg-brand" />
+            <div className="flex items-center">
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                 {b.label}
               </p>
@@ -602,10 +601,6 @@ function V9() {
                 <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                   {b.label}
                 </p>
-                {/* A RÉGUA VEM DA REFERÊNCIA, onde ela separa o título do texto
-                    de apoio. Aqui ela usa a medida que o site já tem  -  36×2, a
-                    mesma do rótulo do herói  -  em vez de um traço novo. */}
-                <span className="mt-7 block h-0.5 w-9 bg-brand" />
                 <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
                   {b.text}
                 </p>
@@ -675,7 +670,6 @@ function V10() {
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                 {LABEL_A}
               </p>
-              <span className="mt-7 block h-0.5 w-9 bg-brand" />
               <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
                 {TEXT_A}
               </p>
@@ -712,7 +706,6 @@ function V10() {
               <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
                 {LABEL_B}
               </p>
-              <span className="mt-7 block h-0.5 w-9 bg-brand" />
               <p className="mt-7 font-serif text-[21px] leading-[1.55] text-ink md:text-[25px]">
                 {TEXT_B}
               </p>
