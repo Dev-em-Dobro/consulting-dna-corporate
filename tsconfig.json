@@ -47,6 +47,7 @@
   // reprovava esses dois arquivos.
   "exclude": [
     "node_modules",
-    "tests"
+    "tests",
+    "corporate-dna-cms"
   ]
 }

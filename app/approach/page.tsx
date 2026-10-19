@@ -10,7 +10,6 @@ import {
   ChartNoAxesColumn,
   Compass,
   Dna,
-  Plus,
   Star,
   Target,
   UserRoundCheck,
@@ -20,7 +19,7 @@ import SiteShell from "@/components/SiteShell";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbLd, faqLd, serviceLd } from "@/lib/seo/jsonld";
+import { breadcrumbLd, serviceLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 
 const geist = Geist({
@@ -121,7 +120,6 @@ export default async function ApproachPage() {
             path: "/approach",
             description: copy.metadata.description,
           }),
-          faqLd(copy.faq.items),
         ]}
       />
 
@@ -283,18 +281,8 @@ export default async function ApproachPage() {
             )}
           </div>
           <div className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.faq.label}</p>
-            <div className="space-y-3">
-              {copy.faq.items.map((faq, index) => (
-                <details key={faq.question} open={index === 1} className="group bg-[#f0f0ef] px-5 py-4 sm:px-6">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-serif text-[17px] font-semibold leading-[1.3] text-ink marker:hidden sm:text-[19px]">
-                    {faq.question}
-                    <Plus aria-hidden="true" className="h-5 w-5 flex-none text-brand transition-transform group-open:rotate-45" />
-                  </summary>
-                  <p className="max-w-[61ch] pb-1 pt-4 text-[13px] leading-[1.65] text-muted sm:text-[14px]">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
+            <p className="font-serif text-[24px] leading-[1.25] text-ink">See how the 5H® can support your leadership challenges.</p>
+            <Link href="/contact" className="mt-6 inline-flex border-b-2 border-brand pb-1 text-[13px] font-bold uppercase tracking-[1px] text-brand">Start a conversation</Link>
           </div>
         </div>
       </section>

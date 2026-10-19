@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
@@ -139,6 +139,17 @@ export default function NavV2({
 }) {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeMobileMenu = () => {
+      if (desktop.matches) {
+        setOpen(false);
+        setOpenGroup(null);
+      }
+    };
+    desktop.addEventListener("change", closeMobileMenu);
+    return () => desktop.removeEventListener("change", closeMobileMenu);
+  }, []);
   const pathname = usePathname();
   const current = activeHref ?? pathname;
 
@@ -212,7 +223,7 @@ export default function NavV2({
   return (
     <header
       className={`absolute top-0 z-50 w-full ${
-        open ? "bg-brand text-white" : onLight ? "bg-transparent text-ink" : "bg-transparent text-white"
+        open ? `bg-brand text-white lg:bg-transparent ${onLight ? "lg:text-ink" : "lg:text-white"}` : onLight ? "bg-transparent text-ink" : "bg-transparent text-white"
       }`}
     >
       <div

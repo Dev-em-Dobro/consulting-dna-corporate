@@ -148,16 +148,10 @@ const awards: Award[] = [
     // "2×" no overview deck = prêmio conquistado duas vezes. Sem anos
     // confirmados pela CDNA, o rótulo deixa isso legível sem inventar datas.
     name: "Corporate Vision",
-    distinction: "2× Winner",
+    distinction: "Winner",
     showDistinction: true,
-    year: "",
+    year: "2022 & 2024",
     logo: "/awards/corporate-vision.png",
-  },
-  {
-    name: "Women of the Future Awards",
-    distinction: "Finalist",
-    year: "2008",
-    logo: "/awards/women-of-the-future.png",
   },
   {
     name: "Top 15 woman leader in the Middle East",
@@ -273,13 +267,13 @@ export default function AwardsMentions({
     <section id="awards" ref={scope} className="bg-white">
       {/* Same box as the `#book` section: constrained on desktop, full-bleed on
           mobile (no horizontal padding below `md`). */}
-      <div className={`mx-auto ${maxWidthClass} pb-14 md:px-10 md:py-24`}>
+      <div className={`mx-auto ${maxWidthClass} pb-10 md:px-10 md:py-14`}>
         {/* TUDO DENTRO DA MESMA FAIXA desde 14-09. Antes o `data-awards-band`
             era só a tarja do título e os prêmios corriam sobre o branco da
             página, abaixo dela. Um banner é UM objeto: título e logos moram na
             mesma caixa colorida, e é isso que faz a seção ler como faixa em vez
             de cabeçalho seguido de lista. */}
-        <div data-awards-band className="overflow-hidden bg-brand px-6 py-12 md:px-14 md:py-16">
+        <div data-awards-band className="overflow-hidden bg-brand px-6 py-10 md:px-10 md:py-12">
           <h2
             data-awards-title
             className="text-[38px] font-bold leading-[1.05] tracking-[-1px] text-white sm:text-[44px] md:text-[52px]"
@@ -315,7 +309,7 @@ export default function AwardsMentions({
                 className="flex flex-col items-center text-center"
               >
                 <div
-                  className={`relative flex h-[84px] w-[84px] flex-none items-center justify-center sm:h-[96px] sm:w-[96px] ${
+                  className={`relative flex h-[104px] w-[104px] flex-none items-center justify-center sm:h-[124px] sm:w-[124px] ${
                     a.logoOnWhite ? "overflow-hidden rounded-xl bg-white" : ""
                   }`}
                 >
@@ -328,7 +322,7 @@ export default function AwardsMentions({
                       src={a.logo}
                       alt=""
                       fill
-                      sizes="96px"
+                      sizes="124px"
                       className={a.logoOnWhite ? "object-contain p-2" : "object-contain"}
                     />
                   ) : (

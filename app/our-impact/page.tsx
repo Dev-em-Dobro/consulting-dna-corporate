@@ -22,7 +22,7 @@ export const revalidate = 300;
 /* ── The partnership sheet of 29-09 ─────────────────────────────────────────
    Sections and words follow the CorporateDNA × TERRAGRN one-pager; colour and
    type do NOT. The sheet is TERRAGRN green, olive, orange and blue; here every
-   surface is one of the site's own — `ink`, `brand-dark`, `paper`, white — and
+   surface is one of the site's own - `ink`, `brand-dark`, `paper`, white - and
    the headings are the editorial serif the other pages use.
 
    `brand-dark` and not `brand` behind white text: the cards carry 13px detail
@@ -145,7 +145,7 @@ export default async function OurImpactPage() {
 
       {/* ── The agroforest ── */}
       <section id="agroforest" className="bg-white">
-        <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+        <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-12 md:px-10 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
           <div>
             <TypeLabel>{copy.agroforest.label}</TypeLabel>
             <h2 className={`${H2} max-w-[18ch]`}>{copy.agroforest.heading}</h2>
@@ -154,32 +154,26 @@ export default async function OurImpactPage() {
                 <p key={paragraph.slice(0, 48)}>{paragraph}</p>
               ))}
             </div>
+            <div id="model" className="mt-10 border-t border-line pt-8">
+              <TypeLabel>{copy.model.label}</TypeLabel>
+              <h3 className="mt-3 font-serif text-[28px] font-semibold leading-[1.15] text-ink">{copy.model.heading}</h3>
+              <p className="mt-4 text-[16px] leading-[1.7] text-muted">{copy.model.body}</p>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <Photo n={4} className="col-span-2 aspect-[16/9]" sizes="(min-width: 1024px) 50vw, 100vw" />
             <Photo n={6} className="aspect-[4/3]" sizes="(min-width: 1024px) 25vw, 50vw" />
             <Photo n={10} className="aspect-[4/3]" sizes="(min-width: 1024px) 25vw, 50vw" />
-          </div>
-        </div>
-      </section>
-
-      {/* ── A model for regenerative growth ── */}
-      <section id="model" className="bg-[#edf4e8]">
-        <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <TypeLabel>{copy.model.label}</TypeLabel>
-            <h2 className={`${H2} max-w-[16ch]`}>{copy.model.heading}</h2>
-            <p className="mt-7 max-w-[60ch] text-[17px] leading-[1.7] text-muted">{copy.model.body}</p>
-          </div>
-          <div className="mx-auto w-full max-w-[460px]">
-            <SouthAfricaMap region={copy.model.mapRegion} country={copy.model.mapCountry} />
+            <div className="col-span-2 mx-auto w-full max-w-[360px] pt-4">
+              <SouthAfricaMap region={copy.model.mapRegion} country={copy.model.mapCountry} />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Impact areas ── */}
       <section id="areas" className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
           <TypeLabel>{copy.areas.label}</TypeLabel>
           <div className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
             {copy.areas.items.map((item, i) => {

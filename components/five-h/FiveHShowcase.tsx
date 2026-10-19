@@ -125,6 +125,10 @@ export default function FiveHShowcase({
         <h2 className="max-w-[720px] font-serif text-[30px] font-semibold leading-[1.18] tracking-[-0.55px] text-ink sm:text-[38px] lg:max-w-none lg:text-[42px]">
           {heading}
         </h2>
+        <p className="mt-5 max-w-[850px] text-[15px] leading-[1.65] text-ink/75">
+          Head brings cognitive intelligence, Heart emotional intelligence, Hunch intuitive intelligence,
+          Hands execution intelligence and Habits behavioural intelligence. Explore each one below.
+        </p>
 
         <div
           className="relative mx-auto mt-14 max-w-[900px] sm:mt-16"

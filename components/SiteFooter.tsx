@@ -20,16 +20,10 @@ const mainLinks = [
     .map((item) => ({ label: item.label, href: item.href })),
 ];
 
-const utilityLinks = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Cookie Policy", href: "/cookies" },
-  { label: "Terms of Service", href: "/terms" },
-];
-
 export default function SiteFooter({ topBorder = false }: { topBorder?: boolean }) {
   return (
     <footer className={`bg-white text-ink${topBorder ? " border-t-2 border-brand" : ""}`}>
-      <div className="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] gap-6 px-6 py-16 sm:gap-20 md:px-10">
+      <div className="mx-auto grid max-w-[980px] grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-[1fr_1.4fr] md:px-10 md:py-14">
         <Link href="/" className="flex h-fit flex-none items-center">
           {/* A MARCA COMPLETA desde 15-09  -  mesma troca do header (item 1), aqui
               na versão para fundo claro, que é o que o rodapé é.
@@ -60,9 +54,8 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           />
         </Link>
 
-        <nav className="flex justify-end">
-          <div className="flex flex-col items-start gap-8 text-left sm:flex-row sm:gap-16">
-          <div className="flex flex-col gap-3.5">
+        <nav aria-label="Footer navigation">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3.5 text-left">
             {mainLinks.map((l) => (
               <Link
                 key={l.label}
@@ -73,29 +66,23 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
               </Link>
             ))}
           </div>
-          <span
-            aria-hidden="true"
-            className="h-px w-[35%] self-start bg-brand sm:h-auto sm:w-px sm:self-stretch"
-          />
-          <div className="flex flex-col gap-3.5">
-            {utilityLinks.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="text-[13px] font-semibold uppercase tracking-[1.5px] text-brand transition-colors hover:text-brand-dark"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-          </div>
         </nav>
       </div>
 
-      <div className="bg-ink py-6 text-center">
-        <span className="text-[15px] font-medium tracking-[3px] text-white/70">
-          Making Leadership Real
-        </span>
+      <div className="bg-ink px-6 py-5 text-white/80">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 text-[12px] md:px-4">
+          <span>© Corporate DNA Consulting. All rights reserved.</span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <Link href="/cookies" className="hover:text-white">Cookies</Link>
+            <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+            <a href="https://www.linkedin.com/company/corporatedna-consulting/home/" target="_blank" rel="noopener noreferrer" aria-label="CorporateDNA Consulting on LinkedIn" className="inline-flex items-center gap-1.5 hover:text-white">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.266 2.37 4.266 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg> LinkedIn
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -662,7 +662,7 @@ export default async function Home() {
           escuro de Awards. O arranjo dos logos está no PartnersStrip
           (`tone="featured"`). A /services continua no escuro. */}
       <section aria-labelledby="partnerships-heading" className="bg-white">
-        <Reveal className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-14 md:px-10 md:py-16">
           <PartnersStrip label={copy.people.partnersLabel} tone="featured" headingId="partnerships-heading" />
         </Reveal>
       </section>
@@ -693,7 +693,7 @@ export default async function Home() {
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1440px] py-14 md:px-10 md:py-24">
+        <Reveal className="mx-auto max-w-[1440px] py-10 md:px-10 md:py-14">
           {/* O CARTÃO VIROU COMPONENTE em 11-09, quando `/books` passou a
               existir: a mesma composição em duas telas, lendo do mesmo
               `lib/books.ts`. O que se evita é a divergência silenciosa  -  a

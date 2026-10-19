@@ -414,12 +414,6 @@ export default function HeroV3({ ticker = [] }: { ticker?: TickerEntry[] }) {
               Branco resolve com folga larga e tem o efeito colateral de deixar
               as duas propostas iguais neste ponto  -  o que é bom, porque o que
               elas existem para comparar é layout, não cor de eyebrow. */}
-          <div className="mb-8 flex items-center gap-3">
-            <span className="h-bar inline-block h-px w-9 bg-[#f4796d]" />
-            <span className="h-eyebrow text-[11px] font-medium uppercase tracking-[2.5px] text-white">
-              Global leadership advisory &amp; executive coaching
-            </span>
-          </div>
 
           {/* PESO 300, e é a decisão tipográfica central desta versão.
               A V2 usa 600 porque lá o título fica sobre foto clara e um traço

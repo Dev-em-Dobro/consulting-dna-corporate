@@ -132,6 +132,12 @@ const PARTNER_ROWS: PartnerLogo[][] = [
       className: "h-[34px] md:h-[40px]",
       onLight: { src: "/logos/partner-logos/imeld-ai.jpg", className: "h-[52px] md:h-[60px]" },
     },
+    {
+      src: "/logos/partner-logos/talentnet.png",
+      alt: "Talentnet, Vietnam",
+      className: "h-[34px] md:h-[40px]",
+      onLight: { src: "/logos/partner-logos/talentnet.png", className: "h-[48px] md:h-[56px]" },
+    },
   ],
 ];
 

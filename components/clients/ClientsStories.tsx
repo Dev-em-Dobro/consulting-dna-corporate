@@ -8,7 +8,7 @@ import { isReviewedCaseHref } from "@/lib/reviewed-cases";
 type FeaturedCard = {
   image: string;
   imageAlt: string;
-  /** Colour mark in the card body — keep these optically similar. */
+  /** Colour mark in the card body - keep these optically similar. */
   logo: string;
   /** Optional wider/padded asset for the white hero overlay. */
   overlayLogo?: string;

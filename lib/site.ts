@@ -23,4 +23,4 @@ function resolveSiteUrl(): string {
 export const SITE_URL = resolveSiteUrl();
 export const SITE_NAME = "CorporateDNA Consulting";
 export const SITE_DESCRIPTION =
-  "Global leadership advisory & executive coaching. We help CEOs, CHROs and executive teams align leadership, accelerate decisions and build the talent required to deliver transformation.";
+  "We help CEOs, CHROs and executive teams build real leadership through conversations, choices and decisions that matter.";

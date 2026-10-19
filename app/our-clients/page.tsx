@@ -197,7 +197,7 @@ export default async function ClientsAndImpactPage() {
             sobre `bg-ink`. A caixa da prop, no componente, explica o que muda e
             como virar a faixa para escuro se for isso que ela quiser. */}
         <section id="clients" className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
             {/* ⚠️ SEM `kicker` DESDE 18-09  -  *"tirar a frase '27 clients across
                 industries'"*. Era `${clientLogos.length} clients across
                 industries`, a contagem do paredão à direita do rótulo. O
@@ -234,7 +234,7 @@ export default async function ClientsAndImpactPage() {
             abaixo são brancos, então a faixa escura fica isolada entre dois
             claros, como o herói. */}
         <section id="numbers" className="bg-ink text-white">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
             {/* 01-10: "Remove the heading - By the Numbers". */}
             <SectionHead onDark kicker={copy.numbers.kicker} />
 

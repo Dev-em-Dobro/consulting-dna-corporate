@@ -17,6 +17,12 @@ export const DEFAULT_INSIGHTS_COPY = {
     "authorPrefix": "By",
     "resources": [
       {
+        "title": "Collective Executive Judgement in the AI Era",
+        "description": "Insights from conversations with more than 150 senior leaders on how executive teams and boards build collective judgement.",
+        "author": "CorporateDNA Insights",
+        "pagesLabel": "15 pages"
+      },
+      {
         "title": "Scaling Leadership Without Losing Its Humanity",
         "description": "A founder’s reflection on 19 years of building CorporateDNA, and what it has taught me about leadership, growth and the impact that lasts.",
         "author": "Rhea Leckie",
@@ -77,6 +83,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
 }));
 
 export const INSIGHTS_RESOURCE_FILES = [
+  "/events/collective-executive-judgement.pdf",
   "/resources/thought-leadership/scaling-leadership.pdf",
   "/resources/thought-leadership/five-signals-leadership-team.pdf",
   "/resources/thought-leadership/executive-transition.pdf"

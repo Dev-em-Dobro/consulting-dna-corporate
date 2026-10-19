@@ -424,12 +424,6 @@ export default function HeroV1() {
               O brand aqui vive como preenchimento  -  o CTA "Results, Not
               Promises."  -  e não como cor de texto sobre imagem. O traço acompanha
               o texto; deixá-lo vermelho sozinho seria um borrão no mesmo 1.29:1. */}
-          <div className="mb-[26px] flex items-center justify-center gap-3">
-            <span className="h-bar inline-block h-0.5 w-9 bg-white" />
-            <span className="h-eyebrow text-[13px] font-semibold uppercase tracking-[2px] text-white">
-              Global leadership advisory &amp; executive coaching
-            </span>
-          </div>
           {/* 27-08 brief, item 1. Both lines are the client's own approved
               working copy, quoted from the e-mail  -  not a rewrite. "When the
               stakes are high…" is not gone, it has moved into the sub-line,
@@ -445,7 +439,7 @@ export default function HeroV1() {
             decisions that deliver in the moments that matter.
           </p>
           <p className="h-cta mb-9 text-[15px] font-semibold uppercase tracking-[3px] text-white/90">
-            Making Leadership Real.{" "}
+            Keeping Leadership Real.{" "}
             <span className="text-brand">Results, Not Promises.</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">

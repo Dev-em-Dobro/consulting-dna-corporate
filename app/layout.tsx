@@ -18,7 +18,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const SITE_TITLE = "CorporateDNA: Making Leadership Real";
+const SITE_TITLE = "CorporateDNA: Keeping Leadership Real";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

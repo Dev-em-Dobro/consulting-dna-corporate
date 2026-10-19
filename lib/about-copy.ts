@@ -120,7 +120,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
       "When a client trusts us as a consulting firm, that trust starts from the very first interaction with the people who represent CorporateDNA and how we live our purpose in the moments that matter.",
       "How we listen. How we challenge. How we add value. How we navigate difficult decisions and conversations. And how we use our discernment to know when to lead, when to question and when to listen.",
       "For us, Keeping Leadership Real starts from the inside out. It shapes how we work with each other and how we show up with our clients, with honesty, care, candour and experience.",
-      "Because before our clients experience our work, they experience our people. And our people bring our purpose to life.",
+      "Our people bring our purpose to life.",
     ],
     pillars: [
       {

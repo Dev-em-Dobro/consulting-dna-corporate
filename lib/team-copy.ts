@@ -67,7 +67,7 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
   },
   leadership: {
     label: "Leadership Team",
-    title: "The team behind the work.",
+    title: "Our Leadership team",
     /* 01-10: rótulo com o traço vermelho, igual ao "Leadership Team". */
     managersLabel: "Project Management Office",
     managersTitle: "Program Management Team",

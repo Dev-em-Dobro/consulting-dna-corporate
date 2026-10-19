@@ -64,7 +64,7 @@ const voices: Voice[] = [
     company: "GSK",
     role: "Talent Forum Delegate",
     quote:
-      "Of all the programs I’ve attended—including one at Harvard—this delivered the most impactful outcomes.",
+      "Of all the programs I’ve attended, including one at Harvard, this delivered the most impactful outcomes.",
   },
   {
     logo: "schroders",

@@ -46,7 +46,7 @@ export const DEFAULT_APPROACH_COPY = {
     ]
   },
   "fiveH": {
-    "heading": "Five intelligences. One integrated leader.",
+    "heading": "How the five intelligences work together",
     "faculties": [
       {
         "name": "Head",
@@ -113,7 +113,7 @@ export const DEFAULT_APPROACH_COPY = {
   },
   "framework": {
     "label": "The 5H framework",
-    "heading": "Five intelligences. One integrated leader.",
+    "heading": "Explore the five intelligences",
     "body": "The 5H framework is CDNA’s proprietary model, bringing together the human dimensions of leadership that drive insight, behaviour and lasting change.",
     "toolkit": {
       "label": "Our diagnostic toolkit",
