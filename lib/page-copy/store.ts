@@ -29,6 +29,20 @@ import { supabaseCopyTableFromEnv } from "./supabase.ts";
  */
 const READ_CACHE_SECONDS = 3_600;
 
+// Older CMS versions can still contain em dashes even after the checked-in
+// defaults have been edited. Normalize the rendered copy without changing the
+// saved revision history.
+function withoutEmDashes<T>(value: T): T {
+  if (typeof value === "string") return value.replace(/\s*—\s*/g, ", ") as T;
+  if (Array.isArray(value)) return value.map(withoutEmDashes) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, withoutEmDashes(item)]),
+    ) as T;
+  }
+  return value;
+}
+
 export type CopyStore<T> = {
   /** A copy como deve ser renderizada: o salvo por cima do padrão. */
   read: () => Promise<T>;
@@ -109,10 +123,10 @@ export function createCopyStore<T>({
    */
   const read = cache(async (): Promise<T> => {
     try {
-      return await readCached();
+      return withoutEmDashes(await readCached());
     } catch (err) {
       console.warn(`[${key}-copy] read failed, rendering defaults:`, (err as Error)?.message);
-      return defaults;
+      return withoutEmDashes(defaults);
     }
   });
 
