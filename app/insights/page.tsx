@@ -114,7 +114,7 @@ export default async function InsightsPage() {
               {copy.thoughtLeadership.heading}
             </h2>
 
-            <div className="mt-10 grid gap-px bg-line md:grid-cols-2">
+            <div className="mt-10 grid gap-px bg-line md:grid-cols-3">
               {copy.thoughtLeadership.resources.map((resource, index) => (
                 <Reveal key={INSIGHTS_RESOURCE_FILES[index]}>
                   <article className="group flex h-full min-h-[420px] flex-col bg-white p-7 transition-colors duration-300 hover:bg-ink md:p-9">
