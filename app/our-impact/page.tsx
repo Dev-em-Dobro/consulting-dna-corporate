@@ -154,19 +154,25 @@ export default async function OurImpactPage() {
                 <p key={paragraph.slice(0, 48)}>{paragraph}</p>
               ))}
             </div>
-            <div id="model" className="mt-10 border-t border-line pt-8">
-              <TypeLabel>{copy.model.label}</TypeLabel>
-              <h3 className="mt-3 font-serif text-[28px] font-semibold leading-[1.15] text-ink">{copy.model.heading}</h3>
-              <p className="mt-4 text-[16px] leading-[1.7] text-muted">{copy.model.body}</p>
-            </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <Photo n={4} className="col-span-2 aspect-[16/9]" sizes="(min-width: 1024px) 50vw, 100vw" />
             <Photo n={6} className="aspect-[4/3]" sizes="(min-width: 1024px) 25vw, 50vw" />
             <Photo n={10} className="aspect-[4/3]" sizes="(min-width: 1024px) 25vw, 50vw" />
-            <div className="col-span-2 mx-auto w-full max-w-[360px] pt-4">
-              <SouthAfricaMap region={copy.model.mapRegion} country={copy.model.mapCountry} />
-            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── A model for regenerative growth ── */}
+      <section id="model" className="bg-[#edf4e8]">
+        <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <TypeLabel>{copy.model.label}</TypeLabel>
+            <h2 className={`${H2} max-w-[16ch]`}>{copy.model.heading}</h2>
+            <p className="mt-7 max-w-[60ch] text-[17px] leading-[1.7] text-muted">{copy.model.body}</p>
+          </div>
+          <div className="mx-auto w-full max-w-[460px]">
+            <SouthAfricaMap region={copy.model.mapRegion} country={copy.model.mapCountry} />
           </div>
         </div>
       </section>

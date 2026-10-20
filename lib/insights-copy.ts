@@ -17,6 +17,12 @@ export const DEFAULT_INSIGHTS_COPY = {
     "authorPrefix": "By",
     "resources": [
       {
+        "title": "Collective Judgement in the AI Era",
+        "description": "How executive teams and boards can make better decisions with AI, informed by conversations with 150 senior leaders.",
+        "author": "Rhea Leckie, Jon-Paul Pritchard and Nitin Goil",
+        "pagesLabel": "15 pages"
+      },
+      {
         "title": "Scaling Leadership Without Losing Its Humanity",
         "description": "A founder’s reflection on 19 years of building CorporateDNA, and what it has taught me about leadership, growth and the impact that lasts.",
         "author": "Rhea Leckie",
@@ -50,6 +56,25 @@ export const DEFAULT_INSIGHTS_COPY = {
 
 export type InsightsCopy = typeof DEFAULT_INSIGHTS_COPY;
 
+/** Keep the confirmed paper first when an older editor revision still has three PDFs. */
+export function withCollectiveJudgementPaper(resources: InsightsCopy["thoughtLeadership"]["resources"]) {
+  const updated = [...resources];
+  const paperIndex = updated.findIndex((resource) =>
+    /collective.*judgement.*ai era/i.test(resource.title ?? ""),
+  );
+  if (paperIndex === -1) {
+    updated.unshift(DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources[0]);
+  } else {
+    const [paper] = updated.splice(paperIndex, 1);
+    updated.unshift({
+      ...paper,
+      title: DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources[0].title,
+      pagesLabel: DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources[0].pagesLabel,
+    });
+  }
+  return updated;
+}
+
 export const EDITOR_SECTIONS: EditorSection[] = [
   {
     "id": "metadata",
@@ -77,6 +102,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
 }));
 
 export const INSIGHTS_RESOURCE_FILES = [
+  "/resources/thought-leadership/collective-executive-judgement.pdf",
   "/resources/thought-leadership/scaling-leadership.pdf",
   "/resources/thought-leadership/five-signals-leadership-team.pdf",
   "/resources/thought-leadership/executive-transition.pdf"

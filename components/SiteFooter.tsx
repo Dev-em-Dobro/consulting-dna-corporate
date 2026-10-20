@@ -23,7 +23,7 @@ const mainLinks = [
 export default function SiteFooter({ topBorder = false }: { topBorder?: boolean }) {
   return (
     <footer className={`bg-white text-ink${topBorder ? " border-t-2 border-brand" : ""}`}>
-      <div className="mx-auto grid max-w-[980px] grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-[1fr_1.4fr] md:px-10 md:py-14">
+      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-[minmax(0,1fr)_auto] md:px-10 md:py-14">
         <Link href="/" className="flex h-fit flex-none items-center">
           {/* A MARCA COMPLETA desde 15-09  -  mesma troca do header (item 1), aqui
               na versão para fundo claro, que é o que o rodapé é.
@@ -39,13 +39,8 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
               SE O RODAPÉ MUDAR DE COR, esta linha quebra e o conserto não é
               aqui: é pedir o vetor à Maliha. Fica anotado.
 
-              `h-16` VIROU `h-12` EM 15-09, junto com o header e pelo mesmo
-              motivo: com a marca completa o logo ficou grande demais. Aqui não
-              há aperto de largura  -  a coluna é `auto` numa grade `[auto_1fr]`
-              de 1200 com 80px de vão  - , então o que manda é o peso visual.
-              A 48px de altura a marca ocupa 120px, contra os 89px do letreiro
-              antigo em `h-16`: continua maior, e é para continuar, porque
-              ganhou o símbolo. */}
+              O logo acompanha a margem esquerda do conteúdo principal, enquanto
+              a navegação encosta na margem direita da mesma grade. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/cdna-logo-full.png"
@@ -54,8 +49,8 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           />
         </Link>
 
-        <nav aria-label="Footer navigation">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-3.5 text-left">
+        <nav aria-label="Footer navigation" className="sm:justify-self-end">
+          <div className="grid grid-cols-2 gap-x-12 gap-y-3.5 text-left md:gap-x-20">
             {mainLinks.map((l) => (
               <Link
                 key={l.label}

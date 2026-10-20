@@ -4,7 +4,7 @@ import { DEFAULT_APPROACH_COPY, EDITOR_SECTIONS as APPROACH_SECTIONS } from "../
 import { ApproachCopySchema, mergeApproachCopy } from "../lib/approach-copy-schema.ts";
 import { DEFAULT_IMPACT_COPY, EDITOR_SECTIONS as IMPACT_SECTIONS } from "../lib/impact-copy.ts";
 import { ImpactCopySchema, mergeImpactCopy } from "../lib/impact-copy-schema.ts";
-import { DEFAULT_INSIGHTS_COPY, EDITOR_SECTIONS as INSIGHTS_SECTIONS, INSIGHTS_RESOURCE_FILES } from "../lib/insights-copy.ts";
+import { DEFAULT_INSIGHTS_COPY, EDITOR_SECTIONS as INSIGHTS_SECTIONS, INSIGHTS_RESOURCE_FILES, withCollectiveJudgementPaper } from "../lib/insights-copy.ts";
 import { InsightsCopySchema, mergeInsightsCopy } from "../lib/insights-copy-schema.ts";
 import { getAtPath, setAtPath } from "../lib/page-copy/fields.ts";
 import { services } from "../lib/services.ts";
@@ -53,6 +53,16 @@ test("impact and insights have independent copy and retain PDF destinations", ()
   assert.equal(DEFAULT_IMPACT_COPY.hero.title, "People. Planet. Lasting Impact.");
   assert.equal(INSIGHTS_RESOURCE_FILES.length, DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources.length);
   assert.ok(INSIGHTS_RESOURCE_FILES.every((file) => file.endsWith(".pdf")));
+});
+
+test("confirmed insights paper joins older saved resources without changing their copy", () => {
+  const oldResources = structuredClone(DEFAULT_INSIGHTS_COPY.thoughtLeadership.resources.slice(1));
+  oldResources[0].description = "Edited in the CMS";
+  const migrated = withCollectiveJudgementPaper(oldResources);
+  assert.equal(migrated.length, 4);
+  assert.equal(migrated[0].title, "Collective Judgement in the AI Era");
+  assert.equal(migrated[1].description, "Edited in the CMS");
+  assert.equal(withCollectiveJudgementPaper(migrated).length, 4);
 });
 
 test("each service exposes only its own layout and preserves images and icons", () => {

@@ -1,5 +1,5 @@
 import 'server-only';
-import { DEFAULT_INSIGHTS_COPY, type InsightsCopy } from '@/lib/insights-copy';
+import { DEFAULT_INSIGHTS_COPY, withCollectiveJudgementPaper, type InsightsCopy } from '@/lib/insights-copy';
 import { InsightsCopySchema } from '@/lib/insights-copy-schema';
 import { createCopyStore } from '@/lib/page-copy/store';
 
@@ -14,12 +14,16 @@ export const insightsCopyStore = createCopyStore({
   /* 01-10: o herói passou a "Insights for the moments that shape leadership".
      Só troca o título se ele ainda for o antigo  -  um título que a cliente
      tenha reescrito no editor fica como ela deixou. */
-  migrationVersion: '2026-10-01-hero-title-2',
+  migrationVersion: '2026-10-20-insights-paper',
   migrateSaved(saved) {
     if (!saved || typeof saved !== 'object') return saved;
     const copy = structuredClone(saved) as Partial<InsightsCopy>;
     if (copy.hero && (OLD_HERO_TITLES.includes(copy.hero.title?.trim()) || OLD_HERO_TITLE_RE.test(copy.hero.title?.trim() ?? ''))) {
       copy.hero.title = DEFAULT_INSIGHTS_COPY.hero.title;
+    }
+    const resources = copy.thoughtLeadership?.resources;
+    if (Array.isArray(resources)) {
+      copy.thoughtLeadership!.resources = withCollectiveJudgementPaper(resources);
     }
     return copy;
   },
