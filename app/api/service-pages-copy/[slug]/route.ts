@@ -3,11 +3,13 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { servicePagesCopyStore } from "@/lib/service-pages-copy-server";
 import { serviceCopySchemaFor } from "@/lib/service-pages-copy-schema";
 import { services } from "@/lib/services";
+import { isSiteEditingEnabled } from "@/lib/edit-access";
 
 export const dynamic = "force-dynamic";
 type Context = { params: Promise<{ slug: string }> };
 
 export async function GET(_req: NextRequest, { params }: Context) {
+  if (!isSiteEditingEnabled()) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const { slug } = await params;
   if (!serviceCopySchemaFor(slug)) return NextResponse.json({ error: "Unknown service" }, { status: 404 });
   const copy = await servicePagesCopyStore.read();
@@ -15,6 +17,7 @@ export async function GET(_req: NextRequest, { params }: Context) {
 }
 
 export async function POST(req: NextRequest, { params }: Context) {
+  if (!isSiteEditingEnabled()) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const { slug } = await params;
   const schema = serviceCopySchemaFor(slug);
   if (!schema) return NextResponse.json({ error: "Unknown service" }, { status: 404 });

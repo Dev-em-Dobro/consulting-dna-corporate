@@ -1,17 +1,17 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { isSiteEditingEnabled } from "../edit-access.ts";
 import type { CopyStore } from "./store.ts";
 
 /**
  * A API de um editor de página: GET devolve a copy em vigor (padrão + salvo),
  * POST valida, grava e manda as páginas afetadas regenerarem.
  *
- * ⚠️ SEM AUTENTICAÇÃO, de propósito e por pedido (23-09): a cliente entra e
- * salva sem login. É a mesma exposição de qualquer formulário público  -  quem
- * souber a URL troca o texto do site. Aceito como provisório até o CMS assumir;
- * se precisar fechar antes disso, o lugar é aqui, checando um segredo no header
- *  -  uma vez, para as duas rotas, que é metade do motivo de esta fábrica existir.
+ * Temporarily disabled by SITE_EDITING_ENABLED (see lib/edit-access.ts). Keep
+ * the handler guard even with proxy.ts so a direct POST cannot save content if
+ * proxy matching changes. Re-enabling restores the previous unauthenticated
+ * editor, so add admin authentication before enabling it publicly.
  *
  * ⚠️⚠️ QUEM SALVA TEM DE INVALIDAR A TAG DA LOJA, e é aqui que isso acontece.
  * Desde 23-09 a leitura do Blob é cacheada no Data Cache do Next, para o custo
@@ -43,9 +43,11 @@ export function createCopyRoute<T>({
 }) {
   return {
     async GET() {
+      if (!isSiteEditingEnabled()) return NextResponse.json({ error: "Not found" }, { status: 404 });
       return NextResponse.json(await store.read(), { headers: { "cache-control": "no-store" } });
     },
     async POST(req: NextRequest) {
+      if (!isSiteEditingEnabled()) return NextResponse.json({ error: "Not found" }, { status: 404 });
       let body: unknown;
       try {
         body = await req.json();
