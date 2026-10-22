@@ -617,7 +617,7 @@ export const facultyMembers: RosterPerson[] = [
   { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty/justin-bridge-01-10.jpg" },
   { name: "Daniela Rusu", meta: "Europe", portrait: "/team/faculty/daniela-rusu.jpg" },
   { name: "Jojo O’Driscoll-Kearney", meta: "Middle East", portrait: "/team/faculty/jojo-odriscoll-kearney.jpg" },
-  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli.jpg" },
+  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli-22-10.jpg" },
   { name: "Michele Perry", meta: "Americas", portrait: "/team/faculty/michele-perry.jpg" },
   { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/nitin-goil.jpg" },
   { name: "Marisa Chuawiwat", meta: "Asia Pacific", portrait: "/team/faculty/marisa-chuawiwat.jpg" },
