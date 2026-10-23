@@ -31,6 +31,7 @@ import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import methodology from "@/public/5H-methodology.jpg";
+import LocalizedImage from "@/components/LocalizedImage";
 import HeroV2 from "@/components/HeroV2";
 import NavV2 from "@/components/NavV2";
 import TypeLabel from "@/components/TypeLabel";
@@ -624,7 +625,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="flex justify-center">
-            <Image src={methodology} alt="The 5H Framework methodology" className="h-auto w-full max-w-[560px] border border-white/10" />
+            <LocalizedImage src={methodology} ptSrc="/5h-methodology-pt-br.svg" alt="The 5H Framework methodology" ptAlt="Metodologia 5H: jogo interior e jogo exterior" width={1000} height={670} className="h-auto w-full max-w-[560px] border border-white/10" />
           </div>
         </Reveal>
       </section>

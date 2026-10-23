@@ -9,6 +9,7 @@ import Preloader from "@/components/Preloader";
 import TopProgress from "@/components/TopProgress";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
+import LocaleRuntime from "@/components/LocaleRuntime";
 import { organizationLd } from "@/lib/seo/jsonld";
 
 const poppins = Poppins({
@@ -86,11 +87,18 @@ export default function RootLayout({
               "document.documentElement.classList.add('js');try{if(navigator.maxTouchPoints>1||matchMedia('(max-width: 767px), ((hover: none) and (pointer: coarse))').matches)document.documentElement.classList.add('touch')}catch(e){}",
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(/(?:^|;\\s*)site_locale=pt-BR(?:;|$)/.test(document.cookie)){document.documentElement.lang='pt-BR';document.documentElement.dataset.siteLocale='pt-BR';document.documentElement.classList.add('site-i18n-pending');setTimeout(function(){document.documentElement.classList.remove('site-i18n-pending')},4000)}}catch(e){}",
+          }}
+        />
       </head>
       <body className="font-sans">
         <JsonLd data={organizationLd()} />
         <GoogleAnalytics />
         <NextIntlClientProvider>
+          <LocaleRuntime />
           <Preloader />
           <TopProgress />
           {children}

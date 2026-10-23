@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 1320" role="img" aria-labelledby="title desc">
+<title id="title">As cinco dimensões da liderança</title><desc id="desc">Cabeça, mãos, hábitos, intuição e coração, cada dimensão com cinco competências.</desc>
+<circle cx="660" cy="410" r="390" fill="#3d3d3d"/>
+<circle cx="660" cy="410" r="328" fill="none" stroke="#713375" stroke-width="106" stroke-dasharray="412 2061" transform="rotate(-90 660 410)"/>
+<circle cx="660" cy="410" r="328" fill="none" stroke="#303b75" stroke-width="106" stroke-dasharray="412 2061" transform="rotate(-18 660 410)"/>
+<circle cx="660" cy="410" r="328" fill="none" stroke="#24714e" stroke-width="106" stroke-dasharray="412 2061" transform="rotate(54 660 410)"/>
+<circle cx="660" cy="410" r="328" fill="none" stroke="#d6a51f" stroke-width="106" stroke-dasharray="412 2061" transform="rotate(126 660 410)"/>
+<circle cx="660" cy="410" r="328" fill="none" stroke="#df3c39" stroke-width="106" stroke-dasharray="412 2061" transform="rotate(198 660 410)"/>
+<circle cx="660" cy="410" r="234" fill="#3d3d3d" stroke="#fff" stroke-width="3"/>
+<text x="660" y="390" text-anchor="middle" fill="#ed272e" font-family="Arial,sans-serif" font-size="108" font-weight="700">NÚCLEO</text>
+<text x="660" y="443" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">VALORES, CRENÇAS</text>
+<text x="660" y="480" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">E MOTIVAÇÕES</text>
+<text x="660" y="844" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="32" font-weight="700">JOGO INTERIOR  ·  JOGO EXTERIOR</text>
+<rect x="660" y="121" width="240" height="60" rx="14" fill="#713375"/>
+<text x="780" y="161" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CABEÇA</text>
+<rect x="825" y="283" width="240" height="60" rx="14" fill="#303b75"/>
+<text x="945" y="323" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">MÃOS</text>
+<rect x="814" y="620" width="240" height="60" rx="14" fill="#24714e"/>
+<text x="934" y="660" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">HÁBITOS</text>
+<rect x="264" y="620" width="240" height="60" rx="14" fill="#d6a51f"/>
+<text x="384" y="660" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">INTUIÇÃO</text>
+<rect x="143" y="383" width="240" height="60" rx="14" fill="#df3c39"/>
+<text x="263" y="423" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CORAÇÃO</text>
+<rect x="22" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#713375" stroke-width="3"/>
+<rect x="22" y="880" width="248" height="68" rx="12" fill="#713375"/>
+<text x="146" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">CABEÇA</text>
+<text x="146" y="987" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Pensamento crítico</text>
+<text x="146" y="1047" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Apetite ao risco</text>
+<text x="146" y="1107" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Mentalidade de</text>
+<text x="146" y="1129" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">crescimento</text>
+<text x="146" y="1167" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Planejamento de</text>
+<text x="146" y="1189" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">cenários</text>
+<text x="146" y="1227" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Navegar pela</text>
+<text x="146" y="1249" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">complexidade</text>
+<rect x="282" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#303b75" stroke-width="3"/>
+<rect x="282" y="880" width="248" height="68" rx="12" fill="#303b75"/>
+<text x="406" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">MÃOS</text>
+<text x="406" y="987" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Criatividade prática</text>
+<text x="406" y="1047" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Dar o exemplo</text>
+<text x="406" y="1107" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Responsabilidade</text>
+<text x="406" y="1167" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Foco nas pessoas</text>
+<text x="406" y="1189" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">envolvidas</text>
+<text x="406" y="1227" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Orientação para a</text>
+<text x="406" y="1249" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">ação</text>
+<rect x="542" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#24714e" stroke-width="3"/>
+<rect x="542" y="880" width="248" height="68" rx="12" fill="#24714e"/>
+<text x="666" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">HÁBITOS</text>
+<text x="666" y="987" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Transparência</text>
+<text x="666" y="1047" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Senso de dono</text>
+<text x="666" y="1107" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Liderar pelo</text>
+<text x="666" y="1129" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">propósito</text>
+<text x="666" y="1167" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Consistência</text>
+<text x="666" y="1227" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Escuta e</text>
+<text x="666" y="1249" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">questionamento</text>
+<rect x="802" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#d6a51f" stroke-width="3"/>
+<rect x="802" y="880" width="248" height="68" rx="12" fill="#d6a51f"/>
+<text x="926" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">INTUIÇÃO</text>
+<text x="926" y="987" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Discernimento</text>
+<text x="926" y="1047" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Curiosidade</text>
+<text x="926" y="1107" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Construção de</text>
+<text x="926" y="1129" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">sentido</text>
+<text x="926" y="1167" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Percepção</text>
+<text x="926" y="1227" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Decisões ágeis</text>
+<rect x="1062" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#df3c39" stroke-width="3"/>
+<rect x="1062" y="880" width="248" height="68" rx="12" fill="#df3c39"/>
+<text x="1186" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">CORAÇÃO</text>
+<text x="1186" y="987" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Coragem e</text>
+<text x="1186" y="1009" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">resiliência</text>
+<text x="1186" y="1047" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Empatia</text>
+<text x="1186" y="1107" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Autenticidade</text>
+<text x="1186" y="1167" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Habilidade</text>
+<text x="1186" y="1189" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">interpessoal</text>
+<text x="1186" y="1227" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">Conexão e</text>
+<text x="1186" y="1249" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="20">colaboração</text>
+</svg>
