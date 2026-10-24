@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -295,7 +296,7 @@ export default function NavV2({
             vão. As larguras estão no comentário de `linkType`, acima. */}
         <nav
           className={`hidden items-center justify-end lg:flex ${
-            outlined ? "gap-[26px]" : "gap-[30px]"
+            outlined ? "gap-[16px]" : "gap-[18px]"
           }`}
         >
           {items.map((item) =>
@@ -400,6 +401,7 @@ export default function NavV2({
               </Link>
             ),
           )}
+          <LanguageSwitcher />
         </nav>
 
         {/* mobile toggle */}
@@ -554,6 +556,7 @@ export default function NavV2({
                 </Link>
               ),
             )}
+            <LanguageSwitcher className="mt-5 text-white" />
           </div>
         </div>
       </nav>

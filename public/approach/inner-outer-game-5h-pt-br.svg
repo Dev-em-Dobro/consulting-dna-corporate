@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 970" role="img" aria-labelledby="title desc">
+  <title id="title">Jogo interior e jogo exterior</title><desc id="desc">As cinco dimensões da liderança conectam identidade e comportamento aos resultados de negócios.</desc>
+  <rect width="1620" height="970" fill="#fff"/>
+  <circle cx="449" cy="485" r="427" fill="#ee171d"/><circle cx="1171" cy="485" r="427" fill="#ee171d"/>
+  <circle cx="449" cy="485" r="343" fill="#f4f4f4" stroke="#fff" stroke-width="20"/><circle cx="1171" cy="485" r="343" fill="#f4f4f4" stroke="#fff" stroke-width="20"/>
+  <g font-family="Arial,sans-serif" fill="#111" text-anchor="middle" font-weight="700">
+    <text x="430" y="290" font-size="62">JOGO INTERIOR</text><text x="1190" y="290" font-size="62">JOGO EXTERIOR</text>
+    <text x="385" y="445" font-size="53">Quem somos</text><text x="385" y="525" font-size="53">e como agimos</text>
+    <text x="1235" y="445" font-size="53">Resultados</text><text x="1235" y="525" font-size="53">para o negócio</text>
+  </g>
+  <g transform="translate(810 485) scale(.78) translate(-810 -485)">
+  <circle cx="810" cy="485" r="229" fill="#303030" stroke="#555" stroke-width="10"/>
+  <g stroke="#fff" stroke-width="3">
+    <path d="M810 485 810 257 A228 228 0 0 1 1027 414Z" fill="#5b73b3"/><path d="M810 485 1027 414 A228 228 0 0 1 944 668Z" fill="#4aa789"/>
+    <path d="M810 485 944 668 A228 228 0 0 1 676 668Z" fill="#ebad22"/><path d="M810 485 676 668 A228 228 0 0 1 593 414Z" fill="#d83737"/><path d="M810 485 593 414 A228 228 0 0 1 810 257Z" fill="#984a9a"/>
+  </g>
+  <circle cx="810" cy="485" r="122" fill="#303030" stroke="#fff" stroke-width="4"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle" font-weight="700" fill="#fff">
+    <text x="810" y="457" font-size="48" fill="#ef252b">NÚCLEO</text><text x="810" y="497" font-size="21">VALORES, CRENÇAS</text><text x="810" y="526" font-size="21">E MOTIVAÇÕES</text>
+    <text x="691" y="336" font-size="22">CABEÇA</text><text x="944" y="365" font-size="22">MÃOS</text><text x="959" y="591" font-size="22">HÁBITOS</text><text x="806" y="676" font-size="22">INTUIÇÃO</text><text x="652" y="564" font-size="22">CORAÇÃO</text>
+  </g>
+  </g>
+</svg>
