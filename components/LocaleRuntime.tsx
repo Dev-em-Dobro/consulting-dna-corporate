@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import ptBr from "@/messages/pt-BR-visible.json";
+import profileCopy from "@/messages/pt-BR-profiles.json";
 
-const translations: Record<string, string> = ptBr;
+const translations: Record<string, string> = { ...ptBr, ...profileCopy };
 const attributes = ["alt", "aria-label", "placeholder", "title"] as const;
 
 function normalize(value: string) {
