@@ -11,16 +11,11 @@
 <text x="660" y="443" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">VALORES, CRENÇAS</text>
 <text x="660" y="480" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">E MOTIVAÇÕES</text>
 <text x="660" y="844" text-anchor="middle" fill="#303030" font-family="Arial,sans-serif" font-size="32" font-weight="700">JOGO INTERIOR  ·  JOGO EXTERIOR</text>
-<rect x="660" y="121" width="240" height="60" rx="14" fill="#713375"/>
-<text x="780" y="161" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CABEÇA</text>
-<rect x="825" y="283" width="240" height="60" rx="14" fill="#303b75"/>
-<text x="945" y="323" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">MÃOS</text>
-<rect x="814" y="620" width="240" height="60" rx="14" fill="#24714e"/>
-<text x="934" y="660" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">HÁBITOS</text>
-<rect x="264" y="620" width="240" height="60" rx="14" fill="#d6a51f"/>
-<text x="384" y="660" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">INTUIÇÃO</text>
-<rect x="143" y="383" width="240" height="60" rx="14" fill="#df3c39"/>
-<text x="263" y="423" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CORAÇÃO</text>
+<text x="853" y="155" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CABEÇA</text>
+<text x="972" y="521" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">MÃOS</text>
+<text x="660" y="748" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">HÁBITOS</text>
+<text x="365" y="521" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">INTUIÇÃO</text>
+<text x="467" y="155" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">CORAÇÃO</text>
 <rect x="22" y="880" width="248" height="412" rx="14" fill="#f6f6f6" stroke="#713375" stroke-width="3"/>
 <rect x="22" y="880" width="248" height="68" rx="12" fill="#713375"/>
 <text x="146" y="925" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">CABEÇA</text>
