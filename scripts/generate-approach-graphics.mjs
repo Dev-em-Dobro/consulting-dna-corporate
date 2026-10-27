@@ -28,8 +28,9 @@ const ring = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 636 636" rol
 for (const group of ringGroups) {
   const mid = (group.start + group.end) / 2;
   const [x, y] = polar(318, 318, 201, mid);
-  let rotation = mid + 90;
-  while (rotation > 90) rotation -= 180;
+  // The entire ring rotates until each colour reaches the top. Keep the
+  // original radial orientation so the active label is upright at that point.
+  const rotation = mid + 90;
   ring.push(`<path d="${sector(318, 318, 232, 168, group.start + .5, group.end - .5)}" fill="${group.color}"/>`);
   ring.push(`<g transform="translate(${x} ${y}) rotate(${rotation})">${label(group.name, 0, 0, group.name.length > 7 ? 26 : 30)}</g>`);
 }

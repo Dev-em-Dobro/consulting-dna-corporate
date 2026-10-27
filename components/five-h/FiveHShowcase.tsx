@@ -179,7 +179,7 @@ export default function FiveHShowcase({
           <div className="relative z-20 mx-auto -mt-7 h-[104px] overflow-hidden sm:-mt-9 sm:h-[126px]">
             <div className="absolute inset-x-0 top-0 flex justify-center">
               <div ref={wheelRef} className="h-[240px] w-[240px] flex-none will-change-transform sm:h-[290px] sm:w-[290px]">
-                <LocalizedImage aria-hidden="true" alt="" src="/approach-5h-ring.png" ptSrc="/approach-5h-ring.png" ptAlt="" width={636} height={636} className="h-full w-full" />
+                <LocalizedImage aria-hidden="true" alt="" src="/approach-5h-ring.png" ptSrc="/approach-5h-ring-pt-br.svg" ptAlt="" width={636} height={636} className="h-full w-full" />
               </div>
             </div>
           </div>
