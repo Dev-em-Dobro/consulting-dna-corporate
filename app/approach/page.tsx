@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { getApproachCopy } from "@/lib/approach-copy-server";
 import type { ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
+import LocalizedImage from "@/components/LocalizedImage";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Geist, Source_Serif_4 } from "next/font/google";
@@ -124,9 +125,11 @@ export default async function ApproachPage() {
       />
 
       <section className="relative isolate flex min-h-[84svh] flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center">
-        <Image
+        <LocalizedImage
           src="/approach/approach-hero-landscape.png"
           alt="A magnifying glass over the 5H competency profile"
+          ptSrc="/approach/approach-hero-pt-br.webp"
+          ptAlt="Uma lupa sobre o perfil de competências 5H em português"
           fill
           priority
           sizes="100vw"
@@ -159,9 +162,11 @@ export default async function ApproachPage() {
           </p>
           <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <Image
+              <LocalizedImage
                 src="/approach/5h-framework-wheel-user.png"
                 alt="The 5H model showing the five leadership intelligences and their dimensions"
+                ptSrc="/approach/5h-framework-wheel-pt-br.svg"
+                ptAlt="Modelo 5H com as cinco dimensões da liderança e suas competências"
                 width={1322}
                 height={1329}
                 sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
@@ -188,9 +193,11 @@ export default async function ApproachPage() {
           </div>
           </div>
           <div id="two-games" className="min-w-0">
-          <Image
+          <LocalizedImage
             src="/approach/inner-outer-game-5h-20261001.png"
             alt="Inner Game and Outer Game connected by the five leadership intelligences"
+            ptSrc="/approach/inner-outer-game-5h-pt-br.svg"
+            ptAlt="Jogo interior e jogo exterior conectados pelas cinco dimensões da liderança"
             width={1620}
             height={971}
             sizes="(min-width: 1024px) 650px, 100vw"

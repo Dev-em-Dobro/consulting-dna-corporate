@@ -36,6 +36,24 @@ const HOLD_MS = 1500;
 /** Beat between erasing one word and starting the next. */
 const GAP_MS = 260;
 
+const PT_REAL_TERMS: Record<string, { noun: string; adjective: string }> = {
+  pressures: { noun: "Pressões", adjective: "reais" },
+  politics: { noun: "Dinâmicas políticas", adjective: "reais" },
+  choices: { noun: "Escolhas", adjective: "reais" },
+  judgement: { noun: "Discernimento", adjective: "real" },
+  people: { noun: "Pessoas", adjective: "reais" },
+  consequences: { noun: "Consequências", adjective: "reais" },
+};
+
+function portugueseTerm(word: string) {
+  return PT_REAL_TERMS[word.toLowerCase()] ?? { noun: word, adjective: "real" };
+}
+
+function portuguesePhrase(word: string) {
+  const { noun, adjective } = portugueseTerm(word);
+  return `${noun} ${adjective}`;
+}
+
 export default function RealCycle({
   words,
   onDark = false,
@@ -54,9 +72,14 @@ export default function RealCycle({
   const staticTone = onDark ? "text-white" : "text-ink";
   const wordTone = onDark ? "text-brand-light" : "text-brand";
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [portuguese, setPortuguese] = useState(false);
   const [index, setIndex] = useState(0);
   const [length, setLength] = useState(0);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    setPortuguese(document.cookie.match(/(?:^|;\s*)site_locale=([^;]+)/)?.[1] === "pt-BR");
+  }, []);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -68,7 +91,7 @@ export default function RealCycle({
 
   useEffect(() => {
     if (reduceMotion || words.length === 0) return;
-    const word = words[index];
+    const word = portuguese ? portuguesePhrase(words[index]) : words[index];
     let delay: number;
     let step: () => void;
 
@@ -93,38 +116,48 @@ export default function RealCycle({
 
     const timer = window.setTimeout(step, delay);
     return () => window.clearTimeout(timer);
-  }, [reduceMotion, words, index, length, deleting]);
+  }, [reduceMotion, words, index, length, deleting, portuguese]);
 
   if (words.length === 0) return null;
 
   // The set as one sentence: the reduced-motion rendering, and the accessible
   // name in every case. One "Real", six terms, no repetition.
-  const sentence = `Real ${words
-    .slice(0, -1)
-    .join(", ")
-    .toLowerCase()} and ${words[words.length - 1].toLowerCase()}.`;
+  const portuguesePhrases = words.map((word) => portuguesePhrase(word).toLowerCase());
+  const portugueseSentence = `${portuguesePhrases.slice(0, -1).join(", ")} e ${portuguesePhrases[portuguesePhrases.length - 1]}.`;
+  const sentence = portuguese
+    ? portugueseSentence[0].toUpperCase() + portugueseSentence.slice(1)
+    : `Real ${words.slice(0, -1).join(", ").toLowerCase()} and ${words[words.length - 1].toLowerCase()}.`;
 
   if (reduceMotion) {
-    return <span className={staticTone}>{sentence}</span>;
+    return <span data-no-translate className={staticTone}>{sentence}</span>;
   }
 
-  const longest = words.reduce((a, b) => (b.length > a.length ? b : a));
+  const longest = portuguese
+    ? words.map(portuguesePhrase).reduce((a, b) => (b.length > a.length ? b : a))
+    : words.reduce((a, b) => (b.length > a.length ? b : a));
+  const current = portugueseTerm(words[index]);
 
   return (
-    <>
+    <span data-no-translate>
       <span aria-hidden className={`whitespace-nowrap ${staticTone}`}>
-        Real{" "}
+        {!portuguese && <>Real{" "}</>}
         <span className="inline-grid justify-items-start align-bottom">
           {/* Reserves the line's width. Never visible, never read. */}
           <span className="invisible col-start-1 row-start-1">{longest}.</span>
-          <span className={`col-start-1 row-start-1 ${wordTone}`}>
-            {words[index].slice(0, length)}
-            {length === words[index].length ? "." : ""}
+          <span className="col-start-1 row-start-1">
+            {portuguese ? (
+              <>
+                <span className={staticTone}>{current.noun.slice(0, length)}{length > current.noun.length ? " " : ""}</span>
+                <span className={wordTone}>{current.adjective.slice(0, Math.max(0, length - current.noun.length - 1))}{length === current.noun.length + current.adjective.length + 1 ? "." : ""}</span>
+              </>
+            ) : (
+              <span className={wordTone}>{words[index].slice(0, length)}{length === words[index].length ? "." : ""}</span>
+            )}
             <span className="tw-caret" />
           </span>
         </span>
       </span>
       <span className="sr-only">{sentence}</span>
-    </>
+    </span>
   );
 }

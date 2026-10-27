@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+html.site-i18n-pending body { visibility: hidden; }
+
 @theme {
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --color-brand: #d84339;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteNav, type NavItem } from "@/lib/nav";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -89,7 +90,7 @@ export default function NavV1({
             overflow was clipped rather than scrolled, so the item that vanished
             was the last one  -  the Contact button. A hamburger on a tablet beats
             a CTA that is silently not there. */}
-        <nav className={`hidden items-center justify-end lg:flex ${light ? "gap-[26px]" : "gap-[30px]"}`}>
+        <nav className={`hidden items-center justify-end lg:flex ${light ? "gap-[16px]" : "gap-[18px]"}`}>
           {items.map((item) =>
             item.cta ? (
               // Outline and not a filled block: this bar is already solid brand
@@ -157,6 +158,7 @@ export default function NavV1({
               </Link>
             ),
           )}
+          <LanguageSwitcher />
         </nav>
 
         {/* mobile toggle */}
@@ -260,6 +262,7 @@ export default function NavV1({
                 </Link>
               ),
             )}
+            <LanguageSwitcher className="mt-5 text-white" />
           </div>
         </nav>
       )}
