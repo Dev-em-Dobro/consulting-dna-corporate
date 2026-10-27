@@ -15,7 +15,8 @@ import { LOGO_COLORS } from "../logo-colors";
 import { CASE_HERO_COVERS } from "../case-hero-covers";
 import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-cases";
 import { isReviewedCaseSlug } from "../reviewed-cases";
-import approvedCaseSnapshot from "../../docs/meetings/cases-aprovados-16-09.json";
+// Keep a deployable copy here: .vercelignore excludes /docs from Vercel builds.
+import approvedCaseSnapshot from "./approved-cases.json";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];

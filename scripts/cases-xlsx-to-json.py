@@ -47,6 +47,7 @@ XLSX = sys.argv[1] if len(sys.argv) > 1 else (
     "5. Clients& Impact/CaseStudiesv1.xlsx"
 )
 OUT = sys.argv[2] if len(sys.argv) > 2 else "docs/meetings/cases-aprovados-16-09.json"
+DEPLOYABLE_OUT = "lib/cms/approved-cases.json"
 
 # Slug por (cliente, servico). Fixo e nao derivado do nome: o slug e a URL
 # publica e nao pode mudar sozinho se ela reescrever o rotulo do servico.
@@ -260,6 +261,13 @@ def main():
     with open(OUT, "w", encoding="utf8", newline="\n") as fh:
         json.dump(cases, fh, ensure_ascii=False, indent=2)
         fh.write("\n")
+
+    # /docs is excluded by .vercelignore; keep the build's copy in sync when
+    # regenerating the approved snapshot at its default location.
+    if OUT == "docs/meetings/cases-aprovados-16-09.json":
+        with open(DEPLOYABLE_OUT, "w", encoding="utf8", newline="\n") as fh:
+            json.dump(cases, fh, ensure_ascii=False, indent=2)
+            fh.write("\n")
 
     print("%d cases com Reviewed=Yes -> %s" % (len(cases), OUT))
     for c in cases:
