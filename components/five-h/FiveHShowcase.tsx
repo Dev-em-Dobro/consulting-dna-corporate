@@ -16,14 +16,13 @@ function slotFor(index: number, active: number) {
   return distance > 2 ? distance - FACULTY_COLORS.length : distance;
 }
 
-// The original artwork has uneven slices; the translated SVG has five equal slices.
-const EN_WHEEL_ANGLES = [0, -75, -165, -240, -300];
-const PT_WHEEL_ANGLES = [0, -72, -144, -216, -288];
+// Both languages use the original artwork's uneven slices.
+const WHEEL_ANGLES = [0, -75, -165, -240, -300];
 
-function wheelRotationForStep(step: number, portuguese: boolean) {
+function wheelRotationForStep(step: number) {
   const index = ((step % FACULTY_COLORS.length) + FACULTY_COLORS.length) % FACULTY_COLORS.length;
   const turns = Math.floor(step / FACULTY_COLORS.length);
-  return (portuguese ? PT_WHEEL_ANGLES : EN_WHEEL_ANGLES)[index] - turns * 360;
+  return WHEEL_ANGLES[index] - turns * 360;
 }
 
 export default function FiveHShowcase({
@@ -32,7 +31,6 @@ export default function FiveHShowcase({
 }: { heading?: string; faculties?: ApproachCopy["fiveH"]["faculties"] }) {
   const FACULTIES = faculties.map((faculty, index) => ({ ...faculty, color: FACULTY_COLORS[index] }));
   const [active, setActive] = useState(0);
-  const [portuguese, setPortuguese] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -42,9 +40,6 @@ export default function FiveHShowcase({
   const swipeStartRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
   const suppressClickUntilRef = useRef(0);
 
-  useEffect(() => {
-    setPortuguese(document.cookie.match(/(?:^|;\s*)site_locale=([^;]+)/)?.[1] === "pt-BR");
-  }, []);
 
   const { contextSafe } = useGSAP(() => {
     cardRefs.current.forEach((card, index) => {
@@ -86,7 +81,7 @@ export default function FiveHShowcase({
     });
 
     if (wheelRef.current) {
-      timeline.to(wheelRef.current, { rotation: wheelRotationForStep(wheelStepsRef.current, portuguese) }, 0);
+      timeline.to(wheelRef.current, { rotation: wheelRotationForStep(wheelStepsRef.current) }, 0);
     }
   });
 
