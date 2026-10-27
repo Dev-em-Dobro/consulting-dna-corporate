@@ -36,8 +36,7 @@ for (const group of ringGroups) {
 ring.push('</svg>');
 writeFileSync(join(root, "approach-5h-ring-pt-br.svg"), ring.join("\n"));
 
-// Repaint only the competency wedges, using their original flat colours and angles.
-// This keeps the source art's geometry while making every label legible in PT-BR.
+// The original competency wedges and small annotations remain untouched.
 const faculties = [
   { name: "CABEÇA", color: "#55215e", start: 210, end: 270 },
   { name: "MÃOS", color: "#293568", start: 270, end: 360 },
@@ -46,45 +45,8 @@ const faculties = [
   { name: "CORAÇÃO", color: "#bc1f26", start: 150, end: 210 },
 ];
 const wheel = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1322 1329" role="img" aria-labelledby="title desc">',
-  '<title id="title">Estrutura 5H</title><desc id="desc">Diagrama original com as cinco inteligências, 25 competências e núcleo em português.</desc>',
+  '<title id="title">Estrutura 5H</title><desc id="desc">Diagrama original com nomes das cinco inteligências e núcleo em português; competências detalhadas preservadas na arte original.</desc>',
   `<image href="${image("approach/5h-framework-wheel-user.png")}" width="1322" height="1329"/>`];
-const competencies = [
-  { start: 210, end: 270, colors: ["#be75b1", "#a8519f", "#9a3d96", "#802b7a", "#5d1e5a"], labels: [
-    ["Navegar pela", "complexidade"], ["Planejamento", "de cenários"], ["Mentalidade de", "crescimento"], ["Apetite ao", "risco"], ["Pensamento", "crítico"],
-  ] },
-  { start: 270, end: 360, colors: ["#a2a0b1", "#8b8ca3", "#6b6d84", "#484e74", "#272d5c"], labels: [
-    ["Desenvoltura"], ["Dar o", "exemplo"], ["Responsabilidade"], ["Foco nas partes", "interessadas"], ["Orientação", "para ação"],
-  ] },
-  { start: 0, end: 90, colors: ["#bfcbc8", "#9aaba1", "#7b9283", "#5c7b6a", "#3b6752"], labels: [
-    ["Escuta e", "questionamento"], ["Consistência"], ["Liderar pelo", "propósito"], ["Senso de dono"], ["Transparência"],
-  ] },
-  { start: 90, end: 150, colors: ["#e4c359", "#d4ad2e", "#ca9d2e", "#c2902c", "#b2832c"], labels: [
-    ["Decisões", "ágeis"], ["Perspicácia"], ["Construção", "de sentido"], ["Curiosidade"], ["Julgamento e", "discernimento"],
-  ] },
-  { start: 150, end: 210, colors: ["#f0b4b5", "#ef8386", "#f15f65", "#db252b", "#b12026"], labels: [
-    ["Conexão e", "colaboração"], ["Habilidade", "interpessoal"], ["Energia", "autêntica"], ["Empatia"], ["Coragem e", "resiliência"],
-  ] },
-];
-for (const group of competencies) {
-  const step = (group.end - group.start) / 5;
-  for (let i = 0; i < 5; i++) {
-    const start = group.start + i * step;
-    const end = start + step;
-    const mid = (start + end) / 2;
-    const [x, y] = polar(661, 664, 470, mid);
-    let rotation = mid + 180;
-    while (rotation > 90) rotation -= 180;
-    while (rotation < -90) rotation += 180;
-    const color = group.colors[i];
-    const [red, green, blue] = color.match(/[a-f\d]{2}/gi).map((part) => parseInt(part, 16));
-    const ink = (red * .299 + green * .587 + blue * .114) > 145 ? "#171717" : "#fff";
-    const lines = group.labels[i];
-    const longestLine = Math.max(...lines.map((line) => line.length));
-    const size = longestLine > 12 ? 18 : longestLine > 8 ? 22 : 25;
-    wheel.push(`<path d="${sector(661, 664, 556, 392, start + .25, end - .25)}" fill="${color}"/>`);
-    wheel.push(`<text transform="translate(${x} ${y}) rotate(${rotation})" text-anchor="middle" font-family="Arial,sans-serif" font-size="${size}" font-weight="700" fill="${ink}">${lines.map((line, index) => `<tspan x="0" dy="${index === 0 ? -(lines.length - 1) * size * .55 : size * 1.1}">${line}</tspan>`).join("")}</text>`);
-  }
-}
 for (const group of faculties) {
   const mid = (group.start + group.end) / 2;
   const [x, y] = polar(661, 664, 344, mid);
@@ -120,6 +82,7 @@ const diagram = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 971"
   label("Resultados", 1230, 430, 52, "#111"),
   label("para o", 1230, 505, 52, "#111"),
   label("negócio", 1230, 580, 52, "#111"),
-  `<image href="data:image/svg+xml;base64,${Buffer.from(wheelSvg).toString("base64")}" x="568" y="240" width="484" height="492"/>`,
+  // Keep the nested 5H wheel in English, consistent with both standalone 5H images.
+  `<image href="${image("approach/5h-framework-wheel-user.png")}" x="568" y="240" width="484" height="492"/>`,
   '</svg>'];
 writeFileSync(join(root, "approach", "inner-outer-game-5h-pt-br.svg"), diagram.join("\n"));
