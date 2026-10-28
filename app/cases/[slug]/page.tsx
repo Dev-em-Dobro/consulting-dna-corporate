@@ -11,6 +11,13 @@ import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 
 export const revalidate = 300;
 
+const REVIEWED_RELATED_CASES: Record<string, [string, string]> = {
+  vodafone: ["shunkhlai", "maaden"],
+  "frasers-property-leadership": ["shunkhlai", "vodafone"],
+  dyson: ["shunkhlai", "vodafone"],
+  shunkhlai: ["vodafone", "maaden"],
+};
+
 export async function generateStaticParams() {
   const cases = await getCaseCards();
   return cases.map((c) => ({ slug: c.slug }));
@@ -61,8 +68,10 @@ export default async function CasePage({
      biblioteca vazia  -  e ela não está. */
   const todos = (await getCaseListEntries()).filter((e) => e.slug !== slug);
   const mesmoServico = todos.filter((e) => e.service && e.service === c.story.service);
-  const related = [...mesmoServico, ...todos.filter((e) => !mesmoServico.includes(e))]
-    .slice(0, 2);
+  const reviewed = REVIEWED_RELATED_CASES[slug];
+  const related = reviewed
+    ? reviewed.map((relatedSlug) => todos.find((entry) => entry.slug === relatedSlug)).filter((entry): entry is (typeof todos)[number] => Boolean(entry))
+    : [...mesmoServico, ...todos.filter((e) => !mesmoServico.includes(e))].slice(0, 2);
 
   const jsonLd = [
     breadcrumbLd([

@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 html.site-i18n-pending body { visibility: hidden; }
+.locale-pt-only { display: none !important; }
+html[data-site-locale="pt-BR"] .locale-en-only { display: none !important; }
+html[data-site-locale="pt-BR"] .locale-pt-only { display: block !important; }
 
 @theme {
   --font-sans: var(--font-poppins), system-ui, sans-serif;
