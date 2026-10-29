@@ -17,6 +17,7 @@ import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-ca
 import { isReviewedCaseSlug } from "../reviewed-cases";
 // Keep a deployable copy here: .vercelignore excludes /docs from Vercel builds.
 import approvedCaseSnapshot from "./approved-cases.json";
+import publishedInsight114 from "./published-insight-114.json";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -766,13 +767,18 @@ export async function getSolution(slug: string, locale = "en"): Promise<Solution
 // ---- Insights --------------------------------------------------------------
 export async function getInsightCards(): Promise<InsightCard[]> {
   const res = await getList("insights");
-  if (!res) return [];
-  return parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
+  const cards: InsightCard[] = res ? parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
     slug: i.slug,
     title: plainText(i.title) ?? "",
     summary: plainText(i.summary),
     publishedAt: i.publishedAt,
-  }));
+  })) : [];
+  // The published article is live on the English site but absent from the
+  // preview CMS. Keep the published content visible until the CMS is synced.
+  if (!cards.some((card) => card.slug === publishedInsight114.slug)) {
+    cards.push({ slug: publishedInsight114.slug, title: publishedInsight114.title, publishedAt: publishedInsight114.publishedAt });
+  }
+  return cards.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
 /** Byline used until an individual author has been reviewed and approved. */
@@ -815,7 +821,12 @@ function mapInsight(raw: unknown): InsightVM | null {
 
 export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
   const raw = await getEntry("insights", slug, locale);
-  return raw ? mapInsight(raw) : null;
+  const fromCms = raw ? mapInsight(raw) : null;
+  if (fromCms) return fromCms;
+  if (slug === publishedInsight114.slug) {
+    return { ...publishedInsight114, readingMinutes: readingMinutes(publishedInsight114.body) };
+  }
+  return null;
 }
 
 /** Reading time from body word count (~200 wpm), min 1 min. Computed on the site. */
