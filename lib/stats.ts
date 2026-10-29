@@ -93,7 +93,7 @@ export async function getFirmStats(): Promise<FirmStat[]> {
 const STAT_FALLBACK: (SiteStat & { cmsKey: string })[] = [
   { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
   { cmsKey: "years", value: "19", label: "Years advising senior leaders" },
-  { cmsKey: "countries", value: "5", label: "Regions of global delivery" },
+  { cmsKey: "countries", value: "4", label: "Regions of global delivery" },
   { cmsKey: "faculty", value: "60+", label: "Faculty of senior practitioners" },
 ];
 
@@ -107,7 +107,9 @@ export async function getSiteStats(): Promise<SiteStat[]> {
   return STAT_FALLBACK.map((s) => {
     const v = data[s.cmsKey];
     return {
-      value: typeof v === "string" && v.trim() ? v : s.value,
+      // The published English site now says four regions; the old CMS value
+      // can still say five. Keep both preview languages aligned with production.
+      value: s.cmsKey === "countries" ? "4" : typeof v === "string" && v.trim() ? v : s.value,
       label: s.label,
     };
   });

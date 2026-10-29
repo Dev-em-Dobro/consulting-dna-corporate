@@ -71,7 +71,7 @@
     "sheetStatus": "NEW",
     "data": {
       "title": "DP World",
-      "quote": "The programme helped me connect who I am as a leader to how I show up every day. It's changed how I lead conversations, build trust, and inspire my teams.\"\r\nNorth Carolina participant",
+      "quote": "The programme helped me connect who I am as a leader to how I show up every day. It's changed how I lead conversations, build trust, and inspire my teams.",
       "challenge": "As DP World expanded rapidly across continents, it faced a pivotal challenge: unifying language, mindsets and behaviours across a diverse global workforce. With varying levels of maturity and different cultural contexts across more than 80 ports and terminals worldwide, there was a pressing need to define a single  standard, 'The DP World Way', that connects identity, purpose and performance. Priorities included building a common global vocabulary, equipping first-time and mid-level managers to lead with confidence and clarity, and embedding the DP World Way as a living culture rather than a corporate statement.",
       "approach": "We designed and piloted a global first time manager programme reaching more than 120 mid-level managers across four pilot regions: the Middle East, Africa, Asia and the Americas. The facilitator model was built alongside DP World's internal HR and learning partners from the outset, so the programme could scale into a global rollout rather than remain a one-off intervention.",
       "outcome": "A unified first time manager culture is now established across the pilot regions, driving consistency, accountability and high trust. Managers demonstrated measurable behavioural change, including improved clarity in decision-making, stronger collaboration and better coaching conversations, translating into sharper execution as teams, terminals and time zones aligned around a common way of leading peers and teams. Consistency is now embedded across DP World's multi-national environments and functions, giving the organisation cultural continuity as it continues to scale.",
@@ -110,7 +110,8 @@
         ],
         "region": [],
         "outcome": []
-      }
+      },
+      "quoter": "North Carolina participant"
     }
   },
   {
@@ -258,7 +259,7 @@
       "title": "Frasers Property",
       "headline": "From HR leadership team to enterprise leadership team.",
       "introduction": "<p>Partnering with Frasers Property’s Group CHRO and People and Culture Leadership Team to build a more aligned, interdependent and enterprise-minded team, equipped to help lead the One Frasers transformation.</p>",
-      "quote": "This journey helped us step up as an enterprise PCLT: not just as strong individuals, but as a high-performing team that trusts and supports one another.”\r\nVicki Ng, Group Chief People Officer, Frasers Property Limited",
+      "quote": "This journey helped us step up as an enterprise PCLT: not just as strong individuals, but as a high-performing team that trusts and supports one another.",
       "challenge": "As Frasers Property progressed its One Frasers strategy, the People and Culture Leadership Team needed to evolve alongside it. The opportunity was to move beyond a group of strong functional and market leaders towards a genuinely interdependent enterprise team: one able to think horizontally, challenge constructively, make decisions collectively and influence culture, talent and performance across the organisation. This required not another HR initiative, but a shift in how the team itself operated and led.",
       "approach": "CorporateDNA designed an 18-month, multi-modal team transformation journey combining immersive team modules, 360° feedback, individual coaching, group coaching, mastery sessions and regular team check-ins. Alongside the leadership work, a series of Action Learning Labs put real Frasers business and organisational challenges into the room, requiring leaders to practise new behaviours while solving live problems together. The journey continually connected the team’s Inner Game (trust, candour, assumptions and leadership behaviour) with its Outer Game of priorities, decisions, collaboration and enterprise impact.",
       "outcome": "Over 18 months, the PCLT developed stronger trust and connection, greater candour and a clearer sense of collective accountability. Leaders became more willing to surface assumptions, challenge one another constructively and work across geographic and functional boundaries. Decision-making became more collective and the team increasingly shifted from representing individual markets or disciplines to asking “What is right for One Frasers?” The result was a P&C leadership team better able to operate as an enterprise partner in shaping culture, talent, transformation and performance.",
@@ -315,7 +316,8 @@
         ],
         "region": [],
         "outcome": []
-      }
+      },
+      "quoter": "Vicki Ng, Group Chief People Officer, Frasers Property Limited"
     }
   },
   {
@@ -513,7 +515,9 @@
         ],
         "region": [],
         "outcome": []
-      }
+      },
+      "quote": "We operate in a dynamic environment that changes by the minute. Technology is no longer something that supports the business, it is at the core of our business. I want the MD conference to be the foundation for all 150 Directors being aligned on mindsets and behaviours needed for this Culture transformation within Tech.",
+      "quoter": "Rob Rooney, Head of Technology, Operations & Firm Resilience, Morgan Stanley"
     }
   },
   {

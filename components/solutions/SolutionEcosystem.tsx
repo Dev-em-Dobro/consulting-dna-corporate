@@ -138,8 +138,8 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
                 </span>
               </div>
             )}
+            {item.diagram === "/services/ecosystem/culture-ecosystem.jpg" && <CultureEcosystemTranslation />}
           </div>
-          {item.diagram === "/services/ecosystem/culture-ecosystem.jpg" && <CultureEcosystemTranslation />}
           </div>
 
           {/* O FIO VERTICAL à esquerda desta coluna é o que o layout desenha, e

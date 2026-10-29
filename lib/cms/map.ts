@@ -491,7 +491,14 @@ export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseA
   const local = localCaseArticle(slug);
   if (local) return local;
   const raw = await getEntry("cases", slug, locale);
-  return (raw ? mapCase(raw) : null) ?? approvedCaseArticle(slug);
+  const article = (raw ? mapCase(raw) : null) ?? approvedCaseArticle(slug);
+  // The source CMS still embeds two attributions inside quote text and omits
+  // Rob Rooney's approved quote. The reviewed snapshot separates those fields.
+  if (article && ["frasers-property-hrlt", "dp-world", "morgan-stanley"].includes(slug)) {
+    const approved = approvedCaseArticle(slug);
+    if (approved?.quote) return { ...article, quote: approved.quote, quoter: approved.quoter };
+  }
+  return article;
 }
 
 /**
