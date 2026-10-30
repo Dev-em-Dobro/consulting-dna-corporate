@@ -27,7 +27,7 @@ export default function LocaleRuntime() {
     const translate = (value: string) => {
       const key = normalize(value);
       const translated = translations[key];
-      if (!translated || translated === key) return value;
+      if (translated === undefined || translated === key) return value;
       const leading = value.match(/^\s*/)?.[0] ?? "";
       const trailing = value.match(/\s*$/)?.[0] ?? "";
       return `${leading}${translated}${trailing}`;

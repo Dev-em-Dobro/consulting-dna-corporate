@@ -165,7 +165,7 @@ export default async function ApproachPage() {
               <LocalizedImage
                 src="/approach/5h-framework-wheel-user.png"
                 alt="The 5H model showing the five leadership intelligences and their dimensions"
-                ptSrc="/approach/5h-framework-wheel-pt-br.svg"
+                ptSrc="/approach/5h-framework-wheel-user.png"
                 ptAlt="Modelo 5H com as cinco dimensões da liderança e suas competências"
                 width={1322}
                 height={1329}

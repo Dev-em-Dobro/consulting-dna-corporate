@@ -15,6 +15,9 @@ import { LOGO_COLORS } from "../logo-colors";
 import { CASE_HERO_COVERS } from "../case-hero-covers";
 import { LOCAL_CASES, localCaseArticle, localCaseListEntries } from "../local-cases";
 import { isReviewedCaseSlug } from "../reviewed-cases";
+// Keep a deployable copy here: .vercelignore excludes /docs from Vercel builds.
+import approvedCaseSnapshot from "./approved-cases.json";
+import publishedInsight114 from "./published-insight-114.json";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -333,8 +336,7 @@ export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Pro
     tags: c.tags,
   }));
   const res = await getCases(facets);
-  if (!res) return local;
-  const cms = parseItems<S.CaseListItem>(res.items, S.caseListItem)
+  const cms = parseItems<S.CaseListItem>(res?.items ?? [], S.caseListItem)
     .filter((c) => isReviewedCaseSlug(c.slug)).map((c) => ({
     slug: c.slug,
     title: plainText(c.title) ?? "",
@@ -342,8 +344,18 @@ export async function getCaseCards(facets?: Parameters<typeof getCases>[0]): Pro
     coverUrl: c.coverUrl,
     tags: caseTags(c.facets),
   }));
-  const slugs = new Set(local.map((c) => c.slug));
-  return [...local, ...cms.filter((c) => !slugs.has(c.slug))];
+  const slugs = new Set([...local, ...cms].map((c) => c.slug));
+  const fallback = facets ? [] : approvedCaseSnapshot
+    .filter((entry) => isReviewedCaseSlug(entry.slug) && !slugs.has(entry.slug))
+    .map((entry) => ({
+      slug: entry.slug,
+      title: entry.data.title,
+      summary: entry.data.headline,
+      coverUrl: CASE_HERO_COVERS[entry.slug],
+      tags: entry.data.tags ?? [],
+    }));
+  const localSlugs = new Set(local.map((c) => c.slug));
+  return [...local, ...cms.filter((c) => !localSlugs.has(c.slug)), ...fallback];
 }
 
 /**
@@ -420,6 +432,46 @@ function mapCase(raw: unknown): CaseArticle | null {
   };
 }
 
+/** Reviewed copy retained for previews when the CMS read API is unavailable. */
+function approvedCaseArticle(slug: string): CaseArticle | null {
+  const entry = approvedCaseSnapshot.find((caseEntry) => caseEntry.slug === slug);
+  if (!entry) return null;
+  return mapCase({
+    id: `approved-${slug}`,
+    type: "case",
+    slug,
+    locale: "en",
+    publishedAt: "2026-09-16T00:00:00.000Z",
+    data: entry.data,
+  });
+}
+
+function approvedCaseListEntries(): CaseListEntry[] {
+  return approvedCaseSnapshot.flatMap((entry) => {
+    const article = approvedCaseArticle(entry.slug);
+    if (!article || !isReviewedCaseSlug(entry.slug)) return [];
+    const logo = resolveClientLogo(article.title);
+    const metric = splitMetric(article.facts.find((fact) => fact.label === "Impact")?.value);
+    return [{
+      slug: entry.slug,
+      client: article.title,
+      tags: article.tags,
+      coverUrl: article.coverUrl ?? CASE_HERO_COVERS[entry.slug],
+      challenge: article.body.challenge,
+      metricValue: metric.value,
+      metricLabel: metric.label,
+      impactFigures: article.story.impactFigures,
+      publishedAt: "2026-09-16T00:00:00.000Z",
+      logoUrl: logo.url,
+      logoColor: logo.color,
+      headline: article.headline,
+      quote: article.quote,
+      quoter: article.quoter,
+      service: article.story.service,
+    }];
+  });
+}
+
 /**
  * Normalise the authored figures, dropping any row with nothing to show. A
  * figure with a label and no value is legitimate (the client writes findings in
@@ -440,7 +492,14 @@ export async function getCaseArticle(slug: string, locale = "en"): Promise<CaseA
   const local = localCaseArticle(slug);
   if (local) return local;
   const raw = await getEntry("cases", slug, locale);
-  return raw ? mapCase(raw) : null;
+  const article = (raw ? mapCase(raw) : null) ?? approvedCaseArticle(slug);
+  // The source CMS still embeds two attributions inside quote text and omits
+  // Rob Rooney's approved quote. The reviewed snapshot separates those fields.
+  if (article && ["frasers-property-hrlt", "dp-world", "morgan-stanley"].includes(slug)) {
+    const approved = approvedCaseArticle(slug);
+    if (approved?.quote) return { ...article, quote: approved.quote, quoter: approved.quoter };
+  }
+  return article;
 }
 
 /**
@@ -474,8 +533,7 @@ function challengeExcerpt(html?: string, max = 300): string | undefined {
 export async function getCaseListEntries(): Promise<CaseListEntry[]> {
   const local = localCaseListEntries().filter((c) => isReviewedCaseSlug(c.slug));
   const res = await getCases();
-  if (!res) return local;
-  const items = parseItems<S.CaseListItem>(res.items, S.caseListItem)
+  const items = parseItems<S.CaseListItem>(res?.items ?? [], S.caseListItem)
     .filter((c) => isReviewedCaseSlug(c.slug));
   const cms = await Promise.all(
     items.map(async (it) => {
@@ -514,8 +572,10 @@ export async function getCaseListEntries(): Promise<CaseListEntry[]> {
       };
     }),
   );
-  const slugs = new Set(local.map((c) => c.slug));
-  return [...local, ...cms.filter((c) => !slugs.has(c.slug))];
+  const slugs = new Set([...local, ...cms].map((c) => c.slug));
+  const fallback = approvedCaseListEntries().filter((c) => !slugs.has(c.slug));
+  const localSlugs = new Set(local.map((c) => c.slug));
+  return [...local, ...cms.filter((c) => !localSlugs.has(c.slug)), ...fallback];
 }
 
 // ---- Solutions -------------------------------------------------------------
@@ -707,13 +767,18 @@ export async function getSolution(slug: string, locale = "en"): Promise<Solution
 // ---- Insights --------------------------------------------------------------
 export async function getInsightCards(): Promise<InsightCard[]> {
   const res = await getList("insights");
-  if (!res) return [];
-  return parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
+  const cards: InsightCard[] = res ? parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
     slug: i.slug,
     title: plainText(i.title) ?? "",
     summary: plainText(i.summary),
     publishedAt: i.publishedAt,
-  }));
+  })) : [];
+  // The published article is live on the English site but absent from the
+  // preview CMS. Keep the published content visible until the CMS is synced.
+  if (!cards.some((card) => card.slug === publishedInsight114.slug)) {
+    cards.push({ slug: publishedInsight114.slug, title: publishedInsight114.title, publishedAt: publishedInsight114.publishedAt });
+  }
+  return cards.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
 /** Byline used until an individual author has been reviewed and approved. */
@@ -756,7 +821,12 @@ function mapInsight(raw: unknown): InsightVM | null {
 
 export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
   const raw = await getEntry("insights", slug, locale);
-  return raw ? mapInsight(raw) : null;
+  const fromCms = raw ? mapInsight(raw) : null;
+  if (fromCms) return fromCms;
+  if (slug === publishedInsight114.slug) {
+    return { ...publishedInsight114, readingMinutes: readingMinutes(publishedInsight114.body) };
+  }
+  return null;
 }
 
 /** Reading time from body word count (~200 wpm), min 1 min. Computed on the site. */

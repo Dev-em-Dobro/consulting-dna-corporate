@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { ServiceEcosystem } from "@/lib/services";
+import CultureEcosystemTranslation from "@/components/solutions/CultureEcosystemTranslation";
 
 /**
  * A FAIXA DO ECOSSISTEMA  -  o "How we work" do layout de Culture Transformation
@@ -81,13 +82,16 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
                 o `\n` da copy decide ONDE quebra ("The CDNA" / "Culture
                 Ecosystem"), e o `whitespace-nowrap` impede a segunda linha de
                 partir de novo em "Culture" / "Ecosystem" quando a coluna aperta. */}
-            <h2 className="mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
+            <h2 data-no-translate className="locale-en-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
               {item.headline.split("\n").map((line, i, lines) => (
                 <span key={line} className="block whitespace-nowrap">
                   {line}
                   {i < lines.length - 1 ? " " : ""}
                 </span>
               ))}
+            </h2>
+            <h2 data-no-translate className="locale-pt-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
+              O ecossistema cultural da CorporateDNA
             </h2>
             <p className="mt-6 font-serif text-[16px] leading-[1.65] text-white/75 md:text-[17px]">
               {item.body}
@@ -100,7 +104,8 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
               altura e nada abaixo dela se desloca. */}
           {/* ⚠️ 3:2 COM O ARQUIVO, que é a proporção dele (1024x683): em 4:3 o
               `object-contain` deixaria duas tarjas escuras em cima e embaixo. */}
-          <div className={`relative w-full ${item.diagram ? "aspect-[3/2] self-center" : "aspect-[4/3]"}`}>
+          <div className="self-center">
+          <div className={`relative w-full ${item.diagram ? "aspect-[3/2]" : "aspect-[4/3]"}`}>
             {item.diagram ? (
               <Image
                 src={item.diagram}
@@ -133,6 +138,8 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
                 </span>
               </div>
             )}
+            {item.diagram === "/services/ecosystem/culture-ecosystem.jpg" && <CultureEcosystemTranslation />}
+          </div>
           </div>
 
           {/* O FIO VERTICAL à esquerda desta coluna é o que o layout desenha, e

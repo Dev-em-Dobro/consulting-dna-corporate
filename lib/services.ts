@@ -3186,7 +3186,7 @@ export const services: Service[] = [
     decisionLenses: [
       { title: "Data", question: "What do the numbers show?", icon: "chart" },
       { title: "AI", question: "What does the model suggest?", icon: "cpu" },
-      { title: "Experience", question: "What have we learned before?", icon: "book" },
+      { title: "Past experience", question: "What have we learned before?", icon: "book" },
       { title: "Hunch", question: "What signal are we sensing?", icon: "mindset" },
       { title: "Courage", question: "What decision needs ownership?", icon: "shield" },
       { title: "Action", question: "What will move in 30 days?", icon: "target" },

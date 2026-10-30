@@ -235,6 +235,15 @@ export default function SolutionAudiences({
                        como um bloco em vez de frases soltas. */
                     className="absolute bottom-0 right-0 p-4 text-right text-[10px] font-bold uppercase leading-[1.5] tracking-[1.5px] text-white lg:p-5 lg:text-[11px]"
                   >
+                    {a.image?.includes("/audiences/ct-") ? <span data-no-translate className="locale-pt-only">
+                      {(a.image.includes("ct-organisation-wide")
+                        ? ["UMA ORGANIZAÇÃO", "UMA FORMA DE TRABALHAR"]
+                        : a.image.includes("ct-market-function")
+                          ? ["RELEVÂNCIA LOCAL /", "CONSISTÊNCIA EM TODA", "A ORGANIZAÇÃO"]
+                          : ["DEFINA O TOM", "IMPULSIONE A MUDANÇA", "MULTIPLIQUE O IMPACTO"]
+                      ).map((line) => <span key={line} className="block">{line}</span>)}
+                    </span> : null}
+                    <span className={a.image?.includes("/audiences/ct-") ? "locale-en-only" : ""}>
                     {a.credential.map((line) => (
                       /* Uma linha por `<span>` em bloco, e não `<br/>`: o leitor
                          de tela lê as linhas como uma sequência, e a quebra
@@ -244,6 +253,7 @@ export default function SolutionAudiences({
                         {line}
                       </span>
                     ))}
+                    </span>
                   </span>
                 ) : null}
               </div>
