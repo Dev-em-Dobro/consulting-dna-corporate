@@ -1,6 +1,6 @@
 type Label = { x: number; y: number; w: number; h: number; lines: string[]; size: number; red?: boolean };
 const labels: Label[] = [
-  { x: 18, y: 3, w: 120, h: 17, lines: ["NOSSOS SERVIÇOS"], size: 12, red: true },
+  { x: 70, y: 8, w: 140, h: 25, lines: ["NOSSOS SERVIÇOS"], size: 12, red: true },
   { x: 34, y: 34, w: 337, h: 73, lines: ["O ecossistema cultural", "da CorporateDNA"], size: 29 },
   { x: 34, y: 111, w: 340, h: 42, lines: ["Dez elementos interligados que dão vida", "à cultura no dia a dia do trabalho."], size: 15 },
   { x: 458, y: 55, w: 110, h: 20, lines: ["ELEMENTO 1"], size: 12, red: true },
