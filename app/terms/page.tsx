@@ -14,6 +14,6 @@ export const revalidate = 300;
 
 export default async function TermsPage() {
   return (
-    <LegalView cmsKey="terms" eyebrow="Terms" fallbackTitle="Terms of Service" />
+    <LegalView cmsKey="terms" />
   );
 }

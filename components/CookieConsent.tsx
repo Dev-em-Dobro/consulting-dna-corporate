@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { COOKIE_ACCEPTED_EVENT, COOKIE_CONSENT_KEY } from "@/lib/analytics";
+import { COOKIE_ACCEPTED_EVENT, COOKIE_CONSENT_KEY, COOKIE_SETTINGS_EVENT } from "@/lib/analytics";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -13,6 +13,12 @@ export default function CookieConsent() {
     } catch {
       /* localStorage unavailable  -  don't block the page */
     }
+  }, []);
+
+  useEffect(() => {
+    const open = () => setVisible(true);
+    window.addEventListener(COOKIE_SETTINGS_EVENT, open);
+    return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, open);
   }, []);
 
   /* ESTA BARRA COME OS ÚLTIMOS ~85px DE TODA PRIMEIRA VISITA, e ela é `fixed`
@@ -46,13 +52,24 @@ export default function CookieConsent() {
   }, [visible]);
 
   const decide = (value: "accepted" | "declined") => {
+    let wasAccepted = false;
     try {
+      wasAccepted = localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted";
       localStorage.setItem(COOKIE_CONSENT_KEY, value);
     } catch {
       /* ignore */
     }
     if (value === "accepted") {
       window.dispatchEvent(new Event(COOKIE_ACCEPTED_EVENT));
+    } else if (wasAccepted) {
+      for (const item of document.cookie.split(";")) {
+        const name = item.trim().split("=")[0];
+        if (name === "_ga" || name.startsWith("_ga_")) {
+          document.cookie = `${name}=; Max-Age=0; Path=/`;
+          document.cookie = `${name}=; Max-Age=0; Path=/; Domain=.${location.hostname}`;
+        }
+      }
+      window.location.reload();
     }
     setVisible(false);
   };

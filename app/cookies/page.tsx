@@ -14,6 +14,6 @@ export const revalidate = 300;
 
 export default async function CookiesPage() {
   return (
-    <LegalView cmsKey="cookies" eyebrow="Cookies" fallbackTitle="Cookie Policy" />
+    <LegalView cmsKey="cookies" />
   );
 }

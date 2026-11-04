@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteNav } from "@/lib/nav";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 
 // Footer primary links come from the single nav source (lib/nav.ts) so the
 // footer and header menu never drift apart (FR-411). Top-level items that have
@@ -70,6 +71,7 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/cookies" className="hover:text-white">Cookies</Link>
+            <CookieSettingsButton label="Cookie settings" />
             <Link href="/terms" className="hover:text-white">Terms of Service</Link>
             <a href="https://www.linkedin.com/company/corporatedna-consulting/home/" target="_blank" rel="noopener noreferrer" aria-label="CorporateDNA Consulting on LinkedIn" className="inline-flex items-center gap-1.5 hover:text-white">
               <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
