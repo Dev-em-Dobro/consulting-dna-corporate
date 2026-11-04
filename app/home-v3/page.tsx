@@ -29,7 +29,7 @@
  * explícita) e não está no menu (o nav vem do CMS).
  */
 import type { Metadata } from "next";
-import { Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
@@ -64,9 +64,9 @@ import { getSiteStats } from "@/lib/stats";
 // Carregada AQUI, e não no layout: assim a home real não baixa mais uma fonte
 // por causa de uma proposta. Escolha de família é do Guli  -  isto é um lugar
 // para ele decidir em cima, e trocar é uma linha.
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["300", "400"],
+const serif = localFont({
+  src: "../../assets/fonts/source-serif-4-latin-wght-normal.woff2",
+  weight: "200 900",
   variable: "--font-serif-v2",
   display: "swap",
 });

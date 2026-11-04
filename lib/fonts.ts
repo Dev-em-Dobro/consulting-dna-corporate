@@ -1,4 +1,4 @@
-import { Geist, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * O par tipográfico editorial  -  Geist + Source Serif 4.
@@ -31,24 +31,24 @@ import { Geist, Source_Serif_4 } from "next/font/google";
  * migrar isto sobe para o layout e o `--font-sans` global muda junto.
  */
 
-export const geist = Geist({
-  subsets: ["latin"],
+export const geist = localFont({
+  src: "../assets/fonts/geist-latin-wght-normal.woff2",
   /* 700 entra por causa dos componentes COMPARTILHADOS que caem dentro destas
      árvores e não foram reescritos  -  o SiteFooter e o WorldCoverageMap ainda
      pedem `font-bold`. Sem o 700 carregado o navegador engorda o 600 sozinho, e
      negrito sintético em grotesca fica sujo. */
-  weight: ["400", "500", "600", "700"],
+  weight: "100 900",
   variable: "--font-geist-v3",
   display: "swap",
 });
 
-export const serif = Source_Serif_4({
-  subsets: ["latin"],
+export const serif = localFont({
+  src: "../assets/fonts/source-serif-4-latin-wght-normal.woff2",
   /* 500 é dos títulos de card, que usam `font-medium`. Sem ele o navegador
      engorda o 400 sozinho, e negrito sintético em serifa é pior que em grotesca:
      as hastes finas engrossam junto com as grossas e o desenho perde o contraste
      que define a família. */
-  weight: ["400", "500", "600"],
+  weight: "200 900",
   variable: "--font-serif-v3",
   display: "swap",
 });

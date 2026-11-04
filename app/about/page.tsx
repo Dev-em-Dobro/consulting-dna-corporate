@@ -30,7 +30,7 @@ import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Geist, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import NavV2 from "@/components/NavV2";
 import SiteFooter from "@/components/SiteFooter";
 import { buildSiteNav } from "@/lib/nav-server";
@@ -94,21 +94,21 @@ import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
      3. Menu a 16px. Vale de 1280 para cima; num tablet de 1024 os oito itens
         encapsulados estouram a barra por 40px. Ver a conta na NavV2.
    ──────────────────────────────────────────────────────────────────────── */
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const geist = localFont({
+  src: "../../assets/fonts/geist-latin-wght-normal.woff2",
+  weight: "100 900",
   variable: "--font-geist-v3",
   display: "swap",
 });
 
-const serif = Source_Serif_4({
-  subsets: ["latin"],
+const serif = localFont({
+  src: "../../assets/fonts/source-serif-4-latin-wght-normal.woff2",
   /* 500 entrou com a inversão de 09-09: os títulos de card, que passaram para a
      serifa, usam `font-medium`. Sem ele o navegador engorda o 400 sozinho, e
      negrito sintético em serifa é pior que em grotesca  -  as hastes finas
      engrossam junto com as grossas e o desenho perde o contraste que define a
      família. */
-  weight: ["400", "500", "600"],
+  weight: "200 900",
   variable: "--font-serif-v3",
   display: "swap",
 });
