@@ -10,7 +10,8 @@ import { getInsightListEntries } from "@/lib/cms/map";
 import { INSIGHTS_RESOURCE_FILES } from "@/lib/insights-copy";
 import { getInsightsCopy } from "@/lib/insights-copy-server";
 import { getHomeCopy } from "@/lib/home-copy-server";
-import { Download } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
+import Link from "next/link";
 import { books } from "@/lib/books";
 import BookCard from "@/components/books/BookCard";
 import BookEndorsements from "@/components/BookEndorsements";
@@ -33,6 +34,9 @@ export default async function InsightsPage() {
     getHomeCopy(),
   ]);
   const rheaBook = { ...books[0], ...homeCopy.book, cover: "/book-cover-home-transparent.png" };
+  const articleSlug = "why-leadership-development-must-now-teach-systems-awareness-and-systems-navigati";
+  const featuredArticle = insights.find((entry) => entry.slug === articleSlug);
+  const libraryArticles = insights.filter((entry) => entry.slug !== articleSlug);
 
   return (
     /* A LINGUAGEM NOVA CHEGA AQUI em 11-09, a pedido: menu flutuante, herói de
@@ -95,13 +99,13 @@ export default async function InsightsPage() {
             shown again as soon as a published insight is returned. Cover image
             is optional on cards  -  InsightCard already falls back to a grey
             placeholder when `coverUrl` is missing. */}
-        {insights.length > 0 && (
+        {libraryArticles.length > 0 && (
           <section id="library" className="bg-white">
             <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
               <TypeLabel>{copy.library.label}</TypeLabel>
               <h2 className="sr-only">{copy.library.label}</h2>
               <div className="mt-10">
-                <InsightsLibrary insights={insights} labels={copy.library} />
+                <InsightsLibrary insights={libraryArticles} labels={copy.library} />
               </div>
             </div>
           </section>
@@ -150,6 +154,22 @@ export default async function InsightsPage() {
                   </article>
                 </Reveal>
               ))}
+              {featuredArticle && <Reveal>
+                <article className="group flex h-full min-h-[420px] flex-col border-t-4 border-brand bg-white p-7 transition-colors duration-300 hover:bg-ink md:p-9">
+                  <div className="flex items-start justify-between gap-6">
+                    <span className="text-[12px] font-semibold tracking-[1.8px] text-brand">{String(copy.thoughtLeadership.resources.length + 1).padStart(2, "0")}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-brand transition-colors group-hover:text-brand-light">Article · 14.10.2026</span>
+                  </div>
+                  <h3 className="font-serif mt-16 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">{featuredArticle.title}</h3>
+                  <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">Why developing individual leaders is not enough when organisational systems prevent change.</p>
+                  <div className="mt-auto pt-10">
+                    <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">{copy.thoughtLeadership.authorPrefix} {featuredArticle.author}</p>
+                    <Link href={`/insights/${featuredArticle.slug}`} className="inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.8px] text-ink transition-colors hover:text-brand group-hover:text-white group-hover:hover:text-brand">
+                      Read article <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+                    </Link>
+                  </div>
+                </article>
+              </Reveal>}
             </div>
           </div>
         </section>

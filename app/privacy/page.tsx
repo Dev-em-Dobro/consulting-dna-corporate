@@ -14,6 +14,6 @@ export const revalidate = 300;
 
 export default async function PrivacyPage() {
   return (
-    <LegalView cmsKey="privacy" eyebrow="Privacy" fallbackTitle="Privacy Policy" />
+    <LegalView cmsKey="privacy" />
   );
 }

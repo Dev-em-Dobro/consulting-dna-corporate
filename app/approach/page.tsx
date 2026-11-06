@@ -5,7 +5,7 @@ import Image from "next/image";
 import LocalizedImage from "@/components/LocalizedImage";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Geist, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import {
   ListChecks,
   ChartNoAxesColumn,
@@ -23,16 +23,16 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, serviceLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const geist = localFont({
+  src: "../../assets/fonts/geist-latin-wght-normal.woff2",
+  weight: "100 900",
   variable: "--font-geist-approach",
   display: "swap",
 });
 
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const serif = localFont({
+  src: "../../assets/fonts/source-serif-4-latin-wght-normal.woff2",
+  weight: "200 900",
   variable: "--font-serif-approach",
   display: "swap",
 });

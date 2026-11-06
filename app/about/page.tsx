@@ -30,7 +30,7 @@ import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Geist, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import NavV2 from "@/components/NavV2";
 import SiteFooter from "@/components/SiteFooter";
 import { buildSiteNav } from "@/lib/nav-server";
@@ -94,21 +94,21 @@ import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
      3. Menu a 16px. Vale de 1280 para cima; num tablet de 1024 os oito itens
         encapsulados estouram a barra por 40px. Ver a conta na NavV2.
    ──────────────────────────────────────────────────────────────────────── */
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const geist = localFont({
+  src: "../../assets/fonts/geist-latin-wght-normal.woff2",
+  weight: "100 900",
   variable: "--font-geist-v3",
   display: "swap",
 });
 
-const serif = Source_Serif_4({
-  subsets: ["latin"],
+const serif = localFont({
+  src: "../../assets/fonts/source-serif-4-latin-wght-normal.woff2",
   /* 500 entrou com a inversão de 09-09: os títulos de card, que passaram para a
      serifa, usam `font-medium`. Sem ele o navegador engorda o 400 sozinho, e
      negrito sintético em serifa é pior que em grotesca  -  as hastes finas
      engrossam junto com as grossas e o desenho perde o contraste que define a
      família. */
-  weight: ["400", "500", "600"],
+  weight: "200 900",
   variable: "--font-serif-v3",
   display: "swap",
 });
@@ -1454,71 +1454,8 @@ export default async function AboutV2Page() {
           style={{ backgroundColor: "rgba(22, 19, 20, 0.78)" }}
         />
         <Reveal className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
-          <div className="flex flex-col items-center text-center">
-            {/* O RÓTULO É VERMELHO POR DECISÃO DO CLIENTE (09-09), contra a
-                recomendação registrada aqui. Fica o número para quem reabrir
-                isto depois: no `brand-light`, dentro do painel, ele dá 3,56:1
-                no pior ponto e 4,28:1 na média  -  acima da régua de 3:1 de
-                elemento gráfico, abaixo dos 4,5:1 que o AA pede para texto. O
-                branco daria 9,9:1, e o vermelho CHEIO daria 2,25:1, que é o
-                motivo de o tom aqui ser o `brand-light` e não o `brand`.
-
-                Uma versão intermediária chegou a subir com o rótulo branco e o
-                vermelho só na régua e nas aspas. O cliente pediu o vermelho de
-                volta, e o pedido ganha  -  é a cor da marca no lugar onde a marca
-                se anuncia, e a página inteira usa esse rótulo assim.
-
-                O QUE FOI FEITO PARA MELHORAR O NÚMERO sem desfazer o pedido
-                anterior: o painel escureceu de 55% para 65%, e SÓ o painel. Foi
-                o que levou o rótulo de 2,56:1 para 3,56:1. Isso não custou nada
-                da foto  -  a opacidade do painel governa o contraste do texto, o
-                véu da seção governa quanta imagem aparece, e são controles
-                separados desde que este bloco virou vidro. Fechar o véu teria
-                custado a imagem; fechar o painel não custa.
-
-                O teto continua existindo: nem o tom claro chega aos 4,5:1 dentro
-                de um painel translúcido sobre foto clara. Para isso o painel
-                teria de ser praticamente opaco, e aí não é mais vidro. */}
-            <span className="mb-5 block text-[14px] font-medium uppercase leading-none tracking-[1.3px] text-brand-light">
-              {copy.purpose.label}
-            </span>
-            {/* h2  -  Geist 500 a 40px, entrelinha 1,1, direto da grade. O h1 do
-                herói está em 52px, então a distância entre os dois níveis é de
-                12px: suficiente para hierarquia, pequena o bastante para os
-                dois lerem como a mesma voz. Era 60/44 antes, com peso 700 nos
-                dois  -  dois blocos, não dois níveis. */}
-            {/* PESO 600 aqui, e 500 nos outros h2, pelo mesmo motivo do h1: o
-                título passou a ser branco sobre fundo escuro, e nessa
-                combinação a letra afina opticamente. Um degrau de peso repõe o
-                que a inversão tira  -  é o mesmo ajuste, na mesma página, pela
-                mesma razão. */}
-            {/* A MEDIDA SUBIU DE 720 PARA 820px em 09-09, e o número não é
-                estético: medido, o título de então ("Our purpose is to keep
-                leadership real.") pedia 744px a 40px numa linha só. Preso em 720
-                ele quebrava por 24px e largava "real." sozinho na segunda linha.
-                820px é a largura cheia do container (900 menos os 80 de
-                padding), então é o teto real, não um valor escolhido  -  e por
-                isso ele fica, mesmo com o título novo, que é mais curto.
-
-                `whitespace-nowrap` nas duas últimas palavras, de volta em 22-09
-                junto com o título que ele protege. A Maliha pediu o texto
-                anterior a 21-09 ("Our purpose is to keep leadership real.").
-                Sem a trava, "real." desce sozinho quando a linha quebra. */}
-            <h2 className="font-serif max-w-[820px] whitespace-pre-line text-[28px] font-semibold leading-[1.2] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
-              {copy.purpose.title}
-              {copy.purpose.titleNowrap ? (
-                <span className="mt-3 block">{copy.purpose.titleNowrap}</span>
-              ) : null}
-            </h2>
-          </div>
-
-          {/* ⚠️ 22-09 O TEXTO DE 21-09 SAIU DESTA SEÇÃO, a pedido da Maliha:
-              voltar a versão anterior de "Why Corporate DNA exists". O h2, a
-              citação e os dois parágrafos abaixo são os de antes do commit
-              b1c431e. Os quatro parágrafos que estavam aqui ("When a client
-              trusts us…") foram para o cartão Keeping Leadership Real, no
-              bloco da foto. */}
-          <blockquote className="mt-8 text-center">
+          {/* A seção começa pela citação, seguida dos dois parágrafos de contexto. */}
+          <blockquote className="text-center">
             <p className="whitespace-pre-line text-[18px] leading-[1.7] text-white/85 md:text-[20px]">
               <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
                 “

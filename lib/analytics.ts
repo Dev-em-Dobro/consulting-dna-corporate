@@ -2,6 +2,7 @@
 
 export const COOKIE_CONSENT_KEY = "cdna-cookie-consent";
 export const COOKIE_ACCEPTED_EVENT = "cdna-cookie-accepted";
+export const COOKIE_SETTINGS_EVENT = "cdna-cookie-settings";
 
 /** GA4 measurement ID for corporatednaconsulting.com */
 export const GA_MEASUREMENT_ID = "G-Q8K1T8CMZD";

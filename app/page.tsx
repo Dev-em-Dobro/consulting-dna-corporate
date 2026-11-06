@@ -25,7 +25,7 @@
  * da call interna em `docs/rhea-feedback/analise-call-interna-03-09-2026.md`.
  */
 import type { Metadata } from "next";
-import { Geist, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import Image from "next/image";
@@ -75,9 +75,9 @@ import { getCaseListEntries } from "@/lib/cms/map";
    wrapper abaixo reaponta `--font-sans`. Enquanto as outras páginas seguem na
    Poppins isso é o certo; se o site inteiro migrar para a Geist, o lugar da
    troca é o layout, e aí estas linhas saem daqui. */
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const geist = localFont({
+  src: "../assets/fonts/geist-latin-wght-normal.woff2",
+  weight: "100 900",
   variable: "--font-geist-v3",
   display: "swap",
 });
@@ -93,9 +93,9 @@ const geist = Geist({
    subtítulo do herói sem serifa  -  cai no `--font-sans` herdado  -  sem erro de
    build e sem aviso nenhum. O nome é interno; o que importa é que
    `--font-serif`, abaixo, aponta para cá. */
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const serif = localFont({
+  src: "../assets/fonts/source-serif-4-latin-wght-normal.woff2",
+  weight: "200 900",
   variable: "--font-serif-v2",
   display: "swap",
 });

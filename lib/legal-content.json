@@ -1,0 +1,417 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "How we handle information when you visit our website or get in touch.",
+    "updated": "Last updated: 4 November 2026",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "CorporateDNA Consulting (\"we\", \"us\" or \"our\") uses personal information to operate corporatednaconsulting.com and respond to enquiries. This notice covers this website and initial communications with us. A consulting, coaching or other client engagement may have a separate privacy notice or agreement."
+      },
+      {
+        "type": "heading",
+        "text": "1. Who we are and how to contact us"
+      },
+      {
+        "type": "paragraph",
+        "text": "CorporateDNA Consulting is the business responsible for the website activities described in this notice. For questions about personal information, or to identify the legal entity responsible for your particular enquiry or engagement, email info@corporatednaconsulting.com."
+      },
+      {
+        "type": "paragraph",
+        "text": "UK company details: Corporate DNA Consulting Limited, company number 06042610. Its registered office is 60 St Martin's Lane, Covent Garden, London WC2N 4JS, United Kingdom, also the London address published on this website. You can write to CorporateDNA Consulting at this address. The address does not determine the law applicable to every visitor or engagement."
+      },
+      {
+        "type": "link",
+        "text": "UK company registration",
+        "href": "https://find-and-update.company-information.service.gov.uk/company/06042610"
+      },
+      {
+        "type": "heading",
+        "text": "2. Information we collect"
+      },
+      {
+        "type": "paragraph",
+        "text": "We collect information you choose to give us and limited technical information generated when you use the website."
+      },
+      {
+        "type": "list",
+        "text": "Enquiries: your name, work email, organisation (if supplied), message and subsequent correspondence."
+      },
+      {
+        "type": "list",
+        "text": "Enquiry context: the page and query parameters from which you contact us, referring page and browser information. These help us understand and handle the enquiry."
+      },
+      {
+        "type": "list",
+        "text": "Technical and security information: IP address, request details, device and browser information, and operational logs processed by our hosting and security services. The contact form also uses anti-spam checks."
+      },
+      {
+        "type": "list",
+        "text": "Preferences: your selected language and your decision about analytics cookies."
+      },
+      {
+        "type": "list",
+        "text": "Optional analytics: after you accept analytics cookies, Google Analytics collects information such as pages visited, visits, device/browser characteristics, approximate location and referral sources using online identifiers."
+      },
+      {
+        "type": "heading",
+        "text": "3. How and why we use information"
+      },
+      {
+        "type": "paragraph",
+        "text": "We use enquiry information to respond to you, discuss your requirements and take steps towards a possible engagement. We use technical information to deliver the website, investigate faults and protect it from misuse. Language and cookie choices let us respect your preferences. Optional analytics helps us understand website usage and improve our content."
+      },
+      {
+        "type": "paragraph",
+        "text": "Where data protection law requires a lawful basis, we rely on steps taken at your request before entering a contract, our legitimate interests in answering business enquiries and operating a secure website, consent for optional analytics, or a legal obligation where applicable. We consider the effect on your rights when relying on legitimate interests."
+      },
+      {
+        "type": "paragraph",
+        "text": "Sending an enquiry does not subscribe you to a newsletter. We do not use website information to make solely automated decisions with legal or similarly significant effects."
+      },
+      {
+        "type": "heading",
+        "text": "4. Who receives information"
+      },
+      {
+        "type": "paragraph",
+        "text": "Information is available to the CorporateDNA team members who need it to respond to your enquiry. Service providers supporting website hosting, content and enquiry management, data storage, email delivery and security may process information for those purposes. Google receives analytics information only when analytics is enabled by your choice."
+      },
+      {
+        "type": "paragraph",
+        "text": "We may disclose information where required by law, to respond to a lawful authority, or where necessary to establish, exercise or defend legal claims. We do not sell enquiry information. Links to other websites are subject to those operators' own privacy notices."
+      },
+      {
+        "type": "link",
+        "text": "Google's Privacy Policy",
+        "href": "https://policies.google.com/privacy"
+      },
+      {
+        "type": "heading",
+        "text": "5. International processing"
+      },
+      {
+        "type": "paragraph",
+        "text": "Our team and service providers may handle information in countries other than the country where you live, including through international hosting and analytics services. Different countries may have different data protection rules."
+      },
+      {
+        "type": "paragraph",
+        "text": "Where applicable law requires safeguards for an international transfer, those requirements must be met, for example through an applicable adequacy decision or approved contractual safeguards. Contact us for information about the recipients, locations and safeguards relevant to your information."
+      },
+      {
+        "type": "heading",
+        "text": "6. How long information is kept"
+      },
+      {
+        "type": "paragraph",
+        "text": "Retention depends on the purpose and type of information. Enquiry records are kept for handling and following up the enquiry and any resulting business relationship, taking account of applicable recordkeeping duties and legal claims. Technical records are retained according to operational and security needs. These periods may differ between providers."
+      },
+      {
+        "type": "paragraph",
+        "text": "Cookie and browser-storage durations are described in our Cookie Policy. To ask about the retention period for a particular record, or request deletion where available under applicable law, contact us. Information no longer required should be deleted or anonymised."
+      },
+      {
+        "type": "link",
+        "text": "Read the Cookie Policy",
+        "href": "/cookies"
+      },
+      {
+        "type": "heading",
+        "text": "7. Your choices and rights"
+      },
+      {
+        "type": "paragraph",
+        "text": "Depending on the law that applies to you, you may have rights to request access to your personal information, correction, deletion, restriction of processing, a portable copy, or to object to certain uses. Where processing relies on consent, you can withdraw it without affecting the lawfulness of processing before withdrawal."
+      },
+      {
+        "type": "paragraph",
+        "text": "Email info@corporatednaconsulting.com to exercise a right. We may need proportionate information to verify your identity and locate your records. We will respond within the period required by applicable law and explain any lawful limitations. You can also complain to the data protection authority in your jurisdiction; you do not have to contact us first."
+      },
+      {
+        "type": "paragraph",
+        "text": "For UK data protection concerns, the supervisory authority is the Information Commissioner's Office (ICO). Visitors elsewhere may contact their relevant local authority. You can change analytics consent at any time using Cookie settings in the footer or on the Cookie Policy page."
+      },
+      {
+        "type": "link",
+        "text": "Contact the ICO",
+        "href": "https://ico.org.uk/make-a-complaint/"
+      },
+      {
+        "type": "link",
+        "text": "Manage cookies",
+        "href": "/cookies#your-choice"
+      },
+      {
+        "type": "heading",
+        "text": "8. Security and information you send us"
+      },
+      {
+        "type": "paragraph",
+        "text": "We use technical and organisational measures intended to protect information, including encrypted website connections and access controls. No internet transmission or storage system can be guaranteed completely secure."
+      },
+      {
+        "type": "paragraph",
+        "text": "The website is intended for professional audiences and is not directed at children. Please do not include sensitive personal information, confidential client records or information about other people in a general enquiry unless it is necessary and you are authorised to share it. Contact us first to arrange an appropriate channel for sensitive material."
+      },
+      {
+        "type": "heading",
+        "text": "9. Updates to this notice"
+      },
+      {
+        "type": "paragraph",
+        "text": "We may update this notice when the website, our practices or applicable requirements change. The date above identifies the latest revision. Where required, we will give additional notice or request fresh consent."
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Cookie Policy",
+    "subtitle": "The cookies and browser storage we use, and the choices you control.",
+    "updated": "Last updated: 4 November 2026",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "This policy explains cookies and similar technologies on corporatednaconsulting.com. Cookies are small files saved by your browser. Local storage saves a preference in your browser without automatically sending it with every request. Both are covered here."
+      },
+      {
+        "type": "heading",
+        "text": "1. Preferences needed to respect your choices"
+      },
+      {
+        "type": "paragraph",
+        "text": "We remember your analytics decision so that your choice is respected on later visits. If you select a language, we store that preference to show your chosen language on subsequent pages. These preferences are separate from optional analytics."
+      },
+      {
+        "type": "list",
+        "text": "cdna-cookie-consent — first-party local storage recording accepted or declined. It stays in this browser until you change the choice or clear site data; local storage has no automatic expiry."
+      },
+      {
+        "type": "list",
+        "text": "site_locale — first-party cookie remembering the language you select (English or Brazilian Portuguese). It is set when you use the language selector, expires after one year and can be removed through your browser."
+      },
+      {
+        "type": "heading",
+        "text": "2. Optional analytics cookies"
+      },
+      {
+        "type": "paragraph",
+        "text": "We use Google Analytics 4 to understand visits and improve the website. The Google Analytics script is loaded only after you choose Accept in the cookie banner. Declining analytics does not prevent you from reading pages or contacting us."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google Analytics processes online identifiers and usage information, such as visited pages, browser and device information, approximate location and referral sources. Its standard first-party cookies are listed below. Google's default expiry is two years; browser restrictions or settings may shorten this, and expiry may be renewed with activity."
+      },
+      {
+        "type": "list",
+        "text": "_ga — distinguishes visitors for analytics. Provider: Google Analytics. Default duration: two years. Optional; requires acceptance."
+      },
+      {
+        "type": "list",
+        "text": "_ga_Q8K1T8CMZD (the _ga_<measurement-id> family) — maintains analytics session state for this website's Google Analytics property. Provider: Google Analytics. Default duration: two years. Optional; requires acceptance."
+      },
+      {
+        "type": "link",
+        "text": "Google Analytics cookie documentation",
+        "href": "https://support.google.com/analytics/answer/11397207?hl=en"
+      },
+      {
+        "type": "link",
+        "text": "How Google uses information from partner sites",
+        "href": "https://policies.google.com/technologies/partner-sites"
+      },
+      {
+        "type": "heading",
+        "text": "3. Change or withdraw your choice"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use Cookie settings below or in the footer to reopen the banner. Accept enables Google Analytics; Decline keeps it disabled. If analytics was previously enabled, choosing Decline removes this website's accessible Google Analytics cookies and reloads the page to stop the loaded analytics script. Withdrawing consent does not erase information already received by Google."
+      },
+      {
+        "type": "paragraph",
+        "text": "You can also delete cookies and local storage using your browser's site-data controls. Clearing the analytics decision makes the banner appear again on your next visit. Browser controls may also block cookies, although doing so can prevent preferences from being remembered."
+      },
+      {
+        "type": "link",
+        "text": "Cookie settings on the website",
+        "href": "/cookies#your-choice"
+      },
+      {
+        "type": "heading",
+        "text": "4. Media, external resources and links"
+      },
+      {
+        "type": "paragraph",
+        "text": "Some case-study pages may include video from YouTube's privacy-enhanced domain (youtube-nocookie.com). An embedded player connects to YouTube when it loads and may process your IP address, device information and interactions under Google's policies. The analytics choice described above controls Google Analytics; it does not control third-party media players."
+      },
+      {
+        "type": "paragraph",
+        "text": "Externally hosted images, videos or other resources can receive technical request information when your browser loads them. Following an external link, such as LinkedIn, takes you to a separate service whose cookie and privacy policies apply."
+      },
+      {
+        "type": "link",
+        "text": "Google's Privacy Policy",
+        "href": "https://policies.google.com/privacy"
+      },
+      {
+        "type": "heading",
+        "text": "5. Changes and questions"
+      },
+      {
+        "type": "paragraph",
+        "text": "We will update this policy if the technologies used by the website change. Where a new optional use requires consent, it should not begin before you have been given that choice. For questions about cookies or personal information, email info@corporatednaconsulting.com."
+      },
+      {
+        "type": "link",
+        "text": "Read the Privacy Policy",
+        "href": "/privacy"
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "subtitle": "The terms for using the CorporateDNA Consulting website.",
+    "updated": "Last updated: 4 November 2026",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "These terms apply to your use of corporatednaconsulting.com, operated under the CorporateDNA Consulting brand (\"we\", \"us\" or \"our\"). Please read them before using the website. If you do not agree to these terms, please stop using it. Questions can be sent to info@corporatednaconsulting.com."
+      },
+      {
+        "type": "heading",
+        "text": "1. Website information and client engagements"
+      },
+      {
+        "type": "paragraph",
+        "text": "The website introduces our leadership advisory, development, coaching and related work. Its articles, case studies and other materials provide general information. They are not advice tailored to your circumstances and should not be the sole basis for a business or personal decision."
+      },
+      {
+        "type": "paragraph",
+        "text": "Browsing the website, downloading material or sending an enquiry does not create a consulting or coaching engagement. Any services, fees, deliverables, confidentiality arrangements, cancellations and other commercial terms must be agreed separately with the relevant CorporateDNA entity. A separate engagement agreement governs those services."
+      },
+      {
+        "type": "heading",
+        "text": "2. Responsible use"
+      },
+      {
+        "type": "paragraph",
+        "text": "You may use the website for lawful personal and business information purposes. You must not:"
+      },
+      {
+        "type": "list",
+        "text": "Interfere with the website, bypass security measures, attempt unauthorised access or introduce malicious software."
+      },
+      {
+        "type": "list",
+        "text": "Submit spam, unlawful or misleading material, impersonate another person, or infringe anyone's privacy or intellectual property rights."
+      },
+      {
+        "type": "list",
+        "text": "Use automated access in a way that disrupts the website or extracts restricted content."
+      },
+      {
+        "type": "list",
+        "text": "Reproduce, redistribute or commercially exploit our materials beyond the permissions in these terms or those provided by law."
+      },
+      {
+        "type": "heading",
+        "text": "3. Content and intellectual property"
+      },
+      {
+        "type": "paragraph",
+        "text": "Unless otherwise indicated, website text, design, graphics, photographs, videos, frameworks, logos and other materials belong to CorporateDNA Consulting or their respective licensors. Client names, logos, book references and third-party marks remain the property of their owners."
+      },
+      {
+        "type": "paragraph",
+        "text": "You may view the website and save or print reasonable extracts for your own reference or internal business evaluation, keeping attribution and any notices intact. This does not grant a licence to reuse our branding, training materials or proprietary frameworks in your own products, publications or services. Contact us for other permissions. Uses allowed by applicable law remain available."
+      },
+      {
+        "type": "heading",
+        "text": "4. Enquiries and material you submit"
+      },
+      {
+        "type": "paragraph",
+        "text": "Please provide accurate contact information and only submit material you are entitled to share. Do not include confidential, sensitive or third-party personal information in a general website enquiry unless it is needed and you have authority to provide it. We can discuss a suitable channel and any confidentiality agreement before you share sensitive material."
+      },
+      {
+        "type": "paragraph",
+        "text": "We use enquiries to respond and evaluate potential work as described in the Privacy Policy. Submitting an enquiry gives us permission to use its contents for those purposes; it does not transfer ownership of your materials to us."
+      },
+      {
+        "type": "link",
+        "text": "Read the Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "type": "heading",
+        "text": "5. Third-party services and links"
+      },
+      {
+        "type": "paragraph",
+        "text": "The website may link to or embed services operated by others, including video platforms, social networks and book or event websites. Those services have their own terms and privacy practices. We do not control their availability or content. A link does not by itself mean that we endorse everything on that website."
+      },
+      {
+        "type": "heading",
+        "text": "6. Accuracy, availability and outcomes"
+      },
+      {
+        "type": "paragraph",
+        "text": "We aim to keep the website useful and accurate, but information can become outdated or contain errors. We may correct, change, suspend or remove website content and cannot promise uninterrupted or error-free access. Please contact us if you identify an error or need to confirm information before relying on it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Case studies and testimonials describe particular experiences in their context. Results vary with people, organisations and circumstances; past outcomes do not guarantee a particular result for another engagement."
+      },
+      {
+        "type": "heading",
+        "text": "7. Responsibility and your legal rights"
+      },
+      {
+        "type": "paragraph",
+        "text": "You are responsible for deciding whether general website information is suitable for your needs and for taking appropriate professional advice where necessary. Responsibility for paid services is addressed in the relevant engagement agreement."
+      },
+      {
+        "type": "paragraph",
+        "text": "These website terms do not exclude or limit liability for fraud or fraudulent misrepresentation, death or personal injury caused by negligence, or any other liability that cannot lawfully be excluded or limited. They do not remove mandatory consumer rights or other protections available under the law that applies to you."
+      },
+      {
+        "type": "heading",
+        "text": "8. Privacy and cookies"
+      },
+      {
+        "type": "paragraph",
+        "text": "The Privacy Policy explains how personal information is handled. The Cookie Policy explains browser storage and optional analytics. Acceptance of these website terms does not constitute consent to optional cookies; you make that choice separately in the cookie banner."
+      },
+      {
+        "type": "link",
+        "text": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "type": "link",
+        "text": "Cookie Policy",
+        "href": "/cookies"
+      },
+      {
+        "type": "heading",
+        "text": "9. Changes, questions and disputes"
+      },
+      {
+        "type": "paragraph",
+        "text": "We may revise these terms as the website changes. The revision date is shown above. Changes apply to subsequent website use and do not replace a separately agreed client contract."
+      },
+      {
+        "type": "paragraph",
+        "text": "Please contact info@corporatednaconsulting.com with questions or concerns so that we can try to resolve them. These website terms do not select an exclusive court or override the mandatory law or rights applicable to you. Any choice of law or dispute process for a client engagement belongs in its separate agreement."
+      },
+      {
+        "type": "paragraph",
+        "text": "UK company details: Corporate DNA Consulting Limited, company number 06042610, registered office at 60 St Martin's Lane, Covent Garden, London WC2N 4JS, United Kingdom. Please contact us to confirm the legal entity relevant to a proposed engagement."
+      },
+      {
+        "type": "link",
+        "text": "UK company registration",
+        "href": "https://find-and-update.company-information.service.gov.uk/company/06042610"
+      }
+    ]
+  }
+}
