@@ -40,7 +40,11 @@ export default function EventCard({ event, featured = false }: { event: Leadersh
         {event.summary ? <p className={featured ? "mt-5 whitespace-pre-line text-[15px] leading-[1.7] text-muted sm:text-[16px]" : "mt-3 line-clamp-2 text-[14px] leading-[1.5] text-muted"}>{event.summary}</p> : null}
         <div className="mt-4 border-t border-line pt-3"><EventMeta event={event} /></div>
         {/* 01-10: o evento futuro não tem "Read more"  -  a descrição já está toda no cartão. */}
-        {event.status === "upcoming" ? null : (
+        {event.status === "upcoming" ? (
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+            {event.links?.map((link) => <a key={link.href} href={link.href} className="text-[14px] font-semibold text-brand-dark underline underline-offset-4">{link.label}</a>)}
+          </div>
+        ) : (
           <div className="mt-auto pt-4"><HoverFillButton label="Read more" href={href} className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand" /></div>
         )}
       </div>

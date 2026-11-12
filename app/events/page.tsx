@@ -21,7 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function EventsPage() {
   const copy = await getEventsCopy();
   const events = await getEvents();
-  const upcoming = events.filter((event) => event.status === "upcoming");
+  const upcoming = events.filter((event) => event.status === "upcoming")
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
   const past = events.filter((event) => event.status === "past");
 
   return (
