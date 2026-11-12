@@ -22,6 +22,24 @@ export type LeadershipEvent = {
 
 export const events: LeadershipEvent[] = [
   {
+    slug: "her-leadership-dna-2027",
+    title: "Her Leadership DNA",
+    category: "cDNA",
+    kind: "Open-enrolment programme",
+    dateLabel: "14 January to 13 May 2027",
+    location: "Live virtual",
+    summary: "Make your influence count. A five-month virtual leadership experience for senior women leaders, with a small cohort of 10–24 participants. Explore your strengths, build strategic influence and work on real leadership challenges with experienced facilitators and peers.\n\nEarly bird: US$3,800 per participant through 1 December 2026. Standard fee: US$4,500 from 2 December 2026.",
+    overview: [],
+    topics: [],
+    links: [
+      { label: "Apply for the inaugural cohort", href: "https://www.surveymonkey.com/r/DM3FXP5" },
+      { label: "Tell me more", href: "https://www.surveymonkey.com/r/HCLDKWD" },
+      { label: "Programme prospectus", href: "https://docs.google.com/presentation/d/1xHCMPOzRSP6qoetk8ULwMFgtpU5HiyyJ/edit" },
+    ],
+    featured: true,
+    status: "upcoming",
+  },
+  {
     slug: "executive-series-collective-judgement-2026-09-18",
     title: "Executive Series",
     category: "cDNA",

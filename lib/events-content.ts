@@ -34,7 +34,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     slug,
     title,
     category,
-    kind: item.status === "past" ? "Speaker event" : kind,
+    kind,
     dateLabel,
     location: text(item.location) || undefined,
     summary: text(item.summary) ?? "",
@@ -42,6 +42,7 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     topics: strings(item.topics),
     image: text(item.imageUrl) || undefined,
     imageAlt: text(item.imageAlt) || undefined,
+    imageContain: item.imageContain === true,
     gallery: staticEvents.find((event) => event.slug === slug)?.gallery,
     links,
     status: item.status === "past" ? "past" : "upcoming",
@@ -64,6 +65,7 @@ export async function getEvents(): Promise<LeadershipEvent[]> {
       location: event.location || local.location,
       image: event.image || local.image,
       imageAlt: event.imageAlt || local.imageAlt,
+      imageContain: event.imageContain || local.imageContain,
       overview: event.overview.length > 0 ? event.overview : local.overview,
     };
   });
