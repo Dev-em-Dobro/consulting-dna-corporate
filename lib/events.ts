@@ -24,6 +24,9 @@ export const events: LeadershipEvent[] = [
   {
     slug: "her-leadership-dna-2027",
     title: "Her Leadership DNA",
+    image: "/events/her-leadership-dna-2027-cover.webp",
+    imageAlt: "Her Leadership DNA",
+    imageContain: true,
     category: "cDNA",
     kind: "Open-enrolment programme",
     dateLabel: "14 January to 13 May 2027",
@@ -33,7 +36,6 @@ export const events: LeadershipEvent[] = [
     topics: [],
     links: [
       { label: "Apply for the inaugural cohort", href: "https://www.surveymonkey.com/r/DM3FXP5" },
-      { label: "Tell me more", href: "https://www.surveymonkey.com/r/HCLDKWD" },
       { label: "Programme prospectus", href: "https://docs.google.com/presentation/d/1xHCMPOzRSP6qoetk8ULwMFgtpU5HiyyJ/edit" },
     ],
     featured: true,
