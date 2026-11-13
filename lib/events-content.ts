@@ -4,6 +4,14 @@ import { events as staticEvents, type LeadershipEvent } from "@/lib/events";
 
 type CmsEvent = Record<string, unknown>;
 
+// These two archived events have unavailable BunnyCDN images. Use their
+// bundled originals; other events (including new CMS uploads) keep CMS priority.
+// Remove a slug here to let the CMS manage its image again.
+const localImageEvents = new Set([
+  "speaker-event-2026-09-23",
+  "executive-series-collective-judgement-2026-09-18",
+]);
+
 function text(value: unknown): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
@@ -63,7 +71,7 @@ export async function getEvents(): Promise<LeadershipEvent[]> {
       ...event,
       summary: event.summary || local.summary,
       location: event.location || local.location,
-      image: event.image || local.image,
+      image: localImageEvents.has(event.slug) ? local.image : event.image || local.image,
       imageAlt: event.imageAlt || local.imageAlt,
       imageContain: event.imageContain || local.imageContain,
       overview: event.overview.length > 0 ? event.overview : local.overview,
