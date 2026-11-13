@@ -2,7 +2,7 @@ import EventVisual from "@/components/events/EventVisual";
 import Link from "next/link";
 import HoverFillButton from "@/components/HoverFillButton";
 import EventMeta from "@/components/events/EventMeta";
-import type { LeadershipEvent } from "@/lib/events";
+import { herLeadershipProspectusHref, type LeadershipEvent } from "@/lib/events";
 
 export default function EventCard({ event, featured = false }: { event: LeadershipEvent; featured?: boolean }) {
   const href = `/events/${event.slug}`;
@@ -42,7 +42,7 @@ export default function EventCard({ event, featured = false }: { event: Leadersh
         {/* 01-10: o evento futuro não tem "Read more"  -  a descrição já está toda no cartão. */}
         {event.status === "upcoming" ? (
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
-            {event.links?.map((link) => <a key={link.href} href={link.href} className="text-[14px] font-semibold text-brand-dark underline underline-offset-4">{link.label}</a>)}
+            {event.links?.map((link) => <a key={link.href} href={link.href} download={link.href === herLeadershipProspectusHref ? "Her_Leadership_DNA_Prospectus_2027.pdf" : undefined} className="text-[14px] font-semibold text-brand-dark underline underline-offset-4">{link.label}</a>)}
           </div>
         ) : (
           <div className="mt-auto pt-4"><HoverFillButton label="Read more" href={href} className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand" /></div>

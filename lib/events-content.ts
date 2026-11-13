@@ -1,6 +1,6 @@
 import "server-only";
 import { getList } from "@/lib/cms/client";
-import { events as staticEvents, type LeadershipEvent } from "@/lib/events";
+import { events as staticEvents, herLeadershipProspectusHref, type LeadershipEvent } from "@/lib/events";
 
 type CmsEvent = Record<string, unknown>;
 
@@ -52,7 +52,9 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     imageAlt: text(item.imageAlt) || undefined,
     imageContain: item.imageContain === true,
     gallery: staticEvents.find((event) => event.slug === slug)?.gallery,
-    links,
+    links: slug === "her-leadership-dna-2027"
+      ? links.map((link) => /prospectus/i.test(link.label) ? { ...link, href: herLeadershipProspectusHref } : link)
+      : links,
     status: item.status === "past" ? "past" : "upcoming",
     featured: item.featured === true,
   };
