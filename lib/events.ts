@@ -1,5 +1,7 @@
 import type { StaticImageData } from "next/image";
 
+export const herLeadershipProspectusHref = "/events/her-leadership-dna-prospectus-2027.pdf";
+
 export type LeadershipEvent = {
   slug: string;
   title: string;
@@ -36,7 +38,7 @@ export const events: LeadershipEvent[] = [
     topics: [],
     links: [
       { label: "Apply for the inaugural cohort", href: "https://www.surveymonkey.com/r/DM3FXP5" },
-      { label: "Programme prospectus", href: "https://docs.google.com/presentation/d/1xHCMPOzRSP6qoetk8ULwMFgtpU5HiyyJ/edit" },
+      { label: "Programme prospectus", href: herLeadershipProspectusHref },
     ],
     featured: true,
     status: "upcoming",
