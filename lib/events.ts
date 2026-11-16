@@ -2,6 +2,19 @@ import type { StaticImageData } from "next/image";
 
 export const herLeadershipProspectusHref = "/events/her-leadership-dna-prospectus-2027.pdf";
 
+export const herLeadershipInfoLink = {
+  label: "Request more information",
+  href: "https://www.surveymonkey.com/r/HCLDKWD",
+};
+
+/** Keep Apply and Prospectus as published, and put the info survey first. */
+export function herLeadershipLinks(links: { label: string; href: string }[]) {
+  const rest = links
+    .filter((link) => link.href !== herLeadershipInfoLink.href)
+    .map((link) => (/prospectus/i.test(link.label) ? { ...link, href: herLeadershipProspectusHref } : link));
+  return [herLeadershipInfoLink, ...rest];
+}
+
 export type LeadershipEvent = {
   slug: string;
   title: string;
@@ -36,10 +49,10 @@ export const events: LeadershipEvent[] = [
     summary: "Make your influence count. A five-month virtual leadership experience for senior women leaders, with a small cohort of 10–24 participants. Explore your strengths, build strategic influence and work on real leadership challenges with experienced facilitators and peers.\n\nEarly bird: US$3,800 per participant through 1 December 2026. Standard fee: US$4,500 from 2 December 2026.",
     overview: [],
     topics: [],
-    links: [
+    links: herLeadershipLinks([
       { label: "Apply for the inaugural cohort", href: "https://www.surveymonkey.com/r/DM3FXP5" },
       { label: "Programme prospectus", href: herLeadershipProspectusHref },
-    ],
+    ]),
     featured: true,
     status: "upcoming",
   },
