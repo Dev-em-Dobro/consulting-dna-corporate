@@ -67,7 +67,7 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
 
       <div className="bg-ink px-6 py-5 text-white/80">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 text-[12px] md:px-4">
-          <span>© Corporate DNA Consulting. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Corporate DNA Consulting Limited. <span>All rights reserved.</span></span>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/cookies" className="hover:text-white">Cookies</Link>

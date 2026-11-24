@@ -254,6 +254,7 @@ export default function ContactForm({
         </button>
       )}
 
+      <p className="mt-3 text-sm">We use your details to respond to this enquiry. <a className="underline" href="/privacy">Privacy policy</a></p>
     </form>
     <dialog
       ref={confirmationRef}

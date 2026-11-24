@@ -6,7 +6,7 @@ export default function EventMeta({ event }: { event: LeadershipEvent }) {
     <dl className="space-y-3 text-[13px] leading-[1.5] text-muted sm:text-[14px]">
       <div className="flex items-start gap-3">
         <dt><CalendarDays aria-hidden="true" className="mt-0.5 h-4 w-4 text-brand" strokeWidth={1.6} /><span className="sr-only">Date</span></dt>
-        <dd>{event.dateLabel}</dd>
+        <dd className={event.status === "upcoming" ? "rounded-sm bg-paper px-2 py-0.5 font-semibold text-ink" : undefined}><time dateTime={event.startDate}>{event.dateLabel}</time></dd>
       </div>
       {event.location ? (
         <div className="flex items-start gap-3">

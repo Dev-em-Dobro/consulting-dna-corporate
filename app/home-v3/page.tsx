@@ -148,7 +148,7 @@ const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
   { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework, not a generic coaching approach borrowed from elsewhere." },
-  { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
+  { n: "4", title: "Global insight with local delivery", body: "A global faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
 // `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
@@ -582,7 +582,7 @@ export default async function HomeV3() {
             className="mb-12 max-w-[640px] text-[19px] leading-[1.65] text-muted"
             style={{ fontFamily: "var(--font-serif-v2)" }}
           >
-            A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.
+            A leadership team of seasoned advisors, backed by a global network of practitioners delivering across 36 countries.
           </p>
           <PeopleGrid people={people} />
           {/* The DNA experience  -  copy on the left, life-at-DNA carousel on the
@@ -600,7 +600,7 @@ export default async function HomeV3() {
                   </h3>
                   <p className="text-[15px] leading-[1.6] text-muted">
                     We blend our individual talents with the collective
-                    expertise of our global pool of 75 members across 36
+                    expertise of our global faculty across 36
                     countries, and deliver the power of the “DNA experience” to
                     every client. Each time, every time.
                   </p>

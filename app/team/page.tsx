@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -118,6 +119,7 @@ export default async function OurTeamPage() {
      continuam em `lib/team.ts`. O casamento é POR POSIÇÃO, e o schema trava
      a lista em seis para que ele não escorregue  -  ver
      `lib/team-copy-schema.ts`. */
+  const profileCount = facultyByRegion.reduce((sum, group) => sum + group.people.length, 0);
   const leadershipCards = leaders.map((p, i) => ({ ...p, ...copy.leaders[i] }));
 
   return (
@@ -237,6 +239,7 @@ export default async function OurTeamPage() {
           subtitle={copy.hero.subtitle}
           /* 01-10, fim do dia: foto nova (WhatsApp). */
           imageUrl="/team/team-hero-20261001-v3.jpg"
+          imageAlt="CorporateDNA team assembled on the staircase"
           /* Sem zoom: a foto ocupa a altura da faixa, encostada à direita, e a
              borda esquerda se funde no fundo escuro. Véu escuro por cima de tudo. */
           imageNatural={{ width: 1402, height: 1122 }}
@@ -252,9 +255,9 @@ export default async function OurTeamPage() {
             <TypeLabel>{copy.leadership.label}</TypeLabel>
             {/* Mesma escala de h2 da Client impact da home, agora nas três
                 seções desta página. Ver a caixa no bloco 6. */}
-            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[32px] md:text-[34px]">
+            <SectionHeading className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[32px] md:text-[34px]">
               {copy.leadership.title}
-            </h2>
+            </SectionHeading>
 
             {/* TRÊS COLUNAS, como o documento pede ("portrait grid, three
                 across") e como o mockup de 14-09 confirma. São seis pessoas:
@@ -471,7 +474,7 @@ export default async function OurTeamPage() {
                 recorta. */}
             <div className="w-full">
               <PhotoCarousel
-                images={LIFE_AT_DNA}
+                images={LIFE_AT_DNA.filter((_, index) => index % 2 === 1)}
                 positions={LIFE_AT_DNA_FRAMING}
               />
             </div>
@@ -572,14 +575,18 @@ export default async function OurTeamPage() {
                 o mencionou aqui, e trocá-lo por conta própria colidiria com a
                 faixa da About, que desde hoje conta por REGIÃO e não por país.
                 ⏳ Alinhar as duas unidades é pergunta para a próxima daily. */}
-            <h2 className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
+            <SectionHeading className="font-serif max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink sm:text-[34px] md:text-[40px]">
               {copy.faculty.title}
-            </h2>
+            </SectionHeading>
             {/* O `id` do wrapper isola o CABEÇALHO da seção para o print do
                 editor: a seção inteira traz os 23 da faculty e não se lê na
                 coluna de 440px. */}
             <p className="mt-6 max-w-[40rem] whitespace-pre-line text-[18px] leading-[1.7] text-muted md:text-[20px]">
               {copy.faculty.intro}
+            </p>
+            <p data-no-translate className="mt-4 font-semibold text-ink">
+              <span className="locale-en-only">Profiles in this directory · {profileCount}</span>
+              <span className="locale-pt-only">Perfis neste diretório · {profileCount}</span>
             </p>
             </div>
 
@@ -785,9 +792,9 @@ export default async function OurTeamPage() {
                 Serif 4 aqui, serif-v2 lá), e isso é a página, não a seção.
 
                 Sem `mt`: o `TypeLabel` já traz `mb-5`, igual à home. */}
-            <h2 className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
+            <SectionHeading className="font-serif mb-[52px] max-w-[720px] text-[28px] font-semibold leading-[1.1] tracking-[-0.5px] text-white sm:text-[34px] md:text-[40px]">
               {copy.dna.title}
-            </h2>
+            </SectionHeading>
             {/* A SOMBRA DOS CARTÕES É ADIÇÃO NOSSA  -  a home não tem. Dois
                 planos: um contato curto de 2px, que assenta o cartão na
                 superfície, e um difuso de 30px com raio negativo, que projeta
@@ -796,12 +803,12 @@ export default async function OurTeamPage() {
             {/* ⚠️ QUATRO COLUNAS DESDE 15-09, e não três: a vertente "One DNA
                 TEAM" faltava  -  ver a caixa de `dnaStrands` em `lib/team.ts`.
 
-                `md:grid-cols-2 lg:grid-cols-4` e não `md:grid-cols-4` direto: a
+                `md:grid-cols-2 xl:grid-cols-4` e não `md:grid-cols-4` direto: a
                 1024 quatro cartões com o corpo longo das três vertentes antigas
                 dariam ~215px de caixa, e o texto da Inclusion & Diversity (252
                 caracteres) viraria uma tira de quinze linhas. Em duas colunas no
                 tablet cada cartão tem ~450px, que é a medida em que ele lê. */}
-            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-4">
               {copy.dna.strands.map((s) => (
                 <article
                   key={s.title}

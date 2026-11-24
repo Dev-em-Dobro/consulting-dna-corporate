@@ -33,7 +33,10 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
   const select = (next: Locale) => {
     if (next === locale) return;
     document.cookie = `site_locale=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
-    window.location.reload();
+    const url = new URL(window.location.href);
+    if (next === "pt-BR") url.searchParams.set("lang", next);
+    else url.searchParams.delete("lang");
+    window.location.assign(url.href);
   };
 
   return (
@@ -43,7 +46,7 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
         aria-label="Português do Brasil"
         aria-pressed={locale === "pt-BR"}
         onClick={() => select("pt-BR")}
-        className={`cursor-pointer rounded-sm border px-1.5 py-1 text-[11px] leading-none transition-opacity hover:opacity-100 ${locale === "pt-BR" ? "border-current opacity-100" : "border-current/40 opacity-65"}`}
+        className={`cursor-pointer rounded-sm border px-1.5 py-1 text-[11px] leading-none transition-opacity hover:opacity-100 ${locale === "pt-BR" ? "border-current font-bold underline underline-offset-2 opacity-100" : "border-current/40 opacity-65"}`}
       >
         <Flag country="br" />PT
       </button>
@@ -52,7 +55,7 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
         aria-label="English"
         aria-pressed={locale === "en"}
         onClick={() => select("en")}
-        className={`cursor-pointer rounded-sm border px-1.5 py-1 text-[11px] leading-none transition-opacity hover:opacity-100 ${locale === "en" ? "border-current opacity-100" : "border-current/40 opacity-65"}`}
+        className={`cursor-pointer rounded-sm border px-1.5 py-1 text-[11px] leading-none transition-opacity hover:opacity-100 ${locale === "en" ? "border-current font-bold underline underline-offset-2 opacity-100" : "border-current/40 opacity-65"}`}
       >
         <Flag country="gb" />EN
       </button>

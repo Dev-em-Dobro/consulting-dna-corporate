@@ -1,7 +1,9 @@
-import { Fragment } from "react";
+import { sectionHeading } from "@/lib/section-heading";
+import SectionHeading from "@/components/SectionHeading";
 import { getApproachCopy } from "@/lib/approach-copy-server";
 import type { ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
+import FrameworkWheel from "@/components/five-h/FrameworkWheel";
 import LocalizedImage from "@/components/LocalizedImage";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -17,6 +19,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import SiteShell from "@/components/SiteShell";
+import TypeLabel from "@/components/TypeLabel";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
@@ -46,13 +49,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-function R() {
-  return <span className="align-super text-[0.48em] font-semibold">®</span>;
-}
-
-function RegisteredText({ text }: { text: string }) {
-  const parts = text.split("®");
-  return <>{parts.map((part, index) => <Fragment key={index}>{part}{index < parts.length - 1 && <R />}</Fragment>)}</>;
+function plainFiveH(text: string) {
+  return text.replace(/5H[®©™]+/gi, "5H");
 }
 
 const APPROACH_CAROUSEL = [
@@ -75,18 +73,18 @@ const TOOLKIT_ICONS = [Dna, UsersRound, ChartNoAxesColumn, Compass, Star, UsersR
 function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"] }) {
   return (
     <div className="lg:border-l lg:border-line lg:pl-10">
-      <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.label}</p>
-      <h3 className="mt-3 whitespace-pre-line text-[28px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[34px]">{copy.heading}</h3>
+      <TypeLabel>{copy.label}</TypeLabel>
+      <h3 className="whitespace-pre-line text-[28px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[34px]">{copy.heading}</h3>
       <p className="mt-4 max-w-[560px] text-[14px] leading-[1.65] text-muted sm:text-[15px]">{copy.body}</p>
-      <div className="mt-12 grid grid-cols-4 gap-y-7">
+      <div className="mt-12 flex flex-wrap justify-center gap-y-7">
         {copy.items.map((item, index) => {
           const Icon = TOOLKIT_ICONS[index];
           return (
-            <div key={index} className="min-w-0 px-1 text-center">
+            <div key={index} className="w-1/4 min-w-0 px-1 text-center">
               <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-brand/15 bg-[#fcf6f2] sm:size-16">
                 <Icon aria-hidden="true" className="size-6 text-brand sm:size-7" strokeWidth={1.5} />
               </span>
-              <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title}</h4>
+              <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title.replace(/PROFILER/g, "Profiler")}</h4>
               <p className="mt-1 whitespace-pre-line text-[10px] leading-[1.4] text-muted sm:text-[12px]">{item.description}</p>
             </div>
           );
@@ -139,70 +137,83 @@ export default async function ApproachPage() {
         <div className="w-full">
           <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10 md:py-16">
             <p className="text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
-              {copy.hero.eyebrow}
+              <span>5H<sup className="text-[0.7em]">®</sup></span> · <span>{plainFiveH(copy.hero.eyebrow).replace(/^(?:the )?5H\b\s*/i, "")}</span>
             </p>
             <h1 className="mt-5 max-w-[900px] whitespace-pre-line font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
-              <RegisteredText text={copy.hero.title.replace(" One integrated leader.", "\nOne integrated leader.")} />
+              {plainFiveH(copy.hero.title).replace(" One integrated leader.", "\nOne integrated leader.")}
             </h1>
             <p className="mt-6 max-w-[620px] text-[19px] leading-[1.4] text-white/78 md:text-[22px]">
-              {copy.hero.subtitle}
+              {plainFiveH(copy.hero.subtitle)}
             </p>
           </div>
         </div>
       </section>
 
       <div className="bg-white">
+        <nav aria-label="Explore the 5H leadership framework" className="mx-auto flex max-w-[1440px] flex-wrap gap-x-8 gap-y-3 border-b border-line px-6 py-5 text-sm font-semibold text-brand-dark md:px-10">
+          <a href="#framework" className="underline">Diagnostic toolkit</a>
+          <a href="#the-five-h" className="underline">The five intelligences</a>
+          <a href="#whole-leader" className="underline">Inner and outer game</a>
+          <a href="#dna-360-profiler" className="underline">DNA 360 Profiler</a>
+        </nav>
         <section id="framework" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.framework.label}</p>
-          <h2 className="mt-3 whitespace-pre-line font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
-            {copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader.")}
-          </h2>
+          <TypeLabel>{plainFiveH(copy.framework.label)}</TypeLabel>
+          <SectionHeading className="whitespace-pre-line font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
+            {plainFiveH(copy.framework.heading).replace(" One integrated leader.", "\nOne integrated leader.")}
+          </SectionHeading>
           <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
-            {copy.framework.body}
+            {plainFiveH(copy.framework.body)}
           </p>
           <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <LocalizedImage
-                src="/approach/5h-framework-wheel-user.png"
-                alt="The 5H model showing the five leadership intelligences and their dimensions"
-                ptSrc="/approach/5h-framework-wheel-user.png"
-                ptAlt="Modelo 5H com as cinco dimensões da liderança e suas competências"
-                width={1322}
-                height={1329}
-                sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full max-w-[648px]"
-              />
+              <figure className="rounded-sm border border-line p-4 sm:p-6">
+                <FrameworkWheel />
+                <figcaption className="mt-4 text-center text-base font-semibold text-ink">Values, beliefs and drivers</figcaption>
+                <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {copy.fiveH.faculties.map(faculty => <div key={faculty.name}>
+                    <dt className="font-semibold text-ink">{faculty.name}</dt>
+                    <dd className="mt-1 text-base leading-relaxed text-muted">{faculty.dimensions.map((dimension, index) => <span key={dimension}>{index > 0 && " · "}<span>{dimension}</span></span>)}</dd>
+                  </div>)}
+                </dl>
+              </figure>
+              <a href="/approach/5h-framework-wheel-user.png" className="mt-2 inline-flex min-h-11 items-center font-semibold text-brand-dark underline">View the full-size framework diagram</a>
             </div>
             <DiagnosticToolkit copy={copy.framework.toolkit} />
           </div>
           <p className="mt-8 text-center text-[14px] leading-[1.5] text-[#777] lg:mt-10">
-            {copy.framework.copyright}
+            {copy.framework.copyright.replace(/5H[®©™]/g, "5H")}
           </p>
         </section>
 
-        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
+        <FiveHShowcase heading={plainFiveH(copy.fiveH.heading)} faculties={copy.fiveH.faculties} />
 
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-          <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
-            {copy.introduction.heading}
-          </h2>
+          <SectionHeading className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
+            {plainFiveH(copy.introduction.heading)}
+          </SectionHeading>
           <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:text-[17px]">
-            {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}><RegisteredText text={paragraph} /></p>)}
+            {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
           </div>
           </div>
           <div id="two-games" className="min-w-0">
-          <LocalizedImage
-            src="/approach/inner-outer-game-5h-20261001.png"
-            alt="Inner Game and Outer Game connected by the five leadership intelligences"
-            ptSrc="/approach/inner-outer-game-5h-pt-br.svg"
-            ptAlt="Jogo interior e jogo exterior conectados pelas cinco dimensões da liderança"
-            width={1620}
-            height={971}
-            sizes="(min-width: 1024px) 650px, 100vw"
-            className="mx-auto h-auto w-full max-w-[720px]"
-          />
+          <div className="mx-auto max-w-[720px] divide-y divide-line rounded-sm border border-line">
+            {[copy.games.inner, copy.games.outer].map(game => <div key={game.heading} className="flex items-start gap-4 p-5">
+              <svg aria-hidden="true" viewBox="0 0 48 40" className="mt-1 w-12 shrink-0" fill="none" strokeWidth="3">
+                <circle cx="17" cy="20" r="13" stroke={game === copy.games.inner ? "#7c1847" : "#aaa"} />
+                <circle cx="31" cy="20" r="13" stroke={game === copy.games.outer ? "#7c1847" : "#aaa"} />
+              </svg>
+              <div><h3 className="text-xl font-semibold text-ink">{game.heading}</h3>
+                <p className="mt-2 text-base text-muted">{game.body}</p>
+                <p className="mt-2 flex flex-wrap gap-x-3 text-base font-semibold text-ink">{game.labels.map(label => <span key={label}>{label}</span>)}</p>
+              </div>
+            </div>)}
+          </div>
+          <div data-no-translate className="mx-auto mt-2 max-w-[720px] font-semibold text-brand-dark underline">
+            <a className="locale-en-only block w-fit py-3" href="/approach/inner-outer-game-5h-20261001.png">View the full-size inner and outer game diagram</a>
+            <a className="locale-pt-only w-fit py-3" href="/approach/inner-outer-game-5h-pt-br.svg">Ampliar o diagrama do jogo interior e exterior</a>
+          </div>
           <div className="mx-auto mt-6 max-w-[980px] px-5 py-6 sm:px-8 lg:px-10">
           <div className="grid grid-cols-3 gap-4 lg:mx-auto lg:max-w-[720px] lg:gap-10">
             {[
@@ -233,6 +244,7 @@ export default async function ApproachPage() {
           <PhotoCarousel
             images={APPROACH_CAROUSEL.map((slide) => slide.src)}
             alts={APPROACH_CAROUSEL.map((slide) => slide.alt)}
+            captions={["Participants present their response to a leadership dilemma.", "Small groups discuss the inner and outer game of leadership.", "Facilitators and participants during a CorporateDNA programme."]}
             label="CorporateDNA programmes in action"
             frameClassName="max-w-[980px]"
             sizes="(min-width: 1060px) 980px, 100vw"
@@ -243,13 +255,13 @@ export default async function ApproachPage() {
 
       <section id="dna-360-profiler" className="bg-[#353132] text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand-light">{copy.profiler.label}</p>
-          <h2 className="mt-3 font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
-            {copy.profiler.heading}
-          </h2>
+          <TypeLabel onDark>{plainFiveH(copy.profiler.label)}</TypeLabel>
+          <SectionHeading className="font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
+            {plainFiveH(copy.profiler.heading)}
+          </SectionHeading>
           <div className="lg:mt-9 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
             <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[16px]">
-              {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+              {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
             </div>
             <div className="mt-10 grid gap-8 lg:mt-0">
               <Image
@@ -279,27 +291,18 @@ export default async function ApproachPage() {
       <section id="learning" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.learning.label}</p>
-            <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
-              {copy.learning.heading} <span className="text-brand">{copy.learning.accent}</span>
-            </h2>
+            <TypeLabel>{copy.learning.label}</TypeLabel>
+            <SectionHeading className="font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
+              {copy.learning.heading} <span className="text-brand">{sectionHeading(copy.learning.accent)}</span>
+            </SectionHeading>
             {copy.learning.body.trim() && copy.learning.body.trim() !== "Body copy to be confirmed (max 500 characters)." && (
               <p className="mt-4 text-[15px] leading-[1.6] text-muted">{copy.learning.body}</p>
             )}
           </div>
-          <div className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
-            <p className="font-serif text-[24px] leading-[1.25] text-ink">See how the 5H® can support your leadership challenges.</p>
-            <Link href="/contact" className="mt-6 inline-flex border-b-2 border-brand pb-1 text-[13px] font-bold uppercase tracking-[1px] text-brand">Start a conversation</Link>
+          <div className="mt-8 self-center lg:mt-0 lg:border-l lg:border-line lg:pl-12">
+            <p className="font-serif text-2xl">{copy.cta.heading.replace(/5H[®©™]/g, "5H")}</p>
+            <Link href="/contact" className="contact-action mt-5">{copy.cta.buttonLabel}</Link>
           </div>
-        </div>
-      </section>
-
-      <section id="approach-cta" className="bg-brand text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 text-center md:px-10 md:py-14 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:text-left">
-          <h2 className="font-serif text-[34px] font-semibold leading-none sm:text-[43px] lg:text-[52px]"><RegisteredText text={copy.cta.heading} /></h2>
-          <Link href="/contact" className="mt-7 inline-flex min-h-14 w-full items-center justify-center bg-white px-8 text-[12px] font-bold uppercase tracking-[1.4px] text-brand shadow-[0_8px_20px_rgba(83,17,23,0.22)] transition-colors hover:bg-[#fff4f3] sm:w-auto sm:min-w-[360px] lg:mt-0">
-            {copy.cta.buttonLabel} <span className="ml-3" aria-hidden="true">→</span>
-          </Link>
         </div>
       </section>
     </SiteShell>

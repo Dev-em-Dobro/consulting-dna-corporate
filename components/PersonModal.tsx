@@ -79,7 +79,7 @@ export function Avatar({ person, sizes }: { person: Person; sizes: string }) {
   );
 }
 
-function SocialIcon({ type }: { type: SocialType }) {
+export function SocialIcon({ type }: { type: SocialType }) {
   const common = {
     width: 18,
     height: 18,

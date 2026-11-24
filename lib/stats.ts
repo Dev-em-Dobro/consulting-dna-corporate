@@ -1,3 +1,4 @@
+import { publishedFacultyMinimum } from "./faculty-figure.ts";
 import { getAboutCopy } from "@/lib/about-copy-server";
 import { getPage } from "@/lib/cms/client";
 
@@ -94,7 +95,7 @@ const STAT_FALLBACK: (SiteStat & { cmsKey: string })[] = [
   { cmsKey: "sponsoredPct", value: "90%", label: "Work sponsored by Chairman / CXO" },
   { cmsKey: "years", value: "19", label: "Years advising senior leaders" },
   { cmsKey: "countries", value: "4", label: "Regions of global delivery" },
-  { cmsKey: "faculty", value: "60+", label: "Faculty of senior practitioners" },
+  { cmsKey: "faculty", value: publishedFacultyMinimum, label: "Faculty of senior practitioners" },
 ];
 
 /**
@@ -106,6 +107,9 @@ export async function getSiteStats(): Promise<SiteStat[]> {
   const data = (home?.data ?? {}) as Record<string, unknown>;
   return STAT_FALLBACK.map((s) => {
     const v = data[s.cmsKey];
+    if (s.cmsKey === "faculty" && ["60+", "75", "75+"].includes(String(v).trim())) {
+      return { value: s.value, label: s.label };
+    }
     return {
       // The published English site now says four regions; the old CMS value
       // can still say five. Keep both preview languages aligned with production.

@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { ServiceFormat } from "@/lib/services";
@@ -16,9 +17,9 @@ export default function SolutionJudgementOverview({
       <div className="mx-auto grid max-w-[1440px] gap-12 px-6 py-20 md:px-10 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.35fr)] lg:gap-10">
         <Reveal className="lg:pr-4">
           <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">What we do</p>
-          <h2 id="judgement-what-we-do" className="mt-6 font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px] xl:text-[42px]">
+          <SectionHeading id="judgement-what-we-do" className="mt-6 font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px] xl:text-[42px]">
             {headline}
-          </h2>
+          </SectionHeading>
           <p className="mt-8 font-serif text-[17px] leading-[1.7] text-muted md:text-[18px]">
             {body}
           </p>

@@ -96,7 +96,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(/(?:^|;\\s*)site_locale=pt-BR(?:;|$)/.test(document.cookie)){document.documentElement.lang='pt-BR';document.documentElement.dataset.siteLocale='pt-BR';document.documentElement.classList.add('site-i18n-pending');setTimeout(function(){document.documentElement.classList.remove('site-i18n-pending')},4000)}}catch(e){}",
+              "try{var l=new URLSearchParams(location.search).get('lang');if(l==='pt-BR'||l==='en'){document.cookie='site_locale='+l+'; Path=/; Max-Age=31536000; SameSite=Lax'}if(/(?:^|;\\s*)site_locale=pt-BR(?:;|$)/.test(document.cookie)){document.documentElement.lang='pt-BR';document.documentElement.dataset.siteLocale='pt-BR';document.documentElement.classList.add('site-i18n-pending');setTimeout(function(){document.documentElement.classList.remove('site-i18n-pending')},4000)}}catch(e){}",
           }}
         />
       </head>

@@ -78,10 +78,6 @@ export default function PeopleRoster({
 }) {
   if (people.length === 0) return null;
 
-  const grid =
-    size === "lg"
-      ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
-      : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6";
 
   if (size === "lg") {
     return (
@@ -106,6 +102,7 @@ export default function PeopleRoster({
             ) : null}
             <div>
               <h4 className="font-semibold leading-snug text-brand text-[17px]">{p.name}</h4>
+              {p.title && <p className="mt-1 text-sm font-medium text-ink">{p.title}</p>}
               {p.meta && <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>}
               {p.focus && <p className="mt-2 text-[13px] font-medium leading-snug text-ink">{p.focus}</p>}
               {p.quote && <p className="mt-3 text-[15px] leading-[1.6] text-muted md:leading-[1.4]">“{p.quote}”</p>}
@@ -117,14 +114,14 @@ export default function PeopleRoster({
   }
 
   return (
-    <ul className={`grid gap-x-4 gap-y-8 ${grid}`}>
+    <ul className="flex flex-wrap justify-center gap-x-4 gap-y-8">
       {people.map((p) => (
-        <li key={p.name}>
+        <li key={p.name} className="w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-4rem)/5)] xl:w-[calc((100%-5rem)/6)]">
           {p.portrait ? (
-            <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e6e3]">
+            <div className="relative aspect-square overflow-hidden bg-[#e9e6e3]">
               <Image
                 src={p.portrait}
-                alt={p.name}
+                alt=""
                 fill
                 sizes="(min-width: 1280px) 17vw, (min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
                 className={`object-cover object-[center_22%]${mono ? " grayscale" : ""}`}
@@ -136,7 +133,7 @@ export default function PeopleRoster({
           ) : (
             /* 01-10: sem retrato (ex.: Michela), um quadro neutro com a inicial
                no lugar do vão  -  a grade continua alinhada até a foto chegar. */
-            <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-[#e9e6e3]">
+            <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-[#e9e6e3]">
               <span aria-hidden className="font-serif text-[56px] font-semibold text-white">
                 {p.name.charAt(0)}
               </span>
@@ -144,7 +141,7 @@ export default function PeopleRoster({
               <div className="absolute right-0 top-0 h-[5px] w-9 bg-brand" />
             </div>
           )}
-          <h4 className="mt-3.5 text-[15px] font-semibold leading-snug text-brand">{p.name}</h4>
+          <h4 data-no-translate className="mt-3.5 text-[15px] font-semibold leading-snug text-brand">{p.givenName ?? p.name.split(" ")[0]}</h4>
           {p.meta && <p className="mt-0.5 text-[13px] leading-snug text-muted">{p.meta}</p>}
           {p.focus && <p className="mt-2 text-[13px] font-medium leading-snug text-ink">{p.focus}</p>}
           {p.quote && <p className="mt-2 text-[14px] leading-[1.55] text-muted">“{p.quote}”</p>}

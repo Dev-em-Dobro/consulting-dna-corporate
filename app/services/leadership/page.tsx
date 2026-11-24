@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Leadership profiles | CorporateDNA",
     description:
-      "The senior advisory team behind CorporateDNA, leaders who have sat where our clients sit, delivering across 36 countries with a 75-strong faculty.",
+      "The senior advisory team behind CorporateDNA, leaders who have sat where our clients sit, delivering across 36 countries with a global faculty.",
     alternates: localeAlternates("/services/leadership"),
   };
 }

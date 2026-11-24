@@ -41,24 +41,24 @@ const endorsements: Endorsement[] = [
   },
 ];
 
-export default function BookEndorsements() {
+export default function BookEndorsements({ limit }: { limit?: number } = {}) {
   return (
     <div className="mt-10 border-t border-white/15 px-6 pb-10 pt-10 md:mt-12 md:px-0 md:pb-0 md:pt-12">
       <ul className="grid grid-cols-1 gap-x-14 gap-y-9 md:grid-cols-2">
-        {endorsements.map((e) => (
-          <li key={e.name}>
+        {endorsements.slice(0, limit).map((e) => (
+          <li key={e.name} className="flex h-full flex-col">
             <blockquote>
               <p className="text-[15.5px] leading-[1.6] text-white/75">
                 &ldquo;{e.quote}&rdquo;
               </p>
             </blockquote>
-            <footer className="mt-3.5 flex items-baseline gap-2.5">
+            <footer className="mt-auto flex items-baseline gap-2.5 pt-3.5">
               <span aria-hidden="true" className="mt-2 h-0.5 w-5 flex-none bg-brand" />
               <div>
                 <cite className="block text-[14px] font-bold not-italic tracking-[-0.1px] text-white">
                   {e.name}
                 </cite>
-                <span className="mt-0.5 block text-[12.5px] leading-[1.45] text-white/50">
+                <span className="mt-0.5 block text-[12px] uppercase tracking-wide leading-[1.45] text-white/50">
                   {e.title}
                 </span>
               </div>

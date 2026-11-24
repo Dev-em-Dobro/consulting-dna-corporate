@@ -1415,15 +1415,14 @@ export type Service = {
    * Trocar as duas de uma vez mudaria em silêncio uma página que ninguém
    * mandou mexer.
    *
-   * ✅ A CONTINUIDADE VOLTOU EM 24-09, pelo outro lado: o `ServiceCard` passou
-   * a mostrar `heroImage ?? cardImage`, a pedido (*"as imagens da lista estão
-   * antigas, pega as imagens dos heros"*). O `cardImage` só aparece hoje em
-   * quem não tem `heroImage`.
+   * A grade usa um recorte 4:3 da mesma foto do herói. Em telas largas, o
+   * navegador pode selecionar o recorte 21:9 indicado em `wideHeroImage`.
    *
    * Ausente = o herói segue mostrando o `cardImage`, e quem não tem nenhum dos
    * dois cai na `service-hero-fallback.jpg`.
    */
   heroImage?: string;
+  wideHeroImage?: string;
   /**
    * O RÓTULO DO HERÓI QUANDO ELE NÃO É "Our Services"  -  24-09, com o layout de
    * Family Business Consulting, que escreve "FAMILY-LED BUSINESS CONSULTING"
@@ -1521,7 +1520,7 @@ export const services: Service[] = [
        página; renomeá-lo obrigaria a mexer no disco para que nada mude na tela,
        e o otimizador do Next serve imagem POR URL  -  nome novo é cache novo,
        gerado à toa. */
-    cardImage: "/services/cards/top-150-leadership-development-client.jpg",
+    cardImage: "/services/cards/senior-leadership-development.webp",
     /* ✅ A FOTO DA ESCADA, 24-09  -  *"Hero: imagem da escada com pessoas, que o
        Guli já te mandou por e-mail"*. Chegou como PNG de 1897x829 e virou JPEG
        q90 numa ÚNICA compressão (374 KB), que é o tratamento padrão deste repo.
@@ -1548,6 +1547,7 @@ export const services: Service[] = [
        serve imagem por URL e já entregou versão velha neste projeto por causa
        disso. É por isso que a data está no nome. */
     heroImage: "/services/heroes/sld-stairs-24-09.jpg",
+    wideHeroImage: "/services/wide/senior-leadership-development.webp",
     /* ✅ O NOME MUDOU EM 21-09, por email: *"Change top 150 leadership
        development to Senior Leadership Development"*. É o que aparece no card
        do índice, no submenu de Services, na migalha e no `h1` da página  -  o
@@ -1586,7 +1586,7 @@ export const services: Service[] = [
     /* ✅ A COPY DE "WHAT WE DO", TRANSCRITA DO MOCKUP DE 21-09. Está escrita em
        letra em `docs/meetings/nova-pagina-interna-servicoes.jpg`, coluna da
        direita do primeiro bloco, e os negritos abaixo são os que o desenho
-       marca  -  "Executive Teams, SLT/ET-1 leaders", "Top 100–150 leadership
+       marca  -  "Executive Teams, SLT/ET-1 leaders", "Top 100 to 150 leadership
        populations" e "business transformation". Nada foi reescrito.
 
        ⚠️ NÃO SUBSTITUI O `outcome` LOGO ACIMA, convive com ele. O `outcome` é a
@@ -1595,7 +1595,7 @@ export const services: Service[] = [
     whatWeDoHeadline:
       "We develop leaders at the levels where transformation gets real.",
     whatWeDo:
-      "We work with **Executive Teams, SLT/ET-1 leaders** and **Top 100–150 leadership populations** to build the leadership capability their organisation needs for what comes next.\n\nEvery journey starts with your **business transformation**, not a standard curriculum. Whether you are scaling, integrating, reshaping culture, accelerating performance or navigating disruption, we identify the leadership shifts required and design a tailored journey to meet them.",
+      "We work with **Executive Teams, SLT/ET-1 leaders** and **Top 100 to 150 leadership populations** to build the leadership capability their organisation needs for what comes next.\n\nEvery journey starts with your **business transformation**, not a standard curriculum. Whether you are scaling, integrating, reshaping culture, accelerating performance or navigating disruption, we identify the leadership shifts required and design a tailored journey to meet them.",
     howWeHelpHeadline: "From ambition to enterprise leadership in practice.",
     howWeHelp:
       "We work with the ExCo and top 100 to 150 leaders to build the **Inner Game and Outer Game of enterprise leadership**. Through immersive experiences, coaching, real business challenges, peer learning and mastery labs, we shift leaders from **“my function, my market, my priorities” to “our enterprise, our performance, our future.”**",
@@ -1707,7 +1707,7 @@ export const services: Service[] = [
        "…of modern leadership: performance and people, …, speed and inclusion,
        building the judgement…".
 
-       ⚠️ O MEIO-TRAÇO DAS FAIXAS NUMÉRICAS FICA ("1–2 day", "Top 100 – 150"):
+       ⚠️ O MEIO-TRAÇO DAS FAIXAS NUMÉRICAS FICA ("1–2 day", "Top 100 to 150"):
        ele é sinal de intervalo, não travessão, e o pedido de 23-09 é sobre o
        travessão. Trocá-lo por hífen mudaria a tipografia dos números em toda a
        página sem ninguém ter pedido. */
@@ -1727,7 +1727,7 @@ export const services: Service[] = [
         credential: ["Bigger", "perspective", "Bolder leadership"],
       },
       {
-        label: "Top 100 – 150 leaders",
+        label: "Top 100 to 150 leaders",
         title: "Mastering the dualities and competing commitments of leadership.",
         body: "Leadership journeys that equip senior leaders to navigate the competing commitments of modern leadership: performance and people, today and tomorrow, global and local, speed and inclusion, building the judgement and habits to lead consistently at scale.",
         image: "/services/audiences/sld-top-100-150.jpg",
@@ -1867,8 +1867,9 @@ export const services: Service[] = [
   },
   {
     slug: "culture-transformation",
-    cardImage: "/services/cards/culture-transformation-client.jpg",
+    cardImage: "/services/cards/culture-transformation.webp",
     heroImage: "/services/heroes/culture-transformation-hero.png",
+    wideHeroImage: "/services/wide/culture-transformation.webp",
     title: "Culture Transformation",
     banner:
       "Turn strategic intent into leadership behaviour that changes how the organisation actually operates.",
@@ -2039,7 +2040,8 @@ export const services: Service[] = [
        total com 1024px de fonte e um texto cravado na imagem que ninguém
        consegue traduzir nem editar pelo /edit. */
     heroImage: "/hero/talent-high-potentials.jpeg",
-    cardImage: "/services/cards/talent-development-client.jpg",
+    wideHeroImage: "/services/wide/talent-development.webp",
+    cardImage: "/services/cards/talent-development.webp",
     title: "Talent Development",
     banner: "Build the leadership pipeline before the business needs it.",
     /* ============================================================================
@@ -2407,10 +2409,11 @@ export const services: Service[] = [
        (2400px); a posição abaixo desce o enquadramento para as pessoas, que
        ocupam os dois terços de baixo. Ela serve o herói E o card da
        `/services`, como antes. */
-    cardImage: "/services/manager/md-hero-workshop-20261001.jpg",
+    cardImage: "/services/cards/manager-development.webp",
     /* 01-10, à tarde: o herói ganhou foto própria (enviada pelo Roberto); o
        workshop da Frasers segue só no card. */
     heroImage: "/services/heroes/manager-development-hero-20261001.jpg",
+    wideHeroImage: "/services/wide/manager-development.webp",
     title: "Manager Development",
     banner: "Build managers who turn strategy into performance through people.",
     /* ⚠️ O HERÓI NÃO MEXEU, a pedido de 24-09: *"pode manter o hero na
@@ -2582,7 +2585,8 @@ export const services: Service[] = [
   {
     slug: "women-in-leadership",
     heroImage: "/hero/women-leadership.jpeg",
-    cardImage: "/services/cards/women-in-leadership-client.jpg",
+    wideHeroImage: "/services/wide/women-in-leadership.webp",
+    cardImage: "/services/cards/women-in-leadership.webp",
     /* ============================================================================
        ✅ A PÁGINA REFEITA PELO LAYOUT DE 24-09 (`women leadership.jpeg`)
        ============================================================================
@@ -2880,7 +2884,8 @@ export const services: Service[] = [
        no git (Adidas South East Asia, 92% NPS / 93% / 150+).
        ============================================================================ */
     heroImage: "/services/heroes/hpt-rowing-hero-20261001.jpg",
-    cardImage: "/services/cards/high-performing-teams-client.jpg",
+    wideHeroImage: "/services/wide/high-performing-teams.webp",
+    cardImage: "/services/cards/high-performing-teams.webp",
     title: "High Performing Teams",
     banner:
       "Turn groups of strong individuals into leadership teams that perform collectively.",
@@ -2968,7 +2973,7 @@ export const services: Service[] = [
   },
   {
     slug: "hrlt-effectiveness",
-    cardImage: "/services/cards/hrlt-effectiveness-client.jpg",
+    cardImage: "/services/cards/hrlt-effectiveness.webp",
     /* ============================================================================
        ✅ A HRLT VOLTOU PARA O TEMPLATE  -  24-09
        ============================================================================
@@ -3013,6 +3018,7 @@ export const services: Service[] = [
     title: "HR Leadership Team Effectiveness",
     banner: "Stronger HR leadership teams. A greater impact on the business.",
     heroImage: "/hero/hrlt.jpeg",
+    wideHeroImage: "/services/wide/hrlt-effectiveness.webp",
     whatWeDoHeadline:
       "Build HR leadership teams that shape the business, from the inside out.",
     whatWeDo:
@@ -3130,16 +3136,17 @@ export const services: Service[] = [
   },
   {
     slug: "judgement-in-ai",
-    cardImage: "/services/cards/judgement-in-ai-client.jpg",
+    cardImage: "/services/cards/judgement-in-ai.webp",
     title: "Judgement in AI",
-    heroTitle: "Leadership Judgement",
+    heroTitle: "Judgement in AI",
     /* ✅ 01-10: TRATAMENTO FOTOGRÁFICO sobre a mesma imagem (IA), pedido na
        call para ela "parecer menos Photoshop": grão de filme leve, pretos um
        pouco levantados, saturação -12%, meio-tons aquecidos e as bordas
        hipernítidas suavizadas. O original (`...-20260926.png`) fica no disco. */
     heroImage: "/services/heroes/judgement-leadership-hero-20261001-graded.jpg",
+    wideHeroImage: "/services/wide/judgement-in-ai.webp",
     heroImagePosition: "object-[70%_center] md:object-center",
-    heroSubtitle: "Clearer thinking. Braver calls.",
+    heroSubtitle: "Leadership judgement for an AI-augmented world.",
     heroBody: [
       "Judgement development for leaders making high-stakes calls in the age of AI, from the ExCo table to the teams leading transformation.",
     ],
@@ -3155,7 +3162,7 @@ export const services: Service[] = [
         tagline: "Sharpen the calls at the top.",
         body: "A provocative keynote and peer dialogue that stress-tests the private judgement behind senior decisions, before blind spots scale with authority.",
         focus: ["Judgement & discernment", "Critical thinking", "Risk appetite", "Accountability"],
-        image: "/services/audiences/sld-top-100-150.jpg",
+        image: "/dna-time/dna-time-13.jpeg",
       },
       {
         audience: "Top 50–100 leaders",
@@ -3163,7 +3170,7 @@ export const services: Service[] = [
         tagline: "Challenge AI without slowing down.",
         body: "An interactive workshop with diagnostics and tools. Leaders work a live dilemma and decide what AI should do and what must stay human.",
         focus: ["Critical thinking", "Sensemaking", "Scenario planning", "Navigating complexity"],
-        image: "/hero/manager-development.jpeg",
+        image: "/dna-time/dna-time-17.jpeg",
       },
       {
         audience: "ExCos & top teams",
@@ -3171,11 +3178,11 @@ export const services: Service[] = [
         tagline: "Decide the real issue, together.",
         body: "A deep intervention on one real decision, pressure-tested through Head, Heart and Hunch for a better outcome than AI or instinct alone.",
         focus: ["Accelerated decisioning", "Courage", "Insightfulness", "Ownership"],
-        image: "/services/audiences/sld-executive-teams.jpg",
+        image: "/dna-time/dna-time-16.jpeg",
       },
     ],
     ambition: "One ambition: AI directed by judgement, not deferred to.",
-    capabilitiesHeader: { label: "Why our approach stands out" },
+    capabilitiesHeader: { headline: "Why our approach stands out" },
     capabilitiesTone: "paper",
     capabilities: [
       { icon: "mindset", title: "Inner game first", body: "We work on the thinking, feeling and instinct behind a decision, not only the analysis around it." },
@@ -3224,8 +3231,9 @@ export const services: Service[] = [
   },
   {
     slug: "executive-coaching",
-    cardImage: "/services/cards/executive-coaching-client.jpg",
+    cardImage: "/services/cards/executive-coaching.webp",
     heroImage: "/services/heroes/executive-coaching-hero-20261001-v2.jpg",
+    wideHeroImage: "/services/wide/executive-coaching.webp",
     heroImagePosition: "object-[center_20%]",
     title: "Executive Coaching",
     banner: "Strengthen judgement and leadership performance when the stakes are highest.",
@@ -3442,8 +3450,9 @@ export const services: Service[] = [
   },
   {
     slug: "family-business-consulting",
-    cardImage: "/services/cards/family-business-consulting-client.jpg",
+    cardImage: "/services/cards/family-business-consulting.webp",
     heroImage: "/services/heroes/family-business-consulting-hero.png",
+    wideHeroImage: "/services/wide/family-business-consulting.webp",
     title: "Family Business Consulting",
     banner:
       "Build the leadership, governance and succession capability required to protect the legacy while creating the future.",

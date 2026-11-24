@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import type { ReactNode } from "react";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
@@ -216,9 +217,9 @@ export default function SolutionSection({
             <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
               {label}
             </p>
-            <h2 className="mt-6 whitespace-pre-line font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px]">
+            <SectionHeading className="mt-6 whitespace-pre-line font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px]">
               {headline}
-            </h2>
+            </SectionHeading>
             <RichText
               html={html}
               className="mt-6 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]"
@@ -291,9 +292,9 @@ export default function SolutionSection({
                 porque as duas trazem o `\n` escrito em `lib/services.ts`.
                 Teto de largura decidiria a quebra pela LARGURA DA JANELA, que é
                 o que fazia a primeira quebrar em "manager". */}
-            <h2 className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.12] tracking-[-0.4px] text-ink md:text-[42px] lg:text-[50px]">
+            <SectionHeading className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.12] tracking-[-0.4px] text-ink md:text-[42px] lg:text-[50px]">
               {headline}
-            </h2>
+            </SectionHeading>
             {/* `RichText` COMO NO RAMO DE DUAS COLUNAS, e não um `<div>` com
                 `dangerouslySetInnerHTML` próprio: o corpo chega como HTML já
                 processado (o `**negrito**` da planilha dela virou `<strong>`),
@@ -327,9 +328,9 @@ export default function SolutionSection({
               `whitespace-pre-line` É O QUE FAZ O `\n` DA COPY VIRAR QUEBRA  -  ver
               a caixa no topo do arquivo. Ele NÃO colapsa a indentação do JSX
               porque o filho é uma expressão `{headline}`, não texto literal. */}
-          <h2 className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px] lg:pr-8 lg:text-[46px]">
+          <SectionHeading className="font-serif whitespace-pre-line text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[38px] lg:pr-8 lg:text-[46px]">
             {headline}
-          </h2>
+          </SectionHeading>
 
           {/* ⚠️ A ESPESSURA VEM DA PROP `rule`, e a caixa dela conta por que os
               dois blocos desta página divergem desde 24-09. A COR não muda nos

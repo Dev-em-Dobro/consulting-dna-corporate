@@ -115,26 +115,26 @@ export const DEFAULT_HOME_COPY: HomeCopy = {
     label: "Our people",
     title: "Senior advisors who have sat where our clients sit.",
     subtitle:
-      "A leadership team of seasoned advisors, backed by a global faculty of 75 practitioners delivering across 36 countries.",
+      "A leadership team of seasoned advisors, backed by practitioners who deliver programmes around the world.",
     intro: "With our “One DNA TEAM” principle, we execute as one collaborative team.",
     designTitle: "Different by design",
     designBody:
-      "There is an authentic and consistent mould for a DNA facilitator or coach. Our people come from different cultures, careers and life experiences. Leaders, psychologists, coaches, behavioural scientists and former operators. What connects us is a consistent DNA of curiosity, character, generosity and the confidence to bring our whole selves to the work.",
+      "Our facilitators bring experience from business, psychology, coaching and behavioural science. Their backgrounds differ, but they share a curiosity about people and the confidence to bring their own experience into an honest conversation.",
     pillars: [
       {
         title: "Personal energy & personality",
         body:
-          "Beyond content and expertise, our people bring themselves. Energy, warmth, character and presence matter. We want clients to feel the person behind the expertise, someone who can connect, challenge, read the room and bring the work to life.",
+          "Facilitators bring energy, warmth and character to the room. They listen for what matters to participants, challenge an assumption when needed and help a group put leadership ideas to work on a live problem.",
       },
       {
         title: "The DNA Experience",
         body:
-          "You get the best of the team, not just the person in the room. Behind every engagement sits the collective experience of DNA. We share what we see, challenge each other and bring in the right expertise when it matters. No silos. No territory. One team.",
+          "Each facilitator works with the experience of the wider team. Colleagues share what they learn, test one another’s thinking and bring in the expertise a client needs at a particular moment.",
       },
       {
         title: "Relationships that last",
         body:
-          "We stay close and relevant\nMany client relationships have lasted years, across roles, organisations and chapters of leadership. We challenge, laugh, disagree and support each other. That trust runs through our own team and into how we work with clients.",
+          "We stay close to clients as their roles, organisations and challenges change. The trust built over time gives us room to disagree, challenge one another and work through a difficult decision together.",
       },
     ],
     partnersLabel: "In partnership with",

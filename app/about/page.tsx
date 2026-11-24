@@ -26,6 +26,7 @@
  * aqui  -  é trabalho de redirects e sitemap, separado desta página, e foi
  * levantado com o cliente.
  */
+import SectionHeading from "@/components/SectionHeading";
 import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -36,12 +37,10 @@ import SiteFooter from "@/components/SiteFooter";
 import { buildSiteNav } from "@/lib/nav-server";
 import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/HeroIntro";
+import HeroFrame from "@/components/HeroFrame";
 import Counter from "@/components/Counter";
 import WorldCoverageMap from "@/components/WorldCoverageMap";
-import { FIRM_STAT_ICONS, getSiteStats } from "@/lib/stats";
-import { getHomeCopy } from "@/lib/home-copy-server";
-import { getCaseListEntries } from "@/lib/cms/map";
-import { HomeCredibility, HomeImpact, HomePeople } from "@/components/home/HomeSharedSections";
+import { FIRM_STAT_ICONS } from "@/lib/stats";
 import { getAboutCopy } from "@/lib/about-copy-server";
 import { CENTRAL_EMAIL, presentAboutCopy } from "@/lib/about-copy";
 import { inlineEmphasis } from "@/lib/page-copy/text";
@@ -51,11 +50,10 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 import { localeAlternates } from "@/lib/seo/alternates";
 import heroPhoto from "@/public/about/about-hero-skyline.jpeg";
-import teamStairs from "@/public/team-stairs-about-six.jpg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito  -  ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
-import purposePhoto from "@/public/dna-time/dna-time-06.jpeg";
+import purposePhoto from "@/public/dna-time/dna-time-28.jpeg";
 
 /* ────────────────────────────────────────────────────────────────────────────
    TIPOGRAFIA  -  o teste de 09-09.
@@ -447,8 +445,8 @@ function splitLastWord(text: string): [string, string] {
    janela, desça se estiver alto demais. */
 const REGION_IMAGES = [
   { src: "/about/regions/americas.jpg", y: "50%" },
-  { src: "/team/mock/london.jpg", y: "0%" },
-  { src: "/team/mock/dubai.jpg", y: "40%" },
+  { src: "/about/regions/london.webp", y: "0%" },
+  { src: "/about/regions/dubai.webp", y: "40%" },
   { src: "/about/regions/singapore.jpg", y: "50%" },
 ];
 
@@ -461,15 +459,7 @@ const regionCities = (offices: string) =>
   offices.split(/\s+and\s+|,/).map((c) => c.trim()).filter(Boolean);
 
 export default async function AboutV2Page() {
-  const [nav, savedCopy, homeCopy, cmsStats, publishedCases] = await Promise.all([
-    buildSiteNav(),
-    getAboutCopy(),
-    getHomeCopy(),
-    getSiteStats(),
-    getCaseListEntries(),
-  ]);
-  // Os mesmos números e rótulos da faixa da home (ver `HomeCredibility`).
-  const homeStats = cmsStats.map((s, i) => ({ ...s, label: homeCopy.credibility.statLabels[i] ?? s.label }));
+  const [nav, savedCopy] = await Promise.all([buildSiteNav(), getAboutCopy()]);
   const copy = presentAboutCopy(savedCopy);
   /* O ícone casa com o número POR POSIÇÃO  -  ver a caixa do bloco 1 acima. */
   const stats = copy.stats.map((s, i) => ({ ...s, icon: FIRM_STAT_ICONS[i] ?? "" }));
@@ -563,7 +553,7 @@ export default async function AboutV2Page() {
       {/* `id` posto em 23-09 para o script do guia visual do editor saber
           fotografar esta dobra (`scripts/edit-page-guide-shots.mjs`). Não é
           âncora de navegação  -  o menu não aponta para cá. */}
-      <section id="about-hero" className="relative isolate flex min-h-[84svh] flex-col overflow-hidden bg-ink pt-[76px] text-white">
+      <HeroFrame id="about-hero" className="flex flex-col pt-[76px]">
         {/* ✅ A RECOMPRESSÃO DO WHATSAPP SAIU EM 15-09. O que estava aqui era
             a `about-hero.jpeg`, 229 KB de JPEG que o WhatsApp já havia
             recomprimido: céu em blocos e os pontos da hélice empastados. O
@@ -936,7 +926,7 @@ export default async function AboutV2Page() {
               `Reveal` dispararia na hora e tudo entraria junto, num fade só.
 
               O rótulo recebe `h-eyebrow` para acompanhar a entrada do título. */}
-          <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 pb-12 pt-16 md:px-10 md:py-16">
+          <HeroIntro className="hero-content pb-12 pt-16 md:py-16">
             <TypeLabel onDark className="h-eyebrow">
               {copy.hero.label}
             </TypeLabel>
@@ -1293,7 +1283,7 @@ export default async function AboutV2Page() {
             ))}
           </div>
         </div>
-      </section>
+      </HeroFrame>
 
       {/* ── Block 3 · Our Purpose ─────────────────────────────────────
           "Single column, centred, generous margins." A frase de abertura é o
@@ -1471,7 +1461,7 @@ export default async function AboutV2Page() {
                    aqui sempre foi 600  -  sem esta linha, a abertura da citação
                    engrossaria um degrau sozinha. */
                 className="[&_strong]:font-semibold"
-                dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.purpose.quote) }}
+                dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.purpose.quote).replace(/([.!?])\s+(?=[A-Z][^.!?]*[.!?]\s*$)/, "$1<br/><br/>") }}
               />
               <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
                 ”
@@ -1560,8 +1550,8 @@ export default async function AboutV2Page() {
           A coluna direita é a mais larga de propósito  -  ela tem quatro vezes
           mais texto, e igualar as duas deixaria a esquerda com buraco embaixo. */}
       <section id="promise" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-28">
-          <TypeLabel>{copy.promise.label}</TypeLabel>
+        <Reveal className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-24">
+          <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">{copy.promise.label.replace(/\.$/, "")}</SectionHeading>
           <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <p className="font-serif text-[28px] font-medium leading-[1.2] tracking-[-0.4px] text-ink md:text-[36px]">
@@ -1853,7 +1843,7 @@ export default async function AboutV2Page() {
           Sem os ícones da imagem: não existe esse jogo de ícones no site, e os
           campos de CMS do outline são { name, body }, sem ícone. */}
       <section id="values" className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-24">
           {/* ALINHADO À ESQUERDA NO TELEFONE, centralizado a partir de `md`.
               Centralizado numa coluna de 342px o texto quebra em seis linhas
               esfarrapadas dos dois lados, e  -  o que pesa mais  -  fica fora do
@@ -1865,7 +1855,7 @@ export default async function AboutV2Page() {
               linhas curtas no meio de uma faixa de 1360px, e ali elas anunciam
               o bloco em vez de disputar eixo com ele. */}
           <div className="flex flex-col items-start text-left md:items-center md:text-center">
-            <TypeLabel>{copy.values.label}</TypeLabel>
+            <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">{copy.values.label.replace(/\.$/, "")}</SectionHeading>
             {/* O negrito vem marcado com `**…**` na copy  -  mesma conversão do
                 bloco de propósito. */}
             <p
@@ -1974,13 +1964,7 @@ export default async function AboutV2Page() {
         </div>
       </section>
 
-      {/* 01-10: as três seções da home  -  Trusted by, Client impact e Our
-          people  -  repetidas aqui, depois de "What we believe". Ver
-          `components/home/HomeSharedSections.tsx`. Ids próprios porque a
-          /about já tem um `#people`. */}
-      <HomeCredibility id="about-credibility" copy={homeCopy} stats={homeStats} />
-      <HomeImpact id="about-impact" copy={homeCopy} publishedCases={publishedCases} />
-      <HomePeople id="about-our-people" copy={homeCopy} />
+      <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-10"><HoverFillButton label="Explore our client work" href="/our-clients" /></div>
 
       {/* ── Block 6 · Our Regions ─────────────────────────────────────
           Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio
@@ -2027,7 +2011,7 @@ export default async function AboutV2Page() {
             o espaçamento final tem de ser padding do container, nunca margem do
             último filho. */}
         <Reveal className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-20">
-          <TypeLabel>{copy.regions.label}</TypeLabel>
+          <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">{copy.regions.label.replace(/\.$/, "")}</SectionHeading>
 
           {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA  -  item 3 da call de 14-09.
               Antes o parágrafo ficava sozinho numa linha e o mapa entrava
@@ -2171,30 +2155,7 @@ export default async function AboutV2Page() {
               tem a metade de lá. */}
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {copy.regions.items.map((r, ri) => (
-              <div key={r.name}>
-                {/* 23-09: as fotos de cidade voltam para cima do texto. São as
-                    mesmas de `public/team/mock` que ilustravam estas regiões
-                    (Miami, Londres, Dubai, Singapura). A Índia saiu com Jaipur. */}
-                {/* ⚠️ QUADRADA, E ANCORADA NO TOPO  -  23-09, em duas passadas.
-                    Os cinco arquivos de `public/team/mock` são retratos de
-                    900×1125 (4/5). A moldura era 3/2, paisagem: o `object-cover`
-                    tinha de jogar fora quase metade da altura e, com
-                    `object-center`, a perda saía metade em cima e metade embaixo
-                     -  a ponte de Londres sem o vão de cima, a skyline de
-                    Cingapura sem as torres. Na tela parecia zoom; era recorte.
-                    A proporção nativa (4/5) resolvia o corte e criava outro
-                    problema: quatro retratos inteiros lado a lado deixavam a
-                    faixa alta demais para o texto que vem embaixo.
-
-                    5/4 é onde paramos, depois de passar pelo quadrado: sobra
-                    36% de altura para cortar, contra os 47% de antes  -  menos que
-                    a moldura original, e ~253px de altura em quatro colunas a
-                    1440, contra os 395px do retrato inteiro. E o corte inteiro
-                    vai para BAIXO, via `object-top`, porque é onde mora o chão
-                    da foto  -  o céu, a ponte e as torres, que são o assunto,
-                    ficam. Trocar por `object-center` devolve o defeito original
-                    pela metade. Reduzir mais que isto começa a comer a base dos
-                    prédios, e aí o recorte volta a se ver. */}
+              <div key={r.name} className="flex h-full flex-col">
                 {REGION_IMAGES[ri] ? (
                   <div className="relative mb-5 aspect-[5/4] overflow-hidden">
                     <Image
@@ -2238,6 +2199,7 @@ export default async function AboutV2Page() {
                             </span>
                           ))}
                         </p>
+                        <a href={`mailto:${office.email || CENTRAL_EMAIL}`} className="mt-2 inline-block break-all text-sm text-brand-dark underline">{office.email || CENTRAL_EMAIL}</a>
                       </div>
                     );
                   })}
@@ -2246,12 +2208,7 @@ export default async function AboutV2Page() {
                   className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted"
                   dangerouslySetInnerHTML={{ __html: inlineEmphasis(r.descriptor) }}
                 />
-                <a
-                  href={`mailto:${CENTRAL_EMAIL}`}
-                  className="mt-3 inline-block text-[14px] leading-[1.5] text-brand transition-colors hover:text-brand-dark"
-                >
-                  {CENTRAL_EMAIL}
-                </a>
+
                 </div>
               </div>
             ))}
@@ -2298,9 +2255,9 @@ export default async function AboutV2Page() {
       <section id="people" className="bg-ink text-white">
         <Reveal className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 md:py-20">
           <TypeLabel onDark>{copy.people.label}</TypeLabel>
-          <h2 className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
+          <SectionHeading className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
             {copy.people.title}
-          </h2>
+          </SectionHeading>
           <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-white/70">
             {copy.people.body}
           </p>

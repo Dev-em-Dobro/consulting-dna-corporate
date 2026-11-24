@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
@@ -23,7 +24,8 @@ export default async function EventsPage() {
   const events = await getEvents();
   const upcoming = events.filter((event) => event.status === "upcoming")
     .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
-  const past = events.filter((event) => event.status === "past");
+  const past = events.filter((event) => event.status === "past")
+    .sort((a, b) => (b.startDate ?? "").localeCompare(a.startDate ?? ""));
 
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
@@ -43,9 +45,9 @@ export default async function EventsPage() {
         <section id="upcoming-events" aria-labelledby="upcoming-heading" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
             <TypeLabel>{copy.upcoming.label}</TypeLabel>
-            <h2 id="upcoming-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
+            <SectionHeading id="upcoming-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
               {copy.upcoming.heading}
-            </h2>
+            </SectionHeading>
             {upcoming.length === 0 ? (
               <p className="mt-8 max-w-[40rem] text-[18px] leading-[1.7] text-muted">{copy.upcoming.body}</p>
             ) : (
@@ -61,10 +63,9 @@ export default async function EventsPage() {
         </section>
         <section id="past-events" aria-labelledby="past-heading" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24">
-            <TypeLabel>Already held</TypeLabel>
-            <h2 id="past-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
+            <SectionHeading id="past-heading" className="font-serif text-[34px] font-semibold leading-[1.08] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
               Past events
-            </h2>
+            </SectionHeading>
             <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 xl:grid-cols-4">
               {past.map((event) => (
                 <Reveal key={event.slug} className="h-full">

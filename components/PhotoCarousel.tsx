@@ -1,5 +1,6 @@
 "use client";
 
+import { lifePhotoAlt } from "@/lib/life-at-dna";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -33,6 +34,7 @@ type PhotoCarouselProps = {
   positions?: Record<string, string>;
   /** Alt text per slide, by index. Missing entries fall back to "" (decorative). */
   alts?: string[];
+  captions?: string[];
   /** Accessible name of the carousel region. */
   label?: string;
   /** Max-width class of the frame. Literal Tailwind class (see note above). */
@@ -46,6 +48,7 @@ export default function PhotoCarousel({
   interval = 5000,
   positions = {},
   alts = [],
+  captions,
   label = "Life at CorporateDNA",
   frameClassName = "max-w-[640px]",
   sizes = "(min-width: 640px) 640px, 100vw",
@@ -92,7 +95,7 @@ export default function PhotoCarousel({
           >
             <Image
               src={src}
-              alt={alts[i] ?? ""}
+              alt={alts[i] ?? lifePhotoAlt[images[i]] ?? ""}
               fill
               sizes={sizes}
               // Eager for all: slides start translated out of the viewport, so
@@ -140,6 +143,7 @@ export default function PhotoCarousel({
         </svg>
       </button>
 
+      {captions?.[index] && <p className="absolute inset-x-0 bottom-0 bg-black/75 px-5 pb-10 pt-3 text-center text-sm text-white">{captions[index]}</p>}
       {/* Dot indicators */}
       <div className="absolute inset-x-0 bottom-4 flex items-center justify-center gap-2">
         {images.map((src, i) => (

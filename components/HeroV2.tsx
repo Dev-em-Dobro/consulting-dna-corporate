@@ -3,6 +3,7 @@
 import { DEFAULT_HOME_COPY, type HomeCopy } from "@/lib/home-copy";
 
 import { useRef } from "react";
+import HeroFrame from "@/components/HeroFrame";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
@@ -406,11 +407,12 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
   // ser. Este comentário está aqui em cima, e não dentro do return, porque ali
   // já é contexto de JSX  -  `//` viraria texto na tela.
   return (
-    <section
+    <HeroFrame
+      size="screen"
       ref={scope}
       id="top"
       data-hero="v2"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-ink"
+      className="flex flex-col justify-center"
     >
       {/* A MÍDIA. O FILME DO ICEBERG SAIU EM 07-09  -  a mesma fotografia da V3
           passou a ser o fundo aqui também, a pedido.
@@ -518,7 +520,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
           subiu de 1200 para 1440 e o herói tem de correr na mesma margem, senão
           o título abre num eixo e as seções seguintes noutro. Este componente é
           renderizado só pela home, então a mudança não alcança outra página. */}
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 pt-[140px] md:px-10 md:pb-0 md:pt-[76px]">
+      <div className="hero-content relative z-10 pb-20 pt-[140px] md:pb-0 md:pt-[76px]">
         <div className="max-w-[760px]">
           {/* O EYEBROW É BRANCO, e isso mudou em 07-09 junto com o tratamento
               de cor. Vale a explicação porque a versão anterior deste comentário
@@ -584,7 +586,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
               copiei o `[text-wrap:balance]` da About junto justamente por isso  - 
               lá a quebra é livre e equilibrada pelo navegador, aqui ela é
               decidida à mão, e as duas coisas brigariam. */}
-          <h1 className="h-title mb-7 text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white sm:text-[44px] md:text-[52px]">
+          <h1 className="h-title mb-7 text-[clamp(28px,8.8vw,36px)] font-semibold leading-[1.1] tracking-[-0.2px] text-white sm:text-[44px] md:text-[52px]">
             {nbspLast(copy.title.replace(/\.$/, ""))}
           </h1>
           {/* Serifa no corpo  -  o par tipográfico do item 2.1 da leitura da
@@ -628,10 +630,10 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
               duas. Encurtar é copy, e copy é da CDNA. */}
           <div className="flex flex-wrap items-center gap-4">
             <a
-              href="#contact"
-              className="h-cta bg-brand px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-dark"
+              href="/contact"
+              className="h-cta contact-action"
             >
-              {copy.primaryCta}
+              {/^(discuss a leadership challenge|get in touch|start a conversation)$/i.test(copy.primaryCta) ? "Start a conversation" : copy.primaryCta}
             </a>
             {/* Segundo CTA, como na referência ("Explore Our Work" ao lado do
                 principal).
@@ -654,7 +656,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
                 entrada é esta (ver a caixa em `lib/nav.ts`). */}
             <a
               href="/our-clients"
-              className="h-cta border border-white/40 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+              className="h-cta inline-flex min-h-12 items-center border border-white/70 px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
             >
               {copy.secondaryCta}
             </a>
@@ -684,6 +686,6 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
           tem de ficar: o cartão que morava aqui era o "pop up" que a cliente
           mandou tirar. A caixa no topo do arquivo lista o que religar se ela
           voltar atrás  -  e diz para onde os dois GOLD da Brandon Hall foram. */}
-    </section>
+    </HeroFrame>
   );
 }

@@ -4,17 +4,9 @@ import { useMemo, useState } from "react";
 import type { CaseListEntry } from "@/lib/cms/map";
 import CaseRow from "./CaseRow";
 
-type Sort = "newest" | "oldest";
-
-/**
- * Client library island for /cases: a search box + a tag ("content") filter + a
- * date sort, over the case list from the server. Filtering/sorting is entirely
- * in-browser; the reference mockup drives the layout.
- */
 export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("all");
-  const [sort, setSort] = useState<Sort>("newest");
 
   // Unique tag list for the "content" dropdown, alphabetical.
   const tagOptions = useMemo(() => {
@@ -25,18 +17,13 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const filtered = cases.filter((c) => {
+    return cases.filter((c) => {
       if (tag !== "all" && !c.tags.includes(tag)) return false;
       if (!q) return true;
       const hay = [c.client, c.challenge ?? "", c.tags.join(" ")].join(" ").toLowerCase();
       return hay.includes(q);
     });
-    const sorted = [...filtered].sort((a, b) => {
-      const cmp = a.publishedAt.localeCompare(b.publishedAt);
-      return sort === "newest" ? -cmp : cmp;
-    });
-    return sorted;
-  }, [cases, query, tag, sort]);
+  }, [cases, query, tag]);
 
   return (
     <div>
@@ -63,15 +50,15 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
           </svg>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           <div className="relative">
             <select
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              aria-label="Filter by content"
+              aria-label="Filter by topic"
               className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
             >
-              <option value="all">content</option>
+              <option value="all">All topics</option>
               {tagOptions.map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -81,18 +68,7 @@ export default function CasesLibrary({ cases }: { cases: CaseListEntry[] }) {
             <SelectChevron />
           </div>
 
-          <div className="relative">
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as Sort)}
-              aria-label="Sort by date"
-              className="w-full appearance-none bg-neutral-100 px-4 py-3.5 pr-10 text-[15px] text-ink outline-none focus:bg-neutral-200"
-            >
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-            </select>
-            <SelectChevron />
-          </div>
+
         </div>
       </div>
 

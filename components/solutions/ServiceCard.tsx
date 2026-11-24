@@ -82,11 +82,7 @@ export default function ServiceCard({
   /** Optional external layout classes. */
   className?: string;
 }) {
-  /* ⚠️ A FOTO DO HERÓI PRIMEIRO, desde 24-09, a pedido: *"as imagens da lista
-     estão antigas, pega as imagens dos heros"*. É a mesma escada do
-     `SolutionView` (`heroImage ?? cardImage`), então card e dobra mostram a
-     mesma foto nos dez. */
-  const image = service.heroImage ?? service.cardImage;
+  const image = service.cardImage ?? service.heroImage;
   return (
     <Link
       href={`/services/${service.slug}`}
@@ -96,7 +92,7 @@ export default function ServiceCard({
           é o que distingue este card do anterior: a foto encosta nas três
           bordas e o quadro branco começa abaixo dela. Por isso o `p-8` saiu do
           <Link> e foi para o <div> de texto. */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink">
         {image ? (
           <Image
             src={image}

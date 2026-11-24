@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import PersonModal, { type Person } from "@/components/PersonModal";
+import PersonModal, { SocialIcon, type Person } from "@/components/PersonModal";
 import type { Leader } from "@/lib/team";
 
 /**
@@ -227,6 +227,10 @@ export default function LeaderCard({
               <p>{person.role}</p>
               <p>{person.region}</p>
             </div>
+            <a href={person.linkedin} aria-label={`LinkedIn · ${person.name}`}
+              className="inline-flex min-h-11 min-w-11 items-center text-brand hover:text-brand-dark focus-visible:outline-2">
+              <SocialIcon type="linkedin" />
+            </a>
           </div>
 
           {profile && (

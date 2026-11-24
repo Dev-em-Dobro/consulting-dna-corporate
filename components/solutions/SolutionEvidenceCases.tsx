@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import { factIsMeasure, type ServiceEvidenceCases } from "@/lib/services";
@@ -56,9 +57,9 @@ export default function SolutionEvidenceCases({
         <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
           {item.label ?? "Evidence"}
         </p>
-        <h2 className="mt-6 max-w-[24ch] font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[36px]">
+        <SectionHeading className="mt-6 max-w-[24ch] font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[36px]">
           {item.headline}
-        </h2>
+        </SectionHeading>
         {item.lead?.trim() ? (
           <p className="mt-4 max-w-[70ch] font-serif text-[16px] leading-[1.6] text-muted md:text-[18px]">
             {item.lead}

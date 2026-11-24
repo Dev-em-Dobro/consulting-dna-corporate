@@ -213,12 +213,12 @@ export default function PartnersStrip({
           .join(" ")}
       >
         {/* eslint-disable @next/next/no-img-element */}
-        {PARTNER_ROWS.map((row) => (
+        {(featured ? [PARTNER_ROWS.flat()] : PARTNER_ROWS).map((row) => (
           <ul
             key={row[0].src}
             className={
               featured
-                ? "flex flex-wrap items-center justify-center gap-x-10 gap-y-6"
+                ? "flex w-full flex-wrap items-center justify-center gap-y-6 xl:grid xl:grid-cols-7 xl:gap-x-4"
                 : "flex flex-wrap items-center justify-center gap-x-10 gap-y-8"
             }
           >
@@ -228,7 +228,7 @@ export default function PartnersStrip({
                 <li
                   key={l.src}
                   className={
-                    featured ? "flex items-center justify-center" : undefined
+                    featured ? "flex h-20 w-1/2 items-center justify-center px-3 sm:w-1/4 xl:w-full [&_img]:max-h-14 [&_img]:max-w-full [&_img]:object-contain" : undefined
                   }
                 >
                   {/* SEM `next/image`, mesmo critério do mural de clientes: são
@@ -239,7 +239,7 @@ export default function PartnersStrip({
                   <img
                     src={art.src}
                     alt={l.alt}
-                    className={`w-auto ${art.className}${art.invert ? " brightness-0" : ""}`}
+                    className={`w-auto ${featured ? "h-12 max-w-[150px] object-contain" : art.className}${art.invert ? " brightness-0" : ""}`}
                   />
                 </li>
               );

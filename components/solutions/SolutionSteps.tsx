@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import {
   ArrowRight,
   BarChart3,
@@ -332,13 +333,13 @@ export default function SolutionSteps({
         {headline?.trim() ? (
           /* `h2` e `whitespace-pre-line` pela mesma conta do `SolutionSection`:
              a quebra da manchete é do desenho, escrita no dado. */
-          <h2
+          <SectionHeading
             className={`whitespace-pre-line font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[32px] ${
               label?.trim() ? "mt-6" : ""
             }`}
           >
             {headline}
-          </h2>
+          </SectionHeading>
         ) : null}
         {lead?.trim() ? (
           <p className="mt-4 max-w-[62ch] font-serif text-[16px] leading-[1.6] text-muted md:text-[18px]">

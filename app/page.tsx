@@ -1,3 +1,6 @@
+import { sectionHeading } from "@/lib/section-heading";
+import SectionHeading from "@/components/SectionHeading";
+import { services } from "@/lib/services";
 /**
  * `/`  -  a home do site. Esta página ERA a `/home-v2` até 10-09.
  *
@@ -167,7 +170,7 @@ const differentiators = [
   { n: "1", title: "Identity and habits, not skills alone", body: "We change how leaders think and behave under pressure, so improvement holds long after the programme ends." },
   { n: "2", title: "High-stakes, senior-level experience", body: "Advisors who have operated at board and C-suite level and are trusted in genuinely high-stakes conversations." },
   { n: "3", title: "Proprietary 5H and DNA 360 methodology", body: "A rigorous, measurable framework, not a generic coaching approach borrowed from elsewhere." },
-  { n: "4", title: "Global insight with local delivery", body: "A 75-strong faculty delivering consistently across 36 countries, tuned to regional context." },
+  { n: "4", title: "Global insight with local delivery", body: "A global faculty delivering consistently across 36 countries, tuned to regional context." },
 ];
 
 // `caseSlug` deep-links a card to its published case detail page (/cases/<slug>).
@@ -338,6 +341,7 @@ export default async function Home() {
           menu ficava em 1200; agora os dois sobem juntos. Se a coluna voltar a
           1200, esta prop volta junto, senão o logo descola do título. */}
       <NavV2 items={nav} maxWidthClass="max-w-[1440px]" outlined />
+      <main>
 
       {/* SEM TICKER AQUI  -  é a mudança mais visível da V2, e é uma proposta,
           não uma decisão tomada.
@@ -460,9 +464,9 @@ export default async function Home() {
                   enunciado é o MESMO par que o site já usa em toda seção
                   (rótulo em Geist → título → corpo em serifa); aqui ele só
                   opera entre colunas em vez de entre linhas. */}
-              <h2 className="font-sans! mb-5 text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[32px]">
+              <SectionHeading className="font-sans! mb-5 text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[32px]">
                 {copy.solve.title}
-              </h2>
+              </SectionHeading>
               {/* Subtítulo de seção em serifa  -  mesmo papel do subtítulo do
                   herói, o par tipográfico saindo da primeira dobra. */}
               <p
@@ -474,13 +478,10 @@ export default async function Home() {
             </div>
 
             <div className="lg:border-l lg:border-line lg:pl-24">
-              <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] text-ink md:text-[48px]">
+              <SectionHeading className="text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] text-ink md:text-[48px]">
                 {copy.solve.purposeTitle}{" "}
-                {/* O ponto fica DENTRO do span: fora dele, sairia um pingo
-                    escuro pendurado na palavra vermelha, e a linha de baixo
-                    termina com ponto vermelho também. */}
-                <span className="text-brand">{copy.solve.purposeAccent}</span>
-              </h2>
+                <span className="block text-brand">{sectionHeading(copy.solve.purposeAccent)}</span>
+              </SectionHeading>
               {/* Fora do `h2`: a palavra muda a cada 55ms, e um heading que se
                   reescreve é hostil a leitor de tela e sem sentido para um
                   crawler. O RealCycle é `aria-hidden` e carrega o próprio nome
@@ -490,6 +491,15 @@ export default async function Home() {
               </p>
             </div>
           </div>
+          <ul className="mt-12 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            {services.map(service => (
+              <li key={service.slug}>
+                <Link href={`/services/${service.slug}`} className="flex h-full min-h-20 items-center border-t-2 border-brand bg-paper px-5 py-4 font-semibold leading-snug text-ink hover:text-brand-dark">
+                  {service.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 
@@ -532,9 +542,9 @@ export default async function Home() {
       <section className="bg-paper">
         <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
           <TypeLabel>Why CorporateDNA</TypeLabel>
-          <h2 className="mb-[52px] max-w-[760px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
+          <SectionHeading className="mb-[52px] max-w-[760px] text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-ink">
             Four reasons senior teams choose us over a coaching directory.
-          </h2>
+          </SectionHeading>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-2">
             {differentiators.map((d) => (
               <div key={d.n} className="flex items-start gap-[22px]">
@@ -609,9 +619,9 @@ export default async function Home() {
                 régua de elemento gráfico. O tom claro devolve 4,53:1. Ou seja,
                 unificar o rótulo consertou um problema de contraste de brinde. */}
             <TypeLabel onDark>Our approach</TypeLabel>
-            <h2 className="mb-5 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white">
+            <SectionHeading className="mb-5 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white">
               The 5H<span className="align-super text-xl font-semibold">®</span> Framework
-            </h2>
+            </SectionHeading>
             <p className="mb-[18px] text-[17px] leading-[1.65] text-white/80">
               Sustained leadership change comes from identity and habits, not skills alone. Our proprietary 5H methodology works across the{" "}
               <em className="font-semibold not-italic text-white">inner game</em> of the leader and the{" "}
@@ -752,9 +762,9 @@ export default async function Home() {
           <div>
             {/* Era 44px: o único título de seção fora do padrão de 40 no
                 arquivo. Nivelado. */}
-            <h2 className="mb-6 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white [text-wrap:balance]">
+            <SectionHeading className="mb-6 text-[28px] sm:text-[34px] md:text-[40px] font-semibold leading-[1.1] tracking-[-0.5px] text-white [text-wrap:balance]">
               {copy.contact.title}
-            </h2>
+            </SectionHeading>
             <p
               className="mb-2 max-w-[460px] text-[19px] leading-[1.65] text-white/90"
               style={{ fontFamily: "var(--font-serif-v2)" }}
@@ -768,6 +778,7 @@ export default async function Home() {
         </Reveal>
       </section>
 
+      </main>
       {/* FOOTER */}
       <SiteFooter />
     </div>

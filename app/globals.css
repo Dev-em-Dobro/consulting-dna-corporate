@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@utility hero-content {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  @media (min-width: 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
 html.site-i18n-pending body { visibility: hidden; }
 .locale-pt-only { display: none !important; }
 html[data-site-locale="pt-BR"] .locale-en-only { display: none !important; }
@@ -40,6 +50,28 @@ html[data-site-locale="pt-BR"] .locale-pt-only { display: block !important; }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Give long translated words a last-resort break within their own column. */
+main :where(h1, h2, h3, h4) {
+  overflow-wrap: anywhere;
+}
+
+/* Shared rhythm for a label, its heading and the introductory paragraph. */
+main :is([data-section-label], .uppercase):has(+ [data-section-heading]) {
+  margin-block-end: 0;
+}
+main :is([data-section-label], .uppercase) + [data-section-heading] {
+  margin-block-start: 1rem;
+}
+main [data-section-heading]:has(+ :is(p:not(.uppercase), div:has(> p:first-child))) {
+  margin-block-end: 0;
+}
+main [data-section-heading] + :is(p:not(.uppercase), div:has(> p:first-child)) {
+  margin-block-start: 1.5rem;
+}
+main section:not(:has(h1)) > :is(.py-16, .py-20, .py-24):has([data-section-heading]) {
+  padding-block: clamp(4rem, 8vw, 6rem);
 }
 
 /* Entrance-animation targets must start hidden so they never flash in fully
@@ -461,4 +493,26 @@ body {
   .case-hero-title {
     font-size: 52px;
   }
+}
+
+
+.contact-action {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 1px solid currentColor;
+  background-color: var(--color-brand-dark, #a6342b);
+  color: white;
+  padding: .625rem 1.5rem;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.contact-action:hover,
+.contact-action:focus-visible {
+  background-color: var(--color-ink, #373234);
 }

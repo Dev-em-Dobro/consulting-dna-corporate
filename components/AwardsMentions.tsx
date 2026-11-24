@@ -47,6 +47,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Award = {
   name: string;
+  issuer?: string;
   /**
    * The distinction earned, e.g. "Finalist".
    *
@@ -128,14 +129,16 @@ type Award = {
  */
 const BRANDON_HALL: Award[] = [
   {
-    name: "Brandon Hall: Diversity, Equity and Inclusion",
+    name: "Diversity, Equity and Inclusion",
+    issuer: "Brandon Hall Group",
     distinction: "Gold",
     showDistinction: true,
     year: "2023",
     logo: "/awards/brandon-hall-dei.png",
   },
   {
-    name: "Brandon Hall: Talent Acquisition",
+    name: "Talent Acquisition",
+    issuer: "Brandon Hall Group",
     distinction: "Gold",
     showDistinction: true,
     year: "2024",
@@ -147,15 +150,17 @@ const awards: Award[] = [
   {
     // "2×" no overview deck = prêmio conquistado duas vezes. Sem anos
     // confirmados pela CDNA, o rótulo deixa isso legível sem inventar datas.
-    name: "Corporate Vision",
+    name: "Corporate Excellence Awards",
+    issuer: "Corporate Vision",
     distinction: "Winner",
     showDistinction: true,
     year: "2022 & 2024",
     logo: "/awards/corporate-vision.png",
   },
   {
-    name: "Top 15 woman leader in the Middle East",
-    distinction: "",
+    name: "Top 15 Women Leaders in the Middle East",
+    distinction: "Top 15",
+    showDistinction: true,
     year: "2025",
     logo: "/awards/top-15-women-leader-middle-east.png",
     logoOnWhite: true,
@@ -298,8 +303,8 @@ export default function AwardsMentions({
               ~169px por célula, contra os 96px do logo. Abaixo de `lg` nada
               muda: três colunas no tablet, duas no telefone. */}
           <ul
-            className={`mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:mt-12 ${
-              "lg:grid-cols-5"
+            className={`mt-10 grid grid-cols-2 gap-x-6 gap-y-10 md:mt-12 ${
+              shown.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-5"
             }`}
           >
             {shown.map((a) => (
@@ -358,6 +363,7 @@ export default function AwardsMentions({
                     {a.distinction}
                   </p>
                 ) : null}
+                <p className="mt-1 min-h-5 text-sm text-white/85">{a.issuer}</p>
                 <p
                   className={`text-[14px] font-semibold leading-[1.35] text-white ${
                     a.showDistinction ? "mt-1" : "mt-4"

@@ -22,12 +22,13 @@
  *
  * ⚠️ NADA DE `fs`, `blob`, zod OU VARIÁVEL DE AMBIENTE AQUI. Este arquivo é
  * carregado pelos testes do Node (`npm test`) com import relativo e extensão
- * `.ts` explícita  -  por isso o único import abaixo é de TIPO, e relativo.
+ * `.ts` explícita.
  *
  * O QUE FICOU DE FORA, de propósito: os ícones (`StatIcon` e `ValueIcon`, que
  * são chave de desenho e casam por posição), as fotos, o `WorldCoverageMap`, a
  * `NavV2`, o `SiteFooter` e a metadata de SEO  -  mesma regra da home.
  */
+import { publishedFacultyMinimum } from "./faculty-figure.ts";
 import type { EditorField, EditorSection } from "./page-copy/fields.ts";
 
 export type AboutStat = { value: string; label: string };
@@ -86,7 +87,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
        UK & Europe, Middle East & North Africa, Asia. */
     { value: "4 regions", label: "of global programme delivery" },
     { value: "10,000+", label: "leaders coached and teams developed" },
-    { value: "5 of the top 10", label: "FTSE 100 companies are long standing clients" },
+    { value: "5 of the top 10", label: "FTSE 100 companies are long-standing clients" },
   ],
   purpose: {
     label: "Why CorporateDNA exists.",
@@ -174,7 +175,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
   regions: {
     label: "Where we work.",
     intro:
-      "With headquarters in London, Singapore, Dubai, Riyadh and Miami, and a faculty of 60+ senior practitioners, we deliver globally.",
+      `With headquarters in London, Singapore, Dubai, Riyadh and Miami, and a faculty of ${publishedFacultyMinimum} senior practitioners, we deliver globally.`,
     items: [
       {
         name: "Americas",
@@ -218,7 +219,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
     },
     {
       city: "Singapore",
-      address: ["1 Raffles Place, Level 24", "Tower 1, Singapore 048616"],
+      address: ["The Great Room, Afro Asia", "63 Robinson Road, Level 8", "Singapore 068894"],
       tel: "",
       email: "info@corporatednaconsulting.com",
     },
@@ -248,7 +249,7 @@ export const DEFAULT_ABOUT_COPY: AboutCopy = {
   people: {
     label: "The people behind it",
     title: "Identity is what the team does under pressure.",
-    body: "Our leadership, our global faculty and the regions we deliver from now have an area of their own.",
+    body: "Meet the regional leaders and practitioners who deliver our work around the world.",
     cta: "Meet the team",
   },
 };

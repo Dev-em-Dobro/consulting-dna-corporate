@@ -65,6 +65,13 @@ import TypeLabel from "@/components/TypeLabel";
  * referência é a DECISÃO (pino vermelho, rótulo escuro, terra neutra), não o
  * código hexadecimal.
  */
+const coverageAreas = [
+  { name: "Americas", slugs: ["bogota", "buenos-aires", "dallas", "houston", "lima", "mexico-city", "miami", "new-york", "north-carolina", "ohio", "sao-paulo", "toronto", "vancouver"] },
+  { name: "Europe", slugs: ["amsterdam", "berlin", "london", "madrid", "paris", "vienna", "warsaw", "zurich"] },
+  { name: "Middle East and Africa", slugs: ["dubai", "lagos", "saudi-arabia"] },
+  { name: "Asia Pacific", slugs: ["beijing", "delhi", "hanoi", "hong-kong", "jakarta", "karachi", "kuala-lumpur", "manila", "mumbai", "newcastle", "singapore", "sydney", "tokyo"] },
+];
+
 const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
 
 /**
@@ -397,6 +404,9 @@ export default async function WorldCoverageMap({
     };
   });
 
+  const groups = [...coverageAreas, { name: "Other locations", slugs: regions.filter(r => !coverageAreas.some(area => area.slugs.includes(r.slug))).map(r => r.slug) }]
+    .map(area => ({ name: area.name, cities: regions.filter(r => r.city && area.slugs.includes(r.slug)).map(r => titleCase(r.city!)).sort() }))
+    .filter(area => area.cities.length > 0);
   const placed = placeLabels(pins, cnBoxes);
 
   // Headerless mode also drops the top padding: the caller's own intro sits
@@ -543,7 +553,19 @@ export default async function WorldCoverageMap({
     </>
   );
 
-  if (bare) return content;
+  if (bare) return (
+    <div>
+      {content}
+      <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Locations by region">
+        {groups.map(area => (
+          <div key={area.name}>
+            <h3 className="border-b border-line pb-2 font-semibold">{area.name} ({area.cities.length})</h3>
+            <ul className="mt-2 space-y-1 text-sm text-muted">{area.cities.map(city => <li key={city}>{city}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <section

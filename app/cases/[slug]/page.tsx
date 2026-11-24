@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
@@ -66,7 +67,13 @@ export default async function CasePage({
      não fecharem dois, completa com os demais. Um bloco "related" que aparece
      com um card só, ou que some quando o serviço é único, dá a impressão de
      biblioteca vazia  -  e ela não está. */
-  const todos = (await getCaseListEntries()).filter((e) => e.slug !== slug);
+  const library = await getCaseListEntries();
+  const index = library.findIndex(entry => entry.slug === slug);
+  const adjacent = index >= 0 && library.length > 1 ? [
+    { label: "Previous case", entry: library[(index + library.length - 1) % library.length] },
+    { label: "Next case", entry: library[(index + 1) % library.length] },
+  ] : [];
+  const todos = library.filter(e => e.slug !== slug);
   const mesmoServico = todos.filter((e) => e.service && e.service === c.story.service);
   const reviewed = REVIEWED_RELATED_CASES[slug];
   const related = reviewed
@@ -102,6 +109,12 @@ export default async function CasePage({
       <SiteShell footerTopBorder floatingNav={hasStoryModel(c)}>
         <JsonLd data={jsonLd} />
         <CaseView c={c} related={related} />
+        {adjacent.length > 0 && <nav aria-label="Case navigation" className="mx-auto flex max-w-[1200px] justify-between gap-6 border-t border-line px-6 py-9">
+          {adjacent.map(({ label, entry }) => <Link key={label} href={`/cases/${entry.slug}`} className="flex flex-col gap-1 text-ink hover:underline last:text-right">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand">{label}</span>
+            <span className="font-serif text-lg">{entry.client}</span>
+          </Link>)}
+        </nav>}
       </SiteShell>
     </div>
   );

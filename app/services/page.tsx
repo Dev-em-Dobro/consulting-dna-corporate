@@ -70,10 +70,11 @@ export default async function SolutionsPage() {
             script do guia visual do editor precisa de um alvo. */}
         <div id="services-hero">
         <SolutionHero
-          eyebrow={copy.hero.eyebrow}
-          title={copy.hero.title}
+          eyebrow={copy.hero.title}
+          title={copy.hero.eyebrow}
           subtitle={copy.hero.subtitle}
           imageUrl={heroPhoto}
+          imageAlt="A collage of golfers, tennis players and footballers"
           imagePosition="object-center"
         />
         </div>
@@ -86,47 +87,12 @@ export default async function SolutionsPage() {
                 componente existe. Numa grade de dez, a entrada em cascata é o
                 que diferencia uma lista longa de um paredão que aparece
                 inteiro. */}
-            {/* ⚠️ QUATRO COLUNAS DESDE 14-09, pedido da Maliha na daily (item
-                10): *"we want to do four four four going across... and then the
-                last two at the bottom."* São dez cards, então `grid-cols-4`
-                entrega 4 + 4 + 2 sozinho  -  a "última fileira com dois" é
-                consequência da conta, não uma regra escrita à mão.
-
-                AS QUATRO SÓ VALEM DE `xl` PARA CIMA, e o `lg:grid-cols-2` que
-                já existia FICA. Em quatro colunas a 1024px cada card tem 214px,
-                e a banner statement (duas linhas em quase todas, a mais longa
-                com 78 caracteres) quebraria em quatro palavras por linha. A 1280
-                são 278px, que é a medida em que ela volta a ler. Até lá a página
-                segue exatamente como estava no ar: uma coluna no telefone e no
-                tablet, duas a partir de 1024.
-
-                ✅ AS IMAGENS DOS CARDS ENTRARAM EM 15-09 (item 12). Ela
-                respondeu *"use generic for now"*, então seis dos dez recebem as
-                banners fotográficas do site antigo e os quatro restantes caem no
-                campo de cor  -  a conta está em `cardImage`, em `lib/services.ts`.
-
-                ⚠️ OS DOIS ÚLTIMOS OCUPAM DUAS COLUNAS, e é o que fecha a
-                fileira. A fala dela foi "four four four going across and then
-                the last two at the bottom", e o desenho que chegou depois
-                (`4. Services/Example.png`) mostra o que isso quer dizer: os
-                dois últimos não são cards estreitos sobrando numa fileira de
-                quatro vagas, são cards LARGOS que dividem a fileira ao meio.
-                4 + 4 + (2x2) fecha as três fileiras cheias.
-
-                O `col-span` VAI NO PRÓPRIO CARD, e não num `<div>` em volta:
-                os filhos diretos do `Reveal` são o que ele escalona, e embrulhar
-                cada card trocaria o alvo da animação por uma caixa vazia.
-
-                SÓ DE `xl` PARA CIMA. Abaixo disso a página é de duas colunas, e
-                um `col-span-2` ali faria os dois últimos virarem faixas de
-                largura total no meio de uma grade de dois. */}
-            <Reveal className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4">
+            <Reveal className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-5">
               {services.map((s, i) => (
                 <ServiceCard
                   key={s.slug}
                   service={s}
                   index={i}
-                  wideAtXl={i >= services.length - 2}
                 />
               ))}
             </Reveal>

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import RichText from "@/components/RichText";
-import EmptyNotice from "@/components/EmptyNotice";
+import AwardsMentions from "@/components/AwardsMentions";
+import PartnersStrip from "@/components/PartnersStrip";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { getCmsPage } from "@/lib/cms/map";
 
@@ -32,14 +33,10 @@ export default async function AwardsPage() {
         subtitle={subtitle}
       />
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
-          {body ? (
-            <RichText html={body} />
-          ) : (
-            <EmptyNotice>Awards & partnerships content is coming soon.</EmptyNotice>
-          )}
-        </div>
+      {body && <section className="mx-auto max-w-[820px] px-6 py-12"><RichText html={body} /></section>}
+      <AwardsMentions includeBrandonHall showYear />
+      <section className="mx-auto max-w-[1440px] px-6 py-16 md:px-10">
+        <PartnersStrip label="Our partners" tone="featured" />
       </section>
     </SiteShell>
   );

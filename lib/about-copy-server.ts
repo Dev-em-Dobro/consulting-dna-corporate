@@ -1,3 +1,4 @@
+import { publishedFacultyMinimum } from "./faculty-figure.ts";
 import "server-only";
 import { DEFAULT_ABOUT_COPY, type AboutCopy } from "@/lib/about-copy";
 import { AboutCopySchema } from "@/lib/about-copy-schema";
@@ -15,6 +16,19 @@ const store = createCopyStore<AboutCopy>({
   key: "about",
   defaults: DEFAULT_ABOUT_COPY,
   schema: AboutCopySchema,
+  migrationVersion: "2026-11-24-regional-address",
+  migrateSaved(saved) {
+    if (!saved || typeof saved !== "object") return saved;
+    const copy = structuredClone(saved) as Partial<AboutCopy>;
+    if (typeof copy.regions?.intro === "string") {
+      copy.regions.intro = copy.regions.intro.replace("faculty of 60+ senior practitioners", `faculty of ${publishedFacultyMinimum} senior practitioners`);
+    }
+    const singapore = Array.isArray(copy.offices) && copy.offices.find(office => office.city === "Singapore");
+    if (singapore && singapore.address?.join(" ") === "1 Raffles Place, Level 24 Tower 1, Singapore 048616") {
+      singapore.address = DEFAULT_ABOUT_COPY.offices.find(office => office.city === "Singapore")!.address;
+    }
+    return copy;
+  },
 });
 
 /** A copy da About como deve ser renderizada: o salvo por cima do padrão. */

@@ -107,3 +107,11 @@ export const INSIGHTS_RESOURCE_FILES = [
   "/resources/thought-leadership/five-signals-leadership-team.pdf",
   "/resources/thought-leadership/executive-transition.pdf"
 ];
+
+// Estimates for the complete papers, rounded at 200 words per minute.
+export const paperReadingMinutes: Record<string, number> = {
+  "/resources/thought-leadership/collective-executive-judgement.pdf": 35,
+  "/resources/thought-leadership/scaling-leadership.pdf": 9,
+  "/resources/thought-leadership/five-signals-leadership-team.pdf": 6,
+  "/resources/thought-leadership/executive-transition.pdf": 14,
+};

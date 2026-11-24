@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Image from "next/image";
 import Link from "next/link";
 import Counter from "@/components/Counter";
@@ -197,9 +198,9 @@ export default function SolutionEvidence({
                 ideia nova: os arquivos de `public/logos/` são as marcas em cores
                 originais para fundo claro, e sobre escuro exigiriam uma plaqueta
                 branca  -  um retângulo claro competindo com o resto da faixa. */}
-            <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
+            <SectionHeading className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.2px] text-white md:text-[38px]">
               {caseTitle ?? "The flagship client story"}
-            </h2>
+            </SectionHeading>
 
             {/* O parágrafo do outline  -  o que o trabalho foi, antes dos números.
                 Nos cinco serviços com evidência ele existe; no caminho do CMS,

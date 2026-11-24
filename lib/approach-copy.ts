@@ -129,13 +129,13 @@ export const DEFAULT_APPROACH_COPY = {
         { "title": "Judgement Index", "description": "Judgement &\ndecision-making" }
       ]
     },
-    "copyright": "The 5H© Framework. © 2026 Corporate DNA Consulting. All rights reserved."
+    "copyright": "The 5H Framework. © 2026 Corporate DNA Consulting. All rights reserved."
   },
   "profiler": {
     "label": "The DNA 360 Profiler",
     "heading": "The 5H, as an assessment.",
     "paragraphs": [
-      "Dr Nigel Guenole, a globally respected expert in leadership assessment, behavioural science and people analytics, played a pivotal role in the development and validation of CDNA's 5H™ Leadership Framework.",
+      "Dr Nigel Guenole, a globally respected expert in leadership assessment, behavioural science and people analytics, played a pivotal role in the development and validation of CDNA's 5H Leadership Framework.",
       "Working closely with CDNA, Nigel brought scientific rigour to the framework, helping us test and validate the five dimensions of Head, Heart, Hunch, Hands and Habits, ensuring the model was grounded in robust behavioural and assessment science.",
       "Nigel previously led a team of behavioural scientists at IBM, working at the intersection of behavioural science, AI and Human Resources. His work has been featured in Harvard Business Review, Forbes, European CEO and European Business Review, and he co-authored the bestselling book The Power of People. He is also an elected Fellow of the Society for Industrial and Organizational Psychology.",
       "His contribution helped us bridge what has always been central to CDNA: the science of leadership with the reality of how leaders actually think, feel, judge, act and build habits in the flow of work."
@@ -146,8 +146,8 @@ export const DEFAULT_APPROACH_COPY = {
         "label": "organisational scenarios\nin one assessment"
       },
       {
-        "value": "PhD led",
-        "label": "Built in house with\nDr Nigel Guenole, Head of Assessments"
+        "value": "5",
+        "label": "leadership dimensions assessed"
       }
     ]
   },
@@ -180,7 +180,7 @@ export const DEFAULT_APPROACH_COPY = {
   },
   "cta": {
     "heading": "Ready to lead with 5H®?",
-    "buttonLabel": "Start a Conversation"
+    "buttonLabel": "Start a conversation"
   }
 };
 
@@ -235,7 +235,7 @@ export const EDITOR_SECTIONS: EditorSection[] = [
   {
     "id": "cta",
     "title": "Closing invitation",
-    "anchor": "/approach#approach-cta"
+    "anchor": "/approach#learning"
   }
 ].map((section) => ({
   id: section.id, title: section.title, anchor: section.anchor,

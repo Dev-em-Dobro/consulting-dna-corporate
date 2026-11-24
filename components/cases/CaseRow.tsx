@@ -5,6 +5,7 @@ import { CASE_HERO_MOBILE_LOGO_SRC } from "@/lib/case-hero-covers";
 
 /** One case in the /cases library list (see the design spec). Presentational. */
 export default function CaseRow({ entry }: { entry: CaseListEntry }) {
+  const outcome = entry.metricLabel || entry.headline || entry.impactFigures?.[0]?.label;
   const href = `/cases/${entry.slug}`;
   const logoUrl = CASE_HERO_MOBILE_LOGO_SRC[entry.slug] ?? entry.logoUrl;
   return (
@@ -30,6 +31,8 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
           <h2 className="text-[22px] font-bold uppercase leading-tight tracking-[0.5px] text-white">
             {entry.client}
           </h2>
+          {entry.slug === "frasers-property-hrlt" && <p className="text-white">HR leadership team</p>}
+          {entry.slug === "frasers-property-leadership" && <p className="text-white">Leadership pipeline</p>}
           {entry.tags.length > 0 && (
             <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[1.5px] text-white/70">
               {entry.tags.join(" · ")}
@@ -61,16 +64,17 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
           </>
         )}
 
-        {(entry.metricValue || entry.metricLabel) && (
+        {(entry.metricValue || outcome) && (
           <div className="mt-7">
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-brand">Outcome</h3>
             {entry.metricValue && (
               <p className="text-[40px] font-bold leading-none tracking-[-1px] text-brand">
                 {entry.metricValue}
               </p>
             )}
-            {entry.metricLabel && (
+            {outcome && (
               <p className="mt-3 max-w-[48ch] text-[16px] leading-[1.5] text-muted">
-                {entry.metricLabel}
+                {outcome}
               </p>
             )}
           </div>
@@ -80,7 +84,7 @@ export default function CaseRow({ entry }: { entry: CaseListEntry }) {
           href={href}
           className="mt-7 inline-block text-[15px] font-semibold text-brand underline underline-offset-4 hover:text-brand-dark"
         >
-          read more here.
+          Learn more <span aria-hidden="true" className="ml-2">→</span>
         </Link>
       </div>
     </article>

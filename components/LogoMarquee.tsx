@@ -108,7 +108,7 @@ export default function LogoMarquee({
               src={`/logos/client-logos/${file}`}
               alt={label(file)}
               loading="lazy"
-              className="h-[42px] w-[138px] object-contain"
+              className="h-[42px] w-[138px] object-contain grayscale"
               style={{ transform: `scale(${LOGO_SCALE[file] ?? 1})` }}
             />
           </div>

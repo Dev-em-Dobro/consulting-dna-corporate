@@ -1,4 +1,6 @@
 import Image from "next/image";
+import HeroFrame from "@/components/HeroFrame";
+import TypeLabel from "@/components/TypeLabel";
 import { plainText } from "@/lib/cms/text";
 
 /**
@@ -41,7 +43,7 @@ export default function PageHero({
   // strip it here so tags never render literally.
   subtitle = plainText(subtitle);
   return (
-    <section className="relative isolate overflow-hidden bg-ink text-white">
+    <HeroFrame size="content">
       {bgImageUrl && (
         <>
           <Image
@@ -63,17 +65,13 @@ export default function PageHero({
         }`}
       >
         {eyebrow && (
-          <div className={`flex items-center ${compact ? "mb-3" : "mb-5"}`}>
-            <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-brand">
-              {eyebrow}
-            </span>
-          </div>
+          <TypeLabel onDark>{eyebrow}</TypeLabel>
         )}
         <h1
           className={`max-w-[900px] font-bold leading-[1.05] tracking-[-1.2px] text-white [text-wrap:balance] ${
             compact
               ? "text-[28px] sm:text-[34px] md:text-[40px]"
-              : "text-[38px] sm:text-[48px] md:text-[60px] leading-[1.03] tracking-[-1.5px]"
+              : "text-[clamp(30px,9.5vw,38px)] sm:text-[48px] md:text-[60px] leading-[1.03] tracking-[-1.5px]"
           }`}
         >
           {typeof title === "string" ? title.replace(/\.$/, "") : title}
@@ -88,6 +86,6 @@ export default function PageHero({
           </p>
         )}
       </div>
-    </section>
+    </HeroFrame>
   );
 }
