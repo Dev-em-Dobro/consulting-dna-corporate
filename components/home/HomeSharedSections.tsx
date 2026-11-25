@@ -28,7 +28,7 @@ type Stat = { label: string; value: string };
 export function HomeCredibility({ id = "credibility", copy, stats }: { id?: string; copy: HomeCopy; stats: Stat[] }) {
   return (
     <section id={id} className="bg-ink text-white">
-      <div className="pb-[34px] pt-[70px]">
+      <div className="pb-[34px] pt-16 md:pt-24">
         <p className="mb-9 text-center text-[12px] font-semibold uppercase tracking-[2.5px] text-white/70">
           {copy.credibility.label}
         </p>
@@ -58,7 +58,7 @@ export function HomeCredibility({ id = "credibility", copy, stats }: { id?: stri
           fileira. Quatro números de 44px lado a lado numa tela de 375px dão
           ~80px por célula, que é menos que a largura de "10,000+". A fileira
           começa em `md`, que é onde ela cabe. */}
-      <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-5 md:px-10">
+      <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-5 md:px-10 md:pb-24">
         <Reveal className="grid grid-cols-1 items-start gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="flex min-w-0 items-start gap-3">
@@ -97,7 +97,7 @@ export function HomeImpact({
   const cases = copy.impact.cases.map((c, i) => ({ ...c, ...caseArt[i], href: caseHref(c.client, publishedCases) }));
   return (
     <section id={id} className="bg-paper">
-      <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
+      <Reveal className="mx-auto max-w-[1440px] px-10 py-16 md:py-24">
         {/* Sobre fundo claro o rótulo usa o vermelho CHEIO da marca (#d84339).
             Era `brand-light` enquanto a faixa era escura, porque o cheio sobre
             `ink` mede 2,9:1 e reprovaria em 13px. Sobre `paper` a conta se

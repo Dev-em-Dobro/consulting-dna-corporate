@@ -169,6 +169,7 @@ const awards: Award[] = [
 
 export default function AwardsMentions({
   maxWidthClass = "max-w-[1200px]",
+  paddingClass = "pb-10 md:px-10 md:py-14",
   includeBrandonHall = false,
   showYear = true,
 }: {
@@ -183,6 +184,8 @@ export default function AwardsMentions({
    * Mesmo padrão do `maxWidthClass` da NavV2 e do LocationsBlock.
    */
   maxWidthClass?: string;
+  /** Vertical padding of the section; the Home passes its 64/96px rhythm. */
+  paddingClass?: string;
   /**
    * Põe os dois GOLD da Brandon Hall na frente da régua.
    *
@@ -272,7 +275,7 @@ export default function AwardsMentions({
     <section id="awards" ref={scope} className="bg-white">
       {/* Same box as the `#book` section: constrained on desktop, full-bleed on
           mobile (no horizontal padding below `md`). */}
-      <div className={`mx-auto ${maxWidthClass} pb-10 md:px-10 md:py-14`}>
+      <div className={`mx-auto ${maxWidthClass} ${paddingClass}`}>
         {/* TUDO DENTRO DA MESMA FAIXA desde 14-09. Antes o `data-awards-band`
             era só a tarja do título e os prêmios corriam sobre o branco da
             página, abaixo dela. Um banner é UM objeto: título e logos moram na

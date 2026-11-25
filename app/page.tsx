@@ -450,7 +450,7 @@ export default async function Home() {
           título grande e a outra são três blocos de tamanhos diferentes  - 
           alinhadas pelo topo, uma termina muito abaixo e o par lê torto. */}
       <section id="solve" className="bg-white">
-        <Reveal className="mx-auto max-w-[1440px] px-10 py-24">
+        <Reveal className="mx-auto max-w-[1440px] px-10 py-16 md:py-24">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-0">
             <div>
               <TypeLabel>{copy.solve.label}</TypeLabel>
@@ -673,7 +673,7 @@ export default async function Home() {
           escuro de Awards. O arranjo dos logos está no PartnersStrip
           (`tone="featured"`). A /services continua no escuro. */}
       <section aria-labelledby="partnerships-heading" className="bg-white">
-        <Reveal className="mx-auto max-w-[1440px] px-6 py-14 md:px-10 md:py-16">
+        <Reveal className="mx-auto max-w-[1440px] px-6 md:px-10">
           <PartnersStrip label={copy.people.partnersLabel} tone="featured" headingId="partnerships-heading" />
         </Reveal>
       </section>
@@ -700,11 +700,11 @@ export default async function Home() {
           /home-v3, e o pedido é sobre a home; ver a caixa dela no componente. */}
       {/* Datas de volta  -  pedido do cliente no cutover: Brandon Hall (2023 /
           2024) e Women of the Future (2008) estavam ilegíveis com showYear off. */}
-      <AwardsMentions maxWidthClass="max-w-[1440px]" includeBrandonHall showYear />
+      <AwardsMentions maxWidthClass="max-w-[1440px]" paddingClass="py-16 md:px-10 md:py-24" includeBrandonHall showYear />
 
       {/* BOOK */}
       <section id="book" className="bg-paper">
-        <Reveal className="mx-auto max-w-[1440px] py-10 md:px-10 md:py-14">
+        <Reveal className="mx-auto max-w-[1440px] py-16 md:px-10 md:py-24">
           {/* O CARTÃO VIROU COMPONENTE em 11-09, quando `/books` passou a
               existir: a mesma composição em duas telas, lendo do mesmo
               `lib/books.ts`. O que se evita é a divergência silenciosa  -  a
@@ -758,7 +758,7 @@ export default async function Home() {
           O rodapé logo abaixo é branco, então a seção escura não encosta em
           outra escura. */}
       <section id="contact" className="bg-ink text-white">
-        <Reveal className="mx-auto grid max-w-[1440px] grid-cols-1 items-start gap-[72px] px-10 py-[88px] md:grid-cols-[1.1fr_1fr]">
+        <Reveal className="mx-auto grid max-w-[1440px] grid-cols-1 items-start gap-[72px] px-10 py-16 md:grid-cols-[1.1fr_1fr] md:py-24">
           <div>
             {/* Era 44px: o único título de seção fora do padrão de 40 no
                 arquivo. Nivelado. */}
