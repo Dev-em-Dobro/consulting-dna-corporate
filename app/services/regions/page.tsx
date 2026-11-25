@@ -11,6 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Regions | CorporateDNA",
     description:
       "CorporateDNA's global delivery, senior leadership advisory and executive coaching across 36 countries, with local insight in every region.",
+    robots: { index: false, follow: true },
     alternates: localeAlternates("/services/regions"),
   };
 }

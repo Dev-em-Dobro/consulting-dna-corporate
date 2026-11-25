@@ -141,17 +141,22 @@ export default async function InsightsPage() {
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
-                        PDF · <time dateTime="2026">2026</time> · {resource.pagesLabel} · <span>{`About ${paperReadingMinutes[INSIGHTS_RESOURCE_FILES[index]]} min to read`}</span>
+                        PDF · <time dateTime="2026">2026</time> · {resource.pagesLabel} · <span>{`${paperReadingMinutes[INSIGHTS_RESOURCE_FILES[index]]} min read`}</span>
                       </span>
                     </div>
 
-                    <Image src={INSIGHTS_RESOURCE_FILES[index].replace(/\.pdf$/, ".webp")} alt={`Cover of ${resource.title}`} width={640} height={400} className="mt-6 h-40 w-full bg-paper object-contain" />
-                    <h3 className="font-serif mt-6 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">
-                      {resource.title}
-                    </h3>
-                    <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">
-                      {resource.description}
-                    </p>
+                    {/* Text on the left, the PDF's first page on the right. */}
+                    <div className="mt-8 grid grid-cols-[minmax(0,1fr)_96px] items-start gap-6 sm:grid-cols-[minmax(0,1fr)_132px] md:gap-8">
+                      <div>
+                        <h3 className="font-serif text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">
+                          {resource.title}
+                        </h3>
+                        <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">
+                          {resource.description}
+                        </p>
+                      </div>
+                      <Image src={INSIGHTS_RESOURCE_FILES[index].replace(/\.pdf$/, ".webp")} alt={`Cover of ${resource.title}`} width={264} height={374} sizes="132px" className="aspect-[1632/2309] w-full border border-line bg-white object-cover object-top shadow-sm" />
+                    </div>
 
                     <div className="mt-auto pt-10">
                       <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
@@ -175,9 +180,13 @@ export default async function InsightsPage() {
                     <span className="text-[12px] font-semibold tracking-[1.8px] text-brand">{String(copy.thoughtLeadership.resources.length + 1).padStart(2, "0")}</span>
                     <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-brand transition-colors group-hover:text-brand-light">Article · <time dateTime={featuredArticle.publishedAt}>{new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(featuredArticle.publishedAt))}</time> · {featuredArticle.readingMinutes} min read</span>
                   </div>
-                  <Image src="/insights/systems-awareness-cover.jpg" alt="" width={640} height={400} className="mt-6 h-40 w-full object-cover" />
-                  <h3 className="font-serif mt-6 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">{featuredArticle.title}</h3>
-                  <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">Why developing individual leaders is not enough when organisational systems prevent change.</p>
+                  <div className="mt-8 grid grid-cols-[minmax(0,1fr)_96px] items-start gap-6 sm:grid-cols-[minmax(0,1fr)_132px] md:gap-8">
+                    <div>
+                      <h3 className="font-serif text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">{featuredArticle.title}</h3>
+                      <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">Why developing individual leaders is not enough when organisational systems prevent change.</p>
+                    </div>
+                    <Image src="/insights/systems-awareness-cover.jpg" alt="" width={264} height={374} sizes="132px" className="aspect-[1632/2309] w-full border border-line object-cover shadow-sm" />
+                  </div>
                   <div className="mt-auto pt-10">
                     <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">{copy.thoughtLeadership.authorPrefix} {featuredArticle.author}</p>
                     <Link href={`/insights/${featuredArticle.slug}`} className="inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.8px] text-ink transition-colors hover:text-brand group-hover:text-white group-hover:hover:text-brand">
@@ -202,17 +211,8 @@ export default async function InsightsPage() {
                 <BookEndorsements limit={2} />
               </BookCard>
               <BookCard book={restoredBook} headingLevel="h2" coverShadow={false}>
-                <div className="mt-12 grid gap-8 border-t border-white/20 pt-8 md:grid-cols-2">
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“The Restored Organization is all about leading with heart, and vision. It offers practical advice and real-world strategies to help you build a culture that supports well-being, encourages accountability, and fosters continuous growth. If you’re looking to create a workplace where people thrive, this book is your guide.”</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Piyush Gupta, Ex-CEO, DBS Bank, Chairman - Keppel, Mandai Wildlife Group and SMU</footer>
-                  </blockquote>
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“In a culture that often puts performance over people, The Restored Organization reminds us that genuine progress is fuelled by trust, respect, and authenticity. It’s the perfect guide for leaders who value the human side of work as much as the bottom line”.</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Dr. Anna A. Tavis, Department Chair, Human Capital Management, New York University</footer>
-                  </blockquote>
-
-                </div>
+                {/* Same endorsement format as the first book: dash, name, role on its own line. */}
+                <BookEndorsements items={[{ quote: "The Restored Organization is all about leading with heart, and vision. It offers practical advice and real-world strategies to help you build a culture that supports well-being, encourages accountability, and fosters continuous growth. If you’re looking to create a workplace where people thrive, this book is your guide.", name: "Piyush Gupta", title: "Ex-CEO, DBS Bank, Chairman - Keppel, Mandai Wildlife Group and SMU" }, { quote: "In a culture that often puts performance over people, The Restored Organization reminds us that genuine progress is fuelled by trust, respect, and authenticity. It’s the perfect guide for leaders who value the human side of work as much as the bottom line.", name: "Dr. Anna A. Tavis", title: "Department Chair, Human Capital Management, New York University" }]} />
               </BookCard>
             </div>
           </div>

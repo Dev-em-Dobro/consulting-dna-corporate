@@ -83,7 +83,7 @@ export default async function ContactPage() {
             tem eixo próprio coerente em vez de um rótulo órfão lá na margem. */}
         <section className="bg-paper">
           <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
-            <SectionHeading className="mb-6 text-3xl font-semibold">Send us a message</SectionHeading>
+            <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">Send us a message</SectionHeading>
             <Reveal className="mt-12">
               {/* O `submit` fica no padrão `flat`, e não no `hover-fill` da
                   home: aquele botão é ink sobre vermelho e nasceu para o fundo
@@ -108,7 +108,7 @@ export default async function ContactPage() {
             vazio anunciado é pior que campo ausente numa página de contato. */}
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <SectionHeading className="mb-6 text-3xl font-semibold">Offices</SectionHeading>
+            <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">Offices</SectionHeading>
             <a
               href="mailto:info@corporatednaconsulting.com"
               className="mt-6 inline-block text-[16px] leading-[1.5] text-brand underline decoration-line underline-offset-4 transition-colors hover:text-brand-dark"

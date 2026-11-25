@@ -91,15 +91,18 @@ function StoryCard({ card }: { card: FeaturedCard }) {
                   {card.whiteLogoOnImage && (
                     <>
                       <div aria-hidden className="absolute inset-0 bg-black/35" />
+                      {/* Layout audit #59: every featured logo sits in the same box (one
+                          bounding box for all, instead of a width per client). */}
                       <div className="absolute inset-0 flex items-center justify-center px-6">
-                        <Image
-                          src={card.logo}
-                          alt=""
-                          width={320}
-                          height={128}
-                          style={{ width: card.whiteLogoWidth }}
-                          className="h-auto max-h-[52%] object-contain brightness-0 invert"
-                        />
+                        <div className="relative h-16 w-[60%] max-w-[260px]">
+                          <Image
+                            src={card.logo}
+                            alt=""
+                            fill
+                            sizes="260px"
+                            className="object-contain brightness-0 invert"
+                          />
+                        </div>
                       </div>
                     </>
                   )}

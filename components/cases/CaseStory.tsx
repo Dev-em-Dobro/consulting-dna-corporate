@@ -222,10 +222,10 @@ export default function CaseStory({
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[210px_1fr] lg:gap-14">
               <div>
-                <h2 className="text-[12px] font-semibold uppercase tracking-[1.6px] text-white">
+                <h2 className="font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-white md:text-[30px]">
                   The impact
                 </h2>
-                <p className="mt-2 text-[11px] uppercase tracking-[1.3px] text-white/45">
+                <p className="mt-2 text-[11px] uppercase tracking-[1.3px] text-white/60">
                   Real results. Lasting change.
                 </p>
               </div>
@@ -406,7 +406,9 @@ export default function CaseStory({
             ) : null}
 
             {hasClientVoice && <div>
-              <NumberedLabel number="04" label="Client voice" heading />
+              {/* Layout audit #65: 04 and 05 get the same serif H2 as 01 to 03. */}
+              <NumberedLabel number="04" label="Client voice" />
+              <SectionTitle>In the client's words</SectionTitle>
               <figure>
                   {clientQuote && (
                     <>
@@ -450,10 +452,8 @@ export default function CaseStory({
       {related.length > 0 && (
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
-            <NumberedLabel number={hasClientVoice ? "05" : "04"} label="Related case studies" heading />
-            <p className="-mt-3 mb-8 text-[12px] uppercase tracking-[1.3px] text-muted">
-              Explore more client stories
-            </p>
+            <NumberedLabel number={hasClientVoice ? "05" : "04"} label="Related case studies" />
+            <div className="mb-8"><SectionTitle>Explore more client stories</SectionTitle></div>
 
             <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {related.map((r) => (

@@ -19,6 +19,18 @@ const COACHING_OLD_CARE_DARE_TITLE = "WE BRING CARE AND DARE";
 const COACHING_OLD_CARE_DARE_BODY =
   "Experience you can feel in the room. Our coaches BRING REAL SUPPORT AND CHALLENGE IN EQUAL MEASURE BY EARNING THE RIGHT TO BE TRUSTED.";
 
+/** Applies a text replacement to every string inside a copy object. */
+function replaceInStrings<T>(value: T, pattern: RegExp, replacement: string): T {
+  if (typeof value === "string") return value.replace(pattern, replacement) as T;
+  if (Array.isArray(value)) return value.map((item) => replaceInStrings(item, pattern, replacement)) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, replaceInStrings(item, pattern, replacement)]),
+    ) as T;
+  }
+  return value;
+}
+
 /**
  * A copy das dez internas de serviço no Vercel Blob (prefixo `service-pages/`).
  * O COMO está em `lib/page-copy/store.ts`.
@@ -27,10 +39,22 @@ const store = createCopyStore<ServicePagesCopy>({
   key: "service-pages",
   defaults: DEFAULT_SERVICE_PAGES_COPY,
   schema: ServicePagesCopySchema,
-  migrationVersion: "2026-10-02-call-corrections-services-4",
+  migrationVersion: "2026-11-25-audit-44-46",
   migrateSaved(saved) {
     if (!saved || typeof saved !== "object") return saved;
     const copy = structuredClone(saved) as Partial<ServicePagesCopy>;
+    // 25-11 (layout audit #44): one format for the population range, "Top 100 to 150".
+    const slDev = copy.bySlug?.["senior-leadership-development"];
+    if (slDev) copy.bySlug!["senior-leadership-development"] = replaceInStrings(slDev, /Top 100\s*–\s*150/g, "Top 100 to 150");
+    // 25-11 (layout audit #46): "Judgement in AI" as the H1, the old subhead replaced
+    // only while it is still the untouched old text.
+    const judgementLayout = copy.bySlug?.["judgement-in-ai"]?.layout as { heroTitle?: string; heroSubtitle?: string } | undefined;
+    if (judgementLayout?.heroTitle?.trim() === "Leadership Judgement") judgementLayout.heroTitle = "Judgement in AI";
+    if (judgementLayout?.heroSubtitle?.trim() === "Clearer thinking. Braver calls.") {
+      judgementLayout.heroSubtitle = "Leadership judgement for an AI-augmented world.";
+    }
+    // Copy saved under the 02-10 revision already went through every change below.
+    if ((saved as Record<string, unknown>).__copyRevision === "2026-10-02-call-corrections-services-4") return copy;
     // 01-10: Shell é 8.000 mulheres ("not 6k"), no cartão de evidência de Women in Leadership.
     const items = (copy.bySlug?.["women-in-leadership"]?.layout as
       { evidenceCases?: { items?: { facts?: { value?: string }[] }[] } } | undefined)?.evidenceCases?.items;

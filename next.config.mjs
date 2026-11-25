@@ -226,6 +226,8 @@ const splitAreaRedirects = [
   // /our-way/our-team-and-network — todos já repontados direto para /team).
   // Sem esta linha, a rota que hoje responde 200 passa a dar 404 no deploy.
   { source: "/our-team", destination: "/team", permanent: true },
+  // Layout audit #80: the legacy leadership page duplicated Team.
+  { source: "/services/leadership", destination: "/team", permanent: true },
   // 21-09: o serviço mudou de NOME e depois de ENDEREÇO. "Top 150 Leadership
   // Development" virou "Senior Leadership Development" por email, e o slug foi
   // mantido no mesmo dia justamente por esta regra — rota é endereço, título é

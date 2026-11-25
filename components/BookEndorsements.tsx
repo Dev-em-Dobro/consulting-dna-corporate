@@ -8,7 +8,7 @@
  * than as a section of its own  -  hence the on-ink colour treatment.
  */
 
-type Endorsement = {
+export type Endorsement = {
   quote: string;
   name: string;
   title: string;
@@ -41,11 +41,11 @@ const endorsements: Endorsement[] = [
   },
 ];
 
-export default function BookEndorsements({ limit }: { limit?: number } = {}) {
+export default function BookEndorsements({ limit, items = endorsements }: { limit?: number; items?: Endorsement[] } = {}) {
   return (
     <div className="mt-10 border-t border-white/15 px-6 pb-10 pt-10 md:mt-12 md:px-0 md:pb-0 md:pt-12">
       <ul className="grid grid-cols-1 gap-x-14 gap-y-9 md:grid-cols-2">
-        {endorsements.slice(0, limit).map((e) => (
+        {items.slice(0, limit).map((e) => (
           <li key={e.name} className="flex h-full flex-col">
             <blockquote>
               <p className="text-[15.5px] leading-[1.6] text-white/75">
