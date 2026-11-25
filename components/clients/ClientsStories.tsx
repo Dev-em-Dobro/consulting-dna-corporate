@@ -124,7 +124,7 @@ function StoryCard({ card }: { card: FeaturedCard }) {
                     <h3 className="mt-6 font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.3px] text-ink">
                       {card.kicker}
                     </h3>
-                    <p className="mt-3 text-[15px] leading-[1.6] text-muted">{card.body}</p>
+                    <p className="mt-3 line-clamp-3 text-[15px] leading-[1.6] text-muted">{card.body}</p>
                   </div>
                   <div className="mt-auto flex min-h-24 items-center gap-5 border-t border-line bg-paper px-6 py-5">
                     <p className="shrink-0 text-[34px] font-semibold leading-none tracking-[-1px] text-ink">{card.metric}</p>
@@ -133,13 +133,19 @@ function StoryCard({ card }: { card: FeaturedCard }) {
                     </p>
                   </div>
                   <div className="border-t border-line px-6 py-5">
-                    <Link href={card.href} className="inline-block text-[13px] font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4 transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
-                      Learn more <span aria-hidden className="ml-2">→</span>
+                    <Link href={card.href} className="inline-flex items-center gap-2 border-b-2 border-brand pb-1 text-[13px] font-semibold text-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
+                      Learn more <span aria-hidden>→</span>
                     </Link>
                   </div>
                 </div>
               </article>
   );
+}
+
+/** The case's opening sentence, so the card shows a short description. */
+function firstSentence(text: string) {
+  const match = text.trim().match(/^.+?[.!?](?=\s|$)/s);
+  return match ? match[0] : text.trim();
 }
 
 export default async function ClientsStories() {
@@ -151,10 +157,10 @@ export default async function ClientsStories() {
     if (!entry || !story.logo) return [];
     const logo = logoSrc(story.logo);
     return [{
-      href: story.href, name: story.name, kicker: story.label, body: entry.challenge ?? "",
+      href: story.href, name: story.name, kicker: story.label, body: firstSentence(entry.challenge ?? ""),
       logo, image: entry.coverUrl ?? logo, imageAlt: story.name + " case study",
       metric: entry.metricValue ?? "", metricLabel: entry.metricLabel ?? entry.impactFigures?.[0]?.label ?? "",
-      whiteLogoOnImage: false, whiteLogoWidth: "55%",
+      whiteLogoOnImage: true, whiteLogoWidth: "55%",
     }];
   });
   return (
