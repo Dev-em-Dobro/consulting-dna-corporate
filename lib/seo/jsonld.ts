@@ -29,12 +29,26 @@ export function organizationLd() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
+    legalName: "CorporateDNA Consulting Ltd",
+    // The brand collides with the generic phrase "corporate DNA", so every
+    // spelling in use is declared here (SEO review, Nov 2026).
+    alternateName: ["CorporateDNA", "Corporate DNA", "Corporate DNA Consulting", "CDNA"],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     logo: `${SITE_URL}/cdna-logo.svg`,
-    // TODO: add verified social profiles when available (LinkedIn, X, …):
-    // sameAs: ["https://www.linkedin.com/company/..."],
+    foundingDate: "2007",
+    foundingLocation: { "@type": "Place", name: "London, United Kingdom" },
+    sameAs: ["https://www.linkedin.com/company/corporatedna-consulting/"],
     address: offices.map(postalAddress),
+    // One ProfessionalService per office, for local search (SEO review, Nov 2026).
+    department: offices.map((o) => ({
+      "@type": "ProfessionalService",
+      name: `${SITE_NAME}, ${o.city}`,
+      url: absUrl("/contact"),
+      email: o.email,
+      address: postalAddress(o),
+      parentOrganization: { "@id": ORG_ID },
+    })),
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
@@ -158,5 +172,40 @@ export function bookLd(b: {
     url: b.path ? absUrl(b.path) : SITE_URL,
     publisher: { "@id": ORG_ID },
     ...(b.sameAs?.length ? { sameAs: b.sameAs } : {}),
+  };
+}
+
+/**
+ * Event node for the /events list. Only events with a start date are emitted,
+ * since `startDate` is required by schema.org and by Google's event results.
+ */
+export function eventLd(e: {
+  title: string;
+  path: string;
+  summary?: string;
+  startDate?: string;
+  endDate?: string;
+  location?: string;
+  image?: string;
+}) {
+  if (!e.startDate) return null;
+  const online = e.location?.toLowerCase().includes("virtual");
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: e.title,
+    url: absUrl(e.path),
+    description: e.summary,
+    startDate: e.startDate,
+    ...(e.endDate ? { endDate: e.endDate } : {}),
+    eventAttendanceMode: online
+      ? "https://schema.org/OnlineEventAttendanceMode"
+      : "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    ...(e.location
+      ? { location: online ? { "@type": "VirtualLocation", url: absUrl(e.path) } : { "@type": "Place", name: e.location, address: e.location } }
+      : {}),
+    ...(e.image ? { image: [/^https?:/.test(e.image) ? e.image : absUrl(e.image)] } : {}),
+    organizer: { "@id": ORG_ID },
   };
 }

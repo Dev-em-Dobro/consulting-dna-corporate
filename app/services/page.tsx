@@ -5,7 +5,7 @@ import ServiceCard from "@/components/solutions/ServiceCard";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getServicesIndexCopy } from "@/lib/services-index-copy-server";
 import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
@@ -15,12 +15,12 @@ import { getServicesWithCopy } from "@/lib/service-pages-copy-server";
 import heroPhoto from "@/public/hero/hero-services.jpeg";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     title: "Our Services | CorporateDNA",
     description:
       "Real impact for individuals, leaders, teams and organisations, ten ways in, each starting with what is at stake for the business.",
     alternates: localeAlternates("/services"),
-  };
+  });
 }
 
 /**

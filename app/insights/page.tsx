@@ -4,7 +4,7 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import InsightsLibrary from "@/components/insights/InsightsLibrary";
 import Reveal from "@/components/Reveal";
 import TypeLabel from "@/components/TypeLabel";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getInsightListEntries } from "@/lib/cms/map";
 import { paperReadingMinutes } from "@/lib/insights-copy";
@@ -20,11 +20,11 @@ import Image from "next/image";
 
 export async function generateMetadata(): Promise<Metadata> {
   const copy = await getInsightsCopy();
-  return {
+  return withPageSocial({
     title: copy.metadata.title,
     description: copy.metadata.description,
     alternates: localeAlternates("/insights"),
-  };
+  });
 }
 export const revalidate = 300;
 
@@ -46,7 +46,7 @@ export default async function InsightsPage() {
     ],
     "buyUrl": "https://www.amazon.com/dp/B0F9PY7YQ1?lv=shuf&channelId=510&plpRedirect=mhFallback"
 };
-  const articleSlug = "why-leadership-development-must-now-teach-systems-awareness-and-systems-navigati";
+  const articleSlug = "why-leadership-development-must-now-teach-systems-awareness-and-systems-navigation";
   const featuredArticle = insights.find((entry) => entry.slug === articleSlug);
   const libraryArticles = insights.filter((entry) => entry.slug !== articleSlug);
 

@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import EmptyNotice from "@/components/EmptyNotice";
 import CasesLibrary from "@/components/cases/CasesLibrary";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { getCaseListEntries } from "@/lib/cms/map";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     // The "Client Impact" area name is retired by the 27-08 brief (split into
     // Our Clients and Our Impact); this route stays as the case library.
     title: "Case Studies | CorporateDNA",
     description:
       "Measured leadership outcomes for global enterprises, how CorporateDNA's advisory and 5H® methodology moved the metrics that matter for clients like Shell and Heineken.",
     alternates: localeAlternates("/cases"),
-  };
+  });
 }
 export const revalidate = 300;
 

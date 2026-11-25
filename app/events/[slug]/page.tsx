@@ -11,7 +11,7 @@ import { eventContext, events } from "@/lib/events";
 import EventVisual from "@/components/events/EventVisual";
 import { getEvent } from "@/lib/events-content";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 
 type LanguageQuery = { searchParams: Promise<{ lang?: string | string[] }> };
 
@@ -25,12 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const event = await getEvent(slug);
   if (!event) notFound();
-  return {
+  return withPageSocial({
     title: `${event.title} · ${eventContext(event, "en-GB")} | Events | CorporateDNA`,
     description: event.summary,
     alternates: localeAlternates(`/events/${event.slug}`),
     robots: { index: false, follow: true },
-  };
+  });
 }
 
 export default async function EventPage({ params, searchParams }: Props & LanguageQuery) {

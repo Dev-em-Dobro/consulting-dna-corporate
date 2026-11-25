@@ -8,15 +8,17 @@ import EventCard from "@/components/events/EventCard";
 import { getEvents } from "@/lib/events-content";
 import { getEventsCopy } from "@/lib/events-copy-server";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import eventsHero from "@/public/events/events-hero.jpg";
+import JsonLd from "@/components/JsonLd";
+import { eventLd } from "@/lib/seo/jsonld";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     title: "Events | CorporateDNA",
     description: "Where CorporateDNA convenes leaders: explore our leadership conversations, forums and gatherings.",
     alternates: localeAlternates("/events"),
-  };
+  });
 }
 
 export default async function EventsPage() {
@@ -30,6 +32,18 @@ export default async function EventsPage() {
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
+        {events.map((event) => {
+          const ld = eventLd({
+            title: event.title,
+            path: `/events/${event.slug}`,
+            summary: event.summary,
+            startDate: event.startDate,
+            endDate: event.endDate,
+            location: event.location,
+            image: typeof event.image === "string" ? event.image : event.image?.src,
+          });
+          return ld ? <JsonLd key={event.slug} data={ld} /> : null;
+        })}
         {/* 01-10: foto da cliente (hero-events.jpeg) e manchete nova. A palavra
             "leadership" vai em vermelho NA MESMA LINHA (`titleAccent`)  -  01-10:
             *"nao precisa quebrar leadership pra baixo"*. Foto 4:3 com o grupo no terço de baixo: o

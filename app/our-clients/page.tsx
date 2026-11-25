@@ -6,7 +6,7 @@ import ClientsStories from "@/components/clients/ClientsStories";
 import SolutionCta from "@/components/solutions/SolutionCta";
 import LogoMarquee from "@/components/LogoMarquee";
 import Reveal from "@/components/Reveal";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { clientLogoRows, logoRowDuration } from "@/lib/logos";
 import { getFirmStats } from "@/lib/stats";
@@ -17,12 +17,12 @@ import { getClientsCopy } from "@/lib/clients-copy-server";
 import clientsHero from "@/public/team/team-hero-24-09.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     title: "Our Clients | CorporateDNA",
     description:
       "The organisations CorporateDNA advises, the breadth of work behind each name, and what changed, measured.",
     alternates: localeAlternates("/our-clients"),
-  };
+  });
 }
 export const revalidate = 300;
 

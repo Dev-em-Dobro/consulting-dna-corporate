@@ -48,7 +48,7 @@ import TypeLabel from "@/components/TypeLabel";
 import HoverFillButton from "@/components/HoverFillButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import heroPhoto from "@/public/about/about-hero-skyline.jpeg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito  -  ver a caixa de comentário daquela seção. Mesmo arquivo que a
@@ -115,10 +115,10 @@ const serif = localFont({
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "About | CorporateDNA";
-  return {
+  return withPageSocial({
     title,
     description:
-      "Our purpose, our promise, what we believe, and where we work.",
+      "CorporateDNA is a leadership advisory firm founded in London in 2007: our purpose, our promise, what we believe and where we work across five regions.",
     // PROMOVIDA EM 09-09. Era `/about-v2`, uma proposta `noindex` sem canonical
     // porque a página de verdade era `/our-identity`. Agora esta É a página de
     // verdade, e as duas linhas abaixo mudaram juntas de propósito:
@@ -135,9 +135,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // exposto é um endereço `vercel.app`. Quem for revisar antes do lançamento,
     // revise por lá.
     alternates: localeAlternates("/about"),
-    openGraph: { title },
-    twitter: { title },
-  };
+  });
 }
 export const revalidate = 300;
 

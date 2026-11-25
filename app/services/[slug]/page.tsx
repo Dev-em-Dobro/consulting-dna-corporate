@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionView from "@/components/views/SolutionView";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { serviceLd, breadcrumbLd } from "@/lib/seo/jsonld";
 import JsonLd from "@/components/JsonLd";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
@@ -37,12 +37,27 @@ export async function generateMetadata({
      Google continuariam com o nome velho. */
   const service = (await getServicesWithCopy()).find((x) => x.slug === slug);
   const title = service ? `${service.title} | CorporateDNA` : "Solution | CorporateDNA";
-  return {
+  return withPageSocial({
     title,
-    description: service?.banner,
+    description: service ? metaDescription(service.banner, service.whatWeDo ?? service.howWeHelp) : undefined,
     alternates: localeAlternates(`/services/${slug}`),
-    openGraph: { title, description: service?.banner },
-  };
+  });
+}
+
+/**
+ * The banner alone is often 60 to 80 characters, too short for a search
+ * snippet. When it is, add the first sentence of the service copy and stop at a
+ * word boundary within about 160 characters (SEO review, Nov 2026).
+ */
+function metaDescription(banner: string, more?: string) {
+  const text = banner.trim();
+  if (text.length >= 120 || !more) return text;
+  const plain = more.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const sentence = plain.match(/^.+?[.!?](?=\s|$)/)?.[0] ?? plain;
+  const joined = `${text.replace(/[.!?]?$/, ".")} ${sentence}`;
+  if (joined.length <= 160) return joined;
+  const cut = joined.slice(0, 157);
+  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
 }
 
 export default async function SolutionDetailPage({

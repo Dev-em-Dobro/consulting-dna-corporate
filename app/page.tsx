@@ -118,7 +118,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // "não indexe" é contradição que se resolve contra nós. Quem carrega o
     // `noindex` agora é a `/home-v1`.
     alternates: localeAlternates("/"),
-    openGraph: { title, description: SITE_DESCRIPTION },
+    openGraph: { url: "/", title, description: SITE_DESCRIPTION },
     twitter: { title, description: SITE_DESCRIPTION },
   };
 }

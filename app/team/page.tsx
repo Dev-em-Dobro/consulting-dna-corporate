@@ -14,7 +14,7 @@ import LeaderCard from "@/components/team/LeaderCard";
    este import volta junto com as três linhas de `<Image>`. */
 /* ⛔ A FOTO DO HERÓI SAIU EM 24-09 (hotfix): a /team ficou com a dobra lisa.
    O arquivo continua em `public/team/team-hero-24-09.jpg`. */
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getPeople } from "@/lib/cms/map";
 import { getTeamCopy } from "@/lib/team-copy-server";
@@ -39,12 +39,12 @@ import PhotoCarousel from "@/components/PhotoCarousel";
 import { LIFE_AT_DNA, LIFE_AT_DNA_FRAMING } from "@/lib/life-at-dna";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     title: "Our Team | CorporateDNA",
     description:
       "The leadership team and global faculty behind CorporateDNA, senior practitioners delivering across 36 countries.",
     alternates: localeAlternates("/team"),
-  };
+  });
 }
 
 /**

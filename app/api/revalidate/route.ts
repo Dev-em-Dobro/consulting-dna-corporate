@@ -1,6 +1,8 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { insightPublicSlug } from "@/lib/seo/insight-slugs";
+
 
 /**
  * Receives signed revalidation webhooks from the custom CMS (a separate project)
@@ -40,7 +42,7 @@ function affectedPaths(type: string, slug: string): string[] | null {
     case "case":
       return ["/", "/cases", `/cases/${slug}`];
     case "insight":
-      return ["/", "/insights", `/insights/${slug}`];
+      return ["/", "/insights", `/insights/${insightPublicSlug(slug)}`];
     case "solution":
       return ["/", "/services", `/services/${slug}`];
     case "region":

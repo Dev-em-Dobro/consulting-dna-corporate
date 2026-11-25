@@ -29,6 +29,7 @@ export async function generateMetadata({
     description,
     alternates: localeAlternates(`/insights/${slug}`),
     openGraph: {
+      url: `/insights/${slug}`,
       title,
       description,
       type: "article",

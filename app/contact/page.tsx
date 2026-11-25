@@ -5,18 +5,18 @@ import SolutionHero from "@/components/solutions/SolutionHero";
 import ContactForm from "@/components/ContactForm";
 import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getHomeCopy } from "@/lib/home-copy-server";
 import { offices } from "@/lib/offices";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return withPageSocial({
     title: "Contact | CorporateDNA",
     description:
       "Tell us the leadership challenge you are facing. Offices in London, Miami, Singapore, Dubai and Riyadh.",
     alternates: localeAlternates("/contact"),
-  };
+  });
 }
 
 /**
