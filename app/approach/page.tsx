@@ -97,6 +97,9 @@ function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"
   );
 }
 
+/** Section headings carry no closing full stop (layout audit #4). */
+const noStop = (text: string) => text.replace(/\.\s*$/, "");
+
 export default async function ApproachPage() {
   const copy = await getApproachCopy();
   return (
@@ -156,7 +159,7 @@ export default async function ApproachPage() {
         <section id="framework" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{firstMention(copy.framework.label, [copy.hero.eyebrow, copy.hero.title, copy.hero.subtitle])}</p>
           <h2 className="mt-3 whitespace-pre-line font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
-            {copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader.")}
+            {noStop(copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader."))}
           </h2>
           <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
             {copy.framework.body}
@@ -181,13 +184,13 @@ export default async function ApproachPage() {
           </p>
         </section>
 
-        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
+        <FiveHShowcase heading={noStop(copy.fiveH.heading)} faculties={copy.fiveH.faculties} />
 
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
           <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
-            {copy.introduction.heading}
+            {noStop(copy.introduction.heading)}
           </h2>
           <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:text-[17px]">
             {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
@@ -250,7 +253,7 @@ export default async function ApproachPage() {
           <div className="mt-3 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
             <div>
               <h2 className="font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
-                {copy.profiler.heading}
+                {noStop(copy.profiler.heading)}
               </h2>
               <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-9 lg:text-[16px]">
                 {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
@@ -286,7 +289,7 @@ export default async function ApproachPage() {
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.learning.label}</p>
             <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
-              {copy.learning.heading} <span className="text-brand">{copy.learning.accent}</span>
+              {copy.learning.heading} <span className="text-brand">{noStop(copy.learning.accent)}</span>
             </h2>
             {copy.learning.body.trim() && copy.learning.body.trim() !== "Body copy to be confirmed (max 500 characters)." && (
               <p className="mt-4 text-[15px] leading-[1.6] text-muted">{copy.learning.body}</p>
