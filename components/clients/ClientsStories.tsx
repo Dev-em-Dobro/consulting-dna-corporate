@@ -70,12 +70,14 @@ const featured: FeaturedCard[] = [
 ];
 
 /* Use client logos in place of the old low-resolution stock thumbnails. */
-const moreStories: { logo?: LogoKey; name: string; label: string; href: string }[] = [
+/* `image` overrides the CMS cover. The Frasers covers lived on the switched-off
+   CDN (Nov 2026), so they point at their own local case photos instead. */
+const moreStories: { logo?: LogoKey; name: string; label: string; href: string; image?: string }[] = [
   { logo: "vodafone", name: "Vodafone", label: "Talent development", href: "/cases/vodafone" },
   { logo: "gsk", name: "GSK", label: "Culture transformation", href: "/cases/gsk" },
   { logo: "maaden", name: "Ma'aden", label: "Leadership at scale", href: "/cases/maaden" },
-  { logo: "frasers-property", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership" },
-  { logo: "frasers-property", name: "Frasers Property", label: "HR leadership team", href: "/cases/frasers-property-hrlt" },
+  { logo: "frasers-property", name: "Frasers Property", label: "High-performance teams", href: "/cases/frasers-property-leadership", image: "/cases/frasers-property-leadership-hero.webp" },
+  { logo: "frasers-property", name: "Frasers Property", label: "HR leadership team", href: "/cases/frasers-property-hrlt", image: "/cases/frasers-property-hrlt-hero.webp" },
   { logo: "dyson", name: "Dyson", label: "Innovation & growth", href: "/cases/dyson" },
   { logo: "dp-world", name: "DP World", label: "Global leadership", href: "/cases/dp-world" },
   { logo: "bt", name: "BT", label: "Inclusive leadership", href: "/cases/bt" },
@@ -161,7 +163,7 @@ export default async function ClientsStories() {
     const logo = logoSrc(story.logo);
     return [{
       href: story.href, name: story.name, kicker: story.label, body: firstSentence(entry.challenge ?? ""),
-      logo, image: entry.coverUrl ?? logo, imageAlt: story.name + " case study",
+      logo, image: story.image ?? entry.coverUrl ?? logo, imageAlt: story.name + " case study",
       metric: entry.metricValue ?? "", metricLabel: entry.metricLabel ?? entry.impactFigures?.[0]?.label ?? "",
       whiteLogoOnImage: true, whiteLogoWidth: "55%",
     }];

@@ -1,4 +1,3 @@
-import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
@@ -128,9 +127,9 @@ export default async function InsightsPage() {
         <section id="thought-leadership" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
             <TypeLabel>{copy.thoughtLeadership.label}</TypeLabel>
-            <SectionHeading className="font-serif mt-5 max-w-[720px] text-[34px] font-semibold leading-[1.04] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
-              {copy.thoughtLeadership.heading.toLowerCase().replace(/[^a-z0-9]/g, "") === copy.hero.title.toLowerCase().replace(/[^a-z0-9]/g, "") ? copy.thoughtLeadership.label : copy.thoughtLeadership.heading}
-            </SectionHeading>
+            {/* Nov 2026: the large heading repeated the label above it, so only
+                the label stays visible; the h2 remains for screen readers. */}
+            <h2 className="sr-only">{copy.thoughtLeadership.label}</h2>
 
             <div className="mt-10 grid gap-px bg-line md:grid-cols-2">
               {copy.thoughtLeadership.resources.map((resource, index) => (
