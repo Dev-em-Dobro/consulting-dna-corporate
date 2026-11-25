@@ -20,7 +20,7 @@ import PhotoCarousel from "@/components/PhotoCarousel";
 import FiveHShowcase from "@/components/five-h/FiveHShowcase";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, serviceLd } from "@/lib/seo/jsonld";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 
 const geist = localFont({
   src: "../../assets/fonts/geist-latin-wght-normal.woff2",
@@ -38,11 +38,11 @@ const serif = localFont({
 
 export async function generateMetadata(): Promise<Metadata> {
   const copy = await getApproachCopy();
-  return {
+  return withPageSocial({
     title: copy.metadata.title,
     description: copy.metadata.description,
     alternates: localeAlternates("/approach"),
-  };
+  });
 }
 
 function plainFiveH(text: string) {

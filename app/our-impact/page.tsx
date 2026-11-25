@@ -6,17 +6,17 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import world from "@/lib/world-countries.geo.json";
-import { localeAlternates } from "@/lib/seo/alternates";
+import { localeAlternates, withPageSocial } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getImpactCopy } from "@/lib/impact-copy-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const copy = await getImpactCopy();
-  return {
+  return withPageSocial({
     title: copy.metadata.title,
     description: copy.metadata.description,
     alternates: localeAlternates("/our-impact"),
-  };
+  });
 }
 export const revalidate = 300;
 

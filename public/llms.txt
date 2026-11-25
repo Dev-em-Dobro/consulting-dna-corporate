@@ -1,35 +1,66 @@
-# Corporate DNA Consulting
+# CorporateDNA Consulting
 
-> Global leadership advisory and executive coaching for CEOs, CHROs and executive teams — aligning leadership, accelerating decisions and building the talent required to deliver transformation. Home of the proprietary 5H® methodology and the DNA 360 Profiler. Work is delivered across 36 countries by a faculty of 75 senior practitioners, and roughly 90% of engagements are sponsored at Chairman / CXO level.
+> CorporateDNA (CorporateDNA Consulting Ltd) is a global leadership advisory and executive coaching firm for CEOs, CHROs, CLOs and executive teams, founded in London in 2007. It helps organisations with leadership, talent and culture transformation when the stakes are high. Home of the proprietary 5H® methodology and the DNA 360 Profiler. Work is delivered across 36 countries by a global faculty of 50+ senior practitioners.
 
-## What Corporate DNA solves
+Also written as "Corporate DNA" or "CDNA". It is not related to other firms with "DNA Consulting" in their name, nor to the generic business phrase "corporate DNA".
+
+## What CorporateDNA solves
 - CEO & executive performance — support for new and established CEOs and C-suite leaders through transitions, the first 100 days and sustained top-team pressure.
 - Executive-team alignment — aligning senior teams behind strategy so decisions move faster.
 - Leadership succession & talent — building credible successors and the enterprise leadership pipeline.
 - Enterprise transformation & culture — closing the gap when transformation outpaces leadership capability.
 
 ## The 5H® Framework
-The 5H® Framework is Corporate DNA's proprietary, neuroscience-led leadership methodology built on five lenses — Head (thinking), Heart (relating), Hunch (sensing), Hands (doing) and Habits (applying). Head, Heart and Hunch form the Inner Game; Hands and Habits form the Outer Game. It develops the "whole leader" rather than isolated skills, so new behaviours hold under real enterprise pressure, and is paired with the DNA 360 Profiler, which turns diagnosis into a measurable development plan.
+The 5H® Framework is CorporateDNA's proprietary, neuroscience-led leadership methodology built on five intelligences — Head (thinking), Heart (relating), Hunch (sensing), Hands (doing) and Habits (applying). Head, Heart and Hunch form the Inner Game; Hands and Habits form the Outer Game. It develops the "whole leader" rather than isolated skills, so new behaviours hold under real enterprise pressure, and is paired with the DNA 360 Profiler, which turns diagnosis into a measurable development plan.
 
 ## Key pages
-- [Home](https://corporatednaconsulting.com/): CorporateDNA — Making Leadership Real.
-- [About](https://corporatednaconsulting.com/about): Who we are and what we promise.
-- [Services](https://corporatednaconsulting.com/services): Leadership advisory and executive coaching services.
-- [Our Approach — the 5H framework](https://corporatednaconsulting.com/approach): The proprietary methodology behind every solution.
+- [Home](https://corporatednaconsulting.com/): CorporateDNA — Keeping Leadership Real.
+- [About](https://corporatednaconsulting.com/about): Our purpose, our promise and where we work.
+- [Our Approach — the 5H framework](https://corporatednaconsulting.com/approach): The proprietary methodology behind every service.
+- [Services](https://corporatednaconsulting.com/services): The ten leadership services.
 - [Team](https://corporatednaconsulting.com/team): Leadership team and global faculty of senior practitioners.
-- [Clients & Impact](https://corporatednaconsulting.com/our-clients): Client stories and case studies.
-- [Planet](https://corporatednaconsulting.com/our-impact): Numbers, proof and awards.
+- [Our Clients](https://corporatednaconsulting.com/our-clients): Client stories and measured impact.
+- [Case studies](https://corporatednaconsulting.com/cases): The full case library.
+- [Planet](https://corporatednaconsulting.com/our-impact): Our wider impact.
 - [Insights](https://corporatednaconsulting.com/insights): Books, articles and perspectives on leadership.
 - [Events](https://corporatednaconsulting.com/events): Upcoming and past events.
 - [Contact](https://corporatednaconsulting.com/contact): Start a conversation.
-- [The book](https://corporatednaconsulting.com/#book): Corporate DNA — the thinking behind the method.
+
+## Services
+- [Senior Leadership Development](https://corporatednaconsulting.com/services/senior-leadership-development)
+- [Culture Transformation](https://corporatednaconsulting.com/services/culture-transformation)
+- [Talent Development](https://corporatednaconsulting.com/services/talent-development)
+- [Manager Development](https://corporatednaconsulting.com/services/manager-development)
+- [Women in Leadership](https://corporatednaconsulting.com/services/women-in-leadership)
+- [High-Performing Teams](https://corporatednaconsulting.com/services/high-performing-teams)
+- [HRLT Effectiveness](https://corporatednaconsulting.com/services/hrlt-effectiveness)
+- [Judgement in AI](https://corporatednaconsulting.com/services/judgement-in-ai)
+- [Executive Coaching](https://corporatednaconsulting.com/services/executive-coaching)
+- [Family Business Consulting](https://corporatednaconsulting.com/services/family-business-consulting)
+
+## Case studies
+- [Vodafone](https://corporatednaconsulting.com/cases/vodafone)
+- [GSK](https://corporatednaconsulting.com/cases/gsk)
+- [Ma'aden](https://corporatednaconsulting.com/cases/maaden)
+- [Frasers Property: leadership pipeline](https://corporatednaconsulting.com/cases/frasers-property-leadership)
+- [Frasers Property: HR leadership team](https://corporatednaconsulting.com/cases/frasers-property-hrlt)
+- [Dyson](https://corporatednaconsulting.com/cases/dyson)
+- [DP World](https://corporatednaconsulting.com/cases/dp-world)
+- [BT](https://corporatednaconsulting.com/cases/bt)
+- [Morgan Stanley](https://corporatednaconsulting.com/cases/morgan-stanley)
+- [Shunkhlai](https://corporatednaconsulting.com/cases/shunkhlai)
+
+## Books
+- [Leadership: It's in Your DNA](https://corporatednaconsulting.com/#book), by Rhea Duttagupta (Rhea Leckie), founder of CorporateDNA: the thinking behind the 5H framework.
+- [The Restored Organization](https://corporatednaconsulting.com/insights), by Nitin Goil and Sebastian Anthony (Notion Press, 2025).
 
 ## Facts
-- Experience: ~18 years advising senior leaders.
-- Global reach: delivery across 36 countries; a 75-strong faculty of senior practitioners.
-- Sponsorship: ~90% of work sponsored at Chairman / CXO level.
+- Founded: London, 2007 (19 years of leadership consulting work).
+- Global reach: delivery across 36 countries and 4 regions; a global faculty of 50+ senior practitioners.
+- Scale: 10,000+ leaders coached and teams developed.
+- Clients: 5 of the top 10 FTSE 100 companies are long-standing clients.
 - Academic partnerships: Harvard Business Impact and Imperial College London.
-- Selected clients: Aramco, Microsoft, Visa, Shell, Coca-Cola, HSBC, Heineken, GSK, Unilever, Goldman Sachs, Morgan Stanley, Disney, Pfizer.
+- Selected clients: Microsoft, Shell, Coca-Cola, Unilever, HSBC, adidas, Heineken, Bank of England, Aston Martin, DP World, Dubai Holding, Frasers Property, L'Oréal, Swarovski, Singtel, Schroders, GSK, Vodafone, Dyson, BT, Morgan Stanley.
 - Offices: London (UK), Miami (US), Singapore, Dubai (UAE), Riyadh (Saudi Arabia).
 
 ## Legal

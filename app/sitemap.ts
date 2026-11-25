@@ -13,6 +13,10 @@ export const revalidate = 3600;
 // locale prefix, so paths map 1:1 to the live URLs.
 const abs = (path: string) => `${SITE_URL}${path || "/"}`;
 
+// Evaluated when the module loads (build / cold start), so `lastmod` follows
+// deploys for pages without a date of their own (SEO review, Nov 2026).
+const DEPLOYED_AT = new Date();
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // As páginas de serviço saíram do CMS em 11-09 (ver `lib/services.ts`), então
   // os dez slugs vêm do módulo e não de um fetch  -  o sitemap não pode listar a
@@ -40,6 +44,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // home. É rota indexável de verdade agora, e é a que as pessoas procuram
     // pelo nome  -  ficar de fora do sitemap seria esconder justamente essa.
     "/contact",
+    // /events has real content since Oct 2026 and no noindex. The single event
+    // pages still carry noindex, so only the list is included.
+    "/events",
     "/privacy",
     "/cookies",
     "/terms",
@@ -51,9 +58,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // `noindex`. `/home-v3` segue proposta, `noindex`, e também fora.
     // `/interviews` is a placeholder and carries `noindex`, so it is not listed.
     // `/books` redireciona para o livro na home e fica fora do sitemap.
-    // `/events` NÃO entra: nasceu vazia na mesma data, esperando conteúdo da
-    // cliente, e carrega `noindex`  -  mesma regra de `/our-partnerships` e
-    // `/interviews` logo acima.
   ];
 
   // Our Partnerships is a real route with no content until CDNA validates the
@@ -61,20 +65,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // must stay out of the sitemap until then  -  the two have to agree.
   if (partnerships.length > 0) staticPaths.push("/our-partnerships");
 
-  const dynamicPaths = [
-    ...services.map((s) => `/services/${s.slug}`),
-    ...cases.map((c) => `/cases/${c.slug}`),
-    ...insights.map((i) => `/insights/${i.slug}`),
+  const dynamicPaths: { path: string; lastModified?: string }[] = [
+    ...services.map((s) => ({ path: `/services/${s.slug}` })),
+    ...cases.map((c) => ({ path: `/cases/${c.slug}` })),
+    ...insights.map((i) => ({ path: `/insights/${i.slug}`, lastModified: i.publishedAt })),
   ];
 
-  const entry = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({
+  const entry = (path: string, priority: number, lastModified?: string): MetadataRoute.Sitemap[number] => ({
     url: abs(path),
+    lastModified: lastModified && !Number.isNaN(Date.parse(lastModified)) ? new Date(lastModified) : DEPLOYED_AT,
     changeFrequency: "monthly" as const,
     priority,
   });
 
   return [
     ...staticPaths.map((p) => entry(p, p === "" ? 1 : 0.7)),
-    ...dynamicPaths.map((p) => entry(p, 0.6)),
+    ...dynamicPaths.map((p) => entry(p.path, 0.6, p.lastModified)),
   ];
 }

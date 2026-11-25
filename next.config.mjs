@@ -270,6 +270,13 @@ const nextConfig = {
   async redirects() {
     return [
       ...retiredLocaleRedirects,
+      // Insight whose CMS slug was cut off; the full slug is the public URL
+      // (lib/seo/insight-slugs.ts).
+      {
+        source: "/insights/why-leadership-development-must-now-teach-systems-awareness-and-systems-navigati",
+        destination: "/insights/why-leadership-development-must-now-teach-systems-awareness-and-systems-navigation",
+        permanent: true,
+      },
       ...splitAreaRedirects,
       ...[...legacyDottedRedirects, ...legacyExtensionlessRedirects].map(
         ([source, destination]) => ({ source, destination, permanent: true }),

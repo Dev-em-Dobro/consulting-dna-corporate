@@ -39,6 +39,7 @@ export async function generateMetadata({
     description,
     alternates: localeAlternates(`/cases/${slug}`),
     openGraph: {
+      url: `/cases/${slug}`,
       title,
       description,
       type: "article",

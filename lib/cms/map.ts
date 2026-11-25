@@ -18,6 +18,7 @@ import { isReviewedCaseSlug } from "../reviewed-cases";
 // Keep a deployable copy here: .vercelignore excludes /docs from Vercel builds.
 import approvedCaseSnapshot from "./approved-cases.json";
 import publishedInsight114 from "./published-insight-114.json";
+import { insightCmsSlug, insightPublicSlug } from "@/lib/seo/insight-slugs";
 
 function parseItems<T>(items: unknown[], schema: { safeParse: (x: unknown) => { success: boolean; data?: T } }): T[] {
   const out: T[] = [];
@@ -768,15 +769,15 @@ export async function getSolution(slug: string, locale = "en"): Promise<Solution
 export async function getInsightCards(): Promise<InsightCard[]> {
   const res = await getList("insights");
   const cards: InsightCard[] = res ? parseItems<S.InsightListItem>(res.items, S.insightListItem).map((i) => ({
-    slug: i.slug,
+    slug: insightPublicSlug(i.slug),
     title: plainText(i.title) ?? "",
     summary: plainText(i.summary),
     publishedAt: i.publishedAt,
   })) : [];
   // The published article is live on the English site but absent from the
   // preview CMS. Keep the published content visible until the CMS is synced.
-  if (!cards.some((card) => card.slug === publishedInsight114.slug)) {
-    cards.push({ slug: publishedInsight114.slug, title: publishedInsight114.title, publishedAt: publishedInsight114.publishedAt });
+  if (!cards.some((card) => card.slug === insightPublicSlug(publishedInsight114.slug))) {
+    cards.push({ slug: insightPublicSlug(publishedInsight114.slug), title: publishedInsight114.title, publishedAt: publishedInsight114.publishedAt });
   }
   return cards.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
@@ -805,7 +806,7 @@ function mapInsight(raw: unknown): InsightVM | null {
   // body is rendered via <RichText>; title is a plain-text heading.
   const d = r.data.data as Record<string, unknown>;
   return {
-    slug: r.data.slug,
+    slug: insightPublicSlug(r.data.slug),
     title: plainText(r.data.data.title) ?? "",
     body: r.data.data.body,
     coverUrl: r.data.data.coverUrl,
@@ -820,11 +821,12 @@ function mapInsight(raw: unknown): InsightVM | null {
 }
 
 export async function getInsight(slug: string, locale = "en"): Promise<InsightVM | null> {
-  const raw = await getEntry("insights", slug, locale);
+  const cmsSlug = insightCmsSlug(slug);
+  const raw = await getEntry("insights", cmsSlug, locale);
   const fromCms = raw ? mapInsight(raw) : null;
   if (fromCms) return fromCms;
-  if (slug === publishedInsight114.slug) {
-    return { ...publishedInsight114, readingMinutes: readingMinutes(publishedInsight114.body) };
+  if (cmsSlug === publishedInsight114.slug) {
+    return { ...publishedInsight114, slug: insightPublicSlug(cmsSlug), readingMinutes: readingMinutes(publishedInsight114.body) };
   }
   return null;
 }
