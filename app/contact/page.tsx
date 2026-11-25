@@ -61,8 +61,11 @@ export default async function ContactPage() {
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <SolutionHero
-          imageUrl="/team-stairs-about-six.jpg"
-          imageAlt="The CorporateDNA team together on a staircase"
+          imageUrl="/about/about-hero-skyline.jpeg"
+          imageAlt="A city skyline at night"
+          /* Nov 2026: a darker veil over the whole photo so the skyline stays
+             in the background behind the headline. */
+          tint="linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5))"
           eyebrow="Contact"
           title={contact.title}
           subtitle="Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch."

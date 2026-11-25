@@ -6,6 +6,19 @@
  */
 import { z } from "zod";
 
+/**
+ * The old Bunny pull zone (`corporatedna-cdn.b-cdn.net`) was switched off and
+ * now answers 403 for every file, yet some CMS entries still point at it (the
+ * Frasers, GSK and Maaden case covers, Nov 2026). Dropping those URLs here lets
+ * every page fall back to its local image instead of rendering a broken one.
+ */
+const DEAD_MEDIA_HOSTS = ["corporatedna-cdn.b-cdn.net"];
+const mediaUrl = z
+  .string()
+  .url()
+  .optional()
+  .transform((url) => (url && DEAD_MEDIA_HOSTS.some((host) => new URL(url).hostname === host) ? undefined : url));
+
 export const facetsSchema = z
   .object({
     industry: z.array(z.string()).default([]),
@@ -26,7 +39,7 @@ export const resourceRef = z
   .object({
     title: z.string().optional(),
     fileMediaId: z.string().optional(),
-    fileUrl: z.string().url().optional(),
+    fileUrl: mediaUrl,
   })
   .passthrough();
 
@@ -80,7 +93,7 @@ export const caseListItem = z
     ...listItemBase,
     summary: z.string().optional(),
     coverMediaId: z.string().optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
     facets: facetsSchema.optional(),
   })
   .passthrough();
@@ -155,7 +168,7 @@ export const caseData = z
     clientQuote: z.string().optional(),
     facets: facetsSchema.optional(),
     coverMediaId: z.string().optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
     videoUrl: z.string().url().optional(),
     resources: z.array(resourceRef).optional(),
   })
@@ -201,9 +214,9 @@ export const solutionData = z
     ctaLabel: z.string().optional(),
     proofRefs: z.array(proofRef).optional(),
     resources: z.array(resourceRef).optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
     // Optional hero background, resolved by the CMS read API from `bannerMediaId`.
-    bannerUrl: z.string().url().optional(),
+    bannerUrl: mediaUrl,
   })
   .passthrough();
 
@@ -219,7 +232,7 @@ export const insightData = z
     title: z.string(),
     excerpt: z.string().optional(),
     body: z.string().optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
     resources: z.array(resourceRef).optional(),
     // Optional external-attribution fields (status review §10), resolved server-side.
     author: z.string().optional(),
@@ -245,7 +258,7 @@ export const personListItem = z
   .object({
     ...listItemBase,
     summary: z.string().optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
   })
   .passthrough();
 
@@ -254,8 +267,8 @@ export const personData = z
     name: z.string(),
     role: z.string().optional(),
     bio: z.array(z.string()).or(z.string()).optional(),
-    photoUrl: z.string().url().optional(),
-    coverUrl: z.string().url().optional(),
+    photoUrl: mediaUrl,
+    coverUrl: mediaUrl,
     socials: z.array(socialSchema).optional(),
     // Flat social fields as authored in the CMS (each an optional URL/handle).
     linkedin: z.string().optional(),
@@ -286,7 +299,7 @@ export const regionData = z
     summary: z.string().optional(),
     addressLines: z.array(z.string()).optional(),
     body: z.string().optional(),
-    coverUrl: z.string().url().optional(),
+    coverUrl: mediaUrl,
   })
   .passthrough();
 
@@ -308,7 +321,7 @@ export const pageEntry = z
 // projection, which is why category/date/linkUrl travel on the list item.
 
 export const partnershipListItem = z
-  .object({ ...listItemBase, coverUrl: z.string().url().optional() })
+  .object({ ...listItemBase, coverUrl: mediaUrl })
   .passthrough();
 
 export const partnershipData = z
@@ -333,7 +346,7 @@ export const tickerListItem = z
   .passthrough();
 
 export const testimonialVideoListItem = z
-  .object({ ...listItemBase, summary: z.string().optional(), coverUrl: z.string().url().optional() })
+  .object({ ...listItemBase, summary: z.string().optional(), coverUrl: mediaUrl })
   .passthrough();
 
 export const testimonialVideoData = z
@@ -343,7 +356,7 @@ export const testimonialVideoData = z
     role: z.string().optional(),
     videoUrl: z.string().url().optional(),
     youtubeUrl: z.string().url().optional(),
-    posterUrl: z.string().url().optional(),
+    posterUrl: mediaUrl,
     caseSlug: z.string().optional(),
   })
   .passthrough();
