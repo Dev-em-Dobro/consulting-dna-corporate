@@ -35,6 +35,7 @@
 
 export type Leader = {
   name: string;
+  linkedin: string;
   /** Cargo como o documento escreve, sem a região. */
   role: string;
   region: string;
@@ -125,8 +126,9 @@ export const leaders: Leader[] = [
   {
     name: "Rhea Leckie",
     cmsSlug: "rhea-leckie",
+    linkedin: "https://www.linkedin.com/in/rhea-leckie-6287314/",
     role: "CEO, Founder, Author, Head of MENA",
-    region: "UAE",
+    region: "Middle East & North Africa",
     quote:
       "With executive teams and top 100 leaders, there’s a certain science to creating magic in the room. It’s finding the optimal blend of ‘care and dare’, then bringing judgement, curiosity, maturity and trust together so people can go further than they thought they would.",
     /* ⚠️ VERSÃO GERADA, não é o arquivo da Maliha. O original
@@ -158,6 +160,7 @@ export const leaders: Leader[] = [
   {
     name: "Guilherme Mendes",
     cmsSlug: "guilherme-mendes",
+    linkedin: "https://www.linkedin.com/in/mendesguilherme",
     role: "CEO Americas",
     // O documento escreve "America"; a região é "Americas" no resto do site
     // (a faixa de regiões da About, o bloco 5 aqui embaixo) e no próprio cargo.
@@ -173,8 +176,9 @@ export const leaders: Leader[] = [
   {
     name: "Mike Jackson",
     cmsSlug: "mike-jackson",
+    linkedin: "https://www.linkedin.com/in/mike-jackson-866b037",
     role: "Head of UKEE",
-    region: "UK",
+    region: "UK & Europe",
     quote:
       "After years in senior rooms, I’ve learned to listen as closely to what isn’t being said as to what is. That’s often where the real work is.",
     /* TROCADO EM 18-09 pelo retrato novo da cliente  -  ver a caixa da `leaders`.
@@ -188,9 +192,10 @@ export const leaders: Leader[] = [
   {
     name: "Genevieve James",
     cmsSlug: "genevieve-james",
+    linkedin: "https://www.linkedin.com/in/genevieve-james-840818",
     role: "Head of Asia",
     // "Austrailia" no documento  -  erro de digitação, corrigido.
-    region: "Australia",
+    region: "Asia Pacific",
     quote:
       "Some of the most important moments in my work have started with a room going quiet and tension rising. If you can hold that moment and give it language, rather than rescue it, something more honest usually emerges.",
     /* TROCADO EM 18-09 pelo retrato novo da cliente  -  ver a caixa da `leaders`.
@@ -220,8 +225,9 @@ export const leaders: Leader[] = [
   {
     name: "Jon Paul Pritchard",
     cmsSlug: "jon-paul-pritchard",
+    linkedin: "https://www.linkedin.com/in/jonpaulpritchard",
     role: "Head of Thought Leadership & Innovation",
-    region: "Asia",
+    region: "Asia Pacific",
     quote:
       "When smart people keep repeating a pattern they say they want to change, I look for the commitment underneath it. Surface that, and resistance starts to make sense.",
     /* 23-09, vídeo da Rhea: o rosto estava pequeno e o corpo grande, ao
@@ -232,8 +238,9 @@ export const leaders: Leader[] = [
   {
     name: "Nitin Goil",
     cmsSlug: "nitin-goil",
+    linkedin: "https://www.linkedin.com/in/nitingoil",
     role: "Senior Principal",
-    region: "Asia",
+    region: "Asia Pacific",
     quote:
       "I’ve seen brilliant strategies die in flat rooms. Part of the craft is knowing when to challenge, when to change the energy, and when to get out of the way.",
     /* CHEGOU EM 15-09, no pacote do Drive (`2. Team/Nitin Goil.png`), e fecha o
@@ -436,7 +443,7 @@ export const dnaStrands = [
   },
   {
     title: "The DNA Experience",
-    body: "We blend our individual talents with the collective expertise of our global pool of 75 members across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time.",
+    body: "We blend our individual talents with the collective expertise of our global faculty across 36 countries, and deliver the power of the “DNA experience” to every client. Each time, every time.",
   },
   {
     title: "Trusted Relationships",
@@ -494,6 +501,7 @@ export const dnaStrands = [
 
 export type RosterPerson = {
   name: string;
+  givenName?: string;
   /** A linha de baixo: cargo nos programme managers, região na faculty. */
   meta?: string;
   portrait?: string;
@@ -556,6 +564,7 @@ export type RosterPerson = {
 export const programmeManagers: RosterPerson[] = [
   {
     name: "Maliha Bathool",
+    title: "Programme Manager",
     meta: "MENA",
     focus: "Planning, roadmaps & tracking",
     quote: "A strong roadmap makes the promise real. We plan backwards from the outcome, track the detail and keep every moving part connected, so everyone knows where we are, what comes next and what needs attention.",
@@ -563,6 +572,7 @@ export const programmeManagers: RosterPerson[] = [
   },
   {
     name: "Carol Medcalf",
+    title: "Programme Manager",
     meta: "UKEE",
     focus: "Proactive client communication & risk",
     quote: "Great client communication is proactive. We don't wait for a problem to become a problem. We stay close, anticipate what's coming, flag risks early and have the conversations that keep delivery moving.",
@@ -570,6 +580,7 @@ export const programmeManagers: RosterPerson[] = [
   },
   {
     name: "Nicole Phoon",
+    title: "Programme Manager",
     meta: "Asia",
     focus: "Shared success & partnership",
     quote: "The best programmes feel like one team, not client and consultant. Shared success means staying connected to the client, faculty and outcomes throughout, adapting as we learn and taking ownership together for what lands.",
@@ -613,44 +624,44 @@ export const programmeManagers: RosterPerson[] = [
    rosto; Justin e Tony recentralizados a partir do original do .docx; Wendy e
    Catherine com as fotos novas. Os arquivos anteriores ficam no lugar. */
 export const facultyMembers: RosterPerson[] = [
-  { name: "Rachel Monteverdi", meta: "Americas", portrait: "/team/faculty/rachel-monteverdi.jpg" },
-  { name: "Michele Perry", meta: "Americas", portrait: "/team/faculty/michele-perry.jpg" },
-  { name: "Manuela Damant", meta: "Europe", portrait: "/team/faculty/manuela-damant.jpg" },
-  { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty/nicola-shearer.jpg" },
-  { name: "Daniela Rusu", meta: "Europe", portrait: "/team/faculty/daniela-rusu.jpg" },
-  { name: "Wouter van den Berg", meta: "Europe", portrait: "/team/faculty/wouter-van-den-berg-01-10.jpg" },
-  { name: "Sandro da Silva", meta: "Europe", portrait: "/team/faculty/sandro-da-silva-01-10.jpg" },
-  { name: "Tom Cross", meta: "UK & Europe", portrait: "/team/faculty/tom-cross.jpg" },
-  { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty/justin-bridge-01-10.jpg" },
-  { name: "Jojo O’Driscoll-Kearney", meta: "Middle East", portrait: "/team/faculty/jojo-odriscoll-kearney.jpg" },
-  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty/bianca-soldatelli-22-10.jpg" },
-  { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/nitin-goil.jpg" },
-  { name: "Marisa Chuawiwat", meta: "Asia Pacific", portrait: "/team/faculty/marisa-chuawiwat.jpg" },
-  { name: "Akua Nyame-Mensah", meta: "Africa", portrait: "/team/faculty/akua-nyame-mensah.jpg" },
-  { name: "Angela Gachui", meta: "Africa", portrait: "/team/faculty/angela-gachui.jpg" },
-  { name: "Seow Swang Chua", meta: "Asia Pacific", portrait: "/team/faculty/seow-swang-chua.jpg" },
-  { name: "Sunanda Banerjee", meta: "Asia Pacific", portrait: "/team/faculty/sunanda-banerjee-29-09.png" },
-  { name: "Tony", meta: "Australia", portrait: "/team/faculty/tony-01-10.jpg" },
-  { name: "Rob Grundel", meta: "Australia", portrait: "/team/faculty/rob-grundel.jpg" },
-  { name: "Amy Scialdone", meta: "Americas", portrait: "/team/faculty/amy-scialdone.jpg" },
-  { name: "Lisa Kaplin", meta: "Americas", portrait: "/team/faculty/lisa-kaplin-29-09.png" },
-  { name: "Gemma McFall", meta: "Middle East", portrait: "/team/faculty/gemma-mcfall.jpg" },
-  { name: "Bret Freeman", meta: "Middle East", portrait: "/team/faculty/bret-freeman.jpg" },
-  { name: "Mauricio Tasca", meta: "Americas", portrait: "/team/faculty/mauricio-tasca.png" },
-  { name: "Aroldo Couto", meta: "Americas", portrait: "/team/faculty/aroldo-couto-29-09.png" },
-  { name: "Susana Azevedo", meta: "Americas", portrait: "/team/faculty/susana-azevedo-01-10.jpg" },
-  { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty/jan-peters.jpg" },
-  { name: "Aman Almahid", meta: "Middle East", portrait: "/team/faculty/aman-almahid.png" },
-  { name: "Nana Lawson", meta: "UK & Europe", portrait: "/team/faculty/nana-lawson-30-09.jpeg" },
-  { name: "Sharon Lim", meta: "Asia Pacific", portrait: "/team/faculty/sharon-lim.jpg" },
-  { name: "Wendy", meta: "Asia Pacific", portrait: "/team/faculty/wendy-01-10.jpg" },
-  { name: "Sarah", meta: "Asia Pacific", portrait: "/team/faculty/sarah-30-09.png" },
-  { name: "Ina", meta: "Asia Pacific", portrait: "/team/faculty/ina-30-09.png" },
-  { name: "Catherine", meta: "Australia", portrait: "/team/faculty/catherine-01-10b.jpg" },
-  { name: "Peter", meta: "Australia", portrait: "/team/faculty/peter-30-09.png" },
-  { name: "Sahib", meta: "Americas", portrait: "/team/faculty/sahib-30-09.png" },
-  { name: "Hiroko", meta: "Asia Pacific", portrait: "/team/faculty/hiroko-30-09.png" },
-  { name: "Marcelo", meta: "Europe", portrait: "/team/faculty/marcelo-30-09.jpg" },
+  { name: "Rachel Monteverdi", meta: "Americas", portrait: "/team/faculty-square/rachel-monteverdi.webp" },
+  { name: "Michele Perry", meta: "Americas", portrait: "/team/faculty-square/michele-perry.webp" },
+  { name: "Manuela Damant", meta: "Europe", portrait: "/team/faculty-square/manuela-damant.webp" },
+  { name: "Nicola Shearer", meta: "Europe", portrait: "/team/faculty-square/nicola-shearer.webp" },
+  { name: "Daniela Rusu", meta: "Europe", portrait: "/team/faculty-square/daniela-rusu.webp" },
+  { name: "Wouter van den Berg", meta: "Europe", portrait: "/team/faculty-square/wouter-van-den-berg.webp" },
+  { name: "Sandro da Silva", meta: "Europe", portrait: "/team/faculty-square/sandro-da-silva.webp" },
+  { name: "Tom Cross", meta: "UK & Europe", portrait: "/team/faculty-square/tom-cross.webp" },
+  { name: "Justin Bridge", meta: "Europe", portrait: "/team/faculty-square/justin-bridge.webp" },
+  { name: "Jojo O’Driscoll-Kearney", meta: "Middle East", portrait: "/team/faculty-square/jojo-odriscoll-kearney.webp" },
+  { name: "Bianca Soldatelli", meta: "Americas", portrait: "/team/faculty-square/bianca-soldatelli.webp" },
+  { name: "Nitin Goil", meta: "Asia Pacific", portrait: "/team/faculty-square/nitin-goil.webp" },
+  { name: "Marisa Chuawiwat", meta: "Asia Pacific", portrait: "/team/faculty-square/marisa-chuawiwat.webp" },
+  { name: "Akua Nyame-Mensah", meta: "Africa", portrait: "/team/faculty-square/akua-nyame-mensah.webp" },
+  { name: "Angela Gachui", meta: "Africa", portrait: "/team/faculty-square/angela-gachui.webp" },
+  { name: "Seow Swang Chua", givenName: "Seow Swang", meta: "Asia Pacific", portrait: "/team/faculty-square/seow-swang-chua.webp" },
+  { name: "Sunanda Banerjee", meta: "Asia Pacific", portrait: "/team/faculty-square/sunanda-banerjee.webp" },
+  { name: "Tony", meta: "Australia", portrait: "/team/faculty-square/tony.webp" },
+  { name: "Rob Grundel", meta: "Australia", portrait: "/team/faculty-square/rob-grundel.webp" },
+  { name: "Amy Scialdone", meta: "Americas", portrait: "/team/faculty-square/amy-scialdone.webp" },
+  { name: "Lisa Kaplin", meta: "Americas", portrait: "/team/faculty-square/lisa-kaplin.webp" },
+  { name: "Gemma McFall", meta: "Middle East", portrait: "/team/faculty-square/gemma-mcfall.webp" },
+  { name: "Bret Freeman", meta: "Middle East", portrait: "/team/faculty-square/bret-freeman.webp" },
+  { name: "Mauricio Tasca", meta: "Americas", portrait: "/team/faculty-square/mauricio-tasca.webp" },
+  { name: "Aroldo Couto", meta: "Americas", portrait: "/team/faculty-square/aroldo-couto.webp" },
+  { name: "Susana Azevedo", meta: "Americas", portrait: "/team/faculty-square/susana-azevedo.webp" },
+  { name: "Jan Peters", meta: "Europe", portrait: "/team/faculty-square/jan-peters.webp" },
+  { name: "Aman Almahid", meta: "Middle East", portrait: "/team/faculty-square/aman-almahid.webp" },
+  { name: "Nana Lawson", meta: "UK & Europe", portrait: "/team/faculty-square/nana-lawson.webp" },
+  { name: "Sharon Lim", meta: "Asia Pacific", portrait: "/team/faculty-square/sharon-lim.webp" },
+  { name: "Wendy", meta: "Asia Pacific", portrait: "/team/faculty-square/wendy.webp" },
+  { name: "Sarah", meta: "Asia Pacific", portrait: "/team/faculty-square/sarah.webp" },
+  { name: "Ina", meta: "Asia Pacific", portrait: "/team/faculty-square/ina.webp" },
+  { name: "Catherine", meta: "Australia", portrait: "/team/faculty-square/catherine.webp" },
+  { name: "Peter", meta: "Australia", portrait: "/team/faculty-square/peter.webp" },
+  { name: "Sahib", meta: "Americas", portrait: "/team/faculty-square/sahib.webp" },
+  { name: "Hiroko", meta: "Asia Pacific", portrait: "/team/faculty-square/hiroko.webp" },
+  { name: "Marcelo", meta: "Europe", portrait: "/team/faculty-square/marcelo.webp" },
   { name: "Michela", meta: "Europe" },
 ];
 
@@ -708,17 +719,18 @@ export const facultyByRegion: FacultyRegionGroup[] = (() => {
       : unlabeled;
     group?.people.push({
       name: person.name,
+      givenName: person.givenName,
       portrait: person.portrait,
       meta: person.title ?? "Senior Faculty - Executive Coach",
     });
   }
 
   const deliveryLeaders: { region: string; person: RosterPerson }[] = [
-    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/guilherme-mendes-24-09.jpg", meta: "CEO Americas", color: true } },
-    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/mike-jackson-face.jpg", meta: "Head of UKEE", color: true } },
-    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/rhea-leckie-face.jpg", meta: "CEO, Founder, Author, Head of MENA", color: true } },
-    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", portrait: "/team/jon-paul-pritchard-face.jpg", meta: "Head of Thought Leadership & Innovation", color: true } },
-    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/genevieve-james.png", meta: "Head of Asia", color: true } },
+    { region: "Americas", person: { name: "Guilherme Mendes", portrait: "/team/faculty-square/guilherme-mendes.webp", meta: "CEO Americas", color: true } },
+    { region: "UK & Europe", person: { name: "Mike Jackson", portrait: "/team/faculty-square/mike-jackson.webp", meta: "Head of UKEE", color: true } },
+    { region: "Middle East & North Africa", person: { name: "Rhea Leckie", portrait: "/team/faculty-square/rhea-leckie.webp", meta: "CEO, Founder, Author, Head of MENA", color: true } },
+    { region: "Asia Pacific", person: { name: "Jon Paul Pritchard", givenName: "Jon Paul", portrait: "/team/faculty-square/jon-paul-pritchard.webp", meta: "Head of Thought Leadership & Innovation", color: true } },
+    { region: "Asia Pacific", person: { name: "Genevieve James", portrait: "/team/faculty-square/genevieve-james.webp", meta: "Head of Asia", color: true } },
   ];
   for (const entry of deliveryLeaders) {
     groups.find((g) => g.region === entry.region)?.people.unshift(entry.person);

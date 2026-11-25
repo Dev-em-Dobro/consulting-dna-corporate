@@ -127,6 +127,7 @@ export default function SolutionView({
   return (
     <>
       <SolutionHero
+        contactLink
         /* "Our Services", e não "Our Solutions": o menu acertado com o cliente
            em 08-09 chama a área de Services, e o índice abre com o mesmo rótulo.
            A rota segue `/solutions` de propósito  -  ver a caixa em `lib/nav.ts`
@@ -197,6 +198,7 @@ export default function SolutionView({
            Teams. Hoje são QUATRO com foto própria e seis sem  -  não vale contar
            por esta caixa, vale contar por `grep heroImage lib/services.ts`. */
         imageUrl={service.heroImage ?? service.cardImage}
+        wideImageUrl={service.wideHeroImage}
         imagePosition={service.heroImagePosition}
         /* ⬅ OS PARÁGRAFOS DENTRO DA DOBRA  -  24-09, com o Talent Development.
            Ausente nos outros nove, e lá o herói termina na frase de apoio como
@@ -633,7 +635,7 @@ export default function SolutionView({
           label={service.evidenceSummary.label}
           headline={service.evidenceSummary.headline}
           lead={service.evidenceSummary.lead}
-          logos={service.evidenceSummary.logos}
+          logos={service.slug === "senior-leadership-development" ? [] : service.evidenceSummary.logos}
           logoSize={service.evidenceSummary.logoSize}
           facts={service.evidenceSummary.facts}
           outcomes={service.evidenceSummary.outcomes}
@@ -654,6 +656,9 @@ export default function SolutionView({
           ⚠️ O DIVISOR "FEATURED CASE STUDY" NÃO ANUNCIA ESTA FAIXA, pela mesma
           conta da faixa acima: ele segue condicionado a `service.evidence` e
           nomeia o bloco de caso, que isto não é. */}
+      {service.slug === "senior-leadership-development" && <div className="mx-auto max-w-[1440px] px-6 py-5 md:px-10">
+        <a className="font-semibold text-brand-dark underline" href="/cases/frasers-property-leadership">Read the Frasers Property leadership case</a>
+      </div>}
       <SolutionEvidenceCases item={service.evidenceCases} />
 
       {service.evidence && (
@@ -736,9 +741,8 @@ export default function SolutionView({
           âncora, a captura acontece numa janela de tamanho real. */}
       <section id="related-services" className="bg-white">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-          <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">
-            Related services
-          </p>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-brand-dark">Our services</p>
+          <h2 className="font-serif text-3xl font-semibold text-ink">Related services</h2>
           <Reveal className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {all
               .filter((s) => s.slug !== service.slug)

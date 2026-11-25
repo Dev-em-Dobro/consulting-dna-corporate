@@ -21,6 +21,8 @@ export type LeadershipEvent = {
   category: string;
   kind: string;
   dateLabel: string;
+  startDate?: string;
+  endDate?: string;
   location?: string;
   summary: string;
   overview: string[];
@@ -35,6 +37,12 @@ export type LeadershipEvent = {
   status: "past" | "upcoming";
 };
 
+export function eventContext(event: LeadershipEvent, locale: string) {
+  const month = event.startDate && new Intl.DateTimeFormat(locale, { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(event.startDate));
+  const city = event.location && !event.title.toLowerCase().includes(event.location.toLowerCase()) ? event.location : undefined;
+  return [city === "Live virtual" && locale === "pt-BR" ? "Online" : city, month].filter(Boolean).join(" · ");
+}
+
 export const events: LeadershipEvent[] = [
   {
     slug: "her-leadership-dna-2027",
@@ -45,6 +53,8 @@ export const events: LeadershipEvent[] = [
     category: "cDNA",
     kind: "Open-enrolment programme",
     dateLabel: "14 January to 13 May 2027",
+    startDate: "2027-01-14",
+    endDate: "2027-05-13",
     location: "Live virtual",
     summary: "Make your influence count. A five-month virtual leadership experience for senior women leaders, with a small cohort of 10–24 participants. Explore your strengths, build strategic influence and work on real leadership challenges with experienced facilitators and peers.\n\nEarly bird: US$3,800 per participant through 1 December 2026. Standard fee: US$4,500 from 2 December 2026.",
     overview: [],
@@ -62,6 +72,8 @@ export const events: LeadershipEvent[] = [
     category: "cDNA",
     kind: "Speaker event",
     dateLabel: "18 September 2026",
+    startDate: "2026-09-18",
+    location: "Singapore",
     summary:
       "Our focus was collective judgement in the AI era: what happens to executive judgement when AI becomes another voice in the room.",
     overview: [
@@ -85,6 +97,8 @@ export const events: LeadershipEvent[] = [
     category: "Nitin",
     kind: "Speaker event",
     dateLabel: "7 September 2026",
+    startDate: "2026-09-07",
+    location: "Kuala Lumpur",
     summary:
       "Nitin joined the 3rd edition of the CHRO Nexus Forum in Kuala Lumpur, organised by UOA Academy.",
     overview: [
@@ -102,6 +116,9 @@ export const events: LeadershipEvent[] = [
     category: "Nitin",
     kind: "Speaker event",
     dateLabel: "4-5 August 2026",
+    startDate: "2026-08-04",
+    endDate: "2026-08-05",
+    location: "Kuala Lumpur",
     summary:
       "Opening keynote in Kuala Lumpur on hybrid leadership with AI.",
     overview: [
@@ -119,6 +136,7 @@ export const events: LeadershipEvent[] = [
     category: "Nitin",
     kind: "Speaker event",
     dateLabel: "24 July 2026",
+    startDate: "2026-07-24",
     location: "Singapore",
     summary: "Masterclass: The Chief Human-AI Officer: Redefining the CHRO Role.",
     overview: [
@@ -136,7 +154,8 @@ export const events: LeadershipEvent[] = [
     category: "Nitin",
     kind: "Speaker event",
     dateLabel: "5 June 2026",
-    location: "Philippines",
+    startDate: "2026-06-05",
+    location: "Manila",
     summary: "Masterclass on the rise of the Chief Human-AI Officer.",
     overview: [
       "The session explored how HR has transitioned from efficiency with systems, to efficiency with people, and efficiency with meaning.",
@@ -158,6 +177,7 @@ export const events: LeadershipEvent[] = [
     category: "Nitin",
     kind: "Speaker event",
     dateLabel: "6 May 2026",
+    startDate: "2026-05-06",
     location: "Singapore",
     summary: "Keynote: Chief Courage Officer: Why HR must lead with courage in a human centred organisation.",
     overview: [
@@ -176,10 +196,12 @@ export const events: LeadershipEvent[] = [
   },
   {
     slug: "speaker-event-2026-09-23",
-    title: "Speaker event",
+    title: "CLO100 Impact Residency",
+    location: "Gerrards Cross",
     category: "Mike",
     kind: "Speaker event",
     dateLabel: "23 September 2026",
+    startDate: "2026-09-23",
     summary: "",
     overview: [],
     topics: [],
@@ -197,6 +219,7 @@ export const events: LeadershipEvent[] = [
     category: "cDNA",
     kind: "Speaker event",
     dateLabel: "11 June 2026",
+    startDate: "2026-06-11",
     location: "Singapore",
     summary: "A privilege to host the first CDNA Executive Series, with Frasers.",
     overview: [],
@@ -212,7 +235,9 @@ export const events: LeadershipEvent[] = [
     category: "cDNA",
     kind: "Upcoming event",
     dateLabel: "11 December 2026",
+    startDate: "2026-12-11",
     location: "Singapore",
+    links: [{ label: "Request an invitation", href: "/contact" }],
     summary: [
       "Our Executive Series are an intimate, off-the record conversations with senior business leaders, heads of HR, Talent and learning, to explore the leadership, culture and technological shifts facing organizations today.",
       "After two successful events this year, we will be ending the year with our final one on December 11. If you’re a CHRO and not part of our community, please drop us a note and will make sure to include you in the invite.",

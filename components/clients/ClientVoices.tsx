@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Image from "next/image";
 import SectionHead from "@/components/clients/SectionHead";
 import { LOGO_RATIO, fitLogo, logoSrc, type LogoKey } from "@/components/clients/logo-fit";
@@ -172,9 +173,9 @@ export default function ClientVoices() {
       <style>{css}</style>
       <div className="mx-auto max-w-[1440px] px-6 pt-16 md:px-10 md:pt-20">
         <SectionHead label="What our clients say" />
-        <h2 className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
-          Stronger leaders. Brighter futures.
-        </h2>
+        <SectionHeading className="font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.5px] text-ink sm:text-[38px]">
+          Stronger leaders. Brighter futures
+        </SectionHeading>
       </div>
       {/* Largura total da janela, fora do contêiner de 1440px: a esteira entra e
           sai pelas bordas da tela em vez de ser cortada a 40px delas. */}

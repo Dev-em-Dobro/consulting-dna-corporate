@@ -1,6 +1,7 @@
 "use client";
 
 import { DEFAULT_APPROACH_COPY, type ApproachCopy } from "@/lib/approach-copy";
+
 import LocalizedImage from "@/components/LocalizedImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
@@ -31,6 +32,7 @@ export default function FiveHShowcase({
 }: { heading?: string; faculties?: ApproachCopy["fiveH"]["faculties"] }) {
   const FACULTIES = faculties.map((faculty, index) => ({ ...faculty, color: FACULTY_COLORS[index] }));
   const [active, setActive] = useState(0);
+  const [announcement, setAnnouncement] = useState("");
   const rootRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -56,13 +58,14 @@ export default function FiveHShowcase({
     return () => timelineRef.current?.kill();
   }, { scope: rootRef });
 
-  const selectCard = contextSafe((index: number) => {
+  const selectCard = contextSafe((index: number, manual = true) => {
     const direction = slotFor(index, activeRef.current);
     if (Math.abs(direction) !== 1) return;
 
     activeRef.current = index;
     wheelStepsRef.current += direction;
     setActive(index);
+    setAnnouncement(manual ? FACULTIES[index].name + " selected" : "");
 
     timelineRef.current?.kill();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -88,7 +91,7 @@ export default function FiveHShowcase({
   useEffect(() => {
     const timer = window.setInterval(() => {
       if (document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      selectCard((activeRef.current + 1) % FACULTY_COLORS.length);
+      selectCard((activeRef.current + 1) % FACULTY_COLORS.length, false);
     }, 5000);
     return () => window.clearInterval(timer);
   }, [selectCard]);
@@ -199,7 +202,7 @@ export default function FiveHShowcase({
           >
             <ChevronRight aria-hidden="true" className="size-5" />
           </button>
-          <span className="sr-only" aria-live="polite">{FACULTIES[active].name} selected</span>
+          <span className="sr-only" aria-live="polite">{announcement}</span>
         </div>
       </div>
     </section>

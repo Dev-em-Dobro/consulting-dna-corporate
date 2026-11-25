@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
@@ -7,6 +8,7 @@ import TypeLabel from "@/components/TypeLabel";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { getInsightListEntries } from "@/lib/cms/map";
+import { paperReadingMinutes } from "@/lib/insights-copy";
 import { INSIGHTS_RESOURCE_FILES } from "@/lib/insights-copy";
 import { getInsightsCopy } from "@/lib/insights-copy-server";
 import { getHomeCopy } from "@/lib/home-copy-server";
@@ -33,7 +35,18 @@ export default async function InsightsPage() {
     getInsightsCopy(),
     getHomeCopy(),
   ]);
-  const rheaBook = { ...books[0], ...homeCopy.book, cover: "/book-cover-home-transparent.png" };
+  const rheaBook = { ...books[0], ...homeCopy.book, headline: books[0].name, kicker: "Rhea Leckie · Bloomsbury, 2012", cover: "/book-cover-home-transparent.png" };
+  const restoredBook = {
+    "name": "The Restored Organization: Six Ways to Humanize Workplace Culture and Transform Results",
+    "headline": "The Restored Organization: Six Ways to Humanize Workplace Culture and Transform Results",
+    "cover": "/nitin-restored-organization.png",
+    "kicker": "Nitin Goil and Sebastian Anthony · Notion Press, 2025",
+    "body": [
+        "The Restored Organization offers a refreshing approach and a powerful guide for leaders, HR professionals, and change-makers, ready to address dysfunctional cultures and create workplaces where both people and performance can thrive. Drawing on research, neuroscience, and over 100 interviews with global organizations, the book introduces the FLOWER Framework™ that describes six ways (petals) to humanize workplace cultures and transform results.",
+        "Whether your organization is facing talent issues, disengagement, or lack of productivity, this book offers real stories, actionable strategies and examples of companies from 14 different countries and 16 diverse industries. The Restored Organization is more than a leadership book. It’s a call to action for those who believe people and performance can grow together."
+    ],
+    "buyUrl": "https://www.amazon.com/dp/B0F9PY7YQ1?lv=shuf&channelId=510&plpRedirect=mhFallback"
+};
   const articleSlug = "why-leadership-development-must-now-teach-systems-awareness-and-systems-navigati";
   const featuredArticle = insights.find((entry) => entry.slug === articleSlug);
   const libraryArticles = insights.filter((entry) => entry.slug !== articleSlug);
@@ -59,6 +72,7 @@ export default async function InsightsPage() {
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title.replace(/\.$/, "")}
           imageUrl="/insights/insights-hero-bookshelf.jpg"
+          imageAlt="Leadership books on a shelf"
           imagePosition="object-left md:object-[72%_25%]"
           imageFilter="brightness-[.9]"
           mobileVisual={
@@ -114,9 +128,9 @@ export default async function InsightsPage() {
         <section id="thought-leadership" className="bg-paper">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
             <TypeLabel>{copy.thoughtLeadership.label}</TypeLabel>
-            <h2 className="font-serif mt-5 max-w-[720px] text-[34px] font-semibold leading-[1.04] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
-              {copy.thoughtLeadership.heading}
-            </h2>
+            <SectionHeading className="font-serif mt-5 max-w-[720px] text-[34px] font-semibold leading-[1.04] tracking-[-0.8px] text-ink sm:text-[42px] md:text-[52px]">
+              {copy.thoughtLeadership.heading.toLowerCase().replace(/[^a-z0-9]/g, "") === copy.hero.title.toLowerCase().replace(/[^a-z0-9]/g, "") ? copy.thoughtLeadership.label : copy.thoughtLeadership.heading}
+            </SectionHeading>
 
             <div className="mt-10 grid gap-px bg-line md:grid-cols-2">
               {copy.thoughtLeadership.resources.map((resource, index) => (
@@ -127,16 +141,22 @@ export default async function InsightsPage() {
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
-                        PDF · {resource.pagesLabel}
+                        PDF · <time dateTime="2026">2026</time> · {resource.pagesLabel} · <span>{`${paperReadingMinutes[INSIGHTS_RESOURCE_FILES[index]]} min read`}</span>
                       </span>
                     </div>
 
-                    <h3 className="font-serif mt-16 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">
-                      {resource.title}
-                    </h3>
-                    <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">
-                      {resource.description}
-                    </p>
+                    {/* Text on the left, the PDF's first page on the right. */}
+                    <div className="mt-8 grid grid-cols-[minmax(0,1fr)_96px] items-start gap-6 sm:grid-cols-[minmax(0,1fr)_132px] md:gap-8">
+                      <div>
+                        <h3 className="font-serif text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">
+                          {resource.title}
+                        </h3>
+                        <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">
+                          {resource.description}
+                        </p>
+                      </div>
+                      <Image src={INSIGHTS_RESOURCE_FILES[index].replace(/\.pdf$/, ".webp")} alt={`Cover of ${resource.title}`} width={264} height={374} sizes="132px" className="aspect-[1632/2309] w-full border border-line bg-white object-cover object-top shadow-sm" />
+                    </div>
 
                     <div className="mt-auto pt-10">
                       <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">
@@ -158,10 +178,15 @@ export default async function InsightsPage() {
                 <article className="group flex h-full min-h-[420px] flex-col border-t-4 border-brand bg-white p-7 transition-colors duration-300 hover:bg-ink md:p-9">
                   <div className="flex items-start justify-between gap-6">
                     <span className="text-[12px] font-semibold tracking-[1.8px] text-brand">{String(copy.thoughtLeadership.resources.length + 1).padStart(2, "0")}</span>
-                    <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-brand transition-colors group-hover:text-brand-light">Article · 14.10.2026</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[1.4px] text-brand transition-colors group-hover:text-brand-light">Article · <time dateTime={featuredArticle.publishedAt}>{new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(featuredArticle.publishedAt))}</time> · {featuredArticle.readingMinutes} min read</span>
                   </div>
-                  <h3 className="font-serif mt-16 text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">{featuredArticle.title}</h3>
-                  <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">Why developing individual leaders is not enough when organisational systems prevent change.</p>
+                  <div className="mt-8 grid grid-cols-[minmax(0,1fr)_96px] items-start gap-6 sm:grid-cols-[minmax(0,1fr)_132px] md:gap-8">
+                    <div>
+                      <h3 className="font-serif text-[27px] font-semibold leading-[1.08] tracking-[-0.45px] text-ink transition-colors group-hover:text-white md:text-[30px]">{featuredArticle.title}</h3>
+                      <p className="mt-5 text-[15px] leading-[1.65] text-muted transition-colors group-hover:text-white/70">Why developing individual leaders is not enough when organisational systems prevent change.</p>
+                    </div>
+                    <Image src="/insights/systems-awareness-cover.jpg" alt="" width={264} height={374} sizes="132px" className="aspect-[1632/2309] w-full border border-line object-cover shadow-sm" />
+                  </div>
                   <div className="mt-auto pt-10">
                     <p className="mb-5 text-[11px] font-semibold uppercase tracking-[1.4px] text-muted transition-colors group-hover:text-white/55">{copy.thoughtLeadership.authorPrefix} {featuredArticle.author}</p>
                     <Link href={`/insights/${featuredArticle.slug}`} className="inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.8px] text-ink transition-colors hover:text-brand group-hover:text-white group-hover:hover:text-brand">
@@ -177,59 +202,18 @@ export default async function InsightsPage() {
         <section id="books" className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-16">
             <TypeLabel>Books</TypeLabel>
-            <div className="mt-10 grid gap-8">
+            <div className="mt-10 grid gap-8 xl:grid-cols-2 [&_figure]:float-none [&_figure]:mx-auto [&_figure]:w-full [&_figure]:max-w-[270px]">
               <BookCard
                 book={rheaBook}
                 headingLevel="h2"
                 coverShadow={false}
               >
-                <BookEndorsements />
+                <BookEndorsements limit={2} />
               </BookCard>
-              <article className="border border-line bg-ink p-8 text-white md:p-12">
-                <p className="text-[12px] font-semibold uppercase tracking-[1.6px] text-brand-light">Nitin Goil</p>
-                <h2 className="font-serif mt-4 text-[32px] font-semibold leading-[1.08] tracking-[-0.4px]">
-                  The Restored Organization: Six Ways to Humanize Workplace Culture and Transform Results
-                </h2>
-                <p className="mt-3 text-[14px] text-white/60">Notion Press, 2025</p>
-                {/* No mobile a capa vem ANTES do texto  -  mesma ordem do BookCard
-                    do primeiro livro. No desktop a capa fica à direita. */}
-                <div className="mt-7 grid gap-x-12 md:grid-cols-[minmax(0,1fr)_minmax(220px,340px)]">
-                  <figure className="relative mx-auto mb-8 aspect-[1198/1313] w-full max-w-[340px] md:order-2 md:mb-0 md:mx-0 md:justify-self-end">
-                    <Image
-                      src="/nitin-restored-organization.png"
-                      alt="Cover of The Restored Organization by Nitin Goil and Sebastian Anthony"
-                      fill
-                      sizes="(min-width: 768px) 340px, 80vw"
-                      className="object-contain object-top"
-                    />
-                  </figure>
-                  <div className="md:order-1">
-                    <div className="space-y-5 text-[15px] leading-[1.7] text-white/80">
-                      <p>The Restored Organization offers a refreshing approach and a powerful guide for leaders, HR professionals, and change-makers, ready to address dysfunctional cultures and create workplaces where both people and performance can thrive. Drawing on research, neuroscience, and over 100 interviews with global organizations, the book introduces the FLOWER Framework™ that describes six ways (petals) to humanize workplace cultures and transform results.</p>
-                      <p>Whether your organization is facing talent issues, disengagement, or lack of productivity, this book offers real stories, actionable strategies and examples of companies from 14 different countries and 16 diverse industries. The Restored Organization is more than a leadership book. It’s a call to action for those who believe people and performance can grow together.</p>
-                    </div>
-                    <a href="https://www.amazon.com/dp/B0F9PY7YQ1?lv=shuf&channelId=510&plpRedirect=mhFallback" target="_blank" rel="noopener noreferrer" className="mt-8 inline-block bg-brand px-7 py-3.5 text-sm font-bold uppercase tracking-[0.5px] text-white transition-colors hover:bg-brand-dark">Buy on Amazon</a>
-                  </div>
-                </div>
-                <div className="mt-12 grid gap-8 border-t border-white/20 pt-8 md:grid-cols-2">
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“The Restored Organization is all about leading with heart, and vision. It offers practical advice and real-world strategies to help you build a culture that supports well-being, encourages accountability, and fosters continuous growth. If you’re looking to create a workplace where people thrive, this book is your guide.”</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Piyush Gupta, Ex-CEO, DBS Bank, Chairman - Keppel, Mandai Wildlife Group and SMU</footer>
-                  </blockquote>
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“In a culture that often puts performance over people, The Restored Organization reminds us that genuine progress is fuelled by trust, respect, and authenticity. It’s the perfect guide for leaders who value the human side of work as much as the bottom line”.</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Dr. Anna A. Tavis, Department Chair, Human Capital Management, New York University</footer>
-                  </blockquote>
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>In today’s fragmented world, bringing culture change is the ‘hardest of tasks’ that demands the ‘softest of skills’ for leaders. At the heart of it all stands human behaviour, still being discovered in the world of AI and acting as a transformative glue. The Restored Organization is a must-read book that highlights the vital areas of restoring and reviving an organisational culture, before it is too late.</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">KV Rao, Chairman, Tata International, Singapore</footer>
-                  </blockquote>
-                  <blockquote className="border-l-2 border-brand pl-5 text-[15px] leading-[1.7] text-white/80">
-                    <p>“The Restored Organization is your ultimate guide to thriving in the digital age. It challenges you to rethink your approach and foster a culture of innovation, collaboration, and people-centricity. A must-read for visionary leaders eager to shape the future of work.”</p>
-                    <footer className="mt-3 text-[13px] font-semibold text-white">Tian Chong Ng, CEO, Singtel, Singapore</footer>
-                  </blockquote>
-                </div>
-              </article>
+              <BookCard book={restoredBook} headingLevel="h2" coverShadow={false}>
+                {/* Same endorsement format as the first book: dash, name, role on its own line. */}
+                <BookEndorsements items={[{ quote: "The Restored Organization is all about leading with heart, and vision. It offers practical advice and real-world strategies to help you build a culture that supports well-being, encourages accountability, and fosters continuous growth. If you’re looking to create a workplace where people thrive, this book is your guide.", name: "Piyush Gupta", title: "Ex-CEO, DBS Bank, Chairman - Keppel, Mandai Wildlife Group and SMU" }, { quote: "In a culture that often puts performance over people, The Restored Organization reminds us that genuine progress is fuelled by trust, respect, and authenticity. It’s the perfect guide for leaders who value the human side of work as much as the bottom line.", name: "Dr. Anna A. Tavis", title: "Department Chair, Human Capital Management, New York University" }]} />
+              </BookCard>
             </div>
           </div>
         </section>

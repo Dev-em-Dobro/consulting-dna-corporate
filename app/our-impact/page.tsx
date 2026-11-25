@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight, ChartNoAxesColumnIncreasing, Earth, Map as MapIcon, Sprout, TreeDeciduous, Users } from "lucide-react";
@@ -127,17 +128,17 @@ export default async function OurImpactPage() {
         <div className="mx-auto grid max-w-[1440px] gap-3 px-6 py-3 md:px-10 lg:grid-cols-[1fr_1.05fr_1fr]">
           <div className="flex flex-col justify-center bg-ink px-8 py-12 text-white md:px-10">
             <TypeLabel onDark>{copy.recognition.label}</TypeLabel>
-            <h2 className="font-serif text-[30px] font-semibold leading-[1.12] tracking-[-0.3px] md:text-[36px]">
+            <SectionHeading className="font-serif text-[30px] font-semibold leading-[1.12] tracking-[-0.3px] md:text-[36px]">
               {copy.recognition.heading}
-            </h2>
+            </SectionHeading>
             <p className="mt-5 text-[16px] leading-[1.7] text-white/75">{copy.recognition.body}</p>
           </div>
           <Photo n={3} className="min-h-[320px] lg:min-h-[480px]" sizes="(min-width: 1024px) 35vw, 100vw" />
           <div className="flex flex-col justify-center bg-paper px-8 py-12 md:px-10">
             <TypeLabel>{copy.partnership.label}</TypeLabel>
-            <h2 className="font-serif text-[30px] font-semibold leading-[1.12] tracking-[-0.3px] text-ink md:text-[36px]">
+            <SectionHeading className="font-serif text-[30px] font-semibold leading-[1.12] tracking-[-0.3px] text-ink md:text-[36px]">
               {copy.partnership.heading}
-            </h2>
+            </SectionHeading>
             <p className="mt-5 text-[16px] leading-[1.7] text-muted">{copy.partnership.body}</p>
           </div>
         </div>
@@ -148,7 +149,7 @@ export default async function OurImpactPage() {
         <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-12 md:px-10 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
           <div>
             <TypeLabel>{copy.agroforest.label}</TypeLabel>
-            <h2 className={`${H2} max-w-[18ch]`}>{copy.agroforest.heading}</h2>
+            <SectionHeading className={`${H2} max-w-[18ch]`}>{copy.agroforest.heading}</SectionHeading>
             <div className="mt-7 space-y-5 text-[17px] leading-[1.7] text-muted">
               {copy.agroforest.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 48)}>{paragraph}</p>
@@ -168,7 +169,7 @@ export default async function OurImpactPage() {
         <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16">
           <div>
             <TypeLabel>{copy.model.label}</TypeLabel>
-            <h2 className={`${H2} max-w-[16ch]`}>{copy.model.heading}</h2>
+            <SectionHeading className={`${H2} max-w-[16ch]`}>{copy.model.heading}</SectionHeading>
             <p className="mt-7 max-w-[60ch] text-[17px] leading-[1.7] text-muted">{copy.model.body}</p>
           </div>
           <div className="mx-auto w-full max-w-[460px]">

@@ -12,10 +12,12 @@
  */
 export default function TypeLabel({
   children,
+  as: Tag = "div",
   onDark = false,
   className = "",
 }: {
   children: React.ReactNode;
+  as?: "div" | "h2";
   /**
    * Classes de LAYOUT para a linha do rótulo  -  alinhamento e margem, nunca
    * tipografia. Existe porque a home centraliza o rótulo em duas seções
@@ -45,19 +47,19 @@ export default function TypeLabel({
      sem regra nenhuma por trás  -  falha silenciosa, que só aparece olhando a
      tela. */
   return (
-    <div className={`mb-5 flex items-center ${className}`}>
+    <Tag data-section-label className={`mb-4 flex items-center ${className}`}>
       {/* ⚠️ `text-left` EXPLÍCITO, mesmo dentro de blocos centralizados.
           Sem ele o texto herda o `text-center` do pai e se centraliza DENTRO
           DA PRÓPRIA CAIXA. Enquanto cabe numa linha ninguém nota; quando quebra
           em duas  -  "WHAT WE BELIEVE, AND HOW / WE WORK." num telefone  -  a
           primeira linha recua para o meio da caixa. */}
       <span
-        className={`text-left text-[14px] font-medium uppercase leading-none tracking-[1.3px] ${
-          onDark ? "text-brand-light" : "text-brand"
+        className={`text-left text-[14px] font-medium uppercase leading-snug tracking-[1.3px] ${
+          onDark ? "text-brand-light" : "text-brand-dark"
         }`}
       >
         {children}
       </span>
-    </div>
+    </Tag>
   );
 }

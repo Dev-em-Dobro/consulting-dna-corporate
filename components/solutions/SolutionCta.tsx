@@ -26,6 +26,7 @@
  * A ESTRUTURA JÁ ESTÁ AQUI de propósito: quando os campos existirem, é passar
  * três props e apagar os padrões. O layout não muda.
  */
+import SectionHeading from "@/components/SectionHeading";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 
@@ -74,13 +75,13 @@ export default function SolutionCta({
           <p className={`font-medium uppercase tracking-[1.3px] text-white/70 ${compact ? "text-[12px]" : "text-[14px]"}`}>
             Let’s talk
           </p>
-          <h2
+          <SectionHeading
             className={`font-serif font-semibold leading-[1.15] tracking-[-0.2px] ${
               compact ? "mt-2 text-[22px] md:text-[26px]" : "mt-5 text-[30px] md:text-[38px]"
             }`}
           >
             {strapline ?? "Ready to start the conversation?"}
-          </h2>
+          </SectionHeading>
           {line && (
             <p
               className={`max-w-[620px] font-serif leading-[1.55] text-white/85 ${
@@ -95,12 +96,12 @@ export default function SolutionCta({
               botão vazado (borda branca, fundo transparente) dá 1:1 de contraste
               de área  -  lê como desabilitado. */}
           <Link
-            href={ctaHref ?? "/#contact"}
+            href={ctaHref ?? "/contact"}
             className={`inline-block bg-white font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white ${
               compact ? "mt-5 px-6 py-3 text-xs" : "mt-10 px-7 py-3.5 text-sm"
             }`}
           >
-            {ctaLabel ?? "Start a Conversation"}
+            {(!ctaHref || ctaHref === "/contact") && (!ctaLabel || /^(get in touch|start a conversation)$/i.test(ctaLabel)) ? "Start a conversation" : (ctaLabel ?? "Start a conversation")}
           </Link>
         </Reveal>
       </div>

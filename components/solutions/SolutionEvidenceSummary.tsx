@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Link from "next/link";
 import Counter from "@/components/Counter";
 import { pillarIcon } from "@/components/solutions/SolutionPillars";
@@ -303,7 +304,7 @@ export default function SolutionEvidenceSummary({
             titulo"*. A 44px a frase de uma linha só já era o pedido da Senior
             Leadership; aqui ela divide a faixa com "Our experience" e a 44px
             come a coluna. Sem `split` o tamanho antigo permanece. */}
-        <h2
+        <SectionHeading
           className={`mt-8 font-serif font-semibold leading-[1.12] tracking-[-0.4px] text-ink ${
             split
               ? "text-[24px] md:text-[30px]"
@@ -311,7 +312,7 @@ export default function SolutionEvidenceSummary({
           }`}
         >
           {headline}
-        </h2>
+        </SectionHeading>
         {lead && (
           <p className="mt-4 max-w-[62ch] font-serif text-[18px] leading-[1.5] text-ink/70 md:text-[20px]">
             {lead}

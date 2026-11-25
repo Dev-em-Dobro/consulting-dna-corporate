@@ -7,11 +7,13 @@ import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
 import TypeLabel from "@/components/TypeLabel";
 import EventMeta from "@/components/events/EventMeta";
-import { events } from "@/lib/events";
+import { eventContext, events } from "@/lib/events";
 import EventVisual from "@/components/events/EventVisual";
 import { getEvent } from "@/lib/events-content";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
 import { localeAlternates } from "@/lib/seo/alternates";
+
+type LanguageQuery = { searchParams: Promise<{ lang?: string | string[] }> };
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -24,22 +26,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const event = await getEvent(slug);
   if (!event) notFound();
   return {
-    title: `${event.title} | Events | CorporateDNA`,
+    title: `${event.title} · ${eventContext(event, "en-GB")} | Events | CorporateDNA`,
     description: event.summary,
     alternates: localeAlternates(`/events/${event.slug}`),
     robots: { index: false, follow: true },
   };
 }
 
-export default async function EventPage({ params }: Props) {
+export default async function EventPage({ params, searchParams }: Props & LanguageQuery) {
   const { slug } = await params;
   const event = await getEvent(slug);
   if (!event) notFound();
+  const locale = (await searchParams).lang === "pt-BR" ? "pt-BR" : "en-GB";
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
-        <SolutionHero eyebrow={event.kind} title={event.title} noImage />
-        <section className="bg-white">
+        <SolutionHero eyebrow={event.kind} title={event.title} titleAccent={eventContext(event, locale)} noImage />
+        <section data-event-slug={slug} className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
             <Link href="/events" className="inline-flex min-h-11 items-center gap-3 text-[12px] font-semibold uppercase tracking-[1px] text-ink transition-colors hover:text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> All events</Link>
               <div className="relative mt-8 aspect-[4/3] overflow-hidden bg-paper md:aspect-[16/9]">
@@ -63,7 +66,7 @@ export default async function EventPage({ params }: Props) {
                 {event.links && event.links.length > 0 && (
                   <div className="mt-8 flex flex-col gap-3">
                     {event.links.map((link) => (
-                      <a key={link.href} href={link.href} className="text-[15px] font-semibold text-brand underline underline-offset-4" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+                      <a key={link.href} href={link.href} className={link.href === "/contact" ? "contact-action" : "text-[15px] font-semibold text-brand underline underline-offset-4"} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
                         {link.label}
                       </a>
                     ))}

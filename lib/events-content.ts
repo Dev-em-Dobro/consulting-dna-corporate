@@ -44,6 +44,8 @@ function mapEvent(item: CmsEvent): LeadershipEvent | null {
     category,
     kind,
     dateLabel,
+    startDate: text(item.startDate),
+    endDate: text(item.endDate),
     location: text(item.location) || undefined,
     summary: text(item.summary) ?? "",
     overview: strings(item.overview),
@@ -69,8 +71,12 @@ export async function getEvents(): Promise<LeadershipEvent[]> {
     if (!local) return event;
     return {
       ...event,
+      links: event.links?.length ? event.links : local.links,
       summary: event.summary || local.summary,
-      location: event.location || local.location,
+      title: event.slug === "speaker-event-2026-09-23" && event.title === "Speaker event" ? local.title : event.title,
+      location: event.slug === "economic-times-philippines-2026-06-05" && event.location === "Philippines" ? local.location : event.location || local.location,
+      startDate: event.startDate || (event.dateLabel === local.dateLabel ? local.startDate : undefined),
+      endDate: event.endDate || (event.dateLabel === local.dateLabel ? local.endDate : undefined),
       image: localImageEvents.has(event.slug) ? local.image : event.image || local.image,
       imageAlt: event.imageAlt || local.imageAlt,
       imageContain: event.imageContain || local.imageContain,

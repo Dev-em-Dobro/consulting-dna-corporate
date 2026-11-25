@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import { stepIcon } from "@/components/solutions/SolutionSteps";
 import type { ServiceDecisionLens } from "@/lib/services";
@@ -9,9 +10,9 @@ export default function SolutionDecisionLenses({ items }: { items?: ServiceDecis
     <section className="bg-white" aria-labelledby="decision-lenses-title">
       <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
         <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand">How leaders decide</p>
-        <h2 id="decision-lenses-title" className="mt-6 font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[42px] lg:text-[50px]">
+        <SectionHeading id="decision-lenses-title" className="mt-6 font-serif text-[30px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[42px] lg:text-[50px]">
           Six lenses. One decision you own.
-        </h2>
+        </SectionHeading>
         <p className="mt-4 font-serif text-[17px] leading-[1.6] text-muted md:text-[18px]">
           Our decision canvas takes one real decision from the evidence, to the call, to action within 30 days.
         </p>

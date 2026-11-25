@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import { pillarIcon } from "@/components/solutions/SolutionPillars";
 import Reveal from "@/components/Reveal";
 import type { ServiceInflectionPoints } from "@/lib/services";
@@ -61,13 +62,13 @@ export default function SolutionInflectionPoints({
                 subordinada a nenhuma delas. `whitespace-pre-line` pela mesma
                 razão do `SolutionSection`: a quebra da manchete é do desenho,
                 escrita como `\n` no dado, e não da largura da janela. */}
-            <h2
+            <SectionHeading
               className={`whitespace-pre-line font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[36px] ${
                 item.label?.trim() ? "mt-6" : ""
               }`}
             >
               {item.headline}
-            </h2>
+            </SectionHeading>
             {item.lead?.trim() ? (
               <p className="mt-4 max-w-[38ch] font-serif text-[16px] leading-[1.6] text-muted md:text-[18px]">
                 {item.lead}

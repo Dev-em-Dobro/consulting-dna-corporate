@@ -3,7 +3,6 @@ import { SITE_URL } from "@/lib/site";
 import {
   getCaseCards,
   getInsightCards,
-  getRegionCards,
   getPartnerships,
 } from "@/lib/cms/map";
 import { services } from "@/lib/services";
@@ -18,10 +17,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // As páginas de serviço saíram do CMS em 11-09 (ver `lib/services.ts`), então
   // os dez slugs vêm do módulo e não de um fetch  -  o sitemap não pode listar a
   // taxonomia antiga enquanto as rotas publicadas são outras.
-  const [cases, insights, regions, partnerships] = await Promise.all([
+  const [cases, insights, partnerships] = await Promise.all([
     getCaseCards(),
     getInsightCards(),
-    getRegionCards(),
     getPartnerships(),
   ]);
 
@@ -30,14 +28,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/about",
     "/approach",
     "/services",
-    "/services/leadership",
-    "/services/regions",
+    // /services/regions and its pages are noindex placeholders (layout audit #79),
+    // and /services/leadership redirects to /team (#80): neither is listed.
     "/our-clients",
     "/our-impact",
     "/team",
     "/cases",
     "/insights",
-    "/awards",
+    // "/awards" is offline for now (404); add it back when the page returns.
     // Entrou em 11-09, quando Contact deixou de ser só a âncora `#contact` da
     // home. É rota indexável de verdade agora, e é a que as pessoas procuram
     // pelo nome  -  ficar de fora do sitemap seria esconder justamente essa.
@@ -67,7 +65,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...services.map((s) => `/services/${s.slug}`),
     ...cases.map((c) => `/cases/${c.slug}`),
     ...insights.map((i) => `/insights/${i.slug}`),
-    ...regions.map((r) => `/services/regions/${r.slug}`),
   ];
 
   const entry = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({

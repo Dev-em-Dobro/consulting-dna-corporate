@@ -54,6 +54,7 @@ const dnaTime = (n: number) =>
 export const LIFE_AT_DNA = Array.from({ length: 28 }, (_, i) => i + 1)
   .filter((n) => n !== 1 && n !== 5 && n !== 7 && n !== 8 && n !== 10 && n !== 14)
   .concat(1)
+  .filter(n => ![13, 16, 17, 28].includes(n))
   .map(dnaTime);
 
 /**
@@ -102,3 +103,19 @@ export const LIFE_AT_DNA_FRAMING: Record<string, string> = {
   [dnaTime(24)]: "object-[50%_90%]",
   [dnaTime(27)]: "object-[50%_60%]",
 };
+
+/** Descriptions match the original workshop photos in public/dna-time. */
+export const lifePhotoAlt: Record<string, string> = Object.fromEntries([
+  [1,"Group selfie at the end of a leadership workshop"],[2,"Participants standing together beside the workshop windows"],
+  [3,"Facilitator speaking to participants in a lecture room"],[4,"Workshop group gathered around a table of materials"],
+  [6,"Speaker addressing round tables in a conference hall"],[9,"Four scenes from presentations and leadership workshops"],
+  [11,"Two participants in conversation during a session"],[12,"Presenter beside a slide introducing two speakers"],
+  [13,"Two panel speakers discussing a question"],[15,"Workshop participants gathered outside a glass-fronted building"],
+  [16,"Small groups working together at workshop tables"],[17,"Participants watching presentations in a meeting room"],
+  [18,"Facilitator presenting at the front of a training room"],[19,"Participants listening to a presentation around tables"],
+  [20,"Participants seated together in a meeting space"],[21,"Facilitators standing together after a session"],
+  [22,"Group portrait after a leadership event"],[23,"Audience seated around tables facing a conference stage"],
+  [24,"Conference participants gathered beneath the main stage"],[25,"Group portrait in front of an Unleash sign"],
+  [26,"Two people onstage at the Middle East Women Leaders awards"],[27,"Workshop group seated outdoors in a courtyard"],
+  [28,"Participants standing around a floor exercise outdoors"],
+].map(([n, description]) => [dnaTime(Number(n)), String(description)]));

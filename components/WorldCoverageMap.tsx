@@ -65,6 +65,31 @@ import TypeLabel from "@/components/TypeLabel";
  * referência é a DECISÃO (pino vermelho, rótulo escuro, terra neutra), não o
  * código hexadecimal.
  */
+// List order: Americas and Asia (the two largest) sit side by side. Names match the office cards.
+const coverageAreas = [
+  { name: "Americas", slugs: ["bogota", "buenos-aires", "dallas", "houston", "lima", "mexico-city", "miami", "new-york", "north-carolina", "ohio", "sao-paulo", "toronto", "vancouver"] },
+  { name: "Asia", slugs: ["beijing", "delhi", "hanoi", "hong-kong", "jakarta", "karachi", "kuala-lumpur", "manila", "mumbai", "newcastle", "singapore", "sydney", "tokyo"] },
+  { name: "UK & Europe", slugs: ["amsterdam", "berlin", "london", "madrid", "paris", "vienna", "warsaw", "zurich"] },
+  { name: "Middle East & North Africa", slugs: ["dubai", "lagos", "saudi-arabia"] },
+];
+
+/**
+ * City names for the coverage slugs, used only when the CMS returns no regions
+ * (for example a preview deployment without CMS access). The pins then come
+ * from CITY_COORDS, so the map and the city list never disappear.
+ */
+const FALLBACK_CITY: Record<string, string> = {
+  "bogota": "Bogotá", "buenos-aires": "Buenos Aires", "dallas": "Dallas", "houston": "Houston", "lima": "Lima",
+  "mexico-city": "Mexico City", "miami": "Miami", "new-york": "New York", "north-carolina": "North Carolina",
+  "ohio": "Ohio", "sao-paulo": "São Paulo", "toronto": "Toronto", "vancouver": "Vancouver",
+  "beijing": "Beijing", "delhi": "Delhi", "hanoi": "Hanoi", "hong-kong": "Hong Kong", "jakarta": "Jakarta",
+  "karachi": "Karachi", "kuala-lumpur": "Kuala Lumpur", "manila": "Manila", "mumbai": "Mumbai",
+  "newcastle": "Newcastle", "singapore": "Singapore", "sydney": "Sydney", "tokyo": "Tokyo",
+  "amsterdam": "Amsterdam", "berlin": "Berlin", "london": "London", "madrid": "Madrid", "paris": "Paris",
+  "vienna": "Vienna", "warsaw": "Warsaw", "zurich": "Zurich",
+  "dubai": "Dubai", "lagos": "Lagos", "saudi-arabia": "Riyadh",
+};
+
 const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
 
 /**
@@ -322,12 +347,15 @@ export default async function WorldCoverageMap({
    */
   bare?: boolean;
 }) {
-  const regions = await getCoverageRegions();
+  const cmsRegions = await getCoverageRegions();
+  const regions = cmsRegions.length
+    ? cmsRegions
+    : coverageAreas.flatMap((area) => area.slugs.map((slug) => ({ slug, city: FALLBACK_CITY[slug], country: undefined as string | undefined })));
 
   // Painted countries come from the CMS regions; fall back to the static list
   // when the CMS has none, so the map never renders blank.
-  const coveredCodes = regions.length
-    ? countriesToIso3(regions.map((r) => r.country))
+  const coveredCodes = cmsRegions.length
+    ? countriesToIso3(cmsRegions.map((r) => r.country))
     : COVERAGE_ISO3;
 
   // Stable colour per country (sorted so the assignment doesn't shuffle).
@@ -397,6 +425,9 @@ export default async function WorldCoverageMap({
     };
   });
 
+  const groups = [...coverageAreas, { name: "Other locations", slugs: regions.filter(r => !coverageAreas.some(area => area.slugs.includes(r.slug))).map(r => r.slug) }]
+    .map(area => ({ name: area.name, cities: regions.filter(r => r.city && area.slugs.includes(r.slug)).map(r => titleCase(r.city!)).sort() }))
+    .filter(area => area.cities.length > 0);
   const placed = placeLabels(pins, cnBoxes);
 
   // Headerless mode also drops the top padding: the caller's own intro sits
@@ -543,7 +574,20 @@ export default async function WorldCoverageMap({
     </>
   );
 
-  if (bare) return content;
+  // Bare (About): the map centred, with the city list in a row below it.
+  if (bare) return (
+    <div className="mx-auto w-full max-w-[1100px]">
+      <div>{content}</div>
+      <div className="mt-8 grid gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-4" aria-label="Locations by region">
+        {groups.map(area => (
+          <div key={area.name}>
+            <h3 className="border-b border-line pb-2 font-semibold">{area.name} ({area.cities.length})</h3>
+            <ul className="mt-2 space-y-1 text-sm text-muted">{area.cities.map(city => <li key={city}>{city}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <section

@@ -203,10 +203,10 @@ export default function CaseView({
         legacyBody.length > 0 && (
           <section className="bg-white">
             <div className="mx-auto max-w-[820px] space-y-10 px-6 py-20 md:px-10 md:py-24">
-              {legacyBody.map((s) => (
+              {legacyBody.map((s, index) => (
                 <div key={s.label}>
                   <h2 className="mb-3 text-[13px] font-bold uppercase tracking-[1.5px] text-brand">
-                    {s.label}
+                    <span className="mr-3 tabular-nums">{String(index + 1).padStart(2, "0")}</span>{s.label}
                   </h2>
                   <p className="max-w-[62ch] text-[17px] leading-[1.7] text-muted">
                     {s.value}

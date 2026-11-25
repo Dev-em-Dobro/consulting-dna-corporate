@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import ptBr from "@/messages/pt-BR-visible.json";
 import profileCopy from "@/messages/pt-BR-profiles.json";
+import { sectionHeading } from "@/lib/section-heading";
 
 const translations: Record<string, string> = { ...ptBr, ...profileCopy };
 const attributes = ["alt", "aria-label", "placeholder", "title"] as const;
@@ -24,9 +25,11 @@ export default function LocaleRuntime() {
       return;
     }
 
-    const translate = (value: string) => {
+    const translate = (value: string, finalHeadingText = false) => {
       const key = normalize(value);
-      const translated = translations[key];
+      // Existing dictionary entries can include the original closing period.
+      const match = translations[key] ?? (finalHeadingText ? translations[key + "."] : undefined);
+      const translated = finalHeadingText && match ? sectionHeading(match) : match;
       if (translated === undefined || translated === key) return value;
       const leading = value.match(/^\s*/)?.[0] ?? "";
       const trailing = value.match(/\s*$/)?.[0] ?? "";
@@ -46,7 +49,8 @@ export default function LocaleRuntime() {
 
     const translateText = (node: Text) => {
       if (node.parentElement?.closest("script,style,noscript,code,pre,[data-no-translate]")) return;
-      const translated = translate(node.data);
+      const heading = node.parentElement?.closest("[data-section-heading]");
+      const translated = translate(node.data, Boolean(heading && node.data.trim() && heading.textContent.trimEnd().endsWith(node.data.trimEnd())));
       if (translated !== node.data) node.data = translated;
     };
 

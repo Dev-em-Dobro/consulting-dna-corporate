@@ -27,9 +27,10 @@
  *     como um objeto só.
  *   • Largura de 1440 e `100svh` com `pt-[76px]`.
  */
-import Image, { type StaticImageData } from "next/image";
+import Image, { getImageProps, type StaticImageData } from "next/image";
 import fallbackPhoto from "@/public/solutions/service-hero-fallback.jpg";
 import HeroIntro from "@/components/HeroIntro";
+import HeroFrame from "@/components/HeroFrame";
 
 export default function SolutionHero({
   eyebrow,
@@ -41,6 +42,8 @@ export default function SolutionHero({
   imageNatural,
   body,
   imageUrl,
+  wideImageUrl,
+  imageAlt = "",
   mobileVisual,
   noImage = false,
   imageShadeOpacity = 1,
@@ -49,6 +52,7 @@ export default function SolutionHero({
   imageFilter = "saturate-[.65] brightness-[.68]",
   imagePosition = "object-center",
   scrollCueHref,
+  contactLink = false,
   scrollCueLabel = "Scroll to see more",
 }: {
   eyebrow: string;
@@ -99,6 +103,8 @@ export default function SolutionHero({
    * some sozinha à medida que cada uma ganha a sua, sem tocar em código.
    */
   imageUrl?: string | StaticImageData;
+  wideImageUrl?: string;
+  imageAlt?: string;
   /** Optional foreground artwork for narrow screens, above the mobile shade. */
   mobileVisual?: React.ReactNode;
   /**
@@ -184,6 +190,7 @@ export default function SolutionHero({
    * destino.
    */
   scrollCueHref?: string;
+  contactLink?: boolean;
   /** O que o leitor de tela ouve. A seta em si é `aria-hidden`. */
   scrollCueLabel?: string;
 }) {
@@ -222,40 +229,27 @@ export default function SolutionHero({
        ⚠️ `min-h` CONTINUA SENDO `min-h`: o bloco cresce quando o conteúdo pede
        (título de três linhas no telefone), e 84svh é o PISO, não o teto.
        */
-    <section className={`relative isolate flex flex-col justify-end overflow-hidden bg-ink pt-[76px] text-white md:justify-center ${mobileVisual ? "min-h-[max(84svh,560px)] md:min-h-[84svh]" : "min-h-[84svh]"}`}>
+    <HeroFrame className={`flex flex-col justify-end pt-[76px] md:justify-center ${mobileVisual ? "max-md:min-h-[max(84svh,560px)]" : ""}`}>
       {noImage ? null : (
         <>
           {imageNatural ? (
             <>
-              {/* MOBILE: cover full-bleed com enquadramento que mostra o grupo.
-                  O modo "altura da faixa / dock à direita" cortava a escada
-                  quase pela metade numa viewport estreita (pedido cutover). */}
-              <Image
-                src={src}
-                alt=""
-                aria-hidden
-                priority
-                fill
-                sizes="100vw"
-                className={`-z-30 object-cover object-center md:hidden ${imageFilter}`}
-              />
-              {/* DESKTOP: altura da faixa, largura pela proporção, dock à direita. */}
-              <div className="absolute inset-y-0 right-0 -z-30 hidden max-w-full md:block">
+              <div className="absolute inset-y-0 right-0 -z-30 w-full md:w-auto">
                 <Image
                   src={src}
-                  alt=""
+                  alt={imageAlt}
                   aria-hidden
                   priority
                   width={imageNatural.width}
                   height={imageNatural.height}
-                  sizes={`${imageNatural.width}px`}
-                  className={`block h-full w-auto max-w-none object-cover object-right ${imageFilter}`}
+                  sizes={`(max-width: 767px) 100vw, ${imageNatural.width}px`}
+                  className={`block h-full w-full max-w-none object-cover object-center md:w-auto md:object-right ${imageFilter}`}
                 />
                 {/* A SOMBRA QUE COSTURA A FOTO NO FUNDO: forte à esquerda, onde
                     falta imagem, e leve em cima e embaixo. */}
                 <div
                   aria-hidden
-                  className="absolute inset-0"
+                  className="absolute inset-0 hidden md:block"
                   style={{
                     backgroundImage:
                       "linear-gradient(to right, rgb(55,50,52) 0%, rgba(55,50,52,0) 45%), linear-gradient(to bottom, rgb(55,50,52) 0%, rgba(55,50,52,0) 18%, rgba(55,50,52,0) 82%, rgb(55,50,52) 100%)",
@@ -263,10 +257,20 @@ export default function SolutionHero({
                 />
               </div>
             </>
+          ) : wideImageUrl ? (
+            <picture>
+              <source
+                media="(min-width: 1024px) and (min-aspect-ratio: 3/2)"
+                sizes="100vw"
+                srcSet={getImageProps({ src: wideImageUrl, alt: "", fill: true, sizes: "100vw" }).props.srcSet}
+              />
+              <Image src={src} alt={imageAlt} aria-hidden fill loading="eager" fetchPriority="high"
+                sizes="100vw" className={`-z-30 object-cover ${imagePosition} ${imageFilter}`} />
+            </picture>
           ) : (
             <Image
               src={src}
-              alt=""
+              alt={imageAlt}
               aria-hidden
               fill
               priority
@@ -347,7 +351,7 @@ export default function SolutionHero({
           o `HeroIntro` que as revela. Tirar o wrapper e deixar as classes
           publica um herói invisível  -  ele tem prazo de segurança de 10s
           justamente para que nenhum caminho termine assim. */}
-      <HeroIntro className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10">
+      <HeroIntro className="hero-content py-20">
         {/* ⛔ A MIGALHA DE PÃO SAIU EM 15-09, a pedido  -  e a prop `trail` saiu
             com ela, em vez de ficar aqui sem uso esperando.
 
@@ -374,7 +378,7 @@ export default function SolutionHero({
             imagem limitando a coluna, o título tem a largura da página, e num
             herói de sangria total ele é a única coisa que segura a composição
             contra a foto. */}
-        <h1 className="h-title font-serif max-w-[760px] text-[38px] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
+        <h1 className="h-title font-serif max-w-[760px] text-[clamp(30px,9.5vw,38px)] font-semibold leading-[1.08] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[48px] md:text-[58px]">
           {title.replace(/\.$/, "")}
           {titleAccent ? <> <span className="text-brand-light">{titleAccent}</span></> : null}
         </h1>
@@ -483,6 +487,7 @@ export default function SolutionHero({
             telefone. Quem precisa do convite é o visitante de desktop diante de
             uma dobra cheia, de sangria total e parada, que não dá nenhum sinal
             de ter página embaixo. */}
+        {contactLink && <a href="/contact" className="contact-action relative z-10 mt-6">Start a conversation</a>}
         {scrollCueHref && (
           <div className="h-cue absolute inset-x-0 hidden md:block">
             <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">
@@ -528,6 +533,6 @@ export default function SolutionHero({
           </div>
         )}
       </HeroIntro>
-    </section>
+    </HeroFrame>
   );
 }

@@ -35,6 +35,7 @@
  * depois de a cliente ter salvo, o salvo continua ganhando  -  como em qualquer
  * campo deste editor. O padrão muda, o publicado não.
  */
+import { publishedFacultyMinimum } from "./faculty-figure.ts";
 import { dnaLead, dnaStrands, leaders } from "./team.ts";
 import type { EditorField, EditorSection } from "./page-copy/fields.ts";
 
@@ -63,11 +64,11 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
        própria faculty. Os dois campos estão no editor; o aviso está no `hint`
        dos dois. */
     subtitle:
-      "A senior leadership team, backed by a global faculty of 60+ practitioners delivering across 36 countries.",
+      `A senior leadership team, backed by a global faculty of ${publishedFacultyMinimum} practitioners delivering across 36 countries.`,
   },
   leadership: {
     label: "Leadership Team",
-    title: "Our Leadership team",
+    title: "Our leadership team",
     /* 01-10: rótulo com o traço vermelho, igual ao "Leadership Team". */
     managersLabel: "Project Management Office",
     managersTitle: "Program Management Team",
@@ -83,7 +84,7 @@ export const DEFAULT_TEAM_COPY: TeamCopy = {
   },
   faculty: {
     label: "Global faculty",
-    title: "A faculty of 60+ senior practitioners across 36 countries.",
+    title: `A faculty of ${publishedFacultyMinimum} senior practitioners across 36 countries.`,
     intro:
       "Our facilitators and coaches come from the behavioural sciences, organisation development, psychology and business. They span over twenty nationalities and a wide range of social identities. They are senior enough to have sat where our clients sit.",
   },

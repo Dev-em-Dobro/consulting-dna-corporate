@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import { pillarIcon } from "@/components/solutions/SolutionPillars";
 import Reveal from "@/components/Reveal";
 import type { ServiceOutcomeSummary } from "@/lib/services";
@@ -45,13 +46,13 @@ export default function SolutionOutcome({
                 {item.label}
               </p>
             ) : null}
-            <h2
+            <SectionHeading
               className={`font-serif text-[28px] font-semibold leading-[1.15] tracking-[-0.3px] text-ink md:text-[36px] ${
                 item.label?.trim() ? "mt-6" : ""
               }`}
             >
               {item.headline}
-            </h2>
+            </SectionHeading>
 
             {/* A CAIXA ROSA É A QUINTA CÉLULA DA FILEIRA no desenho, e aqui ela
                 é uma coluna própria ao lado das quatro: numa grade única ela

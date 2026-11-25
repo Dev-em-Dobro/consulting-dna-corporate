@@ -1,3 +1,5 @@
+import { sectionHeading } from "@/lib/section-heading";
+import SectionHeading from "@/components/SectionHeading";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { ServiceEcosystem } from "@/lib/services";
@@ -78,21 +80,18 @@ export default function SolutionEcosystem({ item }: { item?: ServiceEcosystem })
             <p className="text-[14px] font-medium uppercase tracking-[1.3px] text-brand-light">
               How we work
             </p>
-            {/* UMA LINHA POR `<span>` EM BLOCO, e não `whitespace-pre-line`:
-                o `\n` da copy decide ONDE quebra ("The CDNA" / "Culture
-                Ecosystem"), e o `whitespace-nowrap` impede a segunda linha de
-                partir de novo em "Culture" / "Ecosystem" quando a coluna aperta. */}
-            <h2 data-no-translate className="locale-en-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
-              {item.headline.split("\n").map((line, i, lines) => (
-                <span key={line} className="block whitespace-nowrap">
+            {/* Preserve the editorial break, but let either line wrap in a narrow column. */}
+            <SectionHeading data-no-translate className="locale-en-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
+              {sectionHeading(item.headline).split("\n").map((line, i, lines) => (
+                <span key={line} className="block">
                   {line}
                   {i < lines.length - 1 ? " " : ""}
                 </span>
               ))}
-            </h2>
-            <h2 data-no-translate className="locale-pt-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
+            </SectionHeading>
+            <SectionHeading data-no-translate className="locale-pt-only mt-8 font-serif text-[34px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[40px] xl:text-[42px]">
               O ecossistema cultural da CorporateDNA
-            </h2>
+            </SectionHeading>
             <p className="mt-6 font-serif text-[16px] leading-[1.65] text-white/75 md:text-[17px]">
               {item.body}
             </p>

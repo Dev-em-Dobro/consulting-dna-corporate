@@ -47,6 +47,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Award = {
   name: string;
+  issuer?: string;
   /**
    * The distinction earned, e.g. "Finalist".
    *
@@ -128,14 +129,16 @@ type Award = {
  */
 const BRANDON_HALL: Award[] = [
   {
-    name: "Brandon Hall: Diversity, Equity and Inclusion",
+    name: "Diversity, Equity and Inclusion",
+    issuer: "Brandon Hall Group",
     distinction: "Gold",
     showDistinction: true,
     year: "2023",
     logo: "/awards/brandon-hall-dei.png",
   },
   {
-    name: "Brandon Hall: Talent Acquisition",
+    name: "Talent Acquisition",
+    issuer: "Brandon Hall Group",
     distinction: "Gold",
     showDistinction: true,
     year: "2024",
@@ -147,15 +150,17 @@ const awards: Award[] = [
   {
     // "2×" no overview deck = prêmio conquistado duas vezes. Sem anos
     // confirmados pela CDNA, o rótulo deixa isso legível sem inventar datas.
-    name: "Corporate Vision",
+    name: "Corporate Excellence Awards",
+    issuer: "Corporate Vision",
     distinction: "Winner",
     showDistinction: true,
     year: "2022 & 2024",
     logo: "/awards/corporate-vision.png",
   },
   {
-    name: "Top 15 woman leader in the Middle East",
-    distinction: "",
+    name: "Top 15 Women Leaders in the Middle East",
+    distinction: "Top 15",
+    showDistinction: true,
     year: "2025",
     logo: "/awards/top-15-women-leader-middle-east.png",
     logoOnWhite: true,
@@ -164,6 +169,7 @@ const awards: Award[] = [
 
 export default function AwardsMentions({
   maxWidthClass = "max-w-[1200px]",
+  paddingClass = "pb-10 md:px-10 md:py-14",
   includeBrandonHall = false,
   showYear = true,
 }: {
@@ -178,6 +184,8 @@ export default function AwardsMentions({
    * Mesmo padrão do `maxWidthClass` da NavV2 e do LocationsBlock.
    */
   maxWidthClass?: string;
+  /** Vertical padding of the section; the Home passes its 64/96px rhythm. */
+  paddingClass?: string;
   /**
    * Põe os dois GOLD da Brandon Hall na frente da régua.
    *
@@ -267,7 +275,7 @@ export default function AwardsMentions({
     <section id="awards" ref={scope} className="bg-white">
       {/* Same box as the `#book` section: constrained on desktop, full-bleed on
           mobile (no horizontal padding below `md`). */}
-      <div className={`mx-auto ${maxWidthClass} pb-10 md:px-10 md:py-14`}>
+      <div className={`mx-auto ${maxWidthClass} ${paddingClass}`}>
         {/* TUDO DENTRO DA MESMA FAIXA desde 14-09. Antes o `data-awards-band`
             era só a tarja do título e os prêmios corriam sobre o branco da
             página, abaixo dela. Um banner é UM objeto: título e logos moram na
@@ -298,8 +306,8 @@ export default function AwardsMentions({
               ~169px por célula, contra os 96px do logo. Abaixo de `lg` nada
               muda: três colunas no tablet, duas no telefone. */}
           <ul
-            className={`mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:mt-12 ${
-              "lg:grid-cols-5"
+            className={`mt-10 grid grid-cols-2 gap-x-6 gap-y-10 md:mt-12 ${
+              shown.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-5"
             }`}
           >
             {shown.map((a) => (
@@ -358,6 +366,7 @@ export default function AwardsMentions({
                     {a.distinction}
                   </p>
                 ) : null}
+                <p className="mt-1 min-h-5 text-sm text-white/85">{a.issuer}</p>
                 <p
                   className={`text-[14px] font-semibold leading-[1.35] text-white ${
                     a.showDistinction ? "mt-1" : "mt-4"

@@ -100,3 +100,9 @@ docs/acessos-*.md
 
 # O que a cliente salva em /edit-home quando nao ha Vercel Blob (dev local).
 .data/
+
+# Local review material (screenshots and working notes), not site code.
+# Files already tracked under proof/ stay tracked.
+proof/
+docs/legal-pages-review.md
+docs/tarefas-*.md

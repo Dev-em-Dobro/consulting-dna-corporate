@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { getApproachCopy } from "@/lib/approach-copy-server";
 import type { ApproachCopy } from "@/lib/approach-copy";
 import Image from "next/image";
@@ -46,13 +45,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-function R() {
-  return <span className="align-super text-[0.48em] font-semibold">®</span>;
+function plainFiveH(text: string) {
+  return text.replace(/5H[®©™]+/gi, "5H");
 }
 
-function RegisteredText({ text }: { text: string }) {
-  const parts = text.split("®");
-  return <>{parts.map((part, index) => <Fragment key={index}>{part}{index < parts.length - 1 && <R />}</Fragment>)}</>;
+function firstMention(text: string, previous: string[]) {
+  const clean = plainFiveH(text);
+  const index = clean.search(/5H/i);
+  if (index < 0 || previous.some(value => /5H/i.test(value))) return clean;
+  return <>{clean.slice(0, index + 2)}<sup>®</sup>{clean.slice(index + 2)}</>;
 }
 
 const APPROACH_CAROUSEL = [
@@ -78,15 +79,15 @@ function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"
       <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.label}</p>
       <h3 className="mt-3 whitespace-pre-line text-[28px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[34px]">{copy.heading}</h3>
       <p className="mt-4 max-w-[560px] text-[14px] leading-[1.65] text-muted sm:text-[15px]">{copy.body}</p>
-      <div className="mt-12 grid grid-cols-4 gap-y-7">
+      <div className="mt-12 flex flex-wrap justify-center gap-y-7">
         {copy.items.map((item, index) => {
           const Icon = TOOLKIT_ICONS[index];
           return (
-            <div key={index} className="min-w-0 px-1 text-center">
+            <div key={index} className="w-1/4 min-w-0 px-1 text-center">
               <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-brand/15 bg-[#fcf6f2] sm:size-16">
                 <Icon aria-hidden="true" className="size-6 text-brand sm:size-7" strokeWidth={1.5} />
               </span>
-              <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title}</h4>
+              <h4 className="mt-3 whitespace-pre-line text-[11px] font-semibold leading-[1.3] text-ink sm:text-[12px]">{item.title.replace(/PROFILER/g, "Profiler")}</h4>
               <p className="mt-1 whitespace-pre-line text-[10px] leading-[1.4] text-muted sm:text-[12px]">{item.description}</p>
             </div>
           );
@@ -95,6 +96,9 @@ function DiagnosticToolkit({ copy }: { copy: ApproachCopy["framework"]["toolkit"
     </div>
   );
 }
+
+/** Section headings carry no closing full stop (layout audit #4). */
+const noStop = (text: string) => text.replace(/\.\s*$/, "");
 
 export default async function ApproachPage() {
   const copy = await getApproachCopy();
@@ -139,13 +143,13 @@ export default async function ApproachPage() {
         <div className="w-full">
           <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-10 md:py-16">
             <p className="text-[11px] font-semibold uppercase tracking-[2.2px] text-brand-light">
-              {copy.hero.eyebrow}
+              {firstMention(copy.hero.eyebrow, [])}
             </p>
             <h1 className="mt-5 max-w-[900px] whitespace-pre-line font-serif text-[36px] font-semibold leading-[1.1] tracking-[-0.2px] text-white [text-wrap:balance] sm:text-[44px] md:text-[52px] lg:max-w-none">
-              <RegisteredText text={copy.hero.title.replace(" One integrated leader.", "\nOne integrated leader.")} />
+              {firstMention(copy.hero.title.replace(" One integrated leader.", "\nOne integrated leader."), [copy.hero.eyebrow])}
             </h1>
             <p className="mt-6 max-w-[620px] text-[19px] leading-[1.4] text-white/78 md:text-[22px]">
-              {copy.hero.subtitle}
+              {firstMention(copy.hero.subtitle, [copy.hero.eyebrow, copy.hero.title])}
             </p>
           </div>
         </div>
@@ -153,16 +157,16 @@ export default async function ApproachPage() {
 
       <div className="bg-white">
         <section id="framework" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
-          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.framework.label}</p>
+          <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{firstMention(copy.framework.label, [copy.hero.eyebrow, copy.hero.title, copy.hero.subtitle])}</p>
           <h2 className="mt-3 whitespace-pre-line font-serif text-[25px] font-semibold leading-[1.18] tracking-[-0.35px] text-ink sm:text-[34px] lg:text-[46px]">
-            {copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader.")}
+            {noStop(copy.framework.heading.replace(" One integrated leader.", "\nOne integrated leader."))}
           </h2>
           <p className="mt-5 max-w-[900px] text-[15px] leading-[1.6] text-muted sm:text-[16px] lg:text-[17px]">
             {copy.framework.body}
           </p>
           <div className="mt-9 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <LocalizedImage
+<a href="/approach/5h-framework-wheel-user.png" className="block cursor-zoom-in">              <LocalizedImage
                 src="/approach/5h-framework-wheel-user.png"
                 alt="The 5H model showing the five leadership intelligences and their dimensions"
                 ptSrc="/approach/5h-framework-wheel-user.png"
@@ -171,25 +175,25 @@ export default async function ApproachPage() {
                 height={1329}
                 sizes="(min-width: 1440px) 648px, (min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full max-w-[648px]"
-              />
+              /></a>
             </div>
             <DiagnosticToolkit copy={copy.framework.toolkit} />
           </div>
           <p className="mt-8 text-center text-[14px] leading-[1.5] text-[#777] lg:mt-10">
-            {copy.framework.copyright}
+            {plainFiveH(copy.framework.copyright)}
           </p>
         </section>
 
-        <FiveHShowcase heading={copy.fiveH.heading} faculties={copy.fiveH.faculties} />
+        <FiveHShowcase heading={noStop(copy.fiveH.heading)} faculties={copy.fiveH.faculties} />
 
         <section id="whole-leader" className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
           <h2 className="max-w-[520px] font-serif text-[31px] font-semibold leading-[1.08] tracking-[-0.5px] text-ink sm:text-[38px] lg:text-[48px]">
-            {copy.introduction.heading}
+            {noStop(copy.introduction.heading)}
           </h2>
           <div className="mt-7 max-w-[720px] space-y-5 text-[15px] leading-[1.72] text-muted sm:text-[16px] lg:mt-9 lg:text-[17px]">
-            {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}><RegisteredText text={paragraph} /></p>)}
+            {copy.introduction.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
           </div>
           </div>
           <div id="two-games" className="min-w-0">
@@ -203,6 +207,7 @@ export default async function ApproachPage() {
             sizes="(min-width: 1024px) 650px, 100vw"
             className="mx-auto h-auto w-full max-w-[720px]"
           />
+          <div data-no-translate className="mt-2 text-center text-sm underline"><a className="locale-en-only" href="/approach/inner-outer-game-5h-20261001.png">View full-size diagram</a><a className="locale-pt-only" href="/approach/inner-outer-game-5h-pt-br.svg">Ampliar diagrama</a></div>
           <div className="mx-auto mt-6 max-w-[980px] px-5 py-6 sm:px-8 lg:px-10">
           <div className="grid grid-cols-3 gap-4 lg:mx-auto lg:max-w-[720px] lg:gap-10">
             {[
@@ -210,7 +215,7 @@ export default async function ApproachPage() {
               { label: copy.games.assessmentLabels[1], Icon: UsersRound },
               { label: copy.games.assessmentLabels[2], Icon: ListChecks },
             ].map(({ label, Icon }) => (
-              <div key={label} className="text-center">
+              <div key={label} className="rounded-md border border-line px-1 py-2 text-center">
                 <div className="flex h-14 items-center justify-center sm:h-20 lg:h-16">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f0f0ef] sm:h-16 sm:w-16 lg:size-14">
                     <Icon aria-hidden size={24} strokeWidth={1.5} className="text-ink sm:size-8 lg:size-7" />
@@ -233,6 +238,7 @@ export default async function ApproachPage() {
           <PhotoCarousel
             images={APPROACH_CAROUSEL.map((slide) => slide.src)}
             alts={APPROACH_CAROUSEL.map((slide) => slide.alt)}
+            captions={["Participants present their response to a leadership dilemma.", "Small groups discuss the inner and outer game of leadership.", "Facilitators and participants during a CorporateDNA programme."]}
             label="CorporateDNA programmes in action"
             frameClassName="max-w-[980px]"
             sizes="(min-width: 1060px) 980px, 100vw"
@@ -244,12 +250,14 @@ export default async function ApproachPage() {
       <section id="dna-360-profiler" className="bg-[#353132] text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-20">
           <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand-light">{copy.profiler.label}</p>
-          <h2 className="mt-3 font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
-            {copy.profiler.heading}
-          </h2>
-          <div className="lg:mt-9 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
-            <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-0 lg:text-[16px]">
-              {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+          <div className="mt-3 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
+            <div>
+              <h2 className="font-serif text-[34px] font-semibold leading-[1.05] tracking-[-0.7px] sm:text-[44px] lg:text-[54px]">
+                {noStop(copy.profiler.heading)}
+              </h2>
+              <div className="mt-7 max-w-[760px] space-y-5 text-[14px] leading-[1.68] text-white/82 sm:text-[15px] lg:mt-9 lg:text-[16px]">
+                {copy.profiler.paragraphs.map((paragraph, index) => <p key={index}>{plainFiveH(paragraph)}</p>)}
+              </div>
             </div>
             <div className="mt-10 grid gap-8 lg:mt-0">
               <Image
@@ -281,27 +289,19 @@ export default async function ApproachPage() {
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-brand">{copy.learning.label}</p>
             <h2 className="mt-3 font-serif text-[32px] font-semibold leading-[1.08] text-ink lg:text-[38px]">
-              {copy.learning.heading} <span className="text-brand">{copy.learning.accent}</span>
+              {copy.learning.heading} <span className="text-brand">{noStop(copy.learning.accent)}</span>
             </h2>
             {copy.learning.body.trim() && copy.learning.body.trim() !== "Body copy to be confirmed (max 500 characters)." && (
               <p className="mt-4 text-[15px] leading-[1.6] text-muted">{copy.learning.body}</p>
             )}
           </div>
-          <div className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
-            <p className="font-serif text-[24px] leading-[1.25] text-ink">See how the 5H® can support your leadership challenges.</p>
-            <Link href="/contact" className="mt-6 inline-flex border-b-2 border-brand pb-1 text-[13px] font-bold uppercase tracking-[1px] text-brand">Start a conversation</Link>
+          <div id="approach-cta" className="mt-8 lg:mt-0 lg:border-l lg:border-line lg:pl-12">
+            <p className="font-serif text-[24px] leading-[1.25] text-ink">{plainFiveH(copy.cta.heading)}</p>
+            <Link href="/contact" className="mt-6 inline-flex border-b-2 border-brand pb-1 text-[13px] font-bold uppercase tracking-[1px] text-brand">{copy.cta.buttonLabel}</Link>
           </div>
         </div>
       </section>
 
-      <section id="approach-cta" className="bg-brand text-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-10 text-center md:px-10 md:py-14 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:text-left">
-          <h2 className="font-serif text-[34px] font-semibold leading-none sm:text-[43px] lg:text-[52px]"><RegisteredText text={copy.cta.heading} /></h2>
-          <Link href="/contact" className="mt-7 inline-flex min-h-14 w-full items-center justify-center bg-white px-8 text-[12px] font-bold uppercase tracking-[1.4px] text-brand shadow-[0_8px_20px_rgba(83,17,23,0.22)] transition-colors hover:bg-[#fff4f3] sm:w-auto sm:min-w-[360px] lg:mt-0">
-            {copy.cta.buttonLabel} <span className="ml-3" aria-hidden="true">→</span>
-          </Link>
-        </div>
-      </section>
     </SiteShell>
   );
 }

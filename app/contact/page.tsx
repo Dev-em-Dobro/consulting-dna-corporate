@@ -1,3 +1,4 @@
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
 import SolutionHero from "@/components/solutions/SolutionHero";
@@ -6,6 +7,7 @@ import TypeLabel from "@/components/TypeLabel";
 import Reveal from "@/components/Reveal";
 import { localeAlternates } from "@/lib/seo/alternates";
 import { editorialFontClass, editorialFontVars } from "@/lib/fonts";
+import { getHomeCopy } from "@/lib/home-copy-server";
 import { offices } from "@/lib/offices";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -53,13 +55,16 @@ export async function generateMetadata(): Promise<Metadata> {
  * os da seção `#contact` da home, sem uma palavra mudada. O resto são rótulos
  * funcionais.
  */
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { contact } = await getHomeCopy();
   return (
     <div className={`${editorialFontClass} font-sans`} style={editorialFontVars}>
       <SiteShell footerTopBorder floatingNav>
         <SolutionHero
+          imageUrl="/team-stairs-about-six.jpg"
+          imageAlt="The CorporateDNA team together on a staircase"
           eyebrow="Contact"
-          title="What is changing, and where does leadership need to go?"
+          title={contact.title}
           subtitle="Tell us the leadership challenge you are facing. We will respond with a considered, confidential point of view, not a sales pitch."
         />
 
@@ -78,7 +83,7 @@ export default function ContactPage() {
             tem eixo próprio coerente em vez de um rótulo órfão lá na margem. */}
         <section className="bg-paper">
           <div className="mx-auto max-w-[820px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel>Send us a message</TypeLabel>
+            <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">Send us a message</SectionHeading>
             <Reveal className="mt-12">
               {/* O `submit` fica no padrão `flat`, e não no `hover-fill` da
                   home: aquele botão é ink sobre vermelho e nasceu para o fundo
@@ -103,28 +108,26 @@ export default function ContactPage() {
             vazio anunciado é pior que campo ausente numa página de contato. */}
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-24">
-            <TypeLabel>Offices</TypeLabel>
+            <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">Offices</SectionHeading>
             <a
               href="mailto:info@corporatednaconsulting.com"
               className="mt-6 inline-block text-[16px] leading-[1.5] text-brand underline decoration-line underline-offset-4 transition-colors hover:text-brand-dark"
             >
               info@corporatednaconsulting.com
             </a>
-            <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <Reveal className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:auto-rows-fr sm:grid-cols-6 xl:grid-cols-5">
               {offices.map((o) => (
-                <div key={o.slug} className="border-t border-line pt-6">
-                  <h2 className="font-serif text-[22px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[24px]">
+                <div id={o.slug} key={o.slug} className="border-t border-line pt-6 sm:col-span-2 sm:[&:nth-child(4)]:col-start-2 xl:col-span-1 xl:[&:nth-child(4)]:col-start-auto">
+                  <h3 className="font-serif text-[22px] font-semibold leading-[1.2] tracking-[-0.2px] text-ink md:text-[24px]">
                     {o.city}
-                  </h2>
-                  <p className="mt-1 text-[13px] font-medium uppercase tracking-[1.3px] text-brand">
-                    {o.country}
-                  </p>
+                  </h3>
                   <address className="mt-5 not-italic font-serif text-[16px] leading-[1.6] text-muted">
-                    {o.addressLines.map((line) => (
+                    {o.addressLines.filter(line => line !== "United States of America").map((line) => (
                       <span key={line} className="block">
-                        {line}
+                        {line === "Dubai, United Arab Emirates" ? "Dubai" : line}
                       </span>
                     ))}
+                    <span className="block">{o.country}</span>
                   </address>
                 </div>
               ))}

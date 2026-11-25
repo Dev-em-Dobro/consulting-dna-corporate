@@ -56,6 +56,15 @@ const LOGO_SCALE: Record<string, number> = {
   "swarovski.png": 1.2,
 };
 
+/**
+ * Layout audit #12: every logo sits in the same 120 x 48 box. The PNGs are
+ * served from `client-logos-trimmed/` (the same files cropped to the mark), so
+ * `object-contain` fills the box evenly without the per-logo scale above,
+ * which now only applies to non-PNG files.
+ */
+const logoSrc = (file: string) =>
+  file.endsWith(".png") ? `/logos/client-logos-trimmed/${file}` : `/logos/client-logos/${file}`;
+
 export default function LogoMarquee({
   logos,
   duration = 42,
@@ -105,11 +114,11 @@ export default function LogoMarquee({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/logos/client-logos/${file}`}
+              src={logoSrc(file)}
               alt={label(file)}
               loading="lazy"
-              className="h-[42px] w-[138px] object-contain"
-              style={{ transform: `scale(${LOGO_SCALE[file] ?? 1})` }}
+              className="h-[48px] w-[120px] object-contain grayscale"
+              style={file.endsWith(".png") ? undefined : { transform: `scale(${LOGO_SCALE[file] ?? 1})` }}
             />
           </div>
         ))}

@@ -36,6 +36,8 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Layout audit #79: placeholder region pages stay reachable but are not indexed.
+    robots: { index: false, follow: true },
     alternates: localeAlternates(`/services/regions/${region}`),
     openGraph: {
       title,

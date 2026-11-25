@@ -169,8 +169,7 @@ export default async function ClientsAndImpactPage() {
         <SolutionHero
           eyebrow={copy.hero.eyebrow}
           title={copy.hero.title}
-          subtitleAccent={copy.hero.subtitle}
-          accentAsTitle
+          titleAccent={copy.hero.subtitle}
           imageUrl={clientsHero}
           imagePosition="object-top"
         />
@@ -203,7 +202,7 @@ export default async function ClientsAndImpactPage() {
                 industries`, a contagem do paredão à direita do rótulo. O
                 `clientLogos` continua importado porque o `footprint`, no topo
                 deste arquivo, ainda conta os clientes por ele. */}
-            <SectionHead label={copy.logos.label} />
+            <SectionHead label={copy.logos.label} heading />
             <div className="flex flex-col gap-4">
               <LogoMarquee
                 logos={clientLogoRows[0]}

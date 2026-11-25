@@ -9,7 +9,6 @@ import {
   type FormEvent,
 } from "react";
 import { submitLead } from "@/app/actions/submit-lead";
-import HoverFillButton from "@/components/HoverFillButton";
 
 type FieldKey = "name" | "email" | "organisation" | "message";
 type Values = Record<FieldKey, string>;
@@ -43,7 +42,7 @@ const labelCls =
  *  • `hover-fill`  -  em teste desde 10-09, só na home. Ver `HoverFillSubmit`.
  */
 export default function ContactForm({
-  submit = "flat",
+  submit: _submit = "flat",
 }: {
   submit?: "flat" | "hover-fill";
 } = {}) {
@@ -237,23 +236,20 @@ export default function ContactForm({
         </p>
       )}
 
-      {submit === "hover-fill" ? (
-        <HoverFillButton
-          label={sending ? "Sending…" : "Start a Conversation"}
-          disabled={sending}
-          fullWidth
-          className="mt-1"
-        />
-      ) : (
-        <button
-          type="submit"
-          disabled={sending}
-          className="mt-1 cursor-pointer bg-ink px-4 py-4 text-sm font-bold uppercase tracking-[0.5px] text-white hover:bg-[#2a2627] disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {sending ? "Sending…" : "Start a Conversation"}
-        </button>
-      )}
+      {/* One CTA style site-wide (layout audit #5): the same solid red button as
+          the hero, on Home and on /contact. `submit` is still accepted from
+          callers but no longer changes the button. */}
+      <button
+        type="submit"
+        disabled={sending}
+        className="contact-action mt-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {sending ? "Sending…" : "Start a conversation"}
+      </button>
 
+      {/* Explicit colour: on Home the form sits in a white card inside a dark
+          section, and an inherited white made this note invisible. */}
+      <p className="mt-3 text-sm text-muted">We use your details to respond to this enquiry. <a className="underline hover:text-brand-dark" href="/privacy">Privacy policy</a></p>
     </form>
     <dialog
       ref={confirmationRef}

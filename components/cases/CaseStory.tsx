@@ -1,3 +1,5 @@
+import SectionHeading from "@/components/SectionHeading";
+import HeroFrame from "@/components/HeroFrame";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -96,7 +98,7 @@ export default function CaseStory({
           desenho. Sem foto  -  que é o caso dos quinze hoje  - , o `ink` sólido
           segura a composição: o que carrega o herói é a manchete, não a
           fotografia. */}
-      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-ink text-white min-[1100px]:min-h-[640px]">
+      <HeroFrame className="flex items-start min-[1100px]:items-center">
         {heroCoverUrl && (
           <>
             <Image
@@ -121,7 +123,7 @@ export default function CaseStory({
             />
             {c.logoUrl && (
               <div
-                className="absolute left-6 top-[132px] z-[1] w-[calc(100vw-3rem)] min-[1100px]:hidden"
+                className="absolute inset-x-6 top-[132px] z-[1] md:inset-x-10 min-[1100px]:hidden"
                 style={{ height: `${mobileLogoHeight}px` }}
               >
                 <Image
@@ -148,7 +150,7 @@ export default function CaseStory({
           </>
         )}
 
-        <div className={`relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 ${mobileHeroContentTop} min-[1100px]:px-10 min-[1100px]:pb-20 min-[1100px]:pt-32`}>
+        <div className={`hero-content relative z-10 pb-16 ${mobileHeroContentTop} min-[1100px]:pb-20 min-[1100px]:pt-32`}>
           {/* ⚠️ SEM BREADCRUMB VISÍVEL  -  16-09, a pedido. O desenho dela tem a
               trilha "Home / Clients & Impact / adidas" no alto do herói; na
               tela, com a nav flutuante logo acima, eram duas linhas de
@@ -159,7 +161,7 @@ export default function CaseStory({
               JSON-LD, que é o que alimenta o caminho exibido no resultado de
               busca. O que saiu foi só o desenho dela na tela. */}
           <div className="case-hero-copy max-w-[720px]">
-            {heroCoverUrl && c.logoUrl ? null : c.logoUrl ? (
+            {heroCoverUrl && c.logoUrl ? <p className="mb-4 font-semibold uppercase tracking-wider text-white">{c.title}</p> : c.logoUrl ? (
               /* O LOGO DO CLIENTE ABRE A PÁGINA, como no desenho. Fundo branco
                  atrás dele porque a maioria dos PNGs do acervo é de marca
                  escura, feita para papel branco: sobre o herói escuro, metade
@@ -208,7 +210,7 @@ export default function CaseStory({
             )}
           </div>
         </div>
-      </section>
+      </HeroFrame>
 
       {/* ── THE IMPACT ────────────────────────────────────────────────────
           A faixa escura de números. As figuras VERMELHAS são as de impacto e as
@@ -220,10 +222,10 @@ export default function CaseStory({
           <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[210px_1fr] lg:gap-14">
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[1.6px] text-white">
+                <h2 className="font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-white md:text-[30px]">
                   The impact
-                </p>
-                <p className="mt-2 text-[11px] uppercase tracking-[1.3px] text-white/45">
+                </h2>
+                <p className="mt-2 text-[11px] uppercase tracking-[1.3px] text-white/60">
                   Real results. Lasting change.
                 </p>
               </div>
@@ -278,13 +280,13 @@ export default function CaseStory({
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-line">
             <div className="lg:pr-14">
-              <NumberedLabel number="01" label="The challenge" />
+              <NumberedLabel number="01" label="The challenge" heading={!story.challengeHeadline?.trim()} />
               <SectionTitle>{story.challengeHeadline}</SectionTitle>
               <Body>{c.body.challenge}</Body>
             </div>
 
             <div className="lg:pl-14">
-              <NumberedLabel number="02" label="What we did" />
+              <NumberedLabel number="02" label="What we did" heading={!story.approachHeadline?.trim()} />
               <SectionTitle>{story.approachHeadline}</SectionTitle>
               <Body>{c.body.approach}</Body>
 
@@ -324,7 +326,7 @@ export default function CaseStory({
               : hasClientVoice ? "lg:grid-cols-2" : ""
           }`}>
             <div>
-              <NumberedLabel number="03" label="What changed" />
+              <NumberedLabel number="03" label="What changed" heading={!story.outcomeHeadline?.trim()} />
               <SectionTitle>{story.outcomeHeadline}</SectionTitle>
               <Body>{c.body.outcome}</Body>
 
@@ -387,7 +389,7 @@ export default function CaseStory({
                    campo para ela  -  `coverMediaId` é o único. Enquanto não
                    existir, a página mostra a mesma imagem duas vezes, em
                    recortes diferentes. Pendência registrada com a cliente. */
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <figure className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={c.coverUrl}
                     alt=""
@@ -395,7 +397,8 @@ export default function CaseStory({
                     sizes="1100px"
                     className="object-cover"
                   />
-                </div>
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-black/70 px-4 py-2 text-sm text-white">{c.title} · {stripFullStop(headline)}</figcaption>
+                </figure>
               ) : (
                 <ImagePlaceholder label="Photo" className="aspect-[4/5] w-full" />
               )}
@@ -403,7 +406,9 @@ export default function CaseStory({
             ) : null}
 
             {hasClientVoice && <div>
+              {/* Layout audit #65: 04 and 05 get the same serif H2 as 01 to 03. */}
               <NumberedLabel number="04" label="Client voice" />
+              <SectionTitle>In the client's words</SectionTitle>
               <figure>
                   {clientQuote && (
                     <>
@@ -448,9 +453,7 @@ export default function CaseStory({
         <section className="bg-white">
           <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-20">
             <NumberedLabel number={hasClientVoice ? "05" : "04"} label="Related case studies" />
-            <p className="-mt-3 mb-8 text-[12px] uppercase tracking-[1.3px] text-muted">
-              Explore more client stories
-            </p>
+            <div className="mb-8"><SectionTitle>Explore more client stories</SectionTitle></div>
 
             <Reveal className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {related.map((r) => (
@@ -528,26 +531,27 @@ export default function CaseStory({
 }
 
 /** "01 · THE CHALLENGE"  -  o numeral vermelho em serifa e o rótulo em versalete. */
-function NumberedLabel({ number, label }: { number: string; label: string }) {
+function NumberedLabel({ number, label, heading = false }: { number: string; label: string; heading?: boolean }) {
+  const Tag = heading ? "h2" : "div";
   return (
-    <div className="mb-5 flex items-baseline gap-4">
+    <Tag data-section-label className="mb-5 flex items-baseline gap-4">
       <span className="font-serif text-[19px] font-semibold leading-none text-brand">
         {number}
       </span>
       <span className="text-[11.5px] font-semibold uppercase tracking-[1.5px] text-ink">
         {label}
       </span>
-    </div>
+    </Tag>
   );
 }
 
 /** A manchete serifada de cada bloco. Sem ela escrita no CMS, o bloco não abre título. */
 function SectionTitle({ children }: { children?: string }) {
-  if (!children) return null;
+  if (!children?.trim()) return null;
   return (
-    <h2 className="mb-5 max-w-[22ch] font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[30px]">
+    <SectionHeading className="mb-5 max-w-[22ch] font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.4px] text-ink md:text-[30px]">
       {children}
-    </h2>
+    </SectionHeading>
   );
 }
 
