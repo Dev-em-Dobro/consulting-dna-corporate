@@ -73,6 +73,23 @@ const coverageAreas = [
   { name: "Middle East & North Africa", slugs: ["dubai", "lagos", "saudi-arabia"] },
 ];
 
+/**
+ * City names for the coverage slugs, used only when the CMS returns no regions
+ * (for example a preview deployment without CMS access). The pins then come
+ * from CITY_COORDS, so the map and the city list never disappear.
+ */
+const FALLBACK_CITY: Record<string, string> = {
+  "bogota": "Bogotá", "buenos-aires": "Buenos Aires", "dallas": "Dallas", "houston": "Houston", "lima": "Lima",
+  "mexico-city": "Mexico City", "miami": "Miami", "new-york": "New York", "north-carolina": "North Carolina",
+  "ohio": "Ohio", "sao-paulo": "São Paulo", "toronto": "Toronto", "vancouver": "Vancouver",
+  "beijing": "Beijing", "delhi": "Delhi", "hanoi": "Hanoi", "hong-kong": "Hong Kong", "jakarta": "Jakarta",
+  "karachi": "Karachi", "kuala-lumpur": "Kuala Lumpur", "manila": "Manila", "mumbai": "Mumbai",
+  "newcastle": "Newcastle", "singapore": "Singapore", "sydney": "Sydney", "tokyo": "Tokyo",
+  "amsterdam": "Amsterdam", "berlin": "Berlin", "london": "London", "madrid": "Madrid", "paris": "Paris",
+  "vienna": "Vienna", "warsaw": "Warsaw", "zurich": "Zurich",
+  "dubai": "Dubai", "lagos": "Lagos", "saudi-arabia": "Riyadh",
+};
+
 const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
 
 /**
@@ -330,12 +347,15 @@ export default async function WorldCoverageMap({
    */
   bare?: boolean;
 }) {
-  const regions = await getCoverageRegions();
+  const cmsRegions = await getCoverageRegions();
+  const regions = cmsRegions.length
+    ? cmsRegions
+    : coverageAreas.flatMap((area) => area.slugs.map((slug) => ({ slug, city: FALLBACK_CITY[slug], country: undefined as string | undefined })));
 
   // Painted countries come from the CMS regions; fall back to the static list
   // when the CMS has none, so the map never renders blank.
-  const coveredCodes = regions.length
-    ? countriesToIso3(regions.map((r) => r.country))
+  const coveredCodes = cmsRegions.length
+    ? countriesToIso3(cmsRegions.map((r) => r.country))
     : COVERAGE_ISO3;
 
   // Stable colour per country (sorted so the assignment doesn't shuffle).
