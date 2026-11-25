@@ -126,13 +126,16 @@ function StoryCard({ card }: { card: FeaturedCard }) {
                     </h3>
                     <p className="mt-3 line-clamp-3 text-[15px] leading-[1.6] text-muted">{card.body}</p>
                   </div>
-                  <div className="mt-auto flex min-h-24 items-center gap-5 border-t border-line bg-paper px-6 py-5">
-                    <p className="shrink-0 text-[34px] font-semibold leading-none tracking-[-1px] text-ink">{card.metric}</p>
-                    <p className="max-w-[30ch] text-[11px] font-semibold uppercase leading-[1.45] tracking-[0.6px] text-muted">
-                      {card.metricLabel}
-                    </p>
-                  </div>
-                  <div className="border-t border-line px-6 py-5">
+                  {/* No metric (e.g. Shunkhlai): the band is left out instead of showing empty. */}
+                  {card.metric?.trim() ? (
+                    <div className="mt-auto flex min-h-24 items-center gap-5 border-t border-line bg-paper px-6 py-5">
+                      <p className="shrink-0 text-[34px] font-semibold leading-none tracking-[-1px] text-ink">{card.metric}</p>
+                      <p className="max-w-[30ch] text-[11px] font-semibold uppercase leading-[1.45] tracking-[0.6px] text-muted">
+                        {card.metricLabel}
+                      </p>
+                    </div>
+                  ) : null}
+                  <div className={`border-t border-line px-6 py-5 ${card.metric?.trim() ? "" : "mt-auto"}`}>
                     <Link href={card.href} className="inline-flex items-center gap-2 border-b-2 border-brand pb-1 text-[13px] font-semibold text-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
                       Learn more <span aria-hidden>→</span>
                     </Link>
