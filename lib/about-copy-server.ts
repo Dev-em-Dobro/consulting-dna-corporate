@@ -16,10 +16,15 @@ const store = createCopyStore<AboutCopy>({
   key: "about",
   defaults: DEFAULT_ABOUT_COPY,
   schema: AboutCopySchema,
-  migrationVersion: "2026-11-24-regional-address",
+  migrationVersion: "2026-11-25-long-standing",
   migrateSaved(saved) {
     if (!saved || typeof saved !== "object") return saved;
     const copy = structuredClone(saved) as Partial<AboutCopy>;
+    // 25-11 (layout audit #62): "long-standing" takes the hyphen. Every change in
+    // this function only replaces exact old text, so re-running them is harmless.
+    for (const stat of copy.stats ?? []) {
+      if (stat?.label === "FTSE 100 companies are long standing clients") stat.label = "FTSE 100 companies are long-standing clients";
+    }
     if (typeof copy.regions?.intro === "string") {
       copy.regions.intro = copy.regions.intro.replace("faculty of 60+ senior practitioners", `faculty of ${publishedFacultyMinimum} senior practitioners`);
     }
