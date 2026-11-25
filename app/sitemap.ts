@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/team",
     "/cases",
     "/insights",
-    "/awards",
+    // "/awards" is offline for now (404); add it back when the page returns.
     // Entrou em 11-09, quando Contact deixou de ser só a âncora `#contact` da
     // home. É rota indexável de verdade agora, e é a que as pessoas procuram
     // pelo nome  -  ficar de fora do sitemap seria esconder justamente essa.

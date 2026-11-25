@@ -139,11 +139,16 @@ export default function RealCycle({
 
   return (
     <span data-no-translate>
+      {/* The sentence comes first and the animation adds no text of its own to
+          the server HTML: the fixed "Real" and the width reserver are CSS
+          generated content. Otherwise the page source (what crawlers and audit
+          tools read) ran them together: "Real consequences.Real pressures…". */}
+      <span className="sr-only">{sentence}</span>
       <span aria-hidden className={`whitespace-nowrap ${staticTone}`}>
-        {!portuguese && <>Real{" "}</>}
+        {!portuguese && <span data-text={"Real "} className="before:content-[attr(data-text)]" />}
         <span className="inline-grid justify-items-start align-bottom">
           {/* Reserves the line's width. Never visible, never read. */}
-          <span className="invisible col-start-1 row-start-1">{longest}.</span>
+          <span data-text={`${longest}.`} className="invisible col-start-1 row-start-1 before:content-[attr(data-text)]" />
           <span className="col-start-1 row-start-1">
             {portuguese ? (
               <>
@@ -157,7 +162,6 @@ export default function RealCycle({
           </span>
         </span>
       </span>
-      <span className="sr-only">{sentence}</span>
     </span>
   );
 }

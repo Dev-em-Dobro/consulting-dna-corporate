@@ -146,13 +146,17 @@ export function HomeImpact({
                     <Counter value={c.metric} />
                   </div>
                   <div className="mt-2.5 text-[14.5px] font-medium leading-snug text-muted">{c.metricLabel}</div>
-                  {c.href && (
+                  {c.href ? (
                   <a
                     href={c.href}
                     className="mt-7 inline-flex items-center gap-2 text-left text-[14px] font-semibold text-brand transition-colors hover:text-brand-dark"
                   >
                     Learn more <span aria-hidden="true">→</span>
                   </a>
+                  ) : (
+                    /* A card without a case page keeps the link's space, so its
+                       metric lines up with the cards that do have one. */
+                    <span aria-hidden="true" className="mt-7 block h-[21px]" />
                   )}
                 </div>
               </div>

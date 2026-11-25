@@ -1,8 +1,8 @@
 "use client";
 
-import SectionHeading from "@/components/SectionHeading";
 import { DEFAULT_APPROACH_COPY, type ApproachCopy } from "@/lib/approach-copy";
-import FrameworkWheel from "./FrameworkWheel";
+
+import LocalizedImage from "@/components/LocalizedImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import gsap from "gsap";
@@ -17,19 +17,22 @@ function slotFor(index: number, active: number) {
   return distance > 2 ? distance - FACULTY_COLORS.length : distance;
 }
 
+// Both languages use the original artwork's uneven slices.
+const WHEEL_ANGLES = [0, -75, -165, -240, -300];
+
 function wheelRotationForStep(step: number) {
-  return -72 * step;
+  const index = ((step % FACULTY_COLORS.length) + FACULTY_COLORS.length) % FACULTY_COLORS.length;
+  const turns = Math.floor(step / FACULTY_COLORS.length);
+  return WHEEL_ANGLES[index] - turns * 360;
 }
 
 export default function FiveHShowcase({
   heading = DEFAULT_APPROACH_COPY.fiveH.heading,
   faculties = DEFAULT_APPROACH_COPY.fiveH.faculties,
 }: { heading?: string; faculties?: ApproachCopy["fiveH"]["faculties"] }) {
-  const order = ["Head", "Heart", "Hunch", "Hands", "Habits"];
-  const FACULTIES = faculties.map((faculty, index) => ({ ...faculty, color: FACULTY_COLORS[index] }))
-    .sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
-  const [announcement, setAnnouncement] = useState("");
+  const FACULTIES = faculties.map((faculty, index) => ({ ...faculty, color: FACULTY_COLORS[index] }));
   const [active, setActive] = useState(0);
+  const [announcement, setAnnouncement] = useState("");
   const rootRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -55,14 +58,14 @@ export default function FiveHShowcase({
     return () => timelineRef.current?.kill();
   }, { scope: rootRef });
 
-  const selectCard = contextSafe((index: number, announce = true) => {
+  const selectCard = contextSafe((index: number, manual = true) => {
     const direction = slotFor(index, activeRef.current);
     if (Math.abs(direction) !== 1) return;
 
     activeRef.current = index;
     wheelStepsRef.current += direction;
     setActive(index);
-    if (announce) setAnnouncement(FACULTIES[index].name);
+    setAnnouncement(manual ? FACULTIES[index].name + " selected" : "");
 
     timelineRef.current?.kill();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -123,24 +126,16 @@ export default function FiveHShowcase({
   return (
     <section ref={rootRef} id="the-five-h" className="overflow-clip border-b border-black/5 bg-[#dedede]">
       <div className="mx-auto max-w-[1440px] px-6 pb-0 pt-12 md:px-10 md:pt-20">
-        <SectionHeading className="max-w-[720px] font-serif text-[30px] font-semibold leading-[1.18] tracking-[-0.55px] text-ink sm:text-[38px] lg:max-w-none lg:text-[42px]">
+        <h2 className="max-w-[720px] font-serif text-[30px] font-semibold leading-[1.18] tracking-[-0.55px] text-ink sm:text-[38px] lg:max-w-none lg:text-[42px]">
           {heading}
-        </SectionHeading>
+        </h2>
         <p className="mt-5 max-w-[850px] text-[15px] leading-[1.65] text-ink/75">
           Head brings cognitive intelligence, Heart emotional intelligence, Hunch intuitive intelligence,
           Hands execution intelligence and Habits behavioural intelligence. Explore each one below.
         </p>
 
-        <div className="my-10 hidden grid-cols-5 gap-4 xl:grid">
-          {FACULTIES.map(faculty => <article key={faculty.name} className="border-t-4 bg-white p-5" style={{borderColor:faculty.color}}>
-            <h3 className="font-serif text-2xl font-semibold">{faculty.name}</h3>
-            <p className="mt-2 text-sm font-semibold">{faculty.intelligence}</p>
-            <p className="mt-4 text-sm leading-6">{faculty.description}</p>
-            <p className="mt-4 border-t border-line pt-3 text-sm text-muted">{faculty.dimensions.join(" · ")}</p>
-          </article>)}
-        </div>
         <div
-          className="relative mx-auto mt-14 max-w-[900px] sm:mt-16 xl:hidden"
+          className="relative mx-auto mt-14 max-w-[900px] sm:mt-16"
           style={{ touchAction: "pan-y" }}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
@@ -167,7 +162,7 @@ export default function FiveHShowcase({
                     <h3 className="text-[19px] font-bold uppercase leading-none text-ink sm:text-[20px]">{faculty.name}</h3>
                     <p className="mt-2 text-[13px] font-normal uppercase leading-none text-ink sm:text-[14px]">{faculty.intelligence}</p>
                     <p className="mx-auto mt-5 max-w-[420px] text-[14px] leading-[1.65] text-ink sm:text-[15px]">{faculty.description}</p>
-                    <p className="mx-auto mt-4 max-w-[440px] text-[14px] font-normal leading-[1.6]" style={{ color: faculty.color }}>
+                    <p className="mx-auto mt-4 max-w-[440px] text-[12px] font-normal leading-[1.8] sm:text-[13px]" style={{ color: faculty.color }}>
                       {faculty.dimensions.slice(0, 3).join(" · ")}<br className="hidden sm:block" /> {faculty.dimensions.slice(3).join(" · ")}
                     </p>
                   </div>
@@ -187,7 +182,7 @@ export default function FiveHShowcase({
           <div className="relative z-20 mx-auto -mt-7 h-[104px] overflow-hidden sm:-mt-9 sm:h-[126px]">
             <div className="absolute inset-x-0 top-0 flex justify-center">
               <div ref={wheelRef} className="h-[240px] w-[240px] flex-none will-change-transform sm:h-[290px] sm:w-[290px]">
-                <FrameworkWheel decorative />
+                <LocalizedImage aria-hidden="true" alt="" src="/approach-5h-ring.png" ptSrc="/approach-5h-ring-pt-br.svg" ptAlt="" width={636} height={636} className="h-full w-full" />
               </div>
             </div>
           </div>

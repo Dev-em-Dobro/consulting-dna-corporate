@@ -65,11 +65,12 @@ import TypeLabel from "@/components/TypeLabel";
  * referência é a DECISÃO (pino vermelho, rótulo escuro, terra neutra), não o
  * código hexadecimal.
  */
+// List order: Americas and Asia (the two largest) sit side by side. Names match the office cards.
 const coverageAreas = [
   { name: "Americas", slugs: ["bogota", "buenos-aires", "dallas", "houston", "lima", "mexico-city", "miami", "new-york", "north-carolina", "ohio", "sao-paulo", "toronto", "vancouver"] },
-  { name: "Europe", slugs: ["amsterdam", "berlin", "london", "madrid", "paris", "vienna", "warsaw", "zurich"] },
-  { name: "Middle East and Africa", slugs: ["dubai", "lagos", "saudi-arabia"] },
-  { name: "Asia Pacific", slugs: ["beijing", "delhi", "hanoi", "hong-kong", "jakarta", "karachi", "kuala-lumpur", "manila", "mumbai", "newcastle", "singapore", "sydney", "tokyo"] },
+  { name: "Asia", slugs: ["beijing", "delhi", "hanoi", "hong-kong", "jakarta", "karachi", "kuala-lumpur", "manila", "mumbai", "newcastle", "singapore", "sydney", "tokyo"] },
+  { name: "UK & Europe", slugs: ["amsterdam", "berlin", "london", "madrid", "paris", "vienna", "warsaw", "zurich"] },
+  { name: "Middle East & North Africa", slugs: ["dubai", "lagos", "saudi-arabia"] },
 ];
 
 const REF = { land: [171, 179, 193] as const, landAlpha: 0.5 };
@@ -553,10 +554,11 @@ export default async function WorldCoverageMap({
     </>
   );
 
+  // Bare (About): the map centred, with the city list in a row below it.
   if (bare) return (
-    <div>
-      {content}
-      <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Locations by region">
+    <div className="mx-auto w-full max-w-[1100px]">
+      <div>{content}</div>
+      <div className="mt-8 grid gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-4" aria-label="Locations by region">
         {groups.map(area => (
           <div key={area.name}>
             <h3 className="border-b border-line pb-2 font-semibold">{area.name} ({area.cities.length})</h3>

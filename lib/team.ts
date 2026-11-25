@@ -126,7 +126,7 @@ export const leaders: Leader[] = [
   {
     name: "Rhea Leckie",
     cmsSlug: "rhea-leckie",
-    linkedin: "https://www.linkedin.com/in/rhea-founder-ceo-author-trusted-advisor-to-chros-6287314",
+    linkedin: "https://www.linkedin.com/in/rhea-leckie-6287314/",
     role: "CEO, Founder, Author, Head of MENA",
     region: "Middle East & North Africa",
     quote:

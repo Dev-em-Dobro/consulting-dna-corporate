@@ -15,10 +15,18 @@ const store = createCopyStore<HomeCopy>({
   key: "home",
   defaults: DEFAULT_HOME_COPY,
   schema: HomeCopySchema,
-  migrationVersion: "2026-10-01-call-corrections",
+  migrationVersion: "2026-11-25-book-title",
   migrateSaved(saved) {
     if (!saved || typeof saved !== "object") return saved;
     const copy = structuredClone(saved) as Partial<HomeCopy>;
+    // 25-11 (layout audit #19): the saved book title had no apostrophe. Only the
+    // exact old text is replaced, so a title the client edits later is kept.
+    if (copy.book?.headline?.trim() === "Leadership. Its in Your DNA (Bloomsbury, UK 2012)") {
+      copy.book.headline = "Leadership: It’s in Your DNA (Bloomsbury, UK 2012)";
+    }
+    // Copy saved under the 01-10 revision already went through every change
+    // below; running them again would undo the client's edits since then.
+    if ((saved as Record<string, unknown>).__copyRevision === "2026-10-01-call-corrections") return copy;
     // 01-10: a Rhea corrigiu a Shell para 8.000 mulheres ("not 6k").
     for (const item of copy.impact?.cases ?? []) {
       if (item?.client === "Shell" && ["6,000", "6,300", "6k", "6000", "6300"].includes(item.metric?.trim() ?? "")) {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import RichText from "@/components/RichText";
@@ -19,7 +20,12 @@ export const revalidate = 300;
 
 const str = (v: unknown) => (typeof v === "string" ? v : undefined);
 
+// 25-11: /awards is offline for now (404) at the client's request. Remove the
+// notFound() call (and put "/awards" back in app/sitemap.ts) to bring it back.
+const AWARDS_OFFLINE = true;
+
 export default async function AwardsPage() {
+  if (AWARDS_OFFLINE) notFound();
   const page = await getCmsPage("awards");
   const data = page?.data ?? {};
   const subtitle = str(data.subtitle);

@@ -53,7 +53,8 @@ import heroPhoto from "@/public/about/about-hero-skyline.jpeg";
 /* A foto da home (mulher no palco, público em volta) reaproveitada no bloco de
    propósito  -  ver a caixa de comentário daquela seção. Mesmo arquivo que a
    HeroV2 e a HeroV3 importam; o Next deduplica, então não há segundo download. */
-import purposePhoto from "@/public/dna-time/dna-time-28.jpeg";
+// 25-11: 2400px wide, so it no longer stretches on a 1920px screen (dna-time-28 was 1062px).
+import purposePhoto from "@/public/services/manager/md-hero-workshop-20261001.jpg";
 
 /* ────────────────────────────────────────────────────────────────────────────
    TIPOGRAFIA  -  o teste de 09-09.
@@ -1446,8 +1447,8 @@ export default async function AboutV2Page() {
         <Reveal className="mx-auto max-w-[900px] px-6 py-12 md:px-10 md:py-28">
           {/* A seção começa pela citação, seguida dos dois parágrafos de contexto. */}
           <blockquote className="text-center">
-            <p className="whitespace-pre-line text-[18px] leading-[1.7] text-white/85 md:text-[20px]">
-              <span aria-hidden className="mr-1 font-serif text-[28px] leading-none text-brand-light">
+            <p className="mx-auto max-w-[60ch] whitespace-pre-line font-serif text-[22px] leading-[1.5] text-white/90 md:text-[28px] md:leading-[1.45]">
+              <span aria-hidden className="mr-1 font-serif text-[40px] md:text-[52px] leading-none align-[-0.15em] text-brand-light">
                 “
               </span>
               {/* O NEGRITO DE ABERTURA vem marcado com `**…**` dentro do texto
@@ -1463,7 +1464,7 @@ export default async function AboutV2Page() {
                 className="[&_strong]:font-semibold"
                 dangerouslySetInnerHTML={{ __html: inlineEmphasis(copy.purpose.quote).replace(/([.!?])\s+(?=[A-Z][^.!?]*[.!?]\s*$)/, "$1<br/><br/>") }}
               />
-              <span aria-hidden className="ml-1 font-serif text-[28px] leading-none text-brand-light">
+              <span aria-hidden className="ml-1 font-serif text-[40px] md:text-[52px] leading-none align-[-0.15em] text-brand-light">
                 ”
               </span>
             </p>
@@ -1964,7 +1965,7 @@ export default async function AboutV2Page() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-10"><HoverFillButton label="Explore our client work" href="/our-clients" /></div>
+      {/* 25-11: the "Explore our client work" button was removed at the client's request; Clients is in the menu. */}
 
       {/* ── Block 6 · Our Regions ─────────────────────────────────────
           Cabeçalho, intro e mapa aqui. O mapa entra sem cabeçalho próprio
@@ -2011,7 +2012,6 @@ export default async function AboutV2Page() {
             o espaçamento final tem de ser padding do container, nunca margem do
             último filho. */}
         <Reveal className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-20">
-          <SectionHeading className="mb-6 font-serif text-3xl font-semibold md:text-4xl">{copy.regions.label.replace(/\.$/, "")}</SectionHeading>
 
           {/* ⚠️ TEXTO À ESQUERDA, MAPA À DIREITA  -  item 3 da call de 14-09.
               Antes o parágrafo ficava sozinho numa linha e o mapa entrava
@@ -2043,7 +2043,10 @@ export default async function AboutV2Page() {
 
               `items-center` alinha o texto ao meio da altura do mapa; empilhado
               o texto volta para cima dele. */}
-          <div className="grid items-center gap-x-12 gap-y-6 xl:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+          {/* 25-11: title on the left with the text beside it at the top; the map
+              and its city list sit in their own row below (map left, list right). */}
+          <div className="grid items-start gap-x-12 gap-y-6 xl:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+            <SectionHeading className="font-serif text-3xl font-semibold md:text-4xl">{copy.regions.label.replace(/\.$/, "")}</SectionHeading>
             {/* ⚠️ ERA "over 75 senior practitioners" ATÉ 17-09. O pedido da
                 daily citava a seção Global faculty da /team (*"trocar 75 por 60+
                 - a faculty of 60+"*), e esta linha é a MESMA afirmação em outra
@@ -2069,7 +2072,7 @@ export default async function AboutV2Page() {
               const isLead = !!head && head.split("\n").every((l) => l.trim().length <= 40);
               const body = isLead ? intro.slice(split).trim() : intro;
               return (
-                <div>
+                <div className="xl:mt-0! xl:justify-self-end">
                   {isLead && (
                     <p
                       className="mb-5 max-w-[620px] whitespace-pre-line font-serif text-[24px] font-semibold leading-[1.2] tracking-[-0.4px] text-ink md:mb-6 md:text-[30px]"
@@ -2083,6 +2086,8 @@ export default async function AboutV2Page() {
                 </div>
               );
             })()}
+          </div>
+          <div className="mt-10 md:mt-14">
             <WorldCoverageMap eyebrow={null} title={null} tone="paper" bare />
           </div>
         </Reveal>
@@ -2204,10 +2209,7 @@ export default async function AboutV2Page() {
                     );
                   })}
                 </div>
-                <p
-                  className="mt-5 whitespace-pre-line text-[14px] leading-[1.6] text-muted"
-                  dangerouslySetInnerHTML={{ __html: inlineEmphasis(r.descriptor) }}
-                />
+                {/* 25-11: the one-line region descriptor is no longer shown (removed at the client's request). */}
 
                 </div>
               </div>
@@ -2258,9 +2260,7 @@ export default async function AboutV2Page() {
           <SectionHeading className="max-w-[680px] font-serif text-[30px] font-medium leading-[1.15] tracking-[-0.6px] text-white md:text-[38px]">
             {copy.people.title}
           </SectionHeading>
-          <p className="mt-5 max-w-[620px] text-[17px] leading-[1.7] text-white/70">
-            {copy.people.body}
-          </p>
+          {/* 25-11: the supporting paragraph under this heading was removed at the client's request. */}
           {/* O MESMO BOTÃO DA HOME, desde 10-09  -  mesmo componente, mesmas
               cores, mesma animação (o bloco vermelho claro varrendo da seta para
               a esquerda). Ver `components/HoverFillButton.tsx`.

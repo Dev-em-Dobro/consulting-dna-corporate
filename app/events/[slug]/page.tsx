@@ -66,7 +66,7 @@ export default async function EventPage({ params, searchParams }: Props & Langua
                 {event.links && event.links.length > 0 && (
                   <div className="mt-8 flex flex-col gap-3">
                     {event.links.map((link) => (
-                      <a key={link.href} href={link.href} className="text-[15px] font-semibold text-brand underline underline-offset-4" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+                      <a key={link.href} href={link.href} className={link.href === "/contact" ? "contact-action" : "text-[15px] font-semibold text-brand underline underline-offset-4"} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
                         {link.label}
                       </a>
                     ))}

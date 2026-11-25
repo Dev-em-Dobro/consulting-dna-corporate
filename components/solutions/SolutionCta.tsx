@@ -97,7 +97,7 @@ export default function SolutionCta({
               de área  -  lê como desabilitado. */}
           <Link
             href={ctaHref ?? "/contact"}
-            className={(!ctaHref || ctaHref === "/contact") ? `contact-action ${compact ? "mt-5" : "mt-10"}` : `inline-block bg-white font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white ${
+            className={`inline-block bg-white font-semibold uppercase tracking-[0.5px] text-brand transition-colors hover:bg-ink hover:text-white ${
               compact ? "mt-5 px-6 py-3 text-xs" : "mt-10 px-7 py-3.5 text-sm"
             }`}
           >

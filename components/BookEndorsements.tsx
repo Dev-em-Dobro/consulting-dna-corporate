@@ -58,7 +58,8 @@ export default function BookEndorsements({ limit }: { limit?: number } = {}) {
                 <cite className="block text-[14px] font-bold not-italic tracking-[-0.1px] text-white">
                   {e.name}
                 </cite>
-                <span className="mt-0.5 block text-[12px] uppercase tracking-wide leading-[1.45] text-white/50">
+                {/* Role in small caps under the name (layout audit #19). */}
+                <span className="mt-0.5 block text-[13px] tracking-wide leading-[1.45] text-white/50 [font-variant-caps:small-caps]">
                   {e.title}
                 </span>
               </div>

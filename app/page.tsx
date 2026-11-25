@@ -480,7 +480,7 @@ export default async function Home() {
             <div className="lg:border-l lg:border-line lg:pl-24">
               <SectionHeading className="text-[32px] font-semibold leading-[1.1] tracking-[-0.3px] text-ink md:text-[48px]">
                 {copy.solve.purposeTitle}{" "}
-                <span className="block text-brand">{sectionHeading(copy.solve.purposeAccent)}</span>
+                <span className="text-brand">{sectionHeading(copy.solve.purposeAccent)}</span>
               </SectionHeading>
               {/* Fora do `h2`: a palavra muda a cada 55ms, e um heading que se
                   reescreve é hostil a leitor de tela e sem sentido para um

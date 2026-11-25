@@ -38,7 +38,7 @@ export default function EventCard({ event, featured = false }: { event: Leadersh
         {/* 01-10: o evento futuro não tem "Read more"  -  a descrição já está toda no cartão. */}
         {event.status === "upcoming" ? (
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
-            {event.links?.map((link) => <a key={link.href} href={link.href} download={link.href === herLeadershipProspectusHref ? "Her_Leadership_DNA_Prospectus_2027.pdf" : undefined} className="text-[14px] font-semibold text-brand-dark underline underline-offset-4">{link.label}</a>)}
+            {event.links?.map((link) => <a key={link.href} href={link.href} download={link.href === herLeadershipProspectusHref ? "Her_Leadership_DNA_Prospectus_2027.pdf" : undefined} className={link.href === "/contact" ? "contact-action" : "text-[14px] font-semibold text-brand-dark underline underline-offset-4"}>{link.label}</a>)}
           </div>
         ) : (
           <div className="mt-auto pt-4"><Link href={href} className="inline-flex items-center gap-2 font-semibold text-brand-dark underline">Learn more <span aria-hidden="true">→</span></Link></div>

@@ -21,11 +21,14 @@ const mainLinks = [
     .map((item) => ({ label: item.label, href: item.href })),
 ];
 
+// Bottom-bar links are underlined so they read as links, not plain text.
+const LEGAL_LINK = "underline underline-offset-[3px] decoration-white/40 hover:text-white hover:decoration-white";
+
 export default function SiteFooter({ topBorder = false }: { topBorder?: boolean }) {
   return (
     <footer className={`bg-white text-ink${topBorder ? " border-t-2 border-brand" : ""}`}>
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-[minmax(0,1fr)_auto] md:px-10 md:py-14">
-        <Link href="/" className="flex h-fit flex-none items-center">
+        <Link href="/" className="block place-self-start">
           {/* A MARCA COMPLETA desde 15-09  -  mesma troca do header (item 1), aqui
               na versão para fundo claro, que é o que o rodapé é.
 
@@ -67,16 +70,16 @@ export default function SiteFooter({ topBorder = false }: { topBorder?: boolean 
 
       <div className="bg-ink px-6 py-5 text-white/80">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 text-[12px] md:px-4">
-          <span>© {new Date().getFullYear()} Corporate DNA Consulting Limited. <span>All rights reserved.</span></span>
+          <span>© {new Date().getFullYear()} CorporateDNA Consulting Ltd. <span>All rights reserved.</span></span>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
-            <Link href="/cookies" className="hover:text-white">Cookies</Link>
-            <CookieSettingsButton label="Cookie settings" />
-            <Link href="/terms" className="hover:text-white">Terms of Service</Link>
-            <a href="https://www.linkedin.com/company/corporatedna-consulting/home/" target="_blank" rel="noopener noreferrer" aria-label="CorporateDNA Consulting on LinkedIn" className="inline-flex items-center gap-1.5 hover:text-white">
+            <Link href="/privacy" className={LEGAL_LINK}>Privacy Policy</Link>
+            <Link href="/cookies" className={LEGAL_LINK}>Cookies</Link>
+            <CookieSettingsButton label="Cookie settings" className={LEGAL_LINK} />
+            <Link href="/terms" className={LEGAL_LINK}>Terms of Service</Link>
+            <a href="https://www.linkedin.com/company/corporatedna-consulting/home/" target="_blank" rel="noopener noreferrer" aria-label="CorporateDNA Consulting on LinkedIn" className="group inline-flex items-center gap-1.5 hover:text-white">
               <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.266 2.37 4.266 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg> LinkedIn
+              </svg> <span className="underline decoration-white/40 underline-offset-[3px] group-hover:decoration-white">LinkedIn</span>
             </a>
           </div>
         </div>

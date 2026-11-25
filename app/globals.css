@@ -496,23 +496,24 @@ body {
 }
 
 
+/* Primary "Start a conversation" button: the same solid red as the home hero
+   CTA (as it was in production). Not for use on a red band, where the CTA is
+   the white button in SolutionCta instead. */
 .contact-action {
   display: inline-flex;
   width: fit-content;
-  min-height: 3rem;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
-  border: 1px solid currentColor;
-  background-color: var(--color-brand-dark, #a6342b);
+  background-color: var(--color-brand);
   color: white;
-  padding: .625rem 1.5rem;
-  font-size: .9375rem;
+  padding: .875rem 1.75rem;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.5;
   text-decoration: none;
+  transition: background-color .15s ease;
 }
 .contact-action:hover,
 .contact-action:focus-visible {
-  background-color: var(--color-ink, #373234);
+  background-color: var(--color-brand-dark);
 }

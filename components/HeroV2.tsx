@@ -631,7 +631,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
           <div className="flex flex-wrap items-center gap-4">
             <a
               href="/contact"
-              className="h-cta contact-action"
+              className="h-cta bg-brand px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-dark"
             >
               {/^(discuss a leadership challenge|get in touch|start a conversation)$/i.test(copy.primaryCta) ? "Start a conversation" : copy.primaryCta}
             </a>
@@ -656,7 +656,7 @@ export default function HeroV2({ copy = DEFAULT_HOME_COPY.hero }: { copy?: HomeC
                 entrada é esta (ver a caixa em `lib/nav.ts`). */}
             <a
               href="/our-clients"
-              className="h-cta inline-flex min-h-12 items-center border border-white/70 px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+              className="h-cta border border-white/40 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
             >
               {copy.secondaryCta}
             </a>
